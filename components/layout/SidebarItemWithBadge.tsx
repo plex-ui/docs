@@ -42,7 +42,7 @@ export const SidebarItemWithBadge: FC<{ item: PageTree.Item }> = ({ item }) => {
     >
       {item.name}
       {isNew && (
-        <SidebarMenuBadge className="ms-auto ps-2">
+        <SidebarMenuBadge className="ps-1.5">
           <Badge size="sm" color="info">
             New
           </Badge>
