@@ -31,5 +31,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "packages/ui/dist"]
+  "exclude": ["node_modules", "packages/ui/dist", "packages/ui/src"]
 }

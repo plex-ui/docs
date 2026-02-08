@@ -48,8 +48,8 @@ export function PageNav({
                 size="sm"
                 gutterSize="2xs"
                 className={s.IconButton}
-                aria-label={`Previous page: ${previous.name}`}
-                title={previous.name}
+                aria-label={`Previous page: ${String(previous.name)}`}
+                title={String(previous.name)}
               >
                 <ArrowLeftSm className={s.Icon} aria-hidden />
               </ButtonLink>
@@ -63,8 +63,8 @@ export function PageNav({
                 size="sm"
                 gutterSize="2xs"
                 className={s.IconButton}
-                aria-label={`Next page: ${next.name}`}
-                title={next.name}
+                aria-label={`Next page: ${String(next.name)}`}
+                title={String(next.name)}
               >
                 <ArrowRightSm className={s.Icon} aria-hidden />
               </ButtonLink>

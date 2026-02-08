@@ -138,9 +138,9 @@ export function SizingOverviewDemo() {
         {/* Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Button color="primary" size={size} pill={pill}>Submit</Button>
-          <Button variant="soft" size={size} pill={pill}><CompareArrows /> Compare</Button>
+          <Button variant="soft" color="secondary" size={size} pill={pill}><CompareArrows /> Compare</Button>
           <Button color="danger" size={size} pill={pill}><Delete /></Button>
-          <Button variant="outline" size={size} pill={pill}>Next <ArrowRight /></Button>
+          <Button variant="outline" color="secondary" size={size} pill={pill}>Next <ArrowRight /></Button>
           <Button variant="ghost" color="secondary" size={size} pill={pill} uniform><Clear /></Button>
         </div>
         {/* SelectControl, Input, DateRangePicker */}
