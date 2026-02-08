@@ -7,8 +7,8 @@ This file provides initial context for every new chat session about the Plex UI 
 ## 1. Project overview
 
 - **plexui-docs** is a Next.js 15 + Fumadocs documentation site for Plex UI (plexui.com).
-- The site uses **@plexui/ui** as a file dependency pointing to `../storybook`.
-- The **source of truth** for component implementations, stories, and examples is in **../storybook/src/components/** (the Plex UI package).
+- The site uses **@plexui/ui** as a workspace dependency from `packages/ui`.
+- The **source of truth** for component implementations is in **packages/ui/src/components/** (the Plex UI package).
 
 ---
 
@@ -197,9 +197,8 @@ Description of this example.
 
 ## 7. How to add a new component page
 
-1. **Read the Storybook source**
-   - `../storybook/src/components/[Name]/[Name].stories.tsx` — list of stories and their implementations.
-   - `../storybook/src/components/[Name]/[Name].mdx` — sections, descriptions, and which stories are referenced.
+1. **Read the component source**
+   - `packages/ui/src/components/[Name]/` — component implementations and exports.
 
 2. **Identify all examples** that should appear on the docs page (e.g. Base, Variants, Sizes, With Icons).
 
@@ -222,8 +221,8 @@ Description of this example.
 ## 8. Development commands
 
 - **`npm run dev`** — Start the docs site at http://localhost:3000.
-- Source components come from **../storybook** via `"@plexui/ui": "file:../storybook"` in package.json.
-- No separate build step for the storybook package is required for docs; Next.js picks up source changes via HMR when both repos are on disk.
+- Source components live in **packages/ui** via npm workspaces (`"@plexui/ui": "*"` in package.json).
+- Run `npm run build` in `packages/ui` after changing component source. Next.js picks up changes via the workspace symlink.
 
 ---
 

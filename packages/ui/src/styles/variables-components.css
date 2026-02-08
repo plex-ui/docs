@@ -1,0 +1,413 @@
+@layer theme {
+  :root,
+  :where([data-theme]) {
+    /* =============================================
+      Alert
+    ============================================= */
+    --alert-border-radius: var(--radius-xl);
+    --alert-gap: spacing(3);
+    --alert-gutter: spacing(4);
+    --alert-font-size: var(--font-text-sm-size);
+    --alert-line-height: var(--font-text-sm-line-height);
+    --alert-title-font-weight: var(--font-weight-semibold);
+
+    /* =============================================
+      Avatar
+    ============================================= */
+    --avatar-radius: var(--radius-full);
+    --avatar-size: 28px;
+    --avatar-font-size-scaling: 0.5;
+    --avatar-overflow-font-size-scaling-one: 0.45;
+    --avatar-overflow-font-size-scaling-two: 0.37;
+    --avatar-overflow-font-size-scaling-three: 0.3;
+    --avatar-image-border-color: light-dark(var(--alpha-04), var(--alpha-15));
+
+    /* =============================================
+      AvatarGroup
+    ============================================= */
+    --avatar-group-cutout-width: 3px;
+    --avatar-group-cutout-color: var(--color-surface);
+    --avatar-group-spacing: -8px;
+
+    /* =============================================
+      Badge
+    ============================================= */
+    --badge-gutter-2xs: 0.1875rem;
+    /* 3px */
+    --badge-gutter-xs: 0.25rem;
+    /* 4px */
+    --badge-gutter-sm: calc(var(--control-gutter-2xs) - 1px);
+    --badge-gutter-md: var(--control-gutter-2xs);
+    --badge-gutter-lg: var(--control-gutter-xs);
+    --badge-size-2xs: 1rem;
+    /* 16px */
+    --badge-size-xs: 1.125rem;
+    /* 18px */
+    --badge-size-sm: calc(var(--control-size-3xs) - 2px);
+    --badge-size-md: var(--control-size-3xs);
+    --badge-size-lg: var(--control-size-2xs);
+    --badge-radius-2xs: var(--radius-2xs);
+    --badge-radius-xs: var(--radius-2xs);
+    --badge-radius-sm: var(--radius-xs);
+    --badge-radius-md: var(--radius-xs);
+    --badge-radius-lg: var(--radius-sm);
+    --badge-font-size-2xs: var(--font-text-xs-size);
+    --badge-font-size-xs: var(--font-text-xs-size);
+    --badge-font-size-sm: var(--font-text-xs-size);
+    --badge-font-size-md: var(--font-text-sm-size);
+    --badge-font-size-lg: var(--font-text-sm-size);
+    --badge-tracking-2xs: var(--tracking-wide);
+    --badge-tracking-xs: var(--tracking-wide);
+    --badge-tracking-sm: var(--tracking-wide);
+    --badge-tracking-md: var(--tracking-normal);
+    --badge-tracking-lg: var(--tracking-normal);
+    --badge-font-weight-2xs: var(--font-weight-semibold);
+    --badge-font-weight-xs: var(--font-weight-semibold);
+    --badge-font-weight-sm: var(--font-weight-semibold);
+    --badge-font-weight-md: var(--font-weight-semibold);
+    --badge-font-weight-lg: var(--font-weight-semibold);
+    --badge-icon-font-size-2xs: var(--font-text-xs-size);
+    --badge-icon-font-size-xs: var(--font-text-xs-size);
+    --badge-icon-font-size-sm: var(--font-text-xs-size);
+    --badge-icon-font-size-md: var(--font-text-md-size);
+    --badge-icon-font-size-lg: var(--font-text-md-size);
+    --badge-indicator-size-2xs: 0.625rem;
+    /* 10px */
+    --badge-indicator-size-xs: 0.625rem;
+    /* 10px */
+    --badge-indicator-size-sm: var(--font-text-xs-size);
+    --badge-indicator-size-md: var(--font-text-xs-size);
+    --badge-indicator-size-lg: var(--font-text-sm-size);
+
+    /* =============================================
+      Button
+    ============================================= */
+    --button-gap-sm: 3px;
+    --button-gap-md: 4px;
+    --button-gap-lg: 6px;
+    --button-font-weight: var(--font-weight-medium);
+
+    /* =============================================
+      Input
+    ============================================= */
+    --input-gap-xs: 4px;
+    --input-gap-sm: 6px;
+    --input-gap-md: 8px;
+    --input-gap-lg: 10px;
+    --input-text-color: var(--color-text);
+    --input-placeholder-text-color: var(--color-text-tertiary);
+    --input-outline-border-color: var(--color-border-primary-outline);
+    --input-outline-border-color-hover: light-dark(var(--alpha-25), var(--alpha-30));
+    --input-outline-border-color-focus: var(--alpha-50);
+    --input-soft-background-color: var(--color-background-primary-soft-alpha);
+    --input-soft-border-color-focus: var(--alpha-20);
+    --input-border-color-invalid: light-dark(var(--red-500), var(--red-600));
+
+    /* =============================================
+      FieldError
+    ============================================= */
+    --field-error-color: light-dark(#d00e17, #ff6b6b);
+    --field-error-font-size: 0.75rem;
+    --field-error-line-height: 1.4;
+    --field-error-icon-size: 1rem;
+    --field-error-gap: spacing(2);
+    --field-error-margin-top: 0.5rem;
+    --field-error-margin-bottom: spacing(3);
+    --field-error-padding-inline: 0;
+
+    /* =============================================
+      FloatingLabelInput
+    ============================================= */
+    --floating-input-height: 3.25rem;
+    --floating-input-gutter: 1.25rem;
+    --floating-input-border-radius: var(--radius-full);
+    --floating-input-background: var(--color-surface);
+    --floating-input-border-color: light-dark(rgb(0 0 0 / 15%), rgb(255 255 255 / 16%));
+    --floating-input-border-color-hover: light-dark(rgb(0 0 0 / 20%), rgb(255 255 255 / 24%));
+    --floating-input-border-color-focus: light-dark(#3e68ff, #6f8dff);
+    --floating-input-border-color-invalid: var(--field-error-color);
+    --floating-input-label-color: var(--color-text-tertiary);
+    --floating-input-label-color-focus: light-dark(#3e68ff, #6f8dff);
+    --floating-input-label-color-invalid: var(--field-error-color);
+    --floating-input-transition-duration: 80ms;
+    --floating-input-label-scale: 0.88;
+
+    /* =============================================
+      Link
+    ============================================= */
+    --link-font-weight: inherit;
+    --link-gap: spacing(0.5);
+    --link-radius: var(--radius-sm);
+    --link-underline-decoration-offset: 0.1em;
+    --link-primary-text-color: light-dark(var(--blue-500), var(--blue-300));
+    --link-primary-text-color-hover: light-dark(var(--blue-600), var(--blue-400));
+
+    /* =============================================
+      Chat
+    ============================================= */
+    --chat-max-width: 800px;
+    --chat-gutter: spacing(5);
+    --chat-background-color: var(--color-surface);
+    --thread-gutter: spacing(4);
+    /* 12px (composer gutter) + 4px (input inset) */
+    --composer-gutter: spacing(3);
+    --composer-compact-gutter: spacing(2);
+    --composer-radius: var(--radius-4xl);
+    --composer-background-color: var(--color-surface-elevated);
+    --smoothing-background-color: var(--color-surface);
+    --user-message-background-color: light-dark(var(--alpha-05), var(--alpha-08));
+    --user-message-text-color: var(--color-text);
+    --source-list-gutter: var(--thread-gutter);
+
+    /* =============================================
+      CodeBlock
+    ============================================= */
+    --codeblock-background-color: var(--gray-25);
+    --codeblock-syntax-1: light-dark(#c0660d, var(--yellow-100));
+    --codeblock-syntax-2: light-dark(var(--blue-500), var(--blue-200));
+    --codeblock-syntax-3: light-dark(var(--green-600), var(--green-300));
+    --codeblock-syntax-4: var(--pink-500);
+    --codeblock-syntax-5: light-dark(var(--purple-500), var(--purple-300));
+
+    /* =============================================
+      Dialog
+    ============================================= */
+    --dialog-min-width: 250px;
+    --dialog-max-width: 450px;
+    --dialog-container-inner-padding: spacing(5);
+    --dialog-backdrop-dim-background: light-dark(rgb(0 0 0 / 30%), rgb(0 0 0 / 50%));
+    --dialog-backdrop-fade-background: alpha(var(--color-surface-elevated), 60%);
+
+    /* =============================================
+      Menu
+    ============================================= */
+    --menu-gutter: spacing(1.5);
+    --menu-radius: var(--radius-xl);
+    --menu-font-size: var(--font-text-sm-size);
+    /* Important that this line-height is ~an even number for centering with icons */
+    --menu-line-height: var(--font-text-sm-line-height);
+    --menu-item-background-color: light-dark(var(--alpha-08), var(--alpha-10));
+    --menu-item-padding: spacing(1.5) spacing(2);
+    --menu-item-gap: spacing(1.5);
+    --menu-separator-gutter: var(--menu-gutter) calc(-1 * var(--menu-gutter));
+    --menu-separator-background-color: var(--color-border);
+    --menu-radio-indicator-size: var(--font-text-lg-size);
+    --menu-radio-indicator-hole-size: var(--font-text-3xs-size);
+    --menu-checkbox-indicator-size: var(--font-text-lg-size);
+
+    /* =============================================
+      Modal
+    ============================================= */
+    --modal-backdrop-background: light-dark(rgb(0 0 0 / 30%), rgb(0 0 0 / 50%));
+    --modal-container-inner-padding: spacing(5);
+
+    /* =============================================
+      Popover
+    ============================================= */
+    --popover-radius: var(--radius-xl);
+
+    /* =============================================
+      RadioGroup
+    ============================================= */
+    --radio-group-col-gap: spacing(2.5);
+    --radio-group-row-gap: spacing(5);
+    --radio-group-item-gap: spacing(1.5);
+    --radio-group-item-font-size: var(--font-text-sm-size);
+    --radio-group-item-line-height: var(--font-text-sm-line-height);
+    --radio-group-indicator-size: var(--font-text-md-size);
+    --radio-group-indicator-border-color: var(--color-border-primary-outline);
+    --radio-group-indicator-border-color-hover: var(--alpha-25);
+    --radio-group-indicator-background-color: var(--color-background-primary-solid);
+    --radio-group-indicator-hole-size: 0.375rem;
+    --radio-group-indicator-hole-background-color: var(--color-text-primary-solid);
+
+    /* =============================================
+      Segmented Control
+    ============================================= */
+    --segmented-control-gap: 2px;
+    --segmented-control-gutter: 2px;
+    --segmented-control-background: light-dark(var(--gray-100), var(--gray-0));
+    --segmented-control-font-weight: var(--font-weight-semibold);
+    --segmented-control-thumb-background: light-dark(var(--gray-0), var(--gray-300));
+    --segmented-control-thumb-shadow: 0 1px 4px -1px rgb(0 0 0 / 20%);
+    --segmented-control-option-highlight-gutter: 1px;
+    --segmented-control-option-highlight-background-color: light-dark(
+      var(--gray-200),
+      var(--gray-300)
+    );
+
+    /* =============================================
+      SelectControl
+    ============================================= */
+    --select-control-font-weight: var(--font-weight-medium);
+
+    /* =============================================
+      Slider
+    ============================================= */
+    --slider-track-color: light-dark(var(--gray-150), var(--gray-400));
+    --slider-range-color: light-dark(var(--gray-450), var(--gray-600));
+
+    /* =============================================
+      Switch
+    ============================================= */
+    --switch-track-width: 32px;
+    --switch-track-height: 19px;
+    --switch-track-color: light-dark(var(--gray-150), var(--gray-400));
+    --switch-track-color-hover: light-dark(var(--gray-200), var(--gray-450));
+    --switch-track-color-checked: light-dark(var(--gray-900), var(--blue-400));
+    --switch-track-color-checked-disabled: light-dark(var(--gray-300), var(--blue-700));
+    --switch-track-color-disabled: light-dark(var(--gray-100), var(--gray-300));
+    --switch-thumb-offset: 3px;
+    --switch-thumb-size: calc(var(--switch-track-height) - 2 * var(--switch-thumb-offset));
+    --switch-thumb-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+    --switch-thumb-color: light-dark(var(--gray-0), var(--gray-1000));
+    --switch-thumb-color-disabled: light-dark(var(--gray-0), var(--gray-800));
+    --switch-label-gap: spacing(2);
+
+    /* =============================================
+      ProgressSteps
+    ============================================= */
+    --progress-steps-indicator-size-sm: 24px;
+    --progress-steps-indicator-size-md: 32px;
+    --progress-steps-indicator-size-lg: 40px;
+    --progress-steps-row-gap-sm: spacing(4);
+    --progress-steps-row-gap-md: spacing(6);
+    --progress-steps-row-gap-lg: spacing(8);
+    --progress-steps-content-gap-sm: spacing(2.5);
+    --progress-steps-content-gap-md: spacing(3);
+    --progress-steps-content-gap-lg: spacing(4);
+    --progress-steps-font-size-sm: var(--font-text-xs-size);
+    --progress-steps-font-size-md: var(--font-text-sm-size);
+    --progress-steps-font-size-lg: var(--font-text-md-size);
+    --progress-steps-icon-size-sm: var(--control-icon-size-xs);
+    --progress-steps-icon-size-md: var(--control-icon-size-sm);
+    --progress-steps-icon-size-lg: var(--control-icon-size-md);
+    --progress-steps-step-padding-sm: spacing(1.5);
+    --progress-steps-step-padding-md: spacing(2);
+    --progress-steps-step-padding-lg: spacing(3);
+    --progress-steps-connector-width: 2px;
+    --progress-steps-connector-dash-length: 4px;
+    --progress-steps-connector-dash-gap: 4px;
+    --progress-steps-connector-color: var(--gray-100);
+    --progress-steps-connector-color-completed: var(--gray-900);
+    --progress-steps-indicator-background: var(--gray-100);
+    --progress-steps-indicator-background-active: var(--gray-900);
+    --progress-steps-indicator-background-completed: var(--gray-900);
+    --progress-steps-indicator-text: var(--color-text-secondary);
+    --progress-steps-indicator-text-active: var(--gray-0);
+    --progress-steps-indicator-text-completed: var(--gray-0);
+    --progress-steps-title-font-weight: var(--font-weight-medium);
+    --progress-steps-title-color: var(--color-text);
+    --progress-steps-title-color-inactive: var(--color-text-tertiary);
+    --progress-steps-description-color: var(--color-text-secondary);
+    --progress-steps-description-color-inactive: var(--color-text-tertiary);
+
+    /* =============================================
+      ProgressSteps Minimal Variant
+    ============================================= */
+    --progress-steps-minimal-gap-sm: spacing(1);
+    --progress-steps-minimal-gap-md: spacing(1);
+    --progress-steps-minimal-gap-lg: spacing(1.5);
+    --progress-steps-minimal-height-sm: 3px;
+    --progress-steps-minimal-height-md: 3px;
+    --progress-steps-minimal-height-lg: 4px;
+    --progress-steps-minimal-width-sm: 24px;
+    --progress-steps-minimal-width-md: 24px;
+    --progress-steps-minimal-width-lg: 32px;
+    --progress-steps-minimal-radius: var(--radius-full);
+    --progress-steps-minimal-color-completed: var(--gray-900);
+    --progress-steps-minimal-color-upcoming: var(--gray-100);
+
+    /* =============================================
+      Sidebar
+    ============================================= */
+
+    /* Dimensions */
+    --sidebar-width: 210px;
+    --sidebar-width-mobile: 288px;
+    --sidebar-width-icon: 64px;
+    --sidebar-header-height: var(--control-size-3xl);
+    --sidebar-gutter: 12px;
+    --sidebar-gutter-sm: var(--control-gutter-2xs);
+
+    /* Colors */
+    --sidebar-background: none;
+    --sidebar-background-secondary: var(--color-surface-secondary);
+    --sidebar-foreground: var(--color-text);
+    --sidebar-border: var(--color-border);
+    --sidebar-accent: light-dark(var(--alpha-08), var(--alpha-12));
+    --sidebar-accent-hover: light-dark(var(--alpha-12), var(--alpha-16));
+    --sidebar-menu-text: light-dark(var(--gray-750), var(--gray-850));
+    --sidebar-menu-text-active: var(--gray-900);
+
+    /* Group label */
+    --sidebar-group-label-color: var(--color-text-tertiary);
+    --sidebar-group-label-font-size: 14px;
+    --sidebar-group-label-font-weight: var(--font-weight-semibold);
+    --sidebar-group-label-margin: 24px 0 2px;
+    --sidebar-group-label-margin-first: 8px 0 2px;
+    --sidebar-group-label-padding: 0 12px 8px;
+    --sidebar-group-label-line-height: 14px;
+
+    /* Menu item */
+    --sidebar-menu-item-height: 38px;
+    --sidebar-menu-item-height-desktop: 32px;
+    --sidebar-menu-item-padding: 0;
+    --sidebar-menu-item-margin: 0 0 2px;
+    --sidebar-menu-item-margin-desktop: 0 0 2px;
+    --sidebar-menu-item-radius: 8px;
+    --sidebar-menu-item-font-size: 14px;
+    --sidebar-menu-item-line-height: 20px;
+
+    /* Icon */
+    --sidebar-icon-size: 20px;
+    --sidebar-icon-wrapper-size: 32px;
+    --sidebar-icon-margin: 0 2px 0 4px;
+    --sidebar-icon-color: inherit;
+
+    /* Transitions */
+    --sidebar-transition-duration: 0.3s;
+    --sidebar-collapse-duration: 0.3s;
+
+    /* Mobile menu button (hamburger icon) */
+    --sidebar-mobile-button-size: 32px;
+    --sidebar-mobile-button-radius: 8px;
+    --sidebar-mobile-icon-size: 18px;
+    --sidebar-mobile-line-height: 2px;
+    --sidebar-mobile-line-color: var(--gray-900);
+    --sidebar-mobile-line-transition-duration: 0.2s;
+
+    /* Mobile drawer */
+    --sidebar-mobile-gutter: 12px;
+    --sidebar-mobile-header-height: 48px;
+    --sidebar-mobile-z-index: 301;
+    --sidebar-mobile-backdrop-color: light-dark(rgb(0 0 0 / 15%), rgb(0 0 0 / 35%));
+    --sidebar-mobile-enter-opacity-duration: 0.8s;
+    --sidebar-mobile-enter-transform-duration: 0.7s;
+    --sidebar-mobile-enter-delay: 0.33s;
+    --sidebar-mobile-exit-duration: 0.3s;
+
+    /* Footer */
+    --sidebar-footer-padding: var(--sidebar-gutter-sm) var(--sidebar-gutter);
+    --sidebar-footer-shadow: 0 -2px 10px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 35%));
+
+    /* Main content area (Inset) – no shadow, matching reference (.mO2WL) */
+    --sidebar-inset-shadow: none;
+
+    /* Card */
+    --sidebar-card-padding: spacing(4);
+    --sidebar-card-radius: var(--radius-2xl);
+    --sidebar-card-height: 96px;
+    --sidebar-card-background: var(--color-surface);
+    --sidebar-card-background-hover: var(--color-surface-secondary);
+    --sidebar-card-shadow: var(--shadow-300), var(--shadow-hairline);
+    --sidebar-card-shadow-hover: var(--shadow-400), var(--shadow-hairline);
+    --sidebar-card-active-scale: 0.98;
+
+    /* =============================================
+      Skeleton
+    ============================================= */
+    --skeleton-background: light-dark(var(--alpha-08), var(--alpha-12));
+    --skeleton-radius: var(--radius-md);
+  }
+}

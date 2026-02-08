@@ -2,6 +2,9 @@
   "name": "plexui-docs",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/ui"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +13,7 @@
     "lint:docs-code": "node scripts/check-doc-code-duplicates.mjs"
   },
   "dependencies": {
-    "@plexui/ui": "file:../storybook",
+    "@plexui/ui": "*",
     "luxon": "^3.7.1",
     "@types/mdx": "^2.0.13",
     "fumadocs-core": "^16.5.1",

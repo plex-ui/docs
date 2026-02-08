@@ -1,0 +1,1365 @@
+/* =============================================
+   Sidebar Component Styles
+   Based on OpenAI Platform styling
+============================================= */
+
+/* Layout container (wraps sidebar + content) */
+.SidebarLayout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-surface-tertiary);
+}
+
+/* =============================================
+   Sidebar Core
+============================================= */
+
+.Sidebar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--sidebar-width);
+  height: 100%;
+  padding: 0 var(--sidebar-gutter);
+  overflow: hidden;
+  background: var(--sidebar-background);
+  transition: width var(--sidebar-collapse-duration) var(--cubic-move);
+}
+
+/* Collapsed state */
+:global([data-sidebar="collapsed"]) .Sidebar {
+  width: var(--sidebar-width-icon);
+}
+
+/* Right side */
+.Sidebar[data-side="right"] {
+  order: 1;
+}
+
+/* =============================================
+   Sidebar Sections
+============================================= */
+
+.Header {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: var(--sidebar-header-height);
+  padding: 0;
+  background: var(--color-surface-tertiary);
+}
+
+/* Hide header text when collapsed, keep only icon/logo */
+:global([data-sidebar="collapsed"]) .Header {
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Hide all spans in header when collapsed */
+:global([data-sidebar="collapsed"]) .Header span {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Keep only the logo icon visible (first element with fixed size) */
+:global([data-sidebar="collapsed"]) .Header > div {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+:global([data-sidebar="collapsed"]) .Header > div > span {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header title text - hidden when collapsed */
+.HeaderTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: opacity var(--sidebar-collapse-duration) var(--cubic-move);
+}
+
+:global([data-sidebar="collapsed"]) .HeaderTitle {
+  opacity: 0;
+}
+
+.Content {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 0 16px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Smooth fade at top and bottom edges with buffer zone */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 8px,
+    black 24px,
+    black calc(100% - 24px),
+    transparent calc(100% - 8px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 8px,
+    black 24px,
+    black calc(100% - 24px),
+    transparent calc(100% - 8px),
+    transparent 100%
+  );
+}
+
+.Content::-webkit-scrollbar {
+  display: none;
+}
+
+/* When Footer with separator is present, remove bottom fade - clip exactly at separator */
+.Sidebar:has(.Footer) .Content {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 8px,
+    black 24px,
+    black 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0, transparent 8px, black 24px, black 100%);
+}
+
+.Footer {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 0 0 12px 0;
+}
+
+.FooterSeparator {
+  height: 1px;
+  margin-bottom: 8px;
+  background: var(--sidebar-border);
+  margin-left: calc(-1 * var(--sidebar-gutter));
+  margin-right: calc(-1 * var(--sidebar-gutter));
+  width: calc(100% + 2 * var(--sidebar-gutter));
+}
+
+/* Hide separator above collapse when sidebar has no vertical scroll */
+.Sidebar:not([data-content-scrollable="true"]) .FooterSeparator {
+  display: none;
+}
+
+/* No special padding needed for children, parent handles it (except Card) */
+.Footer > *:not(.FooterSeparator):not(.Card) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Rail (collapse toggle area) */
+.Rail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sidebar-gutter);
+  height: 100%;
+}
+
+/* =============================================
+   Groups
+============================================= */
+
+.Group {
+  padding-bottom: spacing(3);
+}
+
+/* First group should have smaller top margin (only for large headers) */
+.Group:first-child .GroupLabel[data-size="lg"] {
+  margin-top: 8px;
+}
+
+.GroupLabel {
+  display: block;
+  padding: 0 12px 8px;
+  line-height: 14px;
+  transition: opacity var(--sidebar-collapse-duration) var(--cubic-move);
+}
+
+/* Small header - compact dashboard/settings style */
+.GroupLabel[data-size="sm"] {
+  margin: 0;
+  color: var(--sidebar-group-label-color);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Large header - documentation style with clear section separation */
+.GroupLabel[data-size="lg"] {
+  margin: 24px 0 2px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.005em;
+}
+
+/* Hide group labels when collapsed */
+:global([data-sidebar="collapsed"]) .GroupLabel {
+  opacity: 0;
+}
+
+.GroupAction {
+  position: absolute;
+  top: 0;
+  right: var(--sidebar-gutter);
+}
+
+.GroupContent {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsible groups */
+.Group[data-state="closed"] .GroupContent {
+  display: none;
+}
+
+/* =============================================
+   Menu
+============================================= */
+
+.Menu {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.MenuItem {
+  position: relative;
+}
+
+/* =============================================
+   Menu Button (Navigation Item)
+============================================= */
+
+.MenuButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--sidebar-menu-item-padding);
+  margin: var(--sidebar-menu-item-margin);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--sidebar-menu-text);
+  font-size: var(--sidebar-menu-item-font-size);
+  line-height: var(--sidebar-menu-item-line-height);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color 0.15s var(--cubic-enter);
+}
+
+.MenuButton:focus {
+  outline: none;
+}
+
+/* Pseudo-element background for hover/active states */
+.MenuButton::before {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: var(--sidebar-menu-item-radius);
+  background: var(--sidebar-accent);
+  content: "";
+  opacity: 0;
+  transform: scale(0.98);
+  transition-duration: 0.15s;
+  transition-property: opacity, background-color, transform;
+  transition-timing-function: var(--cubic-enter);
+  will-change: opacity, transform;
+}
+
+/* Hover state */
+@media (hover: hover) and (pointer: fine) {
+  .MenuButton:hover {
+    color: var(--sidebar-menu-text-active);
+  }
+
+  .MenuButton:hover::before {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+/* Active (selected) state - mapping to rZ3k- in reference */
+.MenuButton[data-active="true"] {
+  color: var(--sidebar-menu-text-active);
+  cursor: default;
+}
+
+.MenuButton[data-active="true"]::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Press effect */
+.MenuButton:active:not([data-active="true"])::before {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+/* Focus visible */
+.MenuButton:focus-visible::before {
+  box-shadow: 0 0 0 2px var(--color-ring);
+}
+
+/* Inner container - controls height like reference .abr-y */
+.MenuButtonInner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--sidebar-menu-item-height);
+  padding-right: 12px; /* Space for chevron from edge */
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .MenuButtonInner {
+    height: var(--sidebar-menu-item-height-desktop);
+  }
+
+  .MenuButton {
+    margin: var(--sidebar-menu-item-margin-desktop);
+  }
+}
+
+/* Icon wrapper - fixed width for centering */
+.MenuButtonIcon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--sidebar-icon-wrapper-size);
+  height: var(--sidebar-icon-wrapper-size);
+  margin: var(--sidebar-icon-margin);
+  color: inherit;
+}
+
+.MenuButtonIcon svg {
+  width: var(--sidebar-icon-size);
+  height: var(--sidebar-icon-size);
+}
+
+/* Label - collapses when sidebar is collapsed */
+.MenuButtonLabel {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  transition: opacity var(--sidebar-collapse-duration) var(--cubic-move);
+  will-change: opacity, width;
+}
+
+/* Add left padding when label is first child (no icon) */
+.MenuButtonLabel:first-child {
+  padding-left: 12px;
+}
+
+/* Hide label when collapsed */
+:global([data-sidebar="collapsed"]) .MenuButtonLabel {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Long/short label support */
+.MenuButtonLabel[data-long-label="true"] {
+  opacity: 1;
+}
+
+.MenuButtonLabel[data-short-label="true"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:global([data-sidebar="collapsed"]) .MenuButtonLabel[data-long-label="true"] {
+  opacity: 0;
+}
+
+:global([data-sidebar="collapsed"]) .MenuButtonLabel[data-short-label="true"] {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* No special button positioning when collapsed - keep left alignment for smooth transition */
+:global([data-sidebar="collapsed"]) .MenuButton {
+  width: 100%;
+}
+
+/* Icon stays same size when collapsed - centering via parent justify-content */
+
+/* Menu button sizes */
+.MenuButton[data-size="sm"] .MenuButtonInner {
+  height: 28px;
+}
+
+.MenuButton[data-size="lg"] .MenuButtonInner {
+  height: var(--sidebar-menu-item-height);
+}
+
+/* =============================================
+   Menu Badge & Action
+============================================= */
+
+.MenuBadge {
+  position: relative;
+  z-index: 1;
+  padding-left: spacing(2);
+  transition: opacity var(--sidebar-collapse-duration) var(--cubic-move);
+  transition-delay: 0.2s;
+}
+
+:global([data-sidebar="collapsed"]) .MenuBadge {
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 0s;
+}
+
+.MenuAction {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity var(--transition-duration-basic) var(--cubic-enter);
+}
+
+.MenuItem:hover .MenuAction,
+.MenuItem:focus-within .MenuAction {
+  opacity: 1;
+}
+
+/* =============================================
+   Submenu
+============================================= */
+
+.MenuSub {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 0;
+  margin-left: 0; /* No margin - buttons handle all indentation via padding */
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow: hidden; /* Required for collapse animation */
+}
+
+.MenuSubItem {
+  position: relative;
+}
+
+.MenuSubButton {
+  /* Inherits MenuButton base styles (replaced composes for Turbopack compatibility) */
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  margin: var(--sidebar-menu-item-margin);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--sidebar-menu-text);
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color 0.15s var(--cubic-enter);
+}
+
+.MenuSubButton:focus {
+  outline: none;
+}
+
+.MenuSubButton::before {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: var(--sidebar-menu-item-radius);
+  background: var(--sidebar-accent);
+  content: "";
+  opacity: 0;
+  transform: scale(0.98);
+  transition-duration: 0.15s;
+  transition-property: opacity, background-color, transform;
+  transition-timing-function: var(--cubic-enter);
+  will-change: opacity, transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .MenuSubButton:hover {
+    color: var(--sidebar-menu-text-active);
+  }
+
+  .MenuSubButton:hover::before {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.MenuSubButton[data-active="true"] {
+  color: var(--sidebar-menu-text-active);
+  cursor: default;
+}
+
+.MenuSubButton[data-active="true"]::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.MenuSubButton:active:not([data-active="true"])::before {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+.MenuSubButton:focus-visible::before {
+  box-shadow: 0 0 0 2px var(--color-ring);
+}
+
+@media (min-width: 768px) {
+  .MenuSubButton {
+    padding: 6px 12px;
+  }
+}
+
+/* Indent levels for nested items - full-width buttons with padding for text */
+/* indent0 = 12px aligns with section header (GroupLabel) */
+.MenuSubButton.indent0 {
+  padding-left: 12px;
+}
+
+.MenuSubButton.indent1 {
+  padding-left: 24px;
+}
+
+.MenuSubButton.indent2 {
+  padding-left: 36px;
+}
+
+.MenuSubButton.indent3 {
+  padding-left: 48px;
+}
+
+/* When parent has icons, level 1 children align with parent text at 38px */
+.MenuSub[data-has-icons="true"] .MenuSubButton.indent1 {
+  padding-left: 38px;
+}
+
+/* Submenu visibility with animation */
+.MenuSub {
+  max-height: 1000px;
+  transition:
+    max-height 0.3s var(--cubic-move),
+    opacity 0.3s var(--cubic-move);
+}
+
+.MenuSub[data-state="closed"] {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Chevron toggle icon - pushed to right end */
+.MenuChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: inherit; /* Inherit from parent item */
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+/* Rotate chevron when parent is expanded */
+[data-expanded="true"] .MenuChevron {
+  transform: rotate(90deg);
+}
+
+/* Hide chevron in collapsed sidebar */
+:global([data-sidebar="collapsed"]) .MenuChevron {
+  display: none;
+}
+
+/* =============================================
+   Skeleton (Loading State)
+============================================= */
+
+.MenuSkeleton {
+  display: flex;
+  align-items: center;
+  height: var(--sidebar-menu-item-height);
+  padding: var(--sidebar-menu-item-padding);
+}
+
+.MenuSkeletonIcon {
+  width: var(--sidebar-icon-wrapper-size);
+  height: var(--sidebar-icon-wrapper-size);
+  margin: var(--sidebar-icon-margin);
+  border-radius: var(--skeleton-radius);
+  background: var(--skeleton-background);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.MenuSkeletonLabel {
+  height: 12px;
+  margin-left: spacing(2);
+  border-radius: var(--skeleton-radius);
+  background: var(--skeleton-background);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Hide skeleton label when collapsed */
+:global([data-sidebar="collapsed"]) .MenuSkeletonLabel {
+  opacity: 0;
+}
+
+/* =============================================
+   Separator
+============================================= */
+
+.Separator {
+  height: 1px;
+  margin: spacing(2) 0;
+  background: var(--sidebar-border);
+  transition: width var(--sidebar-collapse-duration) var(--cubic-move);
+}
+
+/* Shorten and align separator when collapsed */
+:global([data-sidebar="collapsed"]) .Separator {
+  width: 32px;
+  margin-left: 4px;
+}
+
+/* =============================================
+   Card (Footer CTA)
+============================================= */
+
+.Card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px 10px;
+  margin: 12px 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tertiary);
+  font-size: 14px;
+  transition:
+    border-color 0.15s ease,
+    height 0.15s ease,
+    padding 0.15s ease,
+    margin 0.15s ease,
+    opacity 0.5s ease 0.25s;
+}
+
+.Card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.CardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: spacing(1);
+}
+
+.CardTitle {
+  font-weight: var(--font-weight-semibold);
+  color: var(--sidebar-foreground);
+}
+
+.CardDismiss {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  border-radius: var(--radius-xs);
+}
+
+.CardContent {
+  flex: 1;
+  color: var(--color-text-secondary);
+  font-size: var(--font-text-sm-size);
+  line-height: var(--font-text-sm-line-height);
+}
+
+.CardFooter {
+  margin-top: spacing(3);
+}
+
+/* Card title link with chevron animation */
+.CardTitleLink {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--sidebar-foreground);
+}
+
+.CardTitleChevron {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.Card:hover .CardTitleChevron {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Hide card when collapsed - fully collapse height */
+:global([data-sidebar="collapsed"]) .Card {
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition-delay: 0s;
+  transition-duration: 0s;
+}
+
+/* =============================================
+   Inset (Main Content Area)
+============================================= */
+
+.Inset {
+  overflow: auto;
+  flex: 1;
+  min-width: 0;
+  margin: var(--sidebar-gutter-sm);
+  margin-left: 0;
+  box-shadow: var(--sidebar-inset-shadow);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+}
+
+/* =============================================
+   Trigger (Collapse Button)
+============================================= */
+
+/* Styled like MenuButton for visual consistency with menu items */
+.Trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--sidebar-foreground);
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.Trigger:focus {
+  outline: none;
+}
+
+/* Hover background via pseudo-element like MenuButton */
+.Trigger::before {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: var(--sidebar-menu-item-radius);
+  background: var(--sidebar-accent);
+  content: "";
+  opacity: 0;
+  transform: scale(1);
+  transition-duration: 0.15s;
+  transition-property: opacity, background-color, transform;
+  transition-timing-function: var(--cubic-enter);
+  will-change: opacity, transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .Trigger:hover::before {
+    opacity: 0.5;
+  }
+}
+
+.Trigger:focus-visible::before {
+  box-shadow: 0 0 0 2px var(--color-ring);
+  opacity: 1;
+  background: transparent;
+}
+
+.Trigger:active::before {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+:global([data-sidebar="collapsed"]) .Trigger {
+  /* No special positioning */
+}
+
+/* Inner container - same height as menu items */
+.TriggerInner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--sidebar-menu-item-height);
+}
+
+@media (min-width: 768px) {
+  .TriggerInner {
+    height: var(--sidebar-menu-item-height-desktop);
+  }
+}
+
+/* Icon wrapper - same as MenuButtonIcon for alignment */
+.TriggerIcon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--sidebar-icon-wrapper-size);
+  height: var(--sidebar-icon-wrapper-size);
+  margin: var(--sidebar-icon-margin);
+  color: inherit;
+}
+
+.TriggerIcon svg {
+  width: var(--sidebar-icon-size);
+  height: var(--sidebar-icon-size);
+}
+
+/* Don't show trigger when collapsible="none" */
+:global([data-collapsible="none"]) .Trigger {
+  display: none;
+}
+
+/* =============================================
+   Input (Search)
+============================================= */
+
+.Input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 12px 0 8px; /* No horizontal padding - Input component has its own */
+}
+
+/* =============================================
+   Mobile Menu Button (Hamburger → X)
+============================================= */
+
+.MobileMenuButton {
+  position: relative;
+  display: block;
+  width: var(--sidebar-mobile-button-size);
+  height: var(--sidebar-mobile-button-size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--sidebar-mobile-button-radius);
+  background: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s var(--cubic-enter);
+}
+
+.MobileMenuButton::before {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: var(--sidebar-mobile-button-radius);
+  background: var(--color-surface);
+  content: "";
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.MobileMenuButton:hover::before {
+  opacity: 0.65;
+}
+
+.MobileMenuButton:active::before,
+.MobileMenuButton[data-expanded]::before {
+  opacity: 1;
+}
+
+.MobileMenuButton:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-ring);
+  outline: 0;
+}
+
+/* Icon wrapper */
+.MobileMenuIcon {
+  position: relative;
+  top: 0;
+  left: 7px;
+  overflow: hidden;
+  display: block;
+  width: var(--sidebar-mobile-icon-size);
+  height: var(--sidebar-mobile-icon-size);
+}
+
+/* Line bars */
+.MobileMenuLine {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  display: block;
+  width: var(--sidebar-mobile-icon-size);
+  height: var(--sidebar-mobile-line-height);
+  transition: transform var(--sidebar-mobile-line-transition-duration) var(--cubic-move) 0.2s;
+}
+
+.MobileMenuLine::before {
+  display: block;
+  width: var(--sidebar-mobile-icon-size);
+  height: var(--sidebar-mobile-line-height);
+  background: var(--sidebar-mobile-line-color);
+  content: "";
+  transform-origin: center;
+  transition: transform var(--sidebar-mobile-line-transition-duration) var(--cubic-move);
+  will-change: transform;
+}
+
+/* Top line - closed state */
+.MobileMenuLine[data-top] {
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.MobileMenuLine[data-top]::before {
+  transform: rotate(0);
+  transition-delay: 0s;
+}
+
+/* Bottom line - closed state */
+.MobileMenuLine[data-bottom] {
+  top: 12px;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.MobileMenuLine[data-bottom]::before {
+  transform: rotate(0);
+  transition-delay: 0s;
+}
+
+/* Middle wrapper */
+.MobileMenuMiddle {
+  display: block;
+  transform: translateX(-6px);
+  transition: transform 0s var(--cubic-move) 0.2s;
+}
+
+/* Open state (X) */
+.MobileMenuButton[data-expanded] .MobileMenuLine[data-top] {
+  transform: translateY(4px);
+  transition-delay: 0s;
+}
+
+.MobileMenuButton[data-expanded] .MobileMenuLine[data-top]::before {
+  transform: rotate(45deg);
+  transition-delay: 0.2s;
+}
+
+.MobileMenuButton[data-expanded] .MobileMenuLine[data-bottom] {
+  transform: translateY(-4px);
+  transition-delay: 0s;
+}
+
+.MobileMenuButton[data-expanded] .MobileMenuLine[data-bottom]::before {
+  transform: rotate(-45deg);
+  transition-delay: 0.2s;
+}
+
+.MobileMenuButton[data-expanded] .MobileMenuMiddle {
+  transform: translateX(0);
+}
+
+/* =============================================
+   Mobile Drawer
+============================================= */
+
+.MobileBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--sidebar-mobile-z-index) - 1);
+  background: var(--sidebar-mobile-backdrop-color);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--sidebar-mobile-exit-duration) var(--cubic-exit),
+    visibility 0s var(--sidebar-mobile-exit-duration);
+}
+
+:global([data-mobile-menu="visible"]) .MobileBackdrop {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.6s var(--cubic-enter),
+    visibility 0s;
+}
+
+.MobileSidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 100%;
+  z-index: var(--sidebar-mobile-z-index);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width-mobile);
+  padding: var(--sidebar-mobile-gutter) var(--sidebar-mobile-gutter) 0;
+  background: var(--sidebar-background, var(--color-surface));
+  user-select: none;
+  visibility: hidden;
+  transition:
+    left var(--sidebar-mobile-exit-duration) var(--cubic-exit),
+    visibility 0s var(--sidebar-mobile-exit-duration);
+}
+
+:global([data-mobile-menu="visible"]) .MobileSidebar {
+  left: 0;
+  right: 0;
+  width: auto;
+  visibility: visible;
+  transition:
+    left var(--sidebar-transition-duration) var(--cubic-enter),
+    visibility 0s;
+}
+
+/* Staggered children animation */
+.MobileSidebar > * {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--sidebar-mobile-exit-duration) var(--cubic-exit),
+    transform var(--sidebar-mobile-exit-duration) var(--cubic-exit);
+}
+
+:global([data-mobile-menu="visible"]) .MobileSidebar > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--sidebar-mobile-enter-opacity-duration) var(--cubic-enter)
+      var(--sidebar-mobile-enter-delay),
+    transform var(--sidebar-mobile-enter-transform-duration) var(--cubic-enter)
+      var(--sidebar-mobile-enter-delay);
+  will-change: opacity, transform;
+}
+
+:global([data-mobile-menu="visible"]) .MobileSidebar > *:nth-child(1) {
+  transition-delay: 0.15s;
+}
+
+:global([data-mobile-menu="visible"]) .MobileSidebar > *:nth-child(2) {
+  transition-delay: 0.21s;
+}
+
+:global([data-mobile-menu="visible"]) .MobileSidebar > *:nth-child(3) {
+  transition-delay: 0.27s;
+}
+
+/* Mobile menu item - larger for touch */
+.MobileSidebar .MenuButtonInner {
+  height: var(--sidebar-menu-item-height);
+}
+
+/* Mobile header */
+.MobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--sidebar-mobile-header-height);
+  padding: 0 var(--sidebar-mobile-gutter);
+  margin: 0 calc(-1 * var(--sidebar-mobile-gutter));
+}
+
+/* Mobile footer with shadow */
+.MobileFooter {
+  padding: var(--sidebar-mobile-gutter);
+  margin: 0 calc(-1 * var(--sidebar-mobile-gutter));
+  box-shadow: var(--sidebar-footer-shadow);
+}
+
+/* Mobile menu content - for inline menu rendering */
+.MobileMenuContent {
+  padding: 12px;
+}
+
+/* Force labels visible in mobile menu content regardless of collapsed state */
+.MobileMenuContent .MenuButtonLabel,
+.MobileMenuContent .GroupLabel {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Desktop breakpoint - sidebar becomes fixed */
+@media (min-width: 768px) {
+  .MobileSidebar {
+    display: none;
+  }
+
+  .MobileBackdrop {
+    display: none;
+  }
+}
+
+/* Contained mode - for demos where drawer should stay within container */
+.MobileBackdrop.contained {
+  position: absolute;
+}
+
+.MobileSidebar.contained {
+  position: absolute;
+}
+
+/* Contained mode - override desktop hiding for demo purposes */
+@media (min-width: 768px) {
+  .MobileSidebar.contained {
+    display: flex;
+  }
+
+  .MobileBackdrop.contained {
+    display: block;
+  }
+}
+
+/* Contained mode visible state - full width positioning */
+:global([data-mobile-menu="visible"]) .MobileSidebar.contained {
+  left: 0;
+  right: 0;
+  width: auto;
+  background: var(--color-surface);
+  z-index: 10;
+}
+
+/* =============================================
+   Footer Links (horizontal layout)
+============================================= */
+
+.FooterLinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing(2);
+  transition: width var(--sidebar-collapse-duration) var(--cubic-move);
+}
+
+:global([data-sidebar="collapsed"]) .FooterLinks {
+  width: var(--sidebar-width-icon);
+  flex-direction: column;
+  gap: spacing(1);
+}
+
+:global([data-sidebar="collapsed"]) .FooterLinks .Label {
+  opacity: 0;
+}
+
+/* =============================================
+   Docs Sidebar Variant
+============================================= */
+
+.Sidebar[data-variant="docs"] .MenuButton {
+  padding: 0;
+  margin: 0 0 2px;
+  border-radius: 8px;
+  transition:
+    color 0.15s var(--cubic-enter),
+    background-color 0.15s var(--cubic-enter);
+}
+
+/* Disable pseudo-element for docs variant - use direct background instead */
+.Sidebar[data-variant="docs"] .MenuButton::before {
+  display: none;
+}
+
+.Sidebar[data-variant="docs"] .MenuButtonInner {
+  padding: 8px 12px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .Sidebar[data-variant="docs"] .MenuButtonInner {
+    padding: 6px 12px;
+  }
+}
+
+.Sidebar[data-variant="docs"] .MenuButton:hover:not([data-active="true"]) {
+  background: light-dark(var(--gray-150), var(--gray-300));
+}
+
+.Sidebar[data-variant="docs"] .MenuButton[data-active="true"] {
+  color: var(--color-text-emphasis);
+  background: light-dark(var(--gray-150), var(--gray-300));
+}
+
+/* Disable extra left padding on labels in docs variant (inner already has padding) */
+.Sidebar[data-variant="docs"] .MenuButtonLabel:first-child {
+  padding-left: 0;
+}
+
+/* MenuSubButton needs explicit padding in docs variant (composes MenuButton which has padding: 0) */
+.Sidebar[data-variant="docs"] .MenuSubButton {
+  padding: 8px 12px;
+}
+
+@media (min-width: 768px) {
+  .Sidebar[data-variant="docs"] .MenuSubButton {
+    padding: 6px 12px;
+  }
+}
+
+/* Docs variant indent levels - override base padding-left */
+/* indent0 = 12px aligns with section header (GroupLabel) */
+.Sidebar[data-variant="docs"] .MenuSubButton.indent0 {
+  padding-left: 12px;
+}
+
+.Sidebar[data-variant="docs"] .MenuSubButton.indent1 {
+  padding-left: 24px;
+}
+
+.Sidebar[data-variant="docs"] .MenuSubButton.indent2 {
+  padding-left: 36px;
+}
+
+.Sidebar[data-variant="docs"] .MenuSubButton.indent3 {
+  padding-left: 48px;
+}
+
+/* Docs variant - keep scroll mask, items have their own horizontal padding */
+.Sidebar[data-variant="docs"] .Content {
+  padding: 0 0 16px 0; /* Bottom padding for mask fade, items provide top padding */
+}
+
+/* First group in docs variant needs top padding since Content has none */
+.Sidebar[data-variant="docs"] .Group:first-child {
+  padding-top: 24px;
+}
+
+/* Nested child items */
+.DocsNavChild {
+  margin-left: 12px;
+}
+
+.DocsNavChild.indent1 {
+  margin-left: 24px;
+}
+
+.DocsNavChild.indent2 {
+  margin-left: 36px;
+}
+
+.DocsNavChild.indent3 {
+  margin-left: 48px;
+}
+
+/* Chevron for expandable items */
+.DocsNavChevron {
+  margin-left: 4px;
+  transition: transform 0.15s;
+}
+
+.MenuItem[data-expanded="true"] .DocsNavChevron {
+  transform: rotate(90deg);
+}
+
+/* =============================================
+   RTL Support
+============================================= */
+
+/* Layout reverses for RTL with side="right" */
+.SidebarLayout[dir="rtl"] {
+  flex-direction: row-reverse;
+}
+
+/* Ensure text stays aligned properly in RTL */
+.SidebarLayout[dir="rtl"] .MenuButtonLabel {
+  text-align: right;
+}
+
+/* Flip icon position in RTL - icons go to the right of label */
+.SidebarLayout[dir="rtl"] .MenuButton {
+  flex-direction: row-reverse;
+}
+
+/* Adjust icon margins for RTL */
+.SidebarLayout[dir="rtl"] .MenuButtonIcon {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* RTL nested items indentation */
+.SidebarLayout[dir="rtl"] .DocsNavChild {
+  margin-left: 0;
+  margin-right: 12px;
+}
+
+.SidebarLayout[dir="rtl"] .DocsNavChild.indent1 {
+  margin-right: 24px;
+}
+
+.SidebarLayout[dir="rtl"] .DocsNavChild.indent2 {
+  margin-right: 36px;
+}
+
+.SidebarLayout[dir="rtl"] .DocsNavChild.indent3 {
+  margin-right: 48px;
+}
