@@ -1,0 +1,100 @@
+.StickyContainer {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-top: 14px;
+  margin-top: -10px;
+  background: var(--color-surface);
+}
+
+.Container {
+  position: relative;
+}
+
+.Input {
+  display: block;
+  width: 100%;
+  padding: 12px 20px 12px 44px;
+  border: 1px solid var(--alpha-10);
+  border-radius: var(--radius-md);
+  margin: 0 0 24px;
+  background: var(--color-surface);
+  font-size: 15px;
+  transition: border-color 0.15s ease;
+}
+
+.Input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.Input:hover {
+  border-color: var(--alpha-15);
+}
+
+.Input:focus {
+  border-color: var(--alpha-20);
+  outline: 0;
+}
+
+.InputIcon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.EmptyMessage {
+  padding-top: 30px;
+}
+
+.SearchTerm {
+  font-weight: var(--font-weight-semibold);
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  column-gap: 14px;
+  row-gap: 12px;
+}
+
+.Item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.IconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border: 1px solid var(--alpha-10);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.IconWrap svg {
+  width: 18px;
+  height: 18px;
+}
+
+.Name {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-align: left;
+}

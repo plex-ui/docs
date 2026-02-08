@@ -1,0 +1,143 @@
+---
+title: Select Control
+description: Customizable select control for use with any type of floating UI
+---
+
+import {
+  SelectControlBaseDemo,
+  SelectControlVariantsDemo,
+  SelectControlSizingDemo,
+  SelectControlSelectedDemo,
+  SelectControlStartIconDemo,
+  SelectControlClearableDemo,
+  SelectControlDropdownIconDemo,
+  SelectControlLoadingDemo,
+  SelectControlInvalidDemo,
+  SelectControlDisabledDemo,
+  SelectControlBlockDemo,
+  SelectControlOpticalAlignmentDemo,
+} from "@/components/docs/SelectControlDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { SelectControl } from "@plexui/ui/components/SelectControl";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`const [value, setValue] = useState("")
+const placeholder = "Select date..."
+
+return (
+  <Menu>
+    <Menu.Trigger>
+      <SelectControl selected={!!value} onClearClick={() => setValue("")} StartIcon={CalendarAlt}>
+        {value || placeholder}
+      </SelectControl>
+    </Menu.Trigger>
+    <Menu.Content>
+      <Menu.RadioGroup value={value} onChange={setValue}>
+        ...
+      </Menu.RadioGroup>
+    </Menu.Content>
+  </Menu>
+)`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlBaseDemo />
+</ComponentPreview>
+
+### Variants
+
+<ComponentPreview details={<>Use the <code>variant</code> prop to stylize the select control. Available <code>variant</code> styles are similar to <code>{"<Button>"}</code>, but aligned with subtle differences from <code>{"<Input>"}</code> variant treatments.</>} code={`<SelectControl variant="soft" selected StartIcon={Cabinet} onClearClick={() => {}}>Sample value</SelectControl>
+<SelectControl variant="outline" selected StartIcon={Cabinet} onClearClick={() => {}}>Sample value</SelectControl>
+<SelectControl variant="ghost" selected StartIcon={Cabinet} onClearClick={() => {}}>Sample value</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlVariantsDemo />
+</ComponentPreview>
+
+### Sizing & roundness
+
+<ComponentPreview details={<>Sizing of the control is determined with the <code>size</code> prop. Each <code>size</code> provides dynamic values for various aspects of the control, including icon and indicator placement, as well <code>font-size</code> and gutter values.<br/><br/>Create fully rounded controls with the <code>pill</code> prop. When <code>pill</code> is set, extra horizontal gutter is dynamically applied, and the clear action is also set to <code>pill</code>.</>} code={`<SelectControl size="md" pill={false} dropdownIconType="none">Select...</SelectControl>
+<SelectControl size="md" loading>Select...</SelectControl>
+<SelectControl size="md">Select...</SelectControl>
+<SelectControl size="md" StartIcon={Tools} dropdownIconType="none">Tool calls</SelectControl>
+...`} previewMinHeight={276}>
+  <SelectControlSizingDemo />
+</ComponentPreview>
+
+### Selected
+
+<ComponentPreview details={<>Use <code>selected</code> to indicate if the control has a selected value, which toggles visual placeholder styling.<br/><br/>As you'll notice here, this doesn't do anything to the content of the control &ndash; that's up to you.</>} code={`<SelectControl selected={false}>Select...</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlSelectedDemo />
+</ComponentPreview>
+
+### Start icon
+
+<ComponentPreview details={<>Use <code>StartIcon</code> to display an icon in the control. Sizing, spacing, and coloring are handled automatically.</>} code={`<SelectControl StartIcon={CalendarAlt}>Select date...</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlStartIconDemo />
+</ComponentPreview>
+
+### Dropdown icon
+
+<ComponentPreview details={<>Use <code>dropdownIconType</code> to control the presentation of the dropdown indicator.</>} code={`<SelectControl selected dropdownIconType="dropdown" StartIcon={CalendarAlt}>Select...</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlDropdownIconDemo />
+</ComponentPreview>
+
+### Clearable
+
+<ComponentPreview details={<>Pass a callback <code>onClearClick</code> to enable the clearable action.</>} code={`<SelectControl selected onClearClick={() => setValue("")} StartIcon={CalendarAlt}>
+  {value || "Select..."}
+</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlClearableDemo />
+</ComponentPreview>
+
+### Loading
+
+<ComponentPreview details={<>During loading, dropdown icon and clear actions are automatically hidden.<br/><br/>Interactions will be prevented by default during this state, by providing a default value for <code>inert</code> to <code>true</code>. You can override this behavior directly with <code>inert</code>, or use <code>disabled</code> to add visual disablement.</>} code={`<SelectControl loading>Loading models...</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlLoadingDemo />
+</ComponentPreview>
+
+### Invalid
+
+<ComponentPreview details={<>Use <code>invalid</code> to visually indicate the control is in an invalid state.</>} code={`<SelectControl invalid selected>Pineapple on pizza</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlInvalidDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Use <code>disabled</code> to both visually and accessibly disable the control.</>} code={`<SelectControl disabled selected StartIcon={User}>Reader</SelectControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlDisabledDemo />
+</ComponentPreview>
+
+### Block
+
+<ComponentPreview details={<>Create full-width controls with the <code>block</code> prop.</>} code={`<div className="w-[290px] text-center p-2 border border-dashed border-alpha/20 rounded-md">
+  <SelectControl block size="lg">Select...</SelectControl>
+</div>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SelectControlBlockDemo />
+</ComponentPreview>
+
+### Optical alignment
+
+<ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter of the control.</>} code={`<SelectControl selected variant="ghost" opticallyAlign="start">Ghost control</SelectControl>`} previewMinHeight={292}>
+  <SelectControlOpticalAlignmentDemo />
+</ComponentPreview>
+
+## Reference
+
+Use `SelectControl` with any floating UI (e.g. `Menu`, `Popover`). The control renders the trigger; you provide the dropdown content.
+
+<PropsTable data={[
+  { prop: "selected", type: "boolean", description: "Whether a value is selected (affects placeholder styling)" },
+  { prop: "variant", type: '"soft" | "outline" | "ghost"', default: '"outline"', description: "Visual variant" },
+  { prop: "size", type: "string", description: "Control size" },
+  { prop: "pill", type: "boolean", description: "Fully rounded trigger" },
+  { prop: "StartIcon", type: "Component", description: "Icon at start" },
+  { prop: "onClearClick", type: "() => void", description: "Enables clear button when set" },
+  { prop: "dropdownIconType", type: '"chevronDown" | "dropdown" | "none"', description: "Dropdown indicator style" },
+  { prop: "invalid", type: "boolean", description: "Invalid state" },
+  { prop: "disabled", type: "boolean", description: "Disable control" },
+  { prop: "block", type: "boolean", description: "Full width" },
+  { prop: "loading", type: "boolean", description: "Loading state" },
+  { prop: "opticallyAlign", type: '"start" | "end"', description: "Optical alignment" },
+]} />
+
+SelectControl shares the unified 9-step size scale with Button, Input, Select, and SegmentedControl.

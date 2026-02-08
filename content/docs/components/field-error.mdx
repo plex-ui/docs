@@ -1,0 +1,51 @@
+---
+title: FieldError
+description: Display form validation errors with an icon and accessible alert
+---
+
+import { FieldError } from "@plexui/ui/components/FieldError"
+import { Input } from "@plexui/ui/components/Input"
+
+<UsageBlock>{`import { FieldError } from "@plexui/ui/components/FieldError";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<FieldError>This field is required</FieldError>`} previewMinHeight={168}>
+  <FieldError>This field is required</FieldError>
+</ComponentPreview>
+
+### With input
+
+<ComponentPreview details={<>Pair <code>FieldError</code> with an <code>Input</code> set to <code>invalid</code> for complete form validation feedback.</>} code={`<div className="w-[320px]">
+  <Input invalid placeholder="Email address" defaultValue="not-an-email" />
+  <FieldError>Please enter a valid email address</FieldError>
+</div>`} previewMinHeight={168}>
+  <div className="w-[320px]">
+    <Input invalid placeholder="Email address" defaultValue="not-an-email" />
+    <FieldError>Please enter a valid email address</FieldError>
+  </div>
+</ComponentPreview>
+
+### Multiple errors
+
+<ComponentPreview details={<>Multiple <code>FieldError</code> components stack vertically with automatic spacing between the first and last items.</>} code={`<div className="w-[320px]">
+  <Input invalid placeholder="Password" type="password" />
+  <FieldError>Password must be at least 8 characters</FieldError>
+  <FieldError>Password must contain a number</FieldError>
+</div>`} previewMinHeight={168}>
+  <div className="w-[320px]">
+    <Input invalid placeholder="Password" type="password" />
+    <FieldError>Password must be at least 8 characters</FieldError>
+    <FieldError>Password must contain a number</FieldError>
+  </div>
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "children", type: "ReactNode", description: "Error message content" },
+  { prop: "className", type: "string", description: "Additional CSS classes" },
+  { prop: "id", type: "string", description: "HTML id attribute — useful for aria-describedby on the associated input" },
+]} />

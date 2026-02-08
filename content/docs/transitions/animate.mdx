@@ -1,0 +1,95 @@
+---
+title: Animate
+description: Animate components as they mount and unmount
+---
+
+import { Animate } from "@plexui/ui/components/Transition"
+import {
+  AnimateFadeDemo,
+  AnimateGrowDemo,
+  AnimateContinuousDemo,
+  AnimateCrossFadeDemo,
+} from "@/components/docs/TransitionDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { Animate } from "@plexui/ui/components/Transition";`}</UsageBlock>
+
+Use <code>&lt;Animate&gt;</code> for transitions that do not need to affect the layout of surrounding DOM nodes (e.g. fixed size or absolute positioning): nothing → component, component → nothing, or component → another component.
+
+## Examples
+
+### Overview
+
+<code>&lt;Animate&gt;</code> is an abstraction around <code>&lt;TransitionGroup&gt;</code> for batteries-included transition animations.
+
+<code>enter</code>, <code>exit</code>, and <code>initial</code> props let you define behavior from a set of GPU-accelerated properties: <code>opacity</code>, <code>x</code>, <code>y</code>, <code>scale</code>, <code>rotate</code>, <code>skewX</code>, <code>skewY</code>, and <code>blur</code>.
+
+### Fade
+
+Default behavior is a simple fade in/out with ease timing.
+
+<ComponentPreview code={`<Animate className="w-[200px] h-[200px]">
+  {visible && <Square key="s" />}
+</Animate>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <AnimateFadeDemo />
+</ComponentPreview>
+
+### Grow
+
+Add transform properties to <code>enter</code> and <code>exit</code>. Cubic timing is applied when transform properties are used.
+
+<ComponentPreview code={`<Animate
+  className="w-[200px] h-[200px]"
+  enter={{ scale: 1 }}
+  exit={{ scale: 0.5, blur: 20 }}
+>
+  {visible && <Square key="s" />}
+</Animate>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <AnimateGrowDemo />
+</ComponentPreview>
+
+### Continuous transitions
+
+Use <code>initial</code> to differentiate entrance and exit (e.g. emphasized entrance, subtle exit).
+
+<ComponentPreview code={`<Animate
+  className="w-[200px] h-[200px]"
+  initial={{ x: 120, skewX: 30 }}
+  enter={{ duration: 800 }}
+  exit={{ x: -120, skewX: -8, duration: 500 }}
+>
+  {visible && <Square key="s" />}
+</Animate>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <AnimateContinuousDemo />
+</ComponentPreview>
+
+### Cross fade
+
+Use for icon or page cross-fades (e.g. copy button icon).
+
+<ComponentPreview code={`<Button size="2xl" iconSize="xl" variant="soft" onClick={handleClick}>
+  <Animate
+    className="w-[var(--button-icon-size)] h-[var(--button-icon-size)]"
+    enter={{ scale: 1, delay: 150, duration: 300 }}
+    exit={{ scale: 0.6, duration: 150 }}
+  >
+    {copied ? <Check key="copied" /> : <Copy key="copy" />}
+  </Animate>
+</Button>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <AnimateCrossFadeDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "className", type: "string", description: "Class applied to the wrapper element" },
+  { prop: "transitionClassName", type: "string", description: "Class applied to the inner TransitionGroup" },
+  { prop: "enter", type: "TransitionDefinition", description: "Styles applied to the enter transition (opacity, x, y, scale, rotate, skewX, skewY, blur, duration, delay, timingFunction)" },
+  { prop: "exit", type: "TransitionDefinition", description: "Styles applied to the exit transition" },
+  { prop: "initial", type: "InitialTransitionDefinition", description: "Styles applied before the enter transition (no duration/delay/timingFunction)" },
+  { prop: "enterDuration", type: "number", description: "Override computed enter duration (ms)" },
+  { prop: "exitDuration", type: "number", description: "Override computed exit duration (ms)" },
+  { prop: "preventInitialTransition", type: "boolean", default: "true", description: "When false, children run enter on the group's initial mount" },
+  { prop: "transitionPosition", type: '"absolute" | "static"', default: '"absolute"', description: "Positioning of transition states" },
+  { prop: "forceCompositeLayer", type: "boolean", default: "false", description: "Applies will-change for compositing; use with caution" },
+]} />

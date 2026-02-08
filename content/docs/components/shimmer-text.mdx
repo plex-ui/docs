@@ -1,0 +1,67 @@
+---
+title: Shimmer Text
+description: Animated shimmer effect for text content
+---
+
+import { ShimmerText, ShimmerableText } from "@plexui/ui/components/ShimmerText"
+import { ShimmerableTextDemo } from "@/components/docs/ShimmerTextDemos"
+
+<UsageBlock>{`import { ShimmerText, ShimmerableText } from "@plexui/ui/components/ShimmerText";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview details={<><code>ShimmerText</code> applies a continuous shimmer animation to text content. Useful for loading states, AI-generated content indicators, or visual emphasis.</>} code={`<ShimmerText className="text-lg font-semibold">
+  Thinking...
+</ShimmerText>`} previewMinHeight={168}>
+  <ShimmerText className="text-lg font-semibold">
+    Thinking...
+  </ShimmerText>
+</ComponentPreview>
+
+### Semantic elements
+
+<ComponentPreview details={<>Use the <code>as</code> prop to render as any text element: <code>p</code>, <code>span</code>, <code>h1</code>–<code>h6</code>, or <code>div</code>.</>} code={`<div className="flex flex-col gap-4">
+  <ShimmerText as="h2" className="text-2xl font-bold">Heading shimmer</ShimmerText>
+  <ShimmerText as="p" className="text-base">Paragraph shimmer effect</ShimmerText>
+  <ShimmerText as="span" className="text-sm text-secondary">Inline shimmer</ShimmerText>
+</div>`} previewMinHeight={168}>
+  <div className="flex flex-col gap-4">
+    <ShimmerText as="h2" className="text-2xl font-bold">Heading shimmer</ShimmerText>
+    <ShimmerText as="p" className="text-base">Paragraph shimmer effect</ShimmerText>
+    <ShimmerText as="span" className="text-sm text-secondary">Inline shimmer</ShimmerText>
+  </div>
+</ComponentPreview>
+
+### Controllable shimmer
+
+<ComponentPreview details={<>
+  <p><code>ShimmerableText</code> allows toggling the shimmer on and off. When <code>shimmer</code> is set to <code>false</code>, the animation finishes its current iteration and then pauses gracefully — no abrupt cut.</p>
+  <p>Use this variant when text transitions between a loading and idle state.</p>
+</>} code={`const [shimmer, setShimmer] = useState(true)
+
+<ShimmerableText shimmer={shimmer} className="text-lg font-semibold">
+  Generating response...
+</ShimmerableText>`} previewMinHeight={168}>
+  <ShimmerableTextDemo />
+</ComponentPreview>
+
+## Reference
+
+**ShimmerText** — always shimmering
+
+<PropsTable data={[
+  { prop: "as", type: '"p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div"', default: '"div"', description: "HTML element to render" },
+  { prop: "children", type: "ReactNode", description: "Text content to shimmer" },
+  { prop: "className", type: "string", description: "Additional CSS classes" },
+]} />
+
+**ShimmerableText** — controllable shimmer
+
+<PropsTable data={[
+  { prop: "as", type: '"p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div"', default: '"div"', description: "HTML element to render" },
+  { prop: "shimmer", type: "boolean", default: "false", description: "Whether the shimmer animation is active" },
+  { prop: "children", type: "ReactNode", description: "Text content to shimmer" },
+  { prop: "className", type: "string", description: "Additional CSS classes" },
+]} />

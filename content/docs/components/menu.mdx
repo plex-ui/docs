@@ -1,0 +1,242 @@
+---
+title: Menu
+description: Structured actions in a dropdown list
+---
+
+import {
+  MenuBaseDemo,
+  MenuNaturalSizingDemo,
+  MenuSubmenuDemo,
+  MenuItemActionsDemo,
+  MenuWithCheckboxesDemoWithControls,
+  MenuWithRadioItemsDemoWithControls,
+} from "@/components/docs/MenuDemos"
+
+<UsageBlock>{`import { Menu } from "@plexui/ui/components/Menu";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost">Sample menu <ChevronDownMd /></Button>
+  </Menu.Trigger>
+  <Menu.Content width={210} minWidth={210}>
+    <Menu.Item>
+      <p className="font-semibold">Sam Smith</p>
+      <p className="text-secondary">sam.smith@gmail.com</p>
+    </Menu.Item>
+    <Menu.Separator />
+    <Menu.Link href="/settings">Your profile</Menu.Link>
+    <Menu.Link href="#">Terms & policies</Menu.Link>
+    <Menu.Item disabled onSelect={() => {}}>Feature flags</Menu.Item>
+    <Menu.Separator />
+    <Menu.Item onSelect={() => {}}>Logout</Menu.Item>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuBaseDemo />
+</ComponentPreview>
+
+### Natural sizing
+
+<ComponentPreview details={<>Menu supports several sizing strategies:<ul><li><strong>Natural sizing</strong> &ndash; use <code>minWidth="auto"</code> to have the menu fit naturally to the size of the content.</li><li><strong>Fixed size</strong> &ndash; use <code>width</code> and <code>minWidth</code> to set the menu to a fixed size, regardless of content size.</li><li><strong>Flexible sizing</strong> &ndash; <code>minWidth</code> can be used by itself to describe a menu that must be a given size, but can grow larger depending on its content.</li><li><strong>Max sizing</strong> &ndash; apply <code>max-width</code> to the children of <code>Menu.Content</code>. <code>maxWidth</code> isn't exposed as a prop because it's reserved for Radix variables used in collision detection.</li></ul></>} code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost" className="font-semibold gap-1.5"><Tools /> Tools</Button>
+  </Menu.Trigger>
+  <Menu.Content minWidth="auto">
+    <Menu.Item onSelect={() => {}}><Functions height={18} width={18} /> Function</Menu.Item>
+    <Menu.Item onSelect={() => {}}><Search height={18} width={18} /> File Search</Menu.Item>
+    <Menu.Item onSelect={() => {}}><Globe height={18} width={18} /> Web Search</Menu.Item>
+    <Menu.Item onSelect={() => {}}><Code height={18} width={18} /> Code Interpreter</Menu.Item>
+    <Menu.Item onSelect={() => {}}><ImageSquare height={18} width={18} /> Image Generation</Menu.Item>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuNaturalSizingDemo />
+</ComponentPreview>
+
+### Submenus
+
+<ComponentPreview details={<>Use <code>Menu.Sub</code>, <code>Menu.SubTrigger</code>, and <code>Menu.SubContent</code> for nested menus.</>} code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost">Options <ChevronDownMd /></Button>
+  </Menu.Trigger>
+  <Menu.Content minWidth={180}>
+    <Menu.Item onSelect={() => {}}>Edit</Menu.Item>
+    <Menu.Item onSelect={() => {}}>Duplicate</Menu.Item>
+    <Menu.Separator />
+    <Menu.Sub>
+      <Menu.SubTrigger>More</Menu.SubTrigger>
+      <Menu.SubContent>
+        <Menu.Item onSelect={() => {}}>Move to project…</Menu.Item>
+        <Menu.Item onSelect={() => {}}>Move to folder…</Menu.Item>
+        <Menu.Separator />
+        <Menu.Item onSelect={() => {}}>Advanced options…</Menu.Item>
+      </Menu.SubContent>
+    </Menu.Sub>
+    <Menu.Separator />
+    <Menu.Item onSelect={() => {}}>Share</Menu.Item>
+    <Menu.Item onSelect={() => {}}>Add to favorites</Menu.Item>
+    <Menu.Separator />
+    <Menu.Item onSelect={() => {}}>Delete</Menu.Item>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuSubmenuDemo />
+</ComponentPreview>
+
+### Checkbox items
+
+<ComponentPreview details={<>Use <code>Menu.CheckboxItem</code> with <code>checked</code>, <code>onCheckedChange</code>, and <code>{"onSelect={(evt) => evt.preventDefault()}"}</code> to keep the menu open.</>} code={`const [settings, setSettings] = useState({
+  showGrid: true,
+  showLabels: false,
+  enableShadows: false,
+})
+
+return (
+  <Menu>
+    <Menu.Trigger>
+      <Button variant="ghost" color="primary">
+        Checkbox menu <ChevronDownMd />
+      </Button>
+    </Menu.Trigger>
+    <Menu.Content minWidth={200}>
+      <Menu.CheckboxItem
+        checked={settings.showGrid}
+        onCheckedChange={(checked) => setSettings((s) => ({ ...s, showGrid: checked }))}
+        onSelect={(evt) => evt.preventDefault()}
+        indicatorPosition="end"
+        indicatorVariant="solid"
+      >
+        Show grid lines
+      </Menu.CheckboxItem>
+      <Menu.CheckboxItem
+        checked={settings.showLabels}
+        onCheckedChange={(checked) => setSettings((s) => ({ ...s, showLabels: checked }))}
+        onSelect={(evt) => evt.preventDefault()}
+        indicatorPosition="end"
+        indicatorVariant="solid"
+      >
+        Display labels
+      </Menu.CheckboxItem>
+      <Menu.CheckboxItem
+        checked={settings.enableShadows}
+        onCheckedChange={(checked) => setSettings((s) => ({ ...s, enableShadows: checked }))}
+        onSelect={(evt) => evt.preventDefault()}
+        indicatorPosition="end"
+        indicatorVariant="solid"
+      >
+        Enable shadows
+      </Menu.CheckboxItem>
+    </Menu.Content>
+  </Menu>
+)`} previewMinHeight={168}>
+  <MenuWithCheckboxesDemoWithControls />
+</ComponentPreview>
+
+### Radio items
+
+<ComponentPreview details={<>Use <code>Menu.RadioGroup</code> and <code>Menu.RadioItem</code> for single-selection options.</>} code={`const [value, setValue] = useState("any")
+
+<Menu>
+  <Menu.Trigger>
+    <Button color="primary" variant="ghost">
+      Radio menu <ChevronDownMd />
+    </Button>
+  </Menu.Trigger>
+  <Menu.Content align="start" minWidth="auto" width="auto">
+    <Menu.RadioGroup
+      indicatorPosition="end"
+      value={value}
+      onChange={setValue}
+    >
+      <Menu.RadioItem value="any">Any time</Menu.RadioItem>
+      <Menu.RadioItem value="today" disabled>Today</Menu.RadioItem>
+      <Menu.RadioItem value="last7d">Last 7 days</Menu.RadioItem>
+      <Menu.RadioItem value="last30d">Last 30 days</Menu.RadioItem>
+      <Menu.RadioItem value="last3m">Last 3 months</Menu.RadioItem>
+    </Menu.RadioGroup>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuWithRadioItemsDemoWithControls />
+</ComponentPreview>
+
+### Item actions
+
+<ComponentPreview details={<>Use <code>Menu.ItemActions</code> and <code>Menu.ItemAction</code> for hover actions (e.g. delete) on an item.<br/><br/><strong>Accessibility note:</strong> these actions are not keyboard accessible due to how Radix Menu works, so they should not be critical actions with no other parity.</>} code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost" className="font-semibold gap-1.5"><History /> Conversations</Button>
+  </Menu.Trigger>
+  <Menu.Content width={270}>
+    <Menu.Item onSelect={() => {}}>
+      <span className="flex-1 truncate">Sample thread title</span>
+      <Menu.ItemActions>
+        <Menu.ItemAction onClick={() => {}}><Trash /></Menu.ItemAction>
+      </Menu.ItemActions>
+    </Menu.Item>
+    <Menu.Item onSelect={() => {}}>
+      <span className="flex-1 truncate">Another sample thread title</span>
+      <Menu.ItemActions>
+        <Menu.ItemAction onClick={() => {}}><Trash /></Menu.ItemAction>
+      </Menu.ItemActions>
+    </Menu.Item>
+    <Menu.Item onSelect={() => {}}>
+      <span className="flex-1 truncate">Long thread title that is going to be clipped off</span>
+      <Menu.ItemActions>
+        <Menu.ItemAction onClick={() => {}}><Trash /></Menu.ItemAction>
+      </Menu.ItemActions>
+    </Menu.Item>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuItemActionsDemo />
+</ComponentPreview>
+
+## Reference
+
+**Note:** Menu prevents `Tab` from advancing focus. For generic popover content use [Popover](/docs/components/popover) instead.
+
+**Menu** (root)
+
+<PropsTable data={[
+  { prop: "forceOpen", type: "boolean", description: "Keep menu open (controlled)" },
+  { prop: "onOpen", type: "() => void", description: "Called when menu opens" },
+  { prop: "onClose", type: "() => void", description: "Called when menu closes" },
+  { prop: "modal", type: "boolean", description: "Whether menu is modal (focus trap)" },
+]} />
+
+**Menu.Trigger** — The element that toggles the menu (e.g. a Button). No specific props.
+
+**Menu.Content**
+
+<PropsTable data={[
+  { prop: "width", type: "number | string", description: "Panel width (px or CSS value)" },
+  { prop: "minWidth", type: "number | string", default: "auto", description: "Minimum panel width" },
+  { prop: "side", type: '"top" | "right" | "bottom" | "left"', description: "Preferred placement" },
+  { prop: "align", type: '"start" | "center" | "end"', description: "Alignment relative to trigger" },
+]} />
+
+**Menu.Item** — List item. Use `onSelect` for actions; omit for non-interactive content.
+
+<PropsTable data={[
+  { prop: "onSelect", type: "(event: Event) => void", description: "Called when item is selected" },
+  { prop: "disabled", type: "boolean", description: "Disable the item" },
+]} />
+
+**Menu.Link** — Item that navigates (uses your app link component). Pass `href` and link props.
+
+**Menu.Separator** — Divider between items. No props.
+
+**Menu.Sub** / **Menu.SubTrigger** / **Menu.SubContent** — Submenu wrapper, trigger, and content panel.
+
+**Menu.CheckboxItem**
+
+<PropsTable data={[
+  { prop: "checked", type: "boolean", description: "Checked state" },
+  { prop: "onCheckedChange", type: "(checked: boolean) => void", description: "When checkbox toggles" },
+  { prop: "onSelect", type: "(event: Event) => void", description: "Use with preventDefault() to keep menu open" },
+  { prop: "indicatorPosition", type: '"start" | "end"', description: "Checkbox position" },
+  { prop: "indicatorVariant", type: "string", description: "Badge/indicator style (e.g. solid)" },
+]} />
+
+**Menu.RadioGroup** / **Menu.RadioItem** — Radio group: `value`, `onChange`; RadioItem: `value`, `disabled`.
+
+**Menu.ItemActions** / **Menu.ItemAction** — ItemActions wraps hover actions; ItemAction accepts `onClick`.

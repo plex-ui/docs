@@ -1,0 +1,35 @@
+{
+  "name": "plexui-docs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "lint:docs-code": "node scripts/check-doc-code-duplicates.mjs"
+  },
+  "dependencies": {
+    "@plexui/ui": "file:../storybook",
+    "luxon": "^3.7.1",
+    "@types/mdx": "^2.0.13",
+    "fumadocs-core": "^16.5.1",
+    "fumadocs-mdx": "^14.2.6",
+    "fumadocs-ui": "^16.5.1",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.6.2",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "postcss-functions": "^4.0.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

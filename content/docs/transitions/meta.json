@@ -1,0 +1,12 @@
+{
+  "title": "Transitions",
+  "root": true,
+  "pages": [
+    "index",
+    "animate",
+    "animate-layout",
+    "animate-layout-group",
+    "transition-group",
+    "slot-transition-group"
+  ]
+}

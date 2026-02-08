@@ -1,0 +1,52 @@
+.Wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  transform: translateY(-0.5px);
+}
+
+.SliderBox {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 0;
+}
+
+.SliderCompact {
+  width: 100%;
+  min-width: 0;
+}
+
+.Value {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+.SliderCompact > div:first-child {
+  display: none;
+}
+
+.SliderCompact > div:last-child {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+.SliderCompact > div:last-child > *:first-child {
+  margin: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.SliderCompact > div:last-child > *:last-child {
+  display: none;
+}

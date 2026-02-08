@@ -1,0 +1,422 @@
+---
+title: Sidebar
+description: Composable navigation sidebar for application layouts
+---
+
+import {
+  SidebarBaseDemo,
+  SidebarCollapsibleIconDemo,
+  SidebarNestedDemo,
+  SidebarScrollableDemo,
+  SidebarTextOnlyDemo,
+  SidebarSearchDemo,
+  SidebarSkeletonDemo,
+  SidebarBadgesDemo,
+  SidebarFooterCardsDemo,
+  SidebarHeaderSizesDemo,
+  SidebarMobileDemo,
+} from "@/components/docs/SidebarDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import {
+  SidebarProvider,
+  SidebarLayout,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarInset,
+  SidebarTrigger,
+} from "@plexui/ui/components/Sidebar";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<SidebarProvider>
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton isActive tooltip="Overview">
+                  <SidebarMenuButtonIcon><Home /></SidebarMenuButtonIcon>
+                  <SidebarMenuButtonLabel>Overview</SidebarMenuButtonLabel>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              ...
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter><SidebarTrigger /></SidebarFooter>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarStandard}>
+  <SidebarBaseDemo />
+</ComponentPreview>
+
+### Scrollable Content
+
+<ComponentPreview details={<>When the content is taller than the sidebar, it will scroll vertically.</>} code={`<SidebarProvider>
+  <SidebarLayout style={{ height: 400 }}>
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
+          <SidebarGroupContent><SidebarMenu>...</SidebarMenu></SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">System</SidebarGroupLabel>
+          <SidebarGroupContent><SidebarMenu>...</SidebarMenu></SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">Resources</SidebarGroupLabel>
+          <SidebarGroupContent><SidebarMenu>...</SidebarMenu></SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter><SidebarTrigger /></SidebarFooter>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.showcaseTall}>
+  <SidebarScrollableDemo />
+</ComponentPreview>
+
+### Text-Only Navigation
+
+<ComponentPreview details={<>A text-only sidebar without icons. Use <code>collapsible="none"</code> since there are no icons to collapse to.</>} code={`<SidebarProvider collapsible="none">
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar variant="docs" style={{ width: "180px" }}>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel size="lg">Settings</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton isActive>
+                  <SidebarMenuButtonLabel>Your profile</SidebarMenuButtonLabel>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              ...
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarStandard}>
+  <SidebarTextOnlyDemo />
+</ComponentPreview>
+
+### Collapse Modes
+
+<ComponentPreview details={<>The sidebar supports different collapse behaviors via the <code>collapsible</code> prop on <code>SidebarProvider</code>:<br/><ul><li><strong>offcanvas</strong> (default) &ndash; On mobile, works as a drawer. On desktop, collapses completely.</li><li><strong>icon</strong> &ndash; Collapses to an icon-only rail.</li><li><strong>none</strong> &ndash; Static sidebar that cannot be collapsed.</li></ul>When using <code>icon</code> mode, add the <code>tooltip</code> prop to <code>SidebarMenuButton</code> to show labels on hover. Tooltips appear only in collapsed state and are hidden on mobile.<br/><br/>You can control the open state externally with <code>open</code> and <code>onOpenChange</code> (controlled mode). Use the control below to toggle the sidebar.</>} code={`<SidebarProvider collapsible="icon">
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton isActive tooltip="Overview">
+                  <SidebarMenuButtonIcon><Home /></SidebarMenuButtonIcon>
+                  <SidebarMenuButtonLabel>Overview</SidebarMenuButtonLabel>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              ...
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter><SidebarTrigger /></SidebarFooter>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarTall}>
+  <SidebarCollapsibleIconDemo />
+</ComponentPreview>
+
+### Nested Navigation
+
+<ComponentPreview details={<>Build collapsible nested menus with chevron toggles for documentation and API reference sidebars.</>} code={`<SidebarProvider collapsible="none">
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar variant="docs" style={{ width: "260px" }}>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenuItem expanded={isExpanded}>
+            <SidebarMenuButton onClick={() => toggle(id)}>
+              <SidebarMenuButtonLabel>Getting Started</SidebarMenuButtonLabel>
+              <ChevronRightSm className="ml-auto transition-transform" />
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuSub>
+            <SidebarMenuSubItem>
+              <SidebarMenuSubButton isActive>Introduction</SidebarMenuSubButton>
+            </SidebarMenuSubItem>
+            ...
+          </SidebarMenuSub>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarTall}>
+  <SidebarNestedDemo />
+</ComponentPreview>
+
+### Mobile Menu
+
+<ComponentPreview details={<>Mobile behavior is handled automatically when using <code>SidebarProvider</code>. The <code>SidebarMobileMenuButton</code> provides a standard animated hamburger trigger.</>} code={`// Desktop: standard sidebar with icon collapse
+<SidebarProvider collapsible="icon">
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar>...</Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>
+
+// Mobile: phone-sized container with hamburger menu
+<SidebarProvider collapsible="offcanvas">
+  <header>
+    <SidebarMobileMenuButton />
+  </header>
+  {openMobile ? <SidebarContent>...</SidebarContent> : <div>Page content</div>}
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarExtraTall}>
+  <SidebarMobileDemo />
+</ComponentPreview>
+
+
+### Search
+
+<ComponentPreview details={<>The sidebar provides a dedicated <code>SidebarInput</code> component for search functionality.</>} code={`<SidebarProvider collapsible="none">
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar variant="docs" style={{ width: "220px" }}>
+      <SidebarHeader>
+        <SidebarInput
+          placeholder="Search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onClear={() => setSearchValue("")}
+        />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Get started</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuSubButton indent={0} isActive>Overview</SidebarMenuSubButton>
+              </SidebarMenuItem>
+              ...
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarStandard}>
+  <SidebarSearchDemo />
+</ComponentPreview>
+
+### Skeleton
+
+<ComponentPreview details={<>Loading skeleton states while navigation data is loading.</>} code={`<SidebarProvider>
+  <SidebarLayout style={{ height: 300 }}>
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem><SidebarMenuSkeleton labelWidth="70%" /></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuSkeleton labelWidth="55%" /></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuSkeleton labelWidth="80%" /></SidebarMenuItem>
+              <SidebarMenuItem><SidebarMenuSkeleton labelWidth="45%" /></SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlWithPanel}>
+  <SidebarSkeletonDemo />
+</ComponentPreview>
+
+### Group Label Sizes
+
+<ComponentPreview details={<><code>SidebarGroupLabel</code> supports two size variants:<br/><ul><li><strong>sm</strong> &ndash; Compact, tertiary color. For dashboard navigation, settings panels, sidebars with fewer items.</li><li><strong>lg</strong> (default) &ndash; Larger, primary color, more spacing. For documentation, API reference, content-heavy sections.</li></ul></>} code={`<SidebarProvider collapsible="none">
+  <SidebarLayout style={{ height: 350 }}>
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>...</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarCompact}>
+  <SidebarHeaderSizesDemo />
+</ComponentPreview>
+
+### Badges
+
+<ComponentPreview details={<>Use <code>SidebarMenuBadge</code> with the <code>Badge</code> component to display status indicators, counts, or labels alongside menu items.</>} code={`<SidebarProvider collapsible="none">
+  <SidebarLayout style={{ height: 400 }}>
+    <Sidebar>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton isActive>
+                  <SidebarMenuButtonIcon><Home /></SidebarMenuButtonIcon>
+                  <SidebarMenuButtonLabel>Overview</SidebarMenuButtonLabel>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <SidebarMenuButtonIcon><Code /></SidebarMenuButtonIcon>
+                  <SidebarMenuButtonLabel>API Reference</SidebarMenuButtonLabel>
+                  <SidebarMenuBadge>
+                    <Badge size="sm" color="info">New</Badge>
+                  </SidebarMenuBadge>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              ...
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarCompact}>
+  <SidebarBadgesDemo />
+</ComponentPreview>
+
+### Footer Cards
+
+<ComponentPreview details={<>Use <code>SidebarCard</code> to display promotional content, upgrade CTAs, or announcements in the sidebar footer.</>} code={`<SidebarProvider collapsible="icon">
+  <SidebarLayout style={{ height: 500 }}>
+    <Sidebar>
+      <SidebarContent>...</SidebarContent>
+      <SidebarFooter>
+        <SidebarCard dismissible onDismiss={() => {}}>
+          <SidebarCardTitleLink href="#">Upgrade to Pro</SidebarCardTitleLink>
+          <SidebarCardContent>
+            Unlock higher rate limits, priority support, and advanced features.
+          </SidebarCardContent>
+          <SidebarCardFooter>
+            <Button size="sm" pill color="primary">View Plans</Button>
+          </SidebarCardFooter>
+        </SidebarCard>
+        <SidebarTrigger />
+      </SidebarFooter>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarStandard}>
+  <SidebarFooterCardsDemo />
+</ComponentPreview>
+
+## Reference
+
+### Structure
+
+A Sidebar is composed of the following parts:
+
+- `SidebarProvider` &ndash; Handles collapsible state and provides context to all child components.
+- `SidebarLayout` &ndash; Wrapper for sidebar and main content.
+- `Sidebar` &ndash; The sidebar container.
+- `SidebarHeader` / `SidebarFooter` &ndash; Sticky at the top and bottom of the sidebar.
+- `SidebarContent` &ndash; Scrollable content area.
+- `SidebarGroup` &ndash; Section within the content, with optional label.
+- `SidebarMenu` / `SidebarMenuItem` / `SidebarMenuButton` &ndash; Navigation menu items.
+- `SidebarMenuSub` / `SidebarMenuSubButton` &ndash; Nested submenu items.
+- `SidebarInset` &ndash; Main content area next to the sidebar.
+- `SidebarTrigger` &ndash; Toggle button for collapsing the sidebar.
+
+Use `Cmd+B` (Mac) or `Ctrl+B` (Windows/Linux) to toggle the sidebar with keyboard.
+
+### SidebarProvider
+
+Handles sidebar state and provides context to all child components. Wrap your application layout in this provider.
+
+<PropsTable data={[
+  { prop: "collapsible", type: '"offcanvas" | "icon" | "none"', default: '"offcanvas"', description: "Collapse behavior: offcanvas (drawer on mobile, full collapse on desktop), icon (icon rail), or none" },
+  { prop: "defaultOpen", type: "boolean", default: "true", description: "Initial open state (uncontrolled)" },
+  { prop: "open", type: "boolean", description: "Controlled open state" },
+  { prop: "onOpenChange", type: "(open: boolean) => void", description: "Called when open state changes" },
+]} />
+
+### Sidebar
+
+The main sidebar container. Renders as an `<aside>` element.
+
+<PropsTable data={[
+  { prop: "variant", type: '"sidebar" | "docs"', default: '"sidebar"', description: "Visual variant" },
+  { prop: "side", type: '"left" | "right"', default: '"left"', description: "Which side the sidebar is on" },
+]} />
+
+### SidebarMenuButton
+
+Renders a menu item button. Use `isActive` to highlight the current page.
+
+<PropsTable data={[
+  { prop: "isActive", type: "boolean", default: "false", description: "Highlight the current page" },
+  { prop: "tooltip", type: "string | ReactNode", description: "Label shown on hover when collapsed (icon mode). Hidden on mobile." },
+]} />
+
+### SidebarGroupLabel
+
+Renders a section label within a `SidebarGroup`. Supports two size variants.
+
+<PropsTable data={[
+  { prop: "size", type: '"sm" | "lg"', default: '"lg"', description: "sm — compact, tertiary; lg — larger, primary, more spacing" },
+]} />
+
+### SidebarMenuSub
+
+Renders a collapsible submenu container for nested navigation.
+
+<PropsTable data={[
+  { prop: "open", type: "boolean", default: "true", description: "Whether submenu is expanded" },
+  { prop: "hasIcons", type: "boolean", default: "false", description: "Align child items with parent text that has icons" },
+]} />
+
+### SidebarCard
+
+Renders a promotional card in the sidebar footer for CTAs, upgrades, or announcements.
+
+<PropsTable data={[
+  { prop: "dismissible", type: "boolean", description: "Shows dismiss button" },
+  { prop: "onDismiss", type: "() => void", description: "Callback when dismissed" },
+]} />
+
+### useSidebar
+
+Hook to access sidebar state and controls from any component within `SidebarProvider`.
+
+- `state` &ndash; Current state: `"expanded"` or `"collapsed"`
+- `open` / `setOpen` &ndash; Desktop sidebar open state
+- `openMobile` / `setOpenMobile` &ndash; Mobile menu open state
+- `isMobile` &ndash; Whether the viewport is mobile
+- `collapsible` &ndash; Current collapsible mode
+- `toggleSidebar` &ndash; Toggle function for both desktop and mobile

@@ -1,0 +1,215 @@
+.Wrapper {
+  margin: 16px 0 30px;
+}
+
+/* ── Tab bar (outside the bordered block) ── */
+
+.TabBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+/* Stacking context so preview content (e.g. Sidebar drawer) does not overlap mobile TOC (z-10) */
+.PreviewBlock {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-lg);
+  overflow: clip;
+}
+
+
+/* ── Preview ── */
+
+.PreviewContainer {
+  min-height: 120px;
+  padding: 0 !important;
+  background: var(--color-fd-background);
+  display: flex;
+  flex-direction: column;
+  color-scheme: inherit;
+}
+
+.PreviewContent {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 72px;
+  width: 100%;
+  flex: 1;
+  position: relative;
+}
+
+/* When resizable: constrain width, center, show dashed guides */
+.PreviewContent[data-resizable] {
+  margin: 0 auto;
+  border-left: 1px dashed var(--color-fd-border);
+  border-right: 1px dashed var(--color-fd-border);
+}
+
+.PreviewInner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.PreviewInner>[data-demo-controls] {
+  margin: 0 !important;
+  width: 100% !important;
+  order: 0;
+  align-self: stretch;
+  background: var(--docs-surface-elevated);
+}
+
+.PreviewInner>[data-demo-controls]>*:first-child {
+  border-top: none !important;
+}
+
+.PreviewInner>[data-demo-controls]> :last-child {
+  border-bottom: 1px solid var(--color-fd-border);
+}
+
+.PreviewInner [data-demo-stage] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  width: 100%;
+  order: 1;
+}
+
+.PreviewInner [data-demo-stage] > * {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Fallback for raw components (e.g. Loading button) */
+.PreviewInner:not(:has([data-demo-controls])):not(:has([data-demo-stage])) {
+  padding: 48px 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.PreviewInner:has([data-demo-controls]) > :not([data-demo-controls]):not([data-demo-stage]) {
+  order: 1;
+  align-self: center;
+  margin-inline: auto;
+  max-width: 100%;
+}
+
+/* Ensure controls in rows are perfectly centered */
+.PreviewInner [data-demo-controls]>div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+}
+
+.PreviewInner [data-demo-controls]>div> :last-child {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+/* ── Resize handle ── */
+
+.ResizeHandle {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 12px;
+  height: 100%;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  touch-action: none;
+}
+
+.ResizeHandleGrip {
+  width: 4px;
+  height: 32px;
+  border-radius: 2px;
+  background: var(--color-fd-border);
+  transition: background 0.15s;
+}
+
+.ResizeHandle:hover .ResizeHandleGrip,
+.ResizeHandle:active .ResizeHandleGrip {
+  background: var(--color-fd-primary);
+}
+
+/* ── Code view ── */
+/* No gray: match page background */
+.CodeBlockWrap {
+  background: var(--color-fd-background);
+}
+
+html.dark .CodeBlockWrap,
+[data-theme='dark'] .CodeBlockWrap {
+  --color-fd-card: var(--color-fd-background);
+  --color-fd-secondary: var(--color-fd-background);
+}
+
+/* No inner frame: figure is flush, single border is the PreviewBlock */
+.CodeBlockWrap figure,
+.CodeBlockWrap [data-codeblock] {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.CodeBlockWrap pre,
+.CodeBlockWrap [data-rehype-pretty-code-figure] {
+  margin: 0;
+  border-radius: 0;
+  background: var(--color-fd-background) !important;
+}
+
+html.dark .CodeBlockWrap pre,
+html.dark .CodeBlockWrap [data-rehype-pretty-code-figure],
+[data-theme='dark'] .CodeBlockWrap pre,
+[data-theme='dark'] .CodeBlockWrap [data-rehype-pretty-code-figure] {
+  background: var(--color-fd-background) !important;
+}
+
+/* ── Details view ── */
+
+.DetailsWrap {
+  background: var(--color-fd-background);
+}
+
+.DetailsContent {
+  padding: 24px 28px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-fd-muted-foreground);
+}
+
+.DetailsContent p {
+  margin: 0 0 0.75rem;
+}
+
+.DetailsContent p:last-child {
+  margin-bottom: 0;
+}
+
+.DetailsContent code {
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: var(--docs-surface-elevated);
+  color: var(--color-fd-foreground);
+}

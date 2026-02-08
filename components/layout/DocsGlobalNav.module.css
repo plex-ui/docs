@@ -1,0 +1,257 @@
+.Header {
+  grid-area: header;
+  position: sticky;
+  top: var(--fd-docs-row-1, 0);
+  z-index: 12000;
+  height: var(--fd-header-height, 56px);
+  min-height: var(--fd-header-height, 56px);
+  border-bottom: 1px solid var(--color-fd-border);
+  background: var(--color-fd-background);
+}
+
+.Inner {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 380px) minmax(0, 1fr);
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px;
+}
+
+.Left,
+.Center,
+.Right {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.Left {
+  gap: 14px;
+}
+
+.Center {
+  justify-content: center;
+}
+
+.Right {
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.Brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-fd-foreground);
+  text-decoration: none;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.Brand:hover {
+  opacity: 0.9;
+}
+
+.BrandIcon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+[data-theme='dark'] .BrandIcon,
+html.dark .BrandIcon {
+  filter: invert(1);
+}
+
+.BrandText {
+  display: inline-flex;
+  align-items: center;
+}
+
+.NavLinks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.NavLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  text-decoration: none;
+  color: var(--color-fd-muted-foreground);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  padding: 0 12px;
+  border-radius: 8px !important;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.NavLink:hover {
+  background: var(--color-background-secondary-soft-hover, var(--color-fd-accent));
+  color: var(--color-text, var(--color-fd-foreground));
+}
+
+.NavLinkActive {
+  background: var(--color-background-primary-soft, var(--color-fd-accent));
+  color: var(--color-text-primary-soft, var(--color-fd-foreground));
+}
+
+.SearchButton {
+  height: 34px;
+  width: min(100%, 320px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  border-radius: 8px !important;
+  border: 1px solid var(--color-fd-border);
+  background: var(--color-fd-background);
+  color: var(--color-fd-muted-foreground);
+  padding: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.SearchButton:hover {
+  background: var(--color-background-secondary-soft-hover, var(--color-fd-accent));
+  color: var(--color-text, var(--color-fd-foreground));
+}
+
+.SearchLabel {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Kbd {
+  margin-left: auto;
+  font-size: 11px;
+  line-height: 1;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 8px !important;
+  padding: 3px 5px;
+  color: var(--color-fd-muted-foreground);
+  background: var(--color-fd-secondary);
+}
+
+.IconButton,
+.MenuButton {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px !important;
+  border: 1px solid var(--color-fd-border);
+  background: var(--color-fd-background);
+  color: var(--color-fd-muted-foreground);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.IconButton:hover,
+.MenuButton:hover {
+  background: var(--color-background-secondary-soft-hover, var(--color-fd-accent));
+  color: var(--color-text, var(--color-fd-foreground));
+}
+
+.IconButton:focus-visible,
+.MenuButton:focus-visible,
+.SearchButton:focus-visible,
+.FigmaButton:focus-visible {
+  outline: 2px solid var(--color-fd-primary);
+  outline-offset: 2px;
+}
+
+.MenuButton {
+  display: none;
+}
+
+.MobileSearch {
+  display: none;
+}
+
+.Icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+.FigmaButton,
+.FigmaButton::before {
+  border-radius: 8px !important;
+}
+
+.FigmaButton {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+@media (max-width: 1180px) {
+  .Inner {
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 280px) auto;
+  }
+
+  .SearchButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .Header {
+    height: 52px;
+  }
+
+  .Inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px;
+  }
+
+  .Center {
+    display: none;
+  }
+
+  .MobileSearch {
+    display: inline-flex;
+  }
+
+  .MenuButton {
+    display: inline-flex;
+  }
+
+  .NavLinks {
+    display: none;
+  }
+
+  .SearchButton,
+  .IconButton {
+    width: 30px;
+    height: 30px;
+  }
+
+  .SearchLabel,
+  .Kbd {
+    display: none;
+  }
+}

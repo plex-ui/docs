@@ -1,0 +1,73 @@
+---
+title: Icons
+description: Comprehensive list of all available icons
+---
+
+Plex UI ships with a large set of SVG icon components. Each icon is a React component that renders an inline SVG with `fill="currentColor"` and `width="1em" height="1em"`, so it inherits text color and scales with font size by default.
+
+### Usage
+
+Import the icon by its PascalCase name from the Icon module:
+
+```jsx
+import { ArrowRight, Search, Mail } from "@plexui/ui/components/Icon"
+
+// Use as a component
+<Button>
+  Submit <ArrowRight />
+</Button>
+```
+
+### Sizing
+
+Icons use `1em` dimensions, so they scale with the font size of their parent. To control size explicitly, pass a `className` with width/height utilities (Tailwind or your design tokens):
+
+```jsx
+<Search className="size-4" />           {/* 16px */}
+<Search className="w-5 h-5" />         {/* 20px */}
+<Search className="text-2xl" />        {/* scales with text-2xl */}
+```
+
+Inside Plex UI components like `<Button>` or `<Input>`, use the component's `iconSize` prop when available instead of sizing the icon directly — the component will apply the correct dimensions and alignment.
+
+### Colors
+
+Icons inherit color from the parent via `currentColor`. Use text or fill utilities to style them:
+
+```jsx
+<Mail className="text-primary" />
+<Search className="fill-tertiary" />   {/* for icon-only contexts */}
+<ArrowRight className="text-danger" />
+```
+
+Use semantic tokens (`text-primary`, `fill-tertiary`, `text-danger`, etc.) so icons respect light/dark theme and design system consistency.
+
+### Accessibility
+
+- **Decorative icons** — When an icon is purely visual and adjacent text conveys the same meaning (e.g. "Submit" with an arrow icon), mark it as decorative so screen readers ignore it:
+
+  ```jsx
+  <Button>Submit <ArrowRight aria-hidden /></Button>
+  ```
+
+- **Meaningful icons** — When the icon conveys information on its own (e.g. icon-only button), give it an accessible name:
+
+  ```jsx
+  <button type="button" aria-label="Search">
+    <Search />
+  </button>
+  ```
+
+  Or use `role="img"` and `aria-label` on the icon when it is the only content:
+
+  ```jsx
+  <Search role="img" aria-label="Search" />
+  ```
+
+Plex UI components that accept icons (e.g. `<Button>`, `<EmptyMessage.Icon>`) handle alignment and spacing; pair them with appropriate `aria-label` or `aria-hidden` at the call site.
+
+### Icon gallery
+
+Use the search below to find an icon by name. Click or copy the component name to use it in your code.
+
+<IconGallery />

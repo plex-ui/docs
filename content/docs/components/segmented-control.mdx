@@ -1,0 +1,160 @@
+---
+title: Segmented Control
+description: Toggle through grouped options
+---
+
+import {
+  SegmentedControlBaseDemo,
+  SegmentedControlSizingDemo,
+  SegmentedControlBlockDemo,
+  SegmentedControlDisabledDemo,
+  SegmentedControlDisabledOptionDemo,
+  SegmentedControlScrollableDemo,
+  SegmentedControlNarrowPillDemo,
+  SegmentedControlIconOnlyDemo,
+  SegmentedControlIconAndTextDemo,
+  SegmentedControlWithBadgeDemo,
+  SegmentedControlIconTextBadgeDemo,
+  SegmentedControlBadgeVariantsDemo,
+} from "@/components/docs/SegmentedControlDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { SegmentedControl } from "@plexui/ui/components/SegmentedControl";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`const [view, setView] = useState("all")
+<SegmentedControl value={view} onChange={setView} aria-label="Select view">
+  <SegmentedControl.Option value="all">All</SegmentedControl.Option>
+  <SegmentedControl.Option value="failed">Failed</SegmentedControl.Option>
+  <SegmentedControl.Option value="successful">Successful</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlBaseDemo />
+</ComponentPreview>
+
+### Sizing & roundness
+
+<ComponentPreview details={<>Sizing of the control is controlled with <code>size</code> and <code>gutterSize</code> props. <code>size</code> sets the control to a specific <code>height</code>, and <code>gutterSize</code> sets the horizontal padding of the inner options.<br/><br/>Each <code>size</code> provides default values for <code>gutterSize</code>, as well as <code>font-size</code> and <code>border-radius</code>. Each of these values can be overridden independently.<br/><br/>Create a fully rounded control with the <code>pill</code> prop. When <code>pill</code> is set, extra horizontal gutter is dynamically applied to the inner options.</>} code={`<SegmentedControl size="xl" pill={false} value={view} onChange={setView} aria-label="Select view">
+  <SegmentedControl.Option value="all">All</SegmentedControl.Option>
+  <SegmentedControl.Option value="failed">Failed</SegmentedControl.Option>
+  <SegmentedControl.Option value="successful">Successful</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlSizingDemo />
+</ComponentPreview>
+
+### Block
+
+<ComponentPreview details={<>Create full-width controls with the <code>block</code> prop.</>} code={`<div className="w-[420px] text-center p-2 border border-dashed border-alpha/20 rounded-md">
+  <SegmentedControl block value={view} onChange={setView} aria-label="Select view">
+    <SegmentedControl.Option value="all">All</SegmentedControl.Option>
+    <SegmentedControl.Option value="failed">Failed</SegmentedControl.Option>
+    <SegmentedControl.Option value="successful">Successful</SegmentedControl.Option>
+  </SegmentedControl>
+</div>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlBlockDemo />
+</ComponentPreview>
+
+### Disabled group
+
+<ComponentPreview details={<>Use <code>disabled</code> on the <code>SegmentedControl</code> root to disable all options.</>} code={`<SegmentedControl disabled value="all" onChange={setView} aria-label="Select view">
+  <SegmentedControl.Option value="all">All</SegmentedControl.Option>
+  <SegmentedControl.Option value="failed">Failed</SegmentedControl.Option>
+  <SegmentedControl.Option value="successful">Successful</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlDisabledDemo />
+</ComponentPreview>
+
+### Disabled option
+
+<ComponentPreview details={<>Use <code>disabled</code> on a given <code>SegmentedControl.Option</code> to disable only that option.</>} code={`<SegmentedControl value={view} onChange={setView} aria-label="Select view">
+  <SegmentedControl.Option value="all">All</SegmentedControl.Option>
+  <SegmentedControl.Option value="failed">Failed</SegmentedControl.Option>
+  <SegmentedControl.Option value="successful" disabled>Successful</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlDisabledOptionDemo />
+</ComponentPreview>
+
+### Scrollable
+
+<ComponentPreview details={<><code>SegmentedControl</code> can support scrolling, but is not enabled by default.<br/><br/>To create a scrollable segmented control, wrap the component in a simple <code>flex</code> wrapper, which will then cause the control to create inner scrolling when applicable. When scrollable, the selected option will automatically be scrolled into view.</>} code={`<div className="max-w-[400px]"><div className="flex">...</div></div>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlScrollableDemo />
+</ComponentPreview>
+
+### Narrow pill
+
+<ComponentPreview details={<>When using the <code>pill</code> prop with narrow content (such as a single digit or an icon), especially when using large component sizes and small <code>gutterSize</code> values, the option width will automatically be at least equal to the control height.</>} code={`<SegmentedControl pill size="3xl" gutterSize="2xs">...</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <SegmentedControlNarrowPillDemo />
+</ComponentPreview>
+
+### Icon only
+
+<ComponentPreview details={<>Use the <code>icon</code> prop to display icons in options. When using icon-only options, always provide an <code>aria-label</code> for accessibility.</>} code={`<SegmentedControl>
+  <SegmentedControl.Option value="grid" icon={<Grid />} aria-label="Grid view" />
+  <SegmentedControl.Option value="list" icon={<Menu />} aria-label="List view" />
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlIconOnlyDemo />
+</ComponentPreview>
+
+### Icon and text
+
+<ComponentPreview details={<>Combine <code>icon</code> with text content for richer options. The icon automatically sizes based on the control size.</>} code={`<SegmentedControl>
+  <SegmentedControl.Option value="home" icon={<Home />}>Home</SegmentedControl.Option>
+  <SegmentedControl.Option value="settings" icon={<SettingsCog />}>Settings</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlIconAndTextDemo />
+</ComponentPreview>
+
+### With badge
+
+<ComponentPreview details={<>Use the <code>badge</code> prop to display counts or status indicators. Pass a simple value for default styling, or an object for custom color and variant.</>} code={`<SegmentedControl>
+  <SegmentedControl.Option value="all" badge={128}>All</SegmentedControl.Option>
+  <SegmentedControl.Option value="unread" badge={{ content: 12, color: "info" }}>Unread</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlWithBadgeDemo />
+</ComponentPreview>
+
+### Icon, text, and badge
+
+<ComponentPreview details={<>All three content types can be combined in a single option.</>} code={`<SegmentedControl>
+  <SegmentedControl.Option value="inbox" icon={<Home />} badge={24}>Inbox</SegmentedControl.Option>
+  <SegmentedControl.Option value="notifications" icon={<Bell />} badge={{ content: 5, color: "danger" }}>Alerts</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <SegmentedControlIconTextBadgeDemo />
+</ComponentPreview>
+
+### Badge variants
+
+<ComponentPreview details={<>Badges support semantic colors (<code>secondary</code>, <code>success</code>, <code>danger</code>, <code>warning</code>, <code>info</code>, <code>discovery</code>, <code>caution</code>) and two style variants (<code>soft</code>, <code>solid</code>).</>} code={`<SegmentedControl>
+  <SegmentedControl.Option value="alerts" badge={{ content: 3, color: "danger", variant: "solid" }}>Alerts</SegmentedControl.Option>
+</SegmentedControl>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlWithPanel}>
+  <SegmentedControlBadgeVariantsDemo />
+</ComponentPreview>
+
+SegmentedControl shares the unified 9-step size scale with Button, Input, Select, and SelectControl.
+
+## Reference
+
+**SegmentedControl** (root)
+
+<PropsTable data={[
+  { prop: "value", type: "string", description: "Selected option value (controlled)" },
+  { prop: "onChange", type: "(value: string) => void", description: "Called when selection changes" },
+  { prop: "size", type: "string", description: "Control height (e.g. sm, md, lg, xl, 2xl, 3xl)" },
+  { prop: "gutterSize", type: "string", description: "Horizontal padding of options" },
+  { prop: "pill", type: "boolean", description: "Fully rounded control" },
+  { prop: "block", type: "boolean", description: "Full-width control" },
+  { prop: "disabled", type: "boolean", description: "Disable all options" },
+  { prop: "aria-label", type: "string", description: "Accessible name for the control (required when no visible label)" },
+]} />
+
+**SegmentedControl.Option**
+
+<PropsTable data={[
+  { prop: "value", type: "string", description: "Option value" },
+  { prop: "disabled", type: "boolean", description: "Disable this option" },
+  { prop: "icon", type: "ReactNode", description: "Icon element (sized automatically)" },
+  { prop: "badge", type: "number | { content: ReactNode; color?: string; variant?: string }", description: "Badge/count or custom badge config" },
+  { prop: "aria-label", type: "string", description: "Accessible name (required for icon-only options)" },
+]} />

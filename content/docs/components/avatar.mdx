@@ -1,0 +1,111 @@
+---
+title: Avatar
+description: Display user identities with either text, photo, or an icon
+---
+
+import { Avatar } from "@plexui/ui/components/Avatar"
+import {
+  AvatarColorsDemo,
+  AvatarHeroStorybookDemo,
+  AvatarIconDemo,
+  AvatarInteractiveDemo,
+  AvatarRoundnessDemo,
+  AvatarSizingDemo,
+} from "@/components/docs/AvatarIconDemo"
+
+<UsageBlock>{`import { Avatar } from "@plexui/ui/components/Avatar";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview details={<>A variety of avatar types: text, image, icon, and overflow.</>} code={`<div className="flex gap-4">
+  <Avatar name="Tyler" imageUrl="https://gravatar.com/avatar/9531b260b9693f3394bea8646c6ea141ce58fe5a138b7db7729d60a4c5dde552" size={48} />
+  <Avatar name="Will" size={48} />
+  <Avatar name="Tech support" Icon={Robot} size={48} color="primary" variant="solid" />
+</div>`} previewMinHeight={168}>
+  <div className="flex gap-4">
+    <AvatarHeroStorybookDemo />
+  </div>
+</ComponentPreview>
+
+### Text
+
+<ComponentPreview details={<>For text-based avatars, a single initial is displayed based on the <code>name</code> prop passed to the component.</>} code={`<Avatar name="David" size={48} />`} previewMinHeight={168}>
+  <Avatar name="David" size={48} />
+</ComponentPreview>
+
+### Image
+
+<ComponentPreview details={<>To display an image avatar, provide an absolute URL to the image with <code>imageUrl</code>. Images will have a soft fade entrance once loaded, or fallback to a text display if the image fail to load.</>} code={`<Avatar
+  name="Tyler"
+  imageUrl="https://gravatar.com/avatar/9531b260b9693f3394bea8646c6ea141ce58fe5a138b7db7729d60a4c5dde552"
+  size={48}
+/>`} previewMinHeight={168}>
+  <Avatar
+    name="Tyler"
+    imageUrl="https://gravatar.com/avatar/9531b260b9693f3394bea8646c6ea141ce58fe5a138b7db7729d60a4c5dde552"
+    size={48}
+  />
+</ComponentPreview>
+
+### Icon
+
+<ComponentPreview details={<>To display an icon avatar, provide an icon to render to the <code>Icon</code> prop. The <code>name</code> prop is not used in this case, and can be omitted.</>} code={`<Avatar
+  Icon={Robot}
+  size={48}
+/>`} previewMinHeight={168}>
+  <AvatarIconDemo />
+</ComponentPreview>
+
+### Overflow count
+
+<ComponentPreview details={<>To display an overflow avatar, provide a number to the <code>overflowCount</code> prop. The number will be automatically formatted and scaled to fit.</>} code={`<Avatar overflowCount={9} size={48} />`} previewMinHeight={168}>
+  <Avatar overflowCount={9} size={48} />
+</ComponentPreview>
+
+### Sizing
+
+<ComponentPreview details={<>To size the avatar, pass a <code>number</code> to the <code>size</code> property, which will set the width and height in pixels. Text and icon avatars will scale their sizes dynamically based on this value.</>} code={`<Avatar name="David" size={48} />`} previewMinHeight={228}>
+  <AvatarSizingDemo />
+</ComponentPreview>
+
+### Colors & variants
+
+<ComponentPreview details={<>You can stylize the display of the avatar using the <code>color</code> and <code>variant</code> props.</>} code={`<div className="flex gap-4 flex-wrap">
+  <Avatar name="A" color="primary" variant="soft" size={40} />
+  <Avatar name="B" color="primary" variant="solid" size={40} />
+  <Avatar name="C" color="success" variant="soft" size={40} />
+  <Avatar name="D" color="danger" variant="solid" size={40} />
+</div>`} previewMinHeight={168}>
+  <AvatarColorsDemo />
+</ComponentPreview>
+
+### Roundness
+
+<ComponentPreview details={<>By default, avatars are fully rounded. You can override this by passing a Tailwind rounding class to <code>className</code>.</>} code={`<Avatar name="Acme, co." color="primary" variant="solid" size={48} className="rounded-lg" />`} previewMinHeight={208}>
+  <AvatarRoundnessDemo />
+</ComponentPreview>
+
+### Interactive
+
+<ComponentPreview details={<>Avatars can be used as interactive elements by passing an <code>onClick</code> handler. The avatar will automatically apply semantic and visual interaction styles.</>} code={`<Avatar
+  name="Will"
+  size={48}
+  onClick={saySup}
+/>`} previewMinHeight={168}>
+  <AvatarInteractiveDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "name", type: "string", description: "Display name; used for text initial when no image/icon" },
+  { prop: "imageUrl", type: "string", description: "Absolute URL for image avatar" },
+  { prop: "Icon", type: "React.ComponentType", description: "Icon component for icon avatar" },
+  { prop: "size", type: "number", description: "Width and height in pixels" },
+  { prop: "color", type: "string", description: "Semantic color for text/icon avatar" },
+  { prop: "variant", type: '"soft" | "solid"', description: "Style variant" },
+  { prop: "overflowCount", type: "number", description: "Show overflow count (e.g. +9)" },
+  { prop: "onClick", type: "function", description: "Makes avatar interactive" },
+]} />

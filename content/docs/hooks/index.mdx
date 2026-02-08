@@ -1,0 +1,162 @@
+---
+title: Hooks
+description: React hooks for UI behavior, state sync, and interaction patterns
+---
+
+All hooks are documented on this page so the section stays compact and scannable.
+
+## useAnimatedScrollTo
+
+Animates a scroll container toward a target `scrollTop` with interrupt handling and reduced-motion support.
+
+```tsx
+import { useAnimatedScrollTo } from "@plexui/ui/hooks/useAnimatedScrollTo";
+
+const scrollTo = useAnimatedScrollTo(containerRef);
+scrollTo(640);
+```
+
+## useAutoGrowTextarea
+
+Keeps textarea height synced to content and reacts to width changes that affect wrapping.
+
+```tsx
+import { useAutoGrowTextarea } from "@plexui/ui/hooks/useAutoGrowTextarea";
+
+const ref = useRef<HTMLTextAreaElement>(null);
+useAutoGrowTextarea(ref, value);
+```
+
+The module also exports `getAutoGrowTextareaHeight(element)` for imperative measurement and `unsafeForceCalculateAutoGrowHeight(element)` for forcing a recalculation outside the hook lifecycle.
+
+## useBreakpoint
+
+Reads Plex UI breakpoints from CSS variables and returns whether the viewport is at or above the requested breakpoint.
+
+```tsx
+import { useBreakpoint } from "@plexui/ui/hooks/useBreakpoints";
+
+const isDesktop = useBreakpoint("lg");
+```
+
+## useCharactersPerSecond
+
+Tracks streaming text speed and returns a getter for smoothed characters-per-second.
+
+```tsx
+import { useCharactersPerSecond } from "@plexui/ui/hooks/useCharactersPerSecond";
+
+const getCps = useCharactersPerSecond(text, streaming);
+const cps = getCps();
+```
+
+## useDocumentVisible
+
+Returns document visibility state (`true` when tab/page is visible).
+
+```tsx
+import { useDocumentVisible } from "@plexui/ui/hooks/useDocumentVisible";
+
+const isVisible = useDocumentVisible();
+```
+
+## useEscCloseStack
+
+Registers escape handlers in stack order so the most recent listener handles `Escape` first.
+
+```tsx
+import { useEscCloseStack } from "@plexui/ui/hooks/useEscCloseStack";
+
+useEscCloseStack(isOpen, () => setIsOpen(false));
+```
+
+## useIsMounted
+
+Provides mount state helpers for client-only checks.
+
+```tsx
+import { useIsMounted, useIsMountedRef } from "@plexui/ui/hooks/useIsMounted";
+
+const mounted = useIsMounted();
+const mountedRef = useIsMountedRef();
+```
+
+## useLatestValue
+
+Stores the latest value in a ref without changing function identities.
+
+```tsx
+import { useLatestValue } from "@plexui/ui/hooks/useLatestValue";
+
+const latest = useLatestValue(value);
+```
+
+## usePrevious
+
+Returns the previous value from the prior render cycle.
+
+```tsx
+import { usePrevious } from "@plexui/ui/hooks/usePrevious";
+
+const previous = usePrevious(value);
+```
+
+## useScrollable
+
+Returns scroll state flags for a container: `isScrollable`, `isAtStart`, `isAtEnd`.
+
+```tsx
+import { useScrollable } from "@plexui/ui/hooks/useScrollable";
+
+const state = useScrollable(containerRef);
+```
+
+## useSimulatedProgress
+
+Generates deterministic progress that slows near completion; useful for loading UX.
+
+```tsx
+import {
+  getSimulatedProgress,
+  useSimulatedProgress,
+} from "@plexui/ui/hooks/useSimulatedProgress";
+
+const progress = useSimulatedProgress(startAt, 8000, completed);
+```
+
+## useStableCallback
+
+Returns a stable callback identity that always executes the latest function body.
+
+```tsx
+import { useStableCallback } from "@plexui/ui/hooks/useStableCallback";
+
+const onSubmit = useStableCallback((payload) => {
+  // latest logic, stable reference
+});
+```
+
+## useTextSelection
+
+Subscribes to text selection changes and exposes a helper to clear selection.
+
+```tsx
+import {
+  clearTextSelection,
+  useTextSelection,
+} from "@plexui/ui/hooks/useTextSelection";
+
+useTextSelection(enabled, (selection) => {
+  // Selection | null
+});
+```
+
+## useTrailingValue
+
+Returns a delayed trailing version of a value, useful for transition coordination.
+
+```tsx
+import { useTrailingValue } from "@plexui/ui/hooks/useTrailingValue";
+
+const trailingValue = useTrailingValue(value, 180);
+```

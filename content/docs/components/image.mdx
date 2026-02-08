@@ -1,0 +1,65 @@
+---
+title: Image
+description: Progressive image loading with fade-in transition
+---
+
+import { Image } from "@plexui/ui/components/Image"
+
+<UsageBlock>{`import { Image } from "@plexui/ui/components/Image";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview details={<><code>Image</code> wraps the native <code>&lt;img&gt;</code> element with a smooth fade-in transition on load. Images start invisible and animate to full opacity when loaded. Previously loaded images are cached and display instantly on subsequent renders.</>} code={`<Image
+  src="https://picsum.photos/seed/plexui/400/240"
+  alt="Sample image"
+  className="rounded-lg"
+  width={400}
+  height={240}
+/>`} previewMinHeight={296}>
+  <Image
+    src="https://picsum.photos/seed/plexui/400/240"
+    alt="Sample image"
+    className="rounded-lg"
+    width={400}
+    height={240}
+  />
+</ComponentPreview>
+
+### Load failure
+
+<ComponentPreview details={<>By default, <code>Image</code> returns <code>null</code> when the source is missing or fails to load. Set <code>forceRenderAfterLoadFail</code> to keep the <code>&lt;img&gt;</code> element in the DOM even after a load failure — useful when you want to show a broken image indicator or have fallback styling.</>} code={`<Image
+  src="https://invalid-url.example/broken.jpg"
+  alt="Broken image"
+  forceRenderAfterLoadFail
+  className="w-[200px] h-[120px] rounded-lg bg-alpha/5 object-cover"
+/>`} previewMinHeight={168}>
+  <div className="flex gap-4 items-center">
+    <div className="flex flex-col items-center gap-2">
+      <span className="text-xs text-tertiary">Default (hidden)</span>
+      <div className="w-[200px] h-[120px] rounded-lg border border-dashed border-alpha/20 flex items-center justify-center text-xs text-tertiary">
+        Image returns null
+      </div>
+    </div>
+    <div className="flex flex-col items-center gap-2">
+      <span className="text-xs text-tertiary">forceRenderAfterLoadFail</span>
+      <Image
+        src="https://invalid-url.example/broken.jpg"
+        alt="Broken image"
+        forceRenderAfterLoadFail
+        className="w-[200px] h-[120px] rounded-lg bg-alpha/5 object-cover"
+      />
+    </div>
+  </div>
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "src", type: "string", description: "Image source URL" },
+  { prop: "alt", type: "string", description: "Accessible image description" },
+  { prop: "forceRenderAfterLoadFail", type: "boolean", default: "false", description: "Keep the img element in the DOM even if the image fails to load" },
+  { prop: "draggable", type: "boolean", default: "false", description: "Whether the image is draggable" },
+  { prop: "...props", type: "ComponentProps<\"img\">", description: "All standard HTML img attributes are supported" },
+]} />

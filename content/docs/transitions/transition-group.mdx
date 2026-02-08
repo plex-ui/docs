@@ -1,0 +1,70 @@
+---
+title: Transition Group
+description: Primitive for rendering components over time
+---
+
+import { TransitionGroup } from "@plexui/ui/components/Transition"
+import { TransitionGroupBaseDemo } from "@/components/docs/TransitionDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { TransitionGroup } from "@plexui/ui/components/Transition";`}</UsageBlock>
+
+<code>&lt;TransitionGroup&gt;</code> controls when children mount and unmount and wraps them in a container with stateful data attributes for enter/exit transitions. Prefer <code>&lt;Animate&gt;</code>, <code>&lt;AnimateLayout&gt;</code>, or <code>&lt;AnimateLayoutGroup&gt;</code>. Use <code>&lt;TransitionGroup&gt;</code> only for custom or very complex transitions. Children must have a stable <code>key</code>.
+
+## Examples
+
+### Overview
+
+Timing is driven by <code>enterDuration</code> and <code>exitDuration</code>. No default styles are applied; use the data attributes below in your CSS.
+
+<ComponentPreview code={`<TransitionGroup className="storybook-tg rounded-lg" enterDuration={2000} exitDuration={1000}>
+  {show && <div key="s" className="w-[200px] h-[200px] bg-gray-300 rounded-lg" />}
+</TransitionGroup>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <TransitionGroupBaseDemo />
+</ComponentPreview>
+
+### Transition states
+
+No default styles are applied. Use these data attributes in your CSS:
+
+| Attribute | Description |
+| --------- | ----------- |
+| <code>data-entering</code> | Enter transition is about to start; stays for the full entrance. |
+| <code>data-entering-active</code> | Enter transition is active. |
+| <code>data-exiting</code> | Exit transition is about to start; stays for the full exit. |
+| <code>data-exiting-active</code> | Exit transition is active. |
+| <code>data-interrupted</code> | Transition was interrupted (e.g. exit then re-mounted before exit finished). |
+
+### Initial mount
+
+By default, children do not run enter/exit when <code>&lt;TransitionGroup&gt;</code> first mounts. Use <code>preventInitialTransition={false}</code> to allow initial enter.
+
+### CSS example
+
+```css
+.Example {
+  &[data-entering] { opacity: 0; }
+  &[data-exiting] { opacity: 1; }
+  &[data-entering-active],
+  &[data-exiting][data-interrupted] {
+    opacity: 1;
+    box-shadow: 0 0 0 5px green;
+    transition: opacity 2s ease, box-shadow 2s ease;
+  }
+  &[data-exiting-active],
+  &[data-entering][data-interrupted] {
+    opacity: 0;
+    box-shadow: 0 0 0 5px red;
+    transition: opacity 1s ease, box-shadow 1s ease;
+  }
+}
+```
+
+## Reference
+
+<PropsTable data={[
+  { prop: "className", type: "string", description: "Class applied to the wrapper (receives transition data attributes)" },
+  { prop: "enterDuration", type: "number", description: "Duration in ms for enter transition" },
+  { prop: "exitDuration", type: "number", description: "Duration in ms for exit transition" },
+  { prop: "preventInitialTransition", type: "boolean", default: "true", description: "When false, children run enter when the group first mounts" },
+]} />

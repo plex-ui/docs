@@ -1,0 +1,94 @@
+.NavRoot {
+  margin: 10px 0 24px;
+}
+
+.Compact {
+  margin: 0;
+}
+
+.Row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.Title {
+  display: inline-block;
+  max-width: 18rem;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.CompactGroup {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.IconButton {
+  min-width: 30px;
+  justify-content: center;
+  padding-inline: 6px;
+}
+
+.Next {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .NavRoot {
+    margin-bottom: 20px;
+  }
+
+  .Row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .Button {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .Next {
+    margin-left: 0;
+  }
+
+  .Title {
+    max-width: none;
+  }
+
+  .Compact .Row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .CompactGroup {
+    margin-left: 0;
+  }
+
+  .Compact .IconButton {
+    width: 28px;
+    height: 28px;
+  }
+}

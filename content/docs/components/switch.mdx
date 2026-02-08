@@ -1,0 +1,68 @@
+---
+title: Switch
+description: Toggle control for on and off states
+---
+
+import { Switch } from "@plexui/ui/components/Switch"
+import { SwitchControlledDemo } from "@/components/docs/SwitchDemos"
+
+<UsageBlock>{`import { Switch } from "@plexui/ui/components/Switch";`}</UsageBlock>
+
+## Examples
+
+### Base
+
+<ComponentPreview code={`<Switch />`} previewMinHeight={168}>
+  <Switch />
+</ComponentPreview>
+
+### With label
+
+<ComponentPreview details={<>You can add a label to the component by using the <code>label</code> prop. The label will automatically connect to the switch with <code>id</code>.</>} code={`<Switch label="Notifications" />`} previewMinHeight={168}>
+  <Switch label="Notifications" />
+</ComponentPreview>
+
+### Label position
+
+<ComponentPreview details={<>Set <code>{'labelPosition="start"'}</code> to place the label on the left side of the switch control.</>} code={`<Switch label="Right aligned" labelPosition="start" />`} previewMinHeight={168}>
+  <Switch label="Right aligned" labelPosition="start" />
+</ComponentPreview>
+
+### Default checked
+
+<ComponentPreview details={<>Initialize the switch with <code>defaultChecked</code> when you don't need to control its state. You can then use the <code>name</code> prop to read the value later on.</>} code={`<Switch name="field-set-as-default" defaultChecked />`} previewMinHeight={168}>
+  <Switch name="field-set-as-default" defaultChecked />
+</ComponentPreview>
+
+### Controlled
+
+<ComponentPreview details={<>Pass <code>checked</code> and <code>onCheckedChange</code> to manage the state in a controlled manner.</>} code={`const [checked, setChecked] = useState(false)
+<Switch checked={checked} onCheckedChange={setChecked} />`} previewMinHeight={168}>
+  <SwitchControlledDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Use <code>disabled</code> to prevent the user from toggling the control.</>} code={`<div className="flex gap-6">
+  <Switch disabled />
+  <Switch disabled checked />
+</div>`} previewMinHeight={168}>
+  <div className="flex gap-6">
+    <Switch disabled />
+    <Switch disabled checked />
+  </div>
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "checked", type: "boolean", description: "Controlled state" },
+  { prop: "defaultChecked", type: "boolean", description: "Initial state (uncontrolled)" },
+  { prop: "onCheckedChange", type: "(next: boolean) => void", description: "Called when toggled" },
+  { prop: "label", type: "ReactNode", description: "Accessible label" },
+  { prop: "labelPosition", type: '"start" | "end"', default: '"end"', description: "Label on left (start) or right (end)" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Prevent interaction" },
+  { prop: "required", type: "boolean", description: "Required for form" },
+  { prop: "name", type: "string", description: "Form field name" },
+  { prop: "value", type: "string", description: "Value when submitted" },
+]} />
