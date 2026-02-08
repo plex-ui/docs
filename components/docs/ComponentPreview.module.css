@@ -64,7 +64,7 @@
   width: 100% !important;
   order: 0;
   align-self: stretch;
-  background: var(--docs-surface-elevated);
+  background: var(--docs-controls-bg, #ffffff) !important;
 }
 
 .PreviewInner>[data-demo-controls]>*:first-child {

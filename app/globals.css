@@ -17,6 +17,7 @@
   --color-fd-background: #ffffff;
   /* Fallback before theme resolves; overridden by [data-theme] */
   --docs-surface-elevated: var(--color-surface-secondary);
+  --docs-controls-bg: #ffffff;
 }
 
 html.light,
@@ -38,8 +39,10 @@ html.dark,
 html.light {
   color-scheme: light;
   background-color: #ffffff;
-  /* Gray background for table header and preview controls */
+  /* Gray background for table header */
   --docs-surface-elevated: var(--color-surface-secondary);
+  /* Light background for demo preview controls */
+  --docs-controls-bg: #ffffff;
 }
 
 [data-theme='dark'],
@@ -48,6 +51,7 @@ html.dark {
   background-color: #171717;
   /* Lighter surface for table header and preview controls */
   --docs-surface-elevated: var(--color-surface);
+  --docs-controls-bg: var(--color-surface);
 }
 
 body {
@@ -260,6 +264,8 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 #nd-docs-layout.plex-docs-shell #nd-sidebar {
   background: var(--color-fd-background);
   border-right: none;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
 #nd-docs-layout.plex-docs-shell>div:has(> #nd-sidebar),
@@ -277,10 +283,9 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'] {
-  background: var(--color-background-primary-soft,
-      color-mix(in oklab, var(--color-fd-primary) 13%, var(--color-fd-background)));
-  color: var(--color-text-primary-soft, var(--color-fd-foreground));
-  font-weight: 500;
+  background: light-dark(var(--gray-100), var(--gray-400));
+  color: var(--gray-900);
+  font-weight: 600;
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar p {
@@ -289,11 +294,11 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
   padding-inline-start: 16px !important;
   padding-inline-end: 12px !important;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5rem;
   letter-spacing: normal;
   text-transform: none;
-  color: color-mix(in oklab, var(--color-fd-foreground) 90%, transparent);
+  color: light-dark(var(--gray-400), var(--gray-650));
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar p[style] {
@@ -324,9 +329,9 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
   margin: 1px 0;
   border-radius: 8px !important;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5rem;
-  color: var(--color-text-secondary, color-mix(in oklab, var(--color-fd-foreground) 78%, transparent));
+  color: var(--color-text, var(--color-fd-foreground));
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
@@ -340,14 +345,12 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover {
-  background: var(--color-background-secondary-soft-hover,
-      color-mix(in oklab, var(--color-fd-accent) 92%, var(--color-fd-background)));
-  color: var(--color-text, var(--color-fd-foreground));
+  background: light-dark(var(--gray-100), var(--gray-400));
+  color: var(--gray-900);
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover {
-  background: var(--color-background-primary-soft-hover,
-      color-mix(in oklab, var(--color-fd-primary) 16%, var(--color-fd-background)));
+  background: light-dark(var(--gray-150), var(--gray-450));
 }
 
 #nd-docs-layout.plex-docs-shell #nd-toc {
@@ -377,11 +380,11 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 /* Docs page rhythm and typography (shadcn-like cadence) */
 #nd-page.plex-docs-page {
   gap: 0;
-  max-width: min(100%, 76rem);
+  max-width: min(100%, 52rem);
 }
 
 html[data-docs-width='centered'] #nd-page.plex-docs-page {
-  max-width: min(100%, 64rem);
+  max-width: min(100%, 52rem);
 }
 
 #nd-page.plex-docs-page .plex-docs-title-row {
