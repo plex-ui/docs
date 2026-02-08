@@ -248,7 +248,7 @@ Description of this example.
    - **DemoControlRow** — accepts `name` (string) and `children` (control element); renders one row with label + control.
    - **DemoControlBoolean** — accepts `name`, `value`, `onChange`; renders one row with label + Switch.
 
-**Rule:** All interactive demos (with controls that change props/size/options) **must** use this pattern. No custom control bars, no different label fonts or paddings. The only exception is **full-layout** blocks and templates (e.g. MarketingBlockDemos, AppBlockDemos, TemplateDemos, ChatBlock) that render complete UI compositions without a separate “controls” strip — those do not need `data-demo-controls` and may omit `data-demo-stage` or use only `data-demo-stage` as appropriate.
+**Rule:** All interactive demos (with controls that change props/size/options) **must** use this pattern. No custom control bars, no different label fonts or paddings. The only exception is **full-layout** demos (e.g. ChatBlock) that render complete UI compositions without a separate “controls” strip — those do not need `data-demo-controls` and may omit `data-demo-stage` or use only `data-demo-stage` as appropriate.
 
 ### Other preview conventions
 

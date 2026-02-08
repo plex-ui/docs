@@ -14,16 +14,17 @@ import {
   TransitionGroup,
 } from '@plexui/ui/components/Transition'
 
-const PrimarySquare = ({ className, ...rest }: { className?: string }) => (
+type BoxProps = React.ComponentPropsWithoutRef<'div'>;
+const PrimarySquare = ({ className, ...rest }: BoxProps) => (
   <div className={clsx('story-example-primary rounded-lg shadow-xl', className)} {...rest} />
 )
-const SecondaryLine = ({ className, ...rest }: { className?: string }) => (
+const SecondaryLine = ({ className, ...rest }: BoxProps) => (
   <div className={clsx('story-example-secondary rounded-lg', className)} {...rest} />
 )
-const PrimaryLine = ({ className, ...rest }: { className?: string }) => (
+const PrimaryLine = ({ className, ...rest }: BoxProps) => (
   <div className={clsx('story-example-primary rounded-lg shadow-xl', className)} {...rest} />
 )
-const SecondarySquare = ({ className, ...rest }: { className?: string }) => (
+const SecondarySquare = ({ className, ...rest }: BoxProps) => (
   <div className={clsx('story-example-secondary rounded-lg', className)} {...rest} />
 )
 

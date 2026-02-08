@@ -223,7 +223,7 @@ html[data-docs-width='centered'] #nd-docs-layout.plex-docs-shell {
 
 @media (min-width: 768px) {
   #nd-docs-layout.plex-docs-shell {
-    --fd-sidebar-width: 288px;
+    --fd-sidebar-width: 240px;
   }
 }
 
@@ -264,8 +264,16 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 #nd-docs-layout.plex-docs-shell #nd-sidebar {
   background: var(--color-fd-background);
   border-right: none;
-  -webkit-font-smoothing: auto;
-  -moz-osx-font-smoothing: auto;
+  /* Override Fumadocs muted-foreground so text-fd-muted-foreground reads this value */
+  --color-fd-muted-foreground: #282828;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Dark mode override for sidebar text color */
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar {
+  --color-fd-muted-foreground: #dcdcdc;
 }
 
 #nd-docs-layout.plex-docs-shell>div:has(> #nd-sidebar),
@@ -283,9 +291,15 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'] {
-  background: light-dark(var(--gray-100), var(--gray-400));
-  color: var(--gray-900);
+  background: #ededed;
+  color: #181818 !important;
   font-weight: 600;
+}
+
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'],
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'] {
+  background: #414141;
+  color: #ededed !important;
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar p {
@@ -294,11 +308,16 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
   padding-inline-start: 16px !important;
   padding-inline-end: 12px !important;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 500 !important;
   line-height: 1.5rem;
   letter-spacing: normal;
   text-transform: none;
-  color: light-dark(var(--gray-400), var(--gray-650));
+  color: #8f8f8f !important;
+}
+
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar p,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar p {
+  color: #9f9f9f !important;
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar p[style] {
@@ -329,10 +348,11 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
   margin: 1px 0;
   border-radius: 8px !important;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 500 !important;
   line-height: 1.5rem;
-  color: var(--color-text, var(--color-fd-foreground));
   transition: background-color 0.15s ease, color 0.15s ease;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href='/docs/components'] {
@@ -345,12 +365,119 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover {
-  background: light-dark(var(--gray-100), var(--gray-400));
-  color: var(--gray-900);
+  background: #ededed;
+  color: #181818 !important;
+}
+
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover {
+  background: #414141;
+  color: #ededed !important;
 }
 
 #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover {
-  background: light-dark(var(--gray-150), var(--gray-450));
+  background: #dfdfdf;
+}
+
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover {
+  background: #4f4f4f;
+}
+
+/* ── Mobile sidebar drawer (rendered via portal, outside #nd-docs-layout) ── */
+#nd-sidebar-mobile {
+  background: var(--color-fd-background);
+  --color-fd-muted-foreground: #282828;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+[data-theme='dark'] #nd-sidebar-mobile,
+html.dark #nd-sidebar-mobile {
+  --color-fd-muted-foreground: #dcdcdc;
+}
+
+#nd-sidebar-mobile a[href^='/docs/'] {
+  min-height: 0;
+  padding-block: 6px;
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+  margin: 1px 0;
+  border-radius: 8px !important;
+  font-size: 14px;
+  font-weight: 500 !important;
+  line-height: 1.5rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+#nd-sidebar-mobile a[href^='/docs/'][data-active='true'] {
+  background: #ededed;
+  color: #181818 !important;
+  font-weight: 600;
+}
+
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/'][data-active='true'],
+html.dark #nd-sidebar-mobile a[href^='/docs/'][data-active='true'] {
+  background: #414141;
+  color: #ededed !important;
+}
+
+#nd-sidebar-mobile a[href^='/docs/']:hover {
+  background: #ededed;
+  color: #181818 !important;
+}
+
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/']:hover,
+html.dark #nd-sidebar-mobile a[href^='/docs/']:hover {
+  background: #414141;
+  color: #ededed !important;
+}
+
+#nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover {
+  background: #dfdfdf;
+}
+
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover,
+html.dark #nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover {
+  background: #4f4f4f;
+}
+
+#nd-sidebar-mobile a[href^='/docs/'][style] {
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+}
+
+#nd-sidebar-mobile a[href='/docs/components'] {
+  display: none;
+}
+
+#nd-sidebar-mobile p {
+  margin: 2rem 0 0.625rem;
+  padding-block: 0;
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+  font-size: 14px;
+  font-weight: 500 !important;
+  line-height: 1.5rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #8f8f8f !important;
+}
+
+[data-theme='dark'] #nd-sidebar-mobile p,
+html.dark #nd-sidebar-mobile p {
+  color: #9f9f9f !important;
+}
+
+#nd-sidebar-mobile p[style] {
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+}
+
+#nd-sidebar-mobile p:first-of-type {
+  margin-top: 0;
 }
 
 #nd-docs-layout.plex-docs-shell #nd-toc {

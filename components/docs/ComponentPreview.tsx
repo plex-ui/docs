@@ -29,9 +29,10 @@ export function ComponentPreview({
   const hasDetails = Boolean(details);
   const showTabs = hasCode || hasDetails;
 
+  type ElementProps = Record<string, unknown>;
   const childArray = React.Children.toArray(children);
   const hasControls = childArray.some(
-    (child) => React.isValidElement(child) && child.props['data-demo-controls'] !== undefined
+    (child) => React.isValidElement(child) && (child as React.ReactElement<ElementProps>).props['data-demo-controls'] !== undefined
   );
   const normalizedChildren = hasControls
     ? (() => {
@@ -41,7 +42,7 @@ export function ComponentPreview({
         for (const child of childArray) {
           if (
             React.isValidElement(child) &&
-            child.props['data-demo-controls'] !== undefined
+            (child as React.ReactElement<ElementProps>).props['data-demo-controls'] !== undefined
           ) {
             controls.push(child);
             continue;
@@ -52,7 +53,7 @@ export function ComponentPreview({
 
         const hasExplicitStage = stageChildren.some(
           (child) =>
-            React.isValidElement(child) && child.props['data-demo-stage'] !== undefined
+            React.isValidElement(child) && (child as React.ReactElement<ElementProps>).props['data-demo-stage'] !== undefined
         );
 
         return (
@@ -74,6 +75,7 @@ export function ComponentPreview({
             onChange={(v) => setMode(v as Mode)}
             size="sm"
             pill={false}
+            aria-label="View mode"
           >
             <SegmentedControl.Option value="preview">Preview</SegmentedControl.Option>
             {hasCode && (
