@@ -1,0 +1,30 @@
+.FieldError {
+  display: flex;
+  align-items: center;
+  gap: var(--field-error-gap);
+  padding-inline-start: var(--field-error-padding-inline);
+  color: var(--field-error-color);
+  font-size: var(--field-error-font-size);
+  line-height: var(--field-error-line-height);
+  text-align: left;
+}
+
+.FieldError:first-of-type {
+  margin-top: var(--field-error-margin-top);
+}
+
+.FieldError:last-of-type {
+  margin-bottom: var(--field-error-margin-bottom);
+}
+
+.FieldError > * {
+  flex-shrink: 0;
+}
+
+.Icon {
+  width: var(--field-error-icon-size);
+  height: var(--field-error-icon-size);
+  display: block;
+  align-self: center;
+  margin-top: -0.1em;
+}

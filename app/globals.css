@@ -4,12 +4,12 @@
 
 /* Plex UI design tokens only (NOT the full @plexui/ui/css bundle, which
    resets Tailwind theme tokens and overrides dark-mode variants) */
-@import '../node_modules/@plexui/ui/dist/es/styles/variables-primitive.css';
-@import '../node_modules/@plexui/ui/dist/es/styles/variables-semantic.css';
-@import '../node_modules/@plexui/ui/dist/es/styles/variables-components.css';
+@import '../packages/ui/dist/es/styles/variables-primitive.css';
+@import '../packages/ui/dist/es/styles/variables-semantic.css';
+@import '../packages/ui/dist/es/styles/variables-components.css';
 
 /* Let Tailwind scan Plex UI component class usage */
-@source "../node_modules/@plexui/ui";
+@source "../packages/ui";
 
 /* Page background: white in light theme, grey in dark. Override Fumadocs --color-fd-background
    so body and #nd-docs-layout (and any .bg-fd-background) use our values. */
