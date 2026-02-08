@@ -1,3 +1,5 @@
 {
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "buildCommand": "cd packages/ui && npm run build && cd ../.. && next build",
+  "installCommand": "npm install"
 }
