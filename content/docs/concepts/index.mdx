@@ -1,0 +1,123 @@
+---
+title: Concepts
+description: Core implementation concepts for theme and responsive behavior
+---
+
+## Dark mode
+
+Light and dark mode are fully supported, while your app controls how the value is applied and persisted.
+
+To set the current view mode, apply a `[data-theme]` attribute on the `html` element:
+
+```html
+<html data-theme="dark">
+  <!-- ... -->
+</html>
+```
+
+The attribute can also be nested inside content scopes:
+
+```html
+<html data-theme="dark">
+  <body>
+    <div>Dark mode content (root scope)</div>
+    <div data-theme="light">Light mode content (nested scope)</div>
+  </body>
+</html>
+```
+
+### Tailwind
+
+Tailwind is configured to use `[data-theme]` for dark mode behavior.
+
+```html
+<div class="bg-white dark:bg-black">
+  <!-- ... -->
+</div>
+```
+
+### JavaScript helpers
+
+```tsx
+import { applyDocumentTheme, getDocumentTheme, useDocumentTheme } from "@plexui/ui/theme";
+
+applyDocumentTheme("dark");
+
+const currentTheme = getDocumentTheme(); // "light" | "dark"
+
+function Sample() {
+  const theme = useDocumentTheme(); // live value from html[data-theme]
+  return null;
+}
+```
+
+### Persistent theme example
+
+```tsx
+import { applyDocumentTheme } from "@plexui/ui/theme";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+
+export type Theme = "light" | "dark" | "system";
+type ThemeState = { theme: Theme };
+
+const INITIAL_STATE: ThemeState = { theme: "system" };
+
+const store = create(
+  persist(() => INITIAL_STATE, {
+    name: "plexui:user:theme",
+    storage: createJSONStorage(() => localStorage),
+  }),
+);
+
+store.subscribe((state) => applyDocumentTheme(resolveTheme(state.theme)));
+
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", () => applyDocumentTheme(resolveTheme(store.getState().theme)));
+
+function getSystemTheme(): "light" | "dark" {
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function resolveTheme(theme?: Theme): "light" | "dark" {
+  if (theme == null || theme === "system") return getSystemTheme();
+  return theme;
+}
+
+export function setTheme(theme: Theme) {
+  store.setState({ theme });
+}
+```
+
+## Responsive design
+
+Write styles mobile-first: base styles apply to all sizes, then override upward from breakpoints.
+
+### Default breakpoints
+
+| Name | Size | Common device | Example usage |
+|------|------|---------------|---------------|
+| `xs` | `380px` | Portrait mobile | Very small screen overrides |
+| `sm` | `576px` | Landscape mobile, phablet | Collapsed mobile nav, single-column list/detail |
+| `md` | `768px` | Tablet | Expanded primary nav, fixed left sidebar |
+| `lg` | `1024px` | Laptop | Tight multi-column layouts |
+| `xl` | `1280px` | Desktop | Spacious layouts |
+| `2xl` | `1536px` | Widescreen | Largest breakpoints |
+
+### Tailwind usage
+
+```tsx
+<div className="flex flex-col lg:flex-row" />
+```
+
+### React usage
+
+```tsx
+import { useBreakpoint } from "@plexui/ui/hooks/useBreakpoint";
+
+function SampleComponent() {
+  const isMedium = useBreakpoint("md");
+  return null;
+}
+```

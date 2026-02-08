@@ -1,0 +1,146 @@
+---
+title: Button Link
+description: "Button as a semantic anchor element"
+---
+
+import { ButtonLink } from "@plexui/ui/components/Button"
+import { ArrowRight, ArrowUpRight } from "@plexui/ui/components/Icon"
+import {
+  ButtonLinkColorsMatrixDemo,
+  ButtonLinkSizingDemoWithControls,
+  ButtonLinkIconDemoWithControls,
+  ButtonLinkBlockDemoWithControls,
+  ButtonLinkDisabledDemoWithControls,
+} from "@/components/docs/ButtonLinkDemos"
+
+<UsageBlock>{`import { ButtonLink } from "@plexui/ui/components/Button";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<ButtonLink color="primary" pill={false} href="#">View API Keys <ArrowRight /></ButtonLink>`} previewMinHeight={168}>
+  <ButtonLink color="primary" pill={false} href="#" className="whitespace-nowrap">View API Keys <ArrowRight /></ButtonLink>
+</ComponentPreview>
+
+### Internal link
+
+<ComponentPreview details={<>When a relative <code>href</code> or <code>to</code> is provided, <code>ButtonLink</code> automatically uses the configured <code>LinkComponent</code> from <code>PlexUIProvider</code> so your router handles navigation and prefetching.</>} code={`<ButtonLink href="/some-path" color="primary">
+  Internal link <ArrowRight />
+</ButtonLink>`} previewMinHeight={168}>
+  <ButtonLink href="/some-path" color="primary" pill={false} className="whitespace-nowrap">Internal link <ArrowRight /></ButtonLink>
+</ComponentPreview>
+
+### External link
+
+<ComponentPreview details={<>When linking to an external URL (or when <code>external</code> is set), <code>&lt;a&gt;</code> is used with <code>target="_blank"</code> and <code>rel="noopener noreferrer"</code> added automatically. If your link is not being automatically identified, you can force external link behavior with the <code>external</code> prop.</>} code={`<ButtonLink href="#" color="primary">
+  External link <ArrowUpRight />
+</ButtonLink>`} previewMinHeight={168}>
+  <ButtonLink href="#" color="primary" pill={false} className="whitespace-nowrap">External link <ArrowUpRight /></ButtonLink>
+</ComponentPreview>
+
+### Colors & variants
+
+<ComponentPreview details={<>Stylize the link with <code>color</code> and <code>variant</code> props.</>} code={`<div className="pt-1 pb-6 px-8 w-fit min-w-full">
+  {/* Matrix of variant x color */}
+</div>`} previewMinHeight={280}>
+  <ButtonLinkColorsMatrixDemo />
+</ComponentPreview>
+
+### Sizing & roundness
+
+<ComponentPreview details={<>Sizing of the link is controlled with <code>size</code> and <code>gutterSize</code> props. <code>size</code> sets the control height, and <code>gutterSize</code> sets the horizontal padding. Create fully rounded links with the <code>pill</code> prop. When <code>pill</code> is set, extra horizontal gutter is dynamically applied to the link.</>} code={`<ButtonLink size="lg" pill={false}>
+  View account <ArrowRight />
+</ButtonLink>
+<ButtonLink size="lg" pill={false}>
+  View account
+</ButtonLink>`} previewMinHeight={206}>
+  <ButtonLinkSizingDemoWithControls />
+</ComponentPreview>
+
+### Icons
+
+<ComponentPreview details={<>Icon sizing is controlled by the <code>iconSize</code> prop, which makes it easy to add icons as children without additional props. <code>size</code> will provide a default value for <code>iconSize</code>, but setting the prop will force the specified size.</>} code={`<ButtonLink color="info" size="lg" iconSize="lg" variant="soft" href="#">
+  <Globe /> View website
+</ButtonLink>`} previewMinHeight={206}>
+  <ButtonLinkIconDemoWithControls />
+</ComponentPreview>
+
+### Block
+
+<ComponentPreview details={<>Create full-width links with the <code>block</code> prop.</>} code={`<ButtonLink block size="lg" href="#">Continue to dashboard</ButtonLink>`} previewMinHeight={206}>
+  <ButtonLinkBlockDemoWithControls />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Use <code>disabled</code> to both visually and accessibly disable a link. The component renders as a <code>span[role="link"]</code>, and <code>onClick</code> handlers are not bound.</>} code={`<ButtonLink href="#" color="primary" disabled>
+  View API Keys
+</ButtonLink>`} previewMinHeight={206}>
+  <ButtonLinkDisabledDemoWithControls />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "children", type: "ReactNode", description: "Content inside the link button" },
+  { prop: "color", type: '"primary" | "secondary" | "danger" | "success" | "info" | "discovery" | "caution" | "warning"', default: '"primary"', description: "Visual color" },
+  { prop: "variant", type: '"solid" | "soft" | "outline" | "ghost"', default: '"solid"', description: "Style variant" },
+  { prop: "size", type: '"3xs" | "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl"', default: '"md"', description: "Control height and typography scale" },
+  { prop: "gutterSize", type: '"3xs" | "2xs" | "xs" | "sm" | "md" | "lg" | "xl"', description: "Override horizontal padding" },
+  { prop: "iconSize", type: '"sm" | "md" | "lg" | "xl" | "2xl"', description: "Override icon size" },
+  { prop: "href", type: "string", description: "Link URL" },
+  { prop: "to", type: "string | object", description: "Router link destination (internal)" },
+  { prop: "as", type: "ComponentType", description: "Link component override (e.g. Next Link)" },
+  { prop: "external", type: "boolean", description: "Force external-link behavior" },
+  { prop: "opticallyAlign", type: '"start" | "end"', description: "Apply optical negative margin alignment" },
+  { prop: "block", type: "boolean", default: "false", description: "Full width" },
+  { prop: "pill", type: "boolean", default: "true", description: "Fully rounded" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable link" },
+  { prop: "disabledTone", type: '"relaxed"', description: "Use relaxed visual tone for disabled state" },
+  { prop: "className", type: "string", description: "Custom classes for the root element" },
+]} />
+
+### Configure your Router
+
+#### Provider
+
+```tsx
+// In the root of your app
+import { PlexUIProvider } from "@plexui/ui/components/PlexUIProvider"
+import { Link } from "react-router"
+
+// Set up types
+
+declare global {
+  interface PlexUIConfig {
+    LinkComponent: typeof Link
+  }
+}
+
+// Wrap your app in PlexUIProvider and pass in your router's Link component.
+export function App() {
+  return (
+    <PlexUIProvider linkComponent={Link}>
+      {/* other providers... */}
+    </PlexUIProvider>
+  )
+}
+
+// elsewhere - everything just works!
+<ButtonLink to={{ pathname: "/help" }} prefetch="intent">
+  Get Help
+</ButtonLink>
+```
+
+#### Component-level
+
+You can also pass your Link component to the `as` prop.
+
+```tsx
+import Link from "next/link"
+
+<ButtonLink as={Link} href="/dashboard">
+  View Dashboard
+</ButtonLink>
+```

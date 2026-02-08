@@ -1,0 +1,82 @@
+.Wrapper {
+  overflow-x: auto;
+  margin: 14px 0 36px;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-md);
+  background: transparent;
+}
+
+.Table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* Header only: gray in light, lighter in dark */
+.ThProp,
+.ThType,
+.ThDefault,
+.ThDescription {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--docs-surface-elevated);
+  border-bottom: 1px solid var(--color-fd-border);
+}
+
+.ThProp {
+  width: 140px;
+  min-width: 100px;
+}
+
+.ThType {
+  width: 420px;
+  min-width: 360px;
+}
+
+.ThDefault {
+  width: 100px;
+  min-width: 80px;
+}
+
+.ThDescription {
+  min-width: 0;
+}
+
+.TdProp,
+.TdType,
+.TdDefault,
+.TdDescription {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-fd-border);
+  vertical-align: top;
+  color: var(--color-text);
+  background: transparent;
+}
+
+/* Same token style as prose code (grey pill with border) so Reference matches Structure/useSidebar */
+.TdProp code,
+.TdType code,
+.TdDefault code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 3px 6px;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 5px;
+  background: var(--color-fd-muted);
+  color: var(--color-fd-foreground);
+}
+
+.TdType code {
+  color: var(--color-fd-foreground);
+}
+
+.TdDescription {
+  color: var(--color-text-secondary);
+}
+
+.Table tbody tr:last-child td {
+  border-bottom: none;
+}

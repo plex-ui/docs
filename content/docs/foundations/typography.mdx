@@ -1,0 +1,92 @@
+---
+title: Typography
+description: Using type treatments in Plex UI
+---
+
+## Scales
+
+Scales include sizing for heading and text sizes, with combinations of `font-size`,`font-weight`, and `line-height`.
+
+| Name | Size | Weight | Tracking | Line |
+|------|------|--------|----------|------|
+| <span style={{ fontSize: 'var(--font-heading-5xl-size)', fontWeight: 'var(--font-heading-5xl-weight)', letterSpacing: 'var(--font-heading-5xl-tracking)', lineHeight: 'var(--font-heading-5xl-line-height)' }}>heading-5xl</span> | `72px` | `600` | `0em` | `72px` |
+| <span style={{ fontSize: 'var(--font-heading-4xl-size)', fontWeight: 'var(--font-heading-4xl-weight)', letterSpacing: 'var(--font-heading-4xl-tracking)', lineHeight: 'var(--font-heading-4xl-line-height)' }}>heading-4xl</span> | `60px` | `600` | `0em` | `60px` |
+| <span style={{ fontSize: 'var(--font-heading-3xl-size)', fontWeight: 'var(--font-heading-3xl-weight)', letterSpacing: 'var(--font-heading-3xl-tracking)', lineHeight: 'var(--font-heading-3xl-line-height)' }}>heading-3xl</span> | `48px` | `600` | `0em` | `48px` |
+| <span style={{ fontSize: 'var(--font-heading-2xl-size)', fontWeight: 'var(--font-heading-2xl-weight)', letterSpacing: 'var(--font-heading-2xl-tracking)', lineHeight: 'var(--font-heading-2xl-line-height)' }}>heading-2xl</span> | `36px` | `600` | `0em` | `42px` |
+| <span style={{ fontSize: 'var(--font-heading-xl-size)', fontWeight: 'var(--font-heading-xl-weight)', letterSpacing: 'var(--font-heading-xl-tracking)', lineHeight: 'var(--font-heading-xl-line-height)' }}>heading-xl</span> | `32px` | `600` | `0em` | `38px` |
+| <span style={{ fontSize: 'var(--font-heading-lg-size)', fontWeight: 'var(--font-heading-lg-weight)', letterSpacing: 'var(--font-heading-lg-tracking)', lineHeight: 'var(--font-heading-lg-line-height)' }}>heading-lg</span> | `24px` | `600` | `0em` | `28px` |
+| <span style={{ fontSize: 'var(--font-heading-md-size)', fontWeight: 'var(--font-heading-md-weight)', letterSpacing: 'var(--font-heading-md-tracking)', lineHeight: 'var(--font-heading-md-line-height)' }}>heading-md</span> | `20px` | `600` | `0em` | `26px` |
+| <span style={{ fontSize: 'var(--font-heading-sm-size)', fontWeight: 'var(--font-heading-sm-weight)', letterSpacing: 'var(--font-heading-sm-tracking)', lineHeight: 'var(--font-heading-sm-line-height)' }}>heading-sm</span> | `18px` | `600` | `0em` | `26px` |
+| <span style={{ fontSize: 'var(--font-heading-xs-size)', fontWeight: 'var(--font-heading-xs-weight)', letterSpacing: 'var(--font-heading-xs-tracking)', lineHeight: 'var(--font-heading-xs-line-height)' }}>heading-xs</span> | `16px` | `600` | `0em` | `24px` |
+| <span style={{ fontSize: 'var(--font-text-lg-size)', fontWeight: 'var(--font-text-lg-weight)', letterSpacing: 'var(--font-text-lg-tracking)', lineHeight: 'var(--font-text-lg-line-height)' }}>text-lg</span> | `18px` | `400` | `0em` | `29px` |
+| <span style={{ fontSize: 'var(--font-text-md-size)', fontWeight: 'var(--font-text-md-weight)', letterSpacing: 'var(--font-text-md-tracking)', lineHeight: 'var(--font-text-md-line-height)' }}>text-md</span> | `16px` | `400` | `0em` | `24px` |
+| <span style={{ fontSize: 'var(--font-text-sm-size)', fontWeight: 'var(--font-text-sm-weight)', letterSpacing: 'var(--font-text-sm-tracking)', lineHeight: 'var(--font-text-sm-line-height)' }}>text-sm</span> | `14px` | `400` | `0em` | `20px` |
+| <span style={{ fontSize: 'var(--font-text-xs-size)', fontWeight: 'var(--font-text-xs-weight)', letterSpacing: 'var(--font-text-xs-tracking)', lineHeight: 'var(--font-text-xs-line-height)' }}>text-xs</span> | `12px` | `400` | `0em` | `18px` |
+| <span style={{ fontSize: 'var(--font-text-2xs-size)', fontWeight: 'var(--font-text-2xs-weight)', letterSpacing: 'var(--font-text-2xs-tracking)', lineHeight: 'var(--font-text-2xs-line-height)' }}>text-2xs</span> | `10px` | `400` | `0em` | `14px` |
+| <span style={{ fontSize: 'var(--font-text-3xs-size)', fontWeight: 'var(--font-text-3xs-weight)', letterSpacing: 'var(--font-text-3xs-tracking)', lineHeight: 'var(--font-text-3xs-line-height)' }}>text-3xs</span> | `8px` | `400` | `0em` | `12px` |
+
+All text sizes are exposed to Tailwind, with custom utilities for `heading-*` and `text-*` classes.
+
+Example usage:
+
+```tsx
+<h5 className="text-secondary mb-1">Get started</h5>
+<h2 className="heading-xl mb-3">Building your first app</h2>
+<p className="text-md">
+  Inline cards in Plex UI keep copy short and actionable. Provide just enough
+  context for the task, then pair it with a clear next step.
+</p>
+```
+
+The underlying CSS variables can be referenced directly in CSS, as needed.
+
+```css
+/* Headings */
+--font-heading-xl-size: 2rem; /* 32px  */
+--font-heading-xl-line-height: 2.375rem; /* 38px */
+--font-heading-xl-weight: var(--font-weight-semibold);
+/* Text */
+--font-text-md-size: 1rem; /* 16px  */
+--font-text-md-line-height: 1.5; /* 24px */
+--font-text-md-weight: var(--font-weight-normal);
+```
+
+## Colors
+
+Four semantic text colors are provided by default – base, emphasis, prose, secondary, and tertiary.
+
+```tsx
+<p className="text-default">text-default</p>
+<p className="text-secondary">text-secondary</p>
+<p className="text-tertiary">text-tertiary</p>
+```
+
+For more details on using semantic color variables directly, [explore our design tokens](/docs/foundations/design-tokens).
+
+## Weights
+
+The available weights are fairly standard. Semibold is the most common bolded value.
+
+```tsx
+<p className="font-normal">font-normal</p>
+<p className="font-medium">font-medium</p>
+<p className="font-semibold">font-semibold</p>
+<p className="font-bold">font-bold</p>
+```
+
+CSS variables are exposed in the common Tailwind pattern of `font-weight-*`:
+
+```css
+--font-weight-normal: 400;
+--font-weight-medium: 500;
+--font-weight-semibold: 600;
+--font-weight-bold: 700;
+```
+
+## Line height
+
+Line heights are optimized for readability and tailored to how each `font-size` sits on the baseline.
+
+Values are designed to create optimal centering with `align-items: center` for that given `font-size`, which ultimately means aligning to an odd or even pixel value.
+
+Each scale uses a corresponding CSS variable (e.g. `--font-heading-xl-line-height`, `--font-text-md-line-height`). Use these variables in custom CSS or rely on the Tailwind `heading-*` and `text-*` utilities, which already apply the correct line height.

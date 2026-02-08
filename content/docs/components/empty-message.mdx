@@ -1,0 +1,86 @@
+---
+title: Empty Message
+description: Gracefully inform users when there's nothing to see
+---
+
+import {
+  EmptyMessageBaseDemo,
+  EmptyMessageErrorDemo,
+  EmptyMessageWarningDemo,
+  EmptyMessageEmptyDemo,
+} from "@/components/docs/EmptyMessageDemos"
+
+<UsageBlock>{`import { EmptyMessage } from "@plexui/ui/components/EmptyMessage";`}</UsageBlock>
+
+## Examples
+
+### Composition
+
+<ComponentPreview code={`<EmptyMessage>
+  <EmptyMessage.Icon><Explore /></EmptyMessage.Icon>
+  <EmptyMessage.Title>Your evaluations will appear here</EmptyMessage.Title>
+  <EmptyMessage.Description>Create an evaluation to assess your model's responses</EmptyMessage.Description>
+  <EmptyMessage.ActionRow><Button color="primary">Create</Button></EmptyMessage.ActionRow>
+</EmptyMessage>`} previewMinHeight={168}>
+  <EmptyMessageBaseDemo />
+</ComponentPreview>
+
+### Error message
+
+<ComponentPreview details={<>The <code>color</code> property enables you to display clearer intent with the message, such as showing an error state.</>} code={`<EmptyMessage>
+  <EmptyMessage.Icon color="danger"><Mic /></EmptyMessage.Icon>
+  <EmptyMessage.Title color="danger">Enable microphone access...</EmptyMessage.Title>
+</EmptyMessage>`} previewMinHeight={168}>
+  <EmptyMessageErrorDemo />
+</ComponentPreview>
+
+### Warning message
+
+<ComponentPreview code={`<EmptyMessage>
+  <EmptyMessage.Icon color="warning"><Sparkle /></EmptyMessage.Icon>
+  <EmptyMessage.Title>o1-preview is in beta</EmptyMessage.Title>
+  <EmptyMessage.Description>System instructions and model configuration are not available yet.</EmptyMessage.Description>
+  <EmptyMessage.ActionRow className="text-sm">
+    <TextLink href="/">Learn more<ArrowUpRight /></TextLink>
+  </EmptyMessage.ActionRow>
+</EmptyMessage>`} previewMinHeight={168}>
+  <EmptyMessageWarningDemo />
+</ComponentPreview>
+
+### No results
+
+<ComponentPreview details={<>The components of <code>EmptyMessage</code> are both composable and optional. This example omits the <code>EmptyMessage.Title</code> component, using only an icon and description for a simpler message style.</>} code={`<EmptyMessage fill="none">
+  <EmptyMessage.Icon size="sm"><Search /></EmptyMessage.Icon>
+  <EmptyMessage.Description>No icons found matching "pizza"</EmptyMessage.Description>
+</EmptyMessage>`} previewMinHeight={168}>
+  <EmptyMessageEmptyDemo />
+</ComponentPreview>
+
+## Reference
+
+**EmptyMessage** (root)
+
+<PropsTable data={[
+  { prop: "fill", type: "string", description: "Background fill; use \"none\" for transparent (e.g. in search results)" },
+]} />
+
+**EmptyMessage.Icon**
+
+<PropsTable data={[
+  { prop: "color", type: "string", description: "Semantic color (e.g. danger, warning)" },
+  { prop: "size", type: '"sm" | "md" | "lg"', description: "Icon size" },
+]} />
+
+**EmptyMessage.Title**
+
+<PropsTable data={[
+  { prop: "color", type: "string", description: "Semantic color (e.g. danger)" },
+]} />
+
+**EmptyMessage.Description** — Description text; no specific props.
+
+**EmptyMessage.ActionRow**
+
+<PropsTable data={[
+  { prop: "className", type: "string", description: "Additional classes for the action row container" },
+]} />

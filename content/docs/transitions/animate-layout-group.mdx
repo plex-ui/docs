@@ -1,0 +1,71 @@
+---
+title: Animate Layout Group
+description: Animate width and height of lists of components as they enter and exit
+---
+
+import { AnimateLayoutGroup } from "@plexui/ui/components/Transition"
+import {
+  AnimateLayoutGroupVerticalDemo,
+  AnimateLayoutGroupHorizontalDemo,
+} from "@/components/docs/TransitionDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { AnimateLayoutGroup } from "@plexui/ui/components/Transition";`}</UsageBlock>
+
+Give each list item a stable <code>key</code>. Use for lists whose items should affect layout as they enter and exit (e.g. dynamic vertical or horizontal lists).
+
+## Examples
+
+### Overview
+
+<code>&lt;AnimateLayoutGroup&gt;</code> is like <code>&lt;TransitionGroup&gt;</code> for lists, with batteries-included animations and layout (height/width) support.
+
+Same property set as <code>&lt;Animate&gt;</code> plus <code>layoutEnter</code>, <code>layoutExit</code>, and <code>layoutMove</code>.
+
+### Vertical list
+
+<ComponentPreview code={`<AnimateLayoutGroup
+  initial={{ y: -10, opacity: 0, blur: 0 }}
+  enter={{ y: 0, delay: 150, duration: 600 }}
+  exit={{ scale: 0.8, blur: 10, duration: 500 }}
+  layoutEnter={{ duration: 400, timingFunction: "ease" }}
+  layoutExit={{ delay: 150 }}
+>
+  {list.map(({ id }) => (
+    <div key={id} className="py-2">
+      <PrimaryLine onClick={() => handleRemove(id)} />
+    </div>
+  ))}
+</AnimateLayoutGroup>`} previewMinHeight={320}>
+  <AnimateLayoutGroupVerticalDemo />
+</ComponentPreview>
+
+### Horizontal list
+
+<ComponentPreview code={`<AnimateLayoutGroup dimension="width">
+  {list.map(({ id }) => (
+    <div key={id} className="px-2">
+      <PrimarySquare onClick={() => handleRemove(id)} />
+    </div>
+  ))}
+</AnimateLayoutGroup>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <AnimateLayoutGroupHorizontalDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "className", type: "string", description: "Class applied to the wrapper element" },
+  { prop: "transitionClassName", type: "string", description: "Class applied to the inner TransitionGroup" },
+  { prop: "dimension", type: '"height" | "width"', default: '"height"', description: "Which property to animate" },
+  { prop: "enter", type: "TransitionDefinition", description: "Enter transition" },
+  { prop: "exit", type: "TransitionDefinition", description: "Exit transition" },
+  { prop: "initial", type: "InitialTransitionDefinition", description: "State before enter" },
+  { prop: "layoutEnter", type: "LayoutTransitionDefinition", description: "Layout enter timing" },
+  { prop: "layoutExit", type: "LayoutTransitionDefinition", description: "Layout exit timing" },
+  { prop: "layoutMove", type: "LayoutTransitionDefinition", description: "Layout move timing" },
+  { prop: "hideOverflow", type: "boolean", default: "false", description: "Apply overflow: hidden" },
+  { prop: "itemAnchor", type: '"start" | "end"', default: '"start"', description: "Which side items pin to" },
+  { prop: "preventInitialTransition", type: "boolean", default: "true", description: "When false, run enter on initial mount" },
+  { prop: "forceCompositeLayer", type: "boolean", default: "false", description: "Applies will-change; use with caution" },
+]} />

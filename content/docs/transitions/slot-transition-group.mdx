@@ -1,0 +1,71 @@
+---
+title: Slot Transition Group
+description: Primitive for rendering components over time (slot-based, no wrapper)
+---
+
+import { SlotTransitionGroup } from "@plexui/ui/components/Transition"
+import { SlotTransitionGroupBaseDemo } from "@/components/docs/TransitionDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { SlotTransitionGroup } from "@plexui/ui/components/Transition";`}</UsageBlock>
+
+<code>&lt;SlotTransitionGroup&gt;</code> behaves like <code>&lt;TransitionGroup&gt;</code> but applies transition data attributes directly to the child elements instead of adding a wrapper. Prefer <code>&lt;Animate&gt;</code>, <code>&lt;AnimateLayout&gt;</code>, or <code>&lt;AnimateLayoutGroup&gt;</code> first. Use when you need transition state without an extra wrapper node. Children must have a stable <code>key</code>.
+
+## Examples
+
+### Overview
+
+Timing is controlled by <code>enterDuration</code> and <code>exitDuration</code>. No default styles are applied; use the data attributes below in your CSS.
+
+<ComponentPreview code={`<SlotTransitionGroup enterDuration={2000} exitDuration={1000}>
+  {show && <div key="s" className="w-[200px] h-[200px] bg-gray-300 rounded-lg storybook-tg" />}
+</SlotTransitionGroup>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <SlotTransitionGroupBaseDemo />
+</ComponentPreview>
+
+### Transition states
+
+Attributes are applied on the child; no default styles.
+
+| Attribute | Description |
+| --------- | ----------- |
+| <code>data-entering</code> | Enter transition staged; applied for full entrance. |
+| <code>data-entering-active</code> | Enter transition active. |
+| <code>data-exiting</code> | Exit transition staged; applied for full exit. |
+| <code>data-exiting-active</code> | Exit transition active. |
+| <code>data-interrupted</code> | Switched to the opposite transition before completion. |
+
+### Initial mount
+
+By default, children do not transition on the group's initial mount. Use <code>preventInitialTransition={false}</code> to allow it.
+
+### CSS example
+
+Apply styles to the child using the data attributes:
+
+```css
+.Example {
+  &[data-entering] { opacity: 0; }
+  &[data-exiting] { opacity: 1; }
+  &[data-entering-active],
+  &[data-exiting][data-interrupted] {
+    opacity: 1;
+    box-shadow: 0 0 0 5px green;
+    transition: opacity 2s ease, box-shadow 2s ease;
+  }
+  &[data-exiting-active],
+  &[data-entering][data-interrupted] {
+    opacity: 0;
+    box-shadow: 0 0 0 5px red;
+    transition: opacity 1s ease, box-shadow 1s ease;
+  }
+}
+```
+
+## Reference
+
+<PropsTable data={[
+  { prop: "enterDuration", type: "number", description: "Duration in ms for enter transition" },
+  { prop: "exitDuration", type: "number", description: "Duration in ms for exit transition" },
+  { prop: "preventInitialTransition", type: "boolean", default: "true", description: "When false, children transition on the group's initial mount" },
+]} />

@@ -1,0 +1,58 @@
+---
+title: Date Picker
+description: Select a single date with an interactive calendar
+---
+
+import {
+  DatePickerBaseDemo,
+  DatePickerLimitsDemo,
+  DatePickerWithoutIconDemo,
+  DatePickerDisabledDemo,
+} from "@/components/docs/DatePickerDemos"
+
+<UsageBlock>{`import { DatePicker } from "@plexui/ui/components/DatePicker";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`const [selectedDate, setSelectedDate] = useState<DateTime | null>(null)
+<DatePicker value={selectedDate} onChange={setSelectedDate} clearable pill />`} previewMinHeight={168}>
+  <DatePickerBaseDemo />
+</ComponentPreview>
+
+### Limits
+
+<ComponentPreview details={<>Use <code>min</code> and <code>max</code> to limit selectable dates to a specific timeframe.</>} code={`const minDate = today.minus({ days: 30 }).startOf('day')
+const maxDate = today.plus({ days: 30 }).endOf('day')
+<DatePicker value={...} onChange={...} min={minDate} max={maxDate} />`} previewMinHeight={168}>
+  <DatePickerLimitsDemo />
+</ComponentPreview>
+
+
+### Without Icon
+
+<ComponentPreview details={<>Remove the calendar icon from the trigger by setting <code>triggerShowIcon</code> to false.</>} code={`<DatePicker triggerShowIcon={false} placeholder="Choose a date" ... />`} previewMinHeight={168}>
+  <DatePickerWithoutIconDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Disable the picker to prevent user interaction.</>} code={`<DatePicker disabled value={...} onChange={...} />`} previewMinHeight={168}>
+  <DatePickerDisabledDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "value", type: "DateTime | null", description: "Selected date (luxon)" },
+  { prop: "onChange", type: "(date: DateTime | null) => void", description: "Called when date changes" },
+  { prop: "min", type: "DateTime", description: "Minimum selectable date" },
+  { prop: "max", type: "DateTime", description: "Maximum selectable date" },
+  { prop: "size", type: "string", description: "Trigger size" },
+  { prop: "pill", type: "boolean", description: "Rounded trigger" },
+  { prop: "clearable", type: "boolean", description: "Show clear button" },
+  { prop: "triggerShowIcon", type: "boolean", default: "true", description: "Show calendar icon" },
+  { prop: "placeholder", type: "string", description: "Trigger placeholder" },
+  { prop: "disabled", type: "boolean", description: "Disable picker" },
+]} />

@@ -1,0 +1,32 @@
+.Container {
+  margin: 12px 0 2.5rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-md);
+  background: var(--color-fd-background);
+  overflow: hidden;
+}
+
+/* Single frame: strip Fumadocs code block border/shadow/radius so only .Container shows */
+.CodeWrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.CodeWrap figure,
+.CodeWrap [data-rehype-pretty-code-figure],
+.CodeWrap .shiki {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--color-fd-background) !important;
+}
+
+.CodeWrap [role='region'] {
+  max-height: none;
+}
+
+.CodeWrap pre {
+  margin: 0;
+  padding: 0;
+}

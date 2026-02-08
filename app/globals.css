@@ -1,0 +1,669 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/* Plex UI design tokens only (NOT the full @plexui/ui/css bundle, which
+   resets Tailwind theme tokens and overrides dark-mode variants) */
+@import '../node_modules/@plexui/ui/dist/es/styles/variables-primitive.css';
+@import '../node_modules/@plexui/ui/dist/es/styles/variables-semantic.css';
+@import '../node_modules/@plexui/ui/dist/es/styles/variables-components.css';
+
+/* Let Tailwind scan Plex UI component class usage */
+@source "../node_modules/@plexui/ui";
+
+/* Page background: white in light theme, grey in dark. Override Fumadocs --color-fd-background
+   so body and #nd-docs-layout (and any .bg-fd-background) use our values. */
+:root {
+  --color-fd-background: #ffffff;
+  /* Fallback before theme resolves; overridden by [data-theme] */
+  --docs-surface-elevated: var(--color-surface-secondary);
+}
+
+html.light,
+[data-theme='light'] {
+  --color-fd-background: #ffffff;
+}
+
+html.dark,
+[data-theme='dark'] {
+  --color-fd-background: #171717;
+}
+
+/* Plex UI tokens use light-dark(); color-scheme must match theme so preview responds */
+:root {
+  color-scheme: light dark;
+}
+
+[data-theme='light'],
+html.light {
+  color-scheme: light;
+  background-color: #ffffff;
+  /* Gray background for table header and preview controls */
+  --docs-surface-elevated: var(--color-surface-secondary);
+}
+
+[data-theme='dark'],
+html.dark {
+  color-scheme: dark;
+  background-color: #171717;
+  /* Lighter surface for table header and preview controls */
+  --docs-surface-elevated: var(--color-surface);
+}
+
+body {
+  background-color: var(--color-fd-background);
+}
+
+#nd-docs-layout {
+  background-color: var(--color-fd-background);
+}
+
+/* Match Storybook typography baseline so controls render with same face/weight */
+html,
+:host {
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Shiki token colors: support both .dark (Fumadocs) and [data-theme="dark"] (our sync) */
+[data-theme='dark'] .shiki code span,
+html.dark .shiki code span {
+  color: var(--shiki-dark);
+}
+
+/* Tracking aliases used by Plex UI tokens */
+:root,
+:where([data-theme]) {
+  --tracking-wide: var(--font-tracking-wide);
+  --tracking-normal: var(--font-tracking-normal);
+  --tracking-tight: var(--font-tracking-tight);
+}
+
+/* Fumadocs shiki.css @apply needs these in theme */
+@theme {
+  --color-fd-diff-remove: rgba(200, 10, 100, 0.12);
+  --color-fd-diff-remove-symbol: rgb(230, 10, 100);
+  --color-fd-diff-add: rgba(14, 180, 100, 0.1);
+  --color-fd-diff-add-symbol: rgb(10, 200, 100);
+}
+
+/* Fumadocs shiki.css @apply needs these; define manually for opacity modifiers */
+@utility border-fd-primary/50 {
+  border-color: color-mix(in oklab, var(--color-fd-primary) 50%, transparent);
+}
+
+@utility border-fd-primary/30 {
+  border-color: color-mix(in oklab, var(--color-fd-primary) 30%, transparent);
+}
+
+@utility bg-fd-primary/10 {
+  background-color: color-mix(in oklab, var(--color-fd-primary) 10%, transparent);
+}
+
+@utility text-fd-primary/50 {
+  color: color-mix(in oklab, var(--color-fd-primary) 50%, transparent);
+}
+
+/* Lightweight token utilities used across migrated Storybook demos */
+.text-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary) !important;
+}
+
+.text-danger {
+  color: var(--color-text-danger) !important;
+}
+
+.text-warning {
+  color: var(--color-text-warning) !important;
+}
+
+.text-info {
+  color: var(--color-text-info) !important;
+}
+
+.text-success {
+  color: var(--color-text-success) !important;
+}
+
+.text-discovery {
+  color: var(--color-text-discovery) !important;
+}
+
+.fill-secondary {
+  fill: var(--color-text-secondary) !important;
+}
+
+.fill-tertiary {
+  fill: var(--color-text-tertiary) !important;
+}
+
+.fill-danger {
+  fill: var(--color-text-danger) !important;
+}
+
+.border-alpha\/15 {
+  border-color: var(--alpha-15) !important;
+}
+
+.border-alpha\/20 {
+  border-color: var(--alpha-20) !important;
+}
+
+/* Transition demo blocks: visible on docs preview background (not white-on-white) */
+:root {
+  --story-example-secondary-color: hsl(346deg 45% 82%);
+  --story-example-primary-color: hsl(348deg 70% 70%);
+}
+
+[data-theme='dark'],
+html.dark {
+  --story-example-secondary-color: hsl(334deg 23% 54% / 80%);
+  --story-example-primary-color: hsl(334deg 48.07% 60.81%);
+}
+
+.story-example-secondary {
+  background: var(--story-example-secondary-color);
+}
+
+.story-example-primary {
+  background: var(--story-example-primary-color);
+}
+
+.storybook-tg {
+  &[data-entering] {
+    opacity: 0;
+  }
+  &[data-exiting] {
+    opacity: 1;
+  }
+  &[data-entering-active],
+  &[data-exiting][data-interrupted] {
+    box-shadow: 0 0 0 5px green;
+    opacity: 1;
+    transition: opacity 2s ease, box-shadow 2s ease;
+  }
+  &[data-exiting-active],
+  &[data-entering][data-interrupted] {
+    box-shadow: 0 0 0 5px red;
+    opacity: 0;
+    transition: opacity 1s ease, box-shadow 1s ease;
+  }
+}
+
+/* Sticky nav with backdrop blur when scrolled */
+#nd-docs-layout header[data-transparent='false'] {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: color-mix(in oklab, var(--color-fd-background) 90%, transparent);
+}
+
+/* Docs shell (shadcn-like frame) */
+#nd-docs-layout.plex-docs-shell {
+  --fd-header-height: 56px;
+  --fd-sidebar-width: 0px;
+  --fd-toc-width: 0px;
+  --fd-layout-width: 136rem;
+  background: var(--color-fd-background);
+}
+
+html[data-docs-width='centered'] #nd-docs-layout.plex-docs-shell {
+  --fd-layout-width: 97rem;
+}
+
+@media (min-width: 768px) {
+  #nd-docs-layout.plex-docs-shell {
+    --fd-sidebar-width: 288px;
+  }
+}
+
+@media (min-width: 768px) {
+  html[data-docs-left-sidebar='off'] #nd-docs-layout.plex-docs-shell {
+    --fd-sidebar-width: 0px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #nd-docs-layout.plex-docs-shell {
+    --fd-toc-width: 248px;
+  }
+}
+
+@media (min-width: 1280px) {
+  html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell,
+  #nd-docs-layout.plex-docs-shell:has(.plex-docs-page--no-right-sidebar) {
+    --fd-toc-width: 0px;
+  }
+}
+
+html[data-docs-left-sidebar='off'] #nd-docs-layout.plex-docs-shell [data-sidebar-placeholder],
+html[data-docs-left-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-sidebar,
+html[data-docs-left-sidebar='off'] #nd-docs-layout.plex-docs-shell [data-sidebar-panel] {
+  display: none;
+}
+
+html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#nd-docs-layout.plex-docs-shell [data-sidebar-placeholder] {
+  border-right: none;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar {
+  background: var(--color-fd-background);
+  border-right: none;
+}
+
+#nd-docs-layout.plex-docs-shell>div:has(> #nd-sidebar),
+#nd-docs-layout.plex-docs-shell #nd-toc {
+  top: var(--fd-header-height);
+  height: calc(100dvh - var(--fd-header-height));
+}
+
+#nd-docs-layout.plex-docs-shell>div:has(> #nd-sidebar) {
+  overflow: hidden;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar>div:first-child {
+  display: none;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'] {
+  background: var(--color-background-primary-soft,
+      color-mix(in oklab, var(--color-fd-primary) 13%, var(--color-fd-background)));
+  color: var(--color-text-primary-soft, var(--color-fd-foreground));
+  font-weight: 500;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar p {
+  margin: 2rem 0 0.625rem;
+  padding-block: 0;
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: color-mix(in oklab, var(--color-fd-foreground) 90%, transparent);
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar p[style] {
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar p:first-of-type {
+  margin-top: 0;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar>div>a:first-child {
+  display: none;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar .overscroll-contain {
+  padding: 0.95rem 0.7rem 80px;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'] {
+  min-height: 0;
+  padding-block: 6px;
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+  margin: 1px 0;
+  border-radius: 8px !important;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: var(--color-text-secondary, color-mix(in oklab, var(--color-fd-foreground) 78%, transparent));
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href='/docs/components'] {
+  display: none;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][style] {
+  padding-inline-start: 16px !important;
+  padding-inline-end: 12px !important;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover {
+  background: var(--color-background-secondary-soft-hover,
+      color-mix(in oklab, var(--color-fd-accent) 92%, var(--color-fd-background)));
+  color: var(--color-text, var(--color-fd-foreground));
+}
+
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover {
+  background: var(--color-background-primary-soft-hover,
+      color-mix(in oklab, var(--color-fd-primary) 16%, var(--color-fd-background)));
+}
+
+#nd-docs-layout.plex-docs-shell #nd-toc {
+  padding-top: 1.25rem;
+  padding-right: 1rem;
+  border-left: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-toc h3 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#nd-docs-layout.plex-docs-shell #nd-toc .plex-docs-toc-section-title {
+  margin: 0 0 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-fd-muted-foreground);
+}
+
+/* Docs page rhythm and typography (shadcn-like cadence) */
+#nd-page.plex-docs-page {
+  gap: 0;
+  max-width: min(100%, 76rem);
+}
+
+html[data-docs-width='centered'] #nd-page.plex-docs-page {
+  max-width: min(100%, 64rem);
+}
+
+#nd-page.plex-docs-page .plex-docs-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+#nd-page.plex-docs-page .plex-docs-title {
+  margin: 0;
+  font-size: clamp(2rem, 1.7rem + 1vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+#nd-page.plex-docs-page .plex-docs-description {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  line-height: 1.72;
+}
+
+#nd-page.plex-docs-page .plex-docs-nav-top {
+  margin: 0;
+}
+
+#nd-page.plex-docs-page .plex-docs-nav-bottom {
+  margin-top: 3rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-fd-border);
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose {
+  margin-top: 0;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(h2):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-size: 1.375rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(h3):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 2.2rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(h4):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 1.6rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(p):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(h2, h3, h4):not(:where(.not-prose, .not-prose *))+ :where(p):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 0;
+  margin-bottom: 1.15rem;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(ul, ol):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 0.25rem;
+  margin-bottom: 1.05rem;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(li):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 0.3rem;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose
+  table:not(:where(.not-prose, .not-prose *)) {
+  width: 100%;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid var(--color-fd-border) !important;
+  margin-top: 1rem;
+  margin-bottom: 1.7rem;
+  background: transparent !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose
+  thead th:not(:where(.not-prose, .not-prose *)) {
+  background: var(--docs-surface-elevated) !important;
+  border-bottom: 1px solid var(--color-fd-border) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose
+  tbody th:not(:where(.not-prose, .not-prose *)),
+#nd-page.plex-docs-page .plex-docs-body.prose
+  tbody td:not(:where(.not-prose, .not-prose *)) {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose
+  :where(tbody tr):not(:where(.not-prose, .not-prose *)) {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose
+  :where(tbody td, tbody th):not(:where(.not-prose, .not-prose *)) {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose
+  :where(tbody tr:not(:last-child)):not(
+    :where(.not-prose, .not-prose *)
+  ) {
+  box-shadow: inset 0 -1px 0 var(--color-fd-border) !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose a.block.rounded-xl.border.bg-fd-card:not(:where(.not-prose, .not-prose *)) {
+  background: var(--color-fd-background) !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose a.block.rounded-xl.border.bg-fd-card:not( :where(.not-prose, .not-prose *)):hover {
+  background: color-mix(in oklab,
+      var(--color-fd-background) 94%,
+      var(--color-fd-foreground) 6%) !important;
+}
+
+#nd-page.plex-docs-page .components-index-grid .grid {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+#nd-page.plex-docs-page .components-index-grid a.block.rounded-xl.border.bg-fd-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  min-height: 56px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 24px !important;
+}
+
+#nd-page.plex-docs-page .components-index-grid a.block.rounded-xl.border.bg-fd-card>* {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#nd-page.plex-docs-page .components-index-grid a.block.rounded-xl.border.bg-fd-card>.text-sm:empty {
+  display: none;
+}
+
+#nd-page.plex-docs-page .components-index-grid a.block.rounded-xl.border.bg-fd-card h3 {
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  font-weight: 500;
+  text-align: left !important;
+}
+
+/* Hide navigation on components index page */
+#nd-page.plex-docs-page #components-index-page~.plex-docs-nav-top,
+#nd-page.plex-docs-page #components-index-page~.plex-docs-nav-bottom,
+#nd-page.plex-docs-page:has(#components-index-page) .plex-docs-nav-top,
+#nd-page.plex-docs-page:has(#components-index-page) .plex-docs-nav-bottom {
+  display: none !important;
+}
+
+/* Hide "Previous" button on the first component page (Alert) */
+#nd-page.plex-docs-page #first-component-page~.plex-docs-nav-bottom a:first-child,
+#nd-page.plex-docs-page:has(#first-component-page) .plex-docs-nav-bottom a:first-child {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose> :first-child:not(:where(.not-prose, .not-prose *)):not(h2) {
+  margin-top: 0;
+}
+
+/* Balance spacing: more space above Examples/Reference h2s — override Fumadocs first-child rule */
+#nd-page.plex-docs-page .plex-docs-body.prose #examples,
+#nd-page.plex-docs-page .plex-docs-body.prose #reference,
+#nd-page.plex-docs-page .plex-docs-body .not-prose + h2 {
+  margin-top: 3rem !important;
+}
+
+/* Code blocks: match page background (no gray) */
+#nd-page.plex-docs-page :where([data-rehype-pretty-code-figure]),
+#nd-page.plex-docs-page :where([data-codeblock]),
+#nd-page.plex-docs-page :where(.shiki),
+#nd-page.plex-docs-page :where(pre.shiki) {
+  background: var(--color-fd-background) !important;
+}
+
+#nd-page.plex-docs-page figure.shiki,
+#nd-page.plex-docs-page [data-rehype-pretty-code-figure].shiki,
+#nd-page.plex-docs-page [data-codeblock].shiki,
+#nd-page.plex-docs-page pre.shiki {
+  box-shadow: none !important;
+}
+
+/* Fumadocs Accordion: use page background instead of card background for lighter look */
+#nd-page.plex-docs-page .plex-docs-body [data-orientation].bg-fd-card {
+  background-color: var(--color-fd-background) !important;
+}
+
+/* When mobile TOC is open, lift app root above sidebar drawer (z-40) so TOC is on top.
+   Sidebar is in a portal (sibling to app root), so we raise the root container. */
+body:has(#nd-docs-layout:has([data-toc-popover][data-state="open"])) > div {
+  position: relative;
+  z-index: 50 !important;
+}
+
+/* Keep preview popovers/menus below sticky global nav and mobile TOC */
+body [data-radix-popper-content-wrapper] {
+  z-index: 5 !important;
+}
+
+/* Hide docs-only UI controls (scope to docs layout to avoid affecting home page) */
+#nd-docs-layout button[aria-label='Collapse Sidebar'],
+#nd-docs-layout button[aria-label='Open Search'] {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  #nd-docs-layout.plex-docs-shell {
+    --fd-header-height: 52px;
+  }
+
+  #nd-docs-layout.plex-docs-shell #nd-toc {
+    border-left: none;
+  }
+
+  #nd-page.plex-docs-page {
+    max-width: 100%;
+  }
+
+  #nd-page.plex-docs-page .plex-docs-title-row {
+    gap: 10px;
+  }
+}
+
+/* Landing: minimal scroll-triggered reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+[data-reveal][data-visible='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Force heading hierarchy: h2 > h3 > h4 (override Fumadocs typography) */
+#nd-page.plex-docs-page .plex-docs-body.prose h2 {
+  font-size: 1.375rem !important;
+  margin-bottom: 1rem !important;
+}
+#nd-page.plex-docs-page .plex-docs-body.prose h3 {
+  font-size: 1.0625rem !important;
+}
+#nd-page.plex-docs-page .plex-docs-body.prose h4 {
+  font-size: 1rem !important;
+}

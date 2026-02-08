@@ -1,0 +1,111 @@
+---
+title: Animate Layout
+description: Animate width and height of components as they mount and unmount
+---
+
+import { AnimateLayout } from "@plexui/ui/components/Transition"
+import {
+  AnimateLayoutHeightDemo,
+  AnimateLayoutWidthDemo,
+  AnimateLayoutAccordionDemo,
+  AnimateLayoutTalkButtonDemo,
+} from "@/components/docs/TransitionDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { AnimateLayout } from "@plexui/ui/components/Transition";`}</UsageBlock>
+
+Use when transitions should affect the layout of surrounding DOM nodes (e.g. expanding/collapsing content).
+
+### Gotchas
+
+- <code>&lt;AnimateLayout&gt;</code> provides a wrapping element, which <code>className</code> and layout transition properties are applied to.
+- Avoid box model properties on <code>className</code>, like <code>margin</code>, <code>padding</code>, <code>border</code>. These are additive to the <code>height: 0</code> empty state and cannot be properly animated.
+- Avoid <code>box-shadow</code> on <code>className</code>, as it will be visible during the empty state.
+- Use padding on children (via <code>transitionClassName</code>) instead of margin on the wrapper.
+
+## Examples
+
+### Overview
+
+<code>&lt;AnimateLayout&gt;</code> is an abstraction around <code>&lt;TransitionGroup&gt;</code> that also animates <code>height</code> and <code>width</code> of transitions.
+
+It supports the same props as <code>&lt;Animate&gt;</code> plus <code>layoutEnter</code>, <code>layoutExit</code>, and <code>layoutMove</code> for layout timing.
+
+### Height
+
+By default, animates the <code>height</code> of the component as it enters and exits.
+
+<ComponentPreview code={`<AnimateLayout transitionClassName="pt-4">
+  {show && <PrimaryLine key="s" className="w-full h-[80px]" />}
+</AnimateLayout>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <AnimateLayoutHeightDemo />
+</ComponentPreview>
+
+### Width
+
+Use <code>dimension="width"</code> to animate width.
+
+<ComponentPreview code={`<AnimateLayout
+  dimension="width"
+  transitionClassName="pl-6"
+  enter={{ delay: 200 }}
+  layoutExit={{ delay: 75 }}
+>
+  {show && <PrimarySquare key="s" className="w-[200px] h-[200px]" />}
+</AnimateLayout>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <AnimateLayoutWidthDemo />
+</ComponentPreview>
+
+### Accordion
+
+Wrap accordion content with <code>&lt;AnimateLayout&gt;</code> for smooth height animation.
+
+<ComponentPreview code={`<AnimateLayout
+  enter={{ y: 0, delay: 150, duration: 450 }}
+  exit={{ y: -8 }}
+  layoutEnter={{ duration: 400 }}
+>
+  {open && (
+    <div key="content" className="pb-4 text-secondary">
+      {children}
+    </div>
+  )}
+</AnimateLayout>`} previewMinHeight={320}>
+  <AnimateLayoutAccordionDemo />
+</ComponentPreview>
+
+### Talk button
+
+Animate <code>width</code> with consistent height. Use <code>transitionClassName</code> to match the button's flex structure.
+
+<ComponentPreview code={`<Button onClick={handleClick} loading={sending}>
+  <AnimateLayout dimension="width" transitionClassName="h-full flex items-center gap-2">
+    {recording ? (
+      <ArrowUp key="recording" />
+    ) : (
+      <Fragment key="record">
+        <Wave /> Talk
+      </Fragment>
+    )}
+  </AnimateLayout>
+</Button>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <AnimateLayoutTalkButtonDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "className", type: "string", description: "Class applied to the wrapper element" },
+  { prop: "transitionClassName", type: "string", description: "Class applied to the inner TransitionGroup; use for padding on children" },
+  { prop: "dimension", type: '"height" | "width"', default: '"height"', description: "Which property to animate during transitions" },
+  { prop: "enter", type: "TransitionDefinition", description: "Enter transition (opacity, x, y, scale, etc.)" },
+  { prop: "exit", type: "TransitionDefinition", description: "Exit transition" },
+  { prop: "initial", type: "InitialTransitionDefinition", description: "State before enter" },
+  { prop: "layoutEnter", type: "LayoutTransitionDefinition", description: "Timing for layout enter (duration, delay, timingFunction)" },
+  { prop: "layoutExit", type: "LayoutTransitionDefinition", description: "Timing for layout exit" },
+  { prop: "layoutMove", type: "LayoutTransitionDefinition", description: "Timing for layout move" },
+  { prop: "hideOverflow", type: "boolean", default: "false", description: "Apply overflow: hidden to the wrapper" },
+  { prop: "itemAnchor", type: '"start" | "end"', default: '"start"', description: "Which side of the container items pin to during enter/exit" },
+  { prop: "preventInitialTransition", type: "boolean", default: "true", description: "When false, children run enter on initial mount" },
+  { prop: "forceCompositeLayer", type: "boolean", default: "false", description: "Applies will-change; use with caution" },
+]} />

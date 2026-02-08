@@ -1,0 +1,89 @@
+---
+title: Radio Group
+description: Semantic radio option selection
+---
+
+import {
+  RadioGroupBaseDemo,
+  RadioGroupDirectionDemo,
+  RadioGroupDisabledDemo,
+  RadioGroupItemDisabledDemo,
+  RadioGroupCustomLayoutDemo,
+} from "@/components/docs/RadioGroupDemos"
+
+<UsageBlock>{`import { RadioGroup } from "@plexui/ui/components/RadioGroup";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`const [frequency, setFrequency] = useState("daily")
+<RadioGroup direction="col" value={frequency} onChange={setFrequency} aria-label="Notification frequency">
+  <RadioGroup.Item value="daily">Daily</RadioGroup.Item>
+  <RadioGroup.Item value="weekly">Weekly</RadioGroup.Item>
+  <RadioGroup.Item value="monthly">Monthly</RadioGroup.Item>
+  <RadioGroup.Item value="never">Never</RadioGroup.Item>
+</RadioGroup>`} previewMinHeight={168}>
+  <RadioGroupBaseDemo />
+</ComponentPreview>
+
+### Direction
+
+<ComponentPreview details={<>Use <code>direction</code> to control whether the items flow in a column or row. An optimal <code>gap</code> will be dynamically applied based on the orientation.</>} code={`<RadioGroup direction="col" aria-label="Sample options">
+  <RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+  <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
+  <RadioGroup.Item value="option3">Option 3</RadioGroup.Item>
+</RadioGroup>`} previewMinHeight={168}>
+  <RadioGroupDirectionDemo />
+</ComponentPreview>
+
+### Group disabled
+
+<ComponentPreview details={<>Use <code>disabled</code> on <code>RadioGroup</code> to disable all radio options.</>} code={`<RadioGroup disabled defaultValue="option1" aria-label="Sample options">
+  <RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
+  <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
+  <RadioGroup.Item value="option3">Option 3</RadioGroup.Item>
+</RadioGroup>`} previewMinHeight={168}>
+  <RadioGroupDisabledDemo />
+</ComponentPreview>
+
+### Item disabled
+
+<ComponentPreview details={<>Use <code>disabled</code> on single <code>RadioGroup.Item</code> to disable only that option.</>} code={`<RadioGroup aria-label="Sample options" className="max-w-[320px] m-auto" direction="col">
+  <RadioGroup.Item value="option1" disabled>Option 1</RadioGroup.Item>
+  <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
+  <RadioGroup.Item value="option3">This is long content that will wrap...</RadioGroup.Item>
+</RadioGroup>`} previewMinHeight={168}>
+  <RadioGroupItemDisabledDemo />
+</ComponentPreview>
+
+### Complex layout
+
+<ComponentPreview details={<>Instrument complex layouts by leveraging component composition and <code>className</code> overrides.</>} className="justify-start" code={`<RadioGroup className="flex-col w-[390px] gap-4">
+  <RadioGroup.Item className="gap-2.5" value="basic">
+    <div><h4>Basic Plan</h4><p className="text-secondary text-sm">5 GB storage</p></div>
+  </RadioGroup.Item>
+  ...
+</RadioGroup>`} previewMinHeight={168}>
+  <RadioGroupCustomLayoutDemo />
+</ComponentPreview>
+
+## Reference
+
+### `RadioGroup`
+
+<PropsTable data={[
+  { prop: "value", type: "string", description: "Controlled selected value" },
+  { prop: "defaultValue", type: "string", description: "Initial selected value (uncontrolled)" },
+  { prop: "onChange", type: "(value: string) => void", description: "Called when selected option changes" },
+  { prop: "direction", type: '"col" | "row"', default: '"col"', description: "Item flow direction" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable the whole group" },
+  { prop: "aria-label", type: "string", description: "Accessible group label" },
+]} />
+
+### `RadioGroup.Item`
+
+<PropsTable data={[
+  { prop: "value", type: "string", description: "Item value" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable this item only" },
+]} />

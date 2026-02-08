@@ -1,0 +1,45 @@
+---
+title: Avatar Group
+description: Display avatars as a single stack
+---
+
+import { AvatarGroupBaseDemo, AvatarGroupDirectionDemo, AvatarGroupSizingDemo } from "@/components/docs/AvatarGroupDemos"
+
+<UsageBlock>{`import { AvatarGroup } from "@plexui/ui/components/Avatar";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<AvatarGroup size={42}>
+  <Avatar name="Tyler" imageUrl="https://gravatar.com/avatar/xyz" />
+  <Avatar name="Jane" color="primary" variant="solid" />
+  <Avatar name="Tech support" Icon={Robot} variant="solid" />
+  <Avatar overflowCount={5} />
+</AvatarGroup>`} previewMinHeight={168}>
+  <AvatarGroupBaseDemo />
+</ComponentPreview>
+
+### Stacking direction
+
+<ComponentPreview details={<>You can control the stacking direction using the <code>stack</code> prop, as either <code>"start"</code> or <code>"end"</code>.</>} code={`<AvatarGroup stack="end" size={42}>...</AvatarGroup>`} previewMinHeight={168}>
+  <AvatarGroupDirectionDemo />
+</ComponentPreview>
+
+### Group sizing
+
+<ComponentPreview details={<>You can control the size of all avatars in the group by passing <code>size</code> directly to the <code>&lt;AvatarGroup&gt;</code> component.</>} code={`<AvatarGroup size={48}>
+  <Avatar name="Tyler" color="info" />
+  <Avatar name="Jane" color="discovery" />
+  <Avatar name="Will" color="danger" />
+  <Avatar overflowCount={5} />
+</AvatarGroup>`} previewMinHeight={168}>
+  <AvatarGroupSizingDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "size", type: "number", description: "Size of all avatars in the group" },
+  { prop: "stack", type: '"start" | "end"', default: '"start"', description: "Stacking direction" },
+]} />

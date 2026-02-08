@@ -1,0 +1,203 @@
+---
+title: Alert
+description: Call attention to a specific message or warning
+---
+
+import { Alert } from "@plexui/ui/components/Alert"
+import { Button } from "@plexui/ui/components/Button"
+import { Lightbulb } from "@plexui/ui/components/Icon"
+import { TextLink } from "@plexui/ui/components/TextLink"
+import { AlertColorsDemo, AlertDismissDemo } from "@/components/docs/AlertDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { Alert } from "@plexui/ui/components/Alert";`}</UsageBlock>
+
+## Examples
+
+<div id="first-component-page">
+### Overview
+
+<ComponentPreview code={`<Alert
+  title="Scheduled maintenance"
+  description="We'll be offline 2 - 4 AM UTC on July 14 while we upgrade our database."
+  actions={<Button color="primary" variant="soft" pill>Dismiss</Button>}
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    title="Scheduled maintenance"
+    description="We'll be offline 2 - 4 AM UTC on July 14 while we upgrade our database."
+    actions={
+      <Button color="primary" variant="soft" pill>
+        Dismiss
+      </Button>
+    }
+  />
+</ComponentPreview>
+
+### Colors & variants
+
+<ComponentPreview details={<>You can stylize the display of the alert using the <code>color</code> and <code>variant</code> props.</>} code={`<Alert
+  color="primary"
+  variant="outline"
+  title="Scheduled maintenance on Saturday, 2-4 AM PT"
+  description={<>Track status updates on <TextLink color="currentcolor" href="#">status page</TextLink></>}
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.showcaseTall}>
+  <AlertColorsDemo />
+</ComponentPreview>
+
+### Title
+
+<ComponentPreview details={<>You can optionally include a title for your alert with the <code>title</code> prop.</>} code={`<Alert title="Your current access level limits what you can view or modify" />`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert title="Your current access level limits what you can view or modify" />
+</ComponentPreview>
+
+### Description
+
+<ComponentPreview details={<>You can optionally include description text for your alert with the <code>description</code> prop.</>} code={`<Alert
+  description={
+    <>
+      We're working on centralizing SCIM and invite settings. For now, setup is handled within individual product settings. <TextLink href="#">Learn more</TextLink>
+    </>
+  }
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    description={
+      <>
+        We&apos;re working on centralizing SCIM and invite settings. For now, setup is handled within individual product settings. <TextLink href="#">Learn more</TextLink>
+      </>
+    }
+  />
+</ComponentPreview>
+
+### Actions
+
+<ComponentPreview details={<>You can add actions to the alert with the <code>actions</code> prop, which accepts <code>ReactNode</code>.</>} code={`<Alert
+  variant="soft"
+  color="warning"
+  title="Password expires in 3 days"
+  description="Update it now to avoid losing access to your account."
+  actions={<Button color="primary" pill>Update password</Button>}
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    variant="soft"
+    color="warning"
+    title="Password expires in 3 days"
+    description="Update it now to avoid losing access to your account."
+    actions={<Button color="primary" pill>Update password</Button>}
+  />
+</ComponentPreview>
+
+### Action placement
+
+<ComponentPreview details={<>Actions are automatically positioned in the alert by default. You can force a specific position with the <code>actionsPlacement</code> prop by passing either <code>'end'</code> or <code>'bottom'</code>.</>} code={`<Alert
+  title="Our terms of service has been updated"
+  description="We've updated our terms to clarify how we handle data, billing, and user permissions. Please review and accept the latest terms to avoid impacting your service."
+  actions={(
+    <>
+      <Button color="primary" variant="soft" pill>Set reminder</Button>
+      <Button color="primary" variant="solid" pill>Review terms</Button>
+    </>
+  )}
+  actionsPlacement="bottom"
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    title="Our terms of service has been updated"
+    description="We've updated our terms to clarify how we handle data, billing, and user permissions. Please review and accept the latest terms to avoid impacting your service."
+    actions={
+      <>
+        <Button color="primary" variant="soft" pill>
+          Set reminder
+        </Button>
+        <Button color="primary" variant="solid" pill>
+          Review terms
+        </Button>
+      </>
+    }
+    actionsPlacement="bottom"
+  />
+</ComponentPreview>
+
+### Indicator
+
+<ComponentPreview details={<>Alert provides an indicator icon by default. You can override it by passing a custom icon to <code>indicator</code>.</>} code={`<Alert
+  indicator={<Lightbulb />}
+  description={
+    <>
+      We're working on centralizing SCIM and invite settings. For now, setup is handled within individual product settings. <TextLink href="#">Learn more</TextLink>
+    </>
+  }
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    indicator={<Lightbulb />}
+    description={
+      <>
+        We&apos;re working on centralizing SCIM and invite settings. For now, setup is handled within individual product settings. <TextLink href="#">Learn more</TextLink>
+      </>
+    }
+  />
+</ComponentPreview>
+
+To hide the indicator entirely, pass `indicator={false}`.
+
+<ComponentPreview code={`<Alert
+  indicator={false}
+  description="Version 2.18.5 rolls out behind-the-scenes tweaks to caching and background sync. You don't need to do anything."
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    indicator={false}
+    description="Version 2.18.5 rolls out behind-the-scenes tweaks to caching and background sync. You don't need to do anything."
+  />
+</ComponentPreview>
+
+### Dismissible
+
+<ComponentPreview details={<>The suggested approach for dismissible notices is to use labeled buttons via <code>actions</code>.</>} code={`<Alert
+  className="items-start"
+  title="Try our new dashboard layout"
+  description="We've introduced a streamlined layout that makes using the dashboard even easier. You can switch back any time."
+  actions={(
+    <>
+      <Button color="primary" variant="soft" pill>Dismiss</Button>
+      <Button color="primary" variant="solid" pill>Try it</Button>
+    </>
+  )}
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <Alert
+    className="items-start"
+    title="Try our new dashboard layout"
+    description="We've introduced a streamlined layout that makes using the dashboard even easier. You can switch back any time."
+    actions={
+      <>
+        <Button color="primary" variant="soft" pill>
+          Dismiss
+        </Button>
+        <Button color="primary" variant="solid" pill>
+          Try it
+        </Button>
+      </>
+    }
+  />
+</ComponentPreview>
+
+You can also provide `onDismiss` to render a dismiss button in the alert chrome.
+
+<ComponentPreview code={`<Alert
+  title="Thank you!"
+  description="Your application has been received. We will review your application and respond within the next 48 hours."
+  onDismiss={() => {}}
+/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <AlertDismissDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "title", type: "ReactNode", description: "Title displayed in the alert" },
+  { prop: "description", type: "ReactNode", description: "Description text" },
+  { prop: "actions", type: "ReactNode", description: "Actions (for example buttons)" },
+  { prop: "actionsPlacement", type: '"end" | "bottom"', description: "Placement of actions" },
+  { prop: "color", type: "SemanticColors", default: '"primary"', description: "Color scheme" },
+  { prop: "variant", type: '"solid" | "soft" | "outline"', default: '"outline"', description: "Style variant" },
+  { prop: "indicator", type: "ReactNode | false", description: "Custom indicator or false to hide" },
+  { prop: "onDismiss", type: "() => void", description: "Shows dismiss button when provided" },
+]} />
+</div>

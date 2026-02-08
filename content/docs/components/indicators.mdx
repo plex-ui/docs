@@ -1,0 +1,119 @@
+---
+title: Indicators
+description: Display loading and progress states to users
+---
+
+import { LoadingIndicator, LoadingDots, CircularProgress } from "@plexui/ui/components/Indicator"
+import {
+  IndicatorHeroContent,
+  LoadingIndicatorSizingDemo,
+  LoadingIndicatorDurationDemo,
+  CircularProgressBaseDemo,
+  CircularProgressStaticDemo,
+  CircularProgressSizingDemo,
+  CircularProgressColorDemo,
+} from "@/components/docs/IndicatorDemos"
+
+<UsageBlock>{`import { LoadingIndicator, CircularProgress, LoadingDots } from "@plexui/ui/components/Indicator";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<div className="flex items-center gap-6">
+  <LoadingIndicator size={20} />
+  <CircularProgress size={24} />
+  <LoadingDots />
+</div>`}>
+  <IndicatorHeroContent />
+</ComponentPreview>
+
+### LoadingIndicator
+
+<ComponentPreview details={<>Simple spinning indicator for general loading states.</>} code={`<LoadingIndicator />`} previewMinHeight={168}>
+  <LoadingIndicator />
+</ComponentPreview>
+
+### Sizing & stroke
+
+<ComponentPreview details={<>By default, the indicator adapts to the surrounding <code>font-size</code> and <code>color</code> of text. You can control the size of the <code>LoadingIndicator</code> using the <code>--indicator-size</code> CSS custom property.</>} code={`<LoadingIndicator size={30} strokeWidth={2} />`} previewMinHeight={168}>
+  <LoadingIndicatorSizingDemo />
+</ComponentPreview>
+
+### Color
+
+<ComponentPreview details={<>The indicator defaults to <code>currentcolor</code>, inheriting the surrounding text color. This can also be customized by altering the <code>--indicator-color</code> variable around the DOM scope of the component.</>} code={`<div className="flex items-center gap-2 text-danger">
+  <LoadingIndicator size={16} /> <span>Destroying forever...</span>
+</div>`} previewMinHeight={168}>
+  <div className="flex items-center gap-2 text-danger">
+    <LoadingIndicator size={16} /> <span>Destroying forever...</span>
+  </div>
+</ComponentPreview>
+
+### Duration
+
+<ComponentPreview details={<>You can control the rotation speed of the spinner with <code>--indicator-rotate-duration</code>.</>} code={`<div style={{ '--indicator-rotate-duration': '3s' } as React.CSSProperties}>
+  <LoadingIndicator />
+</div>`} previewMinHeight={168}>
+  <LoadingIndicatorDurationDemo />
+</ComponentPreview>
+
+### CircularProgress
+
+<ComponentPreview details={<>Circular progress ring with simulated progress animation.</>} code={`<CircularProgress />`} previewMinHeight={168}>
+  <CircularProgressBaseDemo />
+</ComponentPreview>
+
+### Progress
+
+<ComponentPreview details={<>Use <code>progress</code> to show static progress and prevent the animation.</>} code={`<CircularProgress progress={25} />`} previewMinHeight={168}>
+  <CircularProgressStaticDemo />
+</ComponentPreview>
+
+### Sizing & stroke
+
+<ComponentPreview details={<>Use <code>size</code> and <code>strokeWidth</code>. Or use <code>--circular-progress-size</code> and <code>--circular-progress-stroke</code> CSS variables.</>} code={`<CircularProgress size={30} strokeWidth={2} />`} previewMinHeight={168}>
+  <CircularProgressSizingDemo />
+</ComponentPreview>
+
+### Color
+
+<ComponentPreview details={<>Customize the color of the indicator with the <code>--circular-progress-track-color</code> and <code>--circular-progress-track-active-color</code> variables.</>} code={`<CircularProgress trackColor="var(--alpha-15)" trackActiveColor="var(--gray-1000)" />`} previewMinHeight={168}>
+  <CircularProgressColorDemo />
+</ComponentPreview>
+
+### LoadingDots
+
+<ComponentPreview details={<>Indicate typing progress with staggered pulsing dot animation.</>} code={`<LoadingDots />`} previewMinHeight={168}>
+  <LoadingDots />
+</ComponentPreview>
+
+### Color
+
+<ComponentPreview details={<>The indicator defaults to <code>currentcolor</code>, inheriting the surrounding text color. You can customize the color by providing a different <code>color</code> value or context.</>} code={`<div className="text-danger">
+  <LoadingDots />
+</div>`} previewMinHeight={168}>
+  <div className="text-danger">
+    <LoadingDots />
+  </div>
+</ComponentPreview>
+
+## Reference
+
+### LoadingIndicator
+
+<PropsTable data={[
+  { prop: "size", type: "number", description: "Size in px (or use --indicator-size CSS variable)" },
+  { prop: "strokeWidth", type: "number", description: "Stroke width" },
+]} />
+
+### CircularProgress
+
+<PropsTable data={[
+  { prop: "progress", type: "number", description: "Static progress 0–100 (disables animation)" },
+  { prop: "size", type: "number", description: "Diameter in px" },
+  { prop: "strokeWidth", type: "number", description: "Stroke thickness" },
+  { prop: "done", type: "boolean", description: "Completion state for animation" },
+  { prop: "trackColor", type: "string", description: "Track color (CSS variable or value)" },
+  { prop: "trackActiveColor", type: "string", description: "Active segment color" },
+]} />

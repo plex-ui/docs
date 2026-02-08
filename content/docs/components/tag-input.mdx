@@ -1,0 +1,34 @@
+---
+title: Tag Input
+description: Enter multiple unique tags
+---
+
+import { TagInputBaseDemoWithControls } from '@/components/docs/TagInputDemo'
+
+<UsageBlock>{`import { TagInput } from "@plexui/ui/components/TagInput";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<TagInput
+  placeholder="example@example.com"
+  validator={(email) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)}
+  rows={3}
+/>`} previewMinHeight={168}>
+  <TagInputBaseDemoWithControls />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "value", type: "Tag[]", description: "Controlled value" },
+  { prop: "defaultValue", type: "Tag[]", description: "Uncontrolled initial tags" },
+  { prop: "onChange", type: "(tags: Tag[]) => void", description: "Change handler" },
+  { prop: "placeholder", type: "string", description: "Input placeholder" },
+  { prop: "validator", type: "(value: string) => boolean", description: "Validates each tag; invalid tags shown in red" },
+  { prop: "maxTags", type: "number", description: "Max tags before input is disabled" },
+  { prop: "rows", type: "number", default: "1", description: "Min rows" },
+  { prop: "size", type: "string", default: "xl", description: "Control height when rows=1" },
+  { prop: "autoFocus", type: "boolean", default: "false", description: "Focus on mount" },
+]} />

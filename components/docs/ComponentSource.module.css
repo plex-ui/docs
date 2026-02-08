@@ -1,0 +1,71 @@
+.SourceContainer {
+  position: relative;
+  margin: 16px 0 30px;
+  overflow: hidden;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-md);
+  background: var(--color-fd-background);
+  transition: max-height 0.2s ease-out;
+}
+
+.SourceContainer[data-collapsed] {
+  min-height: 140px;
+}
+
+.SourceContainer:not([data-collapsed]) {
+  max-height: none;
+}
+
+/* Fumadocs CodeBlock inside */
+.SourceContainer figure {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.SourceContainer [data-rehype-pretty-code-figure],
+.SourceContainer .shiki,
+.SourceContainer pre.shiki {
+  background: var(--color-fd-background) !important;
+}
+
+.GradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 20%,
+    var(--color-fd-background) 100%
+  );
+}
+
+.ExpandButtonContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ExpandButton {
+  padding: 8px 16px;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 9999px;
+  background: var(--color-fd-background);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.ExpandButton:hover {
+  background: var(--alpha-08);
+}

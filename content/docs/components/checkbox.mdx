@@ -1,0 +1,40 @@
+---
+title: Checkbox
+description: Toggle control for on and off states
+---
+
+import { Checkbox } from "@plexui/ui/components/Checkbox"
+import { CheckboxIndeterminateDemo } from "@/components/docs/CheckboxDemos"
+
+<UsageBlock>{`import { Checkbox } from "@plexui/ui/components/Checkbox";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<Checkbox label="Same as billing address" />`} previewMinHeight={168}>
+  <Checkbox label="Same as billing address" />
+</ComponentPreview>
+
+### Indeterminate
+
+<ComponentPreview details={<>Use <code>checked="indeterminate"</code> to indicate that the checkbox is partially selected.</>} code={`<Checkbox
+  checked={checked}
+  onCheckedChange={() => setChecked(c => c === "indeterminate" ? true : c ? false : "indeterminate")}
+/>`} previewMinHeight={168}>
+  <CheckboxIndeterminateDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "checked", type: "boolean | \"indeterminate\"", description: "Controlled state" },
+  { prop: "defaultChecked", type: "boolean | \"indeterminate\"", description: "Initial state (uncontrolled)" },
+  { prop: "onCheckedChange", type: "(next: boolean) => void", description: "Called when state changes" },
+  { prop: "label", type: "ReactNode", description: "Accessible label (right of control)" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Prevent interaction" },
+  { prop: "required", type: "boolean", description: "Required for form submission" },
+  { prop: "name", type: "string", description: "Form field name" },
+  { prop: "value", type: "string", description: "Value when submitted" },
+  { prop: "orientation", type: '"left" | "right"', default: '"left"', description: "Label position" },
+]} />

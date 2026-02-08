@@ -1,0 +1,119 @@
+---
+title: Select
+description: Choose from a dropdown of options
+---
+
+import { Select } from "@plexui/ui/components/Select"
+import {
+  SelectBaseDemo,
+  SelectCustomViewsDemo,
+  SelectActionsDemo,
+  SelectGroupedOptionsDemo,
+  SelectMultiSelectDemo,
+} from "@/components/docs/SelectDemos"
+
+<UsageBlock>{`import { Select } from "@plexui/ui/components/Select";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<Select
+  value={fruit}
+  options={fruits}
+  onChange={handleChange}
+  placeholder="Select a fruit..."
+  variant="solid"
+/>`} previewMinHeight={168}>
+  <SelectBaseDemo />
+</ComponentPreview>
+
+### Custom views
+
+<ComponentPreview details={<>You can fully customize the styling and rendering of select's trigger and options:<br/><ul><li><strong>Trigger</strong> &ndash; <code>triggerClassName</code>, <code>TriggerStartIcon</code>, and <code>TriggerView</code></li><li><strong>Options</strong> &ndash; <code>optionClassName</code>, <code>OptionView</code>, as well as <code>description</code> and <code>tooltip</code> fields in <code>options</code></li></ul></>} code={`<Select
+  value={role}
+  options={roles}
+  placeholder="Select role..."
+  align="start"
+  listMinWidth={260}
+  variant="ghost"
+  size="lg"
+  onChange={({ value }) => setRole(value)}
+  TriggerStartIcon={role === "owner" ? UserLock : User}
+  triggerClassName="font-semibold"
+  optionClassName="font-semibold"
+/>`} previewMinHeight={168}>
+  <SelectCustomViewsDemo />
+</ComponentPreview>
+
+### Actions
+
+<ComponentPreview details={<>Custom, arbitrary actions can be displayed below the options list via the <code>actions</code> prop.</>} code={`<Select
+  value={value}
+  onChange={handleChange}
+  options={items}
+  placeholder="Select..."
+  align="start"
+  listMinWidth={240}
+  triggerClassName="font-semibold"
+  actions={[
+    { id: "create", label: "Create project", Icon: Plus, onSelect: () => {} },
+    { id: "overview", label: "Organization overview", Icon: Workspace, onSelect: () => {} },
+  ]}
+/>`} previewMinHeight={168}>
+  <SelectActionsDemo />
+</ComponentPreview>
+
+### Grouped options
+
+<ComponentPreview details={<>Select supports option groups, similar to the native <code>&lt;optgroup&gt;</code> element. All selects are searchable by default, but will only present a searchbox when it makes sense. Currently, this means when there are 15 or more options.</>} code={`<Select
+  value={value}
+  options={groupedItems}
+  onChange={(v) => setValue(v.value)}
+  variant="outline"
+  size="lg"
+  side="bottom"
+  listMinWidth={300}
+  searchPlaceholder="Select an option..."
+  clearable
+/>`} previewMinHeight={168}>
+  <SelectGroupedOptionsDemo />
+</ComponentPreview>
+
+### Multiple selection
+
+<ComponentPreview details={<>Multiple selection is supported through the <code>multiple</code> property. This changes how <code>value</code>, <code>onChange</code>, and <code>TriggerView</code> are typed, accepting and returning arrays of values.</>} code={`<Select
+  variant="soft"
+  placeholder="Select fruits..."
+  options={fruitsOptions}
+  name="fruits"
+  multiple
+  clearable
+  value={fruits}
+  onChange={(values) => setFruits(values.map(({ value }) => value))}
+  TriggerView={MultiFruitTriggerView}
+/>`} previewMinHeight={168}>
+  <SelectMultiSelectDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "options", type: "Options<T>", description: "Array of options or grouped options" },
+  { prop: "value", type: "string | string[]", description: "Selected value (single) or values (multiple)" },
+  { prop: "onChange", type: "function", description: "Called when selection changes" },
+  { prop: "multiple", type: "boolean", default: "false", description: "Allow multiple selection" },
+  { prop: "placeholder", type: "string", default: '"Select..."', description: "Trigger placeholder" },
+  { prop: "variant", type: "string", default: '"outline"', description: "Trigger variant" },
+  { prop: "size", type: "string", default: '"md"', description: "Trigger size" },
+  { prop: "pill", type: "boolean", default: "false", description: "Rounded trigger" },
+  { prop: "clearable", type: "boolean", default: "false", description: "Show clear button" },
+  { prop: "block", type: "boolean", default: "true", description: "Full width trigger" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable select" },
+  { prop: "actions", type: "array", description: "Actions below options list" },
+  { prop: "OptionView", type: "React.FC", description: "Custom option render" },
+  { prop: "TriggerView", type: "React.FC", description: "Custom trigger render (multi)" },
+  { prop: "searchPlaceholder", type: "string", description: "Search input placeholder" },
+]} />
+
+Select shares the unified 9-step size scale with Button, Input, SelectControl, and SegmentedControl.

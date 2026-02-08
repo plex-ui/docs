@@ -1,0 +1,142 @@
+---
+title: Floating Label Input
+description: Input with floating label that animates on focus
+---
+
+import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput"
+import {
+  FloatingLabelInputWithClearButtonDemoWithControls,
+  FloatingLabelInputDisabledDemoWithControls,
+} from "@/components/docs/FloatingLabelInputDemos"
+
+<UsageBlock>{`import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<FloatingLabelInput label="Email address" />`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput label="Email address" />
+  </div>
+</ComponentPreview>
+
+### Filled state
+
+<ComponentPreview details={<>When the input has a value, the label stays floated above the input.</>} code={`<FloatingLabelInput label="Email address" defaultValue="jane.doe@example.com" />`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput label="Email address" defaultValue="jane.doe@example.com" />
+  </div>
+</ComponentPreview>
+
+### With error message
+
+<ComponentPreview details={<>Use the <code>errorMessage</code> prop to display a validation error below the input. When <code>errorMessage</code> is provided, the input automatically enters the invalid state.</>} code={`<FloatingLabelInput
+  label="Email address"
+  defaultValue="jane.doe@example"
+  invalid
+  errorMessage="Email is not valid."
+/>`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput
+      label="Email address"
+      defaultValue="jane.doe@example"
+      invalid
+      errorMessage="Email is not valid."
+    />
+  </div>
+</ComponentPreview>
+
+### Clear button
+
+<ComponentPreview details={<>Use the <code>onClear</code> prop to display a built-in clear button. The button appears when the input has a value and is not disabled or read-only.</>} code={`const [value, setValue] = useState("clearable@example.com")
+
+<FloatingLabelInput
+  label="Email address"
+  value={value}
+  onChange={(evt) => setValue(evt.target.value)}
+  onClear={() => setValue("")}
+/>`} previewMinHeight={168}>
+  <FloatingLabelInputWithClearButtonDemoWithControls />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Use the <code>disabled</code> prop to disable the input, greying it out and preventing user interactions.</>} code={`<FloatingLabelInput label="Email address" defaultValue="jane.doe@example.com" disabled />`} previewMinHeight={168}>
+  <FloatingLabelInputDisabledDemoWithControls />
+</ComponentPreview>
+
+### Read only
+
+<ComponentPreview details={<>Use the <code>readOnly</code> prop to make the input read-only. The user can still select and copy the text.</>} code={`<FloatingLabelInput label="Email address" defaultValue="jane.doe@example.com" readOnly />`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput label="Email address" defaultValue="jane.doe@example.com" readOnly />
+  </div>
+</ComponentPreview>
+
+### All states
+
+<ComponentPreview details={<>Overview of all input states.</>} code={`<div className="flex flex-col items-center gap-8 py-8">
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
+    <FloatingLabelInput label="Email address" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
+    <FloatingLabelInput label="Email address" defaultValue="jane.doe@gmail.com" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
+    <FloatingLabelInput invalid label="Email address" defaultValue="invalid@email" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
+    <FloatingLabelInput disabled label="Email address" defaultValue="jane.doe@gmail.com" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Read only</div>
+    <FloatingLabelInput readOnly label="Email address" defaultValue="readonly@gmail.com" className="w-[320px]" />
+  </div>
+</div>`} previewMinHeight={168}>
+  <div className="flex flex-col items-center gap-8 py-8">
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
+      <FloatingLabelInput label="Email address" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
+      <FloatingLabelInput label="Email address" defaultValue="jane.doe@gmail.com" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
+      <FloatingLabelInput invalid label="Email address" defaultValue="invalid@email" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
+      <FloatingLabelInput disabled label="Email address" defaultValue="jane.doe@gmail.com" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Read only</div>
+      <FloatingLabelInput readOnly label="Email address" defaultValue="readonly@gmail.com" className="w-[320px]" />
+    </div>
+  </div>
+</ComponentPreview>
+
+### Password input
+
+<ComponentPreview details={<>The component works with different input types.</>} code={`<FloatingLabelInput label="Password" type="password" />`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput label="Password" type="password" />
+  </div>
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "label", type: "string", description: "Floating label text" },
+  { prop: "errorMessage", type: "string", description: "Validation message below input; sets invalid state" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable input interactions" },
+  { prop: "invalid", type: "boolean", default: "false", description: "Invalid visual state" },
+  { prop: "readOnly", type: "boolean", default: "false", description: "Read-only input state" },
+  { prop: "onClear", type: "() => void", description: "Shows a clear button when input has value" },
+]} />
