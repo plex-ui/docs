@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 export function DocsViewportState({
   showLeftSidebar,
@@ -9,7 +9,7 @@ export function DocsViewportState({
   showLeftSidebar: boolean;
   showRightSidebar: boolean;
 }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.setAttribute(
       'data-docs-left-sidebar',
       showLeftSidebar ? 'on' : 'off'

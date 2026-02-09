@@ -241,7 +241,13 @@ html.dark .BrandIcon {
   }
 
   .NavLinks {
-    display: none;
+    gap: 2px;
+  }
+
+  .NavLink {
+    padding: 0 8px;
+    font-size: 13px;
+    min-height: 30px;
   }
 
   .SearchButton,
@@ -252,6 +258,10 @@ html.dark .BrandIcon {
 
   .SearchLabel,
   .Kbd {
+    display: none;
+  }
+
+  .FigmaButton {
     display: none;
   }
 }

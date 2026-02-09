@@ -60,6 +60,7 @@ body {
 
 #nd-docs-layout {
   background-color: var(--color-fd-background);
+  transition: none !important;
 }
 
 /* Match Storybook typography baseline so controls render with same face/weight */
