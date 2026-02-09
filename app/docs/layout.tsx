@@ -30,6 +30,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           gridTemplate: `"header header header"
           "sidebar toc-popover toc"
           "sidebar main toc" 1fr / var(--fd-sidebar-width) minmax(0, 1fr) var(--fd-toc-width)`,
+          transition: 'none',
         },
       }}
       nav={{
