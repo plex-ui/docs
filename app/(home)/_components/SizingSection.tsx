@@ -2,7 +2,7 @@
 
 import { SizingOverviewDemo } from '@/components/docs/SizingDemos';
 
-export function Why9SizesSection() {
+export function SizingSection() {
   return (
     <section
       data-reveal
@@ -23,7 +23,7 @@ export function Why9SizesSection() {
           a single prop and zero overrides.
         </p>
 
-        <div className="mt-8 overflow-hidden rounded-xl border border-fd-border [&_[data-demo-controls]>*:first-child]:!border-t-0">
+        <div className="mt-8 overflow-hidden rounded-xl border border-fd-border [&_[data-demo-controls]>*:first-child]:!border-t-0 [&_[data-demo-controls]>*:last-child]:border-b [&_[data-demo-controls]>*:last-child]:border-fd-border">
           <SizingOverviewDemo />
         </div>
       </div>

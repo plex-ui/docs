@@ -39,7 +39,7 @@ const dayShortcuts: DateRangeShortcut[] = [
 ];
 
 const controlsTableStyle: React.CSSProperties = {
-  background: 'var(--docs-surface-elevated)',
+  background: 'var(--docs-controls-bg, #ffffff)',
   width: '100%',
 };
 
@@ -55,8 +55,6 @@ const controlLabelStyle: React.CSSProperties = {
   fontFamily: 'var(--font-mono, ui-monospace, monospace)',
   fontSize: '0.8125rem',
   padding: '2px 8px',
-  borderRadius: 6,
-  background: 'var(--docs-surface-elevated)',
 };
 
 function DemoControlBoolean({
@@ -81,9 +79,9 @@ function DemoControlBoolean({
 
 function DemoControlRow({ name, children }: { name: string; children: React.ReactNode }) {
   return (
-    <div style={controlRowStyle}>
-      <span style={controlLabelStyle}>{name}</span>
-      <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
+    <div style={{ ...controlRowStyle, gap: 12 }}>
+      <span style={{ ...controlLabelStyle, flexShrink: 0 }}>{name}</span>
+      <div style={{ display: 'flex', alignItems: 'center', overflowX: 'auto', minWidth: 0 }}>{children}</div>
     </div>
   );
 }
@@ -134,7 +132,7 @@ export function SizingOverviewDemo() {
         </DemoControlRow>
         <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
       </div>
-      <div className="flex-1 flex flex-col gap-6 p-6 w-full" data-demo-stage>
+      <div className="flex-1 flex flex-col gap-6 px-6 py-10 w-full" data-demo-stage>
         {/* Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Button color="primary" size={size} pill={pill}>Submit</Button>
@@ -144,7 +142,7 @@ export function SizingOverviewDemo() {
           <Button variant="ghost" color="secondary" size={size} pill={pill} uniform><Clear /></Button>
         </div>
         {/* SelectControl, Input, DateRangePicker */}
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <Menu>
             <Menu.Trigger>
               <SelectControl

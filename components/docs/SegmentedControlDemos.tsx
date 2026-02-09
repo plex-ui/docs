@@ -31,8 +31,6 @@ const controlLabelStyle: React.CSSProperties = {
   fontFamily: 'var(--font-mono, ui-monospace, monospace)',
   fontSize: '0.8125rem',
   padding: '2px 8px',
-  borderRadius: 6,
-  background: 'var(--docs-surface-elevated)',
 };
 const exampleLabelStyle: React.CSSProperties = {
   color: 'var(--color-text-tertiary)',
