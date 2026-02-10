@@ -73,7 +73,7 @@ export function ComponentPreview({
           <SegmentedControl
             value={mode}
             onChange={(v) => setMode(v as Mode)}
-            size="sm"
+            size="md"
             pill={false}
             aria-label="View mode"
           >

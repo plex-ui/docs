@@ -1,71 +1,76 @@
 .Wrapper {
   overflow-x: auto;
   margin: 14px 0 36px;
-  border: 1px solid var(--color-fd-border);
-  border-radius: var(--radius-md);
   background: transparent;
 }
 
 .Table {
   width: 100%;
-  min-width: 640px;
   border-collapse: collapse;
   font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
 }
 
-/* Header only: gray in light, lighter in dark */
+/* Header: 13px/600, dark text — matches OpenAI reference */
 .ThProp,
 .ThType,
 .ThDefault,
 .ThDescription {
-  padding: 10px 12px;
+  padding: 8px 12px;
   text-align: left;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
-  background: var(--docs-surface-elevated);
-  border-bottom: 1px solid var(--color-fd-border);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: #181818;
+  background: transparent;
+  border-bottom: 1px solid #dedede;
 }
 
 .ThProp {
-  width: 140px;
+  width: auto;
   min-width: 100px;
 }
 
 .ThType {
-  width: 420px;
-  min-width: 360px;
+  width: auto;
+  min-width: 120px;
 }
 
 .ThDefault {
-  width: 100px;
-  min-width: 80px;
+  width: auto;
+  min-width: 70px;
 }
 
 .ThDescription {
-  min-width: 0;
+  width: auto;
 }
 
 .TdProp,
 .TdType,
 .TdDefault,
 .TdDescription {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--color-fd-border);
+  padding: 8px 12px;
+  border-bottom: 1px solid #ededed;
   vertical-align: top;
-  color: var(--color-text);
+  font-size: 14px;
+  line-height: 24px;
+  color: #282828;
   background: transparent;
 }
 
-/* Same token style as prose code (grey pill with border) so Reference matches Structure/useSidebar */
+/* Inline code in cells: 0.875em (~12.25px), subtle background */
 .TdProp code,
 .TdType code,
 .TdDefault code {
   font-family: var(--font-mono);
-  font-size: 13px;
-  padding: 3px 6px;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 5px;
-  background: var(--color-fd-muted);
+  font-size: 0.875em;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 2px 8px;
+  border: none;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 4%);
   color: var(--color-fd-foreground);
 }
 
@@ -79,4 +84,38 @@
 
 .Table tbody tr:last-child td {
   border-bottom: none;
+}
+
+[data-theme='dark'] .ThProp,
+[data-theme='dark'] .ThType,
+[data-theme='dark'] .ThDefault,
+[data-theme='dark'] .ThDescription,
+html.dark .ThProp,
+html.dark .ThType,
+html.dark .ThDefault,
+html.dark .ThDescription {
+  color: #999999;
+  background: transparent;
+  border-bottom-color: rgb(255 255 255 / 8%);
+}
+
+[data-theme='dark'] .TdProp,
+[data-theme='dark'] .TdType,
+[data-theme='dark'] .TdDefault,
+[data-theme='dark'] .TdDescription,
+html.dark .TdProp,
+html.dark .TdType,
+html.dark .TdDefault,
+html.dark .TdDescription {
+  color: var(--color-fd-foreground);
+  border-bottom-color: rgb(255 255 255 / 8%);
+}
+
+[data-theme='dark'] .TdProp code,
+[data-theme='dark'] .TdType code,
+[data-theme='dark'] .TdDefault code,
+html.dark .TdProp code,
+html.dark .TdType code,
+html.dark .TdDefault code {
+  background: rgb(255 255 255 / 8%);
 }

@@ -1,50 +1,49 @@
+/* ── Navbar — OpenAI-matching: 64px, 3-column grid, centered nav ── */
+
 .Header {
   grid-area: header;
   position: sticky;
   top: var(--fd-docs-row-1, 0);
   z-index: 12000;
-  height: var(--fd-header-height, 56px);
-  min-height: var(--fd-header-height, 56px);
-  border-bottom: 1px solid var(--color-fd-border);
-  background: var(--color-fd-background);
+  height: 64px;
+  min-height: 64px;
+  border-bottom: 1px solid var(--color-fd-border, #e5e5e5);
+  background: var(--color-fd-background, #ffffff);
 }
 
+/* 3-column grid: [brand] [nav-center] [right-actions]
+   Using 1fr auto 1fr so nav links are centered on the screen, not the remaining space */
 .Inner {
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 380px) minmax(0, 1fr);
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 0 20px;
+  gap: 24px;
+  padding: 0 32px;
 }
 
-.Left,
-.Center,
-.Right {
+/* Brand / logo — left column */
+.Left {
   display: flex;
   align-items: center;
+  gap: 16px;
   min-width: 0;
 }
 
-.Left {
-  gap: 14px;
-}
-
-.Center {
-  justify-content: center;
-}
-
+/* Right actions — right column, pushed to end */
 .Right {
-  gap: 8px;
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
+  gap: 20px;
+  min-width: 0;
 }
 
 .Brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--color-fd-foreground);
+  color: var(--color-fd-foreground, #181818);
   text-decoration: none;
   font-family:
     ui-sans-serif,
@@ -61,7 +60,7 @@
 }
 
 .Brand:hover {
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .BrandIcon {
@@ -80,188 +79,180 @@ html.dark .BrandIcon {
   align-items: center;
 }
 
+/* Nav links — centered in middle column, 14px/400, OpenAI states */
 .NavLinks {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 }
 
 .NavLink {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  min-height: 32px;
   text-decoration: none;
-  color: var(--color-fd-muted-foreground);
+  color: var(--color-fd-foreground, #0d0d0d);
   font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
-  padding: 0 12px;
-  border-radius: 8px !important;
-  transition: background-color 0.14s ease, color 0.14s ease;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
 }
 
 .NavLink:hover {
-  background: var(--color-background-secondary-soft-hover, var(--color-fd-accent));
-  color: var(--color-text, var(--color-fd-foreground));
+  background: #ededed;
 }
 
 .NavLinkActive {
-  background: var(--color-background-primary-soft, var(--color-fd-accent));
-  color: var(--color-text-primary-soft, var(--color-fd-foreground));
+  background: #ededed;
+  color: var(--color-fd-foreground, #0d0d0d);
 }
 
-.SearchButton {
-  height: 34px;
-  width: min(100%, 320px);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  border-radius: 8px !important;
-  border: 1px solid var(--color-fd-border);
-  background: var(--color-fd-background);
-  color: var(--color-fd-muted-foreground);
-  padding: 0 10px;
-  cursor: pointer;
-  transition: background-color 0.14s ease, color 0.14s ease;
+[data-theme='dark'] .NavLink:hover,
+html.dark .NavLink:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.SearchButton:hover {
-  background: var(--color-background-secondary-soft-hover, var(--color-fd-accent));
-  color: var(--color-text, var(--color-fd-foreground));
+[data-theme='dark'] .NavLinkActive,
+html.dark .NavLinkActive {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.SearchLabel {
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.Kbd {
-  margin-left: auto;
-  font-size: 11px;
-  line-height: 1;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 8px !important;
-  padding: 3px 5px;
-  color: var(--color-fd-muted-foreground);
-  background: var(--color-fd-secondary);
-}
-
-.IconButton,
-.MenuButton {
-  width: 34px;
-  height: 34px;
+/* Figma Kit — black pill CTA (compact, 32px height) */
+.FigmaButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px !important;
-  border: 1px solid var(--color-fd-border);
-  background: var(--color-fd-background);
-  color: var(--color-fd-muted-foreground);
+  height: 32px;
+  padding: 0 16px;
+  background: #000000;
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  white-space: nowrap;
   text-decoration: none;
+  border: none;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: background-color 0.14s ease, color 0.14s ease;
+  transition: opacity 0.15s ease;
 }
 
-.IconButton:hover,
-.MenuButton:hover {
-  background: var(--color-background-secondary-soft-hover, var(--color-fd-accent));
-  color: var(--color-text, var(--color-fd-foreground));
+.FigmaButton:hover {
+  opacity: 0.85;
 }
 
-.IconButton:focus-visible,
-.MenuButton:focus-visible,
-.SearchButton:focus-visible,
-.FigmaButton:focus-visible {
+[data-theme='dark'] .FigmaButton,
+html.dark .FigmaButton {
+  background: #ffffff;
+  color: #000000 !important;
+}
+
+[data-theme='dark'] .FigmaButton:hover,
+html.dark .FigmaButton:hover {
+  opacity: 0.85;
+}
+
+/* Theme toggle — bare icon with CSS-based light/dark icon swap (matches OpenAI exactly) */
+.ThemeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-fd-muted-foreground, #5d5d5d);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.ThemeToggle:hover {
+  color: var(--color-fd-foreground, #181818);
+}
+
+.ThemeToggle:focus-visible {
   outline: 2px solid var(--color-fd-primary);
-  outline-offset: 2px;
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
-.MenuButton {
-  display: none;
-}
-
-.MobileSearch {
-  display: none;
-}
-
-.Icon {
-  width: 15px;
-  height: 15px;
+/* Sun icon (light mode) / Moon icon (dark mode) — 16x16 rendered size */
+.ThemeIconLight,
+.ThemeIconDark {
+  width: 16px;
+  height: 16px;
   flex: 0 0 auto;
 }
 
-.FigmaButton,
-.FigmaButton::before {
-  border-radius: 8px !important;
+/* Light mode: show sun, hide moon */
+.ThemeIconLight {
+  display: block;
 }
 
-.FigmaButton {
-  height: 34px;
-  padding: 0 14px;
-  font-size: 13px;
-  font-weight: 500;
-  white-space: nowrap;
-  margin-left: 4px;
+.ThemeIconDark {
+  display: none;
 }
 
-@media (max-width: 1180px) {
-  .Inner {
-    grid-template-columns: minmax(0, 1fr) minmax(170px, 280px) auto;
-  }
-
-  .SearchButton {
-    width: 100%;
-  }
+/* Dark mode: show moon, hide sun */
+[data-theme='dark'] .ThemeIconLight,
+html.dark .ThemeIconLight {
+  display: none;
 }
+
+[data-theme='dark'] .ThemeIconDark,
+html.dark .ThemeIconDark {
+  display: block;
+}
+
+/* Hamburger menu button (mobile only) */
+.MenuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-fd-foreground, #181818);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.MenuButton:hover {
+  background: var(--color-fd-accent, #f5f5f5);
+}
+
+.Icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+/* ── Responsive ── */
 
 @media (max-width: 768px) {
-  .Header {
-    height: 52px;
-  }
-
   .Inner {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 12px;
-  }
-
-  .Center {
-    display: none;
-  }
-
-  .MobileSearch {
-    display: inline-flex;
-  }
-
-  .MenuButton {
-    display: inline-flex;
+    grid-template-columns: auto 1fr auto;
+    padding: 0 16px;
+    gap: 12px;
   }
 
   .NavLinks {
-    gap: 2px;
-  }
-
-  .NavLink {
-    padding: 0 8px;
-    font-size: 13px;
-    min-height: 30px;
-  }
-
-  .SearchButton,
-  .IconButton {
-    width: 30px;
-    height: 30px;
-  }
-
-  .SearchLabel,
-  .Kbd {
     display: none;
   }
 
   .FigmaButton {
     display: none;
+  }
+
+  .ThemeToggle {
+    display: none;
+  }
+
+  .MenuButton {
+    display: inline-flex;
   }
 }
