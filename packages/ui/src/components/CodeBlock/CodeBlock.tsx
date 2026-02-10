@@ -98,7 +98,7 @@ CodeBlockBase.CopyButton = function CodeBlockCopyButton({
         variant="ghost"
         color="secondary"
         pill={false}
-        size="md"
+        size="2xs"
         uniform
         loading={loading}
         disabled={disabled}

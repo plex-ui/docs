@@ -162,7 +162,7 @@
     /* =============================================
       CodeBlock
     ============================================= */
-    --codeblock-background-color: var(--gray-25);
+    --codeblock-background-color: light-dark(#f9f9f9, #161616);
     --codeblock-syntax-1: light-dark(#c0660d, var(--yellow-100));
     --codeblock-syntax-2: light-dark(var(--blue-500), var(--blue-200));
     --codeblock-syntax-3: light-dark(var(--green-600), var(--green-300));
