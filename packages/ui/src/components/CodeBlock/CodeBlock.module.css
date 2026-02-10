@@ -9,8 +9,21 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px 8px 0 0;
+  padding: 12px 8px 0 0;
   border-radius: inherit;
+  color: #24292e;
+}
+
+/* Force the CopyButton to inherit the container's color on all states.
+   Ghost hover background (::before) is preserved — it's the correct behavior. */
+.CopyButtonContainer button {
+  color: inherit !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .CopyButtonContainer {
+    color: #d0d0d0;
+  }
 }
 
 .SyntaxHighlighter {

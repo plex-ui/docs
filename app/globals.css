@@ -1022,16 +1022,81 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose a.block.rounded-xl.borde
   line-height: 24px !important;
 }
 
-/* ── Fumadocs copy button icon override — match OpenAI reference ──
-   Fumadocs renders copy buttons with lucide-react Clipboard/Check (stroke icons).
-   We replace them with filled OpenAI-style icons via CSS mask-image so every
-   code block on the site (prose, UsageBlock, ComponentPreview, ComponentSource)
-   shows the correct icons without modifying React components.
-   Safe: Plex UI CopyButton does NOT set aria-label. */
+/* ── Fumadocs copy button — match Plex UI CopyButton (ghost/secondary) exactly ──
+   Plex UI uses Button variant="ghost" color="secondary" size="2xs" uniform (24×24).
+   Ghost hover bg: rgba(13,13,13,0.08) via ::before. Active: rgba(13,13,13,0.12).
+   Fumadocs wrapper has backdrop-blur-lg/rounded-lg/top-3/right-2 — strip all that. */
 
+/* Container div wrapping the Fumadocs copy button — reset Tailwind classes */
+figure.shiki > div:has(> button[aria-label='Copy Text']),
+figure.shiki > div:has(> button[aria-label='Copied Text']) {
+  top: 0 !important;
+  right: 0 !important;
+  padding: 12px 8px 0 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  /* Kill Tailwind backdrop-blur-lg by resetting the variable it uses */
+  --tw-backdrop-blur: !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* The copy button itself — 24×24, 0 padding, rounded-md (6px) */
 button[aria-label='Copy Text'],
 button[aria-label='Copied Text'] {
   position: relative;
+  cursor: pointer;
+  color: #24292e !important;
+  background: transparent !important;
+  border-radius: 6px;
+  padding: 0 !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Hover: subtle bg matching Plex UI ghost/secondary (8% black) */
+button[aria-label='Copy Text']:hover,
+button[aria-label='Copied Text']:hover {
+  color: #24292e !important;
+  background: rgba(13, 13, 13, 0.08) !important;
+}
+
+/* Active/pressed: slightly stronger bg (12% black) */
+button[aria-label='Copy Text']:active,
+button[aria-label='Copied Text']:active {
+  color: #24292e !important;
+  background: rgba(13, 13, 13, 0.12) !important;
+}
+
+/* Dark mode */
+[data-theme='dark'] figure.shiki > div:has(> button[aria-label='Copy Text']),
+[data-theme='dark'] figure.shiki > div:has(> button[aria-label='Copied Text']),
+html.dark figure.shiki > div:has(> button[aria-label='Copy Text']),
+html.dark figure.shiki > div:has(> button[aria-label='Copied Text']) {
+  background: transparent !important;
+}
+
+[data-theme='dark'] button[aria-label='Copy Text'],
+[data-theme='dark'] button[aria-label='Copied Text'],
+html.dark button[aria-label='Copy Text'],
+html.dark button[aria-label='Copied Text'] {
+  color: #d0d0d0 !important;
+}
+
+[data-theme='dark'] button[aria-label='Copy Text']:hover,
+[data-theme='dark'] button[aria-label='Copied Text']:hover,
+html.dark button[aria-label='Copy Text']:hover,
+html.dark button[aria-label='Copied Text']:hover {
+  color: #d0d0d0 !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme='dark'] button[aria-label='Copy Text']:active,
+[data-theme='dark'] button[aria-label='Copied Text']:active,
+html.dark button[aria-label='Copy Text']:active,
+html.dark button[aria-label='Copied Text']:active {
+  color: #d0d0d0 !important;
+  background: rgba(255, 255, 255, 0.16) !important;
 }
 
 button[aria-label='Copy Text'] > svg,
