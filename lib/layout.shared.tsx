@@ -3,7 +3,6 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: 'Plex UI',
       url: '/',
       transparentMode: 'top',
     },

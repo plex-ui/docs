@@ -129,8 +129,8 @@ export function Hero() {
           Plex UI for Figma &amp; React
         </p>
 
-        {/* Headline */}
-        <h1 className="mt-4 text-[2.25rem] leading-[1.1] font-bold tracking-[-0.025em] text-fd-foreground sm:text-5xl md:text-[3.5rem] md:leading-[1.08]">
+        {/* Headline — 30px/600, OpenAI-matching */}
+        <h1 className="mt-4 text-[30px] leading-[42px] font-semibold tracking-[-0.6px] text-fd-foreground">
           The most flexible UI kit
           <br className="hidden sm:block" />
           {' '}for Figma &amp; React

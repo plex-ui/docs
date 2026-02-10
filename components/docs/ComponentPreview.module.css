@@ -15,9 +15,14 @@
 .PreviewBlock {
   position: relative;
   z-index: 1;
-  border: 1px solid var(--color-fd-border);
+  border: 1px solid rgb(0 0 0 / 5%);
   border-radius: var(--radius-lg);
   overflow: clip;
+}
+
+[data-theme='dark'] .PreviewBlock,
+html.dark .PreviewBlock {
+  border-color: rgb(255 255 255 / 5%);
 }
 
 
@@ -45,8 +50,14 @@
 /* When resizable: constrain width, center, show dashed guides */
 .PreviewContent[data-resizable] {
   margin: 0 auto;
-  border-left: 1px dashed var(--color-fd-border);
-  border-right: 1px dashed var(--color-fd-border);
+  border-left: 1px dashed rgb(0 0 0 / 5%);
+  border-right: 1px dashed rgb(0 0 0 / 5%);
+}
+
+[data-theme='dark'] .PreviewContent[data-resizable],
+html.dark .PreviewContent[data-resizable] {
+  border-left-color: rgb(255 255 255 / 5%);
+  border-right-color: rgb(255 255 255 / 5%);
 }
 
 .PreviewInner {
@@ -72,7 +83,12 @@
 }
 
 .PreviewInner>[data-demo-controls]> :last-child {
-  border-bottom: 1px solid var(--color-fd-border);
+  border-bottom: 1px solid rgb(0 0 0 / 5%);
+}
+
+[data-theme='dark'] .PreviewInner>[data-demo-controls]> :last-child,
+html.dark .PreviewInner>[data-demo-controls]> :last-child {
+  border-bottom-color: rgb(255 255 255 / 5%);
 }
 
 .PreviewInner [data-demo-stage] {
@@ -150,9 +166,9 @@
 }
 
 /* ── Code view ── */
-/* No gray: match page background */
+/* Subtle gray background — matches OpenAI reference */
 .CodeBlockWrap {
-  background: var(--color-fd-background);
+  background: var(--docs-code-block-bg);
 }
 
 html.dark .CodeBlockWrap,
@@ -163,26 +179,41 @@ html.dark .CodeBlockWrap,
 
 /* No inner frame: figure is flush, single border is the PreviewBlock */
 .CodeBlockWrap figure,
-.CodeBlockWrap [data-codeblock] {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
+.CodeBlockWrap [data-codeblock],
+.CodeBlockWrap .shiki {
+  --padding-left: 0px;
+  --padding-right: 0px;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
-.CodeBlockWrap pre,
-.CodeBlockWrap [data-rehype-pretty-code-figure] {
+/* Override Fumadocs inner div: text-[0.8125rem] → 14px, py-3.5 → 12px 16px */
+.CodeBlockWrap [role='region'] {
+  font-size: 14px !important;
+  line-height: 24px !important;
+  padding: 12px 16px !important;
+  padding-right: 48px !important;
+}
+
+.CodeBlockWrap pre {
   margin: 0;
-  border-radius: 0;
-  background: var(--color-fd-background) !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.CodeBlockWrap code {
+  font-size: 14px !important;
+  line-height: 24px !important;
 }
 
 html.dark .CodeBlockWrap pre,
 html.dark .CodeBlockWrap [data-rehype-pretty-code-figure],
 [data-theme='dark'] .CodeBlockWrap pre,
 [data-theme='dark'] .CodeBlockWrap [data-rehype-pretty-code-figure] {
-  background: var(--color-fd-background) !important;
+  background: transparent !important;
 }
 
 /* ── Details view ── */
