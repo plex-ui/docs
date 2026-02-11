@@ -33,7 +33,7 @@ export const Base = (args: SliderProps) => {
   const [a, setA] = useState(1000)
   return (
     <div style={{ width: 300 }}>
-      <Slider {...args} value={a} onChange={setA} />
+      <Slider {...args} range={false} value={a} onChange={setA} />
     </div>
   )
 }
@@ -44,6 +44,7 @@ export const Tooltips = (args: SliderProps) => {
     <div style={{ width: 300 }}>
       <Slider
         {...args}
+        range={false}
         label={
           <Tooltip content="More details about this field">
             <Tooltip.TriggerDecorator>{args.label}</Tooltip.TriggerDecorator>

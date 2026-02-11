@@ -1,14 +1,17 @@
 .Wrapper {
-  margin: 16px 0 30px;
+  position: relative;
+  margin: 0 0 30px;
 }
 
-/* ── Tab bar (outside the bordered block) ── */
+/* ── Tab bar (inline with the preceding heading) ── */
 
 .TabBar {
+  position: absolute;
+  right: 0;
+  top: -36px;
+  z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 8px;
 }
 
 /* Stacking context so preview content (e.g. Sidebar drawer) does not overlap mobile TOC (z-10) */

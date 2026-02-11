@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
+import { Eye, Code, InfoCircle } from '@plexui/ui/components/Icon';
 import s from './ComponentPreview.module.css';
 
 type Mode = 'preview' | 'code' | 'details';
@@ -73,16 +74,16 @@ export function ComponentPreview({
           <SegmentedControl
             value={mode}
             onChange={(v) => setMode(v as Mode)}
-            size="md"
-            pill={false}
+            size="xs"
+            pill
             aria-label="View mode"
           >
-            <SegmentedControl.Option value="preview">Preview</SegmentedControl.Option>
+            <SegmentedControl.Option value="preview" icon={<Eye />} aria-label="Preview" />
             {hasCode && (
-              <SegmentedControl.Option value="code">Code</SegmentedControl.Option>
+              <SegmentedControl.Option value="code" icon={<Code />} aria-label="Code" />
             )}
             {hasDetails && (
-              <SegmentedControl.Option value="details">Details</SegmentedControl.Option>
+              <SegmentedControl.Option value="details" icon={<InfoCircle />} aria-label="Details" />
             )}
           </SegmentedControl>
         </div>

@@ -35,11 +35,7 @@ export type SliderMark = {
   label: string
 }
 
-export type SliderProps = {
-  /**
-   * The current value of the slider
-   */
-  value: number
+type SliderBaseProps = {
   /**
    * The minimum value the slider can have
    */
@@ -52,15 +48,6 @@ export type SliderProps = {
    * The step increment between slider values
    */
   step: number
-  /**
-   * Value that will be offered as a "reset to default" option
-   */
-  resetValue?: number
-  /**
-   * String that will be displayed in the tooltip
-   * @default Reset to default
-   */
-  resetTooltip?: string
   /**
    * Unit to display next to the slider value (e.g., ms, px)
    */
@@ -88,15 +75,59 @@ export type SliderProps = {
   className?: string
   disabled?: boolean
   /**
-   * Callback function invoked when the slider value changes.
-   *
-   * @param value - The new value of the slider.
+   * Orientation of the slider
+   * @default "horizontal"
    */
-  onChange: (value: number) => void
+  orientation?: "horizontal" | "vertical"
   onBlur?: FocusEventHandler<HTMLInputElement>
   onFocus?: FocusEventHandler<HTMLInputElement>
   ref?: React.Ref<ElementRef<typeof RadixSlider.Root> | null>
 }
+
+type SingleSliderProps = SliderBaseProps & {
+  /**
+   * When false or omitted, the slider has a single thumb
+   */
+  range?: false
+  /**
+   * The current value of the slider
+   */
+  value: number
+  /**
+   * Callback function invoked when the slider value changes.
+   */
+  onChange: (value: number) => void
+  /**
+   * Value that will be offered as a "reset to default" option
+   */
+  resetValue?: number
+  /**
+   * String that will be displayed in the tooltip
+   * @default Reset to default
+   */
+  resetTooltip?: string
+}
+
+type RangeSliderProps = SliderBaseProps & {
+  /**
+   * When true, the slider supports multiple thumbs
+   */
+  range: true
+  /**
+   * Array of values, one per thumb
+   */
+  value: number[]
+  /**
+   * Callback function invoked when slider values change.
+   */
+  onChange: (value: number[]) => void
+  /**
+   * Minimum number of steps between thumbs
+   */
+  minStepsBetweenThumbs?: number
+}
+
+export type SliderProps = SingleSliderProps | RangeSliderProps
 
 export const Slider = memo((props: SliderProps) => {
   const {
@@ -107,8 +138,6 @@ export const Slider = memo((props: SliderProps) => {
     step,
     disabled,
     value,
-    resetValue,
-    resetTooltip = "Reset to default",
     onBlur,
     onFocus,
     unit,
@@ -117,11 +146,21 @@ export const Slider = memo((props: SliderProps) => {
     marks: propMarks = [],
     trackColor,
     rangeColor,
+    orientation = "horizontal",
     ref: forwardedRef,
   } = props
+
+  const isRange = props.range === true
+  const isVertical = orientation === "vertical"
+
   const id = useId()
   const precision = useMemo(() => String(step).split(".")[1]?.length ?? 0, [step])
-  const [inputValue, setInputValue] = useState<string>(String(value.toFixed(precision)))
+
+  // Single-mode state for editable input
+  const singleValue = isRange ? 0 : (value as number)
+  const [inputValue, setInputValue] = useState<string>(
+    isRange ? "" : String((value as number).toFixed(precision)),
+  )
   const setInputValueNumber = useCallback(
     (nextValue: number) => {
       setInputValue(nextValue.toFixed(precision))
@@ -130,7 +169,8 @@ export const Slider = memo((props: SliderProps) => {
   )
 
   // prevents input from jumping around while the user is typing
-  const debouncedOnChange = useDebounceCallback(onChange, 250)
+  const singleOnChange = isRange ? undefined : (onChange as (v: number) => void)
+  const debouncedOnChange = useDebounceCallback(singleOnChange ?? (() => {}), 250)
   const [pointerDown, setPointerDown] = useState(false)
   const isMounted = useIsMounted()
 
@@ -142,33 +182,28 @@ export const Slider = memo((props: SliderProps) => {
   const inputWidth = Math.max(inputValue.length, 1) * (isTabletAndUp ? 7.8 : 9.5)
 
   // Calculate animation duration based on the distance the thumb needs to move
-  // If the pointer is down, it means the user is dragging the thumb and we want
-  // to disable the animation to make the thumb move in sync with the pointer.
-  const percent = (value - min) / (max - min)
+  // Skip custom animation for range mode — let Radix handle it
+  const percent = isRange ? 0 : ((value as number) - min) / (max - min)
   const previousPercent = usePrevious(percent)
   const animationDurationMS =
-    !isMounted || pointerDown ? 0 : Math.max(Math.abs(percent - previousPercent) * 300, 100)
+    isRange || !isMounted || pointerDown
+      ? 0
+      : Math.max(Math.abs(percent - previousPercent) * 300, 100)
 
   // We assume that the width of the thumb does not change from render to render
-  // so we can avoid the overhead of watching it with a resize observer.
   const thumbRef = useRef<HTMLDivElement>(null)
 
-  // It should be exceedingly uncommon to change marks dynamically, and they are unlikely to be a stable array reference from consumers.
-  // We are sorting so we can make assumptions about which marks have the ability to collide with each other.
+  // Sort marks for collision detection
   const marks = useMemo<SliderMark[]>(
     () => [...propMarks].sort((a, b) => a.value - b.value),
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- Intentionally limiting when this stable value changes to length of marks
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [propMarks.length],
   )
 
-  // We make assumptions about marks in order to efficiently position them
+  // Validate marks
   useEffect(() => {
-    if (!marks) {
-      return
-    }
-
+    if (!marks) return
     const markValues = new Set<number>()
-
     for (const mark of marks) {
       if (mark.value < min || mark.value > max) {
         throw new Error(`Slider mark value ${mark.value} is out of bounds [${min}, ${max}]`)
@@ -180,54 +215,53 @@ export const Slider = memo((props: SliderProps) => {
     }
   }, [marks, max, min])
 
-  // Update the value if it is out of bounds due to min/max changes
+  // Update value if out of bounds (single mode only)
   const latestValue = useLatestValue(value)
   const latestOnChange = useLatestValue(onChange)
   useEffect(() => {
-    const clamped = clamp(latestValue.current, min, max)
-    if (clamped !== latestValue.current) {
-      latestOnChange.current(clamped)
+    if (isRange) return
+    const v = latestValue.current as number
+    const clamped = clamp(v, min, max)
+    if (clamped !== v) {
+      ;(latestOnChange.current as (v: number) => void)(clamped)
       setInputValueNumber(clamped)
     }
-  }, [max, min, latestValue, latestOnChange, setInputValueNumber])
+  }, [max, min, latestValue, latestOnChange, setInputValueNumber, isRange])
 
   useEffect(() => {
-    // If the input is focused then the change came from this input we
-    // wait until after they blur before updating the input value to be
-    // the actual value.
+    if (isRange) return
     if (inputRef.current !== document.activeElement) {
-      setInputValueNumber(value)
+      setInputValueNumber(value as number)
     }
-  }, [value, setInputValueNumber])
+  }, [value, setInputValueNumber, isRange])
 
+  // Single-mode keyboard handler
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (evt) => {
-    // https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/
+    if (isRange || !singleOnChange) return
     if (evt.key === "Home") {
       evt.preventDefault()
-      onChange(min)
+      singleOnChange(min)
       setInputValueNumber(min)
     }
     if (evt.key === "End") {
       evt.preventDefault()
-      onChange(max)
+      singleOnChange(max)
       setInputValueNumber(max)
     }
     if (evt.key === "ArrowUp") {
       evt.preventDefault()
       const multiplier = evt.shiftKey ? 10 : 1
-      const next = clamp(value + step * multiplier, min, max)
-      onChange(next)
+      const next = clamp(singleValue + step * multiplier, min, max)
+      singleOnChange(next)
       setInputValueNumber(next)
     }
     if (evt.key === "ArrowDown") {
       evt.preventDefault()
       const multiplier = evt.shiftKey ? 10 : 1
-      const next = clamp(value - step * multiplier, min, max)
-      onChange(next)
+      const next = clamp(singleValue - step * multiplier, min, max)
+      singleOnChange(next)
       setInputValueNumber(next)
     }
-
-    // Other keyboard actions not tied to normal slider behavior
     if (evt.key === "Enter" || evt.key === "Escape") {
       evt.preventDefault()
       evt.currentTarget.blur()
@@ -235,6 +269,7 @@ export const Slider = memo((props: SliderProps) => {
   }
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
+    if (isRange || !singleOnChange) return
     const nextValue = evt.currentTarget.value.replace(/[^\d.]/, "").trim()
     let parsed = parseFloat(nextValue || "0")
     parsed = clamp(parsed, min, max)
@@ -246,74 +281,111 @@ export const Slider = memo((props: SliderProps) => {
   }
 
   const handleInputBlur: FocusEventHandler<HTMLInputElement> = (evt) => {
+    if (isRange || !singleOnChange) return
     let parsed = parseFloat(evt.target.value.trim()) || 0
-    // If floats are not allowed (based on `step` value) coerce to whole number
     if (step >= 1) {
       parsed = Math.floor(parsed)
     } else {
       parsed = round(parsed, precision)
     }
-    // Make sure the final value is within the min/max range (and emit a change if necessary)
     parsed = clamp(parsed, min, max)
-    if (parsed !== value) {
-      onChange(parsed)
+    if (parsed !== singleValue) {
+      singleOnChange(parsed)
     }
     setInputValueNumber(parsed)
     onBlur?.(evt)
   }
 
+  // Radix value/onChange wiring
+  const radixValue = isRange ? (value as number[]) : [value as number]
+  const handleValueChange = isRange
+    ? (values: number[]) => (onChange as (v: number[]) => void)(values)
+    : (values: number[]) => (onChange as (v: number) => void)(values[0])
+
+  // Single-mode props
+  const resetValue = !isRange ? (props as SingleSliderProps).resetValue : undefined
+  const resetTooltip = !isRange
+    ? (props as SingleSliderProps).resetTooltip ?? "Reset to default"
+    : undefined
+
+  // Range-mode props
+  const minStepsBetweenThumbs = isRange
+    ? (props as RangeSliderProps).minStepsBetweenThumbs
+    : undefined
+
+  // Show marks only in horizontal orientation
+  const showMarks = marks.length > 0 && !isVertical
+
+  // Format range display text
+  const rangeDisplayText = isRange
+    ? (value as number[])
+        .map((v) => `${prefixUnit ?? ""}${v.toFixed(precision)}${unit ?? ""}`)
+        .join(" – ")
+    : ""
+
   return (
-    <div className={clsx(s.SliderWrap, className)}>
-      <div className={s.SliderLabel}>
-        <label htmlFor={id} className="flex-1">
-          {label}
-        </label>
-        {resetValue !== undefined && (
-          <Tooltip content={resetTooltip} compact>
-            <Button
-              size="2xs"
-              variant="ghost"
-              color="secondary"
-              className={s.Reset}
-              data-hide={disabled || (resetValue === value && !pointerDown)}
-              onClick={() => onChange(resetValue)}
-            >
-              <Reload />
-            </Button>
-          </Tooltip>
-        )}
-        <div className={s.SliderValue} onClick={() => inputRef.current?.focus()}>
-          {prefixUnit && <span className={s.ValueUnit}>{prefixUnit}</span>}
-          <input
-            id={id}
-            className={s.ValueInput}
-            ref={inputRef}
-            style={{ width: `${Math.ceil(inputWidth)}px` }}
-            onKeyDown={handleKeyDown}
-            value={inputValue}
-            type="text"
-            onClick={(e) => e.stopPropagation()}
-            onBlur={handleInputBlur}
-            onFocus={(e) => {
-              e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)
-              onFocus?.(e)
-            }}
-            onChange={handleInputChange}
-            disabled={disabled}
-          />
-          {unit && <span className={s.ValueUnit}>{unit}</span>}
+    <div
+      className={clsx(s.SliderWrap, className)}
+      data-orientation={orientation}
+    >
+      {label && (
+        <div className={s.SliderLabel}>
+          <label htmlFor={id} className="flex-1">
+            {label}
+          </label>
+          {!isRange && resetValue !== undefined && (
+            <Tooltip content={resetTooltip!} compact>
+              <Button
+                size="2xs"
+                variant="ghost"
+                color="secondary"
+                className={s.Reset}
+                data-hide={disabled || (resetValue === singleValue && !pointerDown)}
+                onClick={() => singleOnChange!(resetValue)}
+              >
+                <Reload />
+              </Button>
+            </Tooltip>
+          )}
+          {isRange ? (
+            <span className={s.RangeDisplay}>{rangeDisplayText}</span>
+          ) : (
+            <div className={s.SliderValue} onClick={() => inputRef.current?.focus()}>
+              {prefixUnit && <span className={s.ValueUnit}>{prefixUnit}</span>}
+              <input
+                id={id}
+                className={s.ValueInput}
+                ref={inputRef}
+                style={{ width: `${Math.ceil(inputWidth)}px` }}
+                onKeyDown={handleKeyDown}
+                value={inputValue}
+                type="text"
+                onClick={(e) => e.stopPropagation()}
+                onBlur={handleInputBlur}
+                onFocus={(e) => {
+                  e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)
+                  onFocus?.(e)
+                }}
+                onChange={handleInputChange}
+                disabled={disabled}
+              />
+              {unit && <span className={s.ValueUnit}>{unit}</span>}
+            </div>
+          )}
         </div>
-      </div>
+      )}
       <div className={s.SliderContainer}>
         <RadixSlider.Root
           ref={forwardedRef}
           className={s.Slider}
-          onValueChange={(values) => onChange(values[0])}
+          onValueChange={handleValueChange}
           min={min}
           max={max}
           step={step}
           disabled={disabled}
-          value={[value]}
+          value={radixValue}
+          orientation={orientation}
+          minStepsBetweenThumbs={minStepsBetweenThumbs}
           onBlur={onBlur}
           onFocus={onFocus}
           onPointerDown={() => setPointerDown(true)}
@@ -327,9 +399,15 @@ export const Slider = memo((props: SliderProps) => {
           <RadixSlider.Track className={s.Track}>
             <RadixSlider.Range className={s.Range} />
           </RadixSlider.Track>
-          <RadixSlider.Thumb className={s.Thumb} ref={thumbRef} />
+          {isRange ? (
+            (value as number[]).map((_, i) => (
+              <RadixSlider.Thumb key={i} className={s.Thumb} />
+            ))
+          ) : (
+            <RadixSlider.Thumb className={s.Thumb} ref={thumbRef} />
+          )}
         </RadixSlider.Root>
-        {marks && <SliderMarks marks={marks} thumbRef={thumbRef} min={min} max={max} />}
+        {showMarks && <SliderMarks marks={marks} thumbRef={thumbRef} min={min} max={max} />}
       </div>
     </div>
   )
