@@ -1,0 +1,171 @@
+---
+title: Tabs
+description: Toggle through grouped options with segmented or underline styles
+---
+
+import {
+  TabsOverviewDemo,
+  TabsUnderlineDemo,
+  TabsUnderlineBlockDemo,
+  TabsUnderlineIconsDemo,
+  TabsUnderlineBadgeDemo,
+  TabsVerticalSegmentedDemo,
+  TabsVerticalUnderlineDemo,
+  TabsVerticalUnderlineIconsDemo,
+  TabsDisabledDemo,
+  TabsSizingDemo,
+} from "@/components/docs/TabsDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<UsageBlock>{`import { Tabs } from "@plexui/ui/components/Tabs";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview details={<>Tabs provides two visual variants: <code>segmented</code> (default) with a sliding background highlight, and <code>underline</code> with an animated line indicator. Both support horizontal and vertical orientations.</>} code={`const [tab, setTab] = useState("overview")
+<Tabs value={tab} onChange={setTab} variant="underline" aria-label="Sections">
+  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+  <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+  <Tabs.Tab value="reports">Reports</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlWithPanel}>
+  <TabsOverviewDemo />
+</ComponentPreview>
+
+### Underline
+
+<ComponentPreview details={<>Set <code>variant="underline"</code> for a minimal tab style with an animated line indicator under the active tab. No background container is rendered.</>} code={`<Tabs variant="underline" value={tab} onChange={setTab} aria-label="Sections">
+  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+  <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+  <Tabs.Tab value="reports">Reports</Tabs.Tab>
+  <Tabs.Tab value="settings">Settings</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsUnderlineDemo />
+</ComponentPreview>
+
+### Underline block
+
+<ComponentPreview details={<>Use <code>block</code> with the underline variant for full-width tabs that stretch evenly across the container.</>} code={`<Tabs variant="underline" block value={tab} onChange={setTab} aria-label="Sections">
+  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+  <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+  <Tabs.Tab value="reports">Reports</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsUnderlineBlockDemo />
+</ComponentPreview>
+
+### Underline with icons
+
+<ComponentPreview details={<>Icons work with the underline variant the same way as with segmented. Use the <code>icon</code> prop on individual tabs.</>} code={`<Tabs variant="underline" size="lg" value={tab} onChange={setTab} aria-label="Navigation">
+  <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
+  <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
+  <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsUnderlineIconsDemo />
+</ComponentPreview>
+
+### Underline with badge
+
+<ComponentPreview details={<>Badges are supported with the underline variant. Pass a simple value or an object with <code>content</code>, <code>color</code>, and <code>variant</code>.</>} code={`<Tabs variant="underline" size="lg" value={tab} onChange={setTab} aria-label="Filter">
+  <Tabs.Tab value="all" badge={128}>All</Tabs.Tab>
+  <Tabs.Tab value="unread" badge={{ content: 12, color: "info" }}>Unread</Tabs.Tab>
+  <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger" }}>Flagged</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsUnderlineBadgeDemo />
+</ComponentPreview>
+
+### Vertical segmented
+
+<ComponentPreview details={<>Set <code>orientation="vertical"</code> to stack tabs vertically. The sliding thumb animates up and down.</>} code={`<Tabs orientation="vertical" value={tab} onChange={setTab} aria-label="Settings">
+  <Tabs.Tab value="account">Account</Tabs.Tab>
+  <Tabs.Tab value="password">Password</Tabs.Tab>
+  <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
+  <Tabs.Tab value="display">Display</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <TabsVerticalSegmentedDemo />
+</ComponentPreview>
+
+### Vertical underline
+
+<ComponentPreview details={<>Combine <code>variant="underline"</code> with <code>orientation="vertical"</code> for a sidebar-style navigation pattern. The line indicator appears on the left side.</>} code={`<Tabs variant="underline" orientation="vertical" value={tab} onChange={setTab} aria-label="Settings">
+  <Tabs.Tab value="account">Account</Tabs.Tab>
+  <Tabs.Tab value="password">Password</Tabs.Tab>
+  <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
+  <Tabs.Tab value="display">Display</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <TabsVerticalUnderlineDemo />
+</ComponentPreview>
+
+### Vertical underline with icons
+
+<ComponentPreview details={<>Vertical underline tabs with icons provide a rich navigation experience commonly used in settings or admin panels.</>} code={`<Tabs variant="underline" orientation="vertical" size="lg" value={tab} onChange={setTab} aria-label="Navigation">
+  <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
+  <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
+  <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlLarge}>
+  <TabsVerticalUnderlineIconsDemo />
+</ComponentPreview>
+
+### Disabled tab
+
+<ComponentPreview details={<>Use <code>disabled</code> on individual <code>Tabs.Tab</code> elements to prevent interaction. Disabled tabs appear dimmed and cannot be selected.</>} code={`<Tabs variant="underline" value={tab} onChange={setTab} aria-label="Sections">
+  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+  <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+  <Tabs.Tab value="reports" disabled>Reports</Tabs.Tab>
+  <Tabs.Tab value="settings">Settings</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsDisabledDemo />
+</ComponentPreview>
+
+### Sizing
+
+<ComponentPreview details={<>Both variants support the full 9-step size scale. The <code>size</code> prop controls the height, font size, icon size, and spacing of tabs.</>} code={`<Tabs variant="underline" size="lg" value={tab} onChange={setTab} aria-label="Demo">
+  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+  <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsSizingDemo />
+</ComponentPreview>
+
+Tabs shares the unified 9-step size scale with Button, Input, Select, and SelectControl.
+
+### Migration from SegmentedControl
+
+`Tabs` replaces and extends `SegmentedControl`. The old import still works as a backward-compatible alias:
+
+```tsx
+// Old (still works)
+import { SegmentedControl } from "@plexui/ui/components/SegmentedControl";
+<SegmentedControl.Option value="a">A</SegmentedControl.Option>
+
+// New (recommended)
+import { Tabs } from "@plexui/ui/components/Tabs";
+<Tabs.Tab value="a">A</Tabs.Tab>
+```
+
+Both `Tabs.Tab` and `Tabs.Option` are available as sub-components. The `SegmentedControl` alias defaults to `variant="segmented"`.
+
+## Reference
+
+**Tabs** (root)
+
+<PropsTable data={[
+  { prop: "value", type: "string", description: "Selected tab value (controlled)" },
+  { prop: "onChange", type: "(value: string) => void", description: "Called when selection changes" },
+  { prop: "variant", type: '"segmented" | "underline"', default: '"segmented"', description: "Visual style — segmented (background highlight) or underline (line indicator)" },
+  { prop: "orientation", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "Layout direction of the tab group" },
+  { prop: "size", type: "ControlSize", default: '"md"', description: "Control height (3xs through 3xl)" },
+  { prop: "gutterSize", type: "string", description: "Horizontal padding of tabs" },
+  { prop: "pill", type: "boolean", default: "true", description: "Fully rounded control (segmented variant only)" },
+  { prop: "block", type: "boolean", default: "false", description: "Full-width control with equal-width tabs" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable all tabs" },
+  { prop: "aria-label", type: "string", description: "Accessible name (required)" },
+]} />
+
+**Tabs.Tab**
+
+<PropsTable data={[
+  { prop: "value", type: "string", description: "Tab value" },
+  { prop: "disabled", type: "boolean", description: "Disable this tab" },
+  { prop: "icon", type: "ReactNode", description: "Icon element (sized automatically)" },
+  { prop: "badge", type: "number | { content: ReactNode; color?: string; variant?: string }", description: "Badge/count or custom badge config" },
+  { prop: "aria-label", type: "string", description: "Accessible name (required for icon-only tabs)" },
+]} />

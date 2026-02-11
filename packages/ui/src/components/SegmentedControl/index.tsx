@@ -1,7 +1,7 @@
-export { SegmentedControl } from "./SegmentedControl"
+export { Tabs as SegmentedControl } from "../Tabs"
 export type {
-  SegmentedControlBadgeProp,
-  SegmentedControlOptionProps,
-  SegmentedControlProps,
+  TabsBadgeProp as SegmentedControlBadgeProp,
+  TabProps as SegmentedControlOptionProps,
+  TabsProps as SegmentedControlProps,
   SizeVariant,
-} from "./SegmentedControl"
+} from "../Tabs"

@@ -1,22 +1,12 @@
-.SegmentedControl {
-  --segmented-control-option-radius: calc(
-    var(--segmented-control-radius) - var(--segmented-control-gutter)
-  );
-
+.Tabs {
   position: relative;
-  overflow: auto;
   display: inline-flex;
   flex-wrap: nowrap;
   gap: var(--segmented-control-gap);
-  height: var(--segmented-control-size);
-  padding: var(--segmented-control-gutter);
-  border-radius: var(--segmented-control-radius);
-  background: var(--segmented-control-background);
   font-size: var(--segmented-control-font-size);
   font-weight: var(--segmented-control-font-weight);
   -ms-overflow-style: none;
   scrollbar-width: none;
-  /* Remove inline-flex baseline gap */
   vertical-align: middle;
   white-space: nowrap;
 
@@ -30,11 +20,73 @@
     background: transparent;
   }
 
-  &:where([data-block]) {
+  /* =============================================
+    Variant: Segmented (default — existing behavior)
+  ============================================= */
+  &:where([data-variant="segmented"]) {
+    overflow: auto;
+    height: var(--segmented-control-size);
+    padding: var(--segmented-control-gutter);
+    border-radius: var(--segmented-control-radius);
+    background: var(--segmented-control-background);
+  }
+
+  &:where([data-variant="segmented"][data-block]) {
     overflow: hidden;
     display: flex;
     width: 100%;
     white-space: normal;
+  }
+
+  &:where([data-variant="segmented"][data-pill]) {
+    --segmented-control-radius: var(--radius-full);
+    --segmented-control-option-radius: var(--radius-full);
+  }
+
+  /* =============================================
+    Variant: Underline
+  ============================================= */
+  &:where([data-variant="underline"]) {
+    overflow: auto;
+    height: var(--segmented-control-size);
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    gap: 0;
+    border-bottom: 1px solid var(--tabs-underline-border-color);
+  }
+
+  &:where([data-variant="underline"][data-block]) {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    white-space: normal;
+  }
+
+  /* =============================================
+    Vertical orientation
+  ============================================= */
+  &:where([data-orientation="vertical"]) {
+    flex-direction: column;
+    height: auto;
+    width: fit-content;
+    white-space: nowrap;
+  }
+
+  &:where([data-orientation="vertical"][data-variant="segmented"]) {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &:where([data-orientation="vertical"][data-variant="underline"]) {
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-bottom: none;
+    border-left: 1px solid var(--tabs-underline-border-color);
+  }
+
+  &:where([data-orientation="vertical"][data-block]) {
+    width: 100%;
   }
 
   /* =============================================
@@ -212,7 +264,7 @@
   }
 
   /* =============================================
-    Gutter sizes
+    Gutter sizes (segmented variant only)
   ============================================= */
   &:where([data-gutter-size="2xs"]) {
     --segmented-control-option-gutter: var(--control-gutter-2xs);
@@ -237,20 +289,27 @@
   &:where([data-gutter-size="xl"]) {
     --segmented-control-option-gutter: var(--control-gutter-xl);
   }
-
-  /* =============================================
-    Pill
-  ============================================= */
-  &:where([data-pill]) {
-    --segmented-control-radius: var(--radius-full);
-    --segmented-control-option-radius: var(--radius-full);
-  }
 }
 
-.SegmentedControlOption {
+/* =============================================
+  Option radius (computed from parent for segmented)
+============================================= */
+.Tabs:where([data-variant="segmented"]) {
+  --segmented-control-option-radius: calc(
+    var(--segmented-control-radius) - var(--segmented-control-gutter)
+  );
+}
+
+.Tabs:where([data-variant="underline"]) {
+  --segmented-control-option-radius: 0;
+}
+
+/* =============================================
+  Tab (trigger item)
+============================================= */
+.Tab {
   position: relative;
   padding: 0 var(--segmented-control-option-gutter);
-  border-radius: var(--segmented-control-option-radius);
   color: var(--color-text-secondary);
   cursor: pointer;
   line-height: 1;
@@ -266,20 +325,24 @@
     outline: 0;
   }
 
-  :where(.SegmentedControl[data-block]) & {
+  /* =============================================
+    Segmented variant — Tab styles
+  ============================================= */
+  :where(.Tabs[data-variant="segmented"]) & {
+    border-radius: var(--segmented-control-option-radius);
+  }
+
+  :where(.Tabs[data-variant="segmented"][data-block]) & {
     flex: 1;
   }
 
-  :where(.SegmentedControl[data-pill]) & {
+  :where(.Tabs[data-variant="segmented"][data-pill]) & {
     min-width: calc(var(--segmented-control-size) - 2 * var(--segmented-control-gutter));
     padding: 0 calc(var(--segmented-control-option-gutter) * var(--control-gutter-pill-scaling));
   }
 
-  &[data-state="on"]:focus-visible {
-    outline: 2px solid var(--color-ring);
-  }
-
-  &::before {
+  /* Hover highlight pseudo-element (segmented only) */
+  :where(.Tabs[data-variant="segmented"]) &::before {
     position: absolute;
     inset: var(--segmented-control-option-highlight-gutter);
     border-radius: var(--segmented-control-option-radius);
@@ -294,15 +357,11 @@
     will-change: transform;
   }
 
-  &:active::before {
+  :where(.Tabs[data-variant="segmented"]) &:active::before {
     transform: scale(var(--scale), 0.97);
   }
 
-  svg {
-    display: block;
-  }
-
-  &[data-state="off"]:where(:not([disabled])) {
+  :where(.Tabs[data-variant="segmented"]) &[data-state="off"]:where(:not([disabled])) {
     @mixin hover {
       color: var(--color-text);
 
@@ -321,8 +380,50 @@
     }
   }
 
+  /* =============================================
+    Underline variant — Tab styles
+  ============================================= */
+  :where(.Tabs[data-variant="underline"]) & {
+    border-radius: 0;
+  }
+
+  :where(.Tabs[data-variant="underline"][data-block]) & {
+    flex: 1;
+  }
+
+  :where(.Tabs[data-variant="underline"]) &[data-state="off"]:where(:not([disabled])) {
+    @mixin hover {
+      color: var(--color-text);
+    }
+
+    &:focus-visible {
+      color: var(--color-text);
+      outline: 2px solid var(--color-ring);
+      outline-offset: -2px;
+    }
+  }
+
+  /* =============================================
+    Vertical orientation — Tab styles
+  ============================================= */
+  :where(.Tabs[data-orientation="vertical"]) & {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  :where(.Tabs[data-orientation="vertical"][data-block]) & {
+    flex: none;
+  }
+
+  /* =============================================
+    Shared states
+  ============================================= */
   &[data-state="on"] {
     color: var(--color-text);
+  }
+
+  &[data-state="on"]:focus-visible {
+    outline: 2px solid var(--color-ring);
   }
 
   &[data-disabled] {
@@ -333,24 +434,65 @@
       opacity: 0 !important;
     }
   }
-}
 
-.SegmentedControlThumb {
-  position: absolute;
-  top: var(--segmented-control-gutter);
-  bottom: var(--segmented-control-gutter);
-  left: 0;
-  border-radius: var(--segmented-control-option-radius);
-  background: var(--segmented-control-thumb-background);
-  box-shadow: var(--segmented-control-thumb-shadow);
-  pointer-events: none;
-  will-change: transform;
+  svg {
+    display: block;
+  }
 }
 
 /* =============================================
-  Option Content (icon + text + badge layout)
+  Thumb (animated indicator)
 ============================================= */
-.SegmentedControlOptionContent {
+.TabsThumb {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+
+  /* Segmented horizontal: background highlight */
+  :where(.Tabs[data-variant="segmented"][data-orientation="horizontal"]) & {
+    top: var(--segmented-control-gutter);
+    bottom: var(--segmented-control-gutter);
+    left: 0;
+    border-radius: var(--segmented-control-option-radius);
+    background: var(--segmented-control-thumb-background);
+    box-shadow: var(--segmented-control-thumb-shadow);
+  }
+
+  /* Segmented vertical: background highlight */
+  :where(.Tabs[data-variant="segmented"][data-orientation="vertical"]) & {
+    left: var(--segmented-control-gutter);
+    right: var(--segmented-control-gutter);
+    top: 0;
+    border-radius: var(--segmented-control-option-radius);
+    background: var(--segmented-control-thumb-background);
+    box-shadow: var(--segmented-control-thumb-shadow);
+  }
+
+  /* Underline horizontal: thin line at the bottom */
+  :where(.Tabs[data-variant="underline"][data-orientation="horizontal"]) & {
+    bottom: 0;
+    left: 0;
+    height: var(--tabs-underline-indicator-height);
+    border-radius: calc(var(--tabs-underline-indicator-height) / 2) calc(var(--tabs-underline-indicator-height) / 2) 0 0;
+    background: var(--tabs-underline-indicator-color);
+    box-shadow: none;
+  }
+
+  /* Underline vertical: thin line on the left */
+  :where(.Tabs[data-variant="underline"][data-orientation="vertical"]) & {
+    left: 0;
+    top: 0;
+    width: var(--tabs-underline-indicator-height);
+    border-radius: 0 calc(var(--tabs-underline-indicator-height) / 2) calc(var(--tabs-underline-indicator-height) / 2) 0;
+    background: var(--tabs-underline-indicator-color);
+    box-shadow: none;
+  }
+}
+
+/* =============================================
+  Tab Content (icon + text + badge layout)
+============================================= */
+.TabContent {
   position: relative;
   display: flex;
   align-items: center;
@@ -369,9 +511,9 @@
 }
 
 /* =============================================
-  Option Badge (CSS-only, no Badge component)
+  Tab Badge (CSS-only, no Badge component)
 ============================================= */
-.OptionBadge {
+.TabBadge {
   display: inline-flex;
   align-items: center;
   height: var(--option-badge-size);

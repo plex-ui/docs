@@ -242,6 +242,13 @@
     );
 
     /* =============================================
+      Tabs — Underline variant
+    ============================================= */
+    --tabs-underline-indicator-height: 2px;
+    --tabs-underline-indicator-color: var(--color-background-primary-solid);
+    --tabs-underline-border-color: var(--color-border);
+
+    /* =============================================
       SelectControl
     ============================================= */
     --select-control-font-weight: var(--font-weight-medium);
