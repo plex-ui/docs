@@ -20,10 +20,51 @@
   touch-action: none;
   user-select: none;
 
-  /* Dirty reach for radix internal to support animated changes */
-  span:nth-child(2) {
+  /* Animate thumb position for single-mode programmatic changes */
+  .Thumb {
     transition: left var(--slider-duration) var(--cubic-move);
   }
+}
+
+/* =============================================
+   Vertical orientation
+============================================= */
+.SliderWrap[data-orientation="vertical"] {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  height: var(--slider-vertical-height, 200px);
+}
+
+.SliderWrap[data-orientation="vertical"] .SliderLabel {
+  margin-bottom: 8px;
+}
+
+.SliderWrap[data-orientation="vertical"] .SliderContainer {
+  height: 100%;
+  width: auto;
+}
+
+.SliderWrap[data-orientation="vertical"] .Slider {
+  flex-direction: column;
+  width: auto;
+  height: 100%;
+  padding-bottom: 0;
+  padding-right: 6px;
+}
+
+.SliderWrap[data-orientation="vertical"] .Track {
+  width: 4px;
+  height: 100%;
+}
+
+.SliderWrap[data-orientation="vertical"] .Range {
+  width: 100%;
+  height: auto;
+}
+
+.SliderWrap[data-orientation="vertical"] .Thumb {
+  transition: none;
 }
 
 .Track {
@@ -181,4 +222,14 @@
   overflow-wrap: break-word;
   text-align: center;
   word-wrap: break-word;
+}
+
+/* =============================================
+   Range display (read-only value for range mode)
+============================================= */
+.RangeDisplay {
+  color: var(--color-text);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }

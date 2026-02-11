@@ -1,0 +1,281 @@
+---
+title: Field
+description: Form field wrapper with label, description, error, and accessibility linking
+---
+
+import { Field } from "@plexui/ui/components/Field"
+import { Input } from "@plexui/ui/components/Input"
+import { Textarea } from "@plexui/ui/components/Textarea"
+import { Select } from "@plexui/ui/components/Select"
+import { Checkbox } from "@plexui/ui/components/Checkbox"
+import {
+  FieldOverviewDemo,
+  FieldWithDescriptionDemo,
+  FieldWithErrorDemo,
+  FieldRequiredDemo,
+  FieldOrientationDemo,
+  FieldWithTextareaDemo,
+  FieldWithSelectDemo,
+  FieldWithSliderDemo,
+  FieldFieldsetDemo,
+  FieldWithCheckboxGroupDemo,
+  FieldWithRadioGroupDemo,
+  FieldWithSwitchDemo,
+  FieldGroupDemo,
+  FieldValidationDemo,
+  FieldFormExampleDemo,
+} from "@/components/docs/FieldDemos"
+
+<UsageBlock>{`import { Field } from "@plexui/ui/components/Field";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview details={<>Field wraps a form control with a label, optional description, and error message. It automatically generates <code>htmlFor</code>, <code>aria-describedby</code>, and <code>aria-invalid</code> linking between the label, description, error, and child control.</>} code={`<Field label="Email">
+  <Input placeholder="Enter email..." />
+</Field>`} previewMinHeight={168}>
+  <FieldOverviewDemo />
+</ComponentPreview>
+
+### With description
+
+<ComponentPreview details={<>Use <code>description</code> to display helper text below the label. The description is automatically linked to the control via <code>aria-describedby</code>.</>} code={`<Field label="Email" description="We'll never share your email with anyone else.">
+  <Input placeholder="Enter email..." />
+</Field>`} previewMinHeight={168}>
+  <FieldWithDescriptionDemo />
+</ComponentPreview>
+
+### With error message
+
+<ComponentPreview details={<>Use <code>errorMessage</code> to display a validation error. When provided, the child control automatically receives <code>aria-invalid="true"</code>. The error is rendered using the <code>FieldError</code> component with <code>role="alert"</code> for accessibility.</>} code={`<Field label="Email" errorMessage="Please enter a valid email address">
+  <Input placeholder="Enter email..." />
+</Field>`} previewMinHeight={168}>
+  <FieldWithErrorDemo />
+</ComponentPreview>
+
+### Required
+
+<ComponentPreview details={<>Use <code>required</code> to show a visual asterisk after the label. This is purely visual and does not add the <code>required</code> HTML attribute — pass <code>required</code> directly to the child control for form validation.</>} code={`<Field label="Email" required>
+  <Input placeholder="Enter email..." />
+</Field>`} previewMinHeight={168}>
+  <FieldRequiredDemo />
+</ComponentPreview>
+
+### Sizing
+
+<ComponentPreview details={<>Field accepts a <code>size</code> prop that scales the label and description font size to match the child control. Pass the same <code>size</code> to both Field and the child control.</>} code={`<Field label="Email" size="lg">
+  <Input placeholder="Enter email..." size="lg" />
+</Field>`} previewMinHeight={168}>
+  <FieldOverviewDemo />
+</ComponentPreview>
+
+### Horizontal layout
+
+<ComponentPreview details={<>Use <code>orientation="horizontal"</code> to render the label beside the control instead of above it.</>} code={`<div className="flex flex-col gap-4">
+  <Field label="First name" orientation="horizontal">
+    <Input placeholder="Jane" />
+  </Field>
+  <Field label="Last name" orientation="horizontal">
+    <Input placeholder="Doe" />
+  </Field>
+</div>`} previewMinHeight={168}>
+  <FieldOrientationDemo />
+</ComponentPreview>
+
+### Textarea
+
+<ComponentPreview code={`<Field label="Bio" description="Write a short bio for your profile.">
+  <Textarea placeholder="Tell us about yourself..." rows={3} />
+</Field>`} previewMinHeight={168}>
+  <FieldWithTextareaDemo />
+</ComponentPreview>
+
+### Select
+
+<ComponentPreview details={<>For components like <code>Select</code> that may not forward all props via <code>cloneElement</code>, use the render prop pattern to explicitly pass field props.</>} code={`<Field label="Role" description="Select your primary role.">
+  {(fieldProps) => (
+    <Select
+      {...fieldProps}
+      placeholder="Select a role..."
+      options={[
+        { label: "Admin", value: "admin" },
+        { label: "Editor", value: "editor" },
+        { label: "Viewer", value: "viewer" },
+      ]}
+    />
+  )}
+</Field>`} previewMinHeight={168}>
+  <FieldWithSelectDemo />
+</ComponentPreview>
+
+### Slider
+
+<ComponentPreview details={<>Field works with any form control. Use the description to display the current slider value.</>} code={`const [price, setPrice] = useState([200, 800])
+<Field label="Price Range" description={\`Set your budget range ($\${price[0]} – $\${price[1]}).\`}>
+  <Slider range value={price} onChange={setPrice} min={0} max={1000} step={10} prefixUnit="$" />
+</Field>`} previewMinHeight={168}>
+  <FieldWithSliderDemo />
+</ComponentPreview>
+
+### Fieldset
+
+<ComponentPreview details={<>Group related fields under a heading and description to create a logical fieldset.</>} code={`<div>
+  <div className="mb-3">
+    <h3 className="text-base font-semibold">Address Information</h3>
+    <p className="text-sm text-secondary mt-1">We need your address to deliver your order.</p>
+  </div>
+  <div className="flex flex-col gap-4">
+    <Field label="Street Address">
+      <Input placeholder="123 Main St" />
+    </Field>
+    <div className="flex gap-3">
+      <Field label="City" className="flex-1">
+        <Input placeholder="New York" />
+      </Field>
+      <Field label="Postal Code" className="flex-1">
+        <Input placeholder="90502" />
+      </Field>
+    </div>
+  </div>
+</div>`} previewMinHeight={168}>
+  <FieldFieldsetDemo />
+</ComponentPreview>
+
+### Checkbox
+
+<ComponentPreview details={<>Wrap a group of checkboxes in a Field for a shared label and description.</>} code={`<Field label="Notifications" description="Choose which notifications you'd like to receive.">
+  {() => (
+    <div className="flex flex-col gap-3 mt-1">
+      <Checkbox label="Email notifications" />
+      <Checkbox label="Push notifications" />
+      <Checkbox label="SMS notifications" />
+    </div>
+  )}
+</Field>`} previewMinHeight={168}>
+  <FieldWithCheckboxGroupDemo />
+</ComponentPreview>
+
+### Radio
+
+<ComponentPreview details={<>Use Field with <code>RadioGroup</code> for labeled radio selections.</>} code={`<Field label="Subscription plan" description="Select your preferred plan.">
+  {(fieldProps) => (
+    <RadioGroup aria-label="Subscription plan" value={plan} onChange={setPlan} direction="col">
+      <RadioGroup.Item value="free">Free</RadioGroup.Item>
+      <RadioGroup.Item value="pro">Pro — $9/mo</RadioGroup.Item>
+      <RadioGroup.Item value="enterprise">Enterprise — $29/mo</RadioGroup.Item>
+    </RadioGroup>
+  )}
+</Field>`} previewMinHeight={168}>
+  <FieldWithRadioGroupDemo />
+</ComponentPreview>
+
+### Switch
+
+<ComponentPreview details={<>Pair a Field with a <code>Switch</code> using <code>orientation="horizontal"</code> for inline toggle settings.</>} code={`<Field label="Marketing emails" orientation="horizontal">
+  {(fieldProps) => (
+    <Switch id={fieldProps.id} checked={enabled} onCheckedChange={setEnabled} />
+  )}
+</Field>`} previewMinHeight={168}>
+  <FieldWithSwitchDemo />
+</ComponentPreview>
+
+### Field group
+
+<ComponentPreview details={<>Stack <code>Field</code> components with a divider to group related notification settings.</>} code={`<div className="divide-y divide-alpha/15">
+  <div className="pb-6">
+    <Field label="Responses" description="Get notified when ChatGPT responds to requests that take time.">
+      {() => (
+        <div className="flex flex-col gap-3 mt-1">
+          <Checkbox label="Push notifications" defaultChecked />
+        </div>
+      )}
+    </Field>
+  </div>
+  <div className="py-6">
+    <Field label="Tasks" description="Get notified when tasks you've created have updates.">
+      {() => (
+        <div className="flex flex-col gap-3 mt-1">
+          <Checkbox label="Push notifications" />
+          <Checkbox label="Email notifications" />
+        </div>
+      )}
+    </Field>
+  </div>
+</div>`} previewMinHeight={168}>
+  <FieldGroupDemo />
+</ComponentPreview>
+
+### Validation and Errors
+
+<ComponentPreview details={<>Combine <code>required</code> and <code>errorMessage</code> for client-side validation feedback. Toggle errors on and off to see the visual transition.</>} code={`<div className="flex flex-col gap-4">
+  <Field label="Name" required errorMessage={nameError}>
+    <Input placeholder="Enter your name" value={name} onChange={(evt) => setName(evt.target.value)} />
+  </Field>
+  <Field label="Email" required errorMessage={emailError}>
+    <Input placeholder="Enter your email" value={email} onChange={(evt) => setEmail(evt.target.value)} />
+  </Field>
+</div>`} previewMinHeight={168}>
+  <FieldValidationDemo />
+</ComponentPreview>
+
+### Render prop pattern
+
+For controls that need explicit prop wiring, pass a function as `children`. The function receives `{ id, "aria-describedby", "aria-invalid" }` which you spread onto the control.
+
+```tsx
+<Field label="Email" errorMessage="Email is required">
+  {(fieldProps) => <Input {...fieldProps} placeholder="Enter email..." />}
+</Field>
+```
+
+### Form example
+
+<ComponentPreview details={<>A payment form built with Field, showing two fieldsets, a 3-column grid row, and a <code>pill</code> toggle that applies rounded corners to all controls.</>} code={`const [pill, setPill] = useState(false);
+
+<fieldset className="flex flex-col gap-5">
+  <h3 className="text-base font-semibold">Payment Method</h3>
+  <Field label="Name on Card">
+    <Input placeholder="Evil Rabbit" pill={pill} />
+  </Field>
+  <Field label="Card Number">
+    <Input placeholder="1234 5678 9012 3456" pill={pill} />
+  </Field>
+  <div className="grid grid-cols-3 gap-3">
+    <Field label="Month">
+      {(fp) => <Select id={fp.id} placeholder="MM" pill={pill} options={months} />}
+    </Field>
+    <Field label="Year">
+      {(fp) => <Select id={fp.id} placeholder="YYYY" pill={pill} options={years} />}
+    </Field>
+    <Field label="CVV">
+      <Input placeholder="123" pill={pill} />
+    </Field>
+  </div>
+</fieldset>
+
+<Checkbox label="Same as shipping address" defaultChecked />
+
+<Field label="Comments">
+  <Textarea placeholder="Add any additional comments" rows={3} />
+</Field>
+
+<div className="flex gap-2">
+  <Button color="primary" pill={pill}>Submit</Button>
+  <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
+</div>`} previewMinHeight={168}>
+  <FieldFormExampleDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "label", type: "ReactNode", description: "Label text for the field" },
+  { prop: "description", type: "ReactNode", description: "Helper text below the label; linked via aria-describedby" },
+  { prop: "errorMessage", type: "ReactNode", description: "Error message below the control; auto-sets aria-invalid on child" },
+  { prop: "size", type: '"3xs" | "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl"', default: '"md"', description: "Controls the label font size to match the child control" },
+  { prop: "required", type: "boolean", default: "false", description: "Shows a required asterisk after the label (visual only)" },
+  { prop: "orientation", type: '"vertical" | "horizontal"', default: '"vertical"', description: "Layout direction of label and control" },
+  { prop: "id", type: "string", description: "Override the auto-generated id used for htmlFor/aria linking" },
+  { prop: "children", type: "ReactElement | (fieldProps) => ReactNode", description: "Form control; receives id, aria-describedby, and aria-invalid" },
+]} />
