@@ -2,8 +2,12 @@
   "name": "@plexui/ui",
   "version": "0.2.0",
   "description": "Modern design system for building high-quality applications",
+  "type": "module",
   "license": "MIT",
   "private": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "homepage": "https://plexui.com",
   "repository": {
     "type": "git",
@@ -16,8 +20,13 @@
     "components",
     "design-system",
     "tailwind",
-    "plexui"
+    "plexui",
+    "radix",
+    "chatgpt"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "files": [
     "dist/es/**",
     "dist/types/**"
@@ -31,6 +40,10 @@
     "./hooks/*": {
       "types": "./dist/types/hooks/*.d.ts",
       "default": "./dist/es/hooks/*.js"
+    },
+    "./types": {
+      "types": "./dist/types/types.d.ts",
+      "default": "./dist/es/types.js"
     },
     "./theme": {
       "types": "./dist/types/lib/theme.d.ts",
@@ -54,10 +67,12 @@
     "build:js": "tsc -p tsconfig.build.json",
     "build:css": "node ./scripts/build-css.mjs",
     "build:assets": "node -e \"const fs=require('fs'),p=require('path');function c(s,d){fs.readdirSync(s,{withFileTypes:true}).forEach(e=>{const sp=p.join(s,e.name),dp=p.join(d,e.name);if(e.isDirectory()){c(sp,dp)}else if(e.name.endsWith('.d.ts')){fs.mkdirSync(d,{recursive:true});fs.copyFileSync(sp,dp)}})}c('src','dist/types')\"",
-    "build": "npm run build:clean && npm run build:js && npm run build:css && npm run build:assets"
+    "build": "npm run build:clean && npm run build:js && npm run build:css && npm run build:assets",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
     "tailwindcss": "^4.0.10"
   },
   "dependencies": {
