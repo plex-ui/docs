@@ -8,9 +8,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:ui": "npm run build --workspace=packages/ui",
     "start": "next start",
     "lint": "eslint",
-    "lint:docs-code": "node scripts/check-doc-code-duplicates.mjs"
+    "lint:docs-code": "node scripts/check-doc-code-duplicates.mjs",
+    "publish:ui": "npm run build:ui && npm publish --access public --workspace=packages/ui"
   },
   "dependencies": {
     "@plexui/ui": "*",
