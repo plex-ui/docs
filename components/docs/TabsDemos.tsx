@@ -124,154 +124,279 @@ export function TabsOverviewDemo() {
 // ─── Underline horizontal ───
 export function TabsUnderlineDemo() {
   const [tab, setTab] = useState('overview');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      aria-label="Sections"
-    >
-      <Tabs.Tab value="overview">Overview</Tabs.Tab>
-      <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
-      <Tabs.Tab value="reports">Reports</Tabs.Tab>
-      <Tabs.Tab value="settings">Settings</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          size={size}
+          aria-label="Sections"
+        >
+          <Tabs.Tab value="overview">Overview</Tabs.Tab>
+          <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+          <Tabs.Tab value="reports">Reports</Tabs.Tab>
+          <Tabs.Tab value="settings">Settings</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Underline block ───
 export function TabsUnderlineBlockDemo() {
   const [tab, setTab] = useState('overview');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      block
-      aria-label="Sections"
-    >
-      <Tabs.Tab value="overview">Overview</Tabs.Tab>
-      <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
-      <Tabs.Tab value="reports">Reports</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          block
+          size={size}
+          aria-label="Sections"
+        >
+          <Tabs.Tab value="overview">Overview</Tabs.Tab>
+          <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+          <Tabs.Tab value="reports">Reports</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Underline with icons ───
 export function TabsUnderlineIconsDemo() {
   const [tab, setTab] = useState('home');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      size="lg"
-      aria-label="Navigation"
-    >
-      <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
-      <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
-      <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          size={size}
+          aria-label="Navigation"
+        >
+          <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
+          <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
+          <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Underline with badge ───
 export function TabsUnderlineBadgeDemo() {
   const [tab, setTab] = useState('all');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      size="lg"
-      aria-label="Filter"
-    >
-      <Tabs.Tab value="all" badge={128}>All</Tabs.Tab>
-      <Tabs.Tab value="unread" badge={{ content: 12, color: "info" }}>Unread</Tabs.Tab>
-      <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger" }}>Flagged</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          size={size}
+          aria-label="Filter"
+        >
+          <Tabs.Tab value="all" badge={128}>All</Tabs.Tab>
+          <Tabs.Tab value="unread" badge={{ content: 12, color: "info" }}>Unread</Tabs.Tab>
+          <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger" }}>Flagged</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Vertical segmented ───
 export function TabsVerticalSegmentedDemo() {
   const [tab, setTab] = useState('account');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      orientation="vertical"
-      aria-label="Settings"
-    >
-      <Tabs.Tab value="account">Account</Tabs.Tab>
-      <Tabs.Tab value="password">Password</Tabs.Tab>
-      <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
-      <Tabs.Tab value="display">Display</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          orientation="vertical"
+          size={size}
+          aria-label="Settings"
+        >
+          <Tabs.Tab value="account">Account</Tabs.Tab>
+          <Tabs.Tab value="password">Password</Tabs.Tab>
+          <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
+          <Tabs.Tab value="display">Display</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Vertical underline ───
 export function TabsVerticalUnderlineDemo() {
   const [tab, setTab] = useState('account');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      orientation="vertical"
-      aria-label="Settings"
-    >
-      <Tabs.Tab value="account">Account</Tabs.Tab>
-      <Tabs.Tab value="password">Password</Tabs.Tab>
-      <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
-      <Tabs.Tab value="display">Display</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          orientation="vertical"
+          size={size}
+          aria-label="Settings"
+        >
+          <Tabs.Tab value="account">Account</Tabs.Tab>
+          <Tabs.Tab value="password">Password</Tabs.Tab>
+          <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
+          <Tabs.Tab value="display">Display</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Vertical underline with icons ───
 export function TabsVerticalUnderlineIconsDemo() {
   const [tab, setTab] = useState('home');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      orientation="vertical"
-      size="lg"
-      aria-label="Navigation"
-    >
-      <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
-      <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
-      <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          orientation="vertical"
+          size={size}
+          aria-label="Navigation"
+        >
+          <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
+          <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
+          <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
 // ─── Disabled tab ───
 export function TabsDisabledDemo() {
   const [tab, setTab] = useState('overview');
+  const [variant, setVariant] = useState<(typeof VARIANT_OPTIONS)[number]>('underline');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
 
   return (
-    <Tabs
-      value={tab}
-      onChange={setTab}
-      variant="underline"
-      aria-label="Sections"
-    >
-      <Tabs.Tab value="overview">Overview</Tabs.Tab>
-      <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
-      <Tabs.Tab value="reports" disabled>Reports</Tabs.Tab>
-      <Tabs.Tab value="settings">Settings</Tabs.Tab>
-    </Tabs>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl value={variant} onChange={setVariant} size="xs" aria-label="variant">
+            {VARIANT_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>{v}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant={variant}
+          size={size}
+          aria-label="Sections"
+        >
+          <Tabs.Tab value="overview">Overview</Tabs.Tab>
+          <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+          <Tabs.Tab value="reports" disabled>Reports</Tabs.Tab>
+          <Tabs.Tab value="settings">Settings</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
   );
 }
 
