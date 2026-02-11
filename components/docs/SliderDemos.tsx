@@ -144,3 +144,87 @@ export function SliderMarksDemo() {
     </div>
   );
 }
+
+export function SliderRangeDemo() {
+  const mounted = useMounted();
+  const [value, setValue] = useState([25, 75]);
+  if (!mounted) return <div style={{ width: 300, height: 48 }} />;
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <div style={{ width: 300 }}>
+        <Slider
+          range
+          label="Price range"
+          min={0}
+          max={100}
+          step={1}
+          value={value}
+          onChange={setValue}
+          prefixUnit="$"
+        />
+      </div>
+    </div>
+  );
+}
+
+export function SliderMultipleThumbsDemo() {
+  const mounted = useMounted();
+  const [value, setValue] = useState([10, 40, 70]);
+  if (!mounted) return <div style={{ width: 300, height: 48 }} />;
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <div style={{ width: 300 }}>
+        <Slider
+          range
+          label="Breakpoints"
+          min={0}
+          max={100}
+          step={1}
+          value={value}
+          onChange={setValue}
+          minStepsBetweenThumbs={5}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function SliderVerticalDemo() {
+  const mounted = useMounted();
+  const [value, setValue] = useState(50);
+  if (!mounted) return <div style={{ width: 40, height: 200 }} />;
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <Slider
+        label="Volume"
+        min={0}
+        max={100}
+        step={1}
+        value={value}
+        onChange={setValue}
+        orientation="vertical"
+      />
+    </div>
+  );
+}
+
+export function SliderDisabledDemo() {
+  const mounted = useMounted();
+  const [value] = useState(50);
+  if (!mounted) return <div style={{ width: 300, height: 48 }} />;
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <div style={{ width: 300 }}>
+        <Slider
+          label="Disabled"
+          min={0}
+          max={100}
+          step={1}
+          value={value}
+          onChange={() => {}}
+          disabled
+        />
+      </div>
+    </div>
+  );
+}

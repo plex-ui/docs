@@ -3,6 +3,7 @@
  * Keep in sync with changelog (Unreleased → Added).
  */
 export const NEW_COMPONENT_SLUGS = [
+  'field',
   'sidebar',
   'skeleton',
   'floating-label-input',
