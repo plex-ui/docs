@@ -7,11 +7,14 @@ import { useResizeObserver } from "usehooks-ts"
 import { handlePressableMouseEnter, waitForAnimationFrame } from "../../lib/helpers"
 import { type ControlSize, type SemanticColors, type Sizes, type Variants } from "../../types"
 import { LoadingIndicator } from "../Indicator"
-import s from "./SegmentedControl.module.css"
+import s from "./Tabs.module.css"
 
 export type SizeVariant = "2xs" | "xs" | "sm" | "md" | "lg" | "xl"
 
-export type SegmentedControlProps<T extends string> = {
+export type TabsVariant = "segmented" | "underline"
+export type TabsOrientation = "horizontal" | "vertical"
+
+export type TabsProps<T extends string> = {
   /**
    * Controlled value for the group
    */
@@ -25,7 +28,19 @@ export type SegmentedControlProps<T extends string> = {
    */
   "aria-label": string
   /**
-   * Controls the size of the segmented control
+   * Visual variant of the tab group
+   * - `"segmented"` — background container with sliding highlight (default)
+   * - `"underline"` — no background, animated line indicator under active tab
+   * @default "segmented"
+   */
+  "variant"?: TabsVariant
+  /**
+   * Orientation of the tab layout
+   * @default "horizontal"
+   */
+  "orientation"?: TabsOrientation
+  /**
+   * Controls the size of the tabs
    *
    * | 3xs     | 2xs     | xs      | sm      | md      | lg      | xl      | 2xl     | 3xl     |
    * | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
@@ -50,7 +65,8 @@ export type SegmentedControlProps<T extends string> = {
    */
   "block"?: boolean
   /**
-   * Determines if the segment control, and its options, should be a fully rounded pill shape.
+   * Determines if the tabs should be a fully rounded pill shape.
+   * Only applies to the `"segmented"` variant.
    * @default true
    */
   "pill"?: boolean
@@ -58,10 +74,12 @@ export type SegmentedControlProps<T extends string> = {
   "children": React.ReactNode
 }
 
-export const SegmentedControl = <T extends string>({
+export const Tabs = <T extends string>({
   value,
   onChange,
   children,
+  variant = "segmented",
+  orientation = "horizontal",
   block,
   pill = true,
   size = "md",
@@ -69,55 +87,88 @@ export const SegmentedControl = <T extends string>({
   className,
   onClick,
   ...restProps
-}: SegmentedControlProps<T>) => {
+}: TabsProps<T>) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const thumbRef = useRef<HTMLDivElement>(null)
   const prevSizeRef = useRef(size)
+  const isVertical = orientation === "vertical"
 
-  const applyThumbSizing = useCallback((attemptScroll: boolean) => {
-    const root = rootRef.current
-    const thumb = thumbRef.current
+  const applyThumbSizing = useCallback(
+    (attemptScroll: boolean) => {
+      const root = rootRef.current
+      const thumb = thumbRef.current
 
-    if (!root || !thumb) {
-      return
-    }
+      if (!root || !thumb) {
+        return
+      }
 
-    // Get selected node
-    const activeNode = root?.querySelector<HTMLDivElement>('[data-state="on"]')
+      // Get selected node
+      const activeNode = root?.querySelector<HTMLDivElement>('[data-state="on"]')
 
-    // Impossible
-    if (!activeNode) {
-      return
-    }
+      // Impossible
+      if (!activeNode) {
+        return
+      }
 
-    const rootWidth = root.clientWidth
-    let targetWidth = Math.floor(activeNode.clientWidth)
-    const targetOffset = activeNode.offsetLeft
+      if (isVertical) {
+        const rootHeight = root.clientHeight
+        let targetHeight = Math.floor(activeNode.clientHeight)
+        const targetOffset = activeNode.offsetTop
 
-    // Detect if the thumb is moving too far to the edge of the container.
-    // This would most commonly be due to subpixel widths adding up to excessive distance.
-    if (rootWidth - (targetWidth + targetOffset) < 2) {
-      targetWidth = targetWidth - 1
-    }
+        // Detect subpixel edge case
+        if (rootHeight - (targetHeight + targetOffset) < 2) {
+          targetHeight = targetHeight - 1
+        }
 
-    thumb.style.width = `${Math.floor(targetWidth)}px`
-    thumb.style.transform = `translateX(${targetOffset}px)`
+        thumb.style.height = `${Math.floor(targetHeight)}px`
+        thumb.style.width = ""
+        thumb.style.transform = `translateY(${targetOffset}px)`
 
-    // If the control is scrollable, ensure the active option is visible
-    if (root.scrollWidth > rootWidth) {
-      // Only scroll items near the edge, but not the inner 2/3.
-      const buffer = rootWidth * 0.15
-      const scrollLeft = root.scrollLeft
-      const left = activeNode.offsetLeft
-      const right = left + targetWidth
-      if (left < scrollLeft + buffer || right > scrollLeft + rootWidth - buffer) {
-        // Cheap trick to avoid unintentional scroll on mount - transition is set after mounting
-        if (attemptScroll) {
-          activeNode.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" })
+        // Scroll into view if needed
+        if (root.scrollHeight > rootHeight) {
+          const buffer = rootHeight * 0.15
+          const scrollTop = root.scrollTop
+          const top = activeNode.offsetTop
+          const bottom = top + targetHeight
+          if (top < scrollTop + buffer || bottom > scrollTop + rootHeight - buffer) {
+            if (attemptScroll) {
+              activeNode.scrollIntoView({ block: "center", inline: "nearest", behavior: "smooth" })
+            }
+          }
+        }
+      } else {
+        const rootWidth = root.clientWidth
+        let targetWidth = Math.floor(activeNode.clientWidth)
+        const targetOffset = activeNode.offsetLeft
+
+        // Detect if the thumb is moving too far to the edge of the container.
+        // This would most commonly be due to subpixel widths adding up to excessive distance.
+        if (rootWidth - (targetWidth + targetOffset) < 2) {
+          targetWidth = targetWidth - 1
+        }
+
+        thumb.style.width = `${Math.floor(targetWidth)}px`
+        thumb.style.height = ""
+        thumb.style.transform = `translateX(${targetOffset}px)`
+
+        // If the control is scrollable, ensure the active option is visible
+        if (root.scrollWidth > rootWidth) {
+          // Only scroll items near the edge, but not the inner 2/3.
+          const buffer = rootWidth * 0.15
+          const scrollLeft = root.scrollLeft
+          const left = activeNode.offsetLeft
+          const right = left + targetWidth
+          if (left < scrollLeft + buffer || right > scrollLeft + rootWidth - buffer) {
+            // Cheap trick to avoid unintentional scroll on mount - transition is set after mounting
+            if (attemptScroll) {
+              activeNode.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" })
+            }
+          }
         }
       }
-    }
-  }, [])
+    },
+    [isVertical],
+  )
 
   useResizeObserver({
     // @ts-expect-error(2322) -- bug in types: https://github.com/juliencrn/usehooks-ts/issues/663
@@ -136,6 +187,10 @@ export const SegmentedControl = <T extends string>({
       thumb.style.transition = currentTransition
     },
   })
+
+  const transitionProperty = isVertical
+    ? "height 300ms var(--cubic-enter), transform 300ms var(--cubic-enter)"
+    : "width 300ms var(--cubic-enter), transform 300ms var(--cubic-enter)"
 
   useLayoutEffect(() => {
     const root = rootRef.current
@@ -167,13 +222,12 @@ export const SegmentedControl = <T extends string>({
         // Apply transition after initial calculation is set
         if (!thumb.style.transition) {
           waitForAnimationFrame(() => {
-            thumb.style.transition =
-              "width 300ms var(--cubic-enter), transform 300ms var(--cubic-enter)"
+            thumb.style.transition = transitionProperty
           })
         }
       })
     }
-  }, [applyThumbSizing, value, size, gutterSize, pill])
+  }, [applyThumbSizing, value, size, gutterSize, pill, transitionProperty])
 
   const handleValueChange = (nextValue: T) => {
     // Only trigger onChange when a value exists
@@ -181,31 +235,36 @@ export const SegmentedControl = <T extends string>({
     if (nextValue && onChange) onChange(nextValue)
   }
 
+  // Only apply pill for segmented variant
+  const isPill = variant === "segmented" && pill
+
   return (
     <ToggleGroup.Root
       ref={rootRef}
-      className={clsx(s.SegmentedControl, className)}
+      className={clsx(s.Tabs, className)}
       type="single"
       value={value}
       loop={false}
       onValueChange={handleValueChange}
       onClick={onClick}
+      data-variant={variant}
+      data-orientation={orientation}
       data-block={block ? "" : undefined}
-      data-pill={pill ? "" : undefined}
+      data-pill={isPill ? "" : undefined}
       data-size={size}
       data-gutter-size={gutterSize}
       {...restProps}
     >
-      <div className={s.SegmentedControlThumb} ref={thumbRef} />
+      <div className={s.TabsThumb} ref={thumbRef} />
       {children}
     </ToggleGroup.Root>
   )
 }
 
 /**
- * Badge configuration for SegmentedControl.Option
+ * Badge configuration for Tabs.Tab
  */
-export type SegmentedControlBadgeProp =
+export type TabsBadgeProp =
   | React.ReactNode
   | {
       content: React.ReactNode
@@ -217,17 +276,17 @@ export type SegmentedControlBadgeProp =
       loading?: boolean
     }
 
-export type SegmentedControlOptionProps = {
+export type TabProps = {
   /**
-   * Option value
+   * Tab value
    */
   "value": string
   /**
-   * Text read aloud to screen readers when the option is focused
+   * Text read aloud to screen readers when the tab is focused
    */
   "aria-label"?: string
   /**
-   * Text content to render in the option
+   * Text content to render in the tab
    */
   "children"?: React.ReactNode
   /**
@@ -240,36 +299,36 @@ export type SegmentedControlOptionProps = {
    * @example badge={5}
    * @example badge={{ content: 5, color: "danger" }}
    */
-  "badge"?: SegmentedControlBadgeProp
+  "badge"?: TabsBadgeProp
   /**
-   * Disable the individual option
+   * Disable the individual tab
    */
   "disabled"?: boolean
 }
 
 // Type guard for badge object form
 const isBadgeObject = (
-  badge: SegmentedControlBadgeProp,
-): badge is Exclude<SegmentedControlBadgeProp, React.ReactNode> & { content: React.ReactNode } => {
+  badge: TabsBadgeProp,
+): badge is Exclude<TabsBadgeProp, React.ReactNode> & { content: React.ReactNode } => {
   return badge != null && typeof badge === "object" && "content" in badge
 }
 
-const Segment = ({ children, icon, badge, ...restProps }: SegmentedControlOptionProps) => {
+const Tab = ({ children, icon, badge, ...restProps }: TabProps) => {
   // Normalize badge prop
   const badgeProps = badge != null ? (isBadgeObject(badge) ? badge : { content: badge }) : null
 
   return (
     <ToggleGroup.Item
-      className={s.SegmentedControlOption}
+      className={s.Tab}
       {...restProps}
       onPointerEnter={handlePressableMouseEnter}
     >
-      <span className={s.SegmentedControlOptionContent}>
+      <span className={s.TabContent}>
         {icon}
         {children && <span>{children}</span>}
         {badgeProps && (
           <span
-            className={s.OptionBadge}
+            className={s.TabBadge}
             data-color={badgeProps.color ?? "secondary"}
             data-variant={badgeProps.variant ?? "soft"}
             data-pill={badgeProps.pill ? "" : undefined}
@@ -282,4 +341,7 @@ const Segment = ({ children, icon, badge, ...restProps }: SegmentedControlOption
   )
 }
 
-SegmentedControl.Option = Segment
+// Attach sub-components
+Tabs.Tab = Tab
+// Backward-compat alias
+Tabs.Option = Tab
