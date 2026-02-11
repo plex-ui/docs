@@ -24,6 +24,10 @@
     Variant: Segmented (default — existing behavior)
   ============================================= */
   &:where([data-variant="segmented"]) {
+    --segmented-control-option-radius: calc(
+      var(--segmented-control-radius) - var(--segmented-control-gutter)
+    );
+
     overflow: auto;
     height: var(--segmented-control-size);
     padding: var(--segmented-control-gutter);
@@ -47,6 +51,8 @@
     Variant: Underline
   ============================================= */
   &:where([data-variant="underline"]) {
+    --segmented-control-option-radius: 0;
+
     overflow: auto;
     height: var(--segmented-control-size);
     padding: 0;
@@ -289,19 +295,6 @@
   &:where([data-gutter-size="xl"]) {
     --segmented-control-option-gutter: var(--control-gutter-xl);
   }
-}
-
-/* =============================================
-  Option radius (computed from parent for segmented)
-============================================= */
-.Tabs:where([data-variant="segmented"]) {
-  --segmented-control-option-radius: calc(
-    var(--segmented-control-radius) - var(--segmented-control-gutter)
-  );
-}
-
-.Tabs:where([data-variant="underline"]) {
-  --segmented-control-option-radius: 0;
 }
 
 /* =============================================
