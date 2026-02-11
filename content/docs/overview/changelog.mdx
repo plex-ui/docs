@@ -56,6 +56,10 @@ This changelog documents significant updates, bug fixes, and improvements to com
     <strong>Icon and badge support</strong> (<a href="/docs/components/segmented-control#icon-only">Segmented Control</a>)<br/>
     Added <code>icon</code> and <code>badge</code> props to <code>SegmentedControl.Option</code>. Icons automatically size based on control size with negative left margins for visual alignment. Badges support semantic colors (<code>secondary</code>, <code>success</code>, <code>danger</code>, etc.), style variants (<code>soft</code>, <code>solid</code>), and <code>pill</code> shape option. Badge sizes scale with control size using new 2xs/xs badge tokens for smaller controls.
   </li>
+  <li>
+    <strong>Tabs component</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    Renamed and extended SegmentedControl into Tabs. Adds <code>variant</code> prop with <code>"segmented"</code> (default, existing behavior) and <code>"underline"</code> (animated line indicator with no background). Adds <code>orientation</code> prop with <code>"horizontal"</code> (default) and <code>"vertical"</code> support. Sub-components: <code>Tabs.Tab</code> (new canonical name) and <code>Tabs.Option</code> (backward-compat alias). The <code>SegmentedControl</code> import continues to work as a backward-compatible alias.
+  </li>
 </ul>
 
 ### Changed

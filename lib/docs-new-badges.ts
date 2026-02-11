@@ -9,6 +9,7 @@ export const NEW_COMPONENT_SLUGS = [
   'floating-label-input',
   'progress-steps',
   'shimmer-text',
+  'tabs',
 ] as const;
 
 export function getNewComponentHrefs(): string[] {
