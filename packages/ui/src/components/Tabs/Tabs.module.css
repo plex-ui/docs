@@ -24,10 +24,6 @@
     Variant: Segmented (default — existing behavior)
   ============================================= */
   &:where([data-variant="segmented"]) {
-    --segmented-control-option-radius: calc(
-      var(--segmented-control-radius) - var(--segmented-control-gutter)
-    );
-
     overflow: auto;
     height: var(--segmented-control-size);
     padding: var(--segmented-control-gutter);
@@ -35,16 +31,22 @@
     background: var(--segmented-control-background);
   }
 
+  &:where([data-variant="segmented"]:not([data-pill])) {
+    --segmented-control-option-radius: calc(
+      var(--segmented-control-radius) - var(--segmented-control-gutter)
+    );
+  }
+
+  &:where([data-variant="segmented"][data-pill]) {
+    border-radius: var(--radius-full);
+    --segmented-control-option-radius: var(--radius-full);
+  }
+
   &:where([data-variant="segmented"][data-block]) {
     overflow: hidden;
     display: flex;
     width: 100%;
     white-space: normal;
-  }
-
-  &:where([data-variant="segmented"][data-pill]) {
-    --segmented-control-radius: var(--radius-full);
-    --segmented-control-option-radius: var(--radius-full);
   }
 
   /* =============================================
@@ -93,6 +95,11 @@
 
   &:where([data-orientation="vertical"][data-block]) {
     width: 100%;
+  }
+
+  &:where([data-orientation="vertical"][data-variant="segmented"][data-pill]) {
+    border-radius: calc(var(--segmented-control-size) / 2);
+    --segmented-control-option-radius: calc(var(--segmented-control-size) / 2);
   }
 
   /* =============================================
@@ -402,6 +409,7 @@
   :where(.Tabs[data-orientation="vertical"]) & {
     justify-content: flex-start;
     width: 100%;
+    height: var(--segmented-control-size);
   }
 
   :where(.Tabs[data-orientation="vertical"][data-block]) & {
