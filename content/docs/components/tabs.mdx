@@ -5,6 +5,8 @@ description: Toggle through grouped options with segmented or underline styles
 
 import {
   TabsOverviewDemo,
+  TabsSegmentedIconsDemo,
+  TabsSegmentedBadgeDemo,
   TabsUnderlineDemo,
   TabsUnderlineBlockDemo,
   TabsUnderlineIconsDemo,
@@ -30,6 +32,26 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
   <Tabs.Tab value="reports">Reports</Tabs.Tab>
 </Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.controlWithPanel}>
   <TabsOverviewDemo />
+</ComponentPreview>
+
+### Segmented with icons
+
+<ComponentPreview details={<>Icons work with the segmented variant — use the <code>icon</code> prop on individual tabs. Icons are automatically sized to match the current <code>size</code>.</>} code={`<Tabs size="lg" value={tab} onChange={setTab} aria-label="Navigation">
+  <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
+  <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
+  <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsSegmentedIconsDemo />
+</ComponentPreview>
+
+### Segmented with badge
+
+<ComponentPreview details={<>Pass a number or an object with <code>content</code>, <code>color</code>, and <code>variant</code> to the <code>badge</code> prop. Badges render inline after the tab label inside the segmented container.</>} code={`<Tabs size="lg" value={tab} onChange={setTab} aria-label="Filter">
+  <Tabs.Tab value="all" badge={128}>All</Tabs.Tab>
+  <Tabs.Tab value="unread" badge={{ content: 12, color: "info" }}>Unread</Tabs.Tab>
+  <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger" }}>Flagged</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsSegmentedBadgeDemo />
 </ComponentPreview>
 
 ### Underline

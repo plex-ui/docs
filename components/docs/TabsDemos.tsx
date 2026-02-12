@@ -222,10 +222,11 @@ export function TabsUnderlineIconsDemo() {
   );
 }
 
-// ─── Underline with badge ───
-export function TabsUnderlineBadgeDemo() {
-  const [tab, setTab] = useState('all');
+// ─── Segmented with icons ───
+export function TabsSegmentedIconsDemo() {
+  const [tab, setTab] = useState('home');
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
+  const [pill, setPill] = useState(true);
 
   return (
     <>
@@ -237,6 +238,79 @@ export function TabsUnderlineBadgeDemo() {
             ))}
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          size={size}
+          pill={pill}
+          aria-label="Navigation"
+        >
+          <Tabs.Tab value="home" icon={<Home />}>Home</Tabs.Tab>
+          <Tabs.Tab value="settings" icon={<SettingsCog />}>Settings</Tabs.Tab>
+          <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
+  );
+}
+
+// ─── Segmented with badge ───
+export function TabsSegmentedBadgeDemo() {
+  const [tab, setTab] = useState('all');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
+  const [pill, setPill] = useState(true);
+  const [badgePill, setBadgePill] = useState(true);
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+        <DemoControlBoolean name="badgePill" value={badgePill} onChange={setBadgePill} />
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          size={size}
+          pill={pill}
+          aria-label="Filter"
+        >
+          <Tabs.Tab value="all" badge={{ content: 128, pill: badgePill }}>All</Tabs.Tab>
+          <Tabs.Tab value="unread" badge={{ content: 12, color: "info", pill: badgePill }}>Unread</Tabs.Tab>
+          <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger", pill: badgePill }}>Flagged</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
+  );
+}
+
+// ─── Underline with badge ───
+export function TabsUnderlineBadgeDemo() {
+  const [tab, setTab] = useState('all');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
+  const [badgePill, setBadgePill] = useState(true);
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="badgePill" value={badgePill} onChange={setBadgePill} />
       </div>
       <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
         <Tabs
@@ -246,9 +320,9 @@ export function TabsUnderlineBadgeDemo() {
           size={size}
           aria-label="Filter"
         >
-          <Tabs.Tab value="all" badge={128}>All</Tabs.Tab>
-          <Tabs.Tab value="unread" badge={{ content: 12, color: "info" }}>Unread</Tabs.Tab>
-          <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger" }}>Flagged</Tabs.Tab>
+          <Tabs.Tab value="all" badge={{ content: 128, pill: badgePill }}>All</Tabs.Tab>
+          <Tabs.Tab value="unread" badge={{ content: 12, color: "info", pill: badgePill }}>Unread</Tabs.Tab>
+          <Tabs.Tab value="flagged" badge={{ content: 3, color: "danger", pill: badgePill }}>Flagged</Tabs.Tab>
         </Tabs>
       </div>
     </>
