@@ -30,7 +30,34 @@ import {
 
 ### Custom views
 
-<ComponentPreview details={<>You can fully customize the styling and rendering of select's trigger and options:<br/><ul><li><strong>Trigger</strong> &ndash; <code>triggerClassName</code>, <code>TriggerStartIcon</code>, and <code>TriggerView</code></li><li><strong>Options</strong> &ndash; <code>optionClassName</code>, <code>OptionView</code>, as well as <code>description</code> and <code>tooltip</code> fields in <code>options</code></li></ul></>} code={`<Select
+<ComponentPreview details={<>You can fully customize the styling and rendering of select's trigger and options:<br/><ul><li><strong>Trigger</strong> &ndash; <code>triggerClassName</code>, <code>TriggerStartIcon</code>, and <code>TriggerView</code></li><li><strong>Options</strong> &ndash; <code>optionClassName</code>, <code>OptionView</code>, as well as <code>description</code> and <code>tooltip</code> fields in <code>options</code></li></ul></>} code={`const RoleOptionDescription = ({ children }: { children: ReactNode }) => (
+  <div className="font-normal text-secondary text-[0.935em] leading-[1.45]">
+    {children}
+  </div>
+);
+
+const roles = [
+  {
+    value: "owner",
+    label: "Owner",
+    description: (
+      <RoleOptionDescription>
+        Can modify project information and manage project members
+      </RoleOptionDescription>
+    ),
+  },
+  {
+    value: "reader",
+    label: "Reader",
+    description: (
+      <RoleOptionDescription>
+        Can make API requests that read or modify data
+      </RoleOptionDescription>
+    ),
+  },
+];
+
+<Select
   value={role}
   options={roles}
   placeholder="Select role..."
