@@ -1,6 +1,7 @@
 'use client';
 
 import { Hero } from './_components/Hero';
+import { PricingSection } from './_components/PricingSection';
 import { RevealOnScroll } from './_components/RevealOnScroll';
 import { ValueProps } from './_components/ValueProps';
 import { SizingSection } from './_components/SizingSection';
@@ -12,6 +13,7 @@ export default function LandingPage() {
         <Hero />
         <SizingSection />
         <ValueProps />
+        <PricingSection />
       </RevealOnScroll>
     </main>
   );
