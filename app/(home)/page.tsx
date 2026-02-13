@@ -19,9 +19,9 @@ export default function LandingPage() {
         <SizingSection />
         <ValueProps />
         <ComparisonSection />
-        <CtaBanner />
         <PricingSection />
         <FaqSection />
+        <CtaBanner />
       </RevealOnScroll>
     </main>
   );
