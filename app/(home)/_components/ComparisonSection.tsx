@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, X, Minus } from 'lucide-react';
+import { Check, Minus } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -84,18 +84,10 @@ const rows: Row[] = [
 
 function CellContent({ value }: { value: CellValue }) {
   if (value === true) {
-    return (
-      <span className="inline-flex items-center justify-center rounded-full bg-fd-primary/10 p-1">
-        <Check className="size-3.5 text-fd-primary" />
-      </span>
-    );
+    return <Check className="size-4 text-emerald-500" />;
   }
   if (value === false) {
-    return (
-      <span className="inline-flex items-center justify-center rounded-full bg-fd-muted-foreground/10 p-1">
-        <X className="size-3.5 text-fd-muted-foreground/60" />
-      </span>
-    );
+    return <Minus className="size-4 text-fd-muted-foreground/40" />;
   }
   return (
     <span className="text-sm font-medium text-fd-foreground">{value}</span>
