@@ -40,6 +40,7 @@ const footerSections = [
     title: '\u00A0', // non-breaking space — continuation column, no title
     links: [
       { label: 'Empty Message', href: '/docs/components/empty-message' },
+      { label: 'Field', href: '/docs/components/field' },
       { label: 'Floating Label Input', href: '/docs/components/floating-label-input' },
       { label: 'Indicators', href: '/docs/components/indicators' },
       { label: 'Input', href: '/docs/components/input' },
@@ -49,17 +50,19 @@ const footerSections = [
       { label: 'Progress Steps', href: '/docs/components/progress-steps' },
       { label: 'Radio Group', href: '/docs/components/radio-group' },
       { label: 'Segmented Control', href: '/docs/components/segmented-control' },
+      { label: 'Select', href: '/docs/components/select' },
     ],
   },
   {
     title: '\u00A0',
     links: [
-      { label: 'Select', href: '/docs/components/select' },
       { label: 'Select Control', href: '/docs/components/select-control' },
+      { label: 'Shimmer Text', href: '/docs/components/shimmer-text' },
       { label: 'Sidebar', href: '/docs/components/sidebar' },
       { label: 'Skeleton', href: '/docs/components/skeleton' },
       { label: 'Slider', href: '/docs/components/slider' },
       { label: 'Switch', href: '/docs/components/switch' },
+      { label: 'Tabs', href: '/docs/components/tabs' },
       { label: 'Tag Input', href: '/docs/components/tag-input' },
       { label: 'Text Link', href: '/docs/components/text-link' },
       { label: 'Textarea', href: '/docs/components/textarea' },

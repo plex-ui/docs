@@ -70,6 +70,14 @@ export type TabsProps<T extends string> = {
    * @default true
    */
   "pill"?: boolean
+  /**
+   * Flush underline style — removes tab padding so the indicator
+   * matches the text width exactly, uses gap for spacing, and
+   * removes the bottom border.
+   * Only applies to the `"underline"` variant.
+   * @default false
+   */
+  "flush"?: boolean
   "className"?: string
   "children": React.ReactNode
 }
@@ -82,6 +90,7 @@ export const Tabs = <T extends string>({
   orientation = "horizontal",
   block,
   pill = true,
+  flush,
   size = "md",
   gutterSize,
   className,
@@ -227,7 +236,7 @@ export const Tabs = <T extends string>({
         }
       })
     }
-  }, [applyThumbSizing, value, size, gutterSize, pill, transitionProperty])
+  }, [applyThumbSizing, value, size, gutterSize, pill, flush, transitionProperty])
 
   const handleValueChange = (nextValue: T) => {
     // Only trigger onChange when a value exists
@@ -237,6 +246,8 @@ export const Tabs = <T extends string>({
 
   // Only apply pill for segmented variant
   const isPill = variant === "segmented" && pill
+  // Only apply flush for underline variant
+  const isFlush = variant === "underline" && flush
 
   return (
     <ToggleGroup.Root
@@ -251,6 +262,7 @@ export const Tabs = <T extends string>({
       data-orientation={orientation}
       data-block={block ? "" : undefined}
       data-pill={isPill ? "" : undefined}
+      data-flush={isFlush ? "" : undefined}
       data-size={size}
       data-gutter-size={gutterSize}
       {...restProps}

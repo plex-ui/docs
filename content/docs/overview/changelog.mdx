@@ -60,6 +60,10 @@ This changelog documents significant updates, bug fixes, and improvements to com
     <strong>Tabs component</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
     Renamed and extended SegmentedControl into Tabs. Adds <code>variant</code> prop with <code>"segmented"</code> (default, existing behavior) and <code>"underline"</code> (animated line indicator with no background). Adds <code>orientation</code> prop with <code>"horizontal"</code> (default) and <code>"vertical"</code> support. Sub-components: <code>Tabs.Tab</code> (new canonical name) and <code>Tabs.Option</code> (backward-compat alias). The <code>SegmentedControl</code> import continues to work as a backward-compatible alias.
   </li>
+  <li>
+    <strong>Tabs flush underline variant</strong> (<a href="/docs/components/tabs#underline-flush">Tabs</a>)<br/>
+    Added <code>flush</code> boolean prop for the underline variant. Removes tab padding so the indicator matches the text width exactly, uses gap-based spacing between tabs, removes the container bottom border, and renders a 1px indicator with no border-radius. Spacing scales with <code>size</code> prop.
+  </li>
 </ul>
 
 ### Changed

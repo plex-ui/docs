@@ -8,6 +8,7 @@ import {
   TabsSegmentedIconsDemo,
   TabsSegmentedBadgeDemo,
   TabsUnderlineDemo,
+  TabsUnderlineFlushDemo,
   TabsUnderlineBlockDemo,
   TabsUnderlineIconsDemo,
   TabsUnderlineBadgeDemo,
@@ -63,6 +64,17 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
   <Tabs.Tab value="settings">Settings</Tabs.Tab>
 </Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
   <TabsUnderlineDemo />
+</ComponentPreview>
+
+### Underline flush
+
+<ComponentPreview details={<>Add <code>flush</code> with <code>variant="underline"</code> for minimal tabs where the indicator matches the text width exactly. No container border is rendered, and spacing between tabs uses gap instead of padding.</>} code={`<Tabs variant="underline" flush value={tab} onChange={setTab} aria-label="Sections">
+  <Tabs.Tab value="overview">Overview</Tabs.Tab>
+  <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+  <Tabs.Tab value="reports">Reports</Tabs.Tab>
+  <Tabs.Tab value="settings">Settings</Tabs.Tab>
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsUnderlineFlushDemo />
 </ComponentPreview>
 
 ### Underline block
@@ -177,6 +189,7 @@ Both `Tabs.Tab` and `Tabs.Option` are available as sub-components. The `Segmente
   { prop: "size", type: "ControlSize", default: '"md"', description: "Control height (3xs through 3xl)" },
   { prop: "gutterSize", type: "string", description: "Horizontal padding of tabs" },
   { prop: "pill", type: "boolean", default: "true", description: "Fully rounded control (segmented variant only)" },
+  { prop: "flush", type: "boolean", default: "false", description: "Text-width indicator, no border, gap spacing (underline variant only)" },
   { prop: "block", type: "boolean", default: "false", description: "Full-width control with equal-width tabs" },
   { prop: "disabled", type: "boolean", default: "false", description: "Disable all tabs" },
   { prop: "aria-label", type: "string", description: "Accessible name (required)" },

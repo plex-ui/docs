@@ -72,6 +72,18 @@
   }
 
   /* =============================================
+    Variant: Underline flush
+  ============================================= */
+  &:where([data-variant="underline"][data-flush]) {
+    gap: var(--segmented-control-option-gutter);
+    border-bottom: none;
+  }
+
+  &:where([data-variant="underline"][data-flush][data-block]) {
+    gap: 0;
+  }
+
+  /* =============================================
     Vertical orientation
   ============================================= */
   &:where([data-orientation="vertical"]) {
@@ -403,6 +415,11 @@
     }
   }
 
+  /* Flush underline variant — Tab styles */
+  :where(.Tabs[data-variant="underline"][data-flush]) & {
+    padding: 0;
+  }
+
   /* =============================================
     Vertical orientation — Tab styles
   ============================================= */
@@ -487,6 +504,18 @@
     border-radius: 0 calc(var(--tabs-underline-indicator-height) / 2) calc(var(--tabs-underline-indicator-height) / 2) 0;
     background: var(--tabs-underline-indicator-color);
     box-shadow: none;
+  }
+
+  /* Flush underline horizontal: 1px line, no radius */
+  :where(.Tabs[data-variant="underline"][data-flush][data-orientation="horizontal"]) & {
+    height: 1px;
+    border-radius: 0;
+  }
+
+  /* Flush underline vertical: 1px line, no radius */
+  :where(.Tabs[data-variant="underline"][data-flush][data-orientation="vertical"]) & {
+    width: 1px;
+    border-radius: 0;
   }
 }
 
