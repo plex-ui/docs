@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Plex UI
 
-## Getting Started
+The most flexible UI kit for Figma & React. Powered by the design system behind [ChatGPT](https://openai.github.io/apps-sdk-ui/).
 
-First, run the development server:
+[Documentation](https://plexui.com) &bull; [Components](https://plexui.com/docs/components) &bull; [Figma Kit](https://plexui.com/#pricing) &bull; [npm](https://www.npmjs.com/package/@plexui/ui)
+
+---
+
+## Highlights
+
+- **22,000+ Figma variants** across 14 components and 6,600+ icons
+- **Three-layer token system** — primitive, semantic, component — all as Figma Variables
+- **9-step unified size scale** — 3xs (22px) to 3xl (48px)
+- **35 React components** — accessible Radix primitives + Tailwind CSS 4
+- **14 hooks** — useBreakpoints, useScrollable, and more
+- **Full dark mode** — via CSS `light-dark()` and Figma variable modes
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install @plexui/ui
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```css
+/* app/globals.css */
+@import "tailwindcss";
+@import "@plexui/ui/css";
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+import { Button } from "@plexui/ui/components/Button";
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+export function Example() {
+  return <Button color="primary" size="md">Get started</Button>;
+}
+```
 
-## Learn More
+## Figma Design System PRO
 
-To learn more about Next.js, take a look at the following resources:
+22,000+ meticulously crafted variants built entirely on Figma Variables.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**[Get the Figma Kit &rarr;](https://plexui.com/#pricing)**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Personal | Team | Unlimited |
+|----------|------|-----------|
+| $49 | $149 | $299 |
+| 1 designer, 1 project | Up to 5 designers | Unlimited |
+| Lifetime updates | Lifetime updates | Lifetime updates |
 
-## Deploy on Vercel
+## Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000).
+
+## License
+
+React library: [MIT](./packages/ui/LICENSE)
+Figma Kit: Commercial license via [plexui.com](https://plexui.com/#pricing)

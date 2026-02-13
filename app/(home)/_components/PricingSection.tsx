@@ -1,7 +1,23 @@
 'use client';
 
+import { useEffect } from 'react';
 import { ButtonLink } from '@plexui/ui/components/Button';
 import { Check } from 'lucide-react';
+
+/* ------------------------------------------------------------------ */
+/*  Lemonsqueezy embed script                                          */
+/* ------------------------------------------------------------------ */
+
+function useLemonSqueezy() {
+  useEffect(() => {
+    if (document.getElementById('lemonsqueezy-js')) return;
+    const script = document.createElement('script');
+    script.id = 'lemonsqueezy-js';
+    script.src = 'https://assets.lemonsqueezy.com/lemon.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  }, []);
+}
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -94,7 +110,7 @@ function PricingCard({ tier }: { tier: Tier }) {
         {tier.description}
       </p>
 
-      {/* CTA */}
+      {/* CTA — lemonsqueezy-button triggers overlay checkout */}
       <div className="mt-5">
         <ButtonLink
           href={tier.href}
@@ -103,6 +119,7 @@ function PricingCard({ tier }: { tier: Tier }) {
           size="md"
           pill={false}
           block
+          className="lemonsqueezy-button"
         >
           {tier.cta}
         </ButtonLink>
@@ -129,6 +146,8 @@ function PricingCard({ tier }: { tier: Tier }) {
 /* ------------------------------------------------------------------ */
 
 export function PricingSection() {
+  useLemonSqueezy();
+
   return (
     <section
       data-reveal

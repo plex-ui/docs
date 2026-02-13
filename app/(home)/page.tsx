@@ -1,5 +1,6 @@
 'use client';
 
+import { FaqSection } from './_components/FaqSection';
 import { Hero } from './_components/Hero';
 import { PricingSection } from './_components/PricingSection';
 import { RevealOnScroll } from './_components/RevealOnScroll';
@@ -14,6 +15,7 @@ export default function LandingPage() {
         <SizingSection />
         <ValueProps />
         <PricingSection />
+        <FaqSection />
       </RevealOnScroll>
     </main>
   );
