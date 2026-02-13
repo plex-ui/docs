@@ -99,7 +99,7 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
         {/* Right column: CTA + theme toggle */}
         <div className={s.Right}>
           <Link
-            href="#"
+            href="/#pricing"
             className={s.FigmaButton}
           >
             Figma Kit
