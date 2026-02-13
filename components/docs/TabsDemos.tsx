@@ -68,6 +68,7 @@ export function TabsOverviewDemo() {
   const [orientation, setOrientation] = useState<(typeof ORIENTATION_OPTIONS)[number]>('horizontal');
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
   const [pill, setPill] = useState(true);
+  const [flush, setFlush] = useState(false);
   const [block, setBlock] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -96,6 +97,7 @@ export function TabsOverviewDemo() {
           </SegmentedControl>
         </DemoControlRow>
         <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+        <DemoControlBoolean name="flush" value={flush} onChange={setFlush} />
         <DemoControlBoolean name="block" value={block} onChange={setBlock} />
         <DemoControlBoolean name="disabled" value={disabled} onChange={setDisabled} />
       </div>
@@ -107,6 +109,7 @@ export function TabsOverviewDemo() {
           orientation={orientation}
           size={size}
           pill={pill}
+          flush={flush}
           block={block}
           disabled={disabled}
           aria-label="Demo tabs"
@@ -142,6 +145,41 @@ export function TabsUnderlineDemo() {
           value={tab}
           onChange={setTab}
           variant="underline"
+          size={size}
+          aria-label="Sections"
+        >
+          <Tabs.Tab value="overview">Overview</Tabs.Tab>
+          <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+          <Tabs.Tab value="reports">Reports</Tabs.Tab>
+          <Tabs.Tab value="settings">Settings</Tabs.Tab>
+        </Tabs>
+      </div>
+    </>
+  );
+}
+
+// ─── Underline flush ───
+export function TabsUnderlineFlushDemo() {
+  const [tab, setTab] = useState('overview');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant="underline"
+          flush
           size={size}
           aria-label="Sections"
         >
