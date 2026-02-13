@@ -11,8 +11,10 @@ const sharedFeatures = [
   '22,000+ Figma variants',
   '15,700+ component variants',
   '6,600+ icons (custom + Tabler)',
-  'Dark & light themes',
-  'Figma Variables & auto-layout',
+  'Three-layer token system (primitive \u2192 semantic \u2192 component)',
+  'All tokens as Figma Variables',
+  'Dark & light themes via variables',
+  'Auto-layout & responsive constraints',
   'Lifetime updates',
 ];
 
@@ -139,8 +141,9 @@ export function PricingSection() {
           Get the Figma Design System
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-fd-muted-foreground sm:text-base">
-          22,000+ meticulously crafted variants. The same design language that
-          powers ChatGPT. Pay once, get lifetime updates.
+          22,000+ meticulously crafted variants built entirely on Figma Variables
+          and a three-layer design token system. Re-theme everything in seconds.
+          Pay once, get lifetime updates.
         </p>
 
         {/* Pricing cards */}
