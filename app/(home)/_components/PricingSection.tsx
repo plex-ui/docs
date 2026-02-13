@@ -98,11 +98,14 @@ function PricingCard({ tier }: { tier: Tier }) {
       </h3>
 
       {/* Price */}
-      <div className="mt-3 flex items-baseline gap-1">
+      <div className="mt-3 flex items-baseline gap-1.5">
         <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
           ${tier.price}
         </span>
         <span className="text-sm text-fd-muted-foreground">one-time</span>
+        <span className="ml-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+          Launch price
+        </span>
       </div>
 
       {/* Description */}
@@ -160,9 +163,9 @@ export function PricingSection() {
           Get the Figma Design System
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-fd-muted-foreground sm:text-lg">
-          22,000+ meticulously crafted variants built entirely on Figma Variables
-          and a three-layer design token system. The building blocks AI code editors
-          need to design professional interfaces. Pay once, get lifetime updates.
+          Building a design system from scratch takes 2 to 3 months. Plex UI gives you
+          22,000+ production-ready variants, a three-layer token system, and full Figma
+          Variables coverage from day one. Pay once, get lifetime updates.
         </p>
 
         {/* Pricing cards */}
