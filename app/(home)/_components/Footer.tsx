@@ -37,7 +37,7 @@ const footerSections = [
     ],
   },
   {
-    title: '\u00A0', // non-breaking space — continuation column, no title
+    title: '\u00A0', // non-breaking space, continuation column
     links: [
       { label: 'Empty Message', href: '/docs/components/empty-message' },
       { label: 'Field', href: '/docs/components/field' },
@@ -50,12 +50,12 @@ const footerSections = [
       { label: 'Progress Steps', href: '/docs/components/progress-steps' },
       { label: 'Radio Group', href: '/docs/components/radio-group' },
       { label: 'Segmented Control', href: '/docs/components/segmented-control' },
-      { label: 'Select', href: '/docs/components/select' },
     ],
   },
   {
     title: '\u00A0',
     links: [
+      { label: 'Select', href: '/docs/components/select' },
       { label: 'Select Control', href: '/docs/components/select-control' },
       { label: 'Shimmer Text', href: '/docs/components/shimmer-text' },
       { label: 'Sidebar', href: '/docs/components/sidebar' },
