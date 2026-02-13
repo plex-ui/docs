@@ -1,4 +1,5 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
+import { Analytics } from '@vercel/analytics/next';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { PlexThemeSync } from '@/components/PlexThemeSync';
@@ -39,6 +40,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <div className="flex min-h-screen flex-1 flex-col">{children}</div>
           </PlexThemeSync>
         </RootProvider>
+        <Analytics />
       </body>
     </html>
   );
