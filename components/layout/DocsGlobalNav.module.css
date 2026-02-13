@@ -119,6 +119,19 @@ html.dark .NavLinkActive {
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* GitHub link — icon only, matches ThemeToggle style */
+.GitHubLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-fd-muted-foreground, #5d5d5d);
+  transition: color 0.15s ease;
+}
+
+.GitHubLink:hover {
+  color: var(--color-fd-foreground, #181818);
+}
+
 /* Figma Kit — black pill CTA (compact, 32px height) */
 .FigmaButton {
   display: inline-flex;
