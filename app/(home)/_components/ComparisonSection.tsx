@@ -170,7 +170,7 @@ export function ComparisonSection() {
               key={row.feature}
               className="rounded-lg border border-fd-border px-4 py-3"
             >
-              <p className="text-sm font-medium text-fd-foreground">
+              <p className="text-center text-sm font-medium text-fd-foreground">
                 {row.feature}
               </p>
               <div className="mt-2 grid grid-cols-3 gap-2 text-center text-xs text-fd-muted-foreground">
