@@ -114,10 +114,10 @@ export function ComparisonSection() {
 
         {/* Table — desktop */}
         <div className="mt-10 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-          <table className="w-full text-left">
+          <table className="w-full text-center">
             <thead>
               <tr className="border-b border-fd-border bg-fd-muted/50">
-                <th className="px-5 py-3.5 text-sm font-medium text-fd-muted-foreground">
+                <th className="px-5 py-3.5 text-left text-sm font-medium text-fd-muted-foreground">
                   Feature
                 </th>
                 <th className="px-5 py-3.5 text-center text-sm font-semibold text-fd-foreground">
@@ -139,7 +139,7 @@ export function ComparisonSection() {
                     i < rows.length - 1 ? 'border-b border-fd-border' : ''
                   }
                 >
-                  <td className="px-5 py-3 text-sm text-fd-muted-foreground">
+                  <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">
                     {row.feature}
                   </td>
                   <td className="px-5 py-3 text-center">
