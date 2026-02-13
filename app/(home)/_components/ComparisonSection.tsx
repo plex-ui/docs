@@ -173,16 +173,37 @@ export function ComparisonSection() {
               <p className="text-center text-sm font-medium text-fd-foreground">
                 {row.feature}
               </p>
-              <div className="mt-2 grid grid-cols-3 gap-2 text-center text-xs text-fd-muted-foreground">
-                <div>
+              <div
+                className="mt-2 grid grid-cols-3 gap-2 text-xs text-fd-muted-foreground"
+                style={{ textAlign: 'center' }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
                   <p className="mb-1 font-medium text-fd-foreground">Plex UI</p>
                   <CellContent value={row.plexui} />
                 </div>
-                <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
                   <p className="mb-1">shadcn</p>
                   <CellContent value={row.shadcn} />
                 </div>
-                <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
                   <p className="mb-1">Untitled UI</p>
                   <CellContent value={row.untitledui} />
                 </div>
