@@ -14,6 +14,7 @@ The most flexible UI kit for Figma & React. Powered by the design system behind 
 - **35 React components** — accessible Radix primitives + Tailwind CSS 4
 - **14 hooks** — useBreakpoints, useScrollable, and more
 - **Full dark mode** — via CSS `light-dark()` and Figma variable modes
+- **Built for AI code editors** — production-grade building blocks for Claude, Cursor, Codex & AI-driven workflows
 
 ## Quick Start
 
