@@ -14,6 +14,7 @@ A modern React component library built on the same design foundations as OpenAI'
 - **9-step size scale** — all key controls (Button, Input, Select, SegmentedControl, etc.) share a unified `ControlSize` scale from `3xs` (22 px) to `3xl` (48 px). Most competitors offer only 3–4.
 - **Three-layer design tokens** — primitive → semantic → component CSS custom properties with `light-dark()` theming, alpha transparency scale, and 4-level elevation system.
 - **Radix + Tailwind 4** — accessible primitives under the hood, utility-first styling on top.
+- **Built for AI code editors** — consistent naming, clear token system, and comprehensive props give Claude, Cursor, Codex & other AI tools the building blocks to generate professional UI.
 
 ---
 

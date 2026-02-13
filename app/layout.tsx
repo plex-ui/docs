@@ -5,9 +5,9 @@ import { PlexThemeSync } from '@/components/PlexThemeSync';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Plex UI — Figma & React Design System',
+  title: 'Plex UI — Figma & React Design System for AI Code Editors',
   description:
-    '22,000+ Figma variants built on Figma Variables. The same design language that powers ChatGPT. 14 components, 6,600+ icons, three-layer token system, dark & light themes.',
+    '22,000+ Figma variants built on Figma Variables. The design language behind ChatGPT. Built for Claude, Cursor, Codex & AI-driven workflows. 35 components, 6,600+ icons, three-layer token system.',
   metadataBase: new URL('https://plexui.com'),
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
@@ -15,18 +15,18 @@ export const metadata: Metadata = {
     apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
   openGraph: {
-    title: 'Plex UI — Figma & React Design System',
+    title: 'Plex UI — Figma & React Design System for AI Code Editors',
     description:
-      '22,000+ Figma variants. Three-layer token system. The design language behind ChatGPT.',
+      '22,000+ Figma variants. Three-layer token system. Built for Claude, Cursor, Codex & AI-driven workflows.',
     url: 'https://plexui.com',
     siteName: 'Plex UI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Plex UI — Figma & React Design System',
+    title: 'Plex UI — Figma & React Design System for AI Code Editors',
     description:
-      '22,000+ Figma variants. Three-layer token system. The design language behind ChatGPT.',
+      '22,000+ Figma variants. Three-layer token system. Built for Claude, Cursor, Codex & AI-driven workflows.',
   },
 };
 

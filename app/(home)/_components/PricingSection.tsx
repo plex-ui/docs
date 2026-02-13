@@ -161,8 +161,8 @@ export function PricingSection() {
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-fd-muted-foreground sm:text-base">
           22,000+ meticulously crafted variants built entirely on Figma Variables
-          and a three-layer design token system. Re-theme everything in seconds.
-          Pay once, get lifetime updates.
+          and a three-layer design token system. The building blocks AI code editors
+          need to design professional interfaces. Pay once, get lifetime updates.
         </p>
 
         {/* Pricing cards */}

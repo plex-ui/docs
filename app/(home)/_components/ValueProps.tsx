@@ -1,4 +1,4 @@
-import { Figma, Palette, Rocket } from 'lucide-react';
+import { Figma, Palette, Rocket, Sparkles } from 'lucide-react';
 
 const valueProps = [
   {
@@ -19,6 +19,12 @@ const valueProps = [
       'Accessible Radix components, Tailwind CSS 4, and dark mode. Copy, paste, and ship.',
     Icon: Rocket,
   },
+  {
+    title: 'Built for AI code editors',
+    description:
+      'Claude, Cursor, Codex, Antigravity — any AI that writes code needs proper building blocks. Plex UI gives them production-grade components, not unstyled primitives.',
+    Icon: Sparkles,
+  },
 ];
 
 export function ValueProps() {
@@ -28,7 +34,7 @@ export function ValueProps() {
       className="bg-fd-background px-6 py-20 sm:py-28"
     >
       <div className="mx-auto max-w-4xl">
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {valueProps.map(({ title, description, Icon }) => (
             <div
               key={title}

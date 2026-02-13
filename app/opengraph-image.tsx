@@ -74,17 +74,36 @@ export default function OGImage() {
         <p
           style={{
             color: '#999999',
-            fontSize: '24px',
+            fontSize: '22px',
             fontWeight: 400,
             textAlign: 'center',
             lineHeight: 1.5,
-            margin: '0 0 40px 0',
-            maxWidth: '700px',
+            margin: '0 0 32px 0',
+            maxWidth: '750px',
           }}
         >
           22,000+ Figma variants. Three-layer token system.
           The design language behind ChatGPT.
         </p>
+
+        {/* AI editors badge */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '36px',
+            padding: '8px 20px',
+            borderRadius: '999px',
+            backgroundColor: '#1a1a2e',
+            border: '1px solid #2e2e4e',
+          }}
+        >
+          <span style={{ fontSize: '14px' }}>✦</span>
+          <span style={{ color: '#a78bfa', fontSize: '15px', fontWeight: 500 }}>
+            Built for AI code editors — Claude, Cursor, Codex & more
+          </span>
+        </div>
 
         {/* Stats row */}
         <div
@@ -95,7 +114,7 @@ export default function OGImage() {
         >
           {[
             { value: '22K+', label: 'Variants' },
-            { value: '14', label: 'Components' },
+            { value: '35', label: 'Components' },
             { value: '6.6K+', label: 'Icons' },
             { value: '9', label: 'Size Scale' },
           ].map((stat) => (
