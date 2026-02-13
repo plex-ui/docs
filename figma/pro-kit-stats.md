@@ -56,16 +56,23 @@
 
 **Plex UI — Figma Design System PRO**
 
-The same design language that powers ChatGPT. 22,000+ meticulously crafted Figma variants — the most comprehensive ChatGPT-style design system available.
+The same design language that powers ChatGPT. 22,000+ meticulously crafted Figma variants built entirely on Figma Variables and a three-layer design token system. Re-theme everything in seconds.
 
 ### What's inside
 
 - **15,700+ component variants** across 14 components — Button (7,920 variants), Select Control (5,528), Segmented Control (1,108), Date Range Picker, Input, Badge, Alert, Menu, Select, and more
 - **6,600+ icons** — 612 custom ChatGPT-style icons + 5,986 Tabler icons
 - **9-step unified size scale** — from 3xs (22 px) to 3xl (48 px), shared across all key controls
-- **Three-layer design token system** — primitive → semantic → component tokens with Figma Variables
-- **Full dark mode support** — every variant in both light and dark themes
-- **Production-ready** — matches the shipped @plexui/ui React component library (npm)
+- **Three-layer design token system** — primitive → semantic → component tokens, all wired through Figma Variables. Change a single variable and the entire system updates.
+- **Every token is a Figma Variable** — colors, spacing, radii, typography — no magic numbers, no hard-coded values
+- **Full dark mode via variables** — swap theme with one variable mode toggle, every variant responds automatically
+- **Production-ready** — matches the shipped @plexui/ui React component library (npm). Same tokens, same names, same structure — zero translation gap between design and code.
+
+### Token architecture
+
+1. **Primitive tokens** — raw values: gray-0…gray-1000, blue-100…blue-900, spacing scale, radius scale, alpha transparencies
+2. **Semantic tokens** — intent-based aliases: `color-text-primary`, `color-bg-surface`, `color-border-default` — automatically resolve to the right primitive per theme
+3. **Component tokens** — scoped to each component: `button-bg-solid`, `input-border-focus` — reference semantic tokens, so re-theming cascades everywhere
 
 ### Foundations
 
