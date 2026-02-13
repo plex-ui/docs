@@ -84,10 +84,10 @@ const rows: Row[] = [
 
 function CellContent({ value }: { value: CellValue }) {
   if (value === true) {
-    return <Check className="size-4 text-emerald-500" />;
+    return <Check className="inline-block size-4 text-emerald-500" />;
   }
   if (value === false) {
-    return <Minus className="size-4 text-fd-muted-foreground/40" />;
+    return <Minus className="inline-block size-4 text-fd-muted-foreground/40" />;
   }
   return (
     <span className="text-sm font-medium text-fd-foreground">{value}</span>
@@ -114,10 +114,10 @@ export function ComparisonSection() {
 
         {/* Table — desktop */}
         <div className="mt-10 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-          <table className="w-full text-left">
+          <table className="w-full text-center">
             <thead>
               <tr className="border-b border-fd-border bg-fd-muted/50">
-                <th className="px-5 py-3.5 text-sm font-medium text-fd-muted-foreground">
+                <th className="px-5 py-3.5 text-left text-sm font-medium text-fd-muted-foreground">
                   Feature
                 </th>
                 <th className="px-5 py-3.5 text-center text-sm font-semibold text-fd-foreground">
@@ -139,7 +139,7 @@ export function ComparisonSection() {
                     i < rows.length - 1 ? 'border-b border-fd-border' : ''
                   }
                 >
-                  <td className="px-5 py-3 text-sm text-fd-muted-foreground">
+                  <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">
                     {row.feature}
                   </td>
                   <td className="px-5 py-3 text-center">
@@ -170,19 +170,19 @@ export function ComparisonSection() {
               key={row.feature}
               className="rounded-lg border border-fd-border px-4 py-3"
             >
-              <p className="text-sm font-medium text-fd-foreground">
+              <p className="text-center text-sm font-medium text-fd-foreground">
                 {row.feature}
               </p>
               <div className="mt-2 grid grid-cols-3 gap-2 text-center text-xs text-fd-muted-foreground">
-                <div>
+                <div className="flex flex-col items-center">
                   <p className="mb-1 font-medium text-fd-foreground">Plex UI</p>
                   <CellContent value={row.plexui} />
                 </div>
-                <div>
+                <div className="flex flex-col items-center">
                   <p className="mb-1">shadcn</p>
                   <CellContent value={row.shadcn} />
                 </div>
-                <div>
+                <div className="flex flex-col items-center">
                   <p className="mb-1">Untitled UI</p>
                   <CellContent value={row.untitledui} />
                 </div>
