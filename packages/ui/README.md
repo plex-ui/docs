@@ -2,7 +2,9 @@
 
 A modern React component library built on the same design foundations as OpenAI's ChatGPT UI. 35 production-ready components, 14 hooks, a three-layer design token system, and a unified 9-step size scale — all powered by Radix primitives and Tailwind CSS 4.
 
-[Documentation](https://plexui.com) &bull; [GitHub](https://github.com/plex-ui/docs)
+[Documentation](https://plexui.com) &bull; [GitHub](https://github.com/plex-ui/docs) &bull; [Figma Kit](https://plexui.com/#pricing)
+
+> **Figma Design System PRO** — 22,000+ variants, all on Figma Variables. [Get the kit &rarr;](https://plexui.com/#pricing)
 
 ---
 
