@@ -84,10 +84,10 @@ const rows: Row[] = [
 
 function CellContent({ value }: { value: CellValue }) {
   if (value === true) {
-    return <Check className="size-4 text-emerald-500" />;
+    return <Check className="mx-auto block size-4 text-emerald-500" />;
   }
   if (value === false) {
-    return <Minus className="size-4 text-fd-muted-foreground/40" />;
+    return <Minus className="mx-auto block size-4 text-fd-muted-foreground/40" />;
   }
   return (
     <span className="text-sm font-medium text-fd-foreground">{value}</span>
