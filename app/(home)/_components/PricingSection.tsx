@@ -98,15 +98,15 @@ function PricingCard({ tier }: { tier: Tier }) {
       </h3>
 
       {/* Price */}
-      <div className="mt-3 flex items-baseline gap-1.5">
+      <div className="mt-3 flex items-baseline gap-1">
         <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
           ${tier.price}
         </span>
         <span className="text-sm text-fd-muted-foreground">one-time</span>
-        <span className="ml-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-          Launch price
-        </span>
       </div>
+      <span className="mt-2 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+        Launch price
+      </span>
 
       {/* Description */}
       <p className="mt-2 text-sm text-fd-muted-foreground">
