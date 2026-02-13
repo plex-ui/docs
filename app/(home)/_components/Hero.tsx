@@ -141,7 +141,7 @@ export function Hero() {
           Powered by the design system behind{' '}
           <a href="https://openai.github.io/apps-sdk-ui/" target="_blank" rel="noopener noreferrer" className="text-fd-foreground underline decoration-fd-muted-foreground/40 underline-offset-2 hover:decoration-fd-foreground transition-colors">ChatGPT</a>.
           {' '}Design tokens, accessible components, and a pixel-perfect
-          Figma library — ready for Claude, Cursor, Codex &amp; AI-driven workflows.
+          Figma library ready for Claude, Cursor, Codex &amp; AI-driven workflows.
         </p>
 
         {/* CTAs */}
