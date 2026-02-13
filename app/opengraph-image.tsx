@@ -91,7 +91,6 @@ export default function OGImage() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
             marginBottom: '36px',
             padding: '8px 20px',
             borderRadius: '999px',
@@ -99,9 +98,8 @@ export default function OGImage() {
             border: '1px solid #2e2e4e',
           }}
         >
-          <span style={{ fontSize: '14px' }}>✦</span>
           <span style={{ color: '#a78bfa', fontSize: '15px', fontWeight: 500 }}>
-            Built for AI code editors — Claude, Cursor, Codex & more
+            Built for AI code editors: Claude, Cursor, Codex & more
           </span>
         </div>
 

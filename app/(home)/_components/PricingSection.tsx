@@ -159,7 +159,7 @@ export function PricingSection() {
         <h2 className="text-center text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
           Get the Figma Design System
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-fd-muted-foreground sm:text-base">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-fd-muted-foreground sm:text-lg">
           22,000+ meticulously crafted variants built entirely on Figma Variables
           and a three-layer design token system. The building blocks AI code editors
           need to design professional interfaces. Pay once, get lifetime updates.
