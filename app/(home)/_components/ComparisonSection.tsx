@@ -84,10 +84,10 @@ const rows: Row[] = [
 
 function CellContent({ value }: { value: CellValue }) {
   if (value === true) {
-    return <Check className="mx-auto block size-4 text-emerald-500" />;
+    return <Check className="inline-block size-4 text-emerald-500" />;
   }
   if (value === false) {
-    return <Minus className="mx-auto block size-4 text-fd-muted-foreground/40" />;
+    return <Minus className="inline-block size-4 text-fd-muted-foreground/40" />;
   }
   return (
     <span className="text-sm font-medium text-fd-foreground">{value}</span>
@@ -174,15 +174,15 @@ export function ComparisonSection() {
                 {row.feature}
               </p>
               <div className="mt-2 grid grid-cols-3 gap-2 text-center text-xs text-fd-muted-foreground">
-                <div className="flex flex-col items-center">
+                <div>
                   <p className="mb-1 font-medium text-fd-foreground">Plex UI</p>
                   <CellContent value={row.plexui} />
                 </div>
-                <div className="flex flex-col items-center">
+                <div>
                   <p className="mb-1">shadcn</p>
                   <CellContent value={row.shadcn} />
                 </div>
-                <div className="flex flex-col items-center">
+                <div>
                   <p className="mb-1">Untitled UI</p>
                   <CellContent value={row.untitledui} />
                 </div>
