@@ -53,8 +53,8 @@ export function AiFoundationSection() {
         </div>
 
         <div className="mt-8 flex">
-          <ButtonLink href="/docs/components" color="secondary" variant="outline" size="md" pill={false}>
-            Browse Components
+          <ButtonLink href="/docs/overview/installation" color="secondary" variant="outline" size="md" pill={false}>
+            Set up for AI coding
           </ButtonLink>
         </div>
       </div>

@@ -46,7 +46,7 @@ const rows: Row[] = [
     feature: 'React component library',
     plexui: true,
     shadcn: true,
-    untitledui: false,
+    untitledui: true,
   },
   {
     feature: 'Figma ↔ code parity',
@@ -104,7 +104,7 @@ export function ComparisonSection() {
   return (
     <LandingSection data-reveal>
       <SectionHeading description="See how Plex UI compares to other popular design systems.">
-        Why Plex UI?
+        How Plex UI compares
       </SectionHeading>
 
       {/* Table — desktop */}
@@ -185,6 +185,15 @@ export function ComparisonSection() {
             </div>
           ))}
         </div>
+
+      <p className="mt-8 text-center text-sm leading-relaxed text-fd-muted-foreground">
+        <strong className="text-fd-foreground">shadcn/ui</strong> is great if you want free,
+        unstyled primitives and will build your own system.{' '}
+        <strong className="text-fd-foreground">Untitled UI</strong> has a strong Figma library
+        and a React library, but the two aren&apos;t built as a single system.{' '}
+        <strong className="text-fd-foreground">Plex UI</strong> is for teams that need both:
+        a professional Figma system and production-grade React components that stay in sync.
+      </p>
 
       <SectionCta>
         <ButtonLink href="#pricing" color="primary" variant="solid" size="md" pill={false}>

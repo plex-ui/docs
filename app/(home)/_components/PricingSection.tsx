@@ -162,6 +162,13 @@ export function PricingSection() {
         Get the Figma Design System
       </SectionHeading>
 
+      <div className="mb-8 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-5 py-3 text-center text-sm text-fd-muted-foreground">
+        <span className="font-medium text-emerald-600 dark:text-emerald-400">
+          The React library is free and open-source.
+        </span>
+        {' '}These plans are for the Figma design system only.
+      </div>
+
       {/* Pricing cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         {tiers.map((tier) => (
@@ -172,6 +179,7 @@ export function PricingSection() {
       {/* Bottom note */}
       <p className="mt-6 text-center text-xs text-fd-muted-foreground">
         Delivered as a Figma file. Duplicate to your workspace and start designing.
+        The React library (@plexui/ui) is always free on npm.
       </p>
     </LandingSection>
   );

@@ -100,6 +100,12 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/docs/overview/installation"
+            className={`${s.NavLink} ${pathname === '/docs/overview/installation' ? s.NavLinkActive : ''}`.trim()}
+          >
+            For AI Editors
+          </Link>
         </nav>
 
         {/* Right column: GitHub + CTA + theme toggle */}

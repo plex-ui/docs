@@ -35,6 +35,16 @@ const faqs = [
       'The React library (@plexui/ui) is open-source and free on npm. The Figma Kit is the paid product. It gives you the full design system with all 22,000+ variants, variables, and tokens that match the React components pixel-for-pixel.',
   },
   {
+    question: 'Do I need the Figma kit to use the React components?',
+    answer:
+      'No. The React library (@plexui/ui) is free and open-source. Install it from npm and start building. The Figma kit is a separate paid product for designers who want the full visual system with all 22,000+ variants, variables, and token layers.',
+  },
+  {
+    question: 'How do I set up Plex UI for Claude, Cursor, or Codex?',
+    answer:
+      'Install @plexui/ui from npm and add the CSS import to your global stylesheet. The AI will recognize component names and props automatically. See the installation guide for the full setup.',
+  },
+  {
     question: 'What does "three-layer token system" mean?',
     answer:
       'Every value in the kit flows through three layers: primitive tokens (raw colors, spacing, radii), semantic tokens (purpose-based aliases like "text-primary" or "bg-surface"), and component tokens (scoped to each component like "button-bg-solid"). Change one variable and the entire system updates.',

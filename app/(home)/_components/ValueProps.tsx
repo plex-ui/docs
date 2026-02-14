@@ -1,43 +1,37 @@
 import { ButtonLink } from '@plexui/ui/components/Button';
-import { Figma, Palette, Rocket, Sparkles } from 'lucide-react';
+import { Figma, Palette, Rocket } from 'lucide-react';
 import { LandingSection, SectionHeading, SectionCta } from './LandingSection';
 
 const valueProps = [
   {
-    title: 'Figma-first design',
+    title: 'Your Figma file is the source of truth',
     description:
-      'Pixel-perfect Figma library with auto-layout, variants, and design tokens. Every component is designed in Figma first, not added as an afterthought.',
+      'Variables, auto-layout, 9 sizes per component, and a three-layer token system. Every design decision is encoded, not eyeballed. Change one variable, update everything.',
     Icon: Figma,
   },
   {
-    title: 'True flexibility',
+    title: 'Not locked into one aesthetic',
     description:
-      'Design tokens and semantic layers let you re-theme everything in seconds. You\'re not locked into one aesthetic like with shadcn or Untitled UI.',
+      'Most kits hardcode their look. Plex UI\'s semantic token layers let you re-theme without detaching components. Switch brands, go dark mode, or build a white-label product.',
     Icon: Palette,
   },
   {
-    title: 'Production-ready React',
+    title: 'Ship without translating designs',
     description:
-      'Accessible Radix components, Tailwind CSS 4, and full dark mode support. Import the component, pass your props, and ship.',
+      'Every Figma component has an identical React counterpart. Same sizes, same tokens, same dark mode. Import the component, pass your props, deploy.',
     Icon: Rocket,
-  },
-  {
-    title: 'Built for AI code editors',
-    description:
-      'AI models generate better UI when they have real components to work with. Plex UI gives them production-grade building blocks instead of unstyled primitives.',
-    Icon: Sparkles,
   },
 ];
 
 export function ValueProps() {
   return (
     <LandingSection data-reveal>
-      <SectionHeading description="Everything you need to design and ship consistent, production-grade interfaces.">
+      <SectionHeading description="Designers get a professional Figma library. Developers and AI editors get production-grade React components.">
         Why Plex UI
       </SectionHeading>
 
       {/* Feature cards */}
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-3">
         {valueProps.map(({ title, description, Icon }) => (
           <div
             key={title}
@@ -57,9 +51,14 @@ export function ValueProps() {
       </div>
 
       <SectionCta>
-        <ButtonLink href="#pricing" color="primary" variant="solid" size="md" pill={false}>
-          Get the Figma Kit
-        </ButtonLink>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <ButtonLink href="/docs/overview/installation" color="secondary" variant="outline" size="md" pill={false}>
+            Set up for AI coding
+          </ButtonLink>
+          <ButtonLink href="#pricing" color="primary" variant="solid" size="md" pill={false}>
+            Get the Figma Kit
+          </ButtonLink>
+        </div>
       </SectionCta>
     </LandingSection>
   );

@@ -129,31 +129,31 @@ export function Hero() {
           Plex UI for Figma &amp; React
         </p>
 
-        {/* Headline — 30px/600, OpenAI-matching */}
+        {/* Headline */}
         <h1 className="mt-4 text-[30px] leading-[42px] font-semibold tracking-[-0.6px] text-fd-foreground">
-          The most flexible UI kit
+          The design system that works
           <br className="hidden sm:block" />
-          {' '}for Figma &amp; React
+          {' '}in Figma and in your AI&nbsp;editor
         </h1>
 
         {/* Subtitle */}
         <p className="mt-5 max-w-[38rem] text-base leading-relaxed text-fd-muted-foreground">
           Powered by the design system behind{' '}
           <a href="https://openai.github.io/apps-sdk-ui/" target="_blank" rel="noopener noreferrer" className="text-fd-foreground underline decoration-fd-muted-foreground/40 underline-offset-2 hover:decoration-fd-foreground transition-colors">ChatGPT</a>.
-          {' '}Design tokens, accessible components, and a pixel-perfect
-          Figma library ready for Claude, Cursor, Codex &amp; AI-driven workflows.
+          {' '}Professional Figma library with Variables, 9-size scale, and dark mode.
+          Production-grade React components that Claude, Cursor, and Codex actually follow.
         </p>
 
         {/* CTAs */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <ButtonLink
-            href="/docs/components"
+            href="/docs/overview/installation"
             color="secondary"
             variant="outline"
             size="lg"
             pill={false}
           >
-            Browse Components
+            Set up for AI coding
           </ButtonLink>
           <ButtonLink
             href="#pricing"

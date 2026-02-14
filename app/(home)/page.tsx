@@ -1,5 +1,6 @@
 'use client';
 
+import { AiCodeComparison } from './_components/AiCodeComparison';
 import { AiFoundationSection } from './_components/AiFoundationSection';
 import { ComparisonSection } from './_components/ComparisonSection';
 import { CtaBanner } from './_components/CtaBanner';
@@ -17,9 +18,10 @@ export default function LandingPage() {
       <RevealOnScroll>
         <Hero />
         <StatsBar />
-        <SizingSection />
         <ValueProps />
         <AiFoundationSection />
+        <AiCodeComparison />
+        <SizingSection />
         <ComparisonSection />
         <PricingSection />
         <FaqSection />

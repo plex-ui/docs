@@ -6,12 +6,15 @@ export function CtaBanner() {
     <LandingSection as="div" className="!py-16 sm:!py-20" data-reveal>
       <div className="flex flex-col items-center text-center">
         <p className="text-lg font-semibold text-fd-foreground sm:text-xl">
-          Start building with the full design system
+          Start building with Plex UI
         </p>
         <p className="mt-2 text-base leading-relaxed text-fd-muted-foreground">
-          22,000+ variants. 9 sizes per component. One purchase, lifetime updates.
+          Install @plexui/ui in 30 seconds. Professional Figma kit from $49.
         </p>
-        <div className="mt-5 flex items-center gap-4">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
+          <ButtonLink href="/docs/overview/installation" color="secondary" variant="outline" size="md" pill={false}>
+            Set up for AI coding
+          </ButtonLink>
           <ButtonLink href="#pricing" color="primary" variant="solid" size="md" pill={false}>
             Get the Figma Kit
           </ButtonLink>
