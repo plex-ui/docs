@@ -84,10 +84,10 @@ const rows: Row[] = [
 
 function CellContent({ value }: { value: CellValue }) {
   if (value === true) {
-    return <Check className="inline-block size-4 text-emerald-500" />;
+    return <Check className="inline-block size-5 text-emerald-600 dark:text-emerald-400" strokeWidth={2.5} />;
   }
   if (value === false) {
-    return <Minus className="inline-block size-4 text-fd-muted-foreground/40" />;
+    return <Minus className="inline-block size-5 text-fd-muted-foreground" strokeWidth={2} />;
   }
   return (
     <span className="text-sm font-medium text-fd-foreground">{value}</span>
@@ -117,16 +117,16 @@ export function ComparisonSection() {
           <table className="w-full text-center">
             <thead>
               <tr className="border-b border-fd-border bg-fd-muted/50">
-                <th className="px-5 py-3.5 text-left text-sm font-medium text-fd-muted-foreground">
+                <th className="px-5 py-3.5 text-left text-sm font-semibold text-black dark:text-white">
                   Feature
                 </th>
-                <th className="px-5 py-3.5 text-center text-sm font-semibold text-fd-foreground">
+                <th className="px-5 py-3.5 text-center text-sm font-semibold text-black dark:text-white">
                   Plex UI
                 </th>
-                <th className="px-5 py-3.5 text-center text-sm font-medium text-fd-muted-foreground">
+                <th className="px-5 py-3.5 text-center text-sm font-semibold text-black dark:text-white">
                   shadcn/ui
                 </th>
-                <th className="px-5 py-3.5 text-center text-sm font-medium text-fd-muted-foreground">
+                <th className="px-5 py-3.5 text-center text-sm font-semibold text-black dark:text-white">
                   Untitled UI
                 </th>
               </tr>

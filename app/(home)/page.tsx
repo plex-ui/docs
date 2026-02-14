@@ -1,5 +1,6 @@
 'use client';
 
+import { AiFoundationSection } from './_components/AiFoundationSection';
 import { ComparisonSection } from './_components/ComparisonSection';
 import { CtaBanner } from './_components/CtaBanner';
 import { FaqSection } from './_components/FaqSection';
@@ -18,6 +19,7 @@ export default function LandingPage() {
         <StatsBar />
         <SizingSection />
         <ValueProps />
+        <AiFoundationSection />
         <ComparisonSection />
         <PricingSection />
         <FaqSection />
