@@ -60,17 +60,31 @@ import {
 
 ### With description
 
-<ComponentPreview details={<>The <code>label</code> prop accepts <code>ReactNode</code>, so you can compose a label with secondary description text. This is useful for options that need additional context or explanation.</>} code={`<Checkbox
-  label={
-    <div className="flex flex-col">
-      <span>Accept terms and conditions</span>
-      <span className="text-xs text-secondary mt-0.5">
-        By checking this box, you agree to our Terms of Service and Privacy Policy.
-      </span>
-    </div>
-  }
-  defaultChecked
-/>`} previewMinHeight={200}>
+<ComponentPreview details={<>The <code>label</code> prop accepts <code>ReactNode</code>, so you can compose a label with secondary description text. This is useful for options that need additional context or explanation.</>} code={`<div className="flex flex-col gap-5">
+  <Checkbox
+    label={
+      <div className="flex flex-col">
+        <span>Accept terms and conditions</span>
+        <span className="text-xs text-secondary mt-0.5">
+          By checking this box, you agree to our Terms of Service
+          and Privacy Policy.
+        </span>
+      </div>
+    }
+    defaultChecked
+  />
+  <Checkbox
+    label={
+      <div className="flex flex-col">
+        <span>Enable notifications</span>
+        <span className="text-xs text-secondary mt-0.5">
+          You can enable or disable notifications at any time
+          from settings.
+        </span>
+      </div>
+    }
+  />
+</div>`} previewMinHeight={200}>
   <CheckboxWithDescriptionDemo />
 </ComponentPreview>
 

@@ -184,18 +184,17 @@
 }
 
 .Label {
-  display: flex;
-  align-items: center;
+  display: block;
   min-height: 20px;
   cursor: pointer;
   font-size: 14px;
   line-height: 20px;
 
   [data-orientation="left"] & {
-    padding-left: 8px;
+    padding-left: spacing(2);
   }
 
   [data-orientation="right"] & {
-    padding-right: 8px;
+    padding-right: spacing(3);
   }
 }
