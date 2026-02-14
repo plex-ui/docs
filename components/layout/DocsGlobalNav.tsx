@@ -85,6 +85,12 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
 
         {/* Center column: nav links (horizontally centered) */}
         <nav className={s.NavLinks} aria-label="Primary">
+          <Link
+            href="/"
+            className={`${s.NavLink} ${pathname === '/' ? s.NavLinkActive : ''}`.trim()}
+          >
+            Home
+          </Link>
           {navLinks.map((item) => (
             <Link
               key={item.href}

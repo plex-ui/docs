@@ -7,7 +7,7 @@ export function SizingSection() {
     <section
       data-reveal
       id="why-9-sizes"
-      className="bg-fd-background px-6 py-10 sm:py-14"
+      className="bg-fd-background px-6 py-20 sm:py-28"
     >
       <div className="mx-auto max-w-4xl">
         <h2 className="text-center text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
@@ -23,7 +23,7 @@ export function SizingSection() {
           a single prop and zero overrides.
         </p>
 
-        <div className="mt-8 overflow-hidden rounded-xl border border-fd-border [&_[data-demo-controls]>*:first-child]:!border-t-0 [&_[data-demo-controls]>*:last-child]:border-b [&_[data-demo-controls]>*:last-child]:border-fd-border">
+        <div className="mt-8 overflow-hidden rounded-xl border border-black/5 dark:border-white/5 [&_[data-demo-controls]>*:first-child]:!border-t-0 [&_[data-demo-controls]>*:last-child]:border-b [&_[data-demo-controls]>*:last-child]:border-black/5 dark:[&_[data-demo-controls]>*:last-child]:border-white/5 [&_[data-demo-controls]>*]:!border-t-black/5 dark:[&_[data-demo-controls]>*]:!border-t-white/5">
           <SizingOverviewDemo />
         </div>
       </div>
