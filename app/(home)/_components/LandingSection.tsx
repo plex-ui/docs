@@ -23,7 +23,7 @@ export function LandingSection({
     <Tag
       id={id}
       data-reveal={dataReveal ? '' : undefined}
-      className={clsx('bg-fd-background px-6 py-20 sm:py-28', className)}
+      className={clsx('bg-fd-background px-6 py-16 sm:py-20', className)}
     >
       <div className={clsx('mx-auto', maxWidth === '2xl' ? 'max-w-2xl' : 'max-w-4xl')}>
         {children}

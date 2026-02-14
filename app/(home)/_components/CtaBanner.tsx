@@ -3,7 +3,7 @@ import { LandingSection } from './LandingSection';
 
 export function CtaBanner() {
   return (
-    <LandingSection as="div" className="!py-16 sm:!py-20" data-reveal>
+    <LandingSection as="div" className="!py-12 sm:!py-16" data-reveal>
       <div className="flex flex-col items-center text-center">
         <p className="text-lg font-semibold text-fd-foreground sm:text-xl">
           Start building with Plex UI
