@@ -24,6 +24,7 @@ import {
   FieldGroupDemo,
   FieldValidationDemo,
   FieldFormExampleDemo,
+  FieldOpticalAlignDemo,
 } from "@/components/docs/FieldDemos"
 
 <UsageBlock>{`import { Field } from "@plexui/ui/components/Field";`}</UsageBlock>
@@ -229,6 +230,22 @@ For controls that need explicit prop wiring, pass a function as `children`. The 
 </Field>
 ```
 
+### Optical alignment
+
+<ComponentPreview details={<>Use <code>opticallyAlign="start"</code> to apply a negative margin on the child control, aligning its text with the surrounding content. Works with <code>pill</code> inputs. The label, description, and error message stay at the container edge while the control extends past it.</>} code={`<div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
+  <div className="flex flex-col gap-5">
+    <Field label="Full name" opticallyAlign="start">
+      <Input placeholder="Jane Doe" pill />
+    </Field>
+    <Field label="Email" description="We'll never share your email." errorMessage="Please enter a valid email address." required opticallyAlign="start">
+      <Input placeholder="jane@example.com" pill />
+    </Field>
+  </div>
+  <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
+</div>`} previewMinHeight={168}>
+  <FieldOpticalAlignDemo />
+</ComponentPreview>
+
 ### Form example
 
 <ComponentPreview details={<>A payment form built with Field, showing two fieldsets, a 3-column grid row, and a <code>pill</code> toggle that applies rounded corners to all controls.</>} code={`const [pill, setPill] = useState(false);
@@ -276,6 +293,7 @@ For controls that need explicit prop wiring, pass a function as `children`. The 
   { prop: "size", type: '"3xs" | "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl"', default: '"md"', description: "Controls the label font size to match the child control" },
   { prop: "required", type: "boolean", default: "false", description: "Shows a required asterisk after the label (visual only)" },
   { prop: "orientation", type: '"vertical" | "horizontal"', default: '"vertical"', description: "Layout direction of label and control" },
+  { prop: "opticallyAlign", type: '"start" | "end"', description: "Applies optical alignment to the child control via negative margin using its gutter" },
   { prop: "id", type: "string", description: "Override the auto-generated id used for htmlFor/aria linking" },
   { prop: "children", type: "ReactElement | (fieldProps) => ReactNode", description: "Form control; receives id, aria-describedby, and aria-invalid" },
 ]} />

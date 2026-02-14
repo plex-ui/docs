@@ -101,14 +101,14 @@
     --input-outline-border-color-focus: var(--alpha-50);
     --input-soft-background-color: var(--color-background-primary-soft-alpha);
     --input-soft-border-color-focus: var(--alpha-20);
-    --input-border-color-invalid: light-dark(var(--red-500), var(--red-600));
+    --input-border-color-invalid: var(--color-border-danger-outline);
 
     /* =============================================
       FieldError
     ============================================= */
-    --field-error-color: light-dark(#d00e17, #ff6b6b);
+    --field-error-color: var(--color-text-danger-outline);
     --field-error-font-size: 0.75rem;
-    --field-error-line-height: 1.4;
+    --field-error-line-height: var(--font-text-xs-line-height);
     --field-error-icon-size: 1rem;
     --field-error-gap: spacing(2);
     --field-error-margin-top: 0.5rem;
@@ -118,7 +118,8 @@
     /* =============================================
       Field
     ============================================= */
-    --field-label-horizontal-min-width: 120px;
+    --field-horizontal-label-width: 120px;
+    --field-horizontal-control-width: 240px;
 
     /* =============================================
       FloatingLabelInput
@@ -130,10 +131,10 @@
     --floating-input-border-color: light-dark(rgb(0 0 0 / 15%), rgb(255 255 255 / 16%));
     --floating-input-border-color-hover: light-dark(rgb(0 0 0 / 20%), rgb(255 255 255 / 24%));
     --floating-input-border-color-focus: light-dark(#3e68ff, #6f8dff);
-    --floating-input-border-color-invalid: var(--field-error-color);
+    --floating-input-border-color-invalid: var(--color-border-danger-outline);
     --floating-input-label-color: var(--color-text-tertiary);
     --floating-input-label-color-focus: light-dark(#3e68ff, #6f8dff);
-    --floating-input-label-color-invalid: var(--field-error-color);
+    --floating-input-label-color-invalid: var(--color-text-danger-outline);
     --floating-input-transition-duration: 80ms;
     --floating-input-label-scale: 0.88;
 

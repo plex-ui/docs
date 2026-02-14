@@ -10,6 +10,11 @@
     flex-direction: row-reverse;
   }
 
+  &[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   /* Radix pushes the inputs off screen in a weird way that
     messes with error overlays */
   > input {
@@ -27,9 +32,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 18px;
-  max-width: 18px;
-  height: 18px;
+  width: 20px;
+  max-width: 20px;
+  height: 20px;
   padding: 0;
   border: 1px solid light-dark(var(--gray-200), var(--gray-500));
   border-radius: var(--radius-xs);
@@ -38,11 +43,6 @@
   transition:
     border-color 150ms ease,
     background-color 150ms ease;
-
-  [data-has-label] & {
-    /* Adjust downward for label line-height - not using center to account for long labels than can wrap. */
-    top: 1px;
-  }
 
   &:where(:not([data-disabled], [data-state="checked"])) {
     @mixin hover {
@@ -65,15 +65,50 @@
     outline-offset: 2px;
   }
 
-  &[data-disabled] {
-    border-color: light-dark(var(--gray-150), var(--gray-300));
-    background: light-dark(var(--gray-25), var(--gray-200));
-    cursor: not-allowed;
+  /* =============================================
+    Invalid
+  ============================================= */
+  &[aria-invalid="true"] {
+    border-color: var(--input-border-color-invalid);
 
+    &[data-state="indeterminate"],
     &[data-state="checked"] {
-      border-color: light-dark(var(--gray-300), var(--gray-200));
-      background-color: light-dark(var(--gray-300), var(--gray-200));
+      border-color: var(--input-border-color-invalid);
+      background-color: var(--input-border-color-invalid);
     }
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+  }
+
+  /* =============================================
+    Pill
+  ============================================= */
+  &[data-pill] {
+    border-radius: var(--radius-full);
+  }
+
+  /* =============================================
+    Ghost variant
+  ============================================= */
+  &[data-variant="ghost"] {
+    border-color: transparent;
+    background-color: transparent;
+
+    &:where(:not([data-disabled], [data-state="checked"])) {
+      @mixin hover {
+        border-color: transparent;
+        background-color: light-dark(var(--gray-50), var(--gray-800));
+      }
+    }
+
+    &[data-state="indeterminate"],
+    &[data-state="checked"] {
+      border-color: transparent;
+      background-color: transparent;
+    }
+
   }
 }
 
@@ -115,13 +150,11 @@
     }
   }
 
-  @mixin dark {
-    /* pure black checkbox is not low enough contrast to look disabled */
-    &[data-disabled] {
-      &::before,
-      &::after {
-        background: var(--gray-100);
-      }
+  /* Ghost variant — checkmark uses text color instead of white */
+  [data-variant="ghost"] & {
+    &::before,
+    &::after {
+      background: var(--gray-900);
     }
   }
 
@@ -157,10 +190,6 @@
   cursor: pointer;
   font-size: 14px;
   line-height: 20px;
-
-  [data-disabled] & {
-    cursor: not-allowed;
-  }
 
   [data-orientation="left"] & {
     padding-left: 8px;

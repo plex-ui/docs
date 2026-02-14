@@ -68,6 +68,10 @@ const SIZE_OPTIONS = ['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] 
 
 export function FieldOverviewDemo() {
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [description, setDescription] = useState(true);
+  const [error, setError] = useState(true);
+  const [required, setRequired] = useState(true);
+  const [horizontal, setHorizontal] = useState(false);
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
@@ -85,10 +89,21 @@ export function FieldOverviewDemo() {
             ))}
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlBoolean name="description" value={description} onChange={setDescription} />
+        <DemoControlBoolean name="errorMessage" value={error} onChange={setError} />
+        <DemoControlBoolean name="required" value={required} onChange={setRequired} />
+        <DemoControlBoolean name="horizontal" value={horizontal} onChange={setHorizontal} />
       </div>
       <div data-demo-stage className="py-10">
-        <div className="w-[320px]">
-          <Field label="Email" size={size}>
+        <div className={horizontal ? "w-[480px]" : "w-[320px]"}>
+          <Field
+            label="Email"
+            size={size}
+            description={description ? "We'll never share your email with anyone else." : undefined}
+            errorMessage={error ? "Please enter a valid email address." : undefined}
+            required={required}
+            orientation={horizontal ? "horizontal" : "vertical"}
+          >
             <Input placeholder="Enter email..." size={size} />
           </Field>
         </div>
@@ -298,7 +313,7 @@ export function FieldWithSwitchDemo() {
   const [enabled, setEnabled] = useState(false);
   return (
     <div className="self-stretch mx-auto !max-w-[480px]">
-      <Field label="Marketing emails" orientation="horizontal" className="items-center justify-between [--field-label-horizontal-min-width:auto] [--field-label-horizontal-offset:0px]">
+      <Field label="Marketing emails" orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
         {(fieldProps) => (
           <Switch
             id={fieldProps.id}
@@ -462,6 +477,54 @@ export function FieldFormExampleDemo() {
           <div className="flex gap-2">
             <Button color="primary" pill={pill}>Submit</Button>
             <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function FieldOpticalAlignDemo() {
+  const [opticallyAlign, setOpticallyAlign] = useState(true);
+  const [pill, setPill] = useState(true);
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="opticallyAlign" value={opticallyAlign} onChange={setOpticallyAlign} />
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div data-demo-stage className="py-10">
+        <div className="w-[400px]">
+          <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
+            <div className="mb-5 text-secondary text-sm">
+              {opticallyAlign ? 'opticallyAlign="start"' : "Default"}
+            </div>
+            <div className="flex flex-col gap-5">
+              <Field
+                label="Full name"
+                opticallyAlign={opticallyAlign ? "start" : undefined}
+              >
+                <Input placeholder="Jane Doe" pill={pill} />
+              </Field>
+              <Field
+                label="Email"
+                description="We'll never share your email."
+                errorMessage="Please enter a valid email address."
+                required
+                opticallyAlign={opticallyAlign ? "start" : undefined}
+              >
+                <Input placeholder="jane@example.com" pill={pill} />
+              </Field>
+            </div>
+            <Button
+              className="mt-6"
+              color="primary"
+              variant="soft"
+              pill={pill}
+            >
+              Submit
+            </Button>
           </div>
         </div>
       </div>

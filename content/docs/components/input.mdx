@@ -5,6 +5,7 @@ description: Semantic input text collection
 
 import { Input } from "@plexui/ui/components/Input"
 import { Button } from "@plexui/ui/components/Button"
+import { Field } from "@plexui/ui/components/Field"
 import { Search } from "@plexui/ui/components/Icon"
 import {
   InputSizingDemo,
@@ -138,40 +139,56 @@ Plex UI also provides a `FieldError` component (`@plexui/ui/components/FieldErro
 
 ### Optical alignment
 
-<ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter of the input.</>} code={`<div className="flex flex-col gap-3 w-[360px]">
+<ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter, aligning the input text with surrounding content. Works with <code>Field</code> — pass <code>opticallyAlign</code> on the Field and it forwards to the child control automatically.</>} code={`<div className="flex flex-col gap-3 w-[400px]">
   <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-    <div className="mb-4 text-secondary text-sm">Default</div>
-    <label className="text-sm mb-1 block">Field 1</label>
-    <Input placeholder="Sample input" pill />
-    <label className="mt-3 text-sm mb-1 block">Field 2</label>
-    <Input placeholder="Sample input" pill />
-    <Button className="mt-3" color="primary" variant="soft" pill>Submit</Button>
+    <div className="mb-5 text-secondary text-sm">Default</div>
+    <div className="flex flex-col gap-5">
+      <Field label="Field 1">
+        <Input placeholder="Sample input" pill />
+      </Field>
+      <Field label="Field 2">
+        <Input placeholder="Sample input" pill />
+      </Field>
+    </div>
+    <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
   </div>
   <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-    <div className="mb-4 text-secondary text-sm">opticallyAlign="start"</div>
-    <label className="text-sm mb-1 block">Field 1</label>
-    <Input placeholder="Sample input" opticallyAlign="start" pill />
-    <label className="mt-3 text-sm mb-1 block">Field 2</label>
-    <Input placeholder="Sample input" opticallyAlign="start" pill />
-    <Button className="mt-3" color="primary" variant="soft" opticallyAlign="start" pill>Submit</Button>
+    <div className="mb-5 text-secondary text-sm">opticallyAlign="start"</div>
+    <div className="flex flex-col gap-5">
+      <Field label="Field 1" opticallyAlign="start">
+        <Input placeholder="Sample input" pill />
+      </Field>
+      <Field label="Field 2" opticallyAlign="start">
+        <Input placeholder="Sample input" pill />
+      </Field>
+    </div>
+    <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
   </div>
 </div>`} previewMinHeight={168}>
-  <div className="flex flex-col gap-3 w-[360px]">
+  <div className="flex flex-col gap-3 w-[400px]">
     <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-      <div className="mb-4 text-secondary text-sm">Default</div>
-      <label className="text-sm mb-1 block">Field 1</label>
-      <Input placeholder="Sample input" pill />
-      <label className="mt-3 text-sm mb-1 block">Field 2</label>
-      <Input placeholder="Sample input" pill />
-      <Button className="mt-3" color="primary" variant="soft" pill>Submit</Button>
+      <div className="mb-5 text-secondary text-sm">Default</div>
+      <div className="flex flex-col gap-5">
+        <Field label="Field 1">
+          <Input placeholder="Sample input" pill />
+        </Field>
+        <Field label="Field 2">
+          <Input placeholder="Sample input" pill />
+        </Field>
+      </div>
+      <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
     </div>
     <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-      <div className="mb-4 text-secondary text-sm">opticallyAlign="start"</div>
-      <label className="text-sm mb-1 block">Field 1</label>
-      <Input placeholder="Sample input" opticallyAlign="start" pill />
-      <label className="mt-3 text-sm mb-1 block">Field 2</label>
-      <Input placeholder="Sample input" opticallyAlign="start" pill />
-      <Button className="mt-3" color="primary" variant="soft" opticallyAlign="start" pill>Submit</Button>
+      <div className="mb-5 text-secondary text-sm">opticallyAlign="start"</div>
+      <div className="flex flex-col gap-5">
+        <Field label="Field 1" opticallyAlign="start">
+          <Input placeholder="Sample input" pill />
+        </Field>
+        <Field label="Field 2" opticallyAlign="start">
+          <Input placeholder="Sample input" pill />
+        </Field>
+      </div>
+      <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
     </div>
   </div>
 </ComponentPreview>

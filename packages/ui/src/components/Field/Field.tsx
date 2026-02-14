@@ -12,6 +12,7 @@ export type FieldChildProps = {
   id: string
   "aria-describedby"?: string
   "aria-invalid"?: boolean
+  opticallyAlign?: "start" | "end"
 }
 
 export type FieldProps = {
@@ -55,6 +56,12 @@ export type FieldProps = {
    */
   id?: string
   /**
+   * Applies a negative margin on the child control using its gutter to
+   * optically align the control's text with surrounding content.
+   * Passed through to the child control via cloneElement / render prop.
+   */
+  opticallyAlign?: "start" | "end"
+  /**
    * CSS class applied to the root wrapper
    */
   className?: string
@@ -73,6 +80,7 @@ export function Field({
   size = "md",
   required = false,
   orientation = "vertical",
+  opticallyAlign,
   id: idProp,
   className,
   children,
@@ -93,6 +101,7 @@ export function Field({
     id: fieldId,
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": invalid || undefined,
+    ...(opticallyAlign && { opticallyAlign }),
   }
 
   // Resolve the children
@@ -113,24 +122,29 @@ export function Field({
       className={clsx(s.Field, className)}
       data-size={size}
       data-orientation={orientation}
+      data-optically-align={opticallyAlign}
     >
-      <label className={s.Label} htmlFor={fieldId}>
-        {label}
-        {required && (
-          <span className={s.RequiredIndicator} aria-hidden="true">
-            *
-          </span>
+      <div className={s.LabelGroup}>
+        <label className={s.Label} htmlFor={fieldId}>
+          {label}
+          {required && (
+            <span className={s.RequiredIndicator} aria-hidden="true">
+              *
+            </span>
+          )}
+        </label>
+        {description && (
+          <div className={s.Description} id={descriptionId}>
+            {description}
+          </div>
         )}
-      </label>
-      {description && (
-        <div className={s.Description} id={descriptionId}>
-          {description}
-        </div>
-      )}
-      <div className={s.Control}>{resolvedChildren}</div>
-      {errorMessage && (
-        <FieldError id={errorId}>{errorMessage}</FieldError>
-      )}
+      </div>
+      <div className={s.Content}>
+        <div className={s.Control}>{resolvedChildren}</div>
+        {errorMessage && (
+          <FieldError id={errorId}>{errorMessage}</FieldError>
+        )}
+      </div>
     </div>
   )
 }

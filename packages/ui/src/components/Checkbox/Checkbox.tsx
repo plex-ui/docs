@@ -36,6 +36,18 @@ export type CheckboxProps = {
    * @default "left"
    */
   orientation?: "left" | "right"
+  /**
+   * Determines if the checkbox should be a fully rounded pill shape.
+   * @default false
+   */
+  pill?: boolean
+  /**
+   * Visual style variant for the checkbox indicator.
+   * - `"solid"` — filled background when checked (default)
+   * - `"ghost"` — no border or background, checkmark only
+   * @default "solid"
+   */
+  variant?: "solid" | "ghost"
 }
 
 export const Checkbox = ({
@@ -44,6 +56,8 @@ export const Checkbox = ({
   id: propsId,
   disabled,
   orientation = "left",
+  pill = false,
+  variant = "solid",
   ...restProps
 }: CheckboxProps) => {
   const reactId = useId()
@@ -56,7 +70,14 @@ export const Checkbox = ({
       data-orientation={orientation}
       className={clsx(className, s.Container)}
     >
-      <RadixCheckbox.Root className={s.Checkbox} id={id} disabled={disabled} {...restProps}>
+      <RadixCheckbox.Root
+        className={s.Checkbox}
+        id={id}
+        disabled={disabled}
+        data-pill={pill ? "" : undefined}
+        data-variant={variant}
+        {...restProps}
+      >
         <RadixCheckbox.Indicator className={s.CheckMark} />
       </RadixCheckbox.Root>
       {label && (
