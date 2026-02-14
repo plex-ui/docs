@@ -14,6 +14,7 @@ import {
   InputInvalidDemo,
   InputAutoSelectDemo,
   InputAutofillExtensionsDemo,
+  InputOpticalAlignDemo,
   InputWithButtonDemo,
 } from "@/components/docs/InputDemos"
 
@@ -132,65 +133,31 @@ Plex UI also provides a `FieldError` component (`@plexui/ui/components/FieldErro
 
 <ComponentPreview details={<>You can pair <code>Input</code> and <code>Button</code> components together by using the same <code>size</code> value.</>} code={`<div className="flex gap-2">
   <Input placeholder="jane.doe@gmail.com" size="lg" variant="outline" />
-  <Button color="primary" size="lg" variant="outline">Subscribe</Button>
+  <Button color="primary" size="lg" variant="outline" pill={false}>Subscribe</Button>
 </div>`} previewMinHeight={168}>
   <InputWithButtonDemo />
 </ComponentPreview>
 
 ### Optical alignment
 
-<ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter, aligning the input text with surrounding content. Works with <code>Field</code> — pass <code>opticallyAlign</code> on the Field and it forwards to the child control automatically.</>} code={`<div className="flex flex-col gap-3 w-[400px]">
-  <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-    <div className="mb-5 text-secondary text-sm">Default</div>
-    <div className="flex flex-col gap-5">
-      <Field label="Field 1">
-        <Input placeholder="Sample input" pill />
-      </Field>
-      <Field label="Field 2">
-        <Input placeholder="Sample input" pill />
-      </Field>
-    </div>
-    <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
-  </div>
-  <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-    <div className="mb-5 text-secondary text-sm">opticallyAlign="start"</div>
-    <div className="flex flex-col gap-5">
-      <Field label="Field 1" opticallyAlign="start">
-        <Input placeholder="Sample input" pill />
-      </Field>
-      <Field label="Field 2" opticallyAlign="start">
-        <Input placeholder="Sample input" pill />
-      </Field>
-    </div>
-    <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
-  </div>
-</div>`} previewMinHeight={168}>
-  <div className="flex flex-col gap-3 w-[400px]">
-    <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-      <div className="mb-5 text-secondary text-sm">Default</div>
-      <div className="flex flex-col gap-5">
-        <Field label="Field 1">
-          <Input placeholder="Sample input" pill />
-        </Field>
-        <Field label="Field 2">
-          <Input placeholder="Sample input" pill />
-        </Field>
-      </div>
-      <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
-    </div>
-    <div className="border border-dashed border-alpha/20 rounded-md py-6 px-8">
-      <div className="mb-5 text-secondary text-sm">opticallyAlign="start"</div>
-      <div className="flex flex-col gap-5">
-        <Field label="Field 1" opticallyAlign="start">
-          <Input placeholder="Sample input" pill />
-        </Field>
-        <Field label="Field 2" opticallyAlign="start">
-          <Input placeholder="Sample input" pill />
-        </Field>
-      </div>
-      <Button className="mt-6" color="primary" variant="soft" pill>Submit</Button>
-    </div>
-  </div>
+Use `opticallyAlign` with either `"start"` or `"end"` to offset the gutter, aligning the input text with surrounding content. Works with `Field` — pass `opticallyAlign` on the Field and it forwards to the child control automatically.
+
+<ComponentPreview code={`<Field label="Full name" opticallyAlign="start">
+  <Input placeholder="Jane Doe" pill />
+</Field>
+<Field
+  label="Email"
+  description="We'll never share your email."
+  errorMessage="Please enter a valid email address."
+  required
+  opticallyAlign="start"
+>
+  <Input placeholder="jane@example.com" pill />
+</Field>
+<Button className="mt-6" color="primary" variant="soft" pill>
+  Submit
+</Button>`}>
+  <InputOpticalAlignDemo />
 </ComponentPreview>
 
 Input shares the unified 9-step size scale with Button, Select, SelectControl, and SegmentedControl — set the same `size` on adjacent controls and they'll align perfectly.
