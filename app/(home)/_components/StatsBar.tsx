@@ -12,7 +12,7 @@ export function StatsBar() {
       data-reveal
       className="border-y border-fd-border bg-fd-muted/30 px-6 py-10 sm:py-12"
     >
-      <p className="mx-auto mb-6 max-w-4xl text-center text-xs text-fd-muted-foreground">
+      <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-fd-muted-foreground">
         Free React library on npm. Paid Figma kit with lifetime updates.
       </p>
       <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6 sm:grid-cols-5 sm:gap-4">
