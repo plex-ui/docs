@@ -2,6 +2,7 @@
 
 import { ButtonLink } from '@plexui/ui/components/Button';
 import { Check, Minus } from 'lucide-react';
+import { LandingSection, SectionHeading, SectionCta } from './LandingSection';
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -26,8 +27,8 @@ const rows: Row[] = [
   {
     feature: 'Size scale per component',
     plexui: '9 sizes',
-    shadcn: '3–4 sizes',
-    untitledui: '4–5 sizes',
+    shadcn: '3 to 4 sizes',
+    untitledui: '4 to 5 sizes',
   },
   {
     feature: 'Three-layer token system',
@@ -101,19 +102,12 @@ function CellContent({ value }: { value: CellValue }) {
 
 export function ComparisonSection() {
   return (
-    <section
-      data-reveal
-      className="bg-fd-background px-6 py-20 sm:py-28"
-    >
-      <div className="mx-auto max-w-4xl">
-        <h2 className="text-center text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
-          Why Plex UI?
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-fd-muted-foreground sm:text-lg">
-          See how Plex UI compares to other popular design systems.
-        </p>
+    <LandingSection data-reveal>
+      <SectionHeading description="See how Plex UI compares to other popular design systems.">
+        Why Plex UI?
+      </SectionHeading>
 
-        {/* Table — desktop */}
+      {/* Table — desktop */}
         <div className="mt-10 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
           <table className="w-full text-center">
             <thead>
@@ -192,18 +186,11 @@ export function ComparisonSection() {
           ))}
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <ButtonLink
-            href="#pricing"
-            color="primary"
-            variant="solid"
-            size="md"
-            pill={false}
-          >
-            Get the Figma Kit
-          </ButtonLink>
-        </div>
-      </div>
-    </section>
+      <SectionCta>
+        <ButtonLink href="#pricing" color="primary" variant="solid" size="md" pill={false}>
+          Get the Figma Kit
+        </ButtonLink>
+      </SectionCta>
+    </LandingSection>
   );
 }

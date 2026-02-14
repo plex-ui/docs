@@ -137,7 +137,7 @@ export function Hero() {
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-5 max-w-[38rem] text-[1.05rem] leading-relaxed text-fd-muted-foreground sm:text-lg">
+        <p className="mt-5 max-w-[38rem] text-base leading-relaxed text-fd-muted-foreground">
           Powered by the design system behind{' '}
           <a href="https://openai.github.io/apps-sdk-ui/" target="_blank" rel="noopener noreferrer" className="text-fd-foreground underline decoration-fd-muted-foreground/40 underline-offset-2 hover:decoration-fd-foreground transition-colors">ChatGPT</a>.
           {' '}Design tokens, accessible components, and a pixel-perfect

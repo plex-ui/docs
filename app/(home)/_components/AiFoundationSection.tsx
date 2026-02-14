@@ -1,4 +1,5 @@
 import { ButtonLink } from '@plexui/ui/components/Button';
+import { LandingSection } from './LandingSection';
 
 const AI_TOOLS = [
   { name: 'Claude',      bg: 'bg-[#D97757]/10', text: 'text-[#D97757]', border: 'border-[#D97757]/20' },
@@ -9,11 +10,8 @@ const AI_TOOLS = [
 
 export function AiFoundationSection() {
   return (
-    <section
-      data-reveal
-      className="bg-fd-background px-6 py-20 sm:py-28"
-    >
-      <div className="mx-auto max-w-4xl rounded-2xl border border-black/5 p-8 sm:p-12 dark:border-white/5">
+    <LandingSection data-reveal>
+      <div className="rounded-2xl border border-fd-border p-8 sm:p-12">
         {/* AI tool pills */}
         <div className="mb-6 flex flex-wrap items-center gap-2">
           {AI_TOOLS.map(({ name, bg, text, border }) => (
@@ -32,7 +30,7 @@ export function AiFoundationSection() {
         </h2>
 
         {/* Narrative */}
-        <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-fd-muted-foreground sm:text-base">
+        <div className="mt-8 space-y-4 text-base leading-relaxed text-fd-muted-foreground">
           <p>
             You describe a page, the model writes the code, you deploy. Sounds great until you look
             at what it actually produced.
@@ -55,17 +53,11 @@ export function AiFoundationSection() {
         </div>
 
         <div className="mt-8 flex">
-          <ButtonLink
-            href="/docs/components"
-            color="secondary"
-            variant="outline"
-            size="md"
-            pill={false}
-          >
+          <ButtonLink href="/docs/components" color="secondary" variant="outline" size="md" pill={false}>
             Browse Components
           </ButtonLink>
         </div>
       </div>
-    </section>
+    </LandingSection>
   );
 }

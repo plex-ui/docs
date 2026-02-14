@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { ButtonLink } from '@plexui/ui/components/Button';
 import { Check } from 'lucide-react';
+import { LandingSection, SectionHeading } from './LandingSection';
 
 /* ------------------------------------------------------------------ */
 /*  Lemonsqueezy embed script                                          */
@@ -154,34 +155,24 @@ export function PricingSection() {
   useLemonSqueezy();
 
   return (
-    <section
-      data-reveal
-      id="pricing"
-      className="bg-fd-background px-6 py-20 sm:py-28"
-    >
-      <div className="mx-auto max-w-4xl">
-        {/* Header */}
-        <h2 className="text-center text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
-          Get the Figma Design System
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-fd-muted-foreground sm:text-lg">
-          Building a design system from scratch takes 2 to 3 months. Plex UI gives you
-          22,000+ production-ready variants, a three-layer token system, and full Figma
-          Variables coverage from day one. Pay once, get lifetime updates.
-        </p>
+    <LandingSection id="pricing" data-reveal>
+      <SectionHeading
+        description="22,000+ production-ready variants, a three-layer token system, and full Figma Variables from day one. Pay once, get lifetime updates."
+      >
+        Get the Figma Design System
+      </SectionHeading>
 
-        {/* Pricing cards */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
-          {tiers.map((tier) => (
-            <PricingCard key={tier.name} tier={tier} />
-          ))}
-        </div>
-
-        {/* Bottom note */}
-        <p className="mt-6 text-center text-xs text-fd-muted-foreground">
-          Delivered as a Figma file. Duplicate to your workspace and start designing.
-        </p>
+      {/* Pricing cards */}
+      <div className="grid gap-6 sm:grid-cols-3">
+        {tiers.map((tier) => (
+          <PricingCard key={tier.name} tier={tier} />
+        ))}
       </div>
-    </section>
+
+      {/* Bottom note */}
+      <p className="mt-6 text-center text-xs text-fd-muted-foreground">
+        Delivered as a Figma file. Duplicate to your workspace and start designing.
+      </p>
+    </LandingSection>
   );
 }

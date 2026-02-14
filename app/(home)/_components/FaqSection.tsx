@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { LandingSection } from './LandingSection';
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -72,7 +73,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="text-[15px] leading-relaxed text-fd-muted-foreground">
+          <p className="text-sm leading-relaxed text-fd-muted-foreground">
             {answer}
           </p>
         </div>
@@ -87,21 +88,15 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 export function FaqSection() {
   return (
-    <section
-      data-reveal
-      id="faq"
-      className="bg-fd-background px-6 py-20 sm:py-28"
-    >
-      <div className="mx-auto max-w-2xl">
-        <h2 className="text-center text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
-          Frequently asked questions
-        </h2>
-        <div className="mt-10 border-t border-fd-border">
-          {faqs.map((faq) => (
-            <FaqItem key={faq.question} question={faq.question} answer={faq.answer} />
-          ))}
-        </div>
+    <LandingSection id="faq" maxWidth="2xl" data-reveal>
+      <h2 className="text-center text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
+        Frequently asked questions
+      </h2>
+      <div className="mt-10 border-t border-fd-border">
+        {faqs.map((faq) => (
+          <FaqItem key={faq.question} question={faq.question} answer={faq.answer} />
+        ))}
       </div>
-    </section>
+    </LandingSection>
   );
 }
