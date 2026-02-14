@@ -92,10 +92,15 @@ function PricingCard({ tier }: { tier: Tier }) {
         </span>
       )}
 
-      {/* Tier name */}
-      <h3 className="text-sm font-semibold text-fd-foreground">
-        {tier.name}
-      </h3>
+      {/* Tier name + launch badge */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-fd-foreground">
+          {tier.name}
+        </h3>
+        <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+          Launch price
+        </span>
+      </div>
 
       {/* Price */}
       <div className="mt-3 flex items-baseline gap-1">
@@ -104,9 +109,6 @@ function PricingCard({ tier }: { tier: Tier }) {
         </span>
         <span className="text-sm text-fd-muted-foreground">one-time</span>
       </div>
-      <span className="mt-2 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-        Launch price
-      </span>
 
       {/* Description */}
       <p className="mt-2 text-sm text-fd-muted-foreground">
