@@ -1,3 +1,5 @@
+import { ButtonLink } from '@plexui/ui/components/Button';
+
 const AI_TOOLS = [
   { name: 'Claude',      bg: 'bg-[#D97757]/10', text: 'text-[#D97757]', border: 'border-[#D97757]/20' },
   { name: 'Cursor',      bg: 'bg-[#2D2D2D]/8',  text: 'text-[#2D2D2D] dark:text-[#E8E8E8]', border: 'border-[#2D2D2D]/15 dark:border-[#E8E8E8]/15' },
@@ -50,6 +52,18 @@ export function AiFoundationSection() {
             One source of truth the model follows on every prompt, so every page it
             generates looks like it belongs to the same product.
           </p>
+        </div>
+
+        <div className="mt-8 flex">
+          <ButtonLink
+            href="/docs/components"
+            color="secondary"
+            variant="outline"
+            size="md"
+            pill={false}
+          >
+            Browse Components
+          </ButtonLink>
         </div>
       </div>
     </section>

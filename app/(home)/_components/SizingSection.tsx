@@ -1,5 +1,6 @@
 'use client';
 
+import { ButtonLink } from '@plexui/ui/components/Button';
 import { SizingOverviewDemo } from '@/components/docs/SizingDemos';
 
 export function SizingSection() {
@@ -25,6 +26,18 @@ export function SizingSection() {
 
         <div className="mt-8 overflow-hidden rounded-xl border border-black/5 dark:border-white/5 [&_[data-demo-controls]>*:first-child]:!border-t-0 [&_[data-demo-controls]>*:last-child]:border-b [&_[data-demo-controls]>*:last-child]:border-black/5 dark:[&_[data-demo-controls]>*:last-child]:border-white/5 [&_[data-demo-controls]>*]:!border-t-black/5 dark:[&_[data-demo-controls]>*]:!border-t-white/5">
           <SizingOverviewDemo />
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <ButtonLink
+            href="/docs/components"
+            color="secondary"
+            variant="outline"
+            size="md"
+            pill={false}
+          >
+            Browse Components
+          </ButtonLink>
         </div>
       </div>
     </section>

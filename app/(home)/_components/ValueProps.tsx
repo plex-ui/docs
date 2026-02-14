@@ -1,3 +1,4 @@
+import { ButtonLink } from '@plexui/ui/components/Button';
 import { Figma, Palette, Rocket, Sparkles } from 'lucide-react';
 
 const valueProps = [
@@ -62,6 +63,18 @@ export function ValueProps() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <ButtonLink
+            href="#pricing"
+            color="primary"
+            variant="solid"
+            size="md"
+            pill={false}
+          >
+            Get the Figma Kit
+          </ButtonLink>
         </div>
       </div>
     </section>
