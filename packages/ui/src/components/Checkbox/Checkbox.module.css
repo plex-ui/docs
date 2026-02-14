@@ -32,11 +32,11 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 20px;
-  max-width: 20px;
-  height: 20px;
+  width: var(--menu-checkbox-indicator-size);
+  max-width: var(--menu-checkbox-indicator-size);
+  height: var(--menu-checkbox-indicator-size);
   padding: 0;
-  border: 1px solid light-dark(var(--gray-200), var(--gray-500));
+  border: 1px solid var(--alpha-16);
   border-radius: var(--radius-xs);
   background-color: transparent;
   cursor: pointer;
@@ -46,7 +46,7 @@
 
   &:where(:not([data-disabled], [data-state="checked"])) {
     @mixin hover {
-      border-color: light-dark(var(--gray-300), var(--gray-600));
+      border-color: var(--alpha-20);
     }
   }
 

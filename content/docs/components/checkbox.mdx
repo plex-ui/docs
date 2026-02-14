@@ -104,10 +104,18 @@ import {
 
 ### Disabled
 
-<ComponentPreview details={<>When <code>disabled</code> is set, the checkbox is visually dimmed and prevents interaction. Both unchecked and checked states have dedicated disabled styling.</>} code={`<div className="flex flex-col gap-3">
-  <Checkbox label="Unchecked disabled" disabled />
-  <Checkbox label="Checked disabled" disabled defaultChecked />
-</div>`} previewMinHeight={168}>
+<ComponentPreview details={<>When <code>disabled</code> is set, the checkbox is dimmed to 50% opacity and prevents interaction. Works consistently across all variants — solid, pill, and ghost.</>} code={`{/* solid */}
+<Checkbox label="Unchecked" disabled />
+<Checkbox label="Checked" disabled defaultChecked />
+<Checkbox label="Indeterminate" disabled checked="indeterminate" />
+
+{/* solid pill */}
+<Checkbox label="Unchecked" pill disabled />
+<Checkbox label="Checked" pill disabled defaultChecked />
+
+{/* ghost */}
+<Checkbox label="Unchecked" variant="ghost" disabled />
+<Checkbox label="Checked" variant="ghost" disabled defaultChecked />`} previewMinHeight={240}>
   <CheckboxDisabledDemo />
 </ComponentPreview>
 
@@ -198,9 +206,9 @@ const parentChecked = allChecked ? true : noneChecked ? false : "indeterminate";
   <CheckboxWithFieldDemo />
 </ComponentPreview>
 
-### Notification settings
+### Grouped sections
 
-<ComponentPreview details={<>A realistic settings panel combining <code>Field</code>-wrapped checkbox groups divided into sections. Labels can include description text via <code>ReactNode</code> composition.</>} code={`<div className="divide-y">
+<ComponentPreview details={<>Use dividers to separate checkbox groups into logical sections. Each section can be wrapped in a <code>Field</code> with its own label and description.</>} code={`<div className="divide-y">
   <div className="pb-5">
     <Field label="Email notifications" description="Configure which emails you receive.">
       {() => (

@@ -53,6 +53,14 @@ This changelog documents significant updates, bug fixes, and improvements to com
     New form field wrapper that provides label, description, and error message with automatic accessibility linking. Generates <code>htmlFor</code>, <code>aria-describedby</code>, and <code>aria-invalid</code> attributes. Supports 9-step size scale, horizontal/vertical orientation, required indicator, and composition with Input, Textarea, Select, Slider, Checkbox, RadioGroup, and Switch controls via render prop pattern.
   </li>
   <li>
+    <strong>Field optical alignment</strong> (<a href="/docs/components/field#optical-alignment">Field</a>)<br/>
+    New <code>opticallyAlign</code> prop on Field that forwards to child controls via <code>cloneElement</code>. Compensates for pill gutter padding in form layouts, aligning labels and error messages with the visual text edge of Input, Select, and Button controls.
+  </li>
+  <li>
+    <strong>Slider range mode</strong> (<a href="/docs/components/slider#range-mode">Slider</a>)<br/>
+    Slider now supports dual-thumb range selection via array <code>value</code>/<code>defaultValue</code>. Also added vertical orientation, disabled state, prefix/suffix units, and step markers with labels.
+  </li>
+  <li>
     <strong>Icon and badge support</strong> (<a href="/docs/components/segmented-control#icon-only">Segmented Control</a>)<br/>
     Added <code>icon</code> and <code>badge</code> props to <code>SegmentedControl.Option</code>. Icons automatically size based on control size with negative left margins for visual alignment. Badges support semantic colors (<code>secondary</code>, <code>success</code>, <code>danger</code>, etc.), style variants (<code>soft</code>, <code>solid</code>), and <code>pill</code> shape option. Badge sizes scale with control size using new 2xs/xs badge tokens for smaller controls.
   </li>
@@ -64,6 +72,10 @@ This changelog documents significant updates, bug fixes, and improvements to com
     <strong>Tabs flush underline variant</strong> (<a href="/docs/components/tabs#underline-flush">Tabs</a>)<br/>
     Added <code>flush</code> boolean prop for the underline variant. Removes tab padding so the indicator matches the text width exactly, uses gap-based spacing between tabs, removes the container bottom border, and renders a 1px indicator with no border-radius. Spacing scales with <code>size</code> prop.
   </li>
+  <li>
+    <strong>RadioGroup <code>orientation</code> and <code>block</code> props</strong> (<a href="/docs/components/radio-group#orientation">Radio Group</a>)<br/>
+    New <code>orientation</code> prop on <code>RadioGroup.Item</code> positions the radio indicator left (default) or right of the label. New <code>block</code> prop stretches the item to full width with <code>justify-content: space-between</code> for menu-style layouts. Documented with Orientation, With Field, Field error, Choice card, and Card selection examples.
+  </li>
 </ul>
 
 ### Changed
@@ -72,6 +84,18 @@ This changelog documents significant updates, bug fixes, and improvements to com
   <li>
     <strong>Sidebar variants simplified</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
     Removed unused sidebar variants (<code>floating</code>, <code>inset</code>, <code>dual-tier</code>) from type definitions, documentation, and CSS. The component now supports only <code>sidebar</code> (default) and <code>docs</code> variants.
+  </li>
+  <li>
+    <strong>Field horizontal orientation refactored</strong> (<a href="/docs/components/field#horizontal-orientation">Field</a>)<br/>
+    Restructured HTML to use <code>LabelGroup</code> (label + description) and <code>Content</code> (control + error) containers for proper horizontal layout. Added fixed-width CSS variables <code>--field-horizontal-label-width</code> and <code>--field-horizontal-control-width</code>. Label vertical centering now uses <code>calc((control-height - label-line-height) / 2)</code> per size for pixel-perfect alignment.
+  </li>
+  <li>
+    <strong>Checkbox indicator aligned to Figma</strong> (<a href="/docs/components/checkbox">Checkbox</a>)<br/>
+    Indicator size changed from hardcoded 20×20px to 18×18px using the <code>--menu-checkbox-indicator-size</code> token — matching the Menu CheckboxItem and Figma specification. Border colors changed from solid grays (<code>var(--gray-200)</code>) to alpha-based tokens (<code>var(--alpha-16)</code> default, <code>var(--alpha-20)</code> hover) for consistent rendering on any background.
+  </li>
+  <li>
+    <strong>Checkbox label layout</strong> (<a href="/docs/components/checkbox">Checkbox</a>)<br/>
+    Label changed from <code>display: flex; align-items: center</code> to <code>display: block</code> for proper text flow in multi-line labels with descriptions. Gap tokens aligned with Menu CheckboxItem: <code>spacing(2)</code> (8px) for left orientation, <code>spacing(3)</code> (12px) for right orientation.
   </li>
 </ul>
 
@@ -93,6 +117,14 @@ This changelog documents significant updates, bug fixes, and improvements to com
   <li>
     <strong>Clear button sizing and consistency</strong> (<a href="/docs/components/input#clear-button">Input</a>)<br/>
     Clear button overflow and border collision at various sizes. Refactored to use built-in <code>onClear</code> prop with dedicated sizing tokens matching SelectControl's clear-iso button. Updated gutter values and added per-size offsets for proper alignment in both standard and pill modes.
+  </li>
+  <li>
+    <strong>FieldError semantic color tokens</strong> (<a href="/docs/components/field">Field</a>)<br/>
+    Replaced hardcoded error colors with <code>--color-text-danger-outline</code> and <code>--color-border-danger-outline</code> semantic tokens. Removed <code>margin-top: -0.1em</code> hack from error icon, now relies on flex centering for alignment.
+  </li>
+  <li>
+    <strong>ComponentPreview border consistency</strong><br/>
+    Unified demo control row border color with the outer card border across light and dark themes. Control rows now use theme-aware <code>rgb(0 0 0 / 5%)</code> / <code>rgb(255 255 255 / 5%)</code> instead of the heavier <code>var(--color-fd-border)</code>.
   </li>
   <li>
     <strong>Pill overflow and text overlap</strong> (<a href="/docs/components/segmented-control#narrow-pill">Segmented Control</a>)<br/>
@@ -121,6 +153,14 @@ This changelog documents significant updates, bug fixes, and improvements to com
   <li>
     <strong>Incorrect size documentation</strong> (<a href="/docs/components/badge#colors--variants">Badge</a>)<br/>
     Documentation stated <code>sm</code> size is 18px, but actual computed value is 20px (<code>calc(22px - 2px)</code>). Fixed the JSDoc comment to show correct value.
+  </li>
+  <li>
+    <strong>Tabs pill variant radius</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    Fixed incorrect border-radius in pill mode for both segmented and vertical orientations. The option radius now correctly uses <code>--radius-full</code> when pill is active.
+  </li>
+  <li>
+    <strong>Field label text selection</strong> (<a href="/docs/components/field">Field</a>)<br/>
+    Removed <code>user-select: none</code> from Field label, allowing users to select and copy label text.
   </li>
 </ul>
 

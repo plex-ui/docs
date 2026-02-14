@@ -30,7 +30,7 @@ export type RadioGroupProps<T extends string> = {
   "name"?: string
   "onChange"?: (value: T) => void
   /** Accessible label for the radio options */
-  "aria-label": string
+  "aria-label"?: string
   /** Determines the layout direction of the radio items
    * @default row
    */
@@ -81,6 +81,12 @@ export type RadioGroupItemProps<T extends string> = {
   required?: boolean
   block?: boolean
   className?: string
+  /**
+   * The orientation of the radio indicator relative to the label.
+   *
+   * @default "left"
+   */
+  orientation?: "left" | "right"
   children: React.ReactNode
 }
 
@@ -91,6 +97,7 @@ const Item = <T extends string>({
   children,
   className,
   block = false,
+  orientation = "left",
   ...restProps
 }: RadioGroupItemProps<T>) => {
   const { disabled: groupDisabled } = useRadioGroupContext()
@@ -103,12 +110,13 @@ const Item = <T extends string>({
     // Providing an extra wrapper enables `label` to be inline-flex, avoiding clickable whitespace
     // when radio options are of varied lengths.
     // NOTE: Important that this is `flex` to prevent the `inline-flex` label from extra, unintentional whitespace.
-    <div className="flex" {...restProps}>
+    <div className={clsx("flex", block && "w-full")} {...restProps}>
       <label
         htmlFor={itemId}
         className={clsx(s.RadioLabel, className)}
         data-disabled={disabled ? "" : undefined}
         data-block={block ? "" : undefined}
+        data-orientation={orientation}
         onMouseDown={(event) => {
           if (!event.defaultPrevented && event.detail > 1) event.preventDefault()
         }}

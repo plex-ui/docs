@@ -33,6 +33,9 @@
   ],
   "exports": {
     "./css": "./dist/es/styles/index.css",
+    "./styles/variables-primitive.css": "./dist/es/styles/variables-primitive.css",
+    "./styles/variables-semantic.css": "./dist/es/styles/variables-semantic.css",
+    "./styles/variables-components.css": "./dist/es/styles/variables-components.css",
     "./components/*": {
       "types": "./dist/types/components/*/index.d.ts",
       "default": "./dist/es/components/*/index.js"

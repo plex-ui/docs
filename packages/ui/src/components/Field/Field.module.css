@@ -156,7 +156,6 @@
   line-height: var(--field-label-line-height);
   font-weight: var(--font-weight-semibold);
   cursor: default;
-  user-select: none;
 }
 
 /* =============================================

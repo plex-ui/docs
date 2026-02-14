@@ -17,12 +17,19 @@
   font-size: var(--radio-group-item-font-size);
   line-height: var(--radio-group-item-line-height);
 
+  &[data-orientation="right"] {
+    &:where([data-block]) {
+      justify-content: space-between;
+    }
+  }
+
   &[data-disabled] {
     cursor: not-allowed;
     opacity: 0.5;
   }
 
   &[data-block] {
+    display: flex;
     width: 100%;
   }
 }
@@ -44,6 +51,10 @@
     left: 0;
     height: 1px !important;
     transform: none !important;
+  }
+
+  .RadioLabel[data-orientation="right"] & {
+    order: 1;
   }
 }
 

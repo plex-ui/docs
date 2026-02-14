@@ -178,9 +178,25 @@ export function CheckboxIndeterminateDemo() {
 export function CheckboxDisabledDemo() {
   return (
     <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
-      <div className="flex flex-col gap-3">
-        <Checkbox label="Unchecked disabled" disabled />
-        <Checkbox label="Checked disabled" disabled defaultChecked />
+      <div className="flex gap-12">
+        <div className="flex flex-col gap-3 items-start">
+          <span className="text-xs text-secondary font-mono mb-1">solid</span>
+          <Checkbox label="Unchecked" disabled />
+          <Checkbox label="Checked" disabled defaultChecked />
+          <Checkbox label="Indeterminate" disabled checked="indeterminate" />
+        </div>
+        <div className="flex flex-col gap-3 items-start">
+          <span className="text-xs text-secondary font-mono mb-1">solid pill</span>
+          <Checkbox label="Unchecked" pill disabled />
+          <Checkbox label="Checked" pill disabled defaultChecked />
+          <Checkbox label="Indeterminate" pill disabled checked="indeterminate" />
+        </div>
+        <div className="flex flex-col gap-3 items-start">
+          <span className="text-xs text-secondary font-mono mb-1">ghost</span>
+          <Checkbox label="Unchecked" variant="ghost" disabled />
+          <Checkbox label="Checked" variant="ghost" disabled defaultChecked />
+          <Checkbox label="Indeterminate" variant="ghost" disabled checked="indeterminate" />
+        </div>
       </div>
     </div>
   );
@@ -330,7 +346,7 @@ export function CheckboxGroupWithDescriptionDemo() {
 
 export function CheckboxWithFieldDemo() {
   const [agreed, setAgreed] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(true);
 
   return (
     <>
