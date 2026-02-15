@@ -1,4 +1,4 @@
-/* ── Navbar — OpenAI-matching: 64px, 3-column grid, centered nav ── */
+/* ── Navbar — 64px, 3-column grid, centered nav ── */
 
 .Header {
   grid-area: header;
@@ -12,7 +12,7 @@
 }
 
 /* 3-column grid: [brand] [nav-center] [right-actions]
-   Using 1fr auto 1fr so nav links are centered on the screen, not the remaining space */
+   Using 1fr auto 1fr so nav links are centered on the screen */
 .Inner {
   height: 100%;
   display: grid;
@@ -79,7 +79,7 @@ html.dark .BrandIcon {
   align-items: center;
 }
 
-/* Nav links — centered in middle column, 14px/400, OpenAI states */
+/* Nav links — centered in middle column, 14px/400 */
 .NavLinks {
   display: flex;
   align-items: center;
@@ -119,20 +119,34 @@ html.dark .NavLinkActive {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* GitHub link — icon only, matches ThemeToggle style */
+/* GitHub link — icon only, slightly smaller to match stroke icons visually */
 .GitHubLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   color: var(--color-fd-muted-foreground, #5d5d5d);
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.GitHubLink svg {
+  width: 15px;
+  height: 15px;
 }
 
 .GitHubLink:hover {
   color: var(--color-fd-foreground, #181818);
+  background: rgba(40, 40, 40, 0.05);
 }
 
-/* Figma Kit — black pill CTA (compact, 32px height) */
+[data-theme='dark'] .GitHubLink:hover,
+html.dark .GitHubLink:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Figma Kit — black pill CTA */
 .FigmaButton {
   display: inline-flex;
   align-items: center;
@@ -167,22 +181,30 @@ html.dark .FigmaButton:hover {
   opacity: 0.85;
 }
 
-/* Theme toggle — bare icon with CSS-based light/dark icon swap (matches OpenAI exactly) */
+/* Theme toggle */
 .ThemeToggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   background: transparent;
   color: var(--color-fd-muted-foreground, #5d5d5d);
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .ThemeToggle:hover {
   color: var(--color-fd-foreground, #181818);
+  background: rgba(40, 40, 40, 0.05);
+}
+
+[data-theme='dark'] .ThemeToggle:hover,
+html.dark .ThemeToggle:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .ThemeToggle:focus-visible {
@@ -191,7 +213,6 @@ html.dark .FigmaButton:hover {
   border-radius: 2px;
 }
 
-/* Sun icon (light mode) / Moon icon (dark mode) — 16x16 rendered size */
 .ThemeIconLight,
 .ThemeIconDark {
   width: 16px;
@@ -199,7 +220,6 @@ html.dark .FigmaButton:hover {
   flex: 0 0 auto;
 }
 
-/* Light mode: show sun, hide moon */
 .ThemeIconLight {
   display: block;
 }
@@ -208,7 +228,6 @@ html.dark .FigmaButton:hover {
   display: none;
 }
 
-/* Dark mode: show moon, hide sun */
 [data-theme='dark'] .ThemeIconLight,
 html.dark .ThemeIconLight {
   display: none;
@@ -219,23 +238,58 @@ html.dark .ThemeIconDark {
   display: block;
 }
 
-/* Hamburger menu button (mobile only) */
+/* ── Search button ── */
+
+.SearchButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-fd-muted-foreground, #5d5d5d);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.SearchButton:hover {
+  color: var(--color-fd-foreground, #181818);
+  background: rgba(40, 40, 40, 0.05);
+}
+
+[data-theme='dark'] .SearchButton:hover,
+html.dark .SearchButton:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Mobile menu button (right side, hidden on desktop) ── */
+
 .MenuButton {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
-  color: var(--color-fd-foreground, #181818);
+  color: var(--color-fd-muted-foreground, #5d5d5d);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .MenuButton:hover {
-  background: var(--color-fd-accent, #f5f5f5);
+  color: var(--color-fd-foreground, #181818);
+  background: rgba(40, 40, 40, 0.05);
+}
+
+[data-theme='dark'] .MenuButton:hover,
+html.dark .MenuButton:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .Icon {
@@ -253,6 +307,10 @@ html.dark .ThemeIconDark {
     gap: 12px;
   }
 
+  .Right {
+    gap: 16px;
+  }
+
   .NavLinks {
     display: none;
   }
@@ -261,10 +319,7 @@ html.dark .ThemeIconDark {
     display: none;
   }
 
-  .ThemeToggle {
-    display: none;
-  }
-
+  /* Menu trigger — right side */
   .MenuButton {
     display: inline-flex;
   }

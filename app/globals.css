@@ -11,7 +11,7 @@
 /* Let Tailwind scan Plex UI component class usage */
 @source "../packages/ui";
 
-/* Page background and OpenAI-matching color tokens.
+/* Page background and Plex UI color tokens.
    Override Fumadocs variables so the entire shell uses our palette. */
 :root {
   --color-fd-background: #ffffff;
@@ -208,12 +208,12 @@ html.dark {
   }
 }
 
-/* Sticky nav — no backdrop blur, solid background + border (OpenAI style) */
+/* Sticky nav — no backdrop blur, solid background + border */
 #nd-docs-layout header[data-transparent='false'] {
   background: var(--color-fd-background);
 }
 
-/* Docs shell — OpenAI-matching layout */
+/* Docs shell layout */
 #nd-docs-layout.plex-docs-shell {
   --fd-header-height: 64px;
   --fd-sidebar-width: 0px;
@@ -264,6 +264,89 @@ html[data-docs-right-sidebar='off'] #nd-docs-layout.plex-docs-shell #nd-toc {
 
 #nd-docs-layout.plex-docs-shell [data-sidebar-placeholder] {
   border-right: none;
+}
+
+/* ── Sidebar nav — vertical section links in sidebar drawer ── */
+.sidebar-nav {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-fd-border, #e5e5e5);
+}
+
+.sidebar-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-fd-foreground, #0d0d0d);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.sidebar-nav-link:hover {
+  background: rgba(40, 40, 40, 0.05);
+}
+
+[data-theme='dark'] .sidebar-nav-link:hover,
+html.dark .sidebar-nav-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-nav-link-active {
+  background: rgba(40, 40, 40, 0.08);
+}
+
+[data-theme='dark'] .sidebar-nav-link-active,
+html.dark .sidebar-nav-link-active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  height: 36px;
+  padding: 0 16px;
+  background: #000000;
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  white-space: nowrap;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.sidebar-nav-cta:hover {
+  opacity: 0.85;
+}
+
+[data-theme='dark'] .sidebar-nav-cta,
+html.dark .sidebar-nav-cta {
+  background: #ffffff;
+  color: #000000 !important;
+}
+
+/* Show sidebar nav only on mobile (drawer mode) */
+@media (max-width: 767.9px) {
+  .sidebar-nav {
+    display: flex;
+  }
 }
 
 /* ── Sidebar search trigger — compact pill at top of sidebar ── */
@@ -341,7 +424,7 @@ html.dark .sidebar-search-trigger kbd {
   border-color: rgb(255 255 255 / 8%);
 }
 
-/* ── Desktop sidebar — OpenAI-matching styles ── */
+/* ── Desktop sidebar ── */
 #nd-docs-layout.plex-docs-shell #nd-sidebar {
   background: var(--color-fd-background);
   border-right: none;
@@ -364,7 +447,7 @@ html.dark .sidebar-search-trigger kbd {
   padding: 12px 12px 0 12px;
 }
 
-/* Sidebar section headers — 14px/600 title-case, matches OpenAI reference.
+/* Sidebar section headers — 14px/600 title-case.
    Headers sit at ~24px from sidebar left (container 12px + margin-left 12px),
    while items sit at ~32px (container 12px + item padding-left 20px),
    creating an 8px visual indent for items under headers. */
@@ -439,7 +522,7 @@ html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:visited 
   color: #c0c0c0 !important;
 }
 
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href='/docs/components'] {
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href='/docs/components']:not(.sidebar-nav-link) {
   display: none;
 }
 
@@ -483,13 +566,40 @@ html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-act
 }
 
 /* ── Mobile sidebar drawer — mirrors desktop sidebar styles ── */
+
+/* Lift mobile drawer + its overlay above the sticky navbar (z-index: 12000) */
 #nd-sidebar-mobile {
+  z-index: 12002 !important;
+  top: 64px !important;
   background: var(--color-fd-background);
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-#nd-sidebar-mobile a[href^='/docs/'] {
+/* Let the Fumadocs ScrollArea handle scrolling natively inside the drawer */
+
+/* Overlay: target the fixed backdrop div rendered alongside the mobile sidebar.
+   Use attribute + class selectors to reliably match the overlay div regardless
+   of DOM nesting from Radix Presence wrappers. */
+div[data-state]:has(~ #nd-sidebar-mobile),
+div:has(+ #nd-sidebar-mobile),
+div:has(+ aside#nd-sidebar-mobile) {
+  z-index: 12001 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* When the mobile sidebar is open, keep navbar above the overlay
+   so the X close button in the navbar is accessible. */
+body:has(#nd-sidebar-mobile[data-state='open']) #plex-global-nav {
+  z-index: 12003 !important;
+}
+
+/* Lock body scroll when the mobile drawer is open */
+body:has(#nd-sidebar-mobile[data-state='open']) {
+  overflow: hidden !important;
+}
+
+#nd-sidebar-mobile a[href^='/docs/']:not(.sidebar-nav-link) {
   min-height: 0;
   padding: 6px 12px 6px 20px !important;
   margin: 0;
@@ -504,8 +614,8 @@ html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-act
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/'],
-html.dark #nd-sidebar-mobile a[href^='/docs/'] {
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/']:not(.sidebar-nav-link),
+html.dark #nd-sidebar-mobile a[href^='/docs/']:not(.sidebar-nav-link) {
   color: #c0c0c0;
 }
 
@@ -536,12 +646,12 @@ html.dark #nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover {
   background: rgba(255, 255, 255, 0.14);
 }
 
-#nd-sidebar-mobile a[href^='/docs/'][style] {
+#nd-sidebar-mobile a[href^='/docs/'][style]:not(.sidebar-nav-link) {
   padding-inline-start: 20px !important;
   padding-inline-end: 12px !important;
 }
 
-#nd-sidebar-mobile a[href='/docs/components'] {
+#nd-sidebar-mobile a[href='/docs/components']:not(.sidebar-nav-link) {
   display: none;
 }
 
@@ -574,7 +684,7 @@ html.dark #nd-sidebar-mobile p {
   margin-top: 0;
 }
 
-/* ── Right TOC — OpenAI-matching: 13px, gray, minimal ── */
+/* ── Right TOC — 13px, gray, minimal ── */
 #nd-docs-layout.plex-docs-shell #nd-toc {
   padding-top: 1.25rem;
   padding-right: 1rem;
@@ -606,7 +716,7 @@ html.dark #nd-docs-layout.plex-docs-shell #nd-toc {
   color: inherit;
 }
 
-/* Docs page rhythm and typography — OpenAI-matching scale */
+/* Docs page rhythm and typography */
 #nd-page.plex-docs-page {
   gap: 0;
   max-width: min(100%, 52rem);
@@ -625,7 +735,7 @@ html[data-docs-width='centered'] #nd-page.plex-docs-page {
   margin-bottom: 0.5rem;
 }
 
-/* H1: 30px / 600 — matches OpenAI exactly */
+/* H1: 30px / 600 */
 #nd-page.plex-docs-page .plex-docs-title {
   margin: 0;
   font-size: 30px;
@@ -694,7 +804,7 @@ html[data-docs-width='centered'] #nd-page.plex-docs-page {
   color: var(--color-fd-foreground);
 }
 
-/* Body: 16px / 400, #282828 (rgb(40,40,40)) — matches OpenAI reference exactly */
+/* Body: 16px / 400, #282828 (rgb(40,40,40)) */
 #nd-page.plex-docs-page .plex-docs-body.prose :where(p):not(:where(.not-prose, .not-prose *)) {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -714,7 +824,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose :where(p):not(:where(.no
   margin-bottom: 1rem;
 }
 
-/* Lists: 16px (same as body), #282828 — matches OpenAI reference */
+/* Lists: 16px (same as body), #282828 */
 #nd-page.plex-docs-page .plex-docs-body.prose :where(ul, ol):not(:where(.not-prose, .not-prose *)) {
   margin-top: 0.25rem;
   margin-bottom: 1rem;
@@ -733,7 +843,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose :where(ul, ol):not(:wher
   margin-top: 0.25rem;
 }
 
-/* Inline code in prose: OpenAI-like compact pill */
+/* Inline code in prose: compact pill */
 #nd-page.plex-docs-page .plex-docs-body.prose
   :where(code):not(:where(.not-prose, .not-prose *, pre code)) {
   font-size: 14px;
@@ -753,7 +863,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose
   background: rgb(255 255 255 / 8%);
 }
 
-/* Prose links: no underline, medium weight — matches OpenAI reference */
+/* Prose links: no underline, medium weight */
 #nd-page.plex-docs-page .plex-docs-body.prose :where(a):not(:where(.not-prose, .not-prose *)) {
   font-weight: 500;
   text-decoration: none;
@@ -787,7 +897,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose :where(hr):not(:where(.n
   border-top-color: rgb(255 255 255 / 5%);
 }
 
-/* Callout/Note blocks — OpenAI style: subtle gray bg, no colored border */
+/* Callout/Note blocks — subtle gray bg, no colored border */
 #nd-page.plex-docs-page .plex-docs-body [data-callout] {
   margin: 24px 0;
   padding: 16px 20px;
@@ -818,7 +928,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body [data-callout] p {
   color: var(--color-fd-muted-foreground);
 }
 
-/* ── Prose tables — OpenAI-matching: 14px body, 13px header, 8px padding ── */
+/* ── Prose tables — 14px body, 13px header, 8px padding ── */
 
 #nd-page.plex-docs-page .plex-docs-body.prose
   table:not(:where(.not-prose, .not-prose *)) {
@@ -987,10 +1097,10 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose a.block.rounded-xl.borde
   margin-top: 2rem !important;
 }
 
-/* ── Code blocks: OpenAI-matching style ──
+/* ── Code blocks ──
    Fumadocs figure gets: bg-fd-card rounded-xl border shadow-sm text-sm
    Inner div gets: text-[0.8125rem] py-3.5
-   We override all of these to match https://developers.openai.com/apps-sdk/deploy */
+   We override all of these for Plex UI styling */
 
 #nd-page.plex-docs-page figure.shiki {
   --padding-left: 0px;
@@ -1033,8 +1143,9 @@ figure.shiki > div:has(> button[aria-label='Copied Text']) {
   top: 0 !important;
   right: 0 !important;
   padding: 12px 8px 0 0 !important;
-  background: transparent !important;
-  border-radius: 0 !important;
+  background: var(--docs-code-block-bg) !important;
+  border-radius: 0 10px 0 0 !important;
+  z-index: 2;
   /* Kill Tailwind backdrop-blur-lg by resetting the variable it uses */
   --tw-backdrop-blur: !important;
   backdrop-filter: none !important;
@@ -1118,7 +1229,7 @@ button[aria-label='Copied Text']::after {
   mask-position: center;
 }
 
-/* Copy icon — two overlapping rounded rectangles (OpenAI reference) */
+/* Copy icon — two overlapping rounded rectangles */
 button[aria-label='Copy Text']::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' fill-rule='evenodd' d='M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2V5Zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v2ZM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5Z' clip-rule='evenodd'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' fill-rule='evenodd' d='M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2V5Zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v2ZM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5Z' clip-rule='evenodd'/%3E%3C/svg%3E");
@@ -1154,8 +1265,13 @@ body [data-radix-popper-content-wrapper] {
   display: none !important;
 }
 
+/* Hide the empty Fumadocs header row in the drawer (close button moved to navbar) */
+#nd-sidebar-mobile > div:first-child > div:first-child:has(button[aria-label='Open Sidebar']) {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
-  /* Navbar height stays 64px on mobile — matches OpenAI */
+  /* Navbar height stays 64px on mobile */
 
   #nd-docs-layout.plex-docs-shell #nd-toc {
     border-left: none;

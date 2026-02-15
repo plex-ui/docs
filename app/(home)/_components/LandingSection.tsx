@@ -23,7 +23,7 @@ export function LandingSection({
     <Tag
       id={id}
       data-reveal={dataReveal ? '' : undefined}
-      className={clsx('bg-fd-background px-6 py-16 sm:py-20', className)}
+      className={clsx('bg-fd-background px-6 py-16 md:py-20', className)}
     >
       <div className={clsx('mx-auto', maxWidth === '2xl' ? 'max-w-2xl' : 'max-w-4xl')}>
         {children}
@@ -42,11 +42,11 @@ export function SectionHeading({
 }) {
   return (
     <div className="mb-12 text-center">
-      <h2 className="text-2xl font-semibold tracking-tight text-fd-foreground sm:text-3xl">
+      <h2 className="text-2xl font-semibold tracking-tight text-fd-foreground md:text-3xl">
         {children}
       </h2>
       {description && (
-        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-fd-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-fd-muted-foreground text-balance">
           {description}
         </p>
       )}
