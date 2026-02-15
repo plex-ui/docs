@@ -51,3 +51,12 @@ next-env.d.ts
 /output/
 /scripts/capture_*.py
 **/test-results/
+
+# AI tools & IDE
+.agent/
+.cursor/
+.claude/
+.codex/
+.vscode/
+AGENTS.md
+temp/
