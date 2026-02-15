@@ -145,7 +145,7 @@ export function Hero() {
         {/* CTAs */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <ButtonLink
-            href="/docs/overview/installation"
+            href="/docs/overview/ai-setup"
             color="secondary"
             variant="outline"
             size="lg"

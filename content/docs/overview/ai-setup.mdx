@@ -1,0 +1,78 @@
+---
+title: AI Setup
+description: One prompt to set up Plex UI in any AI code editor
+---
+
+## Set up for AI coding
+
+Copy the prompt below into your AI editor (Claude, Codex, Antigravity, Cursor, etc.) and it will install and configure Plex UI for you.
+
+````markdown
+Install and configure @plexui/ui in this project.
+
+**Step 1 — Install:**
+```bash
+npm install @plexui/ui
+```
+
+**Step 2 — Global stylesheet** (e.g. `main.css` or `globals.css`):
+```css
+@import "tailwindcss";
+@import "@plexui/ui/css";
+@source "../node_modules/@plexui/ui";
+```
+
+**Step 3 — Import the stylesheet before rendering** (e.g. `main.tsx` or `layout.tsx`):
+```tsx
+import "./main.css";
+```
+
+After installation, use Plex UI components like this:
+```tsx
+import { Button } from "@plexui/ui/components/Button";
+import { Input } from "@plexui/ui/components/Input";
+
+<Button color="primary" size="md">Submit</Button>
+<Input placeholder="Email" size="md" />
+```
+
+**Component reference:**
+
+Available components (import from `@plexui/ui/components/[Name]`):
+Alert, Avatar, Badge, Button, ButtonLink, Checkbox, CodeBlock, DatePicker,
+DateRangePicker, EmptyMessage, FieldError, FloatingLabelInput, Icon, Image,
+Indicator, Input, Markdown, Menu, Popover, ProgressSteps, RadioGroup,
+SegmentedControl, Select, SelectControl, ShimmerText, Sidebar, Skeleton,
+Slider, Switch, Tabs, TagInput, TextLink, Textarea, Tooltip.
+
+**Key conventions:**
+- `size` prop uses a 9-step scale: `3xs`, `2xs`, `xs`, `sm`, `md` (default), `lg`, `xl`, `2xl`, `3xl`
+- `color` prop: `primary`, `secondary`, `danger`, `success`, `warning`, `caution`, `discovery`, `info`
+- `variant` prop: `solid`, `soft`, `outline`, `ghost`, `surface`
+- Use Tailwind classes alongside components. Plex UI provides semantic color utilities like `text-primary`, `bg-surface`, `border-default`, `text-secondary`
+- Icons: `import { IconName } from "@plexui/ui/components/Icon"` — 460+ icons available
+- Dark mode works automatically via CSS `light-dark()` — no extra config needed
+
+Full docs: https://plexui.com/docs
+````
+
+### Tips
+
+- **Cursor / Windsurf** — Paste the prompt into chat, or save it as a rule file (`.cursor/rules/plexui.mdc`)
+- **Claude Code** — Paste into chat or add to your `CLAUDE.md` project file
+- **Codex / ChatGPT** — Paste into the system prompt or chat
+
+### What the AI gets
+
+The prompt gives your AI editor everything it needs:
+- Install commands and stylesheet setup
+- Full list of available components
+- The size, color, and variant systems
+- Tailwind utility classes that ship with Plex UI
+- Link to the full documentation for deeper reference
+
+No custom config files, no plugins, no build step beyond the standard Tailwind 4 setup.
+
+---
+
+Prefer to install manually? Follow the [Installation guide](/docs/overview/installation).

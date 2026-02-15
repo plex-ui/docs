@@ -52,7 +52,7 @@ export function ValueProps() {
 
       <SectionCta>
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <ButtonLink href="/docs/overview/installation" color="secondary" variant="outline" size="md" pill={false}>
+          <ButtonLink href="/docs/overview/ai-setup" color="secondary" variant="outline" size="md" pill={false}>
             Set up for AI coding
           </ButtonLink>
           <ButtonLink href="#pricing" color="primary" variant="solid" size="md" pill={false}>

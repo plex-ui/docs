@@ -1,5 +1,5 @@
 {
   "title": "Overview",
   "root": true,
-  "pages": ["index", "installation", "changelog"]
+  "pages": ["index", "ai-setup", "installation", "changelog"]
 }
