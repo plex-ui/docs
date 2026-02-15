@@ -1,6 +1,6 @@
 # Plex UI
 
-The most flexible UI kit for Figma & React. Powered by the design system behind [ChatGPT](https://openai.github.io/apps-sdk-ui/).
+The most flexible UI kit for Figma & React. Production-grade components with pixel-perfect Figma parity.
 
 [Documentation](https://plexui.com) &bull; [Components](https://plexui.com/docs/components) &bull; [Figma Kit](https://plexui.com/#pricing) &bull; [npm](https://www.npmjs.com/package/@plexui/ui)
 

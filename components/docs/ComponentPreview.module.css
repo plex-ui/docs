@@ -178,7 +178,7 @@ html.dark .PreviewInner>[data-demo-controls]> :last-child {
 }
 
 /* ── Code view ── */
-/* Subtle gray background — matches OpenAI reference */
+/* Subtle gray background */
 .CodeBlockWrap {
   background: var(--docs-code-block-bg);
 }

@@ -65,9 +65,9 @@ export const Accordion = () => {
     <div className="max-w-[500px] m-auto">
       <AccordionItem header="Which model should I use?">
         <p>
-          We recommend that developers use GPT-4o or GPT-4o mini for everyday tasks. GPT-4o
-          generally performs better on a wide range of tasks, while GPT-4o mini is fast and
-          inexpensive for simpler tasks. Our o1 reasoning models are ideal for complex, multi-step
+          We recommend starting with our standard model for everyday tasks. The standard model
+          generally performs better on a wide range of tasks, while the mini variant is fast and
+          inexpensive for simpler tasks. Our reasoning models are ideal for complex, multi-step
           tasks and STEM use cases that require deep thinking about tough problems. We recommend
           experimenting with all of these models in the{" "}
           <TextLink underline color="secondary" href="#">

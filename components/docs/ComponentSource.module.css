@@ -33,7 +33,7 @@
   background: transparent !important;
 }
 
-/* Override Fumadocs inner div: match OpenAI 14px/24px, 12px 16px */
+/* Override Fumadocs inner div: 14px/24px, 12px 16px */
 .SourceContainer [role='region'] {
   font-size: 14px !important;
   line-height: 24px !important;

@@ -44,7 +44,7 @@
   /* 14px to a 16px baseline */
   font-weight: var(--font-weight-normal);
   line-height: 1.714em;
-  /* 24px at 14px — matches OpenAI reference */
+  /* 24px at 14px */
 
   /* stylelint-disable selector-class-pattern */
   & :global(.token.property),

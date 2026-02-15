@@ -83,7 +83,7 @@ export default function OGImage() {
           }}
         >
           22,000+ Figma variants. Three-layer token system.
-          The design language behind ChatGPT.
+          9-step size scale. Built for AI code editors.
         </p>
 
         {/* AI editors badge */}

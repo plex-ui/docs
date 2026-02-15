@@ -8,7 +8,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Plex UI — Figma & React Design System for AI Code Editors',
   description:
-    '22,000+ Figma variants built on Figma Variables. The design language behind ChatGPT. Built for Claude, Cursor, Codex & AI-driven workflows. 35 components, 6,600+ icons, three-layer token system.',
+    '22,000+ Figma variants built on Figma Variables. Built for Claude, Cursor, Codex & AI-driven workflows. 35 components, 6,600+ icons, three-layer token system.',
   metadataBase: new URL('https://plexui.com'),
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],

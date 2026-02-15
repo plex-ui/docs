@@ -189,8 +189,8 @@ export function AnimateLayoutAccordionDemo() {
     <div className="max-w-[500px] mx-auto">
       <AccordionItemDemo header="Which model should I use?">
         <p>
-          We recommend that developers use GPT-4o or GPT-4o mini for everyday tasks. GPT-4o
-          generally performs better on a wide range of tasks, while GPT-4o mini is fast and
+          We recommend starting with our standard model for everyday tasks. The standard model
+          generally performs better on a wide range of tasks, while the mini variant is fast and
           inexpensive for simpler tasks. Explore which models provide the best trade-off for your
           usage.
         </p>

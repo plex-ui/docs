@@ -822,7 +822,7 @@ export const WithSearch = () => {
         "Pricing",
         "Libraries",
         "Docs MCP",
-        "Latest: GPT-5.2",
+        "Latest: v5.2",
       ],
     },
     {

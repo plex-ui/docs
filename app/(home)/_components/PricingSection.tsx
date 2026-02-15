@@ -170,7 +170,7 @@ export function PricingSection() {
       </div>
 
       {/* Pricing cards */}
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         {tiers.map((tier) => (
           <PricingCard key={tier.name} tier={tier} />
         ))}

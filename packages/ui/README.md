@@ -1,6 +1,6 @@
 # @plexui/ui
 
-A modern React component library built on the same design foundations as OpenAI's ChatGPT UI. 35 production-ready components, 14 hooks, a three-layer design token system, and a unified 9-step size scale — all powered by Radix primitives and Tailwind CSS 4.
+A modern React component library with 35 production-ready components, 14 hooks, a three-layer design token system, and a unified 9-step size scale — all powered by Radix primitives and Tailwind CSS 4.
 
 [Documentation](https://plexui.com) &bull; [GitHub](https://github.com/plex-ui/docs) &bull; [Figma Kit](https://plexui.com/#pricing)
 
@@ -10,7 +10,7 @@ A modern React component library built on the same design foundations as OpenAI'
 
 ## Highlights
 
-- **Battle-tested at ChatGPT scale** — components validated in a product used by hundreds of millions.
+- **Production-grade** — components designed and tested for real products at scale.
 - **9-step size scale** — all key controls (Button, Input, Select, SegmentedControl, etc.) share a unified `ControlSize` scale from `3xs` (22 px) to `3xl` (48 px). Most competitors offer only 3–4.
 - **Three-layer design tokens** — primitive → semantic → component CSS custom properties with `light-dark()` theming, alpha transparency scale, and 4-level elevation system.
 - **Radix + Tailwind 4** — accessible primitives under the hood, utility-first styling on top.

@@ -4,7 +4,7 @@ import { baseOptions } from '@/lib/layout.shared';
 import { source } from '@/lib/source';
 import { DocsGlobalNav } from '@/components/layout/DocsGlobalNav';
 import { SidebarItemWithBadge } from '@/components/layout/SidebarItemWithBadge';
-import { SidebarSearch } from '@/components/layout/SidebarSearch';
+import { SidebarNav } from '@/components/layout/SidebarNav';
 import { buildDocsTreeNavigation } from '@/lib/docs-navigation';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         tabs: false,
         className: 'plex-docs-sidebar',
         components: { Item: SidebarItemWithBadge },
-        banner: <SidebarSearch />,
+        banner: <SidebarNav sections={docsNavigation.sections} />,
       }}
       containerProps={{
         className: 'plex-docs-shell',

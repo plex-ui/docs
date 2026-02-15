@@ -138,9 +138,7 @@ export function Hero() {
 
         {/* Subtitle */}
         <p className="mt-5 max-w-[38rem] text-base leading-relaxed text-fd-muted-foreground">
-          Powered by the design system behind{' '}
-          <a href="https://openai.github.io/apps-sdk-ui/" target="_blank" rel="noopener noreferrer" className="text-fd-foreground underline decoration-fd-muted-foreground/40 underline-offset-2 hover:decoration-fd-foreground transition-colors">ChatGPT</a>.
-          {' '}Professional Figma library with Variables, 9-size scale, and dark mode.
+          Professional Figma library with Variables, 9-size scale, and dark mode.
           Production-grade React components that Claude, Cursor, and Codex actually follow.
         </p>
 

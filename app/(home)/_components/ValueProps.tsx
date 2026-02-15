@@ -31,7 +31,7 @@ export function ValueProps() {
       </SectionHeading>
 
       {/* Feature cards */}
-      <div className="grid gap-5 sm:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-3">
         {valueProps.map(({ title, description, Icon }) => (
           <div
             key={title}
