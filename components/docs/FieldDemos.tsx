@@ -72,6 +72,7 @@ export function FieldOverviewDemo() {
   const [error, setError] = useState(true);
   const [required, setRequired] = useState(true);
   const [horizontal, setHorizontal] = useState(false);
+  const [pill, setPill] = useState(false);
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
@@ -89,6 +90,7 @@ export function FieldOverviewDemo() {
             ))}
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
         <DemoControlBoolean name="description" value={description} onChange={setDescription} />
         <DemoControlBoolean name="errorMessage" value={error} onChange={setError} />
         <DemoControlBoolean name="required" value={required} onChange={setRequired} />
@@ -104,7 +106,7 @@ export function FieldOverviewDemo() {
             required={required}
             orientation={horizontal ? "horizontal" : "vertical"}
           >
-            <Input placeholder="Enter email..." size={size} />
+            <Input placeholder="Enter email..." size={size} pill={pill} />
           </Field>
         </div>
       </div>
@@ -332,7 +334,7 @@ export function FieldGroupDemo() {
       <div className="pb-6">
         <Field
           label="Responses"
-          description="Get notified when ChatGPT responds to requests that take time, like research or image generation."
+          description="Get notified when the assistant responds to requests that take time, like research or image generation."
         >
           {() => (
             <div className="flex flex-col gap-3 mt-1">

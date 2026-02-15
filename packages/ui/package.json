@@ -1,6 +1,6 @@
 {
   "name": "@plexui/ui",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Modern design system for building high-quality applications",
   "type": "module",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "tailwind",
     "plexui",
     "radix",
-    "chatgpt"
+    "ui-kit"
   ],
   "engines": {
     "node": ">=18"
