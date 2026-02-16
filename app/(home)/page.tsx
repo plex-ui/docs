@@ -9,6 +9,7 @@ import { Hero } from './_components/Hero';
 import { PricingSection } from './_components/PricingSection';
 import { RevealOnScroll } from './_components/RevealOnScroll';
 import { StatsBar } from './_components/StatsBar';
+import { TechStackBar } from './_components/TechStackBar';
 import { ValueProps } from './_components/ValueProps';
 import { SizingSection } from './_components/SizingSection';
 
@@ -18,6 +19,7 @@ export default function LandingPage() {
       <RevealOnScroll>
         <Hero />
         <StatsBar />
+        <TechStackBar />
         <ValueProps />
         <AiFoundationSection />
         <AiCodeComparison />

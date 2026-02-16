@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { ButtonLink } from '@plexui/ui/components/Button';
 import { Check } from 'lucide-react';
+import Link from 'next/link';
 import { LandingSection, SectionHeading } from './LandingSection';
 
 /* ------------------------------------------------------------------ */
@@ -51,6 +52,7 @@ const sharedFeatures = [
 interface Tier {
   name: string;
   price: number;
+  regularPrice: number;
   description: string;
   features: string[];
   cta: string;
@@ -62,6 +64,7 @@ const tiers: Tier[] = [
   {
     name: 'Personal',
     price: 49,
+    regularPrice: 79,
     description: '1 designer, 1 project',
     features: [...sharedFeatures],
     cta: 'Get Personal',
@@ -70,6 +73,7 @@ const tiers: Tier[] = [
   {
     name: 'Team',
     price: 149,
+    regularPrice: 249,
     description: 'Up to 5 designers, unlimited projects',
     features: [...sharedFeatures, 'Priority support'],
     cta: 'Get Team',
@@ -79,6 +83,7 @@ const tiers: Tier[] = [
   {
     name: 'Unlimited',
     price: 299,
+    regularPrice: 499,
     description: 'Unlimited designers & projects',
     features: [...sharedFeatures, 'Priority support', 'White-label OK'],
     cta: 'Get Unlimited',
@@ -117,9 +122,12 @@ function PricingCard({ tier }: { tier: Tier }) {
       </div>
 
       {/* Price */}
-      <div className="mt-3 flex items-baseline gap-1">
+      <div className="mt-3 flex items-baseline gap-2">
         <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
           ${tier.price}
+        </span>
+        <span className="text-lg text-fd-muted-foreground/50 line-through">
+          ${tier.regularPrice}
         </span>
         <span className="text-sm text-fd-muted-foreground">one-time</span>
       </div>
@@ -194,7 +202,15 @@ export function PricingSection() {
       {/* Bottom note */}
       <p className="mt-6 text-center text-xs text-fd-muted-foreground">
         Delivered as a Figma file. Duplicate to your workspace and start designing.
-        The React library (@plexui/ui) is always free on npm.
+        The React library (@plexui/ui) is always free on npm. Compare{' '}
+        <Link href="/compare/shadcn-ui" className="underline underline-offset-2 hover:text-fd-foreground">
+          Plex UI vs shadcn/ui
+        </Link>{' '}
+        and{' '}
+        <Link href="/compare/untitled-ui" className="underline underline-offset-2 hover:text-fd-foreground">
+          Plex UI vs Untitled UI
+        </Link>
+        .
       </p>
     </LandingSection>
   );
