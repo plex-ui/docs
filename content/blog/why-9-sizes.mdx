@@ -1,0 +1,167 @@
+---
+title: Why 9 Button Sizes, Not 4
+description: Four button sizes are fine for demos. Real products need a broader, unified size scale across controls.
+author: Sergey
+date: 2026-02-16
+---
+
+import { SizingOverviewDemo } from "@/components/docs/SizingDemos"
+import { ComponentPreview } from "@/components/docs/ComponentPreview"
+
+Most UI kits stop at three or four button sizes. For quick prototypes, that is enough. For production products that mix dashboards, dense data views, settings forms, and marketing pages, it is not.
+
+The result is familiar: teams start with the built-in sizes, hit layout pressure, then patch with custom heights and paddings. The library still exists, but sizing consistency is gone.
+
+The argument for nine sizes is not visual novelty. It is operational discipline. A complete design system sizes scale gives teams enough precision to avoid one-off overrides while still preserving a coherent rhythm.
+
+Try it — switch between sizes and see how every control responds to the same `size` prop:
+
+<ComponentPreview previewMinHeight={360}>
+  <SizingOverviewDemo />
+</ComponentPreview>
+
+## Where 3-4 sizes break in real products
+
+A small size set usually maps to this:
+
+- `sm` for compact contexts,
+- `default` for standard forms,
+- `lg` for emphasis,
+- optional `icon` variant.
+
+That appears tidy on paper, but products are not tidy. Within one application you may have:
+
+- a data-dense table toolbar,
+- a filter row with limited vertical space,
+- a standard settings form,
+- a mobile-first onboarding step,
+- a hero section with oversized CTA.
+
+Four sizes cannot cover this range without forcing compromises. Either compact areas feel bloated, or marketing actions feel under-emphasized, or engineers start introducing custom height rules.
+
+Once custom sizes enter the codebase, UI component sizes stop being systemic and become local decisions. Local decisions accumulate into inconsistency.
+
+## The 9-step control scale in Plex UI
+
+Plex UI uses a unified button size scale from `3xs` to `3xl`:
+
+- `3xs` 22px
+- `2xs` 24px
+- `xs` 26px
+- `sm` 28px
+- `md` 32px (default)
+- `lg` 36px
+- `xl` 40px
+- `2xl` 44px
+- `3xl` 48px
+
+The important part is not only the number of steps. It is that the same scale applies across primary controls: Button, Input, Select, SelectControl, and SegmentedControl.
+
+A button next to an input no longer requires manual tuning. Their geometry and spacing assumptions come from the same scale contract.
+
+## Why "unified" matters more than "more"
+
+Many teams add extra button sizes but leave other controls on a separate scale. That creates a new mismatch problem:
+
+- button at one height,
+- adjacent field at another,
+- segmented control with different vertical rhythm.
+
+When controls do not share size semantics, designers and engineers spend time negotiating alignment case by case.
+
+A unified scale removes that negotiation. `size="xs"` means the same vertical intent across controls. This is one of the highest leverage improvements for day-to-day implementation speed because it reduces the number of judgment calls in routine layout work.
+
+## Mapping sizes to use cases
+
+A broader button size scale is only useful if teams can apply it predictably. This is the practical mapping we use:
+
+### Dense product surfaces
+
+For dashboards, data tables, and compact side panels:
+
+- primary range: `3xs`, `2xs`, `xs`,
+- occasional `sm` for slightly higher salience.
+
+Goal: maintain information density without sacrificing tap targets in desktop-heavy contexts.
+
+### Core application flows
+
+For forms, settings pages, and most authenticated product interactions:
+
+- primary range: `sm`, `md`, `lg`,
+- default: `md`.
+
+Goal: balanced readability, clear hierarchy, and reliable parity across pages.
+
+### Spacious and promotional contexts
+
+For onboarding, empty states, campaign pages, and hero CTAs:
+
+- primary range: `xl`, `2xl`, `3xl`.
+
+Goal: intentional emphasis with enough visual weight for high-priority actions.
+
+This range-based approach keeps decisions simple while preserving flexibility.
+
+## The math behind the scale
+
+The scale is not linear and not arbitrary.
+
+At smaller sizes, 2px increments (`22`, `24`, `26`, `28`) give precise control in dense contexts where a 4px jump is visually significant. Around the default and above (`32`, `36`, `40`, `44`, `48`), 4px increments maintain clear visual distinction and map better to larger typography and hit areas.
+
+Two design principles are doing the work:
+
+1. **Perceptual granularity at the low end.** Small controls need tighter step resolution.
+2. **Strong separation at the high end.** Larger controls benefit from bigger deltas to avoid looking nearly identical.
+
+Each size also carries default supporting values, not just height:
+
+- horizontal gutter,
+- icon size,
+- font size,
+- radius.
+
+This keeps each size internally coherent. If height changes without corresponding typography and padding adjustments, controls quickly feel awkward.
+
+## Design-to-code parity is easier with explicit sizes
+
+A common design system failure mode is "close enough" translation from Figma to code. The designer picks a visual size; engineering approximates it with nearest available token; differences compound across screens.
+
+With nine explicit sizes shared in both Figma and React, parity becomes mechanical:
+
+- choose a size token in design,
+- apply the same size token in implementation,
+- get matching geometry by default.
+
+This is especially useful when AI tools are involved. Models perform better when size options are explicit and complete, because they can select from known tokens instead of inventing ad-hoc values.
+
+## What happens if you do not offer enough sizes
+
+If your design system sizes are too sparse, teams usually respond with one of three workarounds:
+
+- custom CSS overrides in product code,
+- bespoke component variants per feature,
+- inconsistent use of "small" and "large" to approximate missing steps.
+
+All three increase entropy. Every workaround moves decisions away from the shared system and into individual files.
+
+Over time, maintenance cost rises faster than feature velocity because every new screen has to reconcile old deviations.
+
+## Adoption guidance
+
+Moving from four to nine sizes does not require rewriting your app. It requires clarity and gradual rollout:
+
+1. **Define canonical usage bands.** Document where each range is expected.
+2. **Start with net-new screens.** Avoid broad refactors until the model is proven.
+3. **Refactor hot paths next.** Focus on frequently touched pages where consistency pays back quickly.
+4. **Block arbitrary heights.** Encourage token use by policy and linting.
+
+Within a few iterations, teams stop debating pixels and spend more time on interaction quality.
+
+## Final point
+
+Nine sizes are not about adding complexity. They are about removing unsanctioned complexity that appears when a size system is underspecified.
+
+If your product spans compact operational UI and spacious marketing surfaces, a four-step button size scale will eventually force exceptions. A unified nine-step scale gives you enough room to stay consistent without hacks.
+
+That is the core reason Plex UI standardizes on nine sizes across controls: fewer local overrides, better Figma-to-code parity, and a design language that holds under real-world pressure.

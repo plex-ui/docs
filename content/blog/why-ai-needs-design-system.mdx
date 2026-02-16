@@ -1,0 +1,149 @@
+---
+title: Why Your AI Code Editor Needs a Design System
+description: AI code editors ship UI faster, but without a design system they also ship inconsistency. Here is how to keep quality high.
+author: Sergey
+date: 2026-02-16
+---
+
+import { SizingOverviewDemo } from "@/components/docs/SizingDemos"
+import { ComponentPreview } from "@/components/docs/ComponentPreview"
+
+AI assistants can scaffold UI in minutes. That is real progress, and most teams feel it immediately in week one. The same teams usually hit a wall in month two: screens look "mostly right" but the product starts feeling uneven. Buttons are close, not aligned. Inputs are almost the same height, but not exactly. Spacing looks fine in one panel and crowded in another.
+
+The root issue is not model quality. The issue is missing constraints.
+
+An AI code editor design system is not a nice-to-have wrapper around generated code. It is the boundary condition that turns fast output into durable product UI.
+
+## Speed without constraints creates visual drift
+
+When engineers use AI coding tools without a shared component foundation, the model optimizes for local correctness:
+
+- The requested screen works.
+- The JSX compiles.
+- The Tailwind classes look plausible.
+
+That local optimization is useful in isolation and harmful at scale. The model has no natural concept of your global spacing rhythm, radius scale, semantic color intent, or control sizing standard unless you make those rules explicit in the API it can call.
+
+You can see this pattern quickly in generated pull requests:
+
+- three different button heights in one flow,
+- hardcoded gray values mixed with token colors,
+- one-off border radii,
+- ad-hoc focus rings,
+- custom wrappers that duplicate existing components.
+
+The product still "works," but design debt accumulates faster than implementation debt because visual inconsistency is distributed across every feature.
+
+## Why this hits Claude and Cursor workflows especially hard
+
+Teams searching for claude ui components or a cursor design system are really solving one problem: how to keep AI output aligned across contributors.
+
+Claude and Cursor are great at assembling working code from surrounding context. If the context exposes dozens of ambiguous ways to build a button, the model will choose different ones over time. That variance is not random noise; it is a predictable result of broad solution space.
+
+A design system shrinks the solution space.
+
+Instead of asking the model to invent structure, you ask it to compose known primitives:
+
+- `Button` with defined variants and sizes,
+- `Input` with standardized states,
+- semantic token names instead of hex values,
+- shared layout primitives for spacing and stacking.
+
+Now the editor still writes code quickly, but it writes code into a lane. The lane is what keeps quality from degrading as the project grows.
+
+## Before: AI-generated UI without a system
+
+This is a common output pattern when there is no enforced component API:
+
+```tsx
+<button className="h-10 rounded-md bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700">
+  Save
+</button>
+<button className="h-9 rounded-lg border border-gray-300 px-3 text-[13px] text-gray-700">
+  Cancel
+</button>
+<input className="h-11 rounded-[10px] border border-slate-300 px-3 text-sm" />
+```
+
+Every class looks reasonable in isolation. Together they create a UI with no shared geometry. If another engineer asks AI to build the next screen, you will get another local optimum and another set of near-misses.
+
+## After: AI-generated UI with a system contract
+
+Now compare a prompt that forces composition through Plex UI components and tokens:
+
+```tsx
+<div className="flex items-center gap-2">
+  <Button color="primary" size="md">Save</Button>
+  <Button color="secondary" size="md">Cancel</Button>
+</div>
+<Input size="md" placeholder="Project name" />
+```
+
+The model no longer picks ad-hoc geometry. Size, padding, typography, corner radius, and state styling are inherited from the system. You are moving decisions from each generated snippet into a stable, testable API.
+
+That is what makes AI throughput sustainable.
+
+## The hidden multiplier: unified sizing across controls
+
+Most component libraries expose too few control sizes for real products. If your only options are small, default, and large, AI will keep reaching for custom overrides to satisfy context-specific constraints. That reintroduces inconsistency.
+
+Plex UI uses a nine-step control scale from 22px to 48px across Button, Input, Select, SelectControl, and SegmentedControl. This matters for AI-generated interfaces because the model can pick precise intent without custom CSS:
+
+- compact admin tables use `2xs` and `xs`,
+- standard forms use `md`,
+- touch-priority flows use `xl` to `2xl`,
+- hero CTAs can use `3xl`.
+
+When the size vocabulary is complete, the model has less reason to invent one-off values.
+
+Try switching sizes below — every control responds to the same `size` prop:
+
+<ComponentPreview previewMinHeight={360}>
+  <SizingOverviewDemo />
+</ComponentPreview>
+
+## Token architecture is what stops color and spacing drift
+
+Even with shared components, drift appears if tokens are vague. A robust AI code editor design system should have explicit token layers:
+
+1. Primitive tokens for raw palettes and alpha values.
+2. Semantic tokens for role-based meaning (`text`, `border`, `surface`, `danger`).
+3. Component tokens for per-component behavior.
+
+This architecture gives AI tools a stable map. They do not need to decide between five similar grays or guess whether error text should be hardcoded red. They reference semantic intent and inherit proper light/dark behavior.
+
+In practice, this is the difference between "works on one screen" and "remains coherent across fifty screens."
+
+## Prompting strategy that improves output quality
+
+You do not need complex prompt engineering. You need clear constraints:
+
+- Tell the model to use only system components.
+- Specify the allowed size set.
+- Ban raw hex colors in feature code.
+- Require semantic tokens for states.
+- Ask for no ad-hoc spacing outside the layout primitives.
+
+A short repository guide is enough. Once AI tools repeatedly see these constraints in nearby files, they start producing cleaner first drafts automatically.
+
+## Implementation checklist for teams adopting AI-generated UI
+
+If you are integrating Claude or Cursor into front-end delivery, these steps give immediate leverage:
+
+1. **Standardize import paths.** Keep component imports predictable so the model finds the right primitives.
+2. **Expose a documented size scale.** Include concrete use cases for each size so selection is intentional.
+3. **Use semantic tokens only in product code.** Reserve raw values for token definition files.
+4. **Provide canonical examples.** Keep a small set of reference screens that represent your quality bar.
+5. **Lint for drift.** Add checks that catch forbidden classes, raw colors, and unapproved spacing values.
+
+None of this slows AI down. It channels speed into consistency.
+
+## The practical takeaway
+
+AI coding tools are now good enough to create UI quickly. They are not responsible for preserving your product language. That responsibility remains with the system you define.
+
+If your team is evaluating claude ui components stacks or building a cursor design system workflow, optimize for constraints first and generation second. The model can only be as consistent as the contract you hand it.
+
+Plex UI exists to make that contract explicit: shared components, a full control-size scale, and token architecture that maps cleanly from Figma to React.
+
+Fast output is easy. Repeatable quality requires a system.
