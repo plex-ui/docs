@@ -46,7 +46,7 @@ Plex UI is a production-grade Figma + React design system. 22,000 Figma variants
 - [ ] Check Open Graph images on all key pages (plexui.com, /pricing, /docs/components)
 - [ ] Verify sitemap.xml is generated and submitted to Google Search Console
 - [ ] Set up Google Analytics / Plausible / PostHog for conversion tracking
-- [ ] Set up Lemon Squeezy webhook for purchase notifications
+- [ ] Verify Lemon Squeezy email notifications are enabled (Settings → Email)
 
 ### Asset Prep
 - [ ] Create 3-5 short demo GIFs (see "Visual Assets" below)
