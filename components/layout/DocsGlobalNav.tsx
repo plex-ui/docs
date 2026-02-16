@@ -138,7 +138,7 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
             </svg>
           </button>
 
-          <Link href="/#pricing" className={s.FigmaButton}>
+          <Link href="/pricing" className={s.FigmaButton}>
             Figma Kit
           </Link>
 

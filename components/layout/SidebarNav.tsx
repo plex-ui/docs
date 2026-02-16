@@ -78,7 +78,7 @@ export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
         ))}
       </div>
       <Link
-        href="/#pricing"
+        href="/pricing"
         className="sidebar-nav-cta"
         onClick={closeSidebar}
       >
