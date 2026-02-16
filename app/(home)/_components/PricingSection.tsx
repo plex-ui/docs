@@ -52,7 +52,7 @@ const tiers: Tier[] = [
     description: '1 designer, 1 project',
     features: [...sharedFeatures],
     cta: 'Get Personal',
-    href: 'https://plexui.lemonsqueezy.com/checkout/buy/a4ba7de9-23af-4b85-9974-a5431ee704ed',
+    href: 'https://plexui.lemonsqueezy.com/checkout/buy/073c8848-4cbd-43cc-b09d-78b85171a489',
   },
   {
     name: 'Team',
@@ -60,7 +60,7 @@ const tiers: Tier[] = [
     description: 'Up to 5 designers, unlimited projects',
     features: [...sharedFeatures, 'Priority support'],
     cta: 'Get Team',
-    href: 'https://plexui.lemonsqueezy.com/checkout/buy/a3bb6277-1614-410e-99d7-5f22474a5a95?enabled=1306404',
+    href: 'https://plexui.lemonsqueezy.com/checkout/buy/1384af62-7adc-401c-afae-d199229b21e1',
     highlighted: true,
   },
   {
@@ -69,7 +69,7 @@ const tiers: Tier[] = [
     description: 'Unlimited designers & projects',
     features: [...sharedFeatures, 'Priority support', 'White-label OK'],
     cta: 'Get Unlimited',
-    href: 'https://plexui.lemonsqueezy.com/checkout/buy/b81571bd-d035-44e9-b2b1-de99bac6f01d?enabled=1306417',
+    href: 'https://plexui.lemonsqueezy.com/checkout/buy/73b78ea2-3111-4d9d-8ceb-5b04106cf58e',
   },
 ];
 
