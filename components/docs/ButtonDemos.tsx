@@ -140,7 +140,7 @@ export function ButtonSizingDemo() {
         </DemoControlRow>
         <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
       </div>
-      <div className="flex-1 flex flex-col gap-2 justify-center items-center py-12 w-full" data-demo-stage>
+      <div className="flex-1 flex flex-col gap-2 justify-center items-center py-12 w-full" data-demo-stage style={{ minHeight: 312 }}>
         <Button {...args}>
           <Mail /> Button <ArrowRight />
         </Button>
