@@ -111,17 +111,25 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-fd-border pt-6 text-center text-sm text-fd-muted-foreground">
-          Built by Plex UI. The source code is available on{' '}
+        <div className="mt-12 flex flex-col items-center gap-2 border-t border-fd-border pt-6 text-sm text-fd-muted-foreground">
+          <div>
+            Built by Plex UI. The source code is available on{' '}
+            <a
+              href="https://github.com/plex-ui/ui"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-fd-foreground"
+            >
+              GitHub
+            </a>
+            .
+          </div>
           <a
-            href="https://github.com/plex-ui/ui"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-fd-foreground"
+            href="mailto:plexuikit@gmail.com"
+            className="transition-colors hover:text-fd-foreground"
           >
-            GitHub
+            plexuikit@gmail.com
           </a>
-          .
         </div>
       </div>
     </footer>
