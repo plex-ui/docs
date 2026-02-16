@@ -132,6 +132,7 @@ function PricingCard({ tier }: { tier: Tier }) {
       {/* CTA — lemonsqueezy-button triggers overlay checkout */}
       <div className="mt-5">
         <ButtonLink
+          as="a"
           href={tier.href}
           color={tier.highlighted ? 'primary' : 'secondary'}
           variant={tier.highlighted ? 'solid' : 'outline'}
@@ -139,6 +140,7 @@ function PricingCard({ tier }: { tier: Tier }) {
           pill={false}
           block
           className="lemonsqueezy-button"
+          external={false}
         >
           {tier.cta}
         </ButtonLink>
