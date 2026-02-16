@@ -18,6 +18,19 @@ function useLemonSqueezy() {
     script.defer = true;
     document.head.appendChild(script);
   }, []);
+
+  /* Lock body scroll while the Lemon Squeezy overlay is open */
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const isOpen = document.body.classList.contains('lemonsqueezy-open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => {
+      observer.disconnect();
+      document.body.style.overflow = '';
+    };
+  }, []);
 }
 
 /* ------------------------------------------------------------------ */
