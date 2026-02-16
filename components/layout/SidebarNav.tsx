@@ -43,6 +43,13 @@ export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
     () =>
       [
         { slug: 'home', label: 'Home', href: '/', matchSlugs: undefined as string[] | undefined, active: pathname === '/' },
+        {
+          slug: 'blog',
+          label: 'Blog',
+          href: '/blog',
+          matchSlugs: undefined as string[] | undefined,
+          active: isActivePath(pathname, '/blog'),
+        },
         ...sections.map((item) => ({
           ...item,
           active:
@@ -56,7 +63,7 @@ export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
 
   const closeSidebar = () => setOpen(false);
 
-  const keepSidebarOpen = (e: React.MouseEvent) => {
+  const keepSidebarOpen = () => {
     // Within the same layout, just prevent auto-close
     closeOnRedirect.current = false;
     // Across layouts (home → docs), set a sessionStorage flag
@@ -71,7 +78,7 @@ export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
             key={item.href}
             href={item.href}
             className={`sidebar-nav-link${item.active ? ' sidebar-nav-link-active' : ''}`}
-            onClick={item.href === '/' ? closeSidebar : keepSidebarOpen}
+            onClick={item.href.startsWith('/docs') ? keepSidebarOpen : closeSidebar}
           >
             {item.label}
           </Link>

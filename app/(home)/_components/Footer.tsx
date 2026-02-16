@@ -8,7 +8,8 @@ const footerSections = [
       { label: 'Components', href: '/docs/components' },
       { label: 'For AI Editors', href: '/docs/overview/installation' },
       { label: 'Figma Kit', href: '/pricing' },
-      { label: 'GitHub', href: 'https://github.com/plex-ui/ui', external: true },
+      { label: 'Blog', href: '/blog' },
+      { label: 'GitHub', href: 'https://github.com/plex-ui/docs', external: true },
     ],
   },
   {
@@ -19,6 +20,8 @@ const footerSections = [
       { label: 'Concepts', href: '/docs/concepts' },
       { label: 'Hooks', href: '/docs/hooks' },
       { label: 'Transitions', href: '/docs/transitions' },
+      { label: 'Plex UI vs shadcn/ui', href: '/compare/shadcn-ui' },
+      { label: 'Plex UI vs Untitled UI', href: '/compare/untitled-ui' },
     ],
   },
   {
@@ -115,7 +118,7 @@ export function Footer() {
           <div>
             Built by Plex UI. The source code is available on{' '}
             <a
-              href="https://github.com/plex-ui/ui"
+              href="https://github.com/plex-ui/docs"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-fd-foreground"

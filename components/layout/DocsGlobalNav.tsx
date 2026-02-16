@@ -87,6 +87,12 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
           >
             Home
           </Link>
+          <Link
+            href="/blog"
+            className={`${s.NavLink} ${isActivePath(pathname, '/blog') ? s.NavLinkActive : ''}`.trim()}
+          >
+            Blog
+          </Link>
           {navLinks.map((item) => (
             <Link
               key={item.href}
@@ -113,7 +119,7 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
           </button>
 
           <a
-            href="https://github.com/plex-ui/ui"
+            href="https://github.com/plex-ui/docs"
             target="_blank"
             rel="noopener noreferrer"
             className={s.GitHubLink}
