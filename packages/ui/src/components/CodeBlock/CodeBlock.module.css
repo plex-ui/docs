@@ -9,23 +9,38 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  padding: 2px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  background-color: var(--color-surface-elevated);
-  box-shadow: 0 0 0 1px var(--color-border);
-  color: #24292e;
+  background-color: var(--color-surface-elevated-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* Force the CopyButton to inherit the container's color on all states.
    Ghost hover background (::before) is preserved — it's the correct behavior. */
 .CopyButtonContainer button {
   color: inherit !important;
+  padding: 0 !important;
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  .CopyButtonContainer {
-    color: #d0d0d0;
-  }
+.CopyButtonContainer button::before {
+  opacity: 0 !important;
+  transform: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.CopyButtonContainer button:focus,
+.CopyButtonContainer button:focus-visible {
+  outline: none !important;
+}
+
+.CopyButtonContainer button:focus-visible::after {
+  outline: none !important;
 }
 
 .SyntaxHighlighter {
