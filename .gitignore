@@ -60,3 +60,6 @@ next-env.d.ts
 .vscode/
 AGENTS.md
 temp/
+
+# local figma work
+figma/

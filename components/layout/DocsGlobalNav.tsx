@@ -93,6 +93,12 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
           >
             Blog
           </Link>
+          <Link
+            href="/bridge"
+            className={`${s.NavLink} ${isActivePath(pathname, '/bridge') ? s.NavLinkActive : ''}`.trim()}
+          >
+            Bridge
+          </Link>
           {navLinks.map((item) => (
             <Link
               key={item.href}

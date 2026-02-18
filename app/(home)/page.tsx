@@ -3,6 +3,7 @@
 import { AiCodeComparison } from './_components/AiCodeComparison';
 import { AiFoundationSection } from './_components/AiFoundationSection';
 import { ComparisonSection } from './_components/ComparisonSection';
+import { BridgePromo } from './_components/BridgePromo';
 import { CtaBanner } from './_components/CtaBanner';
 import { FaqSection } from './_components/FaqSection';
 import { Hero } from './_components/Hero';
@@ -18,6 +19,7 @@ export default function LandingPage() {
     <main className="flex flex-1 flex-col">
       <RevealOnScroll>
         <Hero />
+        <BridgePromo />
         <StatsBar />
         <TechStackBar />
         <ValueProps />

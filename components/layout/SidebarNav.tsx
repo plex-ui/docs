@@ -26,7 +26,7 @@ function getSectionSlug(pathname: string) {
 
 export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
   const pathname = usePathname();
-  const { setOpen, closeOnRedirect } = useSidebar();
+  const { setOpen, closeOnRedirect: closeOnRedirectRef } = useSidebar();
 
   // Auto-open sidebar when navigated from another layout with the flag set
   useEffect(() => {
@@ -50,6 +50,13 @@ export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
           matchSlugs: undefined as string[] | undefined,
           active: isActivePath(pathname, '/blog'),
         },
+        {
+          slug: 'bridge',
+          label: 'Bridge',
+          href: '/bridge',
+          matchSlugs: undefined as string[] | undefined,
+          active: isActivePath(pathname, '/bridge'),
+        },
         ...sections.map((item) => ({
           ...item,
           active:
@@ -65,7 +72,7 @@ export function SidebarNav({ sections }: { sections: DocsSectionNavItem[] }) {
 
   const keepSidebarOpen = () => {
     // Within the same layout, just prevent auto-close
-    closeOnRedirect.current = false;
+    closeOnRedirectRef.current = false;
     // Across layouts (home → docs), set a sessionStorage flag
     sessionStorage.setItem('plex-keep-sidebar', '1');
   };
