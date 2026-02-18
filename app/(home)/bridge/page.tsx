@@ -18,11 +18,14 @@ export const metadata: Metadata = {
     description:
       'Two-way Figma bridge for ANY AI model: model can draw in editable Figma and read structure back into code context.',
     url: 'https://plexui.com/bridge',
+    images: [{ url: '/opengraph-image' }],
   },
   twitter: {
+    card: 'summary_large_image',
     title: 'Figma Code↔Design Bridge for ANY AI Model',
     description:
       'Two-way Figma bridge for ANY AI model: model can draw in editable Figma and read structure back into code context.',
+    images: ['/opengraph-image'],
   },
   alternates: {
     canonical: 'https://plexui.com/bridge',

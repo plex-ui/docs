@@ -11,8 +11,11 @@ export const metadata: Metadata = {
     '22,000+ Figma variants built on Figma Variables. Built for Claude, Cursor, Codex & AI-driven workflows. 35 components, 6,600+ icons, three-layer token system.',
   metadataBase: new URL('https://plexui.com'),
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    shortcut: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: [{ url: '/favicon.ico', type: 'image/x-icon' }],
     apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
   openGraph: {
