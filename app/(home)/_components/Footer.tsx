@@ -8,6 +8,7 @@ const footerSections = [
       { label: 'Components', href: '/docs/components' },
       { label: 'For AI Editors', href: '/docs/overview/installation' },
       { label: 'Figma Kit', href: '/pricing' },
+      { label: 'Code↔Design Bridge', href: '/bridge' },
       { label: 'Blog', href: '/blog' },
       { label: 'GitHub', href: 'https://github.com/plex-ui/docs', external: true },
     ],
