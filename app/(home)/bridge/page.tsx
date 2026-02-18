@@ -79,7 +79,7 @@ export default function BridgePage() {
             Bridge uses a model-agnostic local command API, so ANY model can directly create/update real Figma nodes.
             Result: less tooling lock-in, more control, and faster design ↔ code loops.
           </p>
-          <p className="mt-2 text-xs text-fd-muted-foreground">
+          <p className="mt-2 text-sm text-fd-muted-foreground">
             Reference:{' '}
             <a
               href="https://www.figma.com/blog/introducing-claude-code-to-figma/"
@@ -89,6 +89,12 @@ export default function BridgePage() {
             >
               Introducing Claude Code to Figma (Feb 17, 2026)
             </a>
+          </p>
+          <p className="mt-2 text-sm text-fd-muted-foreground">
+            More details:{' '}
+            <Link href="/blog/figma-code-design-bridge-any-model" className="underline underline-offset-2 hover:text-fd-foreground">
+              Figma Code↔Design Bridge for ANY AI model
+            </Link>
           </p>
 
           <div className="mt-7 rounded-xl border border-fd-border p-5">

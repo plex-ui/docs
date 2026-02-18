@@ -1,0 +1,93 @@
+---
+title: Figma Code↔Design Bridge for ANY AI model
+description: How the local Bridge works, why model-agnostic matters, and the exact 2-minute setup for design ↔ code loops.
+author: Sergey
+date: 2026-02-18
+---
+
+Figma now has an official Claude Code to Figma path (announced February 17, 2026).  
+That is useful, but it is Claude-specific.
+
+Figma Code↔Design Bridge follows a different principle:
+
+- model-agnostic local API,
+- direct editable node operations in Figma,
+- two-way flow for design and code.
+
+## What "ANY AI model" means in practice
+
+If your model can call HTTP, it can work with Bridge:
+
+- check connection state,
+- send create/update commands,
+- receive structured JSON responses.
+
+No vendor lock-in to one assistant.
+
+## Two-way flow: Design ↔ Code
+
+Bridge is not just "code to screenshot".  
+It works in both directions:
+
+1. Code/AI → Figma: create and edit real nodes.
+2. Figma → Code/AI: read structure and continue implementation from actual design state.
+
+That is what makes iteration faster. You are not re-describing the UI every turn.
+
+## Local API contract
+
+Use the local endpoint:
+
+```bash
+http://localhost:8867
+```
+
+Then:
+
+```bash
+GET /status
+POST /command
+```
+
+Important:
+
+- send command payload in `params` (not `args`),
+- keep the plugin running in Figma while sending commands.
+
+## 2-minute setup
+
+1. In Figma: Plugins → Development → Import plugin from manifest.
+2. Start bridge launcher:
+   - macOS: `start-bridge.command`
+   - Windows: `start-bridge.bat`
+3. Give your model this instruction:
+
+```bash
+Figma Bridge API: http://localhost:8867
+1) GET /status (connected=true)
+2) POST /command with {"command":"...","params":{...}}
+3) Use params, not args
+```
+
+## Why this workflow is faster
+
+For production UI work, speed depends on loop latency, not one-shot generation quality.
+
+Bridge reduces loop latency because:
+
+- model can apply exact edits instead of re-generating whole screens,
+- changes happen in the same Figma file your team already reviews,
+- API shape is stable and explicit for automation.
+
+## Pricing model
+
+Current model is simple:
+
+- one-time purchase,
+- lifetime access,
+- no subscription.
+
+## Reference
+
+- Official announcement: [Introducing Claude Code to Figma](https://www.figma.com/blog/introducing-claude-code-to-figma/)
+- Product page: [Figma Code↔Design Bridge](/bridge)
