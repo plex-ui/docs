@@ -7,10 +7,12 @@
 
 .CopyButtonContainer {
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 12px 8px 0 0;
-  border-radius: inherit;
+  top: 8px;
+  right: 8px;
+  padding: 2px;
+  border-radius: 8px;
+  background-color: var(--color-surface-elevated);
+  box-shadow: 0 0 0 1px var(--color-border);
   color: #24292e;
 }
 
