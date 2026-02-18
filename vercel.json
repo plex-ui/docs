@@ -1,5 +1,13 @@
 {
   "framework": "nextjs",
   "buildCommand": "cd packages/ui && npm run build && cd ../.. && next build",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "www.plexui.com" }],
+      "destination": "https://plexui.com/:path",
+      "permanent": true
+    }
+  ]
 }
