@@ -5,6 +5,13 @@ import { buildDocsTreeNavigation } from '@/lib/docs-navigation';
 import { source } from '@/lib/source';
 import { Footer } from './_components/Footer';
 import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://plexui.com',
+  },
+};
 
 export default function Layout({ children }: { children: ReactNode }) {
   const docsNavigation = buildDocsTreeNavigation(source.pageTree);

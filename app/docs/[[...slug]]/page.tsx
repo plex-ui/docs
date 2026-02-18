@@ -140,13 +140,19 @@ export function generateStaticParams() {
 
 export async function generateMetadata(props: {
   params: Promise<{ slug?: string[] }>;
-}) {
+}): Promise<import('next').Metadata> {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const slug = params.slug;
+  const canonicalPath = slug ? `/docs/${slug.join('/')}` : '/docs';
+
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: {
+      canonical: `https://plexui.com${canonicalPath}`,
+    },
   };
 }
