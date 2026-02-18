@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { LandingSection } from '../../_components/LandingSection';
 
 export const metadata: Metadata = {
@@ -50,14 +49,6 @@ export default function BridgeSuccessPage() {
             </li>
             <li>6. Run plugin “Figma Code↔Design Bridge” in Figma and verify green status.</li>
           </ol>
-
-          <p className="mt-6 text-sm text-fd-muted-foreground">
-            Need details? See{' '}
-            <Link href="/docs/components/sidebar" className="underline underline-offset-2 hover:text-fd-foreground">
-              docs
-            </Link>{' '}
-            or contact support.
-          </p>
         </div>
       </LandingSection>
     </main>
