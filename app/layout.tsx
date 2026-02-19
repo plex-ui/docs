@@ -1,5 +1,6 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { PlexThemeSync } from '@/components/PlexThemeSync';
@@ -44,6 +45,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </PlexThemeSync>
         </RootProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
