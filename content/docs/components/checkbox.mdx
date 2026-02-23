@@ -60,7 +60,7 @@ import {
 
 ### With description
 
-<ComponentPreview details={<>The <code>label</code> prop accepts <code>ReactNode</code>, so you can compose a label with secondary description text. This is useful for options that need additional context or explanation.</>} code={`<div className="flex flex-col gap-5">
+<ComponentPreview details={<>The <code>label</code> prop accepts <code>ReactNode</code>, so you can compose a label with secondary description text. This is useful for options that need additional context or explanation.</>} code={`<div className="flex flex-col gap-4">
   <Checkbox
     label={
       <div className="flex flex-col">
@@ -212,7 +212,7 @@ const parentChecked = allChecked ? true : noneChecked ? false : "indeterminate";
   <div className="pb-5">
     <Field label="Email notifications" description="Configure which emails you receive.">
       {() => (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
           <Checkbox
             label={
               <div className="flex flex-col">

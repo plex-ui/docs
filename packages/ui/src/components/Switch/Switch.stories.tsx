@@ -7,6 +7,7 @@ const meta: Meta<SwitchProps> = {
   component: Switch,
   argTypes: {
     label: { control: "text" },
+    description: { control: "text" },
     onCheckedChange: { control: false },
     className: { control: false },
     id: { control: false },
@@ -47,6 +48,30 @@ DefaultChecked.args = {
   name: "field-set-as-default",
   defaultChecked: true,
 }
+
+export const WithDescription = (args: SwitchProps) => <Switch {...args} />
+WithDescription.args = {
+  label: "Disable user API keys",
+  description: "Disable user-based API keys across your entire organization.",
+}
+
+export const SettingsPanel = () => (
+  <div className="flex w-full max-w-lg flex-col gap-6">
+    <Switch
+      label="Enable custom providers for evals"
+      description="Allow eval runs to use third-party models you configure under Custom model providers."
+    />
+    <Switch
+      label="Enable OpenRouter models"
+      description="Make OpenRouter models available for evaluation runs."
+    />
+    <Switch
+      label="Disable user API keys"
+      description="Disable user-based API keys across your entire organization."
+      defaultChecked
+    />
+  </div>
+)
 
 export const Controlled = () => {
   const [checked, setChecked] = useState(false)
