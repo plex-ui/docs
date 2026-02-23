@@ -283,7 +283,7 @@ export function CheckboxWithoutLabelDemo() {
 export function CheckboxWithDescriptionDemo() {
   return (
     <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
-      <div className="flex flex-col gap-5 max-w-sm">
+      <div className="flex flex-col gap-4 max-w-sm">
         <Checkbox
           label={
             <div className="flex flex-col">
@@ -395,7 +395,7 @@ export function CheckboxNotificationSettingsDemo() {
         <div className="pb-5">
           <Field label="Email notifications" description="Configure which emails you receive.">
             {() => (
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-4">
                 <Checkbox
                   label={
                     <div className="flex flex-col">

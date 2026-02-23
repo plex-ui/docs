@@ -81,10 +81,12 @@
   }
 }
 
-.Label {
-  cursor: pointer;
+.LabelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 
-  /* Use padding so that the spacing is intrinsic to the label, remaining clickable. */
+  /* Use padding so that the spacing is intrinsic to the group, remaining clickable. */
   [data-label-position="end"] & {
     padding-left: var(--switch-label-gap);
   }
@@ -92,6 +94,34 @@
   [data-label-position="start"] & {
     padding-right: var(--switch-label-gap);
   }
+
+  [data-disabled] & {
+    cursor: not-allowed;
+  }
+}
+
+.Label {
+  cursor: pointer;
+
+  /* Use padding so that the spacing is intrinsic to the label, remaining clickable. */
+  [data-label-position="end"] > & {
+    padding-left: var(--switch-label-gap);
+  }
+
+  [data-label-position="start"] > & {
+    padding-right: var(--switch-label-gap);
+  }
+
+  [data-disabled] & {
+    cursor: not-allowed;
+  }
+}
+
+.Description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-text-xs-size);
+  line-height: var(--font-text-xs-line-height);
+  cursor: pointer;
 
   [data-disabled] & {
     cursor: not-allowed;

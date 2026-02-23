@@ -364,3 +364,36 @@ export function RadioGroupCardSelectionDemo() {
     </RadioGroup>
   );
 }
+
+export function RadioGroupNotificationSettingsDemo() {
+  const [visibility, setVisibility] = useState('owners');
+  const [frequency, setFrequency] = useState('weekly');
+
+  return (
+    <div className="flex flex-col max-w-sm w-full divide-y divide-alpha/15">
+      <div className="pb-5">
+        <Field label="Visibility" description="Control who can see project resources.">
+          {() => (
+            <RadioGroup direction="col" value={visibility} onChange={setVisibility} aria-label="Visibility">
+              <RadioGroup.Item value="hidden">Hidden</RadioGroup.Item>
+              <RadioGroup.Item value="owners">Visible to organization owners</RadioGroup.Item>
+              <RadioGroup.Item value="everyone">Visible to everyone</RadioGroup.Item>
+            </RadioGroup>
+          )}
+        </Field>
+      </div>
+      <div className="pt-5">
+        <Field label="Digest frequency" description="How often you receive summary emails.">
+          {() => (
+            <RadioGroup direction="col" value={frequency} onChange={setFrequency} aria-label="Digest frequency">
+              <RadioGroup.Item value="daily">Daily</RadioGroup.Item>
+              <RadioGroup.Item value="weekly">Weekly</RadioGroup.Item>
+              <RadioGroup.Item value="monthly">Monthly</RadioGroup.Item>
+              <RadioGroup.Item value="never">Never</RadioGroup.Item>
+            </RadioGroup>
+          )}
+        </Field>
+      </div>
+    </div>
+  );
+}

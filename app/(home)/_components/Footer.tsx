@@ -54,7 +54,6 @@ const footerSections = [
       { label: 'Popover', href: '/docs/components/popover' },
       { label: 'Progress Steps', href: '/docs/components/progress-steps' },
       { label: 'Radio Group', href: '/docs/components/radio-group' },
-      { label: 'Segmented Control', href: '/docs/components/segmented-control' },
     ],
   },
   {

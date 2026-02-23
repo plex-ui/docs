@@ -12,8 +12,10 @@ export type SwitchProps = {
   defaultChecked?: boolean
   /** The controlled state of the switch. Must be used in conjunction with `onCheckedChange`. */
   checked?: boolean
-  /** Optional accessible label rendered to the right of the checkbox. */
+  /** Optional accessible label rendered next to the switch. */
   label?: ReactNode
+  /** Optional description rendered below the label. Linked via `aria-describedby`. */
+  description?: ReactNode
   /** Event handler called when the state of the switch changes. */
   onCheckedChange?: (nextState: boolean) => void
   /** Event handler called when the checkbox looses focus. */
@@ -40,6 +42,7 @@ export type SwitchProps = {
 export const Switch = ({
   className,
   label,
+  description,
   id: propsId,
   disabled,
   labelPosition = "end",
@@ -47,6 +50,7 @@ export const Switch = ({
 }: SwitchProps) => {
   const reactId = useId()
   const id = propsId ?? reactId
+  const descriptionId = description ? `${id}-description` : undefined
 
   return (
     <div
@@ -55,14 +59,31 @@ export const Switch = ({
       data-has-label={label ? "" : undefined}
       data-label-position={labelPosition}
     >
-      <RadixSwitch.Root id={id} className={s.Track} disabled={disabled} {...restProps}>
+      <RadixSwitch.Root
+        id={id}
+        className={s.Track}
+        disabled={disabled}
+        aria-describedby={descriptionId}
+        {...restProps}
+      >
         <RadixSwitch.Thumb className={s.Thumb} />
       </RadixSwitch.Root>
 
       {label && (
-        <label htmlFor={id} className={s.Label}>
-          {label}
-        </label>
+        description ? (
+          <div className={s.LabelGroup}>
+            <label htmlFor={id} className={s.Label}>
+              {label}
+            </label>
+            <span id={descriptionId} className={s.Description}>
+              {description}
+            </span>
+          </div>
+        ) : (
+          <label htmlFor={id} className={s.Label}>
+            {label}
+          </label>
+        )
       )}
     </div>
   )

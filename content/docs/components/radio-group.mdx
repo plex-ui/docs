@@ -14,6 +14,7 @@ import {
   RadioGroupWithFieldErrorDemo,
   RadioGroupChoiceCardDemo,
   RadioGroupCardSelectionDemo,
+  RadioGroupNotificationSettingsDemo,
 } from "@/components/docs/RadioGroupDemos"
 
 <UsageBlock>{`import { RadioGroup } from "@plexui/ui/components/RadioGroup";`}</UsageBlock>
@@ -167,6 +168,36 @@ import {
   ...
 </RadioGroup>`} previewMinHeight={168}>
   <RadioGroupCardSelectionDemo />
+</ComponentPreview>
+
+### Grouped sections
+
+<ComponentPreview details={<>Use dividers to separate radio groups into logical sections. Each section can be wrapped in a <code>Field</code> with its own label and description.</>} code={`<div className="flex flex-col max-w-sm w-full divide-y divide-alpha/15">
+  <div className="pb-5">
+    <Field label="Visibility" description="Control who can see project resources.">
+      {() => (
+        <RadioGroup direction="col" value={visibility} onChange={setVisibility} aria-label="Visibility">
+          <RadioGroup.Item value="hidden">Hidden</RadioGroup.Item>
+          <RadioGroup.Item value="owners">Visible to organization owners</RadioGroup.Item>
+          <RadioGroup.Item value="everyone">Visible to everyone</RadioGroup.Item>
+        </RadioGroup>
+      )}
+    </Field>
+  </div>
+  <div className="pt-5">
+    <Field label="Digest frequency" description="How often you receive summary emails.">
+      {() => (
+        <RadioGroup direction="col" value={frequency} onChange={setFrequency} aria-label="Digest frequency">
+          <RadioGroup.Item value="daily">Daily</RadioGroup.Item>
+          <RadioGroup.Item value="weekly">Weekly</RadioGroup.Item>
+          <RadioGroup.Item value="monthly">Monthly</RadioGroup.Item>
+          <RadioGroup.Item value="never">Never</RadioGroup.Item>
+        </RadioGroup>
+      )}
+    </Field>
+  </div>
+</div>`} previewMinHeight={380}>
+  <RadioGroupNotificationSettingsDemo />
 </ComponentPreview>
 
 ## Reference

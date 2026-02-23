@@ -4,7 +4,18 @@ description: Toggle control for on and off states
 ---
 
 import { Switch } from "@plexui/ui/components/Switch"
-import { SwitchControlledDemo } from "@/components/docs/SwitchDemos"
+import { Field } from "@plexui/ui/components/Field"
+import {
+  SwitchControlledDemo,
+  SwitchWithDescriptionDemo,
+  SwitchLabelPositionWithDescriptionDemo,
+  SwitchDisabledWithLabelDemo,
+  SwitchDisabledWithDescriptionDemo,
+  SwitchWithFieldDemo,
+  SwitchWithFieldDescriptionDemo,
+  SwitchSettingsPanelDemo,
+  SwitchNotificationSettingsDemo,
+} from "@/components/docs/SwitchDemos"
 
 <UsageBlock>{`import { Switch } from "@plexui/ui/components/Switch";`}</UsageBlock>
 
@@ -18,8 +29,17 @@ import { SwitchControlledDemo } from "@/components/docs/SwitchDemos"
 
 ### With label
 
-<ComponentPreview details={<>You can add a label to the component by using the <code>label</code> prop. The label will automatically connect to the switch with <code>id</code>.</>} code={`<Switch label="Notifications" />`} previewMinHeight={168}>
+<ComponentPreview details={<>Add a label using the <code>label</code> prop. The label is automatically connected to the switch via <code>id</code>.</>} code={`<Switch label="Notifications" />`} previewMinHeight={168}>
   <Switch label="Notifications" />
+</ComponentPreview>
+
+### With description
+
+<ComponentPreview details={<>Add a <code>description</code> below the label for additional context. Linked to the switch via <code>aria-describedby</code>.</>} code={`<Switch
+  label="Disable user API keys"
+  description="Disable user-based API keys across your entire organization."
+/>`} previewMinHeight={168}>
+  <SwitchWithDescriptionDemo />
 </ComponentPreview>
 
 ### Label position
@@ -28,16 +48,26 @@ import { SwitchControlledDemo } from "@/components/docs/SwitchDemos"
   <Switch label="Right aligned" labelPosition="start" />
 </ComponentPreview>
 
+### Label position with description
+
+<ComponentPreview details={<>The <code>description</code> follows the label position — both move together when <code>{'labelPosition="start"'}</code> is set.</>} code={`<Switch
+  label="Dark mode"
+  description="Use dark theme across the entire application."
+  labelPosition="start"
+/>`} previewMinHeight={168}>
+  <SwitchLabelPositionWithDescriptionDemo />
+</ComponentPreview>
+
 ### Default checked
 
-<ComponentPreview details={<>Initialize the switch with <code>defaultChecked</code> when you don't need to control its state. You can then use the <code>name</code> prop to read the value later on.</>} code={`<Switch name="field-set-as-default" defaultChecked />`} previewMinHeight={168}>
-  <Switch name="field-set-as-default" defaultChecked />
+<ComponentPreview details={<>Initialize the switch with <code>defaultChecked</code> when you don't need to control its state. Use the <code>name</code> prop to read the value on form submission.</>} code={`<Switch label="Enable notifications" name="notifications" defaultChecked />`} previewMinHeight={168}>
+  <Switch label="Enable notifications" name="notifications" defaultChecked />
 </ComponentPreview>
 
 ### Controlled
 
 <ComponentPreview details={<>Pass <code>checked</code> and <code>onCheckedChange</code> to manage the state in a controlled manner.</>} code={`const [checked, setChecked] = useState(false)
-<Switch checked={checked} onCheckedChange={setChecked} />`} previewMinHeight={168}>
+<Switch label="Airplane mode" checked={checked} onCheckedChange={setChecked} />`} previewMinHeight={168}>
   <SwitchControlledDemo />
 </ComponentPreview>
 
@@ -53,16 +83,135 @@ import { SwitchControlledDemo } from "@/components/docs/SwitchDemos"
   </div>
 </ComponentPreview>
 
+### Disabled with label
+
+<ComponentPreview details={<>Disabled state works with labels — both the toggle and the label show a <code>not-allowed</code> cursor.</>} code={`<div className="flex flex-col gap-4">
+  <Switch label="Notifications" disabled />
+  <Switch label="Notifications" disabled defaultChecked />
+</div>`} previewMinHeight={168}>
+  <SwitchDisabledWithLabelDemo />
+</ComponentPreview>
+
+### Disabled with description
+
+<ComponentPreview details={<>Combine <code>disabled</code> with <code>label</code> and <code>description</code> for read-only settings that need explanation.</>} code={`<div className="flex flex-col gap-4">
+  <Switch
+    label="Enable SSO"
+    description="Requires an Enterprise plan to configure."
+    disabled
+  />
+  <Switch
+    label="Two-factor authentication"
+    description="Enforced by organization policy."
+    disabled
+    defaultChecked
+  />
+</div>`} previewMinHeight={200}>
+  <SwitchDisabledWithDescriptionDemo />
+</ComponentPreview>
+
+### With Field
+
+<ComponentPreview details={<>Pair a <code>Switch</code> with <code>Field</code> using <code>orientation="horizontal"</code> for inline toggle settings.</>} code={`<Field label="Marketing emails" orientation="horizontal">
+  {(fieldProps) => (
+    <Switch id={fieldProps.id} checked={enabled} onCheckedChange={setEnabled} />
+  )}
+</Field>`} previewMinHeight={168}>
+  <SwitchWithFieldDemo />
+</ComponentPreview>
+
+### With Field and description
+
+<ComponentPreview details={<>Use <code>Field</code> with <code>description</code> for the settings pattern with a section heading, description, and a labeled switch underneath.</>} code={`<Field
+  label="Access Control"
+  description="Disable user-based API keys across your entire organization. You can also choose to disable them on a project-by-project basis if needed."
+>
+  {(fieldProps) => (
+    <Switch
+      id={fieldProps.id}
+      label="Disable user API keys"
+      checked={enabled}
+      onCheckedChange={setEnabled}
+    />
+  )}
+</Field>`} previewMinHeight={200}>
+  <SwitchWithFieldDescriptionDemo />
+</ComponentPreview>
+
+### Settings panel
+
+<ComponentPreview details={<>Combine <code>label</code> and <code>description</code> to build settings-style toggle panels.</>} code={`<div className="flex w-full max-w-lg flex-col gap-8">
+  <Switch
+    label="Enable custom providers for evals"
+    description="Allow eval runs to use third-party models you configure under Custom model providers."
+  />
+  <Switch
+    label="Enable OpenRouter models"
+    description="Make OpenRouter models available for evaluation runs."
+  />
+  <Switch
+    label="Disable user API keys"
+    description="Disable user-based API keys across your entire organization."
+    defaultChecked
+  />
+</div>`} previewMinHeight={240}>
+  <SwitchSettingsPanelDemo />
+</ComponentPreview>
+
+### Grouped sections
+
+<ComponentPreview details={<>Use dividers to separate switch groups into logical sections. Each section can be wrapped in a <code>Field</code> with its own label and description.</>} code={`<div className="w-full max-w-lg divide-y divide-alpha/15">
+  <div className="pb-5">
+    <Field label="Notifications" description="Configure how you receive notifications.">
+      {() => (
+        <div className="flex flex-col gap-4">
+          <Switch
+            label="Push notifications"
+            description="Receive push notifications on your devices."
+            defaultChecked
+          />
+          <Switch
+            label="Email notifications"
+            description="Get notified via email for important updates."
+          />
+        </div>
+      )}
+    </Field>
+  </div>
+  <div className="pt-5">
+    <Field label="Privacy" description="Control your data sharing preferences.">
+      {() => (
+        <div className="flex flex-col gap-4">
+          <Switch
+            label="Share usage data"
+            description="Help us improve by sharing anonymous usage statistics."
+          />
+          <Switch
+            label="Personalized content"
+            description="Allow personalized recommendations based on your activity."
+            defaultChecked
+          />
+        </div>
+      )}
+    </Field>
+  </div>
+</div>`} previewMinHeight={400}>
+  <SwitchNotificationSettingsDemo />
+</ComponentPreview>
+
 ## Reference
 
 <PropsTable data={[
   { prop: "checked", type: "boolean", description: "Controlled state" },
   { prop: "defaultChecked", type: "boolean", description: "Initial state (uncontrolled)" },
   { prop: "onCheckedChange", type: "(next: boolean) => void", description: "Called when toggled" },
-  { prop: "label", type: "ReactNode", description: "Accessible label" },
+  { prop: "label", type: "ReactNode", description: "Accessible label rendered next to the switch" },
+  { prop: "description", type: "ReactNode", description: "Secondary text below the label, linked via aria-describedby" },
   { prop: "labelPosition", type: '"start" | "end"', default: '"end"', description: "Label on left (start) or right (end)" },
   { prop: "disabled", type: "boolean", default: "false", description: "Prevent interaction" },
-  { prop: "required", type: "boolean", description: "Required for form" },
+  { prop: "required", type: "boolean", description: "Required for form submission" },
   { prop: "name", type: "string", description: "Form field name" },
   { prop: "value", type: "string", description: "Value when submitted" },
+  { prop: "className", type: "string", description: "CSS classes applied to wrapper node" },
+  { prop: "id", type: "string", description: "The id of the switch element" },
 ]} />
