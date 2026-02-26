@@ -99,8 +99,21 @@ export default async function Page(props: {
     .join(' ');
 
   const MDX = page.data.body;
+  const pageUrl = `https://plexui.com${page.url}`;
+  const dateModified = (page.data as { lastModified?: Date }).lastModified?.toISOString();
 
   const toc = showRightToc ? (tocItems ?? []) : [];
+
+  const techArticleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: page.data.title,
+    description: page.data.description,
+    url: pageUrl,
+    ...(dateModified && { dateModified }),
+    publisher: { '@type': 'Organization', name: 'Plex UI', url: 'https://plexui.com' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  };
 
   return (
     <DocsPageWithMobileTOC
@@ -110,6 +123,10 @@ export default async function Page(props: {
       className={pageClassName}
       footer={{ enabled: false }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
       <script
         dangerouslySetInnerHTML={{
           __html: `document.documentElement.setAttribute('data-docs-left-sidebar','${showLeftSidebar ? 'on' : 'off'}');document.documentElement.setAttribute('data-docs-right-sidebar','${showRightToc ? 'on' : 'off'}');`,
