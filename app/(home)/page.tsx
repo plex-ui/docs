@@ -13,10 +13,12 @@ import { StatsBar } from './_components/StatsBar';
 import { TechStackBar } from './_components/TechStackBar';
 import { ValueProps } from './_components/ValueProps';
 import { SizingSection } from './_components/SizingSection';
+import { HomeJsonLd } from './HomeJsonLd';
 
 export default function LandingPage() {
   return (
     <main className="flex flex-1 flex-col">
+      <HomeJsonLd />
       <RevealOnScroll>
         <Hero />
         <BridgePromo />

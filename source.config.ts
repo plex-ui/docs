@@ -4,6 +4,7 @@ import {
   defineCollections,
   frontmatterSchema,
 } from 'fumadocs-mdx/config';
+import lastModified from 'fumadocs-mdx/plugins/last-modified';
 import { z } from 'zod';
 
 export const docs = defineDocs({
@@ -19,4 +20,6 @@ export const blog = defineCollections({
   }),
 });
 
-export default defineConfig();
+export default defineConfig({
+  plugins: [lastModified()],
+});

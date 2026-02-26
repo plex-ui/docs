@@ -58,9 +58,30 @@ export default async function BlogPostPage(props: {
   if (!page) notFound();
 
   const MDX = page.data.body;
+  const pageUrl = `https://plexui.com${page.url}`;
+  const datePublished = parseDate(page.data.date).toISOString();
+  const dateModified =
+    (page.data as { lastModified?: Date }).lastModified?.toISOString() ?? datePublished;
+
+  const blogPostingJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: page.data.title,
+    description: page.data.description,
+    url: pageUrl,
+    datePublished,
+    dateModified,
+    author: { '@type': 'Person', name: page.data.author },
+    publisher: { '@type': 'Organization', name: 'Plex UI', url: 'https://plexui.com' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  };
 
   return (
     <main className="flex flex-1 flex-col bg-fd-background px-6 py-12 md:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
       <div className="mx-auto w-full max-w-3xl">
         <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground transition-colors hover:text-fd-foreground">
           <ArrowLeft className="size-3.5" />
