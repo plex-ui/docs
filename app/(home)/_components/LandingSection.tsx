@@ -16,16 +16,19 @@ export function LandingSection({
   id?: string;
   className?: string;
   as?: 'section' | 'div';
-  maxWidth?: '2xl' | '4xl';
+  maxWidth?: '2xl' | '4xl' | '5xl';
   'data-reveal'?: boolean;
 }) {
+  const widthClass =
+    maxWidth === '2xl' ? 'max-w-2xl' : maxWidth === '5xl' ? 'max-w-5xl' : 'max-w-4xl';
+
   return (
     <Tag
       id={id}
       data-reveal={dataReveal ? '' : undefined}
       className={clsx('bg-fd-background px-6 py-16 md:py-20', className)}
     >
-      <div className={clsx('mx-auto', maxWidth === '2xl' ? 'max-w-2xl' : 'max-w-4xl')}>
+      <div className={clsx('mx-auto', widthClass)}>
         {children}
       </div>
     </Tag>
