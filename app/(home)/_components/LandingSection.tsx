@@ -16,11 +16,11 @@ export function LandingSection({
   id?: string;
   className?: string;
   as?: 'section' | 'div';
-  maxWidth?: '2xl' | '4xl' | '5xl';
+  maxWidth?: '2xl' | '4xl' | '5xl' | '6xl';
   'data-reveal'?: boolean;
 }) {
-  const widthClass =
-    maxWidth === '2xl' ? 'max-w-2xl' : maxWidth === '5xl' ? 'max-w-5xl' : 'max-w-4xl';
+  const widthMap = { '2xl': 'max-w-2xl', '4xl': 'max-w-4xl', '5xl': 'max-w-5xl', '6xl': 'max-w-6xl' };
+  const widthClass = widthMap[maxWidth];
 
   return (
     <Tag
