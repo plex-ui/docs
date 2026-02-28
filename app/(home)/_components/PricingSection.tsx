@@ -6,6 +6,8 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { LandingSection, SectionHeading } from './LandingSection';
 
+const FREE_FIGMA_HREF = 'https://www.figma.com/design/PQKPSNsPWw7vKXoCpNKYM4/Plex-UI---Free';
+
 /* ------------------------------------------------------------------ */
 /*  Lemonsqueezy embed script                                          */
 /* ------------------------------------------------------------------ */
@@ -49,18 +51,35 @@ const sharedFeatures = [
   'Lifetime updates',
 ];
 
+const freeFeatures = [
+  'Core Figma components',
+  'Figma Variables',
+  'Dark & light themes',
+  'Auto-layout',
+];
+
 interface Tier {
   name: string;
-  price: number;
-  regularPrice: number;
+  price: number | null;
+  regularPrice?: number;
   description: string;
   features: string[];
   cta: string;
   href: string;
   highlighted?: boolean;
+  external?: boolean;
 }
 
 const tiers: Tier[] = [
+  {
+    name: 'Community',
+    price: null,
+    description: 'Explore Plex UI in Figma',
+    features: freeFeatures,
+    cta: 'Get Free Kit',
+    href: FREE_FIGMA_HREF,
+    external: true,
+  },
   {
     name: 'Personal',
     price: 49,
@@ -116,20 +135,34 @@ function PricingCard({ tier }: { tier: Tier }) {
         <h3 className="text-sm font-semibold text-fd-foreground">
           {tier.name}
         </h3>
-        <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-          Launch price
-        </span>
+        {tier.price != null ? (
+          <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+            Launch price
+          </span>
+        ) : (
+          <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+            Free
+          </span>
+        )}
       </div>
 
       {/* Price */}
       <div className="mt-3 flex items-baseline gap-2">
-        <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
-          ${tier.price}
-        </span>
-        <span className="text-lg text-fd-muted-foreground/50 line-through">
-          ${tier.regularPrice}
-        </span>
-        <span className="text-sm text-fd-muted-foreground">one-time</span>
+        {tier.price != null ? (
+          <>
+            <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
+              ${tier.price}
+            </span>
+            <span className="text-lg text-fd-muted-foreground/50 line-through">
+              ${tier.regularPrice}
+            </span>
+            <span className="text-sm text-fd-muted-foreground">one-time</span>
+          </>
+        ) : (
+          <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
+            $0
+          </span>
+        )}
       </div>
 
       {/* Description */}
@@ -137,7 +170,7 @@ function PricingCard({ tier }: { tier: Tier }) {
         {tier.description}
       </p>
 
-      {/* CTA — lemonsqueezy-button triggers overlay checkout */}
+      {/* CTA */}
       <div className="mt-5">
         <ButtonLink
           as="a"
@@ -147,8 +180,9 @@ function PricingCard({ tier }: { tier: Tier }) {
           size="md"
           pill={false}
           block
-          className="lemonsqueezy-button"
-          external={false}
+          {...(tier.external
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : { className: 'lemonsqueezy-button', external: false })}
         >
           {tier.cta}
         </ButtonLink>
@@ -178,7 +212,7 @@ export function PricingSection() {
   useLemonSqueezy();
 
   return (
-    <LandingSection id="pricing" data-reveal>
+    <LandingSection id="pricing" maxWidth="5xl" data-reveal>
       <SectionHeading
         description="22,000+ production-ready variants, a three-layer token system, and full Figma Variables from day one. Pay once, get lifetime updates."
       >
@@ -189,11 +223,11 @@ export function PricingSection() {
         <span className="font-medium text-emerald-600 dark:text-emerald-400">
           The React library is free and open-source.
         </span>
-        {' '}These plans are for the Figma design system only.
+        {' '}These plans are for the Figma design system. A free starter is also available.
       </div>
 
       {/* Pricing cards */}
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {tiers.map((tier) => (
           <PricingCard key={tier.name} tier={tier} />
         ))}
