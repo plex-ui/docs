@@ -212,7 +212,7 @@ export function PricingSection() {
   useLemonSqueezy();
 
   return (
-    <LandingSection id="pricing" maxWidth="5xl" data-reveal>
+    <LandingSection id="pricing" maxWidth="6xl" data-reveal>
       <SectionHeading
         description="22,000+ production-ready variants, a three-layer token system, and full Figma Variables from day one. Pay once, get lifetime updates."
       >
