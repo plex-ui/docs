@@ -46,7 +46,7 @@ export type FloatingLabelInputProps = {
    * @default false
    */
   allowAutofillExtensions?: boolean
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "placeholder">
+} & React.InputHTMLAttributes<HTMLInputElement>
 
 export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInputProps>(
   function FloatingLabelInput(props, ref) {
