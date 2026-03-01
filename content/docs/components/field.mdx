@@ -25,6 +25,8 @@ import {
   FieldValidationDemo,
   FieldFormExampleDemo,
   FieldOpticalAlignDemo,
+  FieldBirthdaySegmentedDemo,
+  FieldBirthdaySelectDemo,
 } from "@/components/docs/FieldDemos"
 
 <UsageBlock>{`import { Field } from "@plexui/ui/components/Field";`}</UsageBlock>
@@ -282,6 +284,32 @@ For controls that need explicit prop wiring, pass a function as `children`. The 
   <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
 </div>`} previewMinHeight={168}>
   <FieldFormExampleDemo />
+</ComponentPreview>
+
+### Birthday segmented input
+
+<ComponentPreview details={<>Three compact <code>Input</code> controls composed as month/day/year with auto-advance behavior, wrapped in a <code>Field</code> for shared label and accessibility.</>} code={`<Field label="Birthday">
+  <div className="flex items-center gap-2">
+    <Input value={month} placeholder="MM" maxLength={2} className="w-[56px]" />
+    <span>/</span>
+    <Input value={day} placeholder="DD" maxLength={2} className="w-[56px]" />
+    <span>/</span>
+    <Input value={year} placeholder="YYYY" maxLength={4} className="w-[80px]" />
+  </div>
+</Field>`} previewMinHeight={168}>
+  <FieldBirthdaySegmentedDemo />
+</ComponentPreview>
+
+### Birthday with selects
+
+<ComponentPreview details={<>Dropdown birthday picker with Month/Day/Year selects inside a labeled <code>Field</code> group.</>} code={`<Field label="Birthday">
+  <div className="flex gap-2">
+    <Select placeholder="Month" options={monthOptions} />
+    <Select placeholder="Day" options={dayOptions} />
+    <Select placeholder="Year" options={yearOptions} />
+  </div>
+</Field>`} previewMinHeight={168}>
+  <FieldBirthdaySelectDemo />
 </ComponentPreview>
 
 ## Reference
