@@ -7,6 +7,8 @@ import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput"
 import {
   FloatingLabelInputWithClearButtonDemoWithControls,
   FloatingLabelInputDisabledDemoWithControls,
+  FloatingLabelInputBirthdayDemo,
+  FloatingLabelInputAboutYouFormDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
 
 <UsageBlock>{`import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput";`}</UsageBlock>
@@ -128,6 +130,97 @@ import {
   <div className="w-[360px]">
     <FloatingLabelInput label="Password" type="password" />
   </div>
+</ComponentPreview>
+
+### Birthday input
+
+<ComponentPreview details={<>A date-of-birth input with inline formatting that inserts separators as you type (<code>MM / DD / YYYY</code>).</>} code={`const [birthday, setBirthday] = useState("")
+
+<FloatingLabelInput
+  label="Birthday"
+  value={birthday}
+  maxLength={14}
+  onChange={(evt) => setBirthday(formatBirthdayValue(evt.target.value))}
+/>`} previewMinHeight={168}>
+  <FloatingLabelInputBirthdayDemo />
+</ComponentPreview>
+
+### Birthday with validation
+
+<ComponentPreview details={<>Use <code>invalid</code> and <code>errorMessage</code> to display the OpenAI-style birthday validation state.</>} code={`<FloatingLabelInput
+  label="Birthday"
+  defaultValue="02 / 30 / 2001"
+  invalid
+  errorMessage="Please enter a valid date."
+/>`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput
+      label="Birthday"
+      defaultValue="02 / 30 / 2001"
+      invalid
+      errorMessage="Please enter a valid date."
+    />
+  </div>
+</ComponentPreview>
+
+### Birthday states
+
+<ComponentPreview details={<>Overview of birthday input states.</>} code={`<div className="flex flex-col items-center gap-8 py-8">
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
+    <FloatingLabelInput label="Birthday" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
+    <FloatingLabelInput label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
+    <FloatingLabelInput invalid label="Birthday" defaultValue="02 / 30 / 2001" className="w-[320px]" />
+  </div>
+  <div className="flex items-center">
+    <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
+    <FloatingLabelInput disabled label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
+  </div>
+</div>`} previewMinHeight={168}>
+  <div className="flex flex-col items-center gap-8 py-8">
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
+      <FloatingLabelInput label="Birthday" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
+      <FloatingLabelInput label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
+      <FloatingLabelInput invalid label="Birthday" defaultValue="02 / 30 / 2001" className="w-[320px]" />
+    </div>
+    <div className="flex items-center">
+      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
+      <FloatingLabelInput disabled label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
+    </div>
+  </div>
+</ComponentPreview>
+
+### About You form
+
+<ComponentPreview details={<>A complete signup-style composition matching the OpenAI about-you page — with heading, description, floating-label inputs, inline birthday validation, and a full-width submit button.</>} code={`const [fullName, setFullName] = useState("")
+const [birthday, setBirthday] = useState("")
+
+<form className="flex flex-col gap-2">
+  <FloatingLabelInput label="Full name" value={fullName} onChange={...} />
+  <FloatingLabelInput
+    label="Birthday"
+    placeholder="MM / DD / YYYY"
+    value={birthday}
+    maxLength={14}
+    invalid={!!birthdayError}
+    onChange={...}
+  />
+  <Button color="primary" type="submit" className="mt-4 h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={280}>
+  <FloatingLabelInputAboutYouFormDemo />
 </ComponentPreview>
 
 ## Reference
