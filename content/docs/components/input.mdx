@@ -16,6 +16,8 @@ import {
   InputAutofillExtensionsDemo,
   InputOpticalAlignDemo,
   InputWithButtonDemo,
+  InputBirthdaySegmentedDemo,
+  InputBirthdaySelectDemo,
 } from "@/components/docs/InputDemos"
 
 <UsageBlock>{`import { Input } from "@plexui/ui/components/Input";`}</UsageBlock>
@@ -161,6 +163,40 @@ Use `opticallyAlign` with either `"start"` or `"end"` to offset the gutter, alig
 </ComponentPreview>
 
 Input shares the unified 9-step size scale with Button, Select, SelectControl, and SegmentedControl — set the same `size` on adjacent controls and they'll align perfectly.
+
+### Birthday segmented input
+
+<ComponentPreview details={<>Three compact <code>Input</code> controls composed as month/day/year with auto-advance behavior.</>} code={`const [month, setMonth] = useState("")
+const [day, setDay] = useState("")
+const [year, setYear] = useState("")
+
+<div className="w-[320px]">
+  <Field label="Birthday">
+    <div className="flex items-center gap-2">
+      <Input value={month} placeholder="MM" maxLength={2} className="w-[56px]" />
+      <span>/</span>
+      <Input value={day} placeholder="DD" maxLength={2} className="w-[56px]" />
+      <span>/</span>
+      <Input value={year} placeholder="YYYY" maxLength={4} className="w-[80px]" />
+    </div>
+  </Field>
+</div>`} previewMinHeight={168}>
+  <InputBirthdaySegmentedDemo />
+</ComponentPreview>
+
+### Birthday with selects
+
+<ComponentPreview details={<>OpenAI-style dropdown birthday mode with Month/Day/Year selects inside one labeled field group.</>} code={`<Field label="Birthday">
+  <div className="flex gap-2">
+    <Select placeholder="Month" options={monthOptions} />
+    <Select placeholder="Day" options={dayOptions} />
+    <Select placeholder="Year" options={yearOptions} />
+  </div>
+</Field>`} previewMinHeight={168}>
+  <InputBirthdaySelectDemo />
+</ComponentPreview>
+
+
 
 ## Reference
 
