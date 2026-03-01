@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Input } from '@plexui/ui/components/Input';
 import { Button } from '@plexui/ui/components/Button';
 import { Field } from '@plexui/ui/components/Field';
+import { Select } from '@plexui/ui/components/Select';
 import { Switch } from '@plexui/ui/components/Switch';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Search } from '@plexui/ui/components/Icon';
@@ -57,6 +58,34 @@ function DemoControlRow({ name, children }: { name: string; children: React.Reac
 
 const SIZE_OPTIONS = ['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const;
 const GUTTER_OPTIONS = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+const BIRTHDAY_MONTH_OPTIONS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+].map((month, index) => ({
+  label: month,
+  value: String(index + 1).padStart(2, '0'),
+}));
+
+const BIRTHDAY_DAY_OPTIONS = Array.from({ length: 31 }, (_, index) => {
+  const day = String(index + 1).padStart(2, '0');
+  return { label: day, value: day };
+});
+
+const BIRTHDAY_YEAR_OPTIONS = Array.from({ length: 2025 - 1920 + 1 }, (_, index) => {
+  const year = String(2025 - index);
+  return { label: year, value: year };
+});
 
 export function InputSizingDemo() {
   const [username, setUsername] = useState('');
@@ -330,3 +359,124 @@ export function InputWithButtonDemo() {
     </>
   );
 }
+
+export function InputBirthdaySegmentedDemo() {
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
+  const [year, setYear] = useState('');
+
+  const dayRef = useRef<HTMLInputElement>(null);
+  const yearRef = useRef<HTMLInputElement>(null);
+
+  const handleSegmentChange = (
+    rawValue: string,
+    maxLength: number,
+    setValue: (value: string) => void,
+    nextRef?: React.RefObject<HTMLInputElement | null>,
+  ) => {
+    const nextValue = rawValue.replace(/\D/g, '').slice(0, maxLength);
+    setValue(nextValue);
+
+    if (nextRef && nextValue.length === maxLength) {
+      nextRef.current?.focus();
+    }
+  };
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[320px]">
+        <Field label="Birthday">
+          <div className="flex items-center gap-2">
+            <Input
+              value={month}
+              onChange={(evt) => handleSegmentChange(evt.target.value, 2, setMonth, dayRef)}
+              placeholder="MM"
+              inputMode="numeric"
+              maxLength={2}
+              size="md"
+              variant="outline"
+              className="w-[56px]"
+            />
+            <span className="text-secondary">/</span>
+            <Input
+              ref={dayRef}
+              value={day}
+              onChange={(evt) => handleSegmentChange(evt.target.value, 2, setDay, yearRef)}
+              placeholder="DD"
+              inputMode="numeric"
+              maxLength={2}
+              size="md"
+              variant="outline"
+              className="w-[56px]"
+            />
+            <span className="text-secondary">/</span>
+            <Input
+              ref={yearRef}
+              value={year}
+              onChange={(evt) => handleSegmentChange(evt.target.value, 4, setYear)}
+              placeholder="YYYY"
+              inputMode="numeric"
+              maxLength={4}
+              size="md"
+              variant="outline"
+              className="w-[80px]"
+            />
+          </div>
+        </Field>
+      </div>
+    </div>
+  );
+}
+
+export function InputBirthdaySelectDemo() {
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
+  const [year, setYear] = useState('');
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[320px]">
+        <Field label="Birthday">
+          {(fieldProps) => (
+            <div className="flex gap-2">
+              <div className="w-[130px]">
+                <Select
+                  id={fieldProps.id}
+                  value={month}
+                  options={BIRTHDAY_MONTH_OPTIONS}
+                  placeholder="Month"
+                  size="md"
+                  variant="outline"
+                  onChange={(option) => setMonth(option.value)}
+                />
+              </div>
+              <div className="w-[84px]">
+                <Select
+                  value={day}
+                  options={BIRTHDAY_DAY_OPTIONS}
+                  placeholder="Day"
+                  size="md"
+                  variant="outline"
+                  onChange={(option) => setDay(option.value)}
+                  aria-label="Day"
+                />
+              </div>
+              <div className="w-[108px]">
+                <Select
+                  value={year}
+                  options={BIRTHDAY_YEAR_OPTIONS}
+                  placeholder="Year"
+                  size="md"
+                  variant="outline"
+                  onChange={(option) => setYear(option.value)}
+                  aria-label="Year"
+                />
+              </div>
+            </div>
+          )}
+        </Field>
+      </div>
+    </div>
+  );
+}
+
