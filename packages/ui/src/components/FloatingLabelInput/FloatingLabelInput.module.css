@@ -138,6 +138,11 @@
   opacity: 0;
 }
 
+.FieldFootprint[data-focused] .Input::placeholder {
+  opacity: 1;
+  color: var(--color-text-tertiary);
+}
+
 .Input:disabled {
   cursor: not-allowed;
 }
