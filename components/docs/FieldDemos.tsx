@@ -601,6 +601,7 @@ export function FieldBirthdaySegmentedDemo() {
               maxLength={2}
               size="md"
               variant="outline"
+              autoComplete="off"
               className="w-[56px]"
             />
             <span className="text-secondary">/</span>
@@ -613,6 +614,7 @@ export function FieldBirthdaySegmentedDemo() {
               maxLength={2}
               size="md"
               variant="outline"
+              autoComplete="off"
               className="w-[56px]"
             />
             <span className="text-secondary">/</span>
@@ -625,6 +627,7 @@ export function FieldBirthdaySegmentedDemo() {
               maxLength={4}
               size="md"
               variant="outline"
+              autoComplete="off"
               className="w-[80px]"
             />
           </div>
