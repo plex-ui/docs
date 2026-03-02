@@ -285,13 +285,13 @@ export function SelectColumnConfigDemo() {
                   onClick={() => toggle(col.id)}
                 >
                   <span className="text-sm">{col.label}</span>
-                  <Switch checked onCheckedChange={() => toggle(col.id)} />
+                  <Switch checked />
                 </div>
               ))}
             </div>
           )}
           {hiddenColumns.length > 0 && (
-            <div className={shownColumns.length > 0 ? 'mt-1 border-t border-alpha/10 pt-1' : ''}>
+            <div>
               <div className="px-3 py-1.5 text-xs font-medium text-tertiary uppercase tracking-wide">
                 Hidden attributes
               </div>
@@ -302,7 +302,7 @@ export function SelectColumnConfigDemo() {
                   onClick={() => toggle(col.id)}
                 >
                   <span className="text-sm text-tertiary">{col.label}</span>
-                  <Switch checked={false} onCheckedChange={() => toggle(col.id)} />
+                  <Switch checked={false} />
                 </div>
               ))}
             </div>
