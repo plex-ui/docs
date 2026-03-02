@@ -275,9 +275,6 @@ export function SelectColumnConfigDemo() {
         <div className="py-1.5">
           {shownColumns.length > 0 && (
             <div>
-              <div className="px-3 py-1.5 text-xs font-medium text-tertiary uppercase tracking-wide">
-                Shown attributes
-              </div>
               {shownColumns.map((col) => (
                 <div
                   key={col.id}
@@ -292,9 +289,6 @@ export function SelectColumnConfigDemo() {
           )}
           {hiddenColumns.length > 0 && (
             <div>
-              <div className="px-3 py-1.5 text-xs font-medium text-tertiary uppercase tracking-wide">
-                Hidden attributes
-              </div>
               {hiddenColumns.map((col) => (
                 <div
                   key={col.id}
