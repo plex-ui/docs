@@ -126,34 +126,30 @@ const roles = [
 
 ### Column configuration
 
-<ComponentPreview details={<>A column-visibility panel built with <code>Popover</code> and <code>Switch</code>. Attributes are split into <strong>Shown</strong> and <strong>Hidden</strong> groups &mdash; toggling a switch moves the column between sections.</>} code={`const [shown, setShown] = useState(['name', 'email', 'role', 'status'])
-
+<ComponentPreview details={<>A column-visibility panel built with <code>Popover</code> and <code>Switch</code>. Toggling a switch moves the column between shown and hidden groups.</>} code={`const [shown, setShown] = useState(['name', 'email', 'role', 'status'])
 const toggle = (id) => {
   setShown((prev) =>
     prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
   )
 }
-
 const shownColumns = allColumns.filter((c) => shown.includes(c.id))
 const hiddenColumns = allColumns.filter((c) => !shown.includes(c.id))
-
-<Popover>
   <Popover.Trigger>
     <Button variant="outline" size="sm"><SettingsSlider /> Columns</Button>
   </Popover.Trigger>
   <Popover.Content minWidth={240} side="bottom" align="start">
-    <section>
-      <h4>Shown attributes</h4>
-      {shownColumns.map((col) => (
-        <Switch key={col.id} label={col.label} checked onCheckedChange={() => toggle(col.id)} />
-      ))}
-    </section>
-    <section>
-      <h4>Hidden attributes</h4>
-      {hiddenColumns.map((col) => (
-        <Switch key={col.id} label={col.label} checked={false} onCheckedChange={() => toggle(col.id)} />
-      ))}
-    </section>
+    {shownColumns.map((col) => (
+      <Row key={col.id} onClick={() => toggle(col.id)}>
+        <span>{col.label}</span>
+        <Switch checked />
+      </Row>
+    ))}
+    {hiddenColumns.map((col) => (
+      <Row key={col.id} onClick={() => toggle(col.id)}>
+        <span className="text-tertiary">{col.label}</span>
+        <Switch checked={false} />
+      </Row>
+    ))}
   </Popover.Content>
 </Popover>`} previewMinHeight={168}>
   <SelectColumnConfigDemo />
