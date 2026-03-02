@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import { Plus, User, UserLock, Workspace } from '@plexui/ui/components/Icon';
+import { Plus, SettingsSlider, User, UserLock, Workspace } from '@plexui/ui/components/Icon';
 import { Select } from '@plexui/ui/components/Select';
+import { Popover } from '@plexui/ui/components/Popover';
+import { Switch } from '@plexui/ui/components/Switch';
+import { Button } from '@plexui/ui/components/Button';
 
 const fruitsOptions = [
   { label: 'Apple', value: 'apple' },
@@ -229,5 +232,83 @@ export function SelectMultiSelectDemo() {
         TriggerView={MultiFruitTriggerView}
       />
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Column configuration demo (Popover + Switch)
+// ---------------------------------------------------------------------------
+
+const ALL_COLUMNS = [
+  { id: 'name', label: 'Name' },
+  { id: 'email', label: 'Email' },
+  { id: 'role', label: 'Role' },
+  { id: 'status', label: 'Status' },
+  { id: 'created', label: 'Created at' },
+  { id: 'lastLogin', label: 'Last login' },
+  { id: 'avatar', label: 'Avatar' },
+  { id: 'phone', label: 'Phone' },
+];
+
+const DEFAULT_SHOWN_COLUMNS = ['name', 'email', 'role', 'status'];
+
+export function SelectColumnConfigDemo() {
+  const [shown, setShown] = useState<string[]>(DEFAULT_SHOWN_COLUMNS);
+
+  const toggle = (id: string) => {
+    setShown((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
+    );
+  };
+
+  const shownColumns = ALL_COLUMNS.filter((c) => shown.includes(c.id));
+  const hiddenColumns = ALL_COLUMNS.filter((c) => !shown.includes(c.id));
+
+  return (
+    <Popover>
+      <Popover.Trigger>
+        <Button color="secondary" variant="outline" size="sm">
+          <SettingsSlider width={15} height={15} /> Columns
+        </Button>
+      </Popover.Trigger>
+      <Popover.Content minWidth={240} side="bottom" align="start">
+        <div className="py-1.5">
+          {shownColumns.length > 0 && (
+            <div>
+              <div className="px-3 py-1.5 text-xs font-medium text-tertiary uppercase tracking-wide">
+                Shown attributes
+              </div>
+              {shownColumns.map((col) => (
+                <div
+                  key={col.id}
+                  className="flex items-center justify-between gap-4 px-3 py-1.5 cursor-pointer hover:bg-alpha/5"
+                  onClick={() => toggle(col.id)}
+                >
+                  <span className="text-sm">{col.label}</span>
+                  <Switch checked onCheckedChange={() => toggle(col.id)} />
+                </div>
+              ))}
+            </div>
+          )}
+          {hiddenColumns.length > 0 && (
+            <div className={shownColumns.length > 0 ? 'mt-1 border-t border-alpha/10 pt-1' : ''}>
+              <div className="px-3 py-1.5 text-xs font-medium text-tertiary uppercase tracking-wide">
+                Hidden attributes
+              </div>
+              {hiddenColumns.map((col) => (
+                <div
+                  key={col.id}
+                  className="flex items-center justify-between gap-4 px-3 py-1.5 cursor-pointer hover:bg-alpha/5"
+                  onClick={() => toggle(col.id)}
+                >
+                  <span className="text-sm text-tertiary">{col.label}</span>
+                  <Switch checked={false} onCheckedChange={() => toggle(col.id)} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </Popover.Content>
+    </Popover>
   );
 }
