@@ -193,44 +193,181 @@ const CountryTriggerView = ({ value }) => {
 
 ### Phone form
 
-<ComponentPreview details={<>Country selector and phone input composed into a form. Changing the country updates the dial code prefix automatically and clears the phone field. Validation runs on submit &mdash; the phone field shows an error state with <code>FieldError</code> when the number is too short or too long.</>} code={`<form onSubmit={handleSubmit} noValidate>
-  <div className="flex flex-col gap-2">
-    <Select
-      value={country}
-      options={countries}
-      onChange={handleCountryChange}
-      placeholder="Select country..."
-      size="lg"
-      pill
-      block
-      TriggerView={CountryTriggerView}
-      searchPredicate={searchPredicate}
+<ComponentPreview details={<>Country selector with flag icons and phone input composed into a form. Selecting a country updates the dial code prefix and clears the phone field. Phone numbers are formatted as you type using per-country patterns (e.g. <code>123 456 7890</code> for US, <code>1234 567 890</code> for UK). Search works by both country name and dial code. Validation runs on submit &mdash; the phone field shows an error state with <code>FieldError</code> when the number is too short or too long.</>} code={`import { useState, useCallback, useRef } from 'react';
+import { Input } from '@plexui/ui/components/Input';
+import { Select, type Option } from '@plexui/ui/components/Select';
+import { Button } from '@plexui/ui/components/Button';
+import { FieldError } from '@plexui/ui/components/FieldError';
+
+// Country data — include all 245 countries in production
+type Country = { value: string; label: string; dialCode: string; flag: string };
+
+const COUNTRIES: Country[] = [
+  { value: 'us', label: 'United States', dialCode: '+1', flag: '🇺🇸' },
+  { value: 'gb', label: 'United Kingdom', dialCode: '+44', flag: '🇬🇧' },
+  { value: 'de', label: 'Germany', dialCode: '+49', flag: '🇩🇪' },
+  { value: 'fr', label: 'France', dialCode: '+33', flag: '🇫🇷' },
+  { value: 'es', label: 'Spain', dialCode: '+34', flag: '🇪🇸' },
+  { value: 'it', label: 'Italy', dialCode: '+39', flag: '🇮🇹' },
+  { value: 'jp', label: 'Japan', dialCode: '+81', flag: '🇯🇵' },
+  { value: 'au', label: 'Australia', dialCode: '+61', flag: '🇦🇺' },
+  { value: 'br', label: 'Brazil', dialCode: '+55', flag: '🇧🇷' },
+  { value: 'in', label: 'India', dialCode: '+91', flag: '🇮🇳' },
+  // ... full list of 245 countries
+];
+
+const COUNTRY_LOOKUP = new Map(COUNTRIES.map((c) => [c.value, c]));
+const COUNTRY_OPTIONS = COUNTRIES.map((c) => ({
+  ...c,
+  label: \`\${c.label} (\${c.dialCode})\`,
+}));
+
+// Per-country phone number format patterns
+const PHONE_FORMATS: Record<string, number[]> = {
+  us: [3, 3, 4], ca: [3, 3, 4],   // 123 456 7890
+  gb: [4, 3, 3], de: [3, 4, 4],   // 1234 567 890 | 123 4567 8901
+  fr: [1, 2, 2, 2, 2],            // 1 23 45 67 89
+  es: [3, 2, 2, 2],               // 123 45 67 89
+  it: [3, 3, 4], jp: [2, 4, 4],
+  au: [3, 3, 3], br: [2, 5, 4],
+  in: [5, 5],                      // 12345 67890
+  // ... add more countries as needed
+};
+
+function formatPhoneNumber(raw: string, countryCode?: string) {
+  const digits = raw.replace(/\\D/g, '');
+  if (!digits) return '';
+  const format = (countryCode && PHONE_FORMATS[countryCode]) || [3, 3, 4];
+  const groups: string[] = [];
+  let i = 0;
+  for (const size of format) {
+    if (i >= digits.length) break;
+    groups.push(digits.slice(i, i + size));
+    i += size;
+  }
+  if (i < digits.length) groups.push(digits.slice(i));
+  return groups.join(' ');
+}
+
+// Flag icon — CDN-hosted country flag PNGs
+function FlagIcon({ code, trigger }: { code: string; trigger?: boolean }) {
+  return (
+    <img
+      src={\`https://flagcdn.com/w40/\${code}.png\`}
+      srcSet={\`https://flagcdn.com/w80/\${code}.png 2x\`}
+      alt=""
+      loading="lazy"
+      style={{
+        display: 'block',
+        height: trigger ? 'var(--start-icon-size, 18px)' : 16,
+        aspectRatio: '4 / 3',
+        borderRadius: 2,
+        objectFit: 'contain',
+      }}
     />
-    <div>
-      <Input
-        value={phone}
-        onChange={handlePhoneChange}
-        placeholder="Phone number"
-        type="tel"
-        inputMode="tel"
-        size="lg"
-        pill
-        invalid={showError}
-        startAdornment={
-          <span className="text-tertiary whitespace-nowrap select-none">
-            {dialCode}
-          </span>
-        }
-      />
-      {showError && (
+  );
+}
+
+// Custom trigger and option renderers
+const CountryTriggerView = ({ value }: Option) => {
+  const country = COUNTRY_LOOKUP.get(value);
+  if (!country) return null;
+  return (
+    <span style={{ display: 'flex', alignItems: 'center', gap: 8, height: '100%' }}>
+      <FlagIcon code={value} trigger />
+      {country.label} ({country.dialCode})
+    </span>
+  );
+};
+
+const CountryOptionView = ({ value, label }: Option) => (
+  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+    <FlagIcon code={value} />
+    {label}
+  </span>
+);
+
+// Search matches country name or dial code
+const searchPredicate = (option: Option, term: string) => {
+  const country = COUNTRY_LOOKUP.get(option.value);
+  if (!country) return false;
+  return (
+    country.label.toLowerCase().includes(term) ||
+    country.dialCode.includes(term)
+  );
+};
+
+function PhoneForm() {
+  const [country, setCountry] = useState('us');
+  const [phone, setPhone] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const phoneRef = useRef<HTMLInputElement>(null);
+
+  const dialCode = COUNTRY_LOOKUP.get(country)?.dialCode ?? '+1';
+  const digits = phone.replace(/\\D/g, '');
+  const isValid = digits.length >= 7 && digits.length <= 15;
+  const showError = submitted && !isValid;
+
+  const handleCountryChange = useCallback((option: Option) => {
+    setCountry(option.value);
+    setPhone('');
+    setSubmitted(false);
+    setTimeout(() => phoneRef.current?.focus(), 0);
+  }, []);
+
+  const handlePhoneChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPhone(formatPhoneNumber(e.target.value.replace(/\\D/g, ''), country));
+      setSubmitted(false);
+    },
+    [country]
+  );
+
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} noValidate>
+      <div className="flex flex-col gap-2">
+        <Select
+          value={country}
+          options={COUNTRY_OPTIONS}
+          onChange={handleCountryChange}
+          placeholder="Select country..."
+          size="lg"
+          pill
+          block
+          searchPlaceholder="Search countries..."
+          searchPredicate={searchPredicate}
+          TriggerView={CountryTriggerView}
+          OptionView={CountryOptionView}
+          listMinWidth={300}
+        />
+        <div>
+          <Input
+            ref={phoneRef}
+            value={phone}
+            onChange={handlePhoneChange}
+            placeholder="Phone number"
+            type="tel"
+            inputMode="tel"
+            size="lg"
+            pill
+            invalid={showError}
+            startAdornment={
+              <span className="text-tertiary whitespace-nowrap select-none">
+                {dialCode}
+              </span>
+            }
+          />
+          {showError && (
         <FieldError className="mt-1.5">Phone number is not valid.</FieldError>
-      )}
-    </div>
-  </div>
+          )}
+        </div>
+      </div>
   <Button type="submit" color="primary" variant="solid" size="lg" pill className="w-full mt-3">
-    Continue
-  </Button>
-</form>`} previewMinHeight={240}>
+        Continue
+      </Button>
+    </form>
+  );
+}`} previewMinHeight={240}>
   <PhoneFormDemo />
 </ComponentPreview>
 
