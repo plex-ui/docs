@@ -144,11 +144,11 @@ function BirthdayMaskedInput({
               {maskParts.before}
             </span>
           )}
-          {/* Active segment placeholder (blue highlight) */}
+          {/* Active segment placeholder (accent highlight) */}
           {maskParts.highlight && (
             <span
               style={{
-                backgroundColor: 'var(--floating-input-border-color-focus)',
+                backgroundColor: 'var(--color-background-primary-solid)',
                 color: 'white',
                 whiteSpace: 'pre',
                 borderRadius: '3px',
