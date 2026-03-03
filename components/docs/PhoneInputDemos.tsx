@@ -303,7 +303,7 @@ const PHONE_FORMATS: Record<string, number[]> = {
 const DEFAULT_PHONE_FORMAT = [3, 3, 4];
 
 // ============================================================
-// Flag icon component (CDN-hosted PNG flags)
+// Flag icon component (SVG flags from lipis/flag-icons, all 4:3)
 // ============================================================
 
 function FlagIcon({ code, trigger }: { code: string; trigger?: boolean }) {
@@ -319,15 +319,13 @@ function FlagIcon({ code, trigger }: { code: string; trigger?: boolean }) {
       }}
     >
       <img
-        src={`https://flagcdn.com/h24/${code}.png`}
-        srcSet={`https://flagcdn.com/h40/${code}.png 2x`}
+        src={`https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.5.0/flags/4x3/${code}.svg`}
         alt=""
         loading="lazy"
         style={{
           display: 'block',
           width: '100%',
           height: '100%',
-          objectFit: 'cover',
         }}
       />
     </span>
