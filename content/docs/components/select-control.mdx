@@ -260,9 +260,8 @@ function FlagIcon({ code, trigger }: { code: string; trigger?: boolean }) {
       style={{
         display: 'block',
         height: trigger ? 'var(--start-icon-size, 18px)' : 16,
-        aspectRatio: '4 / 3',
+        width: 'auto',
         borderRadius: 2,
-        objectFit: 'contain',
       }}
     />
   );
