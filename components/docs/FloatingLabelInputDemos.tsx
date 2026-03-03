@@ -19,21 +19,25 @@ function getDigits(value: string): string {
 
 /**
  * Format raw digits into "MM / DD / YYYY" with partial support.
+ * When a segment is complete (2 digits for month, 4 for month+day),
+ * the trailing separator is included so the cursor advances past it.
  */
 function formatBirthdayValue(rawValue: string): string {
   const digits = getDigits(rawValue);
   const month = digits.slice(0, 2);
   const day = digits.slice(2, 4);
   const year = digits.slice(4, 8);
-  if (digits.length <= 2) return month;
-  if (digits.length <= 4) return `${month} / ${day}`;
+  if (digits.length < 2) return month;
+  if (digits.length === 2) return `${month} / `;
+  if (digits.length < 4) return `${month} / ${day}`;
+  if (digits.length === 4) return `${month} / ${day} / `;
   return `${month} / ${day} / ${year}`;
 }
 
 /**
  * Build the visible mask suffix that appears after the typed text.
- * E.g. typed "12" -> value is "12" -> mask suffix is " / DD / YYYY"
- *      typed "1"  -> value is "1"  -> mask suffix is "M / DD / YYYY"
+ * E.g. typed "12" -> value is "12 / " -> mask suffix is "DD / YYYY"
+ *      typed "1"  -> value is "1"     -> mask suffix is "M / DD / YYYY"
  */
 function getMaskSuffix(formattedValue: string): string {
   if (formattedValue.length >= MASK.length) return '';
@@ -93,9 +97,18 @@ function BirthdayMaskedInput({
 
   const handleChange = useCallback(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(formatBirthdayValue(evt.target.value));
+      const raw = evt.target.value;
+      const newDigits = getDigits(raw);
+      const oldDigits = getDigits(value);
+      // Backspace through a separator: raw got shorter but digit count unchanged
+      if (raw.length < value.length && newDigits.length === oldDigits.length) {
+        const trimmed = newDigits.slice(0, -1);
+        onChange(formatBirthdayValue(trimmed));
+      } else {
+        onChange(formatBirthdayValue(raw));
+      }
     },
-    [onChange],
+    [onChange, value],
   );
 
   const maskSuffix = getMaskSuffix(value);
