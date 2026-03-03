@@ -307,23 +307,30 @@ const DEFAULT_PHONE_FORMAT = [3, 3, 4];
 // ============================================================
 
 function FlagIcon({ code, trigger }: { code: string; trigger?: boolean }) {
-  // In trigger context: height follows --start-icon-size CSS variable from SelectControl,
-  // so the flag matches the standard icon height at each control size.
-  // In option/standalone context: fixed 16px height for dropdown items.
   return (
-    <img
-      src={`https://flagcdn.com/w40/${code}.png`}
-      srcSet={`https://flagcdn.com/w80/${code}.png 2x`}
-      alt=""
-      loading="lazy"
+    <span
       style={{
         display: 'block',
         height: trigger ? 'var(--start-icon-size, 18px)' : 16,
-        width: trigger ? 'auto' : 24,
-        objectFit: trigger ? undefined : 'contain',
+        aspectRatio: '4 / 3',
         borderRadius: 2,
+        overflow: 'hidden',
+        flexShrink: 0,
       }}
-    />
+    >
+      <img
+        src={`https://flagcdn.com/h24/${code}.png`}
+        srcSet={`https://flagcdn.com/h40/${code}.png 2x`}
+        alt=""
+        loading="lazy"
+        style={{
+          display: 'block',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+        }}
+      />
+    </span>
   );
 }
 
@@ -431,6 +438,15 @@ const CountryNameTriggerView = ({ value, label }: Option) => {
   return (
     <span style={{ display: 'flex', alignItems: 'center', gap: 8, height: '100%', overflow: 'hidden', whiteSpace: 'nowrap' }}>
       <FlagIcon code={value} trigger />
+      {label}
+    </span>
+  );
+};
+
+const CountryNameOptionView = ({ value, label }: Option) => {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, verticalAlign: 'middle', lineHeight: 0 }}>
+      <FlagIcon code={value} />
       {label}
     </span>
   );
@@ -566,7 +582,7 @@ export function CountrySelectorDemo() {
             block
             searchPlaceholder="Search countries..."
             TriggerView={CountryNameTriggerView}
-            OptionView={CountryNameTriggerView}
+            OptionView={CountryNameOptionView}
             listMinWidth={300}
             optionClassName={COUNTRY_OPTION_CLASS}
           />
