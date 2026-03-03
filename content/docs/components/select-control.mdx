@@ -18,6 +18,11 @@ import {
   SelectControlOpticalAlignmentDemo,
 } from "@/components/docs/SelectControlDemos"
 import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+import {
+  CountryCodeSelectorDemo,
+  PhoneFormDemo,
+  CountrySelectorDemo,
+} from "@/components/docs/PhoneInputDemos"
 
 <UsageBlock>{`import { SelectControl } from "@plexui/ui/components/SelectControl";`}</UsageBlock>
 
@@ -119,6 +124,114 @@ return (
 
 <ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter of the control.</>} code={`<SelectControl selected variant="ghost" opticallyAlign="start">Ghost control</SelectControl>`} previewMinHeight={292}>
   <SelectControlOpticalAlignmentDemo />
+</ComponentPreview>
+
+
+
+### Country selector
+
+<ComponentPreview details={<>A plain country selector built with <code>Select</code>. Shows flag icons with country names — no dial codes. Useful for profile forms, shipping addresses, and other country-only fields.</>} code={`const countries = [
+  { value: "us", label: "United States" },
+  { value: "gb", label: "United Kingdom" },
+  // ...60 countries
+];
+
+const CountryView = ({ value }) => (
+  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+    <img src={\`https://flagcdn.com/w20/\${value}.png\`} width={20} />
+    {countries.find(c => c.value === value)?.label}
+  </span>
+);
+
+<Select
+  value={country}
+  options={countries}
+  onChange={(option) => setCountry(option.value)}
+  placeholder="Select country..."
+  size="lg"
+  pill
+  block
+  searchable
+  TriggerView={CountryView}
+  listMinWidth={300}
+/>`} previewMinHeight={168}>
+  <CountrySelectorDemo />
+</ComponentPreview>
+
+### Country code selector
+
+<ComponentPreview details={<>A searchable country selector built with <code>Select</code>. Custom <code>TriggerView</code> and <code>OptionView</code> render flag icons and dial codes. Search matches both country name and dial code.</>} code={`const countries = [
+  { value: "us", label: "United States (+1)", dialCode: "+1" },
+  { value: "gb", label: "United Kingdom (+44)", dialCode: "+44" },
+  // ...60 countries
+];
+
+const CountryTriggerView = ({ value }) => {
+  const country = lookup.get(value);
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      <img src={\`https://flagcdn.com/w20/\${value}.png\`} width={20} />
+      {country.label} ({country.dialCode})
+    </span>
+  );
+};
+
+<Select
+  value={country}
+  options={countries}
+  onChange={(option) => setCountry(option.value)}
+  placeholder="Select country..."
+  size="lg"
+  pill
+  block
+  searchPredicate={searchPredicate}
+  TriggerView={CountryTriggerView}
+  listMinWidth={300}
+/>`} previewMinHeight={168}>
+  <CountryCodeSelectorDemo />
+</ComponentPreview>
+
+### Phone form
+
+<ComponentPreview details={<>Country selector and phone input composed into a form. Changing the country updates the dial code prefix automatically and clears the phone field. Validation runs on submit &mdash; the phone field shows an error state with <code>FieldError</code> when the number is too short or too long.</>} code={`<form onSubmit={handleSubmit} noValidate>
+  <div className="flex flex-col gap-2">
+    <Select
+      value={country}
+      options={countries}
+      onChange={handleCountryChange}
+      placeholder="Select country..."
+      size="lg"
+      pill
+      block
+      TriggerView={CountryTriggerView}
+      searchPredicate={searchPredicate}
+    />
+    <div>
+      <Input
+        value={phone}
+        onChange={handlePhoneChange}
+        placeholder="Phone number"
+        type="tel"
+        inputMode="tel"
+        size="lg"
+        pill
+        invalid={showError}
+        startAdornment={
+          <span className="text-tertiary whitespace-nowrap select-none">
+            {dialCode}
+          </span>
+        }
+      />
+      {showError && (
+        <FieldError className="mt-1.5">Phone number is not valid.</FieldError>
+      )}
+    </div>
+  </div>
+  <Button type="submit" color="primary" variant="solid" size="lg" pill className="w-full mt-3">
+    Continue
+  </Button>
+</form>`} previewMinHeight={240}>
+  <PhoneFormDemo />
 </ComponentPreview>
 
 ## Reference
