@@ -130,10 +130,10 @@
     --floating-input-background: var(--color-surface);
     --floating-input-border-color: light-dark(rgb(0 0 0 / 15%), rgb(255 255 255 / 16%));
     --floating-input-border-color-hover: light-dark(rgb(0 0 0 / 20%), rgb(255 255 255 / 24%));
-    --floating-input-border-color-focus: light-dark(#3e68ff, #6f8dff);
+    --floating-input-border-color-focus: var(--alpha-50);
     --floating-input-border-color-invalid: var(--color-border-danger-outline);
     --floating-input-label-color: var(--color-text-tertiary);
-    --floating-input-label-color-focus: light-dark(#3e68ff, #6f8dff);
+    --floating-input-label-color-focus: var(--color-text);
     --floating-input-label-color-invalid: var(--color-text-danger-outline);
     --floating-input-transition-duration: 80ms;
     --floating-input-label-scale: 0.88;
