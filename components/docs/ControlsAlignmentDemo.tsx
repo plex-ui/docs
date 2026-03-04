@@ -27,10 +27,11 @@ const controlLabelStyle: React.CSSProperties = {
 };
 
 const DIRECTION_OPTIONS = ['row', 'col'] as const;
-
+const BOOL_OPTIONS = ['true', 'false'] as const;
 export function ControlsAlignmentDemo() {
   const [direction, setDirection] = useState<'row' | 'col'>('row');
-
+  const [showDesc, setShowDesc] = useState<'true' | 'false'>('true');
+  const hasDescription = showDesc === 'true';
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
@@ -51,6 +52,23 @@ export function ControlsAlignmentDemo() {
             </SegmentedControl>
           </div>
         </div>
+        <div style={controlRowStyle}>
+          <span style={controlLabelStyle}>description</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <SegmentedControl<'true' | 'false'>
+              value={showDesc}
+              onChange={setShowDesc}
+              aria-label="description"
+              size="xs"
+            >
+              {BOOL_OPTIONS.map((d) => (
+                <SegmentedControl.Option key={d} value={d}>
+                  {d}
+                </SegmentedControl.Option>
+              ))}
+            </SegmentedControl>
+          </div>
+        </div>
       </div>
       <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
         <div className="flex flex-col gap-6">
@@ -58,22 +76,28 @@ export function ControlsAlignmentDemo() {
             {() => (
               <RadioGroup direction={direction} defaultValue="email" aria-label="Notification channel">
                 <RadioGroup.Item value="email">
-                  <div className="flex flex-col">
-                    <span>Email</span>
-                    <span className="text-xs text-secondary mt-0.5">Messages delivered to your inbox.</span>
-                  </div>
+                  {hasDescription ? (
+                    <div className="flex flex-col">
+                      <span className="font-medium">Email</span>
+                      <span className="text-xs text-secondary mt-0.5">Messages delivered to your inbox.</span>
+                    </div>
+                  ) : 'Email'}
                 </RadioGroup.Item>
                 <RadioGroup.Item value="sms">
-                  <div className="flex flex-col">
-                    <span>SMS</span>
-                    <span className="text-xs text-secondary mt-0.5">Text messages to your phone number.</span>
-                  </div>
+                  {hasDescription ? (
+                    <div className="flex flex-col">
+                      <span className="font-medium">SMS</span>
+                      <span className="text-xs text-secondary mt-0.5">Text messages to your phone number.</span>
+                    </div>
+                  ) : 'SMS'}
                 </RadioGroup.Item>
                 <RadioGroup.Item value="push">
-                  <div className="flex flex-col">
-                    <span>Push</span>
-                    <span className="text-xs text-secondary mt-0.5">Real-time alerts on your device.</span>
-                  </div>
+                  {hasDescription ? (
+                    <div className="flex flex-col">
+                      <span className="font-medium">Push</span>
+                      <span className="text-xs text-secondary mt-0.5">Real-time alerts on your device.</span>
+                    </div>
+                  ) : 'Push'}
                 </RadioGroup.Item>
               </RadioGroup>
             )}
@@ -84,27 +108,33 @@ export function ControlsAlignmentDemo() {
                 <Checkbox
                   defaultChecked
                   label={
-                    <div className="flex flex-col">
-                      <span>Product updates</span>
-                      <span className="text-xs text-secondary mt-0.5">New features and improvements.</span>
-                    </div>
+                    hasDescription ? (
+                      <div className="flex flex-col">
+                        <span className="font-medium">Product updates</span>
+                        <span className="text-xs text-secondary mt-0.5">New features and improvements.</span>
+                      </div>
+                    ) : 'Product updates'
                   }
                 />
                 <Checkbox
                   defaultChecked
                   label={
-                    <div className="flex flex-col">
-                      <span>Security alerts</span>
-                      <span className="text-xs text-secondary mt-0.5">Account activity and login notifications.</span>
-                    </div>
+                    hasDescription ? (
+                      <div className="flex flex-col">
+                        <span className="font-medium">Security alerts</span>
+                        <span className="text-xs text-secondary mt-0.5">Account activity and login notifications.</span>
+                      </div>
+                    ) : 'Security alerts'
                   }
                 />
                 <Checkbox
                   label={
-                    <div className="flex flex-col">
-                      <span>Community</span>
-                      <span className="text-xs text-secondary mt-0.5">Events, meetups, and discussions.</span>
-                    </div>
+                    hasDescription ? (
+                      <div className="flex flex-col">
+                        <span className="font-medium">Community</span>
+                        <span className="text-xs text-secondary mt-0.5">Events, meetups, and discussions.</span>
+                      </div>
+                    ) : 'Community'
                   }
                 />
               </div>

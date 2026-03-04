@@ -287,7 +287,7 @@ export function CheckboxWithDescriptionDemo() {
         <Checkbox
           label={
             <div className="flex flex-col">
-              <span>Accept terms and conditions</span>
+              <span className="font-medium">Accept terms and conditions</span>
               <span className="text-xs text-secondary mt-0.5">
                 By checking this box, you agree to our Terms of Service and Privacy Policy.
               </span>
@@ -298,7 +298,7 @@ export function CheckboxWithDescriptionDemo() {
         <Checkbox
           label={
             <div className="flex flex-col">
-              <span>Enable notifications</span>
+              <span className="font-medium">Enable notifications</span>
               <span className="text-xs text-secondary mt-0.5">
                 You can enable or disable notifications at any time from settings.
               </span>
@@ -399,7 +399,7 @@ export function CheckboxNotificationSettingsDemo() {
                 <Checkbox
                   label={
                     <div className="flex flex-col">
-                      <span>Marketing</span>
+                      <span className="font-medium">Marketing</span>
                       <span className="text-xs text-secondary mt-0.5">Receive emails about new products and features.</span>
                     </div>
                   }
@@ -409,7 +409,7 @@ export function CheckboxNotificationSettingsDemo() {
                 <Checkbox
                   label={
                     <div className="flex flex-col">
-                      <span>Security</span>
+                      <span className="font-medium">Security</span>
                       <span className="text-xs text-secondary mt-0.5">Receive emails about account activity and security.</span>
                     </div>
                   }

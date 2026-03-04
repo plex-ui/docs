@@ -189,19 +189,19 @@ export function RadioGroupWithDescriptionDemo() {
       <RadioGroup direction="col" value={value} onChange={setValue} aria-label="Spacing">
         <RadioGroup.Item value="default">
           <div className="flex flex-col">
-            <span>Default</span>
+            <span className="font-medium">Default</span>
             <span className="text-xs text-secondary mt-0.5">Standard spacing for most use cases.</span>
           </div>
         </RadioGroup.Item>
         <RadioGroup.Item value="comfortable">
           <div className="flex flex-col">
-            <span>Comfortable</span>
+            <span className="font-medium">Comfortable</span>
             <span className="text-xs text-secondary mt-0.5">More space between elements.</span>
           </div>
         </RadioGroup.Item>
         <RadioGroup.Item value="compact">
           <div className="flex flex-col">
-            <span>Compact</span>
+            <span className="font-medium">Compact</span>
             <span className="text-xs text-secondary mt-0.5">Minimal spacing for dense layouts.</span>
           </div>
         </RadioGroup.Item>
