@@ -93,6 +93,7 @@
     ============================================= */
     --checkbox-indicator-size: var(--radio-group-indicator-size);
     --checkbox-label-gap: var(--radio-group-item-gap);
+    --checkbox-label-line-height: var(--radio-group-item-line-height);
 
     /* =============================================
       Input
