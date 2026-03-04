@@ -87,6 +87,13 @@
     --button-gap-lg: 6px;
     --button-font-weight: var(--font-weight-medium);
 
+
+    /* =============================================
+      Checkbox
+    ============================================= */
+    --checkbox-indicator-size: var(--radio-group-indicator-size);
+    --checkbox-label-gap: var(--radio-group-item-gap);
+
     /* =============================================
       Input
     ============================================= */
