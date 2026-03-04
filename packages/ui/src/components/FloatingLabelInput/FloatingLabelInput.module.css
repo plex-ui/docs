@@ -168,6 +168,15 @@
   color: var(--color-text);
 }
 
+/* End adornment slot */
+.EndAdornment {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
 /* Error message spacing */
 .ErrorMessage {
   margin-top: var(--field-error-margin-top);

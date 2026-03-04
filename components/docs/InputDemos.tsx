@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Input } from '@plexui/ui/components/Input';
 import { Button } from '@plexui/ui/components/Button';
 import { Field } from '@plexui/ui/components/Field';
 import { Switch } from '@plexui/ui/components/Switch';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
-import { Search } from '@plexui/ui/components/Icon';
+import { Eye, EyeOff, Search } from '@plexui/ui/components/Icon';
+import { FieldError } from '@plexui/ui/components/FieldError';
 
 const controlsTableStyle: React.CSSProperties = {
   background: 'var(--docs-surface-elevated)',
@@ -333,3 +334,587 @@ export function InputWithButtonDemo() {
 }
 
 
+
+// ---------------------------------------------------------------------------
+// SSN mask utilities
+// ---------------------------------------------------------------------------
+
+const SSN_MASK = 'XXX-XX-XXXX';
+
+function getSSNDigits(value: string): string {
+  return value.replace(/\D/g, '').slice(0, 9);
+}
+
+function formatSSNValue(rawValue: string): string {
+  const digits = getSSNDigits(rawValue);
+  if (digits.length < 3) return digits;
+  if (digits.length === 3) return `${digits}-`;
+  if (digits.length < 5) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  if (digits.length === 5) return `${digits.slice(0, 3)}-${digits.slice(3)}-`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`;
+}
+
+function getSSNMaskSuffix(formatted: string): string {
+  if (formatted.length >= SSN_MASK.length) return '';
+  return SSN_MASK.slice(formatted.length);
+}
+
+function splitSSNMaskSuffix(suffix: string): { before: string; highlight: string; after: string } {
+  if (!suffix) return { before: '', highlight: '', after: '' };
+  const match = suffix.match(/^(-?)([X]+)([\s\S]*)/);
+  if (!match) return { before: suffix, highlight: '', after: '' };
+  return {
+    before: match[1] || '',
+    highlight: match[2],
+    after: match[3] || '',
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Visibility toggle button (shared by password & SSN demos)
+// ---------------------------------------------------------------------------
+
+const visibilityToggleStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 0,
+  margin: 0,
+  border: 'none',
+  background: 'none',
+  cursor: 'pointer',
+  color: 'var(--color-text-tertiary)',
+  transition: 'color 150ms ease',
+};
+
+function VisibilityToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      aria-label={visible ? 'Hide' : 'Show'}
+      style={{ ...visibilityToggleStyle, ...(hovered ? { color: 'var(--color-text)' } : undefined) }}
+    >
+      {visible ? <EyeOff /> : <Eye />}
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Password with visibility toggle
+// ---------------------------------------------------------------------------
+
+export function InputPasswordToggleDemo() {
+  const [visible, setVisible] = useState(false);
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [variant, setVariant] = useState<'outline' | 'soft'>('outline');
+  const [pill, setPill] = useState(false);
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl<'outline' | 'soft'>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            <SegmentedControl.Option value="outline">outline</SegmentedControl.Option>
+            <SegmentedControl.Option value="soft">soft</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>
+                {s}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div data-demo-stage className="py-10">
+        <div className="w-[320px]">
+          <Input
+            placeholder="Password"
+            type={visible ? 'text' : 'password'}
+            size={size}
+            variant={variant}
+            pill={pill}
+            endAdornment={
+              <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+            }
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SSN masked input
+// ---------------------------------------------------------------------------
+
+export function InputSSNDemo() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [rawDigits, setRawDigits] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [variant, setVariant] = useState<'outline' | 'soft'>('outline');
+  const [pill, setPill] = useState(false);
+
+  // Measure actual input padding/font for overlay alignment across all sizes
+  const [overlayMetrics, setOverlayMetrics] = useState({ padding: '13px', fontSize: '16px', lineHeight: '24px' });
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    const cs = getComputedStyle(el);
+    setOverlayMetrics({
+      padding: `calc(${cs.paddingLeft} + 1px)`,
+      fontSize: cs.fontSize,
+      lineHeight: cs.lineHeight,
+    });
+  }, [size, pill]);
+
+  const formatted = formatSSNValue(rawDigits);
+  const masked = formatted.replace(/\d/g, '\u2022');
+
+  const handleChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = evt.target.value;
+      const newDigits = getSSNDigits(raw);
+      const oldDigits = rawDigits;
+      // Backspace through a separator: raw got shorter but digit count unchanged
+      if (raw.length < formatted.length && newDigits.length === oldDigits.length) {
+        setRawDigits(oldDigits.slice(0, -1));
+      } else {
+        setRawDigits(newDigits);
+      }
+    },
+    [rawDigits, formatted],
+  );
+
+  const maskSuffix = getSSNMaskSuffix(formatted);
+  const showBulletOverlay = !visible && rawDigits.length > 0;
+  const showMaskOverlay = focused && maskSuffix.length > 0;
+  const maskParts = splitSSNMaskSuffix(maskSuffix);
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl<'outline' | 'soft'>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            <SegmentedControl.Option value="outline">outline</SegmentedControl.Option>
+            <SegmentedControl.Option value="soft">soft</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>
+                {s}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div data-demo-stage className="py-10">
+        <div className="w-[320px]">
+          <div style={{ position: 'relative' }}>
+            <Input
+              ref={inputRef}
+              placeholder={showMaskOverlay ? undefined : 'Social Security Number'}
+              value={formatted}
+              size={size}
+              variant={variant}
+              pill={pill}
+              maxLength={11}
+              inputMode="numeric"
+              autoComplete="off"
+              onChange={handleChange}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              style={{
+                fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+                ...(!visible && rawDigits
+                  ? { color: 'transparent', caretColor: 'transparent' }
+                  : showMaskOverlay
+                    ? { caretColor: 'transparent' }
+                    : undefined),
+              }}
+              endAdornment={
+                <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+              }
+            />
+            {(showBulletOverlay || showMaskOverlay) && (
+              <div
+                aria-hidden
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: `0 ${overlayMetrics.padding}`,
+                  pointerEvents: 'none',
+                  fontSize: overlayMetrics.fontSize,
+                  lineHeight: overlayMetrics.lineHeight,
+                  zIndex: 2,
+                  fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+                  overflow: 'hidden',
+                }}
+              >
+                {showBulletOverlay ? (
+                  <span style={{ whiteSpace: 'pre' }}>{masked}</span>
+                ) : (
+                  <span style={{ visibility: 'hidden', whiteSpace: 'pre' }}>
+                    {formatted}
+                  </span>
+                )}
+                {showMaskOverlay && (
+                  <>
+                    {maskParts.before && (
+                      <span style={{ color: 'var(--color-text-tertiary)', whiteSpace: 'pre' }}>
+                        {maskParts.before}
+                      </span>
+                    )}
+                    {maskParts.highlight && (
+                      <span
+                        style={{
+                          backgroundColor: 'var(--color-background-primary-solid)',
+                          color: 'white',
+                          whiteSpace: 'pre',
+                          borderRadius: '3px',
+                          padding: '1px 1px',
+                        }}
+                      >
+                        {maskParts.highlight}
+                      </span>
+                    )}
+                    {maskParts.after && (
+                      <span style={{ color: 'var(--color-text-tertiary)', whiteSpace: 'pre' }}>
+                        {maskParts.after}
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+
+// ---------------------------------------------------------------------------
+// Birthday mask utilities
+// ---------------------------------------------------------------------------
+
+const BIRTHDAY_MASK = 'MM / DD / YYYY';
+
+function getBirthdayDigits(value: string): string {
+  return value.replace(/\D/g, '').slice(0, 8);
+}
+
+function formatBirthdayValue(rawValue: string): string {
+  const digits = getBirthdayDigits(rawValue);
+  const month = digits.slice(0, 2);
+  const day = digits.slice(2, 4);
+  const year = digits.slice(4, 8);
+  if (digits.length < 2) return month;
+  if (digits.length === 2) return `${month} / `;
+  if (digits.length < 4) return `${month} / ${day}`;
+  if (digits.length === 4) return `${month} / ${day} / `;
+  return `${month} / ${day} / ${year}`;
+}
+
+function getBirthdayMaskSuffix(formattedValue: string): string {
+  if (formattedValue.length >= BIRTHDAY_MASK.length) return '';
+  return BIRTHDAY_MASK.slice(formattedValue.length);
+}
+
+function splitBirthdayMaskSuffix(suffix: string): { before: string; highlight: string; after: string } {
+  if (!suffix) return { before: '', highlight: '', after: '' };
+  const match = suffix.match(/^(\s*\/\s*)?([A-Z]+)([\s\S]*)/);
+  if (!match) return { before: suffix, highlight: '', after: '' };
+  return {
+    before: match[1] || '',
+    highlight: match[2],
+    after: match[3] || '',
+  };
+}
+
+function isValidBirthday(value: string): boolean {
+  const parsed = value.match(/^(\d{2})\s\/\s(\d{2})\s\/\s(\d{4})$/);
+  if (!parsed) return false;
+  const month = Number(parsed[1]);
+  const day = Number(parsed[2]);
+  const year = Number(parsed[3]);
+  if (month < 1 || month > 12) return false;
+  const maxDay = new Date(year, month, 0).getDate();
+  return day >= 1 && day <= maxDay;
+}
+
+// ---------------------------------------------------------------------------
+// Birthday masked input (internal component)
+// ---------------------------------------------------------------------------
+
+function InputBirthdayMaskedInput({
+  size,
+  variant,
+  pill,
+  value,
+  onChange,
+  invalid,
+}: {
+  size: (typeof SIZE_OPTIONS)[number];
+  variant: 'outline' | 'soft';
+  pill: boolean;
+  value: string;
+  onChange: (value: string) => void;
+  invalid?: boolean;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [focused, setFocused] = useState(false);
+
+  // Measure actual input padding/font for overlay alignment across all sizes
+  const [overlayMetrics, setOverlayMetrics] = useState({ padding: '13px', fontSize: '16px', lineHeight: '24px' });
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    const cs = getComputedStyle(el);
+    setOverlayMetrics({
+      padding: `calc(${cs.paddingLeft} + 1px)`,
+      fontSize: cs.fontSize,
+      lineHeight: cs.lineHeight,
+    });
+  }, [size, pill]);
+
+  const handleChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = evt.target.value;
+      const newDigits = getBirthdayDigits(raw);
+      const oldDigits = getBirthdayDigits(value);
+      // Backspace through a separator: raw got shorter but digit count unchanged
+      if (raw.length < value.length && newDigits.length === oldDigits.length) {
+        const trimmed = newDigits.slice(0, -1);
+        onChange(formatBirthdayValue(trimmed));
+      } else {
+        onChange(formatBirthdayValue(raw));
+      }
+    },
+    [onChange, value],
+  );
+
+  const maskSuffix = getBirthdayMaskSuffix(value);
+  const showMask = focused && maskSuffix.length > 0;
+  const maskParts = splitBirthdayMaskSuffix(maskSuffix);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <Input
+        ref={inputRef}
+        placeholder={showMask ? undefined : 'Birthday (MM / DD / YYYY)'}
+        value={value}
+        size={size}
+        variant={variant}
+        pill={pill}
+        maxLength={14}
+        inputMode="numeric"
+        autoComplete="off"
+        invalid={invalid}
+        onChange={handleChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        style={showMask ? { caretColor: 'transparent' } : undefined}
+      />
+      {showMask && (
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            alignItems: 'center',
+            padding: `0 ${overlayMetrics.padding}`,
+            pointerEvents: 'none',
+            fontSize: overlayMetrics.fontSize,
+            lineHeight: overlayMetrics.lineHeight,
+            zIndex: 2,
+                  overflow: 'hidden',
+          }}
+        >
+          {/* Invisible spacer matching width of typed text */}
+          <span style={{ visibility: 'hidden', whiteSpace: 'pre' }}>
+            {value}
+          </span>
+          {maskParts.before && (
+            <span style={{ color: 'var(--color-text-tertiary)', whiteSpace: 'pre' }}>
+              {maskParts.before}
+            </span>
+          )}
+          {maskParts.highlight && (
+            <span
+              style={{
+                backgroundColor: 'var(--color-background-primary-solid)',
+                color: 'white',
+                whiteSpace: 'pre',
+                borderRadius: '3px',
+                padding: '1px 1px',
+              }}
+            >
+              {maskParts.highlight}
+            </span>
+          )}
+          {maskParts.after && (
+            <span style={{ color: 'var(--color-text-tertiary)', whiteSpace: 'pre' }}>
+              {maskParts.after}
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Birthday input demo
+// ---------------------------------------------------------------------------
+
+export function InputBirthdayDemo() {
+  const [birthday, setBirthday] = useState('');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [variant, setVariant] = useState<'outline' | 'soft'>('outline');
+  const [pill, setPill] = useState(false);
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl<'outline' | 'soft'>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            <SegmentedControl.Option value="outline">outline</SegmentedControl.Option>
+            <SegmentedControl.Option value="soft">soft</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>
+                {s}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div data-demo-stage className="py-10">
+        <div className="w-[320px]">
+          <InputBirthdayMaskedInput
+            size={size}
+            variant={variant}
+            pill={pill}
+            value={birthday}
+            onChange={setBirthday}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Birthday with validation demo
+// ---------------------------------------------------------------------------
+
+export function InputBirthdayValidationDemo() {
+  const [birthday, setBirthday] = useState('02 / 30 / 2001');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [variant, setVariant] = useState<'outline' | 'soft'>('outline');
+  const [pill, setPill] = useState(false);
+  const errorMessage = birthday ? (isValidBirthday(birthday) ? undefined : 'Please enter a valid date.') : undefined;
+  const errorId = 'input-birthday-validation-demo-error';
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl<'outline' | 'soft'>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            <SegmentedControl.Option value="outline">outline</SegmentedControl.Option>
+            <SegmentedControl.Option value="soft">soft</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>
+                {s}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div data-demo-stage className="py-10">
+        <div className="w-[320px]">
+          <div className="flex flex-col gap-1.5">
+            <InputBirthdayMaskedInput
+              size={size}
+              variant={variant}
+              pill={pill}
+              value={birthday}
+              onChange={setBirthday}
+              invalid={!!errorMessage}
+            />
+            {errorMessage && <FieldError id={errorId}>{errorMessage}</FieldError>}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

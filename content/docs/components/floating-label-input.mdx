@@ -7,9 +7,12 @@ import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput"
 import {
   FloatingLabelInputWithClearButtonDemoWithControls,
   FloatingLabelInputDisabledDemoWithControls,
+  FloatingLabelInputPasswordToggleDemo,
+  FloatingLabelInputSSNDemo,
   FloatingLabelInputBirthdayDemo,
   FloatingLabelInputBirthdayValidationDemo,
   FloatingLabelInputAboutYouFormDemo,
+  FloatingLabelInputBirthdayStatesDemo,
   FloatingLabelSelectCountryDemo,
   FloatingLabelSelectAboutYouFormDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
@@ -135,6 +138,44 @@ import {
   </div>
 </ComponentPreview>
 
+### Password with visibility toggle
+
+<ComponentPreview details={<>Use the <code>endAdornment</code> prop to render a visibility toggle button inside the input. Clicking the eye icon switches between <code>type="password"</code> and <code>type="text"</code>.</>} code={`const [visible, setVisible] = useState(false)
+
+<FloatingLabelInput
+  label="Password"
+  type={visible ? "text" : "password"}
+  endAdornment={
+    <button onClick={() => setVisible(v => !v)} aria-label={visible ? "Hide" : "Show"}>
+      {visible ? <EyeOff /> : <Eye />}
+    </button>
+  }
+/>`} previewMinHeight={168}>
+  <FloatingLabelInputPasswordToggleDemo />
+</ComponentPreview>
+
+### SSN input
+
+<ComponentPreview details={<>A Social Security Number input combining three techniques: an input mask that auto-inserts dashes (<code>XXX-XX-XXXX</code>) with highlighted segment, value masking that hides digits behind bullets (<code>•••-••-••••</code>), and an <code>endAdornment</code> visibility toggle to reveal the real value.</>} code={`const [rawDigits, setRawDigits] = useState("")
+const [visible, setVisible] = useState(false)
+const formatted = formatSSN(rawDigits)
+
+<FloatingLabelInput
+  label="Social Security Number"
+  value={formatted}
+  inputMode="numeric"
+  maxLength={11}
+  onChange={(evt) => setRawDigits(extractDigits(evt.target.value))}
+  style={!visible && rawDigits ? { color: 'transparent', caretColor: 'var(--color-text)' } : undefined}
+  endAdornment={
+    <button onClick={() => setVisible(v => !v)}>
+      {visible ? <EyeOff /> : <Eye />}
+    </button>
+  }
+/>`} previewMinHeight={168}>
+  <FloatingLabelInputSSNDemo />
+</ComponentPreview>
+
 ### Birthday input
 
 <ComponentPreview details={<>A date-of-birth input with inline formatting that inserts separators as you type (<code>MM / DD / YYYY</code>).</>} code={`const [birthday, setBirthday] = useState("")
@@ -179,24 +220,7 @@ import {
     <FloatingLabelInput disabled label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
   </div>
 </div>`} previewMinHeight={168}>
-  <div className="flex flex-col items-center gap-8 py-8">
-    <div className="flex items-center">
-      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
-      <FloatingLabelInput label="Birthday" className="w-[320px]" />
-    </div>
-    <div className="flex items-center">
-      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
-      <FloatingLabelInput label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
-    </div>
-    <div className="flex items-center">
-      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
-      <FloatingLabelInput invalid label="Birthday" defaultValue="02 / 30 / 2001" className="w-[320px]" />
-    </div>
-    <div className="flex items-center">
-      <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
-      <FloatingLabelInput disabled label="Birthday" defaultValue="01 / 15 / 1995" className="w-[320px]" />
-    </div>
-  </div>
+  <FloatingLabelInputBirthdayStatesDemo />
 </ComponentPreview>
 
 ### About You form
@@ -272,4 +296,5 @@ const selected = COUNTRIES.find((c) => c.value === country)
   { prop: "invalid", type: "boolean", default: "false", description: "Invalid visual state" },
   { prop: "readOnly", type: "boolean", default: "false", description: "Read-only input state" },
   { prop: "onClear", type: "() => void", description: "Shows a clear button when input has value" },
+  { prop: "endAdornment", type: "ReactNode", description: "Content rendered after the input, before the clear button" },
 ]} />
