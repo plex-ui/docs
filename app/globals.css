@@ -11,6 +11,13 @@
 /* Let Tailwind scan Plex UI component class usage */
 @source "../packages/ui";
 
+/* Disable bounce / overscroll across the entire app */
+html,
+body,
+* {
+  overscroll-behavior: none;
+}
+
 /* Page background and Plex UI color tokens.
    Override Fumadocs variables so the entire shell uses our palette. */
 :root {

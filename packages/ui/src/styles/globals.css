@@ -11,6 +11,8 @@
     -moz-osx-font-smoothing: grayscale;
     /* Apply default letter-spacing */
     letter-spacing: var(--tracking-normal);
+    /* Prevent rubber-band / bounce overscroll */
+    overscroll-behavior: none;
   }
 
   [data-theme="light"] {
