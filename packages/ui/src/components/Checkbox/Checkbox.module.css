@@ -35,6 +35,8 @@
   width: var(--checkbox-indicator-size);
   max-width: var(--checkbox-indicator-size);
   height: var(--checkbox-indicator-size);
+  /* Center indicator with first line of label text (mirrors RadioGroup's RadioIndicatorWrapper approach) */
+  margin-top: calc((var(--checkbox-label-line-height) - var(--checkbox-indicator-size)) / 2);
   padding: 0;
   border: 1px solid var(--alpha-16);
   border-radius: var(--radius-xs);
@@ -185,10 +187,10 @@
 
 .Label {
   display: block;
-  min-height: 20px;
+  min-height: var(--checkbox-label-line-height);
   cursor: pointer;
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--checkbox-label-line-height);
 
   [data-orientation="left"] & {
     padding-left: var(--checkbox-label-gap);
