@@ -1,0 +1,206 @@
+.Root {
+  position: relative;
+  --field-error-padding-inline: 0;
+  --field-error-margin-top: 0.25rem;
+}
+
+.Root:has([data-disabled]) {
+  --cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.FieldFootprint {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  height: var(--floating-input-height);
+  border-radius: var(--floating-input-border-radius);
+  line-height: 1.5rem;
+  color: var(--color-text);
+  font-size: 1rem;
+  width: 100%;
+  border: 1px solid var(--input-state-color, var(--floating-input-border-color));
+  padding: 0 var(--floating-input-gutter);
+  background-color: var(--floating-input-background);
+  cursor: var(--cursor, pointer);
+  transition: border-color var(--floating-input-transition-duration) ease-in-out;
+  user-select: none;
+}
+
+.FieldFootprint:hover:not([data-disabled]) {
+  border-color: var(--input-state-color, var(--floating-input-border-color-hover));
+}
+
+.FieldFootprint[data-focused] {
+  --input-state-color: var(--floating-input-border-color-focus);
+}
+
+.FieldFootprint[data-open] {
+  --input-state-color: var(--floating-input-border-color-focus);
+}
+
+.FieldFootprint[data-invalid] {
+  --input-state-color: var(--floating-input-border-color-invalid);
+}
+
+/* Focus ring */
+.FieldFootprint:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 1px;
+}
+
+/* Label container - positioned absolutely */
+.TypeableLabel {
+  cursor: var(--cursor, pointer);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Label background overlay - covers content when not selected */
+.TypeableLabel::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--floating-input-border-radius);
+  background-color: var(--floating-input-background);
+}
+
+/* Label text positioner */
+.LabelPositioner {
+  --placeholder-transition: transform var(--floating-input-transition-duration) ease-in-out;
+  position: absolute;
+  inset: 0;
+  padding: 0 var(--floating-input-gutter);
+  display: flex;
+  align-items: center;
+  transition: var(--placeholder-transition);
+  pointer-events: none;
+}
+
+/* Label text */
+.LabelText {
+  --horizontal-padding: 6px;
+  background-color: var(--floating-input-background);
+  padding: 1px var(--horizontal-padding);
+  transition: var(--placeholder-transition);
+  color: var(--input-state-color, var(--floating-input-label-color));
+  font-size: 1rem;
+  line-height: 1;
+  cursor: var(--cursor, pointer);
+  transform: translate(calc(-1 * var(--horizontal-padding)));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - var(--floating-input-gutter) * 2);
+}
+
+/* Float state - label moves up */
+.FieldFootprint[data-open] .TypeableLabel,
+.FieldFootprint[data-invalid] .TypeableLabel,
+.HasValue .TypeableLabel {
+  pointer-events: none;
+}
+
+.FieldFootprint[data-open] .TypeableLabel::before,
+.FieldFootprint[data-invalid] .TypeableLabel::before,
+.HasValue .TypeableLabel::before {
+  display: none;
+}
+
+.FieldFootprint[data-open] .LabelPositioner,
+.FieldFootprint[data-invalid] .LabelPositioner,
+.HasValue .LabelPositioner {
+  transform: translateY(-50%);
+}
+
+.FieldFootprint[data-open] .LabelText,
+.FieldFootprint[data-invalid] .LabelText,
+.HasValue .LabelText {
+  transform: translate(-12px) scale(var(--floating-input-label-scale));
+  max-width: 133%;
+}
+
+/* Focus/open label color */
+.FieldFootprint[data-focused] .LabelText,
+.FieldFootprint[data-open] .LabelText {
+  color: var(--floating-input-label-color-focus);
+}
+
+/* Invalid label color */
+.FieldFootprint[data-invalid] .LabelText {
+  color: var(--floating-input-label-color-invalid);
+}
+
+/* Content area (selected value) */
+.Content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: clip;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}
+
+/* Indicator wrapper — mirrors SelectControl IndicatorWrapper at 3xl size */
+.IndicatorWrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 4px;
+}
+
+/* Clear button — using Button component, sizing matches SelectControl 3xl */
+.Clear {
+  --button-size: 24px;
+  --button-icon-size: 16px;
+
+  position: relative;
+  opacity: 0.75;
+}
+
+.FieldFootprint:hover:not([data-disabled]) .Clear,
+.FieldFootprint[data-open] .Clear,
+.Clear:focus-visible {
+  opacity: 1;
+}
+
+/* Dropdown icon — matches SelectControl 3xl: 9×13 */
+.DropdownIcon {
+  position: relative;
+  flex-shrink: 0;
+  width: 9px;
+  height: 13px;
+  color: var(--color-text-secondary);
+  opacity: 0.75;
+  transition: opacity var(--floating-input-transition-duration) ease-in-out;
+}
+.FieldFootprint:hover:not([data-disabled]) .DropdownIcon {
+  opacity: 1;
+}
+.FieldFootprint[data-open] .DropdownIcon {
+  opacity: 1;
+}
+
+/* Error message spacing */
+.ErrorMessage {
+  margin-top: var(--field-error-margin-top);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .FieldFootprint,
+  .LabelPositioner,
+  .LabelText {
+    transition: none;
+  }
+}
