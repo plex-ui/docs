@@ -11,10 +11,9 @@
 /* Let Tailwind scan Plex UI component class usage */
 @source "../packages/ui";
 
-/* Disable bounce / overscroll across the entire app */
+/* Disable bounce / overscroll on the page itself */
 html,
-body,
-* {
+body {
   overscroll-behavior: none;
 }
 
