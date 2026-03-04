@@ -152,7 +152,7 @@
     --input-gap: var(--input-gap-md);
     --input-clear-size: 18px;
     --input-clear-icon-size: 14px;
-    --input-clear-offset: -2px;
+    --input-clear-offset: -5px;
     --input-clear-pill-offset: -6px;
   }
 
@@ -164,7 +164,7 @@
     --input-gap: var(--input-gap-lg);
     --input-clear-size: 18px;
     --input-clear-icon-size: 14px;
-    --input-clear-offset: -2px;
+    --input-clear-offset: -6px;
     --input-clear-pill-offset: -7px;
   }
 
@@ -177,7 +177,7 @@
     --input-adornment-offset: -4px;
     --input-clear-size: 20px;
     --input-clear-icon-size: 15px;
-    --input-clear-offset: -2px;
+    --input-clear-offset: -6px;
     --input-clear-pill-offset: -7px;
   }
 
@@ -190,7 +190,7 @@
     --input-adornment-offset: -4px;
     --input-clear-size: 20px;
     --input-clear-icon-size: 15px;
-    --input-clear-offset: -2px;
+    --input-clear-offset: -6px;
     --input-clear-pill-offset: -7px;
   }
 
@@ -271,7 +271,7 @@
     margin-left: var(--input-adornment-offset, -2px);
   }
 
-  > :last-child:not(input) {
+  > :last-child:not(input, .Clear) {
     margin-right: var(--input-adornment-offset, -2px);
   }
 }
@@ -363,7 +363,7 @@
   height: var(--input-clear-size);
   padding: 0;
   border: 0;
-  border-radius: var(--control-radius-sm);
+  border-radius: var(--radius-full);
   margin-right: var(--input-clear-offset);
   background-color: var(--color-background-primary-soft-alpha);
   color: var(--color-text-primary-soft);
@@ -381,7 +381,6 @@
   }
 
   :where(.Container[data-pill]) & {
-    border-radius: var(--radius-full);
     margin-right: var(--input-clear-pill-offset);
   }
 

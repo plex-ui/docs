@@ -492,6 +492,7 @@
   ============================================= */
   &[data-selected="false"] {
     color: var(--input-placeholder-text-color);
+    font-weight: var(--font-weight-normal);
   }
 
   /* =============================================

@@ -239,6 +239,19 @@ export type SelectProps<T extends Option> = (SingleSelectProps<T> | MultiSelectP
    * Message displayed when search results are empty. Can be a simple string, or custom JSX.
    */
   searchEmptyMessage?: ReactNode
+  /**
+   * Render a custom trigger element instead of the default `SelectControl`.
+   * Receives open state and a toggle callback. The returned element is wrapped
+   * in a Radix `Popover.Trigger`.
+   *
+   * NOTE: Must be passed as a stable reference, not created inline.
+   */
+  /**
+   * Position of the check indicator in the option list
+   * @default start
+   */
+  checkPosition?: 'start' | 'end'
+  trigger?: (props: { open: boolean; onToggle: () => void }) => ReactNode
 }
 
 type SingleSelectContextValue<T extends Option> = {
@@ -294,6 +307,9 @@ type SelectContextValue<T extends Option> = (
   searchPredicateRef: React.MutableRefObject<SearchPredicate<T>>
   // Derived
   searchable: boolean
+  checkPosition: 'start' | 'end'
+  // Custom trigger
+  trigger?: (props: { open: boolean; onToggle: () => void }) => ReactNode
 }
 
 const SelectContext = createContext<SelectContextValue<Option> | null>(null)
@@ -358,6 +374,8 @@ export const Select = <T extends Option>(props: SelectProps<T>) => {
     searchPredicate = defaultSearchPredicate,
     searchEmptyMessage = "No results found.",
     listMaxWidth = "auto",
+    trigger,
+    checkPosition = 'start',
   } = props
   // Block default is dynamic, based on `variant`
   const block = props.block ?? variant !== "ghost"
@@ -478,6 +496,8 @@ export const Select = <T extends Option>(props: SelectProps<T>) => {
       // Derived state
       searchable,
       disabled,
+      trigger,
+      checkPosition,
     }),
     [
       dynamicContextProps,
@@ -514,6 +534,8 @@ export const Select = <T extends Option>(props: SelectProps<T>) => {
       onSelectRef,
       searchable,
       disabled,
+      trigger,
+      checkPosition,
     ],
   )
 
@@ -685,6 +707,7 @@ const CustomSelect = () => {
     listWidth,
     listMinWidth,
     listMaxWidth,
+    trigger,
   } = useSelectContext()
   const [open, setOpen] = useState<boolean>(false)
   const selectContentRef = useRef<HTMLDivElement>(null)
@@ -734,7 +757,7 @@ const CustomSelect = () => {
       modal={false}
     >
       <Popover.Trigger asChild>
-        <SelectTrigger onOpenChange={handleOpenChange} />
+        {trigger ? trigger({ open, onToggle: () => handleOpenChange() }) : <SelectTrigger onOpenChange={handleOpenChange} />}
       </Popover.Trigger>
       <Popover.Portal forceMount>
         <TransitionGroup
@@ -1288,6 +1311,7 @@ const CustomSelectOption = (option: Option) => {
     value: propsValue,
     multiple,
     onSelectRef,
+    checkPosition,
   } = useSelectContext()
   const { valueRef, requestCloseRef, highlightedValue, setHighlightedValue } =
     useCustomSelectMenuContext()
@@ -1347,19 +1371,26 @@ const CustomSelectOption = (option: Option) => {
     >
       <div className={s.PressableInner}>
         <div className={s.OptionInner}>
-          <div className={s.OptionIndicatorSlot}>
-            {isSelected && <Check className={s.OptionCheck} />}
-          </div>
+          {checkPosition === 'start' && (
+            <div className={s.OptionIndicatorSlot}>
+              {isSelected && <Check className={s.OptionCheck} />}
+            </div>
+          )}
           <OptionView {...option} />
           {tooltip && (
             <Tooltip content={tooltip.content} maxWidth={tooltip.maxWidth} side="right">
               <Info />
             </Tooltip>
           )}
+          {checkPosition === 'end' && (
+            <div className={s.OptionIndicatorSlot}>
+              {isSelected && <Check className={s.OptionCheck} />}
+            </div>
+          )}
         </div>
         {option.description && (
           <div className={s.OptionInner}>
-            <div className={s.OptionIndicatorSlot} />
+            {checkPosition === 'start' && <div className={s.OptionIndicatorSlot} />}
             {option.description}
           </div>
         )}

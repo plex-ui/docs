@@ -9,6 +9,8 @@ import {
   FloatingLabelInputDisabledDemoWithControls,
   FloatingLabelInputBirthdayDemo,
   FloatingLabelInputAboutYouFormDemo,
+  FloatingLabelSelectCountryDemo,
+  FloatingLabelSelectAboutYouFormDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
 
 <UsageBlock>{`import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput";`}</UsageBlock>
@@ -221,6 +223,50 @@ const [birthday, setBirthday] = useState("")
   <Button color="primary" type="submit" className="mt-4 h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={280}>
   <FloatingLabelInputAboutYouFormDemo />
+</ComponentPreview>
+
+### Country select
+
+<ComponentPreview details={<>Use <code>FloatingLabelSelect</code> alongside <code>FloatingLabelInput</code> for consistent form styling. The select trigger shares the same floating-label visual shell — the label floats up when a value is selected.</>} code={`import { FloatingLabelSelect } from "@plexui/ui/components/FloatingLabelSelect"
+import { Menu } from "@plexui/ui/components/Menu"
+
+const [country, setCountry] = useState(null)
+const selected = COUNTRIES.find((c) => c.value === country)
+
+<Menu>
+  <Menu.Trigger>
+    <FloatingLabelSelect
+      label="Country"
+      selected={!!selected}
+      onClearClick={() => setCountry(null)}
+    >
+      {selected?.flag} {selected?.label}
+    </FloatingLabelSelect>
+  </Menu.Trigger>
+  <Menu.Content>
+    <Menu.RadioGroup value={country} onChange={setCountry}>
+      {COUNTRIES.map((c) => (
+        <Menu.RadioItem key={c.value} value={c.value}>
+          {c.flag} {c.label}
+        </Menu.RadioItem>
+      ))}
+    </Menu.RadioGroup>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <FloatingLabelSelectCountryDemo />
+</ComponentPreview>
+
+### About You form with country
+
+<ComponentPreview details={<>The complete form with <code>FloatingLabelInput</code> and <code>FloatingLabelSelect</code> — all fields share the same floating-label visual language for a cohesive look.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Full name" ... />
+  <FloatingLabelInput label="Birthday" ... />
+  <FloatingLabelSelect label="Country" selected={!!country} ...>
+    {selectedCountry?.flag} {selectedCountry?.label}
+  </FloatingLabelSelect>
+  <Button color="primary" type="submit">Continue</Button>
+</form>`} previewMinHeight={280}>
+  <FloatingLabelSelectAboutYouFormDemo />
 </ComponentPreview>
 
 ## Reference
