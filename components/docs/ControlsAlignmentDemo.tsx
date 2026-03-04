@@ -57,18 +57,56 @@ export function ControlsAlignmentDemo() {
           <Field label="Notification channel" description="Choose how you'd like to be notified.">
             {() => (
               <RadioGroup direction={direction} defaultValue="email" aria-label="Notification channel">
-                <RadioGroup.Item value="email">Email</RadioGroup.Item>
-                <RadioGroup.Item value="sms">SMS</RadioGroup.Item>
-                <RadioGroup.Item value="push">Push</RadioGroup.Item>
+                <RadioGroup.Item value="email">
+                  <div className="flex flex-col">
+                    <span>Email</span>
+                    <span className="text-xs text-secondary mt-0.5">Messages delivered to your inbox.</span>
+                  </div>
+                </RadioGroup.Item>
+                <RadioGroup.Item value="sms">
+                  <div className="flex flex-col">
+                    <span>SMS</span>
+                    <span className="text-xs text-secondary mt-0.5">Text messages to your phone number.</span>
+                  </div>
+                </RadioGroup.Item>
+                <RadioGroup.Item value="push">
+                  <div className="flex flex-col">
+                    <span>Push</span>
+                    <span className="text-xs text-secondary mt-0.5">Real-time alerts on your device.</span>
+                  </div>
+                </RadioGroup.Item>
               </RadioGroup>
             )}
           </Field>
           <Field label="Topics" description="Select the topics you want to follow.">
             {() => (
               <div className={`flex ${direction === 'row' ? 'flex-row gap-5' : 'flex-col gap-2.5'}`}>
-                <Checkbox defaultChecked label="Product updates" />
-                <Checkbox defaultChecked label="Security alerts" />
-                <Checkbox label="Community" />
+                <Checkbox
+                  defaultChecked
+                  label={
+                    <div className="flex flex-col">
+                      <span>Product updates</span>
+                      <span className="text-xs text-secondary mt-0.5">New features and improvements.</span>
+                    </div>
+                  }
+                />
+                <Checkbox
+                  defaultChecked
+                  label={
+                    <div className="flex flex-col">
+                      <span>Security alerts</span>
+                      <span className="text-xs text-secondary mt-0.5">Account activity and login notifications.</span>
+                    </div>
+                  }
+                />
+                <Checkbox
+                  label={
+                    <div className="flex flex-col">
+                      <span>Community</span>
+                      <span className="text-xs text-secondary mt-0.5">Events, meetups, and discussions.</span>
+                    </div>
+                  }
+                />
               </div>
             )}
           </Field>
