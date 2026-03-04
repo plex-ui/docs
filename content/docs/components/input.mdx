@@ -16,6 +16,10 @@ import {
   InputAutofillExtensionsDemo,
   InputOpticalAlignDemo,
   InputWithButtonDemo,
+  InputPasswordToggleDemo,
+  InputSSNDemo,
+  InputBirthdayDemo,
+  InputBirthdayValidationDemo,
 } from "@/components/docs/InputDemos"
 
 <UsageBlock>{`import { Input } from "@plexui/ui/components/Input";`}</UsageBlock>
@@ -101,6 +105,51 @@ import {
       }
     />
   </div>
+</ComponentPreview>
+
+### Password with visibility toggle
+
+<ComponentPreview details={<>Combine <code>endAdornment</code> with a toggle button to switch between <code>type="password"</code> and <code>type="text"</code>. Works across all sizes, variants, and with <code>pill</code>.</>} code={`<Input
+  placeholder="Password"
+  type={visible ? 'text' : 'password'}
+  endAdornment={<VisibilityToggle visible={visible} onToggle={toggle} />}
+/>`} previewMinHeight={168}>
+  <InputPasswordToggleDemo />
+</ComponentPreview>
+
+### SSN input
+
+<ComponentPreview details={<>A masked SSN field that formats input as <code>XXX-XX-XXXX</code>, hides digits behind bullets when masked, and reveals the value via a visibility toggle in <code>endAdornment</code>. An inline mask suffix highlights the next expected segment. Adapts to all sizes automatically.</>} code={`<Input
+  placeholder="Social Security Number"
+  value={formatted}
+  inputMode="numeric"
+  endAdornment={<VisibilityToggle visible={visible} onToggle={toggle} />}
+  style={!visible && rawDigits ? { color: 'transparent', caretColor: 'var(--color-text)' } : undefined}
+/>`} previewMinHeight={168}>
+  <InputSSNDemo />
+</ComponentPreview>
+
+
+### Birthday input
+
+<ComponentPreview details={<>A date-of-birth input with inline formatting that inserts separators as you type (<code>MM / DD / YYYY</code>). An inline mask suffix highlights the next expected segment. Works across all sizes, variants, and with <code>pill</code>.</>} code={`<Input
+  placeholder="Birthday (MM / DD / YYYY)"
+  value={birthday}
+  inputMode="numeric"
+  maxLength={14}
+/>`} previewMinHeight={168}>
+  <InputBirthdayDemo />
+</ComponentPreview>
+
+### Birthday with validation
+
+<ComponentPreview details={<>Use <code>invalid</code> and <code>FieldError</code> to display a validation state when the entered date is not valid.</>} code={`<Input
+  placeholder="Birthday (MM / DD / YYYY)"
+  value={birthday}
+  inputMode="numeric"
+  invalid={!!errorMessage}
+/>`} previewMinHeight={200}>
+  <InputBirthdayValidationDemo />
 </ComponentPreview>
 
 ### Disabled

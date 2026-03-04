@@ -6,6 +6,7 @@ import { Select, type Option } from '@plexui/ui/components/Select';
 import { Switch } from '@plexui/ui/components/Switch';
 import { Button } from '@plexui/ui/components/Button';
 import { FieldError } from '@plexui/ui/components/FieldError';
+import { Eye, EyeOff } from '@plexui/ui/components/Icon';
 // ---------------------------------------------------------------------------
 // Birthday mask utilities
 // ---------------------------------------------------------------------------
@@ -80,6 +81,191 @@ function isValidBirthday(value: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
+// SSN mask utilities
+// ---------------------------------------------------------------------------
+
+const SSN_MASK = 'XXX-XX-XXXX';
+
+function getSSNDigits(value: string): string {
+  return value.replace(/\D/g, '').slice(0, 9);
+}
+
+function formatSSNValue(rawValue: string): string {
+  const digits = getSSNDigits(rawValue);
+  if (digits.length < 3) return digits;
+  if (digits.length === 3) return `${digits}-`;
+  if (digits.length < 5) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  if (digits.length === 5) return `${digits.slice(0, 3)}-${digits.slice(3)}-`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`;
+}
+
+function getSSNMaskSuffix(formatted: string): string {
+  if (formatted.length >= SSN_MASK.length) return '';
+  return SSN_MASK.slice(formatted.length);
+}
+
+function splitSSNMaskSuffix(suffix: string): { before: string; highlight: string; after: string } {
+  if (!suffix) return { before: '', highlight: '', after: '' };
+  const match = suffix.match(/^(-?)([X]+)([\s\S]*)/);
+  if (!match) return { before: suffix, highlight: '', after: '' };
+  return {
+    before: match[1] || '',
+    highlight: match[2],
+    after: match[3] || '',
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Visibility toggle button (shared by password & SSN demos)
+// ---------------------------------------------------------------------------
+
+const visibilityToggleStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 0,
+  margin: 0,
+  border: 'none',
+  background: 'none',
+  cursor: 'pointer',
+  color: 'var(--color-text-tertiary)',
+  transition: 'color 150ms ease',
+};
+function VisibilityToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      aria-label={visible ? 'Hide' : 'Show'}
+      style={{ ...visibilityToggleStyle, ...(hovered ? { color: 'var(--color-text)' } : undefined) }}
+    >
+      {visible ? <EyeOff /> : <Eye />}
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SSNMaskedInput — FloatingLabelInput + SSN formatting + value masking + toggle
+// ---------------------------------------------------------------------------
+
+function SSNMaskedInput() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [rawDigits, setRawDigits] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  const formatted = formatSSNValue(rawDigits);
+  const masked = formatted.replace(/\d/g, '\u2022');
+
+  const handleChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = evt.target.value;
+      const newDigits = getSSNDigits(raw);
+      const oldDigits = rawDigits;
+      // Backspace through a separator: raw got shorter but digit count unchanged
+      if (raw.length < formatted.length && newDigits.length === oldDigits.length) {
+        setRawDigits(oldDigits.slice(0, -1));
+      } else {
+        setRawDigits(newDigits);
+      }
+    },
+    [rawDigits, formatted],
+  );
+
+  const maskSuffix = getSSNMaskSuffix(formatted);
+  const showBulletOverlay = !visible && rawDigits.length > 0;
+  const showMaskOverlay = focused && maskSuffix.length > 0;
+  const maskParts = splitSSNMaskSuffix(maskSuffix);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <FloatingLabelInput
+        ref={inputRef}
+        label="Social Security Number"
+        value={formatted}
+        maxLength={11}
+        inputMode="numeric"
+        autoComplete="off"
+        onChange={handleChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        style={{
+          fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+          ...(!visible && rawDigits
+            ? { color: 'transparent', caretColor: 'transparent' }
+            : showMaskOverlay
+              ? { caretColor: 'transparent' }
+              : undefined),
+        }}
+        endAdornment={
+          <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+        }
+      />
+      {(showBulletOverlay || showMaskOverlay) && (
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 calc(var(--floating-input-gutter) + 1px)',
+            pointerEvents: 'none',
+            font: 'inherit',
+            fontSize: '1rem',
+            lineHeight: '1.5rem',
+            zIndex: 2,
+            fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+            overflow: 'hidden',
+          }}
+        >
+          {showBulletOverlay ? (
+            <span style={{ whiteSpace: 'pre' }}>{masked}</span>
+          ) : (
+            <span style={{ visibility: 'hidden', whiteSpace: 'pre' }}>
+              {formatted}
+            </span>
+          )}
+          {showMaskOverlay && (
+            <>
+              {maskParts.before && (
+                <span style={{ color: 'var(--color-text-tertiary)', whiteSpace: 'pre' }}>
+                  {maskParts.before}
+                </span>
+              )}
+              {maskParts.highlight && (
+                <span
+                  style={{
+                    backgroundColor: 'var(--color-background-primary-solid)',
+                    color: 'white',
+                    whiteSpace: 'pre',
+                    borderRadius: '3px',
+                    padding: '1px 1px',
+                  }}
+                >
+                  {maskParts.highlight}
+                </span>
+              )}
+              {maskParts.after && (
+                <span style={{ color: 'var(--color-text-tertiary)', whiteSpace: 'pre' }}>
+                  {maskParts.after}
+                </span>
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // BirthdayMaskedInput - FloatingLabelInput + OpenAI-style inline mask
 // ---------------------------------------------------------------------------
 
@@ -87,11 +273,15 @@ function BirthdayMaskedInput({
   value,
   onChange,
   invalid,
+  disabled,
+  className,
   ...rest
 }: {
   value: string;
   onChange: (value: string) => void;
   invalid?: boolean;
+  disabled?: boolean;
+  className?: string;
   'aria-describedby'?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -122,12 +312,15 @@ function BirthdayMaskedInput({
         ref={inputRef}
         label="Birthday"
         value={value}
+        className={className}
+        disabled={disabled}
         maxLength={14}
         inputMode="numeric"
         invalid={invalid}
         onChange={handleChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
+        style={showMask ? { caretColor: 'transparent' } : undefined}
         {...rest}
       />
       {showMask && (
@@ -147,6 +340,7 @@ function BirthdayMaskedInput({
             fontSize: '1rem',
             lineHeight: '1.5rem',
             zIndex: 2,
+            overflow: 'hidden',
           }}
         >
           {/* Invisible spacer matching width of typed text */}
@@ -270,6 +464,31 @@ export function FloatingLabelInputDisabledDemoWithControls() {
     </>
   );
 }
+export function FloatingLabelInputPasswordToggleDemo() {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FloatingLabelInput
+          label="Password"
+          type={visible ? 'text' : 'password'}
+          endAdornment={
+            <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+          }
+        />
+      </div>
+    </div>
+  );
+}
+export function FloatingLabelInputSSNDemo() {
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <SSNMaskedInput />
+      </div>
+    </div>
+  );
+}
 export function FloatingLabelInputBirthdayDemo() {
   const [birthday, setBirthday] = useState('');
 
@@ -298,6 +517,33 @@ export function FloatingLabelInputBirthdayValidationDemo() {
           />
           {errorMessage && <FieldError id={errorId}>{errorMessage}</FieldError>}
         </div>
+      </div>
+    </div>
+  );
+}
+
+export function FloatingLabelInputBirthdayStatesDemo() {
+  const [empty, setEmpty] = useState('');
+  const [filled, setFilled] = useState('01 / 15 / 1995');
+  const [invalid, setInvalid] = useState('02 / 30 / 2001');
+
+  return (
+    <div className="flex flex-col items-center gap-8 py-8">
+      <div className="flex items-center">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
+        <BirthdayMaskedInput value={empty} onChange={setEmpty} className="w-[320px]" />
+      </div>
+      <div className="flex items-center">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
+        <BirthdayMaskedInput value={filled} onChange={setFilled} className="w-[320px]" />
+      </div>
+      <div className="flex items-center">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
+        <BirthdayMaskedInput value={invalid} onChange={setInvalid} invalid className="w-[320px]" />
+      </div>
+      <div className="flex items-center">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
+        <BirthdayMaskedInput value="01 / 15 / 1995" onChange={() => {}} disabled className="w-[320px]" />
       </div>
     </div>
   );

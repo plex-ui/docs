@@ -46,6 +46,11 @@ export type FloatingLabelInputProps = {
    * @default false
    */
   allowAutofillExtensions?: boolean
+  /**
+   * Content rendered after the input, before the clear button.
+   * Useful for toggle buttons (e.g. password visibility), icons, or other interactive elements.
+   */
+  endAdornment?: React.ReactNode
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInputProps>(
@@ -59,6 +64,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       onClear,
       onAutofill,
       allowAutofillExtensions = false,
+      endAdornment,
       className,
       "id": idProp,
       name,
@@ -195,6 +201,11 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
             data-lpignore={allowAutofillExtensions ? undefined : true}
             data-1p-ignore={allowAutofillExtensions ? undefined : true}
           />
+          {endAdornment && (
+            <div className={s.EndAdornment}>
+              {endAdornment}
+            </div>
+          )}
           {showClearButton && (
             <button
               type="button"
