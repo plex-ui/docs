@@ -228,7 +228,7 @@
     --radio-group-item-gap: spacing(1.5);
     --radio-group-item-font-size: var(--font-text-sm-size);
     --radio-group-item-line-height: var(--font-text-sm-line-height);
-    --radio-group-indicator-size: var(--font-text-md-size);
+    --radio-group-indicator-size: var(--font-text-lg-size);
     --radio-group-indicator-border-color: var(--color-border-primary-outline);
     --radio-group-indicator-border-color-hover: var(--alpha-25);
     --radio-group-indicator-background-color: var(--color-background-primary-solid);
