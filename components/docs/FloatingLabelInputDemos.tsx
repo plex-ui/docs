@@ -281,6 +281,28 @@ export function FloatingLabelInputBirthdayDemo() {
     </div>
   );
 }
+export function FloatingLabelInputBirthdayValidationDemo() {
+  const [birthday, setBirthday] = useState('02 / 30 / 2001');
+  const errorMessage = birthday ? (isValidBirthday(birthday) ? undefined : 'Please enter a valid date.') : undefined;
+  const errorId = 'birthday-validation-demo-error';
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <div className="flex flex-col gap-1.5">
+          <BirthdayMaskedInput
+            value={birthday}
+            onChange={setBirthday}
+            invalid={!!errorMessage}
+            aria-describedby={errorMessage ? errorId : undefined}
+          />
+          {errorMessage && <FieldError id={errorId}>{errorMessage}</FieldError>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function FloatingLabelInputAboutYouFormDemo() {
   const [fullName, setFullName] = useState('');
   const [birthday, setBirthday] = useState('');

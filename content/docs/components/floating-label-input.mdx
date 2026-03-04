@@ -8,6 +8,7 @@ import {
   FloatingLabelInputWithClearButtonDemoWithControls,
   FloatingLabelInputDisabledDemoWithControls,
   FloatingLabelInputBirthdayDemo,
+  FloatingLabelInputBirthdayValidationDemo,
   FloatingLabelInputAboutYouFormDemo,
   FloatingLabelSelectCountryDemo,
   FloatingLabelSelectAboutYouFormDemo,
@@ -155,14 +156,7 @@ import {
   invalid
   errorMessage="Please enter a valid date."
 />`} previewMinHeight={168}>
-  <div className="w-[360px]">
-    <FloatingLabelInput
-      label="Birthday"
-      defaultValue="02 / 30 / 2001"
-      invalid
-      errorMessage="Please enter a valid date."
-    />
-  </div>
+  <FloatingLabelInputBirthdayValidationDemo />
 </ComponentPreview>
 
 ### Birthday states
