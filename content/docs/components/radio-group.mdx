@@ -16,6 +16,7 @@ import {
   RadioGroupCardSelectionDemo,
   RadioGroupNotificationSettingsDemo,
 } from "@/components/docs/RadioGroupDemos"
+import { ControlsAlignmentDemo } from "@/components/docs/ControlsAlignmentDemo"
 
 <UsageBlock>{`import { RadioGroup } from "@plexui/ui/components/RadioGroup";`}</UsageBlock>
 
@@ -198,6 +199,30 @@ import {
   </div>
 </div>`} previewMinHeight={380}>
   <RadioGroupNotificationSettingsDemo />
+</ComponentPreview>
+
+
+### With Checkbox
+
+<ComponentPreview details={<>Place <code>RadioGroup</code> alongside <code>Checkbox</code> controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts.</>} code={`<div className="flex flex-row gap-12 items-start">
+  <div>
+    <span className="text-xs text-tertiary font-mono mb-1">RadioGroup</span>
+    <RadioGroup direction="row" defaultValue="email" aria-label="Channel">
+      <RadioGroup.Item value="email">Email</RadioGroup.Item>
+      <RadioGroup.Item value="sms">SMS</RadioGroup.Item>
+      <RadioGroup.Item value="push">Push</RadioGroup.Item>
+    </RadioGroup>
+  </div>
+  <div>
+    <span className="text-xs text-tertiary font-mono mb-1">Checkbox</span>
+    <div className="flex flex-row gap-5">
+      <Checkbox label="Email" defaultChecked />
+      <Checkbox label="SMS" />
+      <Checkbox label="Push" />
+    </div>
+  </div>
+</div>`} previewMinHeight={168}>
+  <ControlsAlignmentDemo />
 </ComponentPreview>
 
 ## Reference
