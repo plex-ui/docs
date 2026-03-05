@@ -6,6 +6,7 @@ description: Structured actions in a dropdown list
 import {
   MenuBaseDemo,
   MenuNaturalSizingDemo,
+  MenuGroupedDemo,
   MenuSubmenuDemo,
   MenuItemActionsDemo,
   MenuWithCheckboxesDemoWithControls,
@@ -53,6 +54,30 @@ import {
   </Menu.Content>
 </Menu>`} previewMinHeight={168}>
   <MenuNaturalSizingDemo />
+</ComponentPreview>
+
+### Grouped items
+
+<ComponentPreview details={<>Use <code>Menu.Group</code> and <code>Menu.Label</code> to organize related items into labeled sections.</>} code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost" className="font-semibold gap-1.5"><File /> Templates <ChevronDownMd /></Button>
+  </Menu.Trigger>
+  <Menu.Content minWidth={220}>
+    <Menu.Group>
+      <Menu.Label>Active</Menu.Label>
+      <Menu.Link href="#">Welcome email</Menu.Link>
+      <Menu.Link href="#">Order confirmation</Menu.Link>
+      <Menu.Link href="#">Password reset</Menu.Link>
+    </Menu.Group>
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.Label>Draft</Menu.Label>
+      <Menu.Link href="#">New promo campaign</Menu.Link>
+      <Menu.Link href="#">Account deactivation</Menu.Link>
+    </Menu.Group>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuGroupedDemo />
 </ComponentPreview>
 
 ### Submenus
@@ -224,6 +249,10 @@ return (
 **Menu.Link** — Item that navigates (uses your app link component). Pass `href` and link props.
 
 **Menu.Separator** — Divider between items. No props.
+
+**Menu.Group** — Groups related items. Wraps `Menu.Item`, `Menu.Link`, or `Menu.Label`. No specific props.
+
+**Menu.Label** — Non-interactive label for a group. Accepts `className`.
 
 **Menu.Sub** / **Menu.SubTrigger** / **Menu.SubContent** — Submenu wrapper, trigger, and content panel.
 

@@ -16,6 +16,7 @@ import {
   Search,
   Tools,
   Trash,
+  File,
 } from '@plexui/ui/components/Icon';
 
 const controlsTableStyle: React.CSSProperties = {
@@ -341,5 +342,34 @@ export function MenuWithRadioItemsDemoWithControls() {
         </Menu>
       </div>
     </>
+  );
+}
+
+
+export function MenuGroupedDemo() {
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <Menu>
+        <Menu.Trigger>
+          <Button color="primary" size="lg" variant="ghost" className="font-semibold gap-1.5">
+            <File /> Templates <ChevronDownMd />
+          </Button>
+        </Menu.Trigger>
+        <Menu.Content minWidth={220}>
+          <Menu.Group>
+            <Menu.Label>Active</Menu.Label>
+            <Menu.Link href="#">Welcome email</Menu.Link>
+            <Menu.Link href="#">Order confirmation</Menu.Link>
+            <Menu.Link href="#">Password reset</Menu.Link>
+          </Menu.Group>
+          <Menu.Separator />
+          <Menu.Group>
+            <Menu.Label>Draft</Menu.Label>
+            <Menu.Link href="#">New promo campaign</Menu.Link>
+            <Menu.Link href="#">Account deactivation</Menu.Link>
+          </Menu.Group>
+        </Menu.Content>
+      </Menu>
+    </div>
   );
 }

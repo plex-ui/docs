@@ -239,6 +239,25 @@ const Separator = ({ className }: { className?: string }) => {
   return <DropdownMenu.Separator className={clsx(s.Separator, className)} role="separator" />
 }
 
+
+const Label = ({ className, children }: { className?: string; children: ReactNode }) => {
+  return (
+    <DropdownMenu.Label className={clsx(s.MenuLabel, className)}>
+      {children}
+    </DropdownMenu.Label>
+  )
+}
+
+const Group = ({
+  className,
+  children,
+}: {
+  className?: string
+  children: ReactNode
+}) => {
+  return <DropdownMenu.Group className={className}>{children}</DropdownMenu.Group>
+}
+
 export type MenuContentProps = {
   children: React.ReactNode
   /**
@@ -598,3 +617,5 @@ Menu.SubContent = SubContent
 Menu.CheckboxItem = CheckboxItem
 Menu.RadioGroup = RadioGroup
 Menu.RadioItem = RadioItem
+Menu.Label = Label
+Menu.Group = Group
