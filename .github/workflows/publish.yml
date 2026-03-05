@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,7 +31,7 @@ jobs:
         working-directory: packages/ui
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         working-directory: packages/ui
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
