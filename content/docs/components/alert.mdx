@@ -5,9 +5,9 @@ description: Call attention to a specific message or warning
 
 import { Alert } from "@plexui/ui/components/Alert"
 import { Button } from "@plexui/ui/components/Button"
-import { Lightbulb } from "@plexui/ui/components/Icon"
+
 import { TextLink } from "@plexui/ui/components/TextLink"
-import { AlertColorsDemo, AlertActionsDemo, AlertDismissDemo } from "@/components/docs/AlertDemos"
+import { AlertColorsDemo, AlertActionsDemo, AlertIndicatorDemo, AlertDismissibleDemo } from "@/components/docs/AlertDemos"
 import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
 
 <UsageBlock>{`import { Alert } from "@plexui/ui/components/Alert";`}</UsageBlock>
@@ -112,7 +112,7 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
 
 ### Indicator
 
-<ComponentPreview details={<>Alert provides an indicator icon by default. You can override it by passing a custom icon to <code>indicator</code>.</>} code={`<Alert
+<ComponentPreview details={<>Alert provides an indicator icon by default. You can override it by passing a custom icon to <code>indicator</code>, or pass <code>indicator={'{false}'}</code> to hide it entirely.</>} code={`<Alert
   indicator={<Lightbulb />}
   description={
     <>
@@ -120,31 +120,12 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
     </>
   }
 />`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
-  <Alert
-    indicator={<Lightbulb />}
-    description={
-      <>
-        We&apos;re working on centralizing SCIM and invite settings. For now, setup is handled within individual product settings. <TextLink href="#">Learn more</TextLink>
-      </>
-    }
-  />
-</ComponentPreview>
-
-To hide the indicator entirely, pass `indicator={false}`.
-
-<ComponentPreview code={`<Alert
-  indicator={false}
-  description="Version 2.18.5 rolls out behind-the-scenes tweaks to caching and background sync. You don't need to do anything."
-/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
-  <Alert
-    indicator={false}
-    description="Version 2.18.5 rolls out behind-the-scenes tweaks to caching and background sync. You don't need to do anything."
-  />
+  <AlertIndicatorDemo />
 </ComponentPreview>
 
 ### Dismissible
 
-<ComponentPreview details={<>The suggested approach for dismissible notices is to use labeled buttons via <code>actions</code>.</>} code={`<Alert
+<ComponentPreview details={<>The suggested approach for dismissible notices is to use labeled buttons via <code>actions</code>. You can also provide <code>onDismiss</code> to render a dismiss button in the alert chrome.</>} code={`<Alert
   className="items-start"
   title="Try our new dashboard layout"
   description="We've introduced a streamlined layout that makes using the dashboard even easier. You can switch back any time."
@@ -155,31 +136,7 @@ To hide the indicator entirely, pass `indicator={false}`.
     </>
   )}
 />`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
-  <Alert
-    className="items-start"
-    title="Try our new dashboard layout"
-    description="We've introduced a streamlined layout that makes using the dashboard even easier. You can switch back any time."
-    actions={
-      <>
-        <Button color="primary" variant="soft" pill>
-          Dismiss
-        </Button>
-        <Button color="primary" variant="solid" pill>
-          Try it
-        </Button>
-      </>
-    }
-  />
-</ComponentPreview>
-
-You can also provide `onDismiss` to render a dismiss button in the alert chrome.
-
-<ComponentPreview code={`<Alert
-  title="Thank you!"
-  description="Your application has been received. We will review your application and respond within the next 48 hours."
-  onDismiss={() => {}}
-/>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
-  <AlertDismissDemo />
+  <AlertDismissibleDemo />
 </ComponentPreview>
 
 ## Reference
