@@ -30,8 +30,7 @@ jobs:
         run: npm run build
         working-directory: packages/ui
 
+
       - name: Publish to npm
         run: npm publish --access public --provenance
         working-directory: packages/ui
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
