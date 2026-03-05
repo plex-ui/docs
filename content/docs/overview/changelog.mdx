@@ -7,7 +7,114 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
-## Unreleased
+## 0.7.36 — 2026-03-05
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Menu.Label and Menu.Group</strong> (<a href="/docs/components/menu#grouped-items">Menu</a>)<br/>
+    New compound components for organizing menu items into labeled groups. <code>Menu.Group</code> wraps related items, <code>Menu.Label</code> renders a non-interactive section heading.
+  </li>
+  <li>
+    <strong>FloatingLabelSelect component</strong> (<a href="/docs/components/floating-label-input#floating-label-select">Floating Label Input</a>)<br/>
+    New select variant with floating label animation matching FloatingLabelInput. Label floats above when an option is selected.
+  </li>
+  <li>
+    <strong>FloatingLabelInput endAdornment</strong> (<a href="/docs/components/floating-label-input#password-input">Floating Label Input</a>)<br/>
+    Added <code>endAdornment</code> prop for placing icons or buttons at the end of the input. Includes password toggle, SSN mask, and birthday masked input demos.
+  </li>
+  <li>
+    <strong>FloatingLabelInput placeholder support</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    Added <code>placeholder</code> prop with focus-only visibility — placeholder text appears when the input is focused and the label has floated above.
+  </li>
+  <li>
+    <strong>Birthday masked input</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    Composition demo for segmented birthday input with segment highlighting, cursor positioning through separators, and live validation. Includes both masked and segmented select variants.
+  </li>
+  <li>
+    <strong>Phone input and country selector</strong> (<a href="/docs/components/select-control#phone-input">Select Control</a>)<br/>
+    Composition demo combining SelectControl with country flag icons and phone number formatting. Flag icons use lipis/flag-icons 4:3 SVGs via jsDelivr CDN.
+  </li>
+  <li>
+    <strong>Column configuration demo</strong> (<a href="/docs/components/select#column-configuration">Select</a>)<br/>
+    Composition demo for table column visibility toggles using Select with checkbox items.
+  </li>
+  <li>
+    <strong>Switch description prop</strong> (<a href="/docs/components/switch">Switch</a>)<br/>
+    Added <code>description</code> prop to Switch for displaying secondary text below the label.
+  </li>
+  <li>
+    <strong>Tabs scrollable demo</strong> (<a href="/docs/components/tabs#scrollable">Tabs</a>)<br/>
+    Added Scrollable example to Tabs documentation showing horizontal overflow behavior with auto-scroll to active tab. No extra prop needed — just constrain the container width.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Alert dismiss button</strong> (<a href="/docs/components/alert#dismissible">Alert</a>)<br/>
+    Replaced raw close icon with a soft Button component for the dismiss action. Consolidated Actions and Dismissible sections into single previews for cleaner documentation.
+  </li>
+  <li>
+    <strong>Indicator sizes unified</strong> (<a href="/docs/components/indicators">Indicators</a>)<br/>
+    Standardized all indicator sizes to 18px across LoadingIndicator, CircularProgress, and LoadingDots. Consolidated Indicator and Dismissible demo sections into single preview cards.
+  </li>
+  <li>
+    <strong>Checkbox alignment unified with RadioGroup</strong> (<a href="/docs/components/checkbox">Checkbox</a>)<br/>
+    Aligned Checkbox indicator size (18×18px) and label gap with RadioGroup for visual consistency. Fixed label vertical alignment to match RadioGroup first-line behavior. Added combined Checkbox + RadioGroup alignment demo to both doc pages.
+  </li>
+  <li>
+    <strong>FloatingLabelInput focus tokens</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    Replaced hardcoded blue focus ring color with neutral design tokens for consistency with the rest of the system.
+  </li>
+  <li>
+    <strong>Birthday segment highlight token</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    Uses <code>primary/solid</code> token for active segment highlight instead of hardcoded color.
+  </li>
+  <li>
+    <strong>Removed "New" badges from component index and sidebar</strong><br/>
+    Cleared all <code>isNew</code> badges from the components index page and sidebar — too many components were flagged, reducing the signal value.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Birthday mask cursor positioning</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    Fixed cursor advancing past separators on complete segment and handling backspace through separator characters in the masked birthday input.
+  </li>
+  <li>
+    <strong>Birthday inputs browser autocomplete</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    Fixed segmented birthday inputs triggering unwanted browser autocomplete dropdown.
+  </li>
+  <li>
+    <strong>Flag icon aspect ratio</strong> (<a href="/docs/components/select-control#phone-input">Select Control</a>)<br/>
+    Fixed flag icons rendering as squares instead of proper 4:3 rectangles. Switched to same-height CDN endpoints and fixed alignment in dropdown lists.
+  </li>
+  <li>
+    <strong>Input clear button styling</strong> (<a href="/docs/components/input#clear-button">Input</a>)<br/>
+    Fixed clear button styling inconsistencies when used alongside FloatingLabelSelect demos.
+  </li>
+  <li>
+    <strong>Column config demo toggles</strong> (<a href="/docs/components/select#column-configuration">Select</a>)<br/>
+    Fixed broken toggle state and removed unnecessary separator in column configuration popover.
+  </li>
+  <li>
+    <strong>Button sizing demo height jump</strong> (<a href="/docs/components/button#sizing">Button</a>)<br/>
+    Fixed preview card height jumping when switching between button sizes.
+  </li>
+  <li>
+    <strong>FileDocument icon export</strong> (<a href="/docs/components/menu">Menu</a>)<br/>
+    Fixed import using non-existent <code>File</code> icon export — replaced with <code>FileDocument</code>.
+  </li>
+</ul>
+
+---
+
+## 0.6.0 — 2026-02-01
 
 ### Added
 
@@ -61,8 +168,8 @@ This changelog documents significant updates, bug fixes, and improvements to com
     Slider now supports dual-thumb range selection via array <code>value</code>/<code>defaultValue</code>. Also added vertical orientation, disabled state, prefix/suffix units, and step markers with labels.
   </li>
   <li>
-    <strong>Icon and badge support</strong> (<a href="/docs/components/segmented-control#icon-only">Segmented Control</a>)<br/>
-    Added <code>icon</code> and <code>badge</code> props to <code>SegmentedControl.Option</code>. Icons automatically size based on control size with negative left margins for visual alignment. Badges support semantic colors (<code>secondary</code>, <code>success</code>, <code>danger</code>, etc.), style variants (<code>soft</code>, <code>solid</code>), and <code>pill</code> shape option. Badge sizes scale with control size using new 2xs/xs badge tokens for smaller controls.
+    <strong>Icon and badge support</strong> (<a href="/docs/components/tabs#segmented-with-icons">Tabs</a>)<br/>
+    Added <code>icon</code> and <code>badge</code> props to <code>Tabs.Tab</code>. Icons automatically size based on control size. Badges support semantic colors (<code>secondary</code>, <code>success</code>, <code>danger</code>, etc.), style variants (<code>soft</code>, <code>solid</code>), and <code>pill</code> shape option.
   </li>
   <li>
     <strong>Tabs component</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
@@ -123,16 +230,12 @@ This changelog documents significant updates, bug fixes, and improvements to com
     Replaced hardcoded error colors with <code>--color-text-danger-outline</code> and <code>--color-border-danger-outline</code> semantic tokens. Removed <code>margin-top: -0.1em</code> hack from error icon, now relies on flex centering for alignment.
   </li>
   <li>
-    <strong>ComponentPreview border consistency</strong><br/>
-    Unified demo control row border color with the outer card border across light and dark themes. Control rows now use theme-aware <code>rgb(0 0 0 / 5%)</code> / <code>rgb(255 255 255 / 5%)</code> instead of the heavier <code>var(--color-fd-border)</code>.
-  </li>
-  <li>
-    <strong>Pill overflow and text overlap</strong> (<a href="/docs/components/segmented-control#narrow-pill">Segmented Control</a>)<br/>
+    <strong>Pill overflow and text overlap</strong> (<a href="/docs/components/tabs#narrow-pill">Tabs</a>)<br/>
     In pill mode, narrow options (icons, single digits) could be narrower than the control height, causing circular hover highlights and the active thumb to overflow or clip. Added min-width to options in pill mode ensuring they're at least as wide as the control height. Also fixed a scrollable mode regression where text items overlapped, and corrected invalid <code>white-space: wrap</code> to <code>white-space: normal</code>.
   </li>
   <li>
-    <strong>Highlight overlay radius mismatch</strong> (<a href="/docs/components/segmented-control">Segmented Control</a>)<br/>
-    The hover/active overlay (::before) used the same <code>border-radius</code> as the option, but the overlay is inset by 1px. This caused the inner rounded shape to not nest correctly. Added <code>--segmented-control-option-highlight-radius</code> calculated as option radius minus inset, so the overlay aligns flush with the container.
+    <strong>Highlight overlay radius mismatch</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    The hover/active overlay (::before) used the same <code>border-radius</code> as the option, but the overlay is inset by 1px. This caused the inner rounded shape to not nest correctly. Added calculated radius as option radius minus inset, so the overlay aligns flush with the container.
   </li>
   <li>
     <strong>Pill gutter scaling with opticallyAlign</strong> (<a href="/docs/components/select-control#optical-alignment">Select Control</a>, <a href="/docs/components/input#optical-alignment">Input</a>, <a href="/docs/components/button#optical-alignment">Button</a>)<br/>
@@ -151,10 +254,6 @@ This changelog documents significant updates, bug fixes, and improvements to com
     Badge was missing the <code>caution</code> color option, inconsistent with Button and Alert. Added <code>caution</code> to BadgeProps, implemented CSS styles for all variants (soft, solid, outline), and added to the Colors example matrix.
   </li>
   <li>
-    <strong>Incorrect size documentation</strong> (<a href="/docs/components/badge#colors--variants">Badge</a>)<br/>
-    Documentation stated <code>sm</code> size is 18px, but actual computed value is 20px (<code>calc(22px - 2px)</code>). Fixed the JSDoc comment to show correct value.
-  </li>
-  <li>
     <strong>Tabs pill variant radius</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
     Fixed incorrect border-radius in pill mode for both segmented and vertical orientations. The option radius now correctly uses <code>--radius-full</code> when pill is active.
   </li>
@@ -170,7 +269,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 When adding entries to this changelog:
 
-1. Add new items under the **Unreleased** section
+1. Add new items under a new **Unreleased** section at the top
 2. Group by change type: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, **Security**
 3. Link to the affected component in parentheses after the fix title
 4. Describe the issue and the fix concisely
