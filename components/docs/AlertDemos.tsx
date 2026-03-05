@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Alert } from '@plexui/ui/components/Alert';
 import { Button } from '@plexui/ui/components/Button';
 import { TextLink } from '@plexui/ui/components/TextLink';
+import { Lightbulb } from '@plexui/ui/components/Icon';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 
 const COLOR_OPTIONS = [
@@ -117,6 +118,25 @@ export function AlertColorsDemo() {
   );
 }
 
+export function AlertIndicatorDemo() {
+  return (
+    <div data-demo-stage className="flex-1 w-full py-12 flex flex-col items-center justify-center gap-6">
+      <Alert
+        indicator={<Lightbulb />}
+        description={
+          <>
+            We&apos;re working on centralizing SCIM and invite settings. For now, setup is handled within individual product settings. <TextLink href="#">Learn more</TextLink>
+          </>
+        }
+      />
+      <Alert
+        indicator={false}
+        description="Version 2.18.5 rolls out behind-the-scenes tweaks to caching and background sync. You don't need to do anything."
+      />
+    </div>
+  );
+}
+
 export function AlertActionsDemo() {
   return (
     <div data-demo-stage className="flex-1 w-full py-12 flex flex-col items-center justify-center gap-6">
@@ -143,13 +163,28 @@ export function AlertActionsDemo() {
   );
 }
 
-export function AlertDismissDemo() {
+export function AlertDismissibleDemo() {
   return (
-    <div data-demo-stage className="flex-1 w-full py-12 flex items-center justify-center">
+    <div data-demo-stage className="flex-1 w-full py-12 flex flex-col items-center justify-center gap-6">
+      <Alert
+        className="items-start"
+        title="Try our new dashboard layout"
+        description="We've introduced a streamlined layout that makes using the dashboard even easier. You can switch back any time."
+        actions={
+          <>
+            <Button color="primary" variant="soft" pill>
+              Dismiss
+            </Button>
+            <Button color="primary" variant="solid" pill>
+              Try it
+            </Button>
+          </>
+        }
+      />
       <Alert
         title="Thank you!"
         description="Your application has been received. We will review your application and respond within the next 48 hours."
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
     </div>
   );
