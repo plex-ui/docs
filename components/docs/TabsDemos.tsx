@@ -552,3 +552,51 @@ export function TabsSizingDemo() {
     </>
   );
 }
+
+// ─── Scrollable ───
+export function TabsScrollableDemo() {
+  const [tab, setTab] = useState('1');
+  const [variant, setVariant] = useState<(typeof VARIANT_OPTIONS)[number]>('segmented');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl value={variant} onChange={setVariant} size="xs" aria-label="variant">
+            {VARIANT_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>{v}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <div className="max-w-[400px] flex">
+          <Tabs
+            value={tab}
+            onChange={setTab}
+            variant={variant}
+            size={size}
+            aria-label="Scrollable tabs"
+          >
+            <Tabs.Tab value="1">Overview</Tabs.Tab>
+            <Tabs.Tab value="2">Analytics</Tabs.Tab>
+            <Tabs.Tab value="3">Reports</Tabs.Tab>
+            <Tabs.Tab value="4">Settings</Tabs.Tab>
+            <Tabs.Tab value="5">Members</Tabs.Tab>
+            <Tabs.Tab value="6">Billing</Tabs.Tab>
+            <Tabs.Tab value="7">Security</Tabs.Tab>
+            <Tabs.Tab value="8">Integrations</Tabs.Tab>
+          </Tabs>
+        </div>
+      </div>
+    </>
+  );
+}

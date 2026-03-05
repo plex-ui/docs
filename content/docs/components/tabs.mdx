@@ -17,6 +17,7 @@ import {
   TabsVerticalUnderlineIconsDemo,
   TabsDisabledDemo,
   TabsSizingDemo,
+  TabsScrollableDemo,
 } from "@/components/docs/TabsDemos"
 import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
 
@@ -157,6 +158,23 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
   <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
 </Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
   <TabsSizingDemo />
+</ComponentPreview>
+
+### Scrollable
+
+<ComponentPreview details={<>When tabs overflow their container, they automatically become horizontally scrollable. The active tab scrolls into view smoothly. No extra prop is needed — just constrain the container width.</>} code={`<div className="max-w-[400px] flex">
+  <Tabs value={tab} onChange={setTab} aria-label="Scrollable tabs">
+    <Tabs.Tab value="1">Overview</Tabs.Tab>
+    <Tabs.Tab value="2">Analytics</Tabs.Tab>
+    <Tabs.Tab value="3">Reports</Tabs.Tab>
+    <Tabs.Tab value="4">Settings</Tabs.Tab>
+    <Tabs.Tab value="5">Members</Tabs.Tab>
+    <Tabs.Tab value="6">Billing</Tabs.Tab>
+    <Tabs.Tab value="7">Security</Tabs.Tab>
+    <Tabs.Tab value="8">Integrations</Tabs.Tab>
+  </Tabs>
+</div>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsScrollableDemo />
 </ComponentPreview>
 
 Tabs shares the unified 9-step size scale with Button, Input, Select, and SelectControl.
