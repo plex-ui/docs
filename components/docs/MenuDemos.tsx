@@ -16,7 +16,7 @@ import {
   Search,
   Tools,
   Trash,
-  File,
+  FileDocument,
 } from '@plexui/ui/components/Icon';
 
 const controlsTableStyle: React.CSSProperties = {
@@ -352,7 +352,7 @@ export function MenuGroupedDemo() {
       <Menu>
         <Menu.Trigger>
           <Button color="primary" size="lg" variant="ghost" className="font-semibold gap-1.5">
-            <File /> Templates <ChevronDownMd />
+            <FileDocument /> Templates <ChevronDownMd />
           </Button>
         </Menu.Trigger>
         <Menu.Content minWidth={220}>
