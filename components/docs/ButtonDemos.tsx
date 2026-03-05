@@ -119,8 +119,10 @@ export function ButtonColorsDemo() {
 
 export function ButtonSizingDemo() {
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('xl');
+  const [color, setColor] = useState<(typeof COLOR_OPTIONS)[number]>('primary');
+  const [variant, setVariant] = useState<(typeof VARIANT_OPTIONS)[number]>('solid');
   const [pill, setPill] = useState(true);
-  const args = { color: 'primary' as const, size, pill };
+  const args = { color, variant, size, pill };
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
@@ -134,6 +136,34 @@ export function ButtonSizingDemo() {
             {SIZE_OPTIONS.map((s) => (
               <SegmentedControl.Option key={s} value={s}>
                 {s}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="variant">
+          <SegmentedControl<(typeof VARIANT_OPTIONS)[number]>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            {VARIANT_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="color">
+          <SegmentedControl<(typeof COLOR_OPTIONS)[number]>
+            value={color}
+            onChange={setColor}
+            aria-label="color"
+            size="xs"
+          >
+            {COLOR_OPTIONS.map((c) => (
+              <SegmentedControl.Option key={c} value={c}>
+                {c}
               </SegmentedControl.Option>
             ))}
           </SegmentedControl>
@@ -162,6 +192,7 @@ export function ButtonIconDemo() {
   const [iconSize, setIconSize] = useState<(typeof OPTIONAL_ICON_SIZE_OPTIONS)[number]>('auto');
   const [uniform, setUniform] = useState(false);
   const [variant, setVariant] = useState<(typeof VARIANT_OPTIONS)[number]>('solid');
+  const [color, setColor] = useState<(typeof COLOR_OPTIONS)[number]>('primary');
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
@@ -222,10 +253,24 @@ export function ButtonIconDemo() {
             ))}
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlRow name="color">
+          <SegmentedControl<(typeof COLOR_OPTIONS)[number]>
+            value={color}
+            onChange={setColor}
+            aria-label="color"
+            size="xs"
+          >
+            {COLOR_OPTIONS.map((c) => (
+              <SegmentedControl.Option key={c} value={c}>
+                {c}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
       </div>
       <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
         <Button
-          color="primary"
+          color={color}
           size={size}
           gutterSize={gutterSize === 'auto' ? undefined : gutterSize}
           iconSize={iconSize === 'auto' ? undefined : iconSize}
