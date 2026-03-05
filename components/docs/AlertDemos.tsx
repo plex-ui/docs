@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Alert } from '@plexui/ui/components/Alert';
+import { Button } from '@plexui/ui/components/Button';
 import { TextLink } from '@plexui/ui/components/TextLink';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 
@@ -113,6 +114,32 @@ export function AlertColorsDemo() {
         </div>
       </div>
     </>
+  );
+}
+
+export function AlertActionsDemo() {
+  return (
+    <div data-demo-stage className="flex-1 w-full py-12 flex flex-col items-center justify-center gap-6">
+      <Alert
+        variant="soft"
+        color="warning"
+        title="Password expires in 3 days"
+        description="Update it now to avoid losing access to your account."
+        actions={<Button color="primary" pill>Update password</Button>}
+      />
+      <Alert
+        variant="soft"
+        color="warning"
+        title="Your API key will be rotated soon"
+        description="Automatic key rotation is scheduled for March 10. Download the new key afterward to keep your integrations running."
+        actions={
+          <Button color="warning" variant="soft" pill>
+            Remind me later
+          </Button>
+        }
+        onDismiss={() => {}}
+      />
+    </div>
   );
 }
 

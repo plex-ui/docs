@@ -7,7 +7,7 @@ import { Alert } from "@plexui/ui/components/Alert"
 import { Button } from "@plexui/ui/components/Button"
 import { Lightbulb } from "@plexui/ui/components/Icon"
 import { TextLink } from "@plexui/ui/components/TextLink"
-import { AlertColorsDemo, AlertDismissDemo } from "@/components/docs/AlertDemos"
+import { AlertColorsDemo, AlertActionsDemo, AlertDismissDemo } from "@/components/docs/AlertDemos"
 import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
 
 <UsageBlock>{`import { Alert } from "@plexui/ui/components/Alert";`}</UsageBlock>
@@ -70,20 +70,14 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
 
 ### Actions
 
-<ComponentPreview details={<>You can add actions to the alert with the <code>actions</code> prop, which accepts <code>ReactNode</code>.</>} code={`<Alert
+<ComponentPreview details={<>You can add actions to the alert with the <code>actions</code> prop, which accepts <code>ReactNode</code>. Combine with <code>onDismiss</code> to add a dismiss button.</>} code={`<Alert
   variant="soft"
   color="warning"
   title="Password expires in 3 days"
   description="Update it now to avoid losing access to your account."
   actions={<Button color="primary" pill>Update password</Button>}
 />`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
-  <Alert
-    variant="soft"
-    color="warning"
-    title="Password expires in 3 days"
-    description="Update it now to avoid losing access to your account."
-    actions={<Button color="primary" pill>Update password</Button>}
-  />
+  <AlertActionsDemo />
 </ComponentPreview>
 
 ### Action placement

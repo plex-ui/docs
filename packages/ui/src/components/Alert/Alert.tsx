@@ -5,7 +5,8 @@ import { type ReactNode, type Ref, useEffect, useRef, useState } from "react"
 import { mergeRefs } from "react-merge-refs"
 import { useResizeObserver } from "usehooks-ts"
 import { type SemanticColors, type Variants } from "../../types"
-import { CheckCircle, Info, Warning, X } from "../Icon"
+import { CheckCircle, Info, Warning } from "../Icon"
+import { Button } from "../Button"
 import s from "./Alert.module.css"
 
 export type AlertProps = {
@@ -89,17 +90,17 @@ export const Alert = ({
           {title && <div className={s.Title}>{title}</div>}
           {description && <div className={s.Description}>{description}</div>}
         </div>
-        {actions && (
+        {(actions || onDismiss) && (
           <div className={clsx(s.Actions, actionsClassName)} ref={actionsRef}>
             {actions}
+            {onDismiss && (
+              <Button type="button" onClick={onDismiss} color={color} variant="soft" pill>
+                Dismiss
+              </Button>
+            )}
           </div>
         )}
       </div>
-      {onDismiss && (
-        <button type="button" onClick={onDismiss} className={s.DismissButton} aria-label="Dismiss">
-          <X />
-        </button>
-      )}
     </div>
   )
 }
