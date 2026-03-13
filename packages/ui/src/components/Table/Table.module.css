@@ -6,6 +6,7 @@
 
 .Table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: var(--table-cell-font-size);
   line-height: var(--table-cell-line-height);

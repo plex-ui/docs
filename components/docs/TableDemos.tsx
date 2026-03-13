@@ -199,7 +199,8 @@ export function TableCellVariantsDemo() {
       {
         accessorKey: 'salary',
         header: tooltipHeader('Salary', 'Annual base salary in USD.'),
-        cell: ({ row }) => <div className="text-right font-medium">{moneyFormatter.format(row.original.salary)}</div>,
+        meta: { align: 'right' as const },
+        cell: ({ row }) => <span className="font-medium">{moneyFormatter.format(row.original.salary)}</span>,
       },
     ],
     [],
@@ -217,16 +218,18 @@ export function TableFilteringDemo() {
 
   const columns: ColumnDef<User>[] = useMemo(
     () => [
-      { accessorKey: 'id', header: 'ID' },
       {
         accessorKey: 'name',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
         cell: ({ row }) => <span className="font-medium">{row.original.name}</span>,
       },
-      { accessorKey: 'email', header: 'Email' },
       { accessorKey: 'role', header: 'Role' },
       { accessorKey: 'department', header: 'Department' },
-      { accessorKey: 'status', header: 'Status' },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        cell: statusCell<User>((row) => row.status),
+      },
     ],
     [],
   );
@@ -243,7 +246,7 @@ export function TableFilteringDemo() {
               id="table-filter-input"
               value={globalFilter}
               onChange={(event) => setGlobalFilter(event.target.value)}
-              placeholder="Search name, email, role, department..."
+              placeholder="Search name, role, department..."
             />
           </div>
         </div>
@@ -263,10 +266,9 @@ export function TableFilteringDemo() {
 
 export function TableColumnVisibilityDemo() {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    email: true,
     role: true,
     department: true,
-    joined: true,
+    status: true,
     salary: true,
   });
 
@@ -277,14 +279,18 @@ export function TableColumnVisibilityDemo() {
         header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
         cell: ({ row }) => <span className="font-medium">{row.original.name}</span>,
       },
-      { accessorKey: 'email', header: 'Email' },
       { accessorKey: 'role', header: 'Role' },
       { accessorKey: 'department', header: 'Department' },
-      { accessorKey: 'joined', header: 'Joined', cell: dateTimeCell<User>((row) => row.joined) },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        cell: statusCell<User>((row) => row.status),
+      },
       {
         accessorKey: 'salary',
         header: 'Salary',
-        cell: ({ row }) => <div className="text-right">{moneyFormatter.format(row.original.salary)}</div>,
+        meta: { align: 'right' as const },
+        cell: ({ row }) => <span>{moneyFormatter.format(row.original.salary)}</span>,
       },
     ],
     [],
@@ -293,11 +299,6 @@ export function TableColumnVisibilityDemo() {
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
-        <DemoControlBoolean
-          name="email"
-          value={columnVisibility.email !== false}
-          onChange={(checked) => setColumnVisibility((prev) => ({ ...prev, email: checked }))}
-        />
         <DemoControlBoolean
           name="role"
           value={columnVisibility.role !== false}
@@ -309,9 +310,9 @@ export function TableColumnVisibilityDemo() {
           onChange={(checked) => setColumnVisibility((prev) => ({ ...prev, department: checked }))}
         />
         <DemoControlBoolean
-          name="joined"
-          value={columnVisibility.joined !== false}
-          onChange={(checked) => setColumnVisibility((prev) => ({ ...prev, joined: checked }))}
+          name="status"
+          value={columnVisibility.status !== false}
+          onChange={(checked) => setColumnVisibility((prev) => ({ ...prev, status: checked }))}
         />
         <DemoControlBoolean
           name="salary"

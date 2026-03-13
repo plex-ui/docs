@@ -40,6 +40,7 @@ export const DataTablePagination = <TData,>({ table }: DataTablePaginationProps<
             color="secondary"
             variant="outline"
             size="sm"
+            pill={false}
             uniform
             disabled={!table.getCanPreviousPage()}
             onClick={() => table.previousPage()}
@@ -50,6 +51,7 @@ export const DataTablePagination = <TData,>({ table }: DataTablePaginationProps<
             color="secondary"
             variant="outline"
             size="sm"
+            pill={false}
             uniform
             disabled={!table.getCanNextPage()}
             onClick={() => table.nextPage()}
