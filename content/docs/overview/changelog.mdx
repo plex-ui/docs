@@ -7,6 +7,52 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.7.40 — 2026-03-13
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>StatCard component</strong> (<a href="/docs/components/stat-card">Stat Card</a>)<br/>
+    New dashboard statistics card with 7 configurable features: <code>size</code> (sm/md/lg), <code>tooltip</code>, <code>trendPosition</code> (label/value), <code>trendVariant</code> (positive/negative/neutral), <code>icon</code> with accent colors, and <code>invertTrend</code>. Supports 8 accent color schemes. Icon layout uses <code>align-self: stretch; aspect-ratio: 1</code> for equal padding. Includes 5 interactive demo components with live controls.
+  </li>
+  <li>
+    <strong>DataTable component</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    New data table built on TanStack Table v8. Features: sorting, pagination, global filtering, column visibility, row click, row selection, and empty state handling. Includes <code>DataTableColumnHeader</code> for sortable headers and <code>DataTablePagination</code> with rows-per-page selector.
+  </li>
+  <li>
+    <strong>DataTable <code>variant</code> prop</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    Added <code>variant</code> prop with <code>"default"</code> (borderless) and <code>"bordered"</code> (rounded border with tinted header background) options.
+  </li>
+  <li>
+    <strong>DataTable column helpers</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    New helper functions for common cell patterns: <code>idCell</code> (monospace ID with CopyTooltip), <code>dateTimeCell</code> (formatted datetime via <code>Intl.DateTimeFormat</code>), <code>statusCell</code> (Badge with automatic status-to-color mapping), and <code>tooltipHeader</code> (header with dashed underline and tooltip).
+  </li>
+  <li>
+    <strong>DataTable <code>meta.align</code></strong> (<a href="/docs/components/table">Table</a>)<br/>
+    Column definitions now support <code>meta: &#123; align: "right" &#125;</code> to align both header and cell content consistently. Extends TanStack Table's <code>ColumnMeta</code> type.
+  </li>
+  <li>
+    <strong>Fingerprint icon</strong><br/>
+    Added new <code>Fingerprint</code> icon to the icon library.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Table <code>table-layout: fixed</code></strong> (<a href="/docs/components/table">Table</a>)<br/>
+    Table primitive now uses <code>table-layout: fixed</code> to prevent column widths from jumping when sorting changes row order.
+  </li>
+  <li>
+    <strong>DataTable pagination buttons</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    Pagination prev/next buttons no longer use pill shape (<code>pill=&#123;false&#125;</code>), using standard border-radius instead.
+  </li>
+</ul>
+
+---
+
 ## 0.7.36 — 2026-03-05
 
 ### Added
