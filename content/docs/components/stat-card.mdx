@@ -1,0 +1,158 @@
+---
+title: StatCard
+description: Display key metrics and KPIs with trend indicators
+---
+
+import { StatCard } from "@plexui/ui/components/StatCard"
+import { StatCardOverviewDemo, StatCardSizesDemo, StatCardAccentDemo, StatCardInvertedTrendDemo, StatCardIconDemo } from "@/components/docs/StatCardDemos"
+
+<UsageBlock>{`import { StatCard } from "@plexui/ui/components/StatCard";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview details={<>Dashboard-ready stat cards with trends, icons, and progress bars. Use the controls below to explore all available props.</>} code={`const [size, setSize] = useState("default")
+const [variant, setVariant] = useState("default")
+const [trendPosition, setTrendPosition] = useState("value")
+const [trendVariant, setTrendVariant] = useState("text")
+const [showTrend, setShowTrend] = useState(true)
+const [showTooltip, setShowTooltip] = useState(false)
+const [invertTrend, setInvertTrend] = useState(false)
+
+<StatCard
+  label="Total Revenue"
+  value="$45,231"
+  size={size}
+  variant={variant}
+  trendPosition={trendPosition}
+  trendVariant={trendVariant}
+  trend={showTrend ? { value: 12.5, label: "vs last month" } : undefined}
+  tooltip={showTooltip ? "Sum of all revenue streams" : undefined}
+  invertTrend={invertTrend}
+/>`} previewMinHeight={120}>
+  <StatCardOverviewDemo />
+</ComponentPreview>
+
+### Sizes
+
+<ComponentPreview details={<>Use <code>size="sm"</code> for compact analytics rows with denser spacing and smaller typography. The small size also pairs well with the <code>tooltip</code> prop for info icons.</>} code={`<div className="flex flex-col gap-6">
+  {/* Default size */}
+  <div className="grid grid-cols-3 gap-4">
+    <StatCard label="Total Revenue" value="$45,231" trend={{ value: 12.5 }} />
+    <StatCard label="Active Users" value="2,847" trend={{ value: 8.2 }} />
+    <StatCard label="Conversion Rate" value="3.24%" trend={{ value: -1.8 }} />
+  </div>
+  {/* Small size */}
+  <div className="grid grid-cols-3 gap-3">
+    <StatCard size="sm" label="Total Inquiries" value="3,544" trend={{ value: -2.6 }} tooltip="Total inquiries in period" />
+    <StatCard size="sm" label="Completion Rate" value="89.2%" trend={{ value: 0.5 }} tooltip="Average across templates" />
+    <StatCard size="sm" label="Approval Rate" value="84.6%" trend={{ value: 1.8 }} tooltip="Average across templates" />
+  </div>
+</div>`} previewMinHeight={120}>
+  <StatCardSizesDemo />
+</ComponentPreview>
+
+### Trend position
+
+<ComponentPreview details={<>Control where the trend appears: next to the value (default) or right-aligned in the header row.</>} code={`<div className="grid grid-cols-2 gap-4" style={{ maxWidth: 480 }}>
+  <StatCard label="Revenue" value="$45,231" trend={{ value: 12.5 }} trendPosition="value" />
+  <StatCard label="Revenue" value="$45,231" trend={{ value: 12.5 }} trendPosition="header" />
+</div>`} previewMinHeight={120}>
+  <div className="grid grid-cols-2 gap-4" style={{ maxWidth: 480 }}>
+    <StatCard label="Revenue" value="$45,231" trend={{ value: 12.5 }} trendPosition="value" />
+    <StatCard label="Revenue" value="$45,231" trend={{ value: 12.5 }} trendPosition="header" />
+  </div>
+</ComponentPreview>
+
+### Trend variant
+
+<ComponentPreview details={<>Display the trend as plain text or wrapped in a badge.</>} code={`<div className="grid grid-cols-2 gap-4" style={{ maxWidth: 480 }}>
+  <StatCard label="Users" value="2,847" trend={{ value: 8.2 }} trendVariant="text" />
+  <StatCard label="Users" value="2,847" trend={{ value: 8.2 }} trendVariant="badge" />
+</div>`} previewMinHeight={120}>
+  <div className="grid grid-cols-2 gap-4" style={{ maxWidth: 480 }}>
+    <StatCard label="Users" value="2,847" trend={{ value: 8.2 }} trendVariant="text" />
+    <StatCard label="Users" value="2,847" trend={{ value: 8.2 }} trendVariant="badge" />
+  </div>
+</ComponentPreview>
+
+### Info tooltip
+
+<ComponentPreview details={<>Pass a <code>tooltip</code> string to render an info icon next to the label with a tooltip on hover.</>} code={`<StatCard label="Avg Completion Rate" value="89.2%" trend={{ value: 0.5 }} tooltip="Percentage of inquiries reaching final state" />`} previewMinHeight={120}>
+  <div style={{ maxWidth: 320, width: '100%', margin: '0 auto' }}>
+    <StatCard label="Avg Completion Rate" value="89.2%" trend={{ value: 0.5 }} tooltip="Percentage of inquiries reaching final state" />
+  </div>
+</ComponentPreview>
+
+### With icon
+
+<ComponentPreview details={<>Pass an <code>icon</code> to display it on the left side with a soft background. The layout automatically switches to a horizontal icon + content arrangement. Works with both default and <code>sm</code> sizes.</>} code={`import { DollarCircle, Users, ShoppingBag } from "@plexui/ui/components/Icon"
+
+{/* Default size */}
+<div className="grid grid-cols-2 gap-4">
+  <StatCard icon={<DollarCircle />} label="Total Revenue" value="$45,231" trend={{ value: 12.5 }} />
+  <StatCard icon={<Users />} label="Active Users" value="2,847" trend={{ value: 8.2 }} />
+</div>
+
+{/* Small size */}
+<div className="grid grid-cols-3 gap-3">
+  <StatCard size="sm" icon={<DollarCircle />} label="Revenue" value="$45,231" trend={{ value: 12.5 }} />
+  <StatCard size="sm" icon={<Users />} label="Users" value="2,847" trend={{ value: 8.2 }} />
+  <StatCard size="sm" icon={<ShoppingBag />} label="Orders" value="1,234" trend={{ value: -3.1 }} />
+</div>`} previewMinHeight={120}>
+  <StatCardIconDemo />
+</ComponentPreview>
+
+### With progress
+
+<ComponentPreview details={<>Progress bars show a visual representation of completion or usage percentage.</>} code={`<StatCard label="Storage Used" value="7.2 GB" progress={72} progressLabel="72%" description="of 10 GB" />`} previewMinHeight={120}>
+  <StatCard label="Storage Used" value="7.2 GB" progress={72} progressLabel="72%" description="of 10 GB" />
+</ComponentPreview>
+
+### Accent border
+
+<ComponentPreview details={<>The accent variant adds a colored left border. Choose from six semantic colors.</>} code={`const [accentColor, setAccentColor] = useState("primary")
+
+<StatCard
+  label="Total Revenue"
+  value="$45,231"
+  variant="accent"
+  accentColor={accentColor}
+  trend={{ value: 12.5, label: "vs last month" }}
+/>`} previewMinHeight={120}>
+  <StatCardAccentDemo />
+</ComponentPreview>
+
+### Inverted trend
+
+<ComponentPreview details={<>Use <code>invertTrend</code> for metrics where positive values are bad (e.g., error rate, response time). Toggle the switch to see the color flip.</>} code={`const [invertTrend, setInvertTrend] = useState(true)
+
+<StatCard
+  label="Avg Response Time"
+  value="234ms"
+  trend={{ value: 15.3, label: "vs last hour" }}
+  invertTrend={invertTrend}
+/>`} previewMinHeight={120}>
+  <StatCardInvertedTrendDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "label", type: "string", required: true, description: "Label describing the metric" },
+  { prop: "value", type: "ReactNode", required: true, description: "The primary metric value" },
+  { prop: "description", type: "string", description: "Subtitle below the value" },
+  { prop: "trend", type: "{ value: number; label?: string }", description: "Trend indicator with percentage" },
+  { prop: "invertTrend", type: "boolean", default: "false", description: "Invert trend colors (positive = bad)" },
+  { prop: "trendPosition", type: '"value" | "header"', default: '"value"', description: "Where the trend indicator is rendered" },
+  { prop: "trendVariant", type: '"text" | "badge"', default: '"text"', description: "Render trend as text or badge" },
+  { prop: "size", type: '"default" | "sm"', default: '"default"', description: "Card size — sm for compact analytics layouts" },
+  { prop: "icon", type: "ReactNode", description: "Icon displayed on the left with a soft background" },
+  { prop: "sparkline", type: "ReactNode", description: "Chart rendered at the bottom" },
+  { prop: "progress", type: "number", description: "Progress bar value (0-100)" },
+  { prop: "progressLabel", type: "string", description: "Label next to progress bar" },
+  { prop: "tooltip", type: "string", description: "Shows an info icon next to the label with tooltip text" },
+  { prop: "variant", type: '"default" | "accent"', default: '"default"', description: "Visual variant" },
+  { prop: "accentColor", type: '"primary" | "secondary" | "danger" | "info" | "discovery" | "success" | "caution" | "warning"', default: '"primary"', description: "Left border color (accent variant)" },
+]} />

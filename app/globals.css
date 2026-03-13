@@ -4,9 +4,9 @@
 
 /* Plex UI design tokens only (NOT the full @plexui/ui/css bundle, which
    resets Tailwind theme tokens and overrides dark-mode variants) */
-@import '../packages/ui/dist/es/styles/variables-primitive.css';
-@import '../packages/ui/dist/es/styles/variables-semantic.css';
-@import '../packages/ui/dist/es/styles/variables-components.css';
+@import '@plexui/ui/styles/variables-primitive.css';
+@import '@plexui/ui/styles/variables-semantic.css';
+@import '@plexui/ui/styles/variables-components.css';
 
 /* Let Tailwind scan Plex UI component class usage */
 @source "../packages/ui";

@@ -1,0 +1,116 @@
+.DataTable {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.TableContainer {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.EmptyCell {
+  height: 200px;
+  vertical-align: middle;
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+:where(.DataTable[data-clickable]) {
+  :where(tbody tr) {
+    cursor: pointer;
+  }
+}
+
+.Pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: spacing(3) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.PaginationLeft {
+  display: flex;
+  align-items: center;
+  gap: spacing(2);
+}
+
+.PaginationRight {
+  display: flex;
+  align-items: center;
+  gap: spacing(3);
+}
+
+.PaginationLabel {
+  color: var(--color-text-secondary);
+  font-size: var(--font-text-sm-size);
+}
+
+.PaginationInfo {
+  color: var(--color-text-secondary);
+  font-size: var(--font-text-sm-size);
+}
+
+.PaginationSelect {
+  appearance: none;
+  padding: spacing(1) spacing(2);
+  padding-right: spacing(6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--font-text-sm-size);
+  line-height: var(--font-text-sm-line-height);
+  cursor: pointer;
+  background-color: var(--color-surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right spacing(1.5) center;
+  background-repeat: no-repeat;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: -1px;
+  }
+}
+
+.PaginationButtons {
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+}
+
+.ColumnHeaderButton {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: spacing(1);
+  color: inherit;
+  font-weight: inherit;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.SortIcon {
+  display: inline-flex;
+  opacity: 0.4;
+
+  :where(.ColumnHeaderButton:hover) & {
+    opacity: 0.7;
+  }
+
+  svg {
+    width: var(--font-text-sm-size);
+    height: var(--font-text-sm-size);
+  }
+}
+
+:where(.ColumnHeaderButton[data-sorted]) .SortIcon {
+  opacity: 1;
+}
