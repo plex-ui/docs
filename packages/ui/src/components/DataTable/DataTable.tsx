@@ -25,6 +25,12 @@ export type DataTableProps<TData> = {
   columns: ColumnDef<TData, unknown>[]
   /** Data array to display */
   data: TData[]
+  /** Visual variant
+   * - `"default"` — borderless table with transparent header
+   * - `"bordered"` — rounded border around the table with a tinted header background
+   * @default "default"
+   */
+  variant?: "default" | "bordered"
   /** External search/filter string (controlled) */
   globalFilter?: string
   /** Callback when global filter changes */
@@ -70,6 +76,7 @@ const resolveUpdater = <T,>(updater: Updater<T>, value: T): T => {
 export const DataTable = <TData,>({
   columns,
   data,
+  variant = "default",
   globalFilter,
   onGlobalFilterChange,
   onRowClick,
@@ -138,6 +145,7 @@ export const DataTable = <TData,>({
   return (
     <div
       className={clsx(s.DataTable, className)}
+      data-variant={variant}
       data-clickable={onRowClick ? "" : undefined}
     >
       <div className={s.TableContainer}>
