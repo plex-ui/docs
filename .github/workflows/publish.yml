@@ -30,7 +30,20 @@ jobs:
         run: npm run build
         working-directory: packages/ui
 
+      - name: Check if version already published
+        id: check
+        working-directory: packages/ui
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@plexui/ui@${PACKAGE_VERSION}" version 2>/dev/null; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Version ${PACKAGE_VERSION} already published, skipping."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to npm
+        if: steps.check.outputs.skip != 'true'
         run: npm publish --access public --provenance
         working-directory: packages/ui
         env:
