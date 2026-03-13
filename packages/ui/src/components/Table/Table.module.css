@@ -1,0 +1,71 @@
+.TableWrapper {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--table-cell-font-size);
+  line-height: var(--table-cell-line-height);
+  color: var(--table-cell-color);
+  text-align: left;
+}
+
+.TableHeader {
+  background: var(--table-header-background);
+
+  :where(.TableRow) {
+    border-bottom: 1px solid var(--table-border-color);
+  }
+}
+
+.TableHead {
+  height: var(--control-size-md);
+  padding: var(--table-cell-padding);
+  font-weight: var(--table-header-font-weight);
+  color: var(--table-header-color);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.TableBody {
+  :where(.TableRow) {
+    border-bottom: 1px solid var(--table-border-color);
+    transition: background-color 0.1s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: var(--table-row-hover-background);
+    }
+  }
+}
+
+.TableRow {}
+
+.TableCell {
+  padding: var(--table-cell-padding);
+  vertical-align: middle;
+}
+
+.TableFooter {
+  border-top: 1px solid var(--table-border-color);
+  background: var(--table-footer-background);
+  font-weight: var(--table-footer-font-weight);
+
+  :where(.TableRow:last-child) {
+    border-bottom: none;
+  }
+}
+
+.TableCaption {
+  padding: var(--table-cell-padding);
+  font-size: var(--table-caption-font-size);
+  color: var(--table-caption-color);
+  caption-side: bottom;
+  text-align: left;
+}

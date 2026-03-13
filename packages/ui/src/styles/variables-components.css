@@ -426,6 +426,69 @@
     --sidebar-card-active-scale: 0.98;
 
     /* =============================================
+      StatCard
+    ============================================= */
+    --stat-card-padding: spacing(5);
+    --stat-card-radius: var(--radius-xl);
+    /* spacing is per-section: mt-3 (12px) label→value, mt-2 (8px) value→footer */
+    --stat-card-background: var(--color-surface);
+    --stat-card-border-color: var(--color-border);
+    --stat-card-label-font-size: var(--font-text-sm-size);
+    --stat-card-label-color: var(--color-text-secondary);
+    --stat-card-value-font-size: var(--font-heading-xl-size);
+    --stat-card-value-font-weight: var(--font-weight-semibold);
+    --stat-card-value-color: var(--color-text);
+    --stat-card-description-font-size: var(--font-text-sm-size);
+    --stat-card-description-color: var(--color-text-tertiary);
+    --stat-card-trend-font-size: var(--font-text-sm-size);
+    --stat-card-trend-font-weight: var(--font-weight-semibold);
+    --stat-card-trend-positive-color: var(--color-text-success-soft);
+    --stat-card-trend-negative-color: var(--color-text-danger-soft);
+    --stat-card-trend-neutral-color: var(--color-text-tertiary);
+    --stat-card-progress-height: 4px;
+    --stat-card-progress-radius: var(--radius-full);
+    --stat-card-progress-background: light-dark(var(--alpha-08), var(--alpha-12));
+    --stat-card-progress-fill: var(--color-background-primary-solid);
+    --stat-card-icon-size: 24px;
+    --stat-card-icon-color: var(--color-text-primary);
+    /* label line-height (20) + gap spacing(0.5) (2) + value line-height (38) = 60 */
+    --stat-card-icon-wrapper-size: 60px;
+    --stat-card-icon-wrapper-radius: var(--radius-md);
+    --stat-card-icon-wrapper-background: var(--color-background-primary-soft-alpha);
+    --stat-card-accent-width: 3px;
+    --stat-card-info-icon-size: 16px;
+
+    /* sm size overrides */
+    --stat-card-sm-padding-block: spacing(3);
+    --stat-card-sm-padding-inline: spacing(4);
+    --stat-card-sm-label-font-size: var(--font-text-xs-size);
+    --stat-card-sm-value-font-size: var(--font-heading-md-size);
+    --stat-card-sm-trend-font-size: var(--font-text-xs-size);
+    --stat-card-sm-description-font-size: var(--font-text-xs-size);
+    --stat-card-sm-icon-size: 20px;
+    /* label line-height (18) + gap spacing(0.5) (2) + value line-height (26) = 46 */
+    --stat-card-sm-icon-wrapper-size: 46px;
+    --stat-card-sm-icon-wrapper-radius: var(--radius-sm);
+    --stat-card-sm-info-icon-size: 14px;
+
+    /* =============================================
+      Table
+    ============================================= */
+    --table-border-color: var(--color-border);
+    --table-header-background: transparent;
+    --table-header-font-weight: var(--font-weight-medium);
+    --table-header-color: var(--color-text-secondary);
+    --table-cell-padding: spacing(3) spacing(4);
+    --table-cell-font-size: var(--font-text-sm-size);
+    --table-cell-line-height: var(--font-text-sm-line-height);
+    --table-cell-color: var(--color-text);
+    --table-row-hover-background: light-dark(var(--alpha-02), var(--alpha-04));
+    --table-footer-background: transparent;
+    --table-footer-font-weight: var(--font-weight-medium);
+    --table-caption-font-size: var(--font-text-sm-size);
+    --table-caption-color: var(--color-text-tertiary);
+
+    /* =============================================
       Skeleton
     ============================================= */
     --skeleton-background: light-dark(var(--alpha-08), var(--alpha-12));

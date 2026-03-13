@@ -1,0 +1,277 @@
+.StatCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: var(--stat-card-padding);
+  border-radius: var(--stat-card-radius);
+  background: var(--stat-card-background);
+  box-shadow: 0 0 0 1px var(--stat-card-border-color) inset;
+  font-size: var(--stat-card-label-font-size);
+  line-height: var(--font-text-sm-line-height);
+
+  &:where([data-size="sm"]) {
+    padding: var(--stat-card-sm-padding-block) var(--stat-card-sm-padding-inline);
+
+    .Label {
+      font-size: var(--stat-card-sm-label-font-size);
+      line-height: var(--font-text-xs-line-height);
+    }
+
+    .InfoIcon svg {
+      width: var(--stat-card-sm-info-icon-size);
+      height: var(--stat-card-sm-info-icon-size);
+    }
+
+    .Value {
+      font-size: var(--stat-card-sm-value-font-size);
+      line-height: var(--font-heading-md-line-height);
+      letter-spacing: var(--font-heading-md-tracking);
+    }
+
+    .Trend {
+      font-size: var(--stat-card-sm-trend-font-size);
+      line-height: var(--font-text-xs-line-height);
+    }
+
+    .ValueRow {
+      margin-block-start: spacing(1.5);
+    }
+
+    .Footer {
+      margin-block-start: spacing(0.5);
+    }
+
+    .Description {
+      font-size: var(--stat-card-sm-description-font-size);
+      line-height: var(--font-text-xs-line-height);
+    }
+
+    .TrendLabel {
+      font-size: var(--stat-card-sm-description-font-size);
+      line-height: var(--font-text-xs-line-height);
+    }
+
+    .IconWrapper {
+      border-radius: var(--stat-card-sm-icon-wrapper-radius);
+
+      svg {
+        width: var(--stat-card-sm-icon-size);
+        height: var(--stat-card-sm-icon-size);
+      }
+    }
+
+    .Body {
+      gap: spacing(2.5);
+    }
+  }
+
+  &:where([data-variant="accent"]) {
+    border-inline-start: var(--stat-card-accent-width) solid
+      var(--stat-card-accent-color, var(--color-background-primary-solid));
+
+    &:where([data-accent-color="primary"]) {
+      --stat-card-accent-color: var(--color-background-primary-solid);
+    }
+
+    &:where([data-accent-color="info"]) {
+      --stat-card-accent-color: var(--color-background-info-solid);
+    }
+
+    &:where([data-accent-color="success"]) {
+      --stat-card-accent-color: var(--color-background-success-solid);
+    }
+
+    &:where([data-accent-color="warning"]) {
+      --stat-card-accent-color: var(--color-background-warning-solid);
+    }
+
+    &:where([data-accent-color="danger"]) {
+      --stat-card-accent-color: var(--color-background-danger-solid);
+    }
+
+    &:where([data-accent-color="secondary"]) {
+      --stat-card-accent-color: var(--color-background-secondary-solid);
+    }
+
+    &:where([data-accent-color="discovery"]) {
+      --stat-card-accent-color: var(--color-background-discovery-solid);
+    }
+
+    &:where([data-accent-color="caution"]) {
+      --stat-card-accent-color: var(--color-background-caution-solid);
+    }
+  }
+}
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing(6);
+}
+
+.LabelRow {
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+  min-width: 0;
+}
+
+.Label {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--stat-card-label-color);
+  font-size: var(--stat-card-label-font-size);
+  line-height: var(--font-text-sm-line-height);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.InfoIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  cursor: help;
+
+  svg {
+    width: var(--stat-card-info-icon-size);
+    height: var(--stat-card-info-icon-size);
+  }
+}
+
+.Body {
+  display: flex;
+  align-items: flex-start;
+  gap: spacing(3);
+}
+
+.Content {
+  flex: 1;
+  min-width: 0;
+
+  .ValueRow {
+    margin-block-start: spacing(0.5);
+  }
+}
+
+.IconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: stretch;
+  aspect-ratio: 1;
+  border-radius: var(--stat-card-icon-wrapper-radius);
+  background: var(--stat-card-icon-wrapper-background);
+  color: var(--stat-card-icon-color);
+
+  svg {
+    width: var(--stat-card-icon-size);
+    height: var(--stat-card-icon-size);
+  }
+}
+
+.HeaderEnd {
+  display: flex;
+  align-items: center;
+  gap: spacing(2);
+  flex-shrink: 0;
+}
+
+.ValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: spacing(2);
+  margin-block-start: spacing(3);
+}
+
+.Value {
+  min-width: 0;
+  color: var(--stat-card-value-color);
+  font-size: var(--stat-card-value-font-size);
+  font-weight: var(--stat-card-value-font-weight);
+  line-height: var(--font-heading-xl-line-height);
+  letter-spacing: var(--font-heading-xl-tracking);
+}
+
+.Trend {
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: var(--stat-card-trend-font-size);
+  font-weight: var(--stat-card-trend-font-weight);
+  line-height: var(--font-text-sm-line-height);
+  white-space: nowrap;
+}
+
+.TrendPositive {
+  color: var(--stat-card-trend-positive-color);
+}
+
+.TrendNegative {
+  color: var(--stat-card-trend-negative-color);
+}
+
+.TrendNeutral {
+  color: var(--stat-card-trend-neutral-color);
+}
+
+.Footer {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+  margin-block-start: spacing(2);
+}
+
+.TrendLabel {
+  color: var(--stat-card-description-color);
+  font-size: var(--stat-card-description-font-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--font-text-sm-line-height);
+}
+
+.Description {
+  color: var(--stat-card-description-color);
+  font-size: var(--stat-card-description-font-size);
+  line-height: var(--font-text-sm-line-height);
+  text-wrap: pretty;
+}
+
+.Progress {
+  display: flex;
+  align-items: center;
+  gap: spacing(2);
+  margin-block-start: spacing(3);
+}
+
+.ProgressTrack {
+  flex: 1;
+  height: var(--stat-card-progress-height);
+  border-radius: var(--stat-card-progress-radius);
+  background: var(--stat-card-progress-background);
+  overflow: hidden;
+}
+
+.ProgressBar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--stat-card-progress-fill);
+}
+
+.ProgressLabel {
+  color: var(--stat-card-description-color);
+  font-size: var(--stat-card-description-font-size);
+  line-height: var(--font-text-sm-line-height);
+  white-space: nowrap;
+}
+
+.Sparkline {
+  margin-block-start: spacing(3);
+  color: var(--color-text-tertiary);
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
