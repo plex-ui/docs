@@ -9,11 +9,19 @@ import {
   useReactTable,
   type ColumnDef,
   type OnChangeFn,
+  type RowData,
   type RowSelectionState,
   type SortingState,
   type Updater,
   type VisibilityState,
 } from "@tanstack/react-table"
+
+declare module "@tanstack/react-table" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    align?: "left" | "center" | "right"
+  }
+}
 import clsx from "clsx"
 import { useState, type ReactNode } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../Table"
@@ -153,13 +161,16 @@ export const DataTable = <TData,>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
+                {headerGroup.headers.map((header) => {
+                  const align = header.column.columnDef.meta?.align
+                  return (
+                    <TableHead key={header.id} style={align ? { textAlign: align } : undefined}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
+                  )
+                })}
               </TableRow>
             ))}
           </TableHeader>
@@ -176,11 +187,14 @@ export const DataTable = <TData,>({
                   key={row.id}
                   onClick={onRowClick ? () => onRowClick(row.original) : undefined}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    const align = cell.column.columnDef.meta?.align
+                    return (
+                      <TableCell key={cell.id} style={align ? { textAlign: align } : undefined}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    )
+                  })}
                 </TableRow>
               ))
             )}
