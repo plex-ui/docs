@@ -1,13 +1,16 @@
 ---
 title: Table
-description: Styled HTML table primitives for displaying tabular data
+description: Styled HTML table primitives and a full-featured data table powered by TanStack Table v8
 ---
 
 import { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption } from "@plexui/ui/components/Table"
+import { DataTable, DataTableColumnHeader } from "@plexui/ui/components/DataTable"
+import { TableSortingDemo, TablePaginationDemo, TableRowClickDemo, TableCellVariantsDemo, TableFilteringDemo, TableColumnVisibilityDemo, TableEmptyStateDemo, TableVariantDemo } from "@/components/docs/TableDemos"
 
-<UsageBlock>{`import { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption } from "@plexui/ui/components/Table";`}</UsageBlock>
+<UsageBlock>{`import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@plexui/ui/components/Table";
+import { DataTable, DataTableColumnHeader } from "@plexui/ui/components/DataTable";`}</UsageBlock>
 
-## Examples
+## Table Primitives
 
 ### Overview
 
@@ -205,7 +208,111 @@ import { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableC
   })()}
 </ComponentPreview>
 
+## DataTable
+
+### Variant
+
+<ComponentPreview details={<>Use <code>variant="bordered"</code> for a card-like table with a rounded border and tinted header background.</>} code={`<DataTable
+  columns={columns}
+  data={users}
+  variant="bordered"
+/>`} previewMinHeight={300}>
+  <TableVariantDemo />
+</ComponentPreview>
+
+### Sorting
+
+<ComponentPreview details={<>Click column headers to toggle sort direction. Columns use <code>DataTableColumnHeader</code> for sort controls.</>} code={`const columns: ColumnDef<User>[] = [
+  {
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+  },
+  {
+    accessorKey: "role",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Role" />,
+  },
+]
+
+<DataTable columns={columns} data={users} initialSorting={[{ id: "name", desc: false }]} />`} previewMinHeight={300}>
+  <TableSortingDemo />
+</ComponentPreview>
+
+### Pagination
+
+<ComponentPreview details={<>Automatic pagination with rows-per-page selector and navigation controls. Set <code>pageSize</code> to control initial page size.</>} code={`const columns: ColumnDef<User>[] = [
+  { accessorKey: "id", header: "ID" },
+  { accessorKey: "name", header: "Name" },
+  { accessorKey: "department", header: "Department" },
+]
+
+<DataTable columns={columns} data={users} pageSize={5} />`} previewMinHeight={340}>
+  <TablePaginationDemo />
+</ComponentPreview>
+
+### Row click
+
+<ComponentPreview details={<>Pass <code>onRowClick</code> to make rows clickable and interactive.</>} code={`const [selected, setSelected] = useState<User | null>(null)
+
+<>
+  <DataTable columns={columns} data={users} onRowClick={setSelected} />
+  <p>{selected ? "Clicked: " + selected.name : "Click a row to select it."}</p>
+</>`} previewMinHeight={300}>
+  <TableRowClickDemo />
+</ComponentPreview>
+
+### Cell variants
+
+<ComponentPreview details={<>Use column helper utilities for rich cell types: monospace IDs with copy-on-click, status badges, formatted dates, and currency values.</>} code={`import { idCell, statusCell, dateTimeCell } from "@plexui/ui/components/DataTable"
+
+const columns: ColumnDef<User>[] = [
+  { accessorKey: "id", header: "ID", cell: idCell<User>((row) => row.id) },
+  { accessorKey: "status", header: "Status", cell: statusCell<User>((row) => row.status) },
+  { accessorKey: "joined", header: "Joined", cell: dateTimeCell<User>((row) => row.joined) },
+]`} previewMinHeight={300}>
+  <TableCellVariantsDemo />
+</ComponentPreview>
+
+### Filtering
+
+<ComponentPreview details={<>Control search with <code>globalFilter</code> and <code>onGlobalFilterChange</code>. The filter searches across all columns.</>} code={`const [globalFilter, setGlobalFilter] = useState("")
+
+<>
+  <Input value={globalFilter} onChange={(event) => setGlobalFilter(event.target.value)} />
+  <DataTable
+    columns={columns}
+    data={users}
+    globalFilter={globalFilter}
+    onGlobalFilterChange={setGlobalFilter}
+  />
+</>`} previewMinHeight={340}>
+  <TableFilteringDemo />
+</ComponentPreview>
+
+### Column visibility
+
+<ComponentPreview details={<>Toggle column visibility with the <code>columnVisibility</code> and <code>onColumnVisibilityChange</code> props.</>} code={`const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+  email: true,
+  role: true,
+})
+
+<DataTable
+  columns={columns}
+  data={users}
+  columnVisibility={columnVisibility}
+  onColumnVisibilityChange={setColumnVisibility}
+/>`} previewMinHeight={340}>
+  <TableColumnVisibilityDemo />
+</ComponentPreview>
+
+### Empty state
+
+<ComponentPreview details={<>Customize the empty state message with the <code>emptyMessage</code> prop.</>} code={`<DataTable columns={columns} data={[]} emptyMessage="No users found." />`} previewMinHeight={200}>
+  <TableEmptyStateDemo />
+</ComponentPreview>
+
 ## Reference
+
+### Table Primitives
 
 <PropsTable data={[
   { prop: "Table", type: "table", description: "Root table container with horizontal scroll wrapper" },
@@ -216,4 +323,42 @@ import { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableC
   { prop: "TableHead", type: "th", description: "Table header cell" },
   { prop: "TableCell", type: "td", description: "Table data cell" },
   { prop: "TableCaption", type: "caption", description: "Table caption" },
+]} />
+
+### DataTable
+
+<PropsTable data={[
+  { prop: "columns", type: "ColumnDef<TData>[]", required: true, description: "Column definitions following TanStack Table v8 API" },
+  { prop: "data", type: "TData[]", required: true, description: "Data array to display" },
+  { prop: "variant", type: '"default" | "bordered"', default: '"default"', description: "Visual variant — bordered adds a rounded border and tinted header" },
+  { prop: "pageSize", type: "number", default: "10", description: "Rows per page. Set 0 or Infinity to disable pagination" },
+  { prop: "initialSorting", type: "SortingState", description: "Initial column sorting state" },
+  { prop: "globalFilter", type: "string", description: "Controlled search/filter string" },
+  { prop: "onGlobalFilterChange", type: "(value: string) => void", description: "Callback when filter changes" },
+  { prop: "onRowClick", type: "(row: TData) => void", description: "Click handler for rows, makes rows interactive" },
+  { prop: "columnVisibility", type: "VisibilityState", description: "Controlled column visibility state" },
+  { prop: "onColumnVisibilityChange", type: "(visibility: VisibilityState) => void", description: "Callback when visibility changes" },
+  { prop: "enableRowSelection", type: "boolean", default: "false", description: "Enable row selection checkboxes" },
+  { prop: "rowSelection", type: "RowSelectionState", description: "Controlled row selection state" },
+  { prop: "onRowSelectionChange", type: "(selection: RowSelectionState) => void", description: "Callback when selection changes" },
+  { prop: "getRowId", type: "(row: TData) => string", description: "Custom row ID accessor" },
+  { prop: "emptyMessage", type: "ReactNode", default: '"No results."', description: "Shown when no rows" },
+  { prop: "showPagination", type: "boolean", default: "true", description: "Whether to show pagination controls" },
+  { prop: "className", type: "string", description: "Class applied to outermost wrapper" },
+]} />
+
+### DataTableColumnHeader
+
+<PropsTable data={[
+  { prop: "column", type: "Column<TData, TValue>", required: true, description: "TanStack Table column object" },
+  { prop: "title", type: "string", required: true, description: "Display text for the header" },
+]} />
+
+### Column helpers
+
+<PropsTable data={[
+  { prop: "idCell(accessor)", type: "CellComponent", description: "Monospace ID with copy-on-click tooltip" },
+  { prop: "dateTimeCell(accessor, options?)", type: "CellComponent", description: "Formatted datetime with Intl.DateTimeFormat" },
+  { prop: "statusCell(accessor, colorMap?)", type: "CellComponent", description: "Badge cell with automatic status-to-color mapping" },
+  { prop: "tooltipHeader(label, description)", type: "HeaderComponent", description: "Header with dashed underline and info tooltip" },
 ]} />
