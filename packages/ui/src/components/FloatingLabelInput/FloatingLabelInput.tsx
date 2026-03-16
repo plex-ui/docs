@@ -50,6 +50,7 @@ export type FloatingLabelInputProps = {
    * Content rendered after the input, before the clear button.
    * Useful for toggle buttons (e.g. password visibility), icons, or other interactive elements.
    */
+  startAdornment?: React.ReactNode
   endAdornment?: React.ReactNode
 } & React.InputHTMLAttributes<HTMLInputElement>
 
@@ -64,6 +65,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       onClear,
       onAutofill,
       allowAutofillExtensions = false,
+      startAdornment,
       endAdornment,
       className,
       "id": idProp,
@@ -181,6 +183,9 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
               <div className={s.LabelText}>{label}</div>
             </div>
           </label>
+          {startAdornment && (
+            <div className={s.StartAdornment}>{startAdornment}</div>
+          )}
           <input
             {...restProps}
             ref={mergeRefs([ref, inputRef])}
