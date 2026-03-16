@@ -869,10 +869,15 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose
   background: rgb(255 255 255 / 8%);
 }
 
-/* Prose links: no underline, medium weight */
+/* Prose links: primary color, no underline, medium weight */
 #nd-page.plex-docs-page .plex-docs-body.prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--link-primary-text-color);
   font-weight: 500;
   text-decoration: none;
+}
+
+#nd-page.plex-docs-page .plex-docs-body.prose :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  color: var(--link-primary-text-color-hover);
 }
 
 /* Heading anchor links: no underline, inherit weight/color from heading */
@@ -1075,6 +1080,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose a.block.rounded-xl.borde
   line-height: 1.35;
   font-weight: 500;
   text-align: left !important;
+  color: var(--color-text);
 }
 
 /* Hide navigation on components index page */

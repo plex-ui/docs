@@ -1,0 +1,147 @@
+.Transition {
+  position: relative;
+}
+
+.Overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgb(0 0 0 / 0.5);
+
+  .Transition[data-entering] & {
+    opacity: 0;
+  }
+
+  .Transition[data-entering-active] &,
+  .Transition[data-entering][data-interrupted] & {
+    opacity: 1;
+    transition: opacity 0.2s var(--cubic-enter);
+  }
+
+  .Transition[data-exiting] & {
+    opacity: 1;
+  }
+
+  .Transition[data-exiting-active] &,
+  .Transition[data-exiting][data-interrupted] & {
+    opacity: 0;
+    transition: opacity 0.15s var(--cubic-exit);
+  }
+}
+
+.Content {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.Panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: var(--dialog-width, 480px);
+  max-width: 100%;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-lg), var(--shadow-hairline);
+  padding: 1.25rem;
+
+  .Transition[data-entering] & {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+
+  .Transition[data-entering-active] &,
+  .Transition[data-entering][data-interrupted] & {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.25s var(--cubic-enter), transform 0.25s var(--cubic-enter);
+  }
+
+  .Transition[data-exiting] & {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .Transition[data-exiting-active] &,
+  .Transition[data-exiting][data-interrupted] & {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+    transition: opacity 0.15s var(--cubic-exit), transform 0.15s var(--cubic-exit);
+  }
+}
+
+.CloseButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: background-color 0.2s var(--cubic-enter), color 0.2s var(--cubic-enter);
+
+  &:hover {
+    background: color-mix(in srgb, var(--color-text-tertiary) 12%, transparent);
+    color: var(--color-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+  }
+}
+
+.CloseIcon {
+  display: block;
+}
+
+.Header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.Footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.Title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.Description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+@media (width <= 640px) {
+  .Footer {
+    flex-direction: column;
+  }
+}
