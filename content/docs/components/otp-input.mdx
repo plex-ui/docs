@@ -5,6 +5,7 @@ description: Individual digit input cells for verification code entry
 
 import { OTPInput } from "@plexui/ui/components/OTPInput"
 import {
+  OTPInputCheckInboxFormDemo,
   OTPInputConfirmPhoneFormDemo,
   OTPInputDisabledDemo,
   OTPInputErrorDemo,
@@ -46,6 +47,16 @@ import {
 
 <ComponentPreview code={`<OTPInput value="488030" disabled />`} previewMinHeight={168}>
   <OTPInputDisabledDemo />
+</ComponentPreview>
+
+### Check inbox form
+
+<ComponentPreview details={<>A simple verification form using a standard <code>FloatingLabelInput</code> for the code instead of individual digit cells. Useful when the code format is alphanumeric or of variable length.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Code" inputMode="numeric" />
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+  <p className="text-base text-center">Resend email</p>
+</form>`} previewMinHeight={380}>
+  <OTPInputCheckInboxFormDemo />
 </ComponentPreview>
 
 ### Verify email form
