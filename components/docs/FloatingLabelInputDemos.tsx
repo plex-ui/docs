@@ -7,7 +7,7 @@ import { Switch } from '@plexui/ui/components/Switch';
 import { Button } from '@plexui/ui/components/Button';
 import { FieldError } from '@plexui/ui/components/FieldError';
 import { Tooltip } from '@plexui/ui/components/Tooltip';
-import { Eye, EyeOff } from '@plexui/ui/components/Icon';
+import { ChevronDown, Eye, EyeOff } from '@plexui/ui/components/Icon';
 // ---------------------------------------------------------------------------
 // Birthday mask utilities
 // ---------------------------------------------------------------------------
@@ -124,13 +124,16 @@ const visibilityToggleStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  width: 32,
+  height: 32,
   padding: 0,
-  margin: 0,
+  margin: '0 -10px 0 0',
   border: 'none',
+  borderRadius: '50%',
   background: 'none',
   cursor: 'pointer',
   color: 'var(--color-text-tertiary)',
-  transition: 'color 150ms ease',
+  transition: 'color 150ms ease, background-color 150ms ease',
 };
 function VisibilityToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
   const [hovered, setHovered] = useState(false);
@@ -141,7 +144,10 @@ function VisibilityToggle({ visible, onToggle }: { visible: boolean; onToggle: (
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       aria-label={visible ? 'Hide' : 'Show'}
-      style={{ ...visibilityToggleStyle, ...(hovered ? { color: 'var(--color-text)' } : undefined) }}
+      style={{
+        ...visibilityToggleStyle,
+        ...(hovered ? { color: 'var(--color-text)', backgroundColor: 'var(--color-background-secondary-ghost-hover)' } : undefined),
+      }}
     >
       {visible ? <EyeOff /> : <Eye />}
     </button>
@@ -1168,16 +1174,7 @@ function usePhoneCountryTrigger(country: string) {
         ) : (
           'Country'
         )}
-        <svg
-          aria-hidden
-          width="10"
-          height="6"
-          viewBox="0 0 10 6"
-          fill="none"
-          style={{ marginLeft: 'auto', flexShrink: 0, color: 'var(--color-text-tertiary)' }}
-        >
-          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <ChevronDown style={{ marginLeft: 'auto', flexShrink: 0, width: 12, height: 7, color: 'var(--color-text-tertiary)' }} />
       </button>
     ),
     [selected, dialCode],
@@ -1295,9 +1292,9 @@ export function FloatingLabelInputPhoneLoginFormDemo() {
             checkPosition="end"
           />
           <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
-          <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
+          <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
           <p className="text-base text-center mt-4">
-            Don&apos;t have an account? <span className="text-primary cursor-pointer">Sign up</span>
+            Don&apos;t have an account? <a className="cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>Sign up</a>
           </p>
         </form>
       </div>
@@ -1387,7 +1384,7 @@ export function FloatingLabelInputPhoneSignupFormDemo() {
           </p>
           <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
           <p className="text-base text-center mt-4">
-            Already have an account? <span className="text-primary cursor-pointer">Log in</span>
+            Already have an account? <a className="cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>Log in</a>
           </p>
         </form>
       </div>
@@ -1418,7 +1415,7 @@ export function FloatingLabelInputPasswordFormDemo() {
             readOnly
             defaultValue="+34 625 95 80 50"
             endAdornment={(
-              <button type="button" className="text-primary text-sm font-medium cursor-pointer">
+              <button type="button" className="text-sm font-medium cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>
                 Edit
               </button>
             )}
@@ -1436,22 +1433,15 @@ export function FloatingLabelInputPasswordFormDemo() {
               errorMessage={showError ? 'Password is required.' : undefined}
               endAdornment={(
                 <Tooltip content={visible ? 'Hide password' : 'Show password'}>
-                  <button
-                    type="button"
-                    onClick={() => setVisible((v) => !v)}
-                    aria-label={visible ? 'Hide password' : 'Show password'}
-                    style={visibilityToggleStyle}
-                  >
-                    {visible ? <EyeOff /> : <Eye />}
-                  </button>
+                  <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
                 </Tooltip>
               )}
             />
-            <a className="text-primary text-sm mt-2 inline-block cursor-pointer">Forgot password?</a>
+            <a className="text-sm mt-2 inline-block cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)', paddingLeft: 'var(--floating-input-gutter)' }}>Forgot password?</a>
           </div>
           <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-2">Continue</Button>
           <p className="text-base text-center mt-4">
-            Don&apos;t have an account? <span className="text-primary cursor-pointer">Sign up</span>
+            Don&apos;t have an account? <a className="cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>Sign up</a>
           </p>
         </form>
       </div>
