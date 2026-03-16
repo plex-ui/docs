@@ -1273,7 +1273,7 @@ export function FloatingLabelInputPhoneLoginFormDemo() {
   return (
     <div data-demo-stage className="py-10">
       <div className="w-[360px]">
-        <div className="mb-6">
+        <div className="mb-6 text-center">
           <h3 className="text-2xl font-semibold tracking-tight">Welcome back</h3>
           <p className="text-secondary text-sm mt-1">Enter your phone number to continue.</p>
         </div>
@@ -1348,7 +1348,7 @@ export function FloatingLabelInputPhoneSignupFormDemo() {
   return (
     <div data-demo-stage className="py-10">
       <div className="w-[360px]">
-        <div className="mb-6">
+        <div className="mb-6 text-center">
           <h3 className="text-2xl font-semibold tracking-tight">Create your account</h3>
           <p className="text-secondary text-sm mt-1">Enter your details to get started.</p>
         </div>
@@ -1406,14 +1406,14 @@ export function FloatingLabelInputPasswordFormDemo() {
   return (
     <div data-demo-stage className="py-10">
       <div className="w-[360px]">
-        <div className="mb-6">
+        <div className="mb-6 text-center">
           <h3 className="text-2xl font-semibold tracking-tight">Enter your password</h3>
         </div>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
           <FloatingLabelInput
             label="Phone number"
             readOnly
-            defaultValue="+34 625 95 80 50"
+            defaultValue="+1 555 123 4567"
             endAdornment={(
               <button type="button" className="text-sm font-medium cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>
                 Edit

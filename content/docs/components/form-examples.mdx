@@ -10,6 +10,8 @@ import {
 } from "@/components/docs/FloatingLabelInputDemos"
 import {
   OTPInputCheckInboxFormDemo,
+  OTPInputCheckInboxErrorDemo,
+  OTPInputConfirmPhoneInputFormDemo,
   OTPInputVerifyEmailFormDemo,
   OTPInputConfirmPhoneFormDemo,
 } from "@/components/docs/OTPInputDemos"
@@ -42,7 +44,7 @@ Real-world authentication forms composed from [FloatingLabelInput](/docs/compone
 ## Enter password
 
 <ComponentPreview details={<>A password entry step with a read-only phone field (with "Edit" button), a password input with visibility toggle and tooltip, and a "Forgot password?" link.</>} code={`<form className="flex flex-col gap-3">
-  <FloatingLabelInput label="Phone number" readOnly defaultValue="+34 625 95 80 50" endAdornment={<button>Edit</button>} />
+  <FloatingLabelInput label="Phone number" readOnly defaultValue="+1 555 123 4567" endAdornment={<button>Edit</button>} />
   <FloatingLabelInput label="Password" type="password" endAdornment={<VisibilityToggle />} />
   <Button color="primary" className="h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={420}>
@@ -51,29 +53,34 @@ Real-world authentication forms composed from [FloatingLabelInput](/docs/compone
 
 ## Check inbox
 
-<ComponentPreview details={<>A code verification form using a standard <code>FloatingLabelInput</code> instead of individual OTP cells. Useful when the code format is alphanumeric or variable length.</>} code={`<form className="flex flex-col gap-3">
-  <FloatingLabelInput label="Code" inputMode="numeric" />
-  <Button color="primary" className="h-[3.25rem]">Continue</Button>
-  <p className="text-base text-center">Resend email</p>
-</form>`} previewMinHeight={380}>
+<ComponentPreview details={<>A code verification form using a standard <code>FloatingLabelInput</code>. Useful for alphanumeric or variable-length codes.</>} code={`<FloatingLabelInput label="Code" inputMode="numeric" />
+<Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
   <OTPInputCheckInboxFormDemo />
+</ComponentPreview>
+
+## Check inbox (error)
+
+<ComponentPreview details={<>Error state when an incorrect verification code is submitted.</>} code={`<FloatingLabelInput label="Code" value="111111" invalid errorMessage="Incorrect code" />`} previewMinHeight={380}>
+  <OTPInputCheckInboxErrorDemo />
 </ComponentPreview>
 
 ## Verify email
 
-<ComponentPreview details={<>An email verification form with a 6-digit OTP input, validation, and a "Resend code" link. Calls <code>onComplete</code> when all digits are entered.</>} code={`<form className="flex flex-col gap-4">
-  <OTPInput length={6} autoFocus />
-  <a>Resend code</a>
-  <Button color="primary" className="h-[3.25rem]">Continue</Button>
-</form>`} previewMinHeight={320}>
+<ComponentPreview details={<>Per-digit OTP input for email verification. No submit button — auto-submits via <code>onComplete</code>.</>} code={`<OTPInput autoFocus />
+<a>Resend email</a>`} previewMinHeight={260}>
   <OTPInputVerifyEmailFormDemo />
 </ComponentPreview>
 
-## Confirm phone
+## Confirm phone (OTP)
 
-<ComponentPreview details={<>A phone confirmation form with a 6-digit OTP input and "Resend code" link. Simpler layout without a submit button — typically auto-submits on completion.</>} code={`<div className="flex flex-col gap-4">
-  <OTPInput length={6} autoFocus />
-  <a>Resend code</a>
-</div>`} previewMinHeight={280}>
+<ComponentPreview details={<>Per-digit OTP input for phone confirmation. Auto-submits on completion.</>} code={`<OTPInput autoFocus />
+<a>Resend code</a>`} previewMinHeight={260}>
   <OTPInputConfirmPhoneFormDemo />
+</ComponentPreview>
+
+## Confirm phone (text input)
+
+<ComponentPreview details={<>Alternative phone confirmation using a standard <code>FloatingLabelInput</code> instead of individual digit cells.</>} code={`<FloatingLabelInput label="Code" inputMode="numeric" />
+<Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
+  <OTPInputConfirmPhoneInputFormDemo />
 </ComponentPreview>

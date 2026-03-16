@@ -5,8 +5,10 @@ description: Individual digit input cells for verification code entry
 
 import { OTPInput } from "@plexui/ui/components/OTPInput"
 import {
+  OTPInputCheckInboxErrorDemo,
   OTPInputCheckInboxFormDemo,
   OTPInputConfirmPhoneFormDemo,
+  OTPInputConfirmPhoneInputFormDemo,
   OTPInputDisabledDemo,
   OTPInputErrorDemo,
   OTPInputFilledDemo,
@@ -51,24 +53,36 @@ import {
 
 ### Check inbox form
 
-<ComponentPreview details={<>A simple verification form using a standard <code>FloatingLabelInput</code> for the code instead of individual digit cells. Useful when the code format is alphanumeric or of variable length.</>} code={`<form className="flex flex-col gap-3">
-  <FloatingLabelInput label="Code" inputMode="numeric" />
-  <Button color="primary" className="h-[3.25rem]">Continue</Button>
-  <p className="text-base text-center">Resend email</p>
-</form>`} previewMinHeight={380}>
+<ComponentPreview details={<>A verification form using a standard <code>FloatingLabelInput</code> for the code. Useful when the code format is alphanumeric or variable length.</>} code={`<FloatingLabelInput label="Code" inputMode="numeric" />
+<Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
   <OTPInputCheckInboxFormDemo />
+</ComponentPreview>
+
+### Check inbox error
+
+<ComponentPreview details={<>Error state when an incorrect code is submitted. The <code>FloatingLabelInput</code> shows the invalid border and error message.</>} code={`<FloatingLabelInput label="Code" value="111111" invalid errorMessage="Incorrect code" />`} previewMinHeight={380}>
+  <OTPInputCheckInboxErrorDemo />
 </ComponentPreview>
 
 ### Verify email form
 
-<ComponentPreview code={`<OTPInputVerifyEmailFormDemo />`} previewMinHeight={320}>
+<ComponentPreview details={<>A per-digit OTP input for email verification. No submit button — auto-submits via <code>onComplete</code> when all digits are entered.</>} code={`<OTPInput autoFocus />
+<a>Resend email</a>`} previewMinHeight={260}>
   <OTPInputVerifyEmailFormDemo />
 </ComponentPreview>
 
 ### Confirm phone form
 
-<ComponentPreview code={`<OTPInputConfirmPhoneFormDemo />`} previewMinHeight={300}>
+<ComponentPreview details={<>A per-digit OTP input for phone confirmation. Auto-submits on completion.</>} code={`<OTPInput autoFocus />
+<a>Resend code</a>`} previewMinHeight={260}>
   <OTPInputConfirmPhoneFormDemo />
+</ComponentPreview>
+
+### Confirm phone (text input)
+
+<ComponentPreview details={<>Alternative phone confirmation using a standard <code>FloatingLabelInput</code> instead of individual digit cells.</>} code={`<FloatingLabelInput label="Code" inputMode="numeric" />
+<Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
+  <OTPInputConfirmPhoneInputFormDemo />
 </ComponentPreview>
 
 ## Reference
