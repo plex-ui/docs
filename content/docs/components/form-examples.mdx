@@ -7,16 +7,29 @@ import {
   FloatingLabelInputPhoneSignupFormDemo,
   FloatingLabelInputPhoneLoginFormDemo,
   FloatingLabelInputPasswordFormDemo,
+  FloatingLabelSelectAboutYouFormDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
 import {
-  OTPInputCheckInboxFormDemo,
   OTPInputCheckInboxErrorDemo,
-  OTPInputConfirmPhoneInputFormDemo,
-  OTPInputVerifyEmailFormDemo,
-  OTPInputConfirmPhoneFormDemo,
+  OTPInputVerifyEmailDemo,
+  OTPInputConfirmPhoneDemo,
 } from "@/components/docs/OTPInputDemos"
 
-Real-world authentication forms composed from [FloatingLabelInput](/docs/components/floating-label-input), [OTP Input](/docs/components/otp-input), [Select](/docs/components/select), and [Button](/docs/components/button). All controls share a unified 52px height.
+
+Real-world authentication forms composed from [Float Input](/docs/components/floating-label-input), [OTP Input](/docs/components/otp-input), [Select](/docs/components/select), and [Button](/docs/components/button).
+
+## About You
+
+<ComponentPreview details={<>A signup-style composition with <code>FloatingLabelInput</code> and <code>FloatingLabelSelect</code> — name, birthday with inline validation, and country selector.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Full name" />
+  <FloatingLabelInput label="Birthday" placeholder="MM / DD / YYYY" />
+  <FloatingLabelSelect label="Country" selected={!!country} ...>
+    {selectedCountry?.flag} {selectedCountry?.label}
+  </FloatingLabelSelect>
+  <Button color="primary" type="submit">Continue</Button>
+</form>`} previewMinHeight={280}>
+  <FloatingLabelSelectAboutYouFormDemo />
+</ComponentPreview>
 
 ## Sign up
 
@@ -51,36 +64,32 @@ Real-world authentication forms composed from [FloatingLabelInput](/docs/compone
   <FloatingLabelInputPasswordFormDemo />
 </ComponentPreview>
 
-## Check inbox
+## Verify email
 
-<ComponentPreview details={<>A code verification form using a standard <code>FloatingLabelInput</code>. Useful for alphanumeric or variable-length codes.</>} code={`<FloatingLabelInput label="Code" inputMode="numeric" />
+<ComponentPreview details={<>Toggle between a per-digit <code>OTPInput</code> (auto-submits via <code>onComplete</code>) and a standard <code>FloatingLabelInput</code> (for alphanumeric or variable-length codes).</>} code={`// Per-digit
+<OTPInput autoFocus />
+
+// Text field
+<FloatingLabelInput label="Code" inputMode="numeric" />
 <Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
-  <OTPInputCheckInboxFormDemo />
+  <OTPInputVerifyEmailDemo />
 </ComponentPreview>
 
-## Check inbox (error)
+## Verify email (error)
 
 <ComponentPreview details={<>Error state when an incorrect verification code is submitted.</>} code={`<FloatingLabelInput label="Code" value="111111" invalid errorMessage="Incorrect code" />`} previewMinHeight={380}>
   <OTPInputCheckInboxErrorDemo />
 </ComponentPreview>
 
-## Verify email
+## Confirm phone
 
-<ComponentPreview details={<>Per-digit OTP input for email verification. No submit button — auto-submits via <code>onComplete</code>.</>} code={`<OTPInput autoFocus />
-<a>Resend email</a>`} previewMinHeight={260}>
-  <OTPInputVerifyEmailFormDemo />
-</ComponentPreview>
+<ComponentPreview details={<>Toggle between a per-digit <code>OTPInput</code> and a standard <code>FloatingLabelInput</code> for phone verification.</>} code={`// Per-digit
+<OTPInput autoFocus />
 
-## Confirm phone (OTP)
-
-<ComponentPreview details={<>Per-digit OTP input for phone confirmation. Auto-submits on completion.</>} code={`<OTPInput autoFocus />
-<a>Resend code</a>`} previewMinHeight={260}>
-  <OTPInputConfirmPhoneFormDemo />
-</ComponentPreview>
-
-## Confirm phone (text input)
-
-<ComponentPreview details={<>Alternative phone confirmation using a standard <code>FloatingLabelInput</code> instead of individual digit cells.</>} code={`<FloatingLabelInput label="Code" inputMode="numeric" />
+// Text field
+<FloatingLabelInput label="Code" inputMode="numeric" />
 <Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
-  <OTPInputConfirmPhoneInputFormDemo />
+  <OTPInputConfirmPhoneDemo />
 </ComponentPreview>
+
+

@@ -7,6 +7,49 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.7.44 — 2026-03-16
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Dialog component</strong> (<a href="/docs/components/dialog">Dialog</a>)<br/>
+    New modal dialog built on Radix Dialog. Compound components: <code>Dialog.Content</code>, <code>Dialog.Trigger</code>, <code>Dialog.Header</code>, <code>Dialog.Title</code>, <code>Dialog.Description</code>, <code>Dialog.Footer</code>, <code>Dialog.Close</code>. Supports 9-step size scale, scroll lock, and focus trapping.
+  </li>
+  <li>
+    <strong>Form Examples page</strong> (<a href="/docs/components/form-examples">Form Examples</a>)<br/>
+    Dedicated page for complete authentication flow demos: About You, Sign up, Log in, Enter password, Verify email, Verify email (error), and Confirm phone. Each demo includes a dialog toggle to preview the form inside a modal shell.
+  </li>
+  <li>
+    <strong>OTP input mode toggle</strong> (<a href="/docs/components/form-examples#verify-email">Form Examples</a>)<br/>
+    Verify email and Confirm phone demos now toggle between per-digit <code>OTPInput</code> and standard <code>FloatingLabelInput</code> text field modes.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Form demos consolidated</strong> (<a href="/docs/components/form-examples">Form Examples</a>)<br/>
+    Moved all authentication form demos from <a href="/docs/components/floating-label-input">Float Input</a> and <a href="/docs/components/otp-input">OTP Input</a> pages into the dedicated Form Examples page. Source pages now focus on individual component API and features only.
+  </li>
+  <li>
+    <strong>Component index updated</strong> (<a href="/docs/components">Components</a>)<br/>
+    Added <a href="/docs/components/dialog">Dialog</a>, <a href="/docs/components/form-examples">Form Examples</a>, and <a href="/docs/components/otp-input">OTP Input</a> to the component card grid.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Inline links in docs not distinguishable</strong><br/>
+    Prose links in documentation pages were rendered in the same color as body text, making them invisible as links. Now use <code>--link-primary-text-color</code> with hover state, matching the <a href="/docs/components/text-link">TextLink</a> component.
+  </li>
+</ul>
+
+---
+
 ## 0.7.40 — 2026-03-13
 
 ### Added

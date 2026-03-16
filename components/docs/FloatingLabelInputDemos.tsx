@@ -2,12 +2,13 @@
 import React, { useCallback, useId, useRef, useState } from 'react';
 import { FloatingLabelInput } from '@plexui/ui/components/FloatingLabelInput';
 import { FloatingLabelSelect } from '@plexui/ui/components/FloatingLabelSelect';
+
 import { Select, type Option } from '@plexui/ui/components/Select';
 import { Switch } from '@plexui/ui/components/Switch';
 import { Button } from '@plexui/ui/components/Button';
 import { FieldError } from '@plexui/ui/components/FieldError';
 import { Tooltip } from '@plexui/ui/components/Tooltip';
-import { ChevronDown, Eye, EyeOff } from '@plexui/ui/components/Icon';
+import { ChevronDown, Eye, EyeOff, X } from '@plexui/ui/components/Icon';
 // ---------------------------------------------------------------------------
 // Birthday mask utilities
 // ---------------------------------------------------------------------------
@@ -87,6 +88,8 @@ function isValidBirthday(value: string): boolean {
 
 const SSN_MASK = 'XXX-XX-XXXX';
 
+type FormSubmitEvent = { preventDefault: () => void };
+
 function getSSNDigits(value: string): string {
   return value.replace(/\D/g, '').slice(0, 9);
 }
@@ -130,7 +133,7 @@ const visibilityToggleStyle: React.CSSProperties = {
   margin: '0 -10px 0 0',
   border: 'none',
   borderRadius: '50%',
-  background: 'none',
+  backgroundColor: 'transparent',
   cursor: 'pointer',
   color: 'var(--color-text-tertiary)',
   transition: 'color 150ms ease, background-color 150ms ease',
@@ -424,6 +427,23 @@ function DemoControlBoolean({
   );
 }
 
+function DialogShell({ children, width = 420 }: { children: React.ReactNode; width?: number }) {
+  return (
+    <div style={{ background: 'rgb(0 0 0 / 0.4)', margin: '-48px -24px', padding: '48px 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300, width: 'calc(100% + 48px)', marginLeft: '-24px', marginRight: '-24px', marginTop: '-48px', marginBottom: '-48px' }}>
+      <div style={{ borderRadius: 'var(--radius-xl)', background: 'var(--color-surface-elevated)', boxShadow: 'var(--shadow-lg), var(--shadow-hairline)', width, maxWidth: 'calc(100% - 48px)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px 10px 0 16px' }}>
+          <Button color="secondary" variant="ghost" size="lg" uniform aria-label="Close">
+            <X />
+          </Button>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '0 24px 40px' }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Exported demos
 // ---------------------------------------------------------------------------
@@ -561,7 +581,7 @@ export function FloatingLabelInputAboutYouFormDemo() {
   const [birthday, setBirthday] = useState('');
   const [birthdayError, setBirthdayError] = useState<string | null>(null);
   const birthdayFieldId = useId();
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormSubmitEvent) => {
     evt.preventDefault();
     if (!birthday) {
       setBirthdayError('Birthday is required.');
@@ -908,8 +928,7 @@ function useCountryTrigger(
         {selected && <CountryLabel code={selected.value} label={selected.label} />}
       </FloatingLabelSelect>
     ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selected, onClear, extra?.invalid, extra?.['aria-describedby']],
+    [selected, onClear, extra],
   );
 }
 
@@ -940,6 +959,8 @@ export function FloatingLabelSelectCountryDemo() {
   );
 }
 export function FloatingLabelSelectAboutYouFormDemo() {
+  const [inDialog, setInDialog] = useState(false);
+
   const [fullName, setFullName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [country, setCountry] = useState('');
@@ -956,7 +977,7 @@ export function FloatingLabelSelectAboutYouFormDemo() {
     'aria-describedby': countryError ? countryFieldId : undefined,
   };
   const trigger = useCountryTrigger(country, handleClearCountry, triggerExtra);
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormSubmitEvent) => {
     evt.preventDefault();
     let hasError = false;
     if (!birthday) {
@@ -976,54 +997,64 @@ export function FloatingLabelSelectAboutYouFormDemo() {
     }
     if (hasError) return;
   };
-  return (
-    <div data-demo-stage className="py-10">
-      <div className="w-[320px]">
-        <div className="mb-6">
-          <h3 className="text-2xl font-semibold tracking-tight">Tell us about you</h3>
-          <p className="text-secondary text-sm mt-1">This helps us customize your experience.</p>
-        </div>
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-          <FloatingLabelInput
-            label="Full name"
-            value={fullName}
-            onChange={(evt) => setFullName(evt.target.value)}
-          />
-          <div className="flex flex-col gap-1.5">
-            <BirthdayMaskedInput
-              value={birthday}
-              onChange={(val) => {
-                setBirthday(val);
-                setBirthdayError(null);
-              }}
-              invalid={!!birthdayError}
-              aria-describedby={birthdayError ? birthdayFieldId : undefined}
-            />
-            {birthdayError && <FieldError id={birthdayFieldId}>{birthdayError}</FieldError>}
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <Select
-              value={country}
-              options={COUNTRIES}
-              onChange={(option) => { setCountry(option.value); setCountryError(null); }}
-              searchPlaceholder="Search countries..."
-              OptionView={CountryOptionView}
-              listMinWidth={320}
-              block
-              trigger={trigger}
-              checkPosition="end"
-            />
-            {countryError && <FieldError id={countryFieldId}>{countryError}</FieldError>}
-          </div>
-          <p className="text-xs text-center text-tertiary mt-3">
-            By clicking &ldquo;Continue&rdquo;, you agree to our{' '}
-            <span className="underline">Terms</span> and have read our{' '}
-            <span className="underline">Privacy Policy</span>.
-          </p>
-          <Button color="primary" type="submit" className="h-[3.25rem]">Continue</Button>
-        </form>
+
+  const formContent = (
+    <div className="w-[360px]">
+      <div className="mb-6 text-center">
+        <h3 className="text-2xl font-semibold tracking-tight">Tell us about you</h3>
+        <p className="text-secondary text-sm mt-1">This helps us customize your experience.</p>
       </div>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+        <FloatingLabelInput
+          label="Full name"
+          value={fullName}
+          onChange={(evt) => setFullName(evt.target.value)}
+        />
+        <div className="flex flex-col gap-1.5">
+          <BirthdayMaskedInput
+            value={birthday}
+            onChange={(val) => {
+              setBirthday(val);
+              setBirthdayError(null);
+            }}
+            invalid={!!birthdayError}
+            aria-describedby={birthdayError ? birthdayFieldId : undefined}
+          />
+          {birthdayError && <FieldError id={birthdayFieldId}>{birthdayError}</FieldError>}
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <Select
+            value={country}
+            options={COUNTRIES}
+            onChange={(option) => { setCountry(option.value); setCountryError(null); }}
+            searchPlaceholder="Search countries..."
+            OptionView={CountryOptionView}
+            listMinWidth={320}
+            block
+            trigger={trigger}
+            checkPosition="end"
+          />
+          {countryError && <FieldError id={countryFieldId}>{countryError}</FieldError>}
+        </div>
+        <p className="text-xs text-center text-tertiary mt-3">
+          By clicking &ldquo;Continue&rdquo;, you agree to our{' '}
+          <span className="underline">Terms</span> and have read our{' '}
+          <span className="underline">Privacy Policy</span>.
+        </p>
+        <Button color="primary" type="submit" className="h-[3.25rem]">Continue</Button>
+      </form>
     </div>
+  );
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="dialog" value={inDialog} onChange={setInDialog} />
+      </div>
+      <div data-demo-stage className="py-10 flex justify-center">
+        {inDialog ? <DialogShell>{formContent}</DialogShell> : formContent}
+      </div>
+    </>
   );
 }
 
@@ -1230,6 +1261,8 @@ export function FloatingLabelInputPhoneDemo() {
 }
 
 export function FloatingLabelInputPhoneLoginFormDemo() {
+  const [inDialog, setInDialog] = useState(false);
+
   const [country, setCountry] = useState('es');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -1264,45 +1297,59 @@ export function FloatingLabelInputPhoneLoginFormDemo() {
     errorMessage: showError ? 'Phone number is not valid.' : undefined,
   };
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormSubmitEvent) => {
     evt.preventDefault();
     setSubmitted(true);
     if (!isPhoneValid) return;
   };
 
-  return (
-    <div data-demo-stage className="py-10">
-      <div className="w-[360px]">
-        <div className="mb-6 text-center">
-          <h3 className="text-2xl font-semibold tracking-tight">Welcome back</h3>
-          <p className="text-secondary text-sm mt-1">Enter your phone number to continue.</p>
-        </div>
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
-          <Select
-            value={country}
-            options={PHONE_COUNTRY_OPTIONS}
-            onChange={handleCountryChange}
-            searchPlaceholder="Search countries..."
-            OptionView={PhoneCountryOptionView}
-            searchPredicate={phoneCountrySearchPredicate}
-            listMinWidth={360}
-            block
-            size="3xl"
-            trigger={trigger}
-            checkPosition="end"
-          />
-          <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
-          <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
-          <p className="text-base text-center mt-4">
-            Don&apos;t have an account? <a className="cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>Sign up</a>
-          </p>
-        </form>
+  const formContent = (
+    <div className="w-[360px]">
+      <div className="mb-6 text-center">
+        <h3 className="text-2xl font-semibold tracking-tight">Welcome back</h3>
+        <p className="text-secondary text-sm mt-1">Enter your phone number to continue.</p>
       </div>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+        <Select
+          value={country}
+          options={PHONE_COUNTRY_OPTIONS}
+          onChange={handleCountryChange}
+          searchPlaceholder="Search countries..."
+          OptionView={PhoneCountryOptionView}
+          searchPredicate={phoneCountrySearchPredicate}
+          listMinWidth={360}
+          block
+          size="3xl"
+          trigger={trigger}
+          checkPosition="end"
+        />
+        <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
+        <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
+        <p className="text-base text-center mt-4">
+          Don&apos;t have an account?{' '}
+          <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
+            Sign up
+          </button>
+        </p>
+      </form>
     </div>
+  );
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="dialog" value={inDialog} onChange={setInDialog} />
+      </div>
+      <div data-demo-stage className="py-10 flex justify-center">
+        {inDialog ? <DialogShell>{formContent}</DialogShell> : formContent}
+      </div>
+    </>
   );
 }
 
 export function FloatingLabelInputPhoneSignupFormDemo() {
+  const [inDialog, setInDialog] = useState(false);
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [country, setCountry] = useState('es');
@@ -1339,112 +1386,140 @@ export function FloatingLabelInputPhoneSignupFormDemo() {
     errorMessage: showError ? 'Phone number is not valid.' : undefined,
   };
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormSubmitEvent) => {
     evt.preventDefault();
     setSubmitted(true);
     if (!isPhoneValid) return;
   };
 
-  return (
-    <div data-demo-stage className="py-10">
-      <div className="w-[360px]">
-        <div className="mb-6 text-center">
-          <h3 className="text-2xl font-semibold tracking-tight">Create your account</h3>
-          <p className="text-secondary text-sm mt-1">Enter your details to get started.</p>
-        </div>
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
-          <FloatingLabelInput
-            label="Full name"
-            value={fullName}
-            onChange={(evt) => setFullName(evt.target.value)}
-          />
-          <FloatingLabelInput
-            label="Email address"
-            type="email"
-            value={email}
-            onChange={(evt) => setEmail(evt.target.value)}
-          />
-          <Select
-            value={country}
-            options={PHONE_COUNTRY_OPTIONS}
-            onChange={handleCountryChange}
-            searchPlaceholder="Search countries..."
-            OptionView={PhoneCountryOptionView}
-            searchPredicate={phoneCountrySearchPredicate}
-            listMinWidth={360}
-            block
-            size="3xl"
-            trigger={trigger}
-            checkPosition="end"
-          />
-          <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
-          <p className="text-xs text-center text-tertiary mt-3">
-            By clicking &ldquo;Continue&rdquo;, you agree to our <span className="underline">Terms</span> and have read our{' '}
-            <span className="underline">Privacy Policy</span>.
-          </p>
-          <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
-          <p className="text-base text-center mt-4">
-            Already have an account? <a className="cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>Log in</a>
-          </p>
-        </form>
+  const formContent = (
+    <div className="w-[360px]">
+      <div className="mb-6 text-center">
+        <h3 className="text-2xl font-semibold tracking-tight">Create your account</h3>
+        <p className="text-secondary text-sm mt-1">Enter your details to get started.</p>
       </div>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+        <FloatingLabelInput
+          label="Full name"
+          value={fullName}
+          onChange={(evt) => setFullName(evt.target.value)}
+        />
+        <FloatingLabelInput
+          label="Email address"
+          type="email"
+          value={email}
+          onChange={(evt) => setEmail(evt.target.value)}
+        />
+        <Select
+          value={country}
+          options={PHONE_COUNTRY_OPTIONS}
+          onChange={handleCountryChange}
+          searchPlaceholder="Search countries..."
+          OptionView={PhoneCountryOptionView}
+          searchPredicate={phoneCountrySearchPredicate}
+          listMinWidth={360}
+          block
+          size="3xl"
+          trigger={trigger}
+          checkPosition="end"
+        />
+        <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
+        <p className="text-xs text-center text-tertiary mt-3">
+          By clicking &ldquo;Continue&rdquo;, you agree to our <span className="underline">Terms</span> and have read our{' '}
+          <span className="underline">Privacy Policy</span>.
+        </p>
+        <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
+        <p className="text-base text-center mt-4">
+          Already have an account?{' '}
+          <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
+            Log in
+          </button>
+        </p>
+      </form>
     </div>
+  );
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="dialog" value={inDialog} onChange={setInDialog} />
+      </div>
+      <div data-demo-stage className="py-10 flex justify-center">
+        {inDialog ? <DialogShell>{formContent}</DialogShell> : formContent}
+      </div>
+    </>
   );
 }
 
 export function FloatingLabelInputPasswordFormDemo() {
+  const [inDialog, setInDialog] = useState(false);
+
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const showError = submitted && !password;
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormSubmitEvent) => {
     evt.preventDefault();
     setSubmitted(true);
   };
 
-  return (
-    <div data-demo-stage className="py-10">
-      <div className="w-[360px]">
-        <div className="mb-6 text-center">
-          <h3 className="text-2xl font-semibold tracking-tight">Enter your password</h3>
-        </div>
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+  const formContent = (
+    <div className="w-[360px]">
+      <div className="mb-6 text-center">
+        <h3 className="text-2xl font-semibold tracking-tight">Enter your password</h3>
+      </div>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+        <FloatingLabelInput
+          label="Phone number"
+          readOnly
+          defaultValue="+1 555 123 4567"
+          endAdornment={(
+            <button type="button" className="text-sm font-medium cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>
+              Edit
+            </button>
+          )}
+        />
+        <div>
           <FloatingLabelInput
-            label="Phone number"
-            readOnly
-            defaultValue="+1 555 123 4567"
+            label="Password"
+            type={visible ? 'text' : 'password'}
+            value={password}
+            onChange={(evt) => {
+              setPassword(evt.target.value);
+              setSubmitted(false);
+            }}
+            invalid={showError}
+            errorMessage={showError ? 'Password is required.' : undefined}
             endAdornment={(
-              <button type="button" className="text-sm font-medium cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>
-                Edit
-              </button>
+              <Tooltip content={visible ? 'Hide password' : 'Show password'}>
+                <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+              </Tooltip>
             )}
           />
-          <div>
-            <FloatingLabelInput
-              label="Password"
-              type={visible ? 'text' : 'password'}
-              value={password}
-              onChange={(evt) => {
-                setPassword(evt.target.value);
-                setSubmitted(false);
-              }}
-              invalid={showError}
-              errorMessage={showError ? 'Password is required.' : undefined}
-              endAdornment={(
-                <Tooltip content={visible ? 'Hide password' : 'Show password'}>
-                  <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
-                </Tooltip>
-              )}
-            />
-            <a className="text-sm mt-2 inline-block cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)', paddingLeft: 'var(--floating-input-gutter)' }}>Forgot password?</a>
-          </div>
-          <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-2">Continue</Button>
-          <p className="text-base text-center mt-4">
-            Don&apos;t have an account? <a className="cursor-pointer hover:underline" style={{ color: 'var(--link-primary-text-color)' }}>Sign up</a>
-          </p>
-        </form>
-      </div>
+          <button type="button" className="text-sm mt-2 inline-block cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)', paddingLeft: 'var(--floating-input-gutter)' }}>
+            Forgot password?
+          </button>
+        </div>
+        <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-2">Continue</Button>
+        <p className="text-base text-center mt-4">
+          Don&apos;t have an account?{' '}
+          <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
+            Sign up
+          </button>
+        </p>
+      </form>
     </div>
+  );
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="dialog" value={inDialog} onChange={setInDialog} />
+      </div>
+      <div data-demo-stage className="py-10 flex justify-center">
+        {inDialog ? <DialogShell>{formContent}</DialogShell> : formContent}
+      </div>
+    </>
   );
 }

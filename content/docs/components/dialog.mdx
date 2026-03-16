@@ -1,0 +1,82 @@
+---
+title: Dialog
+description: Modal dialog overlay for confirmations, forms, and alerts
+---
+
+import {
+  DialogOverviewDemo,
+  DialogDeleteConfirmDemo,
+} from "@/components/docs/DialogDemos"
+
+<UsageBlock>{`import { Dialog } from "@plexui/ui/components/Dialog";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<Dialog>
+  <Dialog.Trigger>
+    <Button color="secondary" variant="outline">Open dialog</Button>
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Unsaved changes</Dialog.Title>
+    </Dialog.Header>
+    <p>You have unsaved changes that will be lost...</p>
+    <Dialog.Footer>
+      <Dialog.Close><Button color="primary" variant="soft">Cancel</Button></Dialog.Close>
+      <Button color="primary">Save changes</Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>`} previewMinHeight={120}>
+  <DialogOverviewDemo />
+</ComponentPreview>
+
+### Destructive confirmation
+
+<ComponentPreview details={<>Use <code>color="danger"</code> on the action button for destructive operations.</>} code={`<Dialog>
+  <Dialog.Trigger>
+    <Button color="danger" variant="outline">Delete</Button>
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Delete assistant?</Dialog.Title>
+    </Dialog.Header>
+    <p>This change will affect all API integrations. It cannot be undone.</p>
+    <Dialog.Footer>
+      <Dialog.Close><Button color="secondary" variant="soft">Cancel</Button></Dialog.Close>
+      <Button color="danger">Delete</Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>`} previewMinHeight={120}>
+  <DialogDeleteConfirmDemo />
+</ComponentPreview>
+
+## Reference
+
+**Dialog** (root)
+
+<PropsTable data={[
+  { prop: "open", type: "boolean", description: "Controlled open state" },
+  { prop: "onOpenChange", type: "(open: boolean) => void", description: "Called when the dialog opens or closes" },
+]} />
+
+**Dialog.Content**
+
+<PropsTable data={[
+  { prop: "width", type: "number | string", default: "480", description: "Panel width" },
+  { prop: "showClose", type: "boolean", default: "true", description: "Show close button in top-right corner" },
+  { prop: "className", type: "string", description: "Additional CSS class on the panel" },
+]} />
+
+**Dialog.Trigger** — Element that opens the dialog (renders child with `asChild`).
+
+**Dialog.Header** — Wrapper for title and description.
+
+**Dialog.Title** — Accessible heading for the dialog.
+
+**Dialog.Description** — Supporting text under the title.
+
+**Dialog.Footer** — Footer area for action buttons.
+
+**Dialog.Close** — Closes the dialog when its child is activated.
