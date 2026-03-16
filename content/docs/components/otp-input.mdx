@@ -1,0 +1,75 @@
+---
+title: OTP Input
+description: Individual digit input cells for verification code entry
+---
+
+import { OTPInput } from "@plexui/ui/components/OTPInput"
+import {
+  OTPInputConfirmPhoneFormDemo,
+  OTPInputDisabledDemo,
+  OTPInputErrorDemo,
+  OTPInputFilledDemo,
+  OTPInputGroupedDemo,
+  OTPInputOverviewDemo,
+  OTPInputVerifyEmailFormDemo,
+} from "@/components/docs/OTPInputDemos"
+
+<UsageBlock>{`import { OTPInput } from "@plexui/ui/components/OTPInput";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<OTPInput />`} previewMinHeight={168}>
+  <OTPInputOverviewDemo />
+</ComponentPreview>
+
+### Filled state
+
+<ComponentPreview code={`<OTPInput value="488030" onChange={setValue} />`} previewMinHeight={168}>
+  <OTPInputFilledDemo />
+</ComponentPreview>
+
+### Grouped (3+3)
+
+<ComponentPreview code={`<OTPInput grouping={[3, 3]} />`} previewMinHeight={168}>
+  <OTPInputGroupedDemo />
+</ComponentPreview>
+
+### With error
+
+<ComponentPreview code={`<OTPInput invalid errorMessage="Invalid verification code." />`} previewMinHeight={168}>
+  <OTPInputErrorDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview code={`<OTPInput value="488030" disabled />`} previewMinHeight={168}>
+  <OTPInputDisabledDemo />
+</ComponentPreview>
+
+### Verify email form
+
+<ComponentPreview code={`<OTPInputVerifyEmailFormDemo />`} previewMinHeight={320}>
+  <OTPInputVerifyEmailFormDemo />
+</ComponentPreview>
+
+### Confirm phone form
+
+<ComponentPreview code={`<OTPInputConfirmPhoneFormDemo />`} previewMinHeight={300}>
+  <OTPInputConfirmPhoneFormDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "length", type: "number", default: "6", description: "Number of digit cells" },
+  { prop: "value", type: "string", description: "Controlled value" },
+  { prop: "onChange", type: "(value: string) => void", description: "Called when value changes" },
+  { prop: "onComplete", type: "(value: string) => void", description: "Called when all digits filled" },
+  { prop: "grouping", type: "number[]", description: "Grouping pattern with extra gap (e.g. [3,3])" },
+  { prop: "invalid", type: "boolean", default: "false", description: "Invalid visual state" },
+  { prop: "errorMessage", type: "string", description: "Error message below the input" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable all cells" },
+  { prop: "autoFocus", type: "boolean", default: "false", description: "Auto-focus first cell on mount" },
+]} />
