@@ -9,6 +9,7 @@ import {
   FloatingLabelInputPasswordFormDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
 import {
+  OTPInputCheckInboxFormDemo,
   OTPInputVerifyEmailFormDemo,
   OTPInputConfirmPhoneFormDemo,
 } from "@/components/docs/OTPInputDemos"
@@ -46,6 +47,16 @@ Real-world authentication forms composed from [FloatingLabelInput](/docs/compone
   <Button color="primary" className="h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={420}>
   <FloatingLabelInputPasswordFormDemo />
+</ComponentPreview>
+
+## Check inbox
+
+<ComponentPreview details={<>A code verification form using a standard <code>FloatingLabelInput</code> instead of individual OTP cells. Useful when the code format is alphanumeric or variable length.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Code" inputMode="numeric" />
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+  <p className="text-base text-center">Resend email</p>
+</form>`} previewMinHeight={380}>
+  <OTPInputCheckInboxFormDemo />
 </ComponentPreview>
 
 ## Verify email
