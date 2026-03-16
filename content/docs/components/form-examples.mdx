@@ -1,0 +1,68 @@
+---
+title: Form Examples
+description: Complete authentication flow forms built with Plex UI components
+---
+
+import {
+  FloatingLabelInputPhoneSignupFormDemo,
+  FloatingLabelInputPhoneLoginFormDemo,
+  FloatingLabelInputPasswordFormDemo,
+} from "@/components/docs/FloatingLabelInputDemos"
+import {
+  OTPInputVerifyEmailFormDemo,
+  OTPInputConfirmPhoneFormDemo,
+} from "@/components/docs/OTPInputDemos"
+
+Real-world authentication forms composed from [FloatingLabelInput](/docs/components/floating-label-input), [OTP Input](/docs/components/otp-input), [Select](/docs/components/select), and [Button](/docs/components/button). All controls share a unified 52px height.
+
+## Sign up
+
+<ComponentPreview details={<>A complete signup form with floating-label text inputs, a country code selector, and a phone input — all at 52px height. Includes form validation and terms text.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Full name" />
+  <FloatingLabelInput label="Email address" type="email" />
+  <Select trigger={countryTrigger} ... />
+  <FloatingLabelInput label="Phone number" startAdornment={<span>+34</span>} type="tel" />
+  <p>Terms and Privacy Policy</p>
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={580}>
+  <FloatingLabelInputPhoneSignupFormDemo />
+</ComponentPreview>
+
+## Log in
+
+<ComponentPreview details={<>A phone login form with a country code selector and phone input. Minimal layout matching the OpenAI login pattern.</>} code={`<form className="flex flex-col gap-3">
+  <Select trigger={countryTrigger} ... />
+  <FloatingLabelInput label="Phone number" startAdornment={<span>+34</span>} type="tel" />
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={420}>
+  <FloatingLabelInputPhoneLoginFormDemo />
+</ComponentPreview>
+
+## Enter password
+
+<ComponentPreview details={<>A password entry step with a read-only phone field (with "Edit" button), a password input with visibility toggle and tooltip, and a "Forgot password?" link.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Phone number" readOnly defaultValue="+34 625 95 80 50" endAdornment={<button>Edit</button>} />
+  <FloatingLabelInput label="Password" type="password" endAdornment={<VisibilityToggle />} />
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={420}>
+  <FloatingLabelInputPasswordFormDemo />
+</ComponentPreview>
+
+## Verify email
+
+<ComponentPreview details={<>An email verification form with a 6-digit OTP input, validation, and a "Resend code" link. Calls <code>onComplete</code> when all digits are entered.</>} code={`<form className="flex flex-col gap-4">
+  <OTPInput length={6} autoFocus />
+  <a>Resend code</a>
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={320}>
+  <OTPInputVerifyEmailFormDemo />
+</ComponentPreview>
+
+## Confirm phone
+
+<ComponentPreview details={<>A phone confirmation form with a 6-digit OTP input and "Resend code" link. Simpler layout without a submit button — typically auto-submits on completion.</>} code={`<div className="flex flex-col gap-4">
+  <OTPInput length={6} autoFocus />
+  <a>Resend code</a>
+</div>`} previewMinHeight={280}>
+  <OTPInputConfirmPhoneFormDemo />
+</ComponentPreview>

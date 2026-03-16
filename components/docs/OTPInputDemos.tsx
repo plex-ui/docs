@@ -67,7 +67,7 @@ export function OTPInputVerifyEmailFormDemo() {
       <div className="w-[360px]">
         <div className="mb-6">
           <h3 className="text-2xl font-semibold tracking-tight">Verify your email address</h3>
-          <p className="text-secondary text-sm mt-1">Enter the code sent to sergey.t***@gmail.com</p>
+          <p className="text-secondary text-sm mt-1">Enter the code sent to sergey.tomashevsky@gmail.com</p>
         </div>
         <form
           className="flex flex-col gap-4"
@@ -106,11 +106,11 @@ export function OTPInputConfirmPhoneFormDemo() {
   return (
     <div data-demo-stage className="py-10">
       <div className="w-[360px]">
-        <div className="mb-6 text-center">
+        <div className="mb-6">
           <h3 className="text-2xl font-semibold tracking-tight">Confirm phone</h3>
-          <p className="text-secondary text-sm mt-1">Enter the code sent to ••• ••• •• 50</p>
+          <p className="text-secondary text-sm mt-1">Enter the code sent to +34 625 95 80 50</p>
         </div>
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col gap-4">
           <OTPInput value={value} onChange={setValue} autoFocus />
           <a
             className="hover:underline cursor-pointer text-sm"
