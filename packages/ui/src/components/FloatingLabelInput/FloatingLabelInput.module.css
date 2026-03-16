@@ -127,13 +127,6 @@
   flex-shrink: 0;
   position: relative;
   z-index: 1;
-  opacity: 0;
-  transition: opacity var(--floating-input-transition-duration) ease-in-out;
-}
-
-.FieldFootprint[data-focused] .StartAdornment,
-.HasValue .StartAdornment {
-  opacity: 1;
 }
 
 /* Input element */

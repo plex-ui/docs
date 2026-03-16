@@ -169,7 +169,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       <div className={clsx(s.Root, className)}>
         <div
           className={clsx(s.FieldFootprint, {
-            [s.HasValue]: hasValue,
+            [s.HasValue]: hasValue || !!startAdornment,
           })}
           data-focused={focused ? "" : undefined}
           data-has-value={hasValue ? "" : undefined}
