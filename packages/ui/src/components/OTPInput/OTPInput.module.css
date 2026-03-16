@@ -1,0 +1,91 @@
+.Root {
+  position: relative;
+  --field-error-padding-inline: 0;
+  --field-error-margin-top: 0.5rem;
+}
+
+.Cells {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.GroupGap {
+  width: 8px;
+}
+
+.Cell {
+  position: relative;
+  width: 44px;
+  height: 52px;
+  border-radius: var(--floating-input-border-radius);
+  border: 1px solid var(--floating-input-border-color);
+  background-color: var(--floating-input-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: text;
+  transition: border-color var(--floating-input-transition-duration) ease-in-out;
+}
+
+.Cell:hover:not([data-disabled]) {
+  border-color: var(--floating-input-border-color-hover);
+}
+
+.CellFocused {
+  border-color: var(--floating-input-border-color-focus);
+}
+
+.Cell[data-invalid] {
+  border-color: var(--floating-input-border-color-invalid);
+}
+
+.Cell[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.CellInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  caret-color: var(--color-text);
+  border-radius: inherit;
+}
+
+.CellInput:disabled {
+  cursor: not-allowed;
+}
+
+.DotPlaceholder {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-text-tertiary);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.CellFilled .DotPlaceholder {
+  display: none;
+}
+
+.ErrorMessage {
+  margin-top: var(--field-error-margin-top);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Cell {
+    transition: none;
+  }
+}
