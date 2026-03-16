@@ -13,6 +13,10 @@ import {
   FloatingLabelInputBirthdayValidationDemo,
   FloatingLabelInputAboutYouFormDemo,
   FloatingLabelInputBirthdayStatesDemo,
+  FloatingLabelInputPhoneDemo,
+  FloatingLabelInputPhoneLoginFormDemo,
+  FloatingLabelInputPhoneSignupFormDemo,
+  FloatingLabelInputPasswordFormDemo,
   FloatingLabelSelectCountryDemo,
   FloatingLabelSelectAboutYouFormDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
@@ -287,6 +291,63 @@ const selected = COUNTRIES.find((c) => c.value === country)
   <FloatingLabelSelectAboutYouFormDemo />
 </ComponentPreview>
 
+### Phone input
+
+<ComponentPreview details={<>A country code selector paired with a <code>FloatingLabelInput</code> that uses <code>startAdornment</code> to show the dial code as a non-editable prefix. The prefix appears when the field is focused or has a value.</>} code={`<Select trigger={countryTrigger} ... />
+<FloatingLabelInput
+  label="Phone number"
+  type="tel"
+  startAdornment={<span className="text-tertiary">+34</span>}
+/>`} previewMinHeight={200}>
+  <FloatingLabelInputPhoneDemo />
+</ComponentPreview>
+
+### Phone login form
+
+<ComponentPreview details={<>A login flow that combines a country <code>Select</code> and <code>FloatingLabelInput</code> phone field. The dial code is rendered with <code>startAdornment</code>, while number formatting and validation remain on the phone input itself.</>} code={`<form className="flex flex-col gap-3">
+  <Select trigger={countryTrigger} ... />
+  <FloatingLabelInput
+    label="Phone number"
+    type="tel"
+    startAdornment={<span className="text-tertiary">+34</span>}
+  />
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={340}>
+  <FloatingLabelInputPhoneLoginFormDemo />
+</ComponentPreview>
+
+### Phone signup form
+
+<ComponentPreview details={<>A signup flow with name/email inputs, a country <code>Select</code>, and a phone field using <code>startAdornment</code> for the non-editable dial code prefix.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Full name" />
+  <FloatingLabelInput label="Email address" type="email" />
+  <Select trigger={countryTrigger} ... />
+  <FloatingLabelInput
+    label="Phone number"
+    type="tel"
+    startAdornment={<span className="text-tertiary">+34</span>}
+  />
+  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+</form>`} previewMinHeight={520}>
+  <FloatingLabelInputPhoneSignupFormDemo />
+</ComponentPreview>
+
+### Password form
+
+<ComponentPreview details={<>A password entry form with a read-only phone field (with an &ldquo;Edit&rdquo; button via <code>endAdornment</code>), a password input with visibility toggle and tooltip, and a &ldquo;Forgot password?&rdquo; link.</>} code={`<FloatingLabelInput
+  label="Phone number"
+  readOnly
+  defaultValue="+34 625 95 80 50"
+  endAdornment={<button>Edit</button>}
+/>
+<FloatingLabelInput
+  label="Password"
+  type="password"
+  endAdornment={<button><Eye /></button>}
+/>`} previewMinHeight={400}>
+  <FloatingLabelInputPasswordFormDemo />
+</ComponentPreview>
+
 ## Reference
 
 <PropsTable data={[
@@ -296,5 +357,6 @@ const selected = COUNTRIES.find((c) => c.value === country)
   { prop: "invalid", type: "boolean", default: "false", description: "Invalid visual state" },
   { prop: "readOnly", type: "boolean", default: "false", description: "Read-only input state" },
   { prop: "onClear", type: "() => void", description: "Shows a clear button when input has value" },
+  { prop: "startAdornment", type: "ReactNode", description: "Content rendered before the input, inside the field. Visible when focused or has value." },
   { prop: "endAdornment", type: "ReactNode", description: "Content rendered after the input, before the clear button" },
 ]} />

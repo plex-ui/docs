@@ -6,6 +6,7 @@ import { Select, type Option } from '@plexui/ui/components/Select';
 import { Switch } from '@plexui/ui/components/Switch';
 import { Button } from '@plexui/ui/components/Button';
 import { FieldError } from '@plexui/ui/components/FieldError';
+import { Tooltip } from '@plexui/ui/components/Tooltip';
 import { Eye, EyeOff } from '@plexui/ui/components/Icon';
 // ---------------------------------------------------------------------------
 // Birthday mask utilities
@@ -1014,6 +1015,444 @@ export function FloatingLabelSelectAboutYouFormDemo() {
             <span className="underline">Privacy Policy</span>.
           </p>
           <Button color="primary" type="submit" className="h-[3.25rem]">Continue</Button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+const DIAL_CODES: Record<string, string> = {
+  af: '+93', al: '+355', dz: '+213', as: '+1684', ad: '+376', ao: '+244',
+  ai: '+1264', ag: '+1268', ar: '+54', am: '+374', aw: '+297', au: '+61',
+  at: '+43', az: '+994', bs: '+1242', bh: '+973', bd: '+880', bb: '+1246',
+  by: '+375', be: '+32', bz: '+501', bj: '+229', bm: '+1441', bt: '+975',
+  bo: '+591', ba: '+387', bw: '+267', br: '+55', bn: '+673', bg: '+359',
+  bf: '+226', bi: '+257', kh: '+855', cm: '+237', ca: '+1', cv: '+238',
+  ky: '+1345', cf: '+236', td: '+235', cl: '+56', cn: '+86', co: '+57',
+  km: '+269', cg: '+242', cd: '+243', ck: '+682', cr: '+506', ci: '+225',
+  hr: '+385', cu: '+53', cw: '+599', cy: '+357', cz: '+420', dk: '+45',
+  dj: '+253', dm: '+1767', do: '+1809', ec: '+593', eg: '+20', sv: '+503',
+  gq: '+240', er: '+291', ee: '+372', sz: '+268', et: '+251', fk: '+500',
+  fo: '+298', fj: '+679', fi: '+358', fr: '+33', gf: '+594', pf: '+689',
+  ga: '+241', gm: '+220', ge: '+995', de: '+49', gh: '+233', gi: '+350',
+  gr: '+30', gl: '+299', gd: '+1473', gp: '+590', gu: '+1671', gt: '+502',
+  gn: '+224', gw: '+245', gy: '+592', ht: '+509', hn: '+504', hk: '+852',
+  hu: '+36', is: '+354', in: '+91', id: '+62', ir: '+98', iq: '+964',
+  ie: '+353', il: '+972', it: '+39', jm: '+1876', jp: '+81', jo: '+962',
+  kz: '+7', ke: '+254', ki: '+686', xk: '+383', kw: '+965', kg: '+996',
+  la: '+856', lv: '+371', lb: '+961', ls: '+266', lr: '+231', ly: '+218',
+  li: '+423', lt: '+370', lu: '+352', mo: '+853', mg: '+261', mw: '+265',
+  my: '+60', mv: '+960', ml: '+223', mt: '+356', mh: '+692', mq: '+596',
+  mr: '+222', mu: '+230', mx: '+52', fm: '+691', md: '+373', mc: '+377',
+  mn: '+976', me: '+382', ms: '+1664', ma: '+212', mz: '+258', mm: '+95',
+  na: '+264', nr: '+674', np: '+977', nl: '+31', nc: '+687', nz: '+64',
+  ni: '+505', ne: '+227', ng: '+234', kp: '+850', mk: '+389', no: '+47',
+  om: '+968', pk: '+92', pw: '+680', ps: '+970', pa: '+507', pg: '+675',
+  py: '+595', pe: '+51', ph: '+63', pl: '+48', pt: '+351', pr: '+1787',
+  qa: '+974', re: '+262', ro: '+40', ru: '+7', rw: '+250', kn: '+1869',
+  lc: '+1758', vc: '+1784', ws: '+685', sm: '+378', st: '+239', sa: '+966',
+  sn: '+221', rs: '+381', sc: '+248', sl: '+232', sg: '+65', sk: '+421',
+  si: '+386', sb: '+677', so: '+252', za: '+27', kr: '+82', ss: '+211',
+  es: '+34', lk: '+94', sd: '+249', sr: '+597', se: '+46', ch: '+41',
+  sy: '+963', tw: '+886', tj: '+992', tz: '+255', th: '+66', tl: '+670',
+  tg: '+228', to: '+676', tt: '+1868', tn: '+216', tr: '+90', tm: '+993',
+  tc: '+1649', tv: '+688', ug: '+256', ua: '+380', ae: '+971', gb: '+44',
+  us: '+1', uy: '+598', uz: '+998', vu: '+678', va: '+379', ve: '+58',
+  vn: '+84', vg: '+1284', vi: '+1340', ye: '+967', zm: '+260', zw: '+263',
+};
+
+const PHONE_FORMATS: Record<string, number[]> = {
+  us: [3, 3, 4], ca: [3, 3, 4], mx: [2, 4, 4], jm: [3, 4],
+  pr: [3, 3, 4], tt: [3, 4],
+  gb: [4, 3, 3], de: [3, 4, 4], fr: [1, 2, 2, 2, 2], es: [3, 2, 2, 2],
+  it: [3, 3, 4], pt: [3, 3, 3], nl: [2, 3, 4], be: [3, 2, 2, 2],
+  at: [3, 3, 4], ch: [2, 3, 2, 2], se: [2, 3, 2, 2], no: [3, 2, 3],
+  dk: [2, 2, 2, 2], fi: [2, 3, 4], pl: [3, 3, 3], cz: [3, 3, 3],
+  ie: [2, 3, 4], ro: [3, 3, 3], hu: [2, 3, 4], gr: [3, 3, 4],
+  bg: [3, 3, 3], hr: [2, 3, 3], sk: [3, 3, 3], si: [2, 3, 2, 2],
+  rs: [2, 3, 4], ee: [3, 4], lv: [2, 3, 3], lt: [3, 2, 3],
+  ua: [2, 3, 2, 2], ru: [3, 3, 2, 2], tr: [3, 3, 2, 2],
+  is: [3, 4], lu: [3, 3], mt: [4, 4], cy: [2, 6],
+  al: [3, 3, 3], ba: [2, 3, 3], me: [2, 3, 3], mk: [2, 3, 3],
+  md: [2, 3, 3], by: [2, 3, 2, 2], ge: [3, 2, 2, 2],
+  am: [2, 3, 3], az: [2, 3, 2, 2], mc: [4, 4], li: [3, 2, 2],
+  jp: [2, 4, 4], kr: [2, 4, 4], cn: [3, 4, 4], in: [5, 5],
+  sg: [4, 4], hk: [4, 4], tw: [3, 3, 3], th: [2, 3, 4],
+  id: [3, 4, 4], my: [2, 4, 4], ph: [3, 3, 4], vn: [2, 3, 4],
+  kh: [2, 3, 3], mm: [2, 3, 4], la: [2, 4, 4], bn: [3, 4],
+  kz: [3, 3, 2, 2], uz: [2, 3, 2, 2], kg: [3, 3, 3],
+  tj: [2, 3, 4], tm: [2, 3, 4], mn: [4, 4],
+  pk: [3, 3, 4], bd: [4, 3, 3], lk: [2, 3, 4], np: [3, 3, 4],
+  ae: [2, 3, 4], sa: [2, 3, 4], il: [2, 3, 4], jo: [1, 4, 4],
+  lb: [1, 3, 3], kw: [4, 4], qa: [4, 4], bh: [4, 4],
+  om: [4, 4], iq: [3, 3, 4], ir: [3, 3, 4],
+  za: [2, 3, 4], ng: [3, 3, 4], eg: [3, 3, 4], ke: [3, 3, 3],
+  gh: [2, 3, 4], tz: [3, 3, 3], ug: [3, 3, 3], et: [2, 3, 4],
+  ma: [4, 6], tn: [2, 3, 3], dz: [3, 2, 2, 2],
+  br: [2, 5, 4], ar: [2, 4, 4], cl: [1, 4, 4], co: [3, 3, 4],
+  pe: [3, 3, 3], ve: [3, 3, 4], ec: [2, 3, 4], uy: [2, 3, 2],
+  py: [3, 3, 3], bo: [1, 3, 4],
+  au: [3, 3, 3], nz: [3, 3, 3], fj: [3, 4],
+};
+
+const DEFAULT_PHONE_FORMAT = [3, 3, 4];
+
+function formatPhoneNumber(raw: string, countryCode?: string): string {
+  const digits = raw.replace(/\D/g, '');
+  if (!digits) return '';
+  const format = (countryCode && PHONE_FORMATS[countryCode]) || DEFAULT_PHONE_FORMAT;
+  const groups: string[] = [];
+  let i = 0;
+
+  for (const groupSize of format) {
+    if (i >= digits.length) break;
+    groups.push(digits.slice(i, i + groupSize));
+    i += groupSize;
+  }
+  if (i < digits.length) groups.push(digits.slice(i));
+  return groups.join(' ');
+}
+
+function stripFormatting(formatted: string): string {
+  return formatted.replace(/\D/g, '');
+}
+
+const PHONE_COUNTRY_OPTIONS = COUNTRIES.map((country) => ({
+  ...country,
+  label: `${country.label} (${DIAL_CODES[country.value] || ''})`,
+}));
+const PHONE_COUNTRY_LOOKUP = new Map(COUNTRIES.map((country) => [country.value, country]));
+
+const phoneCountrySearchPredicate = (option: Option, searchTerm: string): boolean => {
+  const country = PHONE_COUNTRY_LOOKUP.get(option.value);
+  if (!country) return option.label.toLowerCase().includes(searchTerm);
+  const dialCode = DIAL_CODES[option.value] || '';
+  return country.label.toLowerCase().includes(searchTerm) || dialCode.includes(searchTerm);
+};
+
+const PhoneCountryOptionView = ({ value, label }: Option) => (
+  <CountryLabel code={value} label={label} />
+);
+
+function usePhoneCountryTrigger(country: string) {
+  const selected = COUNTRIES.find((c) => c.value === country);
+  const dialCode = selected ? DIAL_CODES[selected.value] : undefined;
+  return useCallback(
+    ({ open, onToggle }: { open: boolean; onToggle: () => void }) => (
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={onToggle}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          width: '100%',
+          height: '3.25rem',
+          borderRadius: 'var(--floating-input-border-radius)',
+          border: '1px solid var(--floating-input-border-color)',
+          padding: '0 var(--floating-input-gutter)',
+          backgroundColor: 'var(--floating-input-background)',
+          color: selected ? 'var(--color-text)' : 'var(--color-text-tertiary)',
+          fontSize: '1rem',
+          lineHeight: '1.5rem',
+          cursor: 'pointer',
+          textAlign: 'left',
+        }}
+      >
+        {selected ? (
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <FlagIcon code={selected.value} />
+            {selected.label}{dialCode ? ` (${dialCode})` : ''}
+          </span>
+        ) : (
+          'Country'
+        )}
+        <svg
+          aria-hidden
+          width="10"
+          height="6"
+          viewBox="0 0 10 6"
+          fill="none"
+          style={{ marginLeft: 'auto', flexShrink: 0, color: 'var(--color-text-tertiary)' }}
+        >
+          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+    ),
+    [selected, dialCode],
+  );
+}
+
+export function FloatingLabelInputPhoneDemo() {
+  const [country, setCountry] = useState('es');
+  const [phone, setPhone] = useState('');
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const dialCode = DIAL_CODES[country] || '+1';
+  const trigger = usePhoneCountryTrigger(country);
+
+  const handleCountryChange = useCallback((option: Option) => {
+    setCountry(option.value);
+    setTimeout(() => phoneInputRef.current?.focus(), 0);
+  }, []);
+
+  const handlePhoneChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = evt.target.value.replace(/\D/g, '');
+    setPhone(formatPhoneNumber(raw, country));
+  }, [country]);
+
+  const phoneInputProps = {
+    label: 'Phone number',
+    startAdornment: <span className="text-tertiary whitespace-nowrap select-none mr-2">{dialCode}</span>,
+    value: phone,
+    onChange: handlePhoneChange,
+    type: 'tel' as const,
+    inputMode: 'tel' as const,
+  };
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px] flex flex-col gap-3">
+        <Select
+          value={country}
+          options={PHONE_COUNTRY_OPTIONS}
+          onChange={handleCountryChange}
+          searchPlaceholder="Search countries..."
+          OptionView={PhoneCountryOptionView}
+          searchPredicate={phoneCountrySearchPredicate}
+          listMinWidth={360}
+          block
+          size="3xl"
+          trigger={trigger}
+          checkPosition="end"
+        />
+        <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
+      </div>
+    </div>
+  );
+}
+
+export function FloatingLabelInputPhoneLoginFormDemo() {
+  const [country, setCountry] = useState('es');
+  const [phone, setPhone] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const dialCode = DIAL_CODES[country] || '+1';
+  const trigger = usePhoneCountryTrigger(country);
+
+  const handleCountryChange = useCallback((option: Option) => {
+    setCountry(option.value);
+    setSubmitted(false);
+    setTimeout(() => phoneInputRef.current?.focus(), 0);
+  }, []);
+
+  const handlePhoneChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = evt.target.value.replace(/\D/g, '');
+    setPhone(formatPhoneNumber(raw, country));
+    setSubmitted(false);
+  }, [country]);
+
+  const digits = stripFormatting(phone);
+  const isPhoneValid = digits.length >= 7 && digits.length <= 15;
+  const showError = submitted && !isPhoneValid;
+
+  const phoneInputProps = {
+    label: 'Phone number',
+    startAdornment: <span className="text-tertiary whitespace-nowrap select-none mr-2">{dialCode}</span>,
+    value: phone,
+    onChange: handlePhoneChange,
+    type: 'tel' as const,
+    inputMode: 'tel' as const,
+    invalid: showError,
+    errorMessage: showError ? 'Phone number is not valid.' : undefined,
+  };
+
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setSubmitted(true);
+    if (!isPhoneValid) return;
+  };
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <div className="mb-6">
+          <h3 className="text-2xl font-semibold tracking-tight">Welcome back</h3>
+          <p className="text-secondary text-sm mt-1">Enter your phone number to continue.</p>
+        </div>
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+          <Select
+            value={country}
+            options={PHONE_COUNTRY_OPTIONS}
+            onChange={handleCountryChange}
+            searchPlaceholder="Search countries..."
+            OptionView={PhoneCountryOptionView}
+            searchPredicate={phoneCountrySearchPredicate}
+            listMinWidth={360}
+            block
+            size="3xl"
+            trigger={trigger}
+            checkPosition="end"
+          />
+          <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
+          <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
+          <p className="text-base text-center mt-4">
+            Don&apos;t have an account? <span className="text-primary cursor-pointer">Sign up</span>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export function FloatingLabelInputPhoneSignupFormDemo() {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [country, setCountry] = useState('es');
+  const [phone, setPhone] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const dialCode = DIAL_CODES[country] || '+1';
+  const trigger = usePhoneCountryTrigger(country);
+
+  const handleCountryChange = useCallback((option: Option) => {
+    setCountry(option.value);
+    setSubmitted(false);
+    setTimeout(() => phoneInputRef.current?.focus(), 0);
+  }, []);
+
+  const handlePhoneChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = evt.target.value.replace(/\D/g, '');
+    setPhone(formatPhoneNumber(raw, country));
+    setSubmitted(false);
+  }, [country]);
+
+  const digits = stripFormatting(phone);
+  const isPhoneValid = digits.length >= 7 && digits.length <= 15;
+  const showError = submitted && !isPhoneValid;
+
+  const phoneInputProps = {
+    label: 'Phone number',
+    startAdornment: <span className="text-tertiary whitespace-nowrap select-none mr-2">{dialCode}</span>,
+    value: phone,
+    onChange: handlePhoneChange,
+    type: 'tel' as const,
+    inputMode: 'tel' as const,
+    invalid: showError,
+    errorMessage: showError ? 'Phone number is not valid.' : undefined,
+  };
+
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setSubmitted(true);
+    if (!isPhoneValid) return;
+  };
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <div className="mb-6">
+          <h3 className="text-2xl font-semibold tracking-tight">Create your account</h3>
+          <p className="text-secondary text-sm mt-1">Enter your details to get started.</p>
+        </div>
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+          <FloatingLabelInput
+            label="Full name"
+            value={fullName}
+            onChange={(evt) => setFullName(evt.target.value)}
+          />
+          <FloatingLabelInput
+            label="Email address"
+            type="email"
+            value={email}
+            onChange={(evt) => setEmail(evt.target.value)}
+          />
+          <Select
+            value={country}
+            options={PHONE_COUNTRY_OPTIONS}
+            onChange={handleCountryChange}
+            searchPlaceholder="Search countries..."
+            OptionView={PhoneCountryOptionView}
+            searchPredicate={phoneCountrySearchPredicate}
+            listMinWidth={360}
+            block
+            size="3xl"
+            trigger={trigger}
+            checkPosition="end"
+          />
+          <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
+          <p className="text-xs text-center text-tertiary mt-3">
+            By clicking &ldquo;Continue&rdquo;, you agree to our <span className="underline">Terms</span> and have read our{' '}
+            <span className="underline">Privacy Policy</span>.
+          </p>
+          <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
+          <p className="text-base text-center mt-4">
+            Already have an account? <span className="text-primary cursor-pointer">Log in</span>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export function FloatingLabelInputPasswordFormDemo() {
+  const [visible, setVisible] = useState(false);
+  const [password, setPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const showError = submitted && !password;
+
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <div className="mb-6">
+          <h3 className="text-2xl font-semibold tracking-tight">Enter your password</h3>
+        </div>
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+          <FloatingLabelInput
+            label="Phone number"
+            readOnly
+            defaultValue="+34 625 95 80 50"
+            endAdornment={(
+              <button type="button" className="text-primary text-sm font-medium cursor-pointer">
+                Edit
+              </button>
+            )}
+          />
+          <div>
+            <FloatingLabelInput
+              label="Password"
+              type={visible ? 'text' : 'password'}
+              value={password}
+              onChange={(evt) => {
+                setPassword(evt.target.value);
+                setSubmitted(false);
+              }}
+              invalid={showError}
+              errorMessage={showError ? 'Password is required.' : undefined}
+              endAdornment={(
+                <Tooltip content={visible ? 'Hide password' : 'Show password'}>
+                  <button
+                    type="button"
+                    onClick={() => setVisible((v) => !v)}
+                    aria-label={visible ? 'Hide password' : 'Show password'}
+                    style={visibilityToggleStyle}
+                  >
+                    {visible ? <EyeOff /> : <Eye />}
+                  </button>
+                </Tooltip>
+              )}
+            />
+            <a className="text-primary text-sm mt-2 inline-block cursor-pointer">Forgot password?</a>
+          </div>
+          <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-2">Continue</Button>
+          <p className="text-base text-center mt-4">
+            Don&apos;t have an account? <span className="text-primary cursor-pointer">Sign up</span>
+          </p>
         </form>
       </div>
     </div>
