@@ -15,30 +15,78 @@ const CALENDAR_WIDTH_PX = 210
 const CALENDAR_GAP_PX = 32
 const STEP_DISTANCE_PX = CALENDAR_WIDTH_PX + CALENDAR_GAP_PX
 
+const SHORT_MONTH_NAMES = Array.from({ length: 12 }, (_, i) =>
+  DateTime.local(2024, i + 1, 1).monthShort!,
+)
+
 export const DateCalendar = () => {
-  const { value, min, max, onChangeRef } = useDateContext()
+  const { value, min, max, onChangeRef, captionLayout, showTime, yearRange } = useDateContext()
   const closePopover = usePopoverClose()
   const calendarContainerRef = useRef<HTMLDivElement | null>(null)
   const [calendarSteps, setCalendarSteps] = useState<number>(0)
   const [forceRenderIncrement, setForceRenderIncrement] = useState<number>(0)
   const [calendarDate, setCalendarDate] = useState<DateTime>(() => value ?? DateTime.now())
 
+  const isDropdown = captionLayout === "dropdown"
+
   const canGoBack = !min || isBefore(min, calendarDate.startOf("month"))
   const canGoForward = !max || isBefore(calendarDate.endOf("month"), max)
 
+  const [pendingHour, setPendingHour] = useState<number>(() => value?.hour ?? 12)
+  const [pendingMinute, setPendingMinute] = useState<number>(() => value?.minute ?? 0)
+
+  useEffect(() => {
+    if (value) {
+      setPendingHour(value.hour)
+      setPendingMinute(value.minute)
+    }
+  }, [value])
+
   const handleNext = () => {
-    setCalendarSteps((c) => c + 1)
-    setCalendarDate((dt) => dt.plus({ months: 1 }))
+    if (isDropdown) {
+      setCalendarDate((dt) => dt.plus({ months: 1 }))
+      setForceRenderIncrement((c) => c + 1)
+    } else {
+      setCalendarSteps((c) => c + 1)
+      setCalendarDate((dt) => dt.plus({ months: 1 }))
+    }
   }
 
   const handlePrevious = () => {
-    setCalendarSteps((c) => c - 1)
-    setCalendarDate((dt) => dt.minus({ months: 1 }))
+    if (isDropdown) {
+      setCalendarDate((dt) => dt.minus({ months: 1 }))
+      setForceRenderIncrement((c) => c + 1)
+    } else {
+      setCalendarSteps((c) => c - 1)
+      setCalendarDate((dt) => dt.minus({ months: 1 }))
+    }
   }
 
   const handleDateSelect = (selectedDate: DateTime) => {
-    onChangeRef.current(selectedDate)
-    closePopover()
+    if (showTime) {
+      onChangeRef.current(selectedDate.set({ hour: pendingHour, minute: pendingMinute }))
+    } else {
+      onChangeRef.current(selectedDate)
+      closePopover()
+    }
+  }
+
+  const handleTimeChange = (hour: number, minute: number) => {
+    setPendingHour(hour)
+    setPendingMinute(minute)
+    if (value) {
+      onChangeRef.current(value.set({ hour, minute }))
+    }
+  }
+
+  const handleDropdownMonthChange = (month: number) => {
+    setCalendarDate(DateTime.local(calendarDate.year, month, 1))
+    setForceRenderIncrement((c) => c + 1)
+  }
+
+  const handleDropdownYearChange = (year: number) => {
+    setCalendarDate(DateTime.local(year, calendarDate.month, 1))
+    setForceRenderIncrement((c) => c + 1)
   }
 
   // Force re-renders when `value` changes out of band from direct user-selection
@@ -104,7 +152,7 @@ export const DateCalendar = () => {
 
   return (
     <div className={s.CalendarWrapper} key={`stable-view-${forceRenderIncrement}`}>
-      <div ref={calendarContainerRef} className={s.CalendarContainer}>
+      <div ref={calendarContainerRef} className={s.CalendarContainer} data-dropdown={isDropdown ? "" : undefined}>
         <div className={s.Previous}>
           <Button
             variant="ghost"
@@ -133,40 +181,255 @@ export const DateCalendar = () => {
             <ChevronRight />
           </Button>
         </div>
+        {isDropdown && (
+          <DropdownCaption
+            date={calendarDate}
+            onMonthChange={handleDropdownMonthChange}
+            onYearChange={handleDropdownYearChange}
+            min={min}
+            max={max}
+            yearRange={yearRange}
+          />
+        )}
         <div
           className={s.CalendarRange}
-          style={{
-            transform: `translate(${calendarSteps * -1 * STEP_DISTANCE_PX}px, 0)`,
-          }}
+          style={
+            !isDropdown
+              ? { transform: `translate(${calendarSteps * -1 * STEP_DISTANCE_PX}px, 0)` }
+              : undefined
+          }
         >
-          <TransitionGroup enterDuration={400} exitDuration={400}>
+          {!isDropdown ? (
+            <TransitionGroup enterDuration={400} exitDuration={400}>
+              <CalendarView
+                key={calendarDate.toLocaleString({
+                  month: "long",
+                  year: "numeric",
+                })}
+                stepPosition={calendarSteps}
+                date={calendarDate}
+                selectedDate={value}
+                min={min}
+                max={max}
+                onDateSelect={handleDateSelect}
+                hideMonthLabel={false}
+              />
+            </TransitionGroup>
+          ) : (
             <CalendarView
               key={calendarDate.toLocaleString({
                 month: "long",
                 year: "numeric",
               })}
-              stepPosition={calendarSteps}
+              stepPosition={0}
               date={calendarDate}
               selectedDate={value}
               min={min}
               max={max}
               onDateSelect={handleDateSelect}
+              hideMonthLabel
             />
-          </TransitionGroup>
+          )}
         </div>
+      </div>
+      {showTime && (
+        <TimeInput
+          hour={pendingHour}
+          minute={pendingMinute}
+          onChange={handleTimeChange}
+        />
+      )}
+    </div>
+  )
+}
+
+type DropdownCaptionProps = {
+  date: DateTime
+  onMonthChange: (month: number) => void
+  onYearChange: (year: number) => void
+  min?: DateTime
+  max?: DateTime
+  yearRange?: [number, number]
+}
+
+const DropdownCaption = ({
+  date,
+  onMonthChange,
+  onYearChange,
+  min,
+  max,
+  yearRange,
+}: DropdownCaptionProps) => {
+  const currentYear = DateTime.now().year
+  const minYear = yearRange?.[0] ?? min?.year ?? currentYear - 120
+  const maxYear = yearRange?.[1] ?? max?.year ?? currentYear
+
+  const years = useMemo(() => {
+    const result: number[] = []
+    for (let y = maxYear; y >= minYear; y--) {
+      result.push(y)
+    }
+    return result
+  }, [minYear, maxYear])
+
+  return (
+    <div className={s.DropdownCaption}>
+      <select
+        className={s.DropdownSelect}
+        value={date.month}
+        onChange={(e) => onMonthChange(Number(e.target.value))}
+      >
+        {SHORT_MONTH_NAMES.map((name, i) => (
+          <option key={name} value={i + 1}>
+            {name}
+          </option>
+        ))}
+      </select>
+      <select
+        className={s.DropdownSelect}
+        value={date.year}
+        onChange={(e) => onYearChange(Number(e.target.value))}
+      >
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+type TimeInputProps = {
+  hour: number
+  minute: number
+  onChange: (hour: number, minute: number) => void
+}
+
+const TimeInput = ({ hour, minute, onChange }: TimeInputProps) => {
+  const hourRef = useRef<HTMLInputElement>(null)
+  const minuteRef = useRef<HTMLInputElement>(null)
+  const [hourText, setHourText] = useState(() => String(hour).padStart(2, "0"))
+  const [minuteText, setMinuteText] = useState(() => String(minute).padStart(2, "0"))
+
+  useEffect(() => {
+    if (document.activeElement !== hourRef.current) {
+      setHourText(String(hour).padStart(2, "0"))
+    }
+  }, [hour])
+
+  useEffect(() => {
+    if (document.activeElement !== minuteRef.current) {
+      setMinuteText(String(minute).padStart(2, "0"))
+    }
+  }, [minute])
+
+  const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, "").slice(0, 2)
+    setHourText(raw)
+    if (raw.length === 2) {
+      onChange(Math.min(23, Number(raw)), minute)
+      minuteRef.current?.focus()
+      minuteRef.current?.select()
+    }
+  }
+
+  const handleHourBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const raw = e.currentTarget.value.replace(/\D/g, "").slice(0, 2)
+    const h = Math.min(23, Number(raw) || 0)
+    onChange(h, minute)
+    setHourText(String(h).padStart(2, "0"))
+  }
+
+  const handleMinuteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, "").slice(0, 2)
+    setMinuteText(raw)
+    if (raw.length === 2) {
+      onChange(hour, Math.min(59, Number(raw)))
+    }
+  }
+
+  const handleMinuteBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const raw = e.currentTarget.value.replace(/\D/g, "").slice(0, 2)
+    const m = Math.min(59, Number(raw) || 0)
+    onChange(hour, m)
+    setMinuteText(String(m).padStart(2, "0"))
+  }
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    type: "hour" | "minute",
+  ) => {
+    const step = e.shiftKey ? 10 : 1
+    if (e.key === "ArrowUp") {
+      e.preventDefault()
+      if (type === "hour") {
+        const h = (hour + step) % 24
+        onChange(h, minute)
+        setHourText(String(h).padStart(2, "0"))
+      } else {
+        const m = (minute + step) % 60
+        onChange(hour, m)
+        setMinuteText(String(m).padStart(2, "0"))
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault()
+      if (type === "hour") {
+        const h = (hour - step + 24) % 24
+        onChange(h, minute)
+        setHourText(String(h).padStart(2, "0"))
+      } else {
+        const m = (minute - step + 60) % 60
+        onChange(hour, m)
+        setMinuteText(String(m).padStart(2, "0"))
+      }
+    }
+  }
+
+  return (
+    <div className={s.TimeFooter}>
+      <span className={s.TimeLabel}>Time</span>
+      <div className={s.TimeInputGroup}>
+        <input
+          ref={hourRef}
+          className={s.TimeField}
+          type="text"
+          inputMode="numeric"
+          value={hourText}
+          onChange={handleHourChange}
+          onBlur={handleHourBlur}
+          onFocus={(e) => e.target.select()}
+          onKeyDown={(e) => handleKeyDown(e, "hour")}
+          maxLength={2}
+          aria-label="Hour"
+        />
+        <span className={s.TimeSeparator}>:</span>
+        <input
+          ref={minuteRef}
+          className={s.TimeField}
+          type="text"
+          inputMode="numeric"
+          value={minuteText}
+          onChange={handleMinuteChange}
+          onBlur={handleMinuteBlur}
+          onFocus={(e) => e.target.select()}
+          onKeyDown={(e) => handleKeyDown(e, "minute")}
+          maxLength={2}
+          aria-label="Minute"
+        />
       </div>
     </div>
   )
 }
 
 type CalendarViewProps = {
-  // Can be any day within the given month that the calendar should render for
   date: DateTime
   selectedDate?: DateTime | null
   onDateSelect?: (dt: DateTime) => void
   min?: DateTime
   max?: DateTime
   stepPosition: number
+  hideMonthLabel?: boolean
 }
 
 const daysOfTheWeekLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
@@ -178,6 +441,7 @@ const CalendarView = ({
   max,
   onDateSelect,
   stepPosition,
+  hideMonthLabel = false,
 }: CalendarViewProps) => {
   // Lock position on mount and don't respond to changes
   const [position] = useState(stepPosition)
@@ -201,10 +465,19 @@ const CalendarView = ({
   }, [date, min, max])
 
   return (
-    <div className={s.Calendar} style={{ left: position * STEP_DISTANCE_PX }} data-calendar>
-      <p className={s.MonthLabel}>
-        {startOfMonth.monthLong} {startOfMonth.year}
-      </p>
+    <div
+      className={s.Calendar}
+      style={hideMonthLabel ? undefined : { left: position * STEP_DISTANCE_PX }}
+      data-calendar
+      data-static={hideMonthLabel ? "" : undefined}
+    >
+      {hideMonthLabel ? (
+        <div className={s.MonthLabelSpacer} aria-hidden="true" />
+      ) : (
+        <p className={s.MonthLabel}>
+          {startOfMonth.monthLong} {startOfMonth.year}
+        </p>
+      )}
       <div className={s.Week}>
         {daysOfTheWeekLabels.map((day) => (
           <div key={day} className={s.DayLabel}>
@@ -226,6 +499,7 @@ const CalendarView = ({
             return (
               <div className={s.Day} key={dayIndex} data-is-selected={isSelected ? "" : undefined}>
                 <button
+                  type="button"
                   className={s.InteractiveDay}
                   disabled={!enabled}
                   onClick={() => d && onDateSelect?.(d)}
