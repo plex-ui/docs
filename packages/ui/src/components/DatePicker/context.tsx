@@ -19,6 +19,9 @@ export type DateContextValue = {
   dropdownIconType?: SelectControlProps["dropdownIconType"]
   clearable: boolean
   placeholder: string
+  captionLayout: "buttons" | "dropdown"
+  showTime: boolean
+  yearRange?: [number, number]
   // References
   onChangeRef: React.MutableRefObject<(nextValue: DateTime | null) => void>
 }

@@ -109,6 +109,23 @@ export type DatePickerProps = {
    * @default true
    */
   block?: boolean
+  /**
+   * Controls how the calendar header is rendered.
+   * - `"buttons"` — Arrow navigation between months (default)
+   * - `"dropdown"` — Month and year dropdown selects (ideal for date of birth)
+   * @default buttons
+   */
+  captionLayout?: "buttons" | "dropdown"
+  /**
+   * Show time input below the calendar for combined date and time selection.
+   * @default false
+   */
+  showTime?: boolean
+  /**
+   * Range of selectable years when `captionLayout` is `"dropdown"`.
+   * @default [currentYear - 120, currentYear]
+   */
+  yearRange?: [number, number]
 }
 
 export const DatePicker = (props: DatePickerProps) => {
@@ -132,7 +149,10 @@ export const DatePicker = (props: DatePickerProps) => {
     block = false,
     triggerClassName,
     triggerShowIcon = true,
-    triggerDateFormat = "MM/dd/yy",
+    captionLayout = "buttons",
+    showTime = false,
+    yearRange,
+    triggerDateFormat = showTime ? "MM/dd/yy HH:mm" : "MM/dd/yy",
   } = props
 
   if (min && max && !isBefore(min, max)) {
@@ -158,6 +178,9 @@ export const DatePicker = (props: DatePickerProps) => {
       triggerClassName,
       triggerShowIcon,
       triggerDateFormat,
+      captionLayout,
+      showTime,
+      yearRange,
       onChangeRef,
     }),
     [
@@ -175,6 +198,9 @@ export const DatePicker = (props: DatePickerProps) => {
       triggerClassName,
       triggerShowIcon,
       triggerDateFormat,
+      captionLayout,
+      showTime,
+      yearRange,
       onChangeRef,
     ],
   )
@@ -200,9 +226,7 @@ export const DatePicker = (props: DatePickerProps) => {
             dropdownIconType={dropdownIconType}
             onClearClick={clearable ? handleClearClick : undefined}
           >
-            <span className="tabular-nums">
-              {value?.toFormat(triggerDateFormat) ?? placeholder}
-            </span>
+            {value?.toFormat(triggerDateFormat) ?? placeholder}
           </SelectControl>
         </Popover.Trigger>
         <Popover.Content

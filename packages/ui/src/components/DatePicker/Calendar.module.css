@@ -78,6 +78,13 @@
   z-index: 2;
 }
 
+.CalendarContainer[data-dropdown] .Previous::before,
+.CalendarContainer[data-dropdown] .Previous::after,
+.CalendarContainer[data-dropdown] .Next::before,
+.CalendarContainer[data-dropdown] .Next::after {
+  display: none;
+}
+
 .CalendarWrapper {
   overflow: hidden;
   padding: 10px 12px 12px;
@@ -95,6 +102,10 @@
   top: 0;
   width: 210px;
   font-size: 14px;
+
+  &[data-static] {
+    position: relative;
+  }
 }
 
 .Week {
@@ -204,4 +215,99 @@
   [data-is-selected] & {
     background-color: var(--gray-0);
   }
+}
+
+.MonthLabelSpacer {
+  height: 28px;
+  margin: 0 0 6px;
+}
+
+.DropdownCaption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 28px;
+  pointer-events: none;
+}
+
+.DropdownSelect {
+  height: 28px;
+  padding: 0 18px 0 8px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  appearance: none;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 4px center;
+  background-repeat: no-repeat;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  pointer-events: auto;
+  transition: background-color 0.15s var(--cubic-enter);
+
+  @mixin hover {
+    background-color: light-dark(var(--alpha-04), var(--alpha-06));
+  }
+
+  &:focus-visible {
+    border-radius: var(--radius-sm);
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: -2px;
+  }
+}
+
+.TimeFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid light-dark(var(--alpha-06), var(--alpha-08));
+  margin-top: 10px;
+}
+
+.TimeLabel {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.TimeInputGroup {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.TimeField {
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background-color: light-dark(var(--alpha-04), var(--alpha-06));
+  color: var(--color-text);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  transition: background-color 0.15s var(--cubic-enter);
+
+  &:focus {
+    background-color: light-dark(var(--alpha-06), var(--alpha-08));
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: -2px;
+  }
+}
+
+.TimeSeparator {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
 }
