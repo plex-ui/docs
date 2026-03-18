@@ -26,7 +26,7 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
   <FloatingLabelSelect label="Country" selected={!!country} ...>
     {selectedCountry?.flag} {selectedCountry?.label}
   </FloatingLabelSelect>
-  <Button color="primary" type="submit">Continue</Button>
+  <Button color="primary" size="3xl" type="submit">Continue</Button>
 </form>`} previewMinHeight={280}>
   <FloatingLabelSelectAboutYouFormDemo />
 </ComponentPreview>
@@ -39,7 +39,7 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
   <Select trigger={countryTrigger} ... />
   <FloatingLabelInput label="Phone number" startAdornment={<span>+34</span>} type="tel" />
   <p>Terms and Privacy Policy</p>
-  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+  <Button color="primary" size="3xl" className="h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={580}>
   <FloatingLabelInputPhoneSignupFormDemo />
 </ComponentPreview>
@@ -49,7 +49,7 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
 <ComponentPreview details={<>A phone login form with a country code selector and phone input. Minimal layout matching the OpenAI login pattern.</>} code={`<form className="flex flex-col gap-3">
   <Select trigger={countryTrigger} ... />
   <FloatingLabelInput label="Phone number" startAdornment={<span>+34</span>} type="tel" />
-  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+  <Button color="primary" size="3xl" className="h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={420}>
   <FloatingLabelInputPhoneLoginFormDemo />
 </ComponentPreview>
@@ -59,7 +59,7 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
 <ComponentPreview details={<>A password entry step with a read-only phone field (with "Edit" button), a password input with visibility toggle and tooltip, and a "Forgot password?" link.</>} code={`<form className="flex flex-col gap-3">
   <FloatingLabelInput label="Phone number" readOnly defaultValue="+1 555 123 4567" endAdornment={<button>Edit</button>} />
   <FloatingLabelInput label="Password" type="password" endAdornment={<VisibilityToggle />} />
-  <Button color="primary" className="h-[3.25rem]">Continue</Button>
+  <Button color="primary" size="3xl" className="h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={420}>
   <FloatingLabelInputPasswordFormDemo />
 </ComponentPreview>
@@ -71,7 +71,7 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
 
 // Text field
 <FloatingLabelInput label="Code" inputMode="numeric" />
-<Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
+<Button color="primary" size="3xl" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
   <OTPInputVerifyEmailDemo />
 </ComponentPreview>
 
@@ -88,7 +88,7 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
 
 // Text field
 <FloatingLabelInput label="Code" inputMode="numeric" />
-<Button color="primary" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
+<Button color="primary" size="3xl" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
   <OTPInputConfirmPhoneDemo />
 </ComponentPreview>
 
