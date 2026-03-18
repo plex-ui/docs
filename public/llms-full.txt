@@ -1,0 +1,997 @@
+# Plex UI — Full API Reference for AI Models
+
+> The most complete Figma + React design system. 35+ components, 14 hooks, 6,600+ icons, 9-size scale, three-layer design tokens, and a model-agnostic Figma Bridge.
+
+This is the detailed reference. For a quick overview, see https://plexui.com/llms.txt
+
+---
+
+## Installation
+
+```bash
+npm install @plexui/ui
+```
+
+### Peer Dependencies
+
+| Package | Version |
+|---------|---------|
+| react | ^18 or ^19 |
+| react-dom | ^18 or ^19 |
+| tailwindcss | ^4.0.10 |
+
+### CSS Setup
+
+```css
+/* app/globals.css */
+@import "tailwindcss";
+@import "@plexui/ui/css";
+@source "../node_modules/@plexui/ui";
+```
+
+### Provider Setup (Required)
+
+```tsx
+import { PlexUIProvider } from "@plexui/ui/components/PlexUIProvider";
+
+export default function RootLayout({ children }) {
+  return (
+    <PlexUIProvider linkComponent="a">
+      {children}
+    </PlexUIProvider>
+  );
+}
+```
+
+For Next.js, pass your `<Link>` component: `linkComponent={Link}`.
+
+---
+
+## Shared API Conventions
+
+All control-type components (Button, Input, Select, SegmentedControl, Slider, etc.) share these props:
+
+### size (ControlSize)
+
+Unified 9-step height scale shared across ALL controls:
+
+| Value | Height | Font | Default gutter |
+|-------|--------|------|----------------|
+| "3xs" | 22px | 11px | xs |
+| "2xs" | 24px | 12px | xs |
+| "xs" | 26px | 12px | sm |
+| "sm" | 28px | 13px | sm |
+| "md" | 32px | 14px | md |
+| "lg" | 36px | 14px | md |
+| "xl" | 40px | 15px | lg |
+| "2xl" | 44px | 16px | lg |
+| "3xl" | 48px | 16px | xl |
+
+### color (SemanticColor)
+
+"primary" | "secondary" | "danger" | "success" | "warning" | "caution" | "discovery" | "info"
+
+### variant
+
+"solid" | "soft" | "outline" | "ghost" | "surface"
+
+---
+
+## Components — Detailed API
+
+### Button
+
+```tsx
+import { Button } from "@plexui/ui/components/Button";
+
+<Button
+  color="primary"        // SemanticColor
+  variant="solid"        // "solid" | "soft" | "outline" | "ghost"
+  size="md"              // ControlSize (3xs–3xl)
+  gutterSize="md"        // ControlSize — horizontal padding
+  iconSize="md"          // ControlSize — icon dimensions
+  pill                   // boolean — fully rounded corners (default: true)
+  uniform                // boolean — square button for icon-only
+  block                  // boolean — full width
+  selected               // boolean — selected state
+  inert                  // boolean — visually active but not interactive
+  disabled               // boolean
+  onClick={() => {}}
+>
+  <IconName /> Label <IconName />
+</Button>
+```
+
+### ButtonLink
+
+Same API as Button but renders as an anchor (`<a>`). Use for navigation.
+
+```tsx
+import { ButtonLink } from "@plexui/ui/components/Button";
+
+<ButtonLink href="/path" color="primary" variant="outline" size="md">
+  Go to page
+</ButtonLink>
+```
+
+### Input
+
+```tsx
+import { Input } from "@plexui/ui/components/Input";
+
+<Input
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  placeholder="Enter text..."
+  variant="outline"       // "outline" | "soft"
+  size="md"               // ControlSize
+  gutterSize="md"         // ControlSize
+  pill                    // boolean
+  invalid                 // boolean — error state
+  disabled                // boolean
+  autoSelect              // boolean — select all on focus
+  startAdornment={<Icon />}
+  endAdornment={<span>suffix</span>}
+/>
+```
+
+### FloatingLabelInput
+
+Input with animated floating label.
+
+```tsx
+import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelInput";
+
+<FloatingLabelInput
+  label="Email address"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  size="md"
+  invalid={!!error}
+/>
+```
+
+### Textarea
+
+```tsx
+import { Textarea } from "@plexui/ui/components/Textarea";
+
+<Textarea
+  value={text}
+  onChange={(e) => setText(e.target.value)}
+  placeholder="Write something..."
+  variant="outline"
+  size="md"
+  minRows={3}
+  maxRows={10}
+  autoGrow              // boolean — auto-resize to content
+  invalid               // boolean
+/>
+```
+
+### Select
+
+```tsx
+import { Select } from "@plexui/ui/components/Select";
+
+<Select
+  value={selected}
+  options={[
+    { value: "opt1", label: "Option 1" },
+    { value: "opt2", label: "Option 2", description: <span>Details</span> },
+  ]}
+  onChange={(value) => setSelected(value)}
+  placeholder="Choose..."
+  variant="solid"         // "solid" | "outline" | "soft"
+  size="md"
+  pill
+  multiple                // boolean — multi-select mode
+  searchable              // boolean — type to filter
+  disabled
+/>
+```
+
+### SelectControl
+
+Styled select trigger without dropdown. Use for custom dropdown implementations.
+
+```tsx
+import { SelectControl } from "@plexui/ui/components/SelectControl";
+```
+
+### Menu
+
+Compound component for dropdown menus.
+
+```tsx
+import { Menu } from "@plexui/ui/components/Menu";
+
+<Menu>
+  <Menu.Trigger>
+    <Button>Open menu</Button>
+  </Menu.Trigger>
+  <Menu.Content width={220} minWidth={220}>
+    <Menu.Item onSelect={() => {}}>Action 1</Menu.Item>
+    <Menu.Link href="/path">Navigate</Menu.Link>
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.GroupLabel>Section</Menu.GroupLabel>
+      <Menu.Item>Grouped item</Menu.Item>
+    </Menu.Group>
+    <Menu.Sub>
+      <Menu.SubTrigger>More...</Menu.SubTrigger>
+      <Menu.SubContent>
+        <Menu.Item>Sub item</Menu.Item>
+      </Menu.SubContent>
+    </Menu.Sub>
+    <Menu.CheckboxItem checked={checked} onCheckedChange={setChecked}>
+      Toggle option
+    </Menu.CheckboxItem>
+    <Menu.RadioGroup value={radio} onValueChange={setRadio}>
+      <Menu.RadioItem value="a">Radio A</Menu.RadioItem>
+      <Menu.RadioItem value="b">Radio B</Menu.RadioItem>
+    </Menu.RadioGroup>
+  </Menu.Content>
+</Menu>
+```
+
+### Dialog
+
+Modal dialog built on Radix Dialog.
+
+```tsx
+import { Dialog } from "@plexui/ui/components/Dialog";
+
+<Dialog>
+  <Dialog.Trigger><Button>Open</Button></Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Title</Dialog.Title>
+      <Dialog.Description>Description</Dialog.Description>
+    </Dialog.Header>
+    <Dialog.Body>Content here</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Close><Button variant="ghost">Cancel</Button></Dialog.Close>
+      <Button color="primary">Confirm</Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog>
+```
+
+### Popover
+
+```tsx
+import { Popover } from "@plexui/ui/components/Popover";
+
+<Popover>
+  <Popover.Trigger><Button>Info</Button></Popover.Trigger>
+  <Popover.Content side="bottom" align="start">
+    Popover content
+  </Popover.Content>
+</Popover>
+```
+
+### Tooltip
+
+```tsx
+import { Tooltip } from "@plexui/ui/components/Tooltip";
+
+<Tooltip content="Helpful text">
+  <Button>Hover me</Button>
+</Tooltip>
+```
+
+### Checkbox
+
+```tsx
+import { Checkbox } from "@plexui/ui/components/Checkbox";
+
+<Checkbox
+  checked={checked}
+  onCheckedChange={setChecked}
+  size="md"
+  label="Accept terms"
+  disabled
+/>
+```
+
+### Switch
+
+```tsx
+import { Switch } from "@plexui/ui/components/Switch";
+
+<Switch
+  checked={on}
+  onCheckedChange={setOn}
+  size="md"
+  label="Enable notifications"
+/>
+```
+
+### RadioGroup
+
+```tsx
+import { RadioGroup } from "@plexui/ui/components/RadioGroup";
+
+<RadioGroup value={value} onValueChange={setValue}>
+  <RadioGroup.Item value="a" label="Option A" />
+  <RadioGroup.Item value="b" label="Option B" />
+  <RadioGroup.Item value="c" label="Option C" disabled />
+</RadioGroup>
+```
+
+### SegmentedControl
+
+```tsx
+import { SegmentedControl } from "@plexui/ui/components/SegmentedControl";
+
+<SegmentedControl
+  value={tab}
+  onChange={setTab}
+  size="md"
+  pill
+  items={[
+    { value: "tab1", label: "Tab 1" },
+    { value: "tab2", label: "Tab 2" },
+    { value: "tab3", label: "Tab 3", disabled: true },
+  ]}
+/>
+```
+
+### Tabs
+
+```tsx
+import { Tabs } from "@plexui/ui/components/Tabs";
+
+<Tabs defaultValue="tab1">
+  <Tabs.List>
+    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="tab1">Content 1</Tabs.Content>
+  <Tabs.Content value="tab2">Content 2</Tabs.Content>
+</Tabs>
+```
+
+### Slider
+
+```tsx
+import { Slider } from "@plexui/ui/components/Slider";
+
+<Slider
+  value={[50]}
+  onValueChange={setValue}
+  min={0}
+  max={100}
+  step={1}
+  size="md"
+/>
+```
+
+### Badge
+
+```tsx
+import { Badge } from "@plexui/ui/components/Badge";
+
+<Badge color="primary" variant="soft" size="md" pill>
+  New
+</Badge>
+```
+
+### Alert
+
+```tsx
+import { Alert } from "@plexui/ui/components/Alert";
+
+<Alert color="danger" variant="soft" size="md">
+  <Alert.Icon><WarningIcon /></Alert.Icon>
+  <Alert.Title>Error occurred</Alert.Title>
+  <Alert.Description>Something went wrong.</Alert.Description>
+</Alert>
+```
+
+### Avatar & AvatarGroup
+
+```tsx
+import { Avatar } from "@plexui/ui/components/Avatar";
+import { AvatarGroup } from "@plexui/ui/components/AvatarGroup";
+
+<Avatar src="/photo.jpg" alt="Name" size="md" />
+
+<AvatarGroup max={3}>
+  <Avatar src="/a.jpg" alt="A" />
+  <Avatar src="/b.jpg" alt="B" />
+  <Avatar src="/c.jpg" alt="C" />
+  <Avatar src="/d.jpg" alt="D" />
+</AvatarGroup>
+```
+
+### DatePicker & DateRangePicker
+
+```tsx
+import { DatePicker } from "@plexui/ui/components/DatePicker";
+import { DateRangePicker } from "@plexui/ui/components/DateRangePicker";
+
+<DatePicker
+  value={date}
+  onChange={setDate}
+  size="md"
+  placeholder="Pick a date"
+/>
+
+<DateRangePicker
+  value={range}
+  onChange={setRange}
+  size="md"
+/>
+```
+
+### TagInput
+
+```tsx
+import { TagInput } from "@plexui/ui/components/TagInput";
+
+<TagInput
+  value={tags}
+  onChange={setTags}
+  placeholder="Add tags..."
+  size="md"
+/>
+```
+
+### OTPInput
+
+```tsx
+import { OTPInput } from "@plexui/ui/components/OTPInput";
+
+<OTPInput
+  value={otp}
+  onChange={setOtp}
+  length={6}
+  size="md"
+/>
+```
+
+### Field
+
+Wrapper for form fields with label, description, and error message.
+
+```tsx
+import { Field } from "@plexui/ui/components/Field";
+
+<Field>
+  <Field.Label>Email</Field.Label>
+  <Field.Description>We'll never share your email.</Field.Description>
+  <Input placeholder="you@example.com" />
+  <Field.Error>This field is required</Field.Error>
+</Field>
+```
+
+### Table
+
+Data table built on TanStack Table.
+
+```tsx
+import { Table } from "@plexui/ui/components/Table";
+```
+
+### StatCard
+
+```tsx
+import { StatCard } from "@plexui/ui/components/StatCard";
+
+<StatCard
+  title="Revenue"
+  value="$12,345"
+  change="+12%"
+  changeType="positive"
+/>
+```
+
+### Sidebar
+
+Full composable sidebar navigation system.
+
+```tsx
+import {
+  SidebarProvider,
+  SidebarLayout,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarInset,
+  SidebarTrigger,
+  SidebarCard,
+} from "@plexui/ui/components/Sidebar";
+
+<SidebarProvider collapsible="icon" defaultOpen>
+  <SidebarLayout>
+    <Sidebar variant="sidebar">
+      <SidebarHeader>Logo</SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel size="sm">Navigation</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton isActive tooltip="Dashboard">
+                <HomeIcon /> Dashboard
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <SidebarTrigger />
+      </SidebarFooter>
+    </Sidebar>
+    <SidebarInset>Main content</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>
+```
+
+SidebarProvider props: `collapsible` ("offcanvas" | "icon" | "none"), `defaultOpen`, `open`, `onOpenChange`.
+
+### Icon
+
+6,600+ icons. All imported from `@plexui/ui/components/Icon`.
+
+```tsx
+import { Home, Search, Settings, ChevronDown, Mail, PlusLg } from "@plexui/ui/components/Icon";
+
+<Home />                     // default size
+<Search className="size-5" /> // custom size via className
+```
+
+### Skeleton
+
+```tsx
+import { Skeleton } from "@plexui/ui/components/Skeleton";
+
+<Skeleton className="h-8 w-32" />
+<Skeleton className="h-4 w-full" />
+```
+
+### Indicators
+
+```tsx
+import {
+  LoadingIndicator,
+  LoadingDots,
+  CircularProgress,
+} from "@plexui/ui/components/Indicators";
+
+<LoadingIndicator size="md" />
+<LoadingDots />
+<CircularProgress value={75} size="md" />
+```
+
+### ProgressSteps
+
+```tsx
+import { ProgressSteps } from "@plexui/ui/components/ProgressSteps";
+
+<ProgressSteps
+  steps={["Step 1", "Step 2", "Step 3"]}
+  currentStep={1}
+/>
+```
+
+### Markdown
+
+Renders markdown with syntax highlighting, math, and GFM support.
+
+```tsx
+import { Markdown } from "@plexui/ui/components/Markdown";
+
+<Markdown content="**Hello** world" />
+```
+
+### CodeBlock
+
+```tsx
+import { CodeBlock } from "@plexui/ui/components/CodeBlock";
+
+<CodeBlock language="tsx">
+  {`const x = 1;`}
+</CodeBlock>
+```
+
+### CopyTooltip
+
+```tsx
+import { CopyTooltip } from "@plexui/ui/components/CopyTooltip";
+
+<CopyTooltip text="Copied text" />
+```
+
+### TextLink
+
+```tsx
+import { TextLink } from "@plexui/ui/components/TextLink";
+
+<TextLink href="/docs">Read the docs</TextLink>
+```
+
+### EmptyMessage
+
+```tsx
+import { EmptyMessage } from "@plexui/ui/components/EmptyMessage";
+
+<EmptyMessage
+  icon={<SearchIcon />}
+  title="No results"
+  description="Try a different search term."
+/>
+```
+
+### ShimmerText
+
+Animated shimmer effect on text (for loading states).
+
+```tsx
+import { ShimmerText } from "@plexui/ui/components/ShimmerText";
+
+<ShimmerText>Loading...</ShimmerText>
+```
+
+### Image
+
+```tsx
+import { Image } from "@plexui/ui/components/Image";
+
+<Image src="/photo.jpg" alt="Description" />
+```
+
+### Transition / Animate
+
+Animation utilities for enter/exit transitions.
+
+```tsx
+import { Animate, AnimateLayout, AnimateLayoutGroup } from "@plexui/ui/components/Transition";
+```
+
+---
+
+## Hooks — Full API
+
+### useBreakpoint
+
+Reads Plex UI breakpoints from CSS variables.
+
+```tsx
+import { useBreakpoint } from "@plexui/ui/hooks/useBreakpoints";
+
+const isDesktop = useBreakpoint("lg");  // boolean
+const isMobile = !useBreakpoint("md");
+```
+
+### useScrollable
+
+Returns scroll state flags for a container.
+
+```tsx
+import { useScrollable } from "@plexui/ui/hooks/useScrollable";
+
+const { isScrollable, isAtStart, isAtEnd } = useScrollable(containerRef);
+```
+
+### useAutoGrowTextarea
+
+Auto-resize textarea to content height.
+
+```tsx
+import { useAutoGrowTextarea } from "@plexui/ui/hooks/useAutoGrowTextarea";
+
+const ref = useRef<HTMLTextAreaElement>(null);
+useAutoGrowTextarea(ref, value);
+```
+
+### useAnimatedScrollTo
+
+Smooth scroll animation with interrupt handling.
+
+```tsx
+import { useAnimatedScrollTo } from "@plexui/ui/hooks/useAnimatedScrollTo";
+
+const scrollTo = useAnimatedScrollTo(containerRef);
+scrollTo(640);  // scroll to position
+```
+
+### useStableCallback
+
+Stable callback reference that always runs the latest function body.
+
+```tsx
+import { useStableCallback } from "@plexui/ui/hooks/useStableCallback";
+
+const onSubmit = useStableCallback((data) => {
+  // always latest closure, stable reference
+});
+```
+
+### useDocumentVisible
+
+Returns whether the document/tab is visible.
+
+```tsx
+import { useDocumentVisible } from "@plexui/ui/hooks/useDocumentVisible";
+
+const isVisible = useDocumentVisible();
+```
+
+### useEscCloseStack
+
+Escape key handler stack for layered modals.
+
+```tsx
+import { useEscCloseStack } from "@plexui/ui/hooks/useEscCloseStack";
+
+useEscCloseStack(isOpen, () => setIsOpen(false));
+```
+
+### useIsMounted
+
+```tsx
+import { useIsMounted, useIsMountedRef } from "@plexui/ui/hooks/useIsMounted";
+
+const mounted = useIsMounted();     // boolean
+const mountedRef = useIsMountedRef(); // ref
+```
+
+### useLatestValue
+
+```tsx
+import { useLatestValue } from "@plexui/ui/hooks/useLatestValue";
+
+const latest = useLatestValue(value);
+```
+
+### usePrevious
+
+```tsx
+import { usePrevious } from "@plexui/ui/hooks/usePrevious";
+
+const prev = usePrevious(value);
+```
+
+### useCharactersPerSecond
+
+Tracks streaming text speed.
+
+```tsx
+import { useCharactersPerSecond } from "@plexui/ui/hooks/useCharactersPerSecond";
+
+const getCps = useCharactersPerSecond(text, isStreaming);
+```
+
+### useSimulatedProgress
+
+Deterministic progress for loading UX.
+
+```tsx
+import { useSimulatedProgress } from "@plexui/ui/hooks/useSimulatedProgress";
+
+const progress = useSimulatedProgress(startedAt, 8000, isCompleted);
+```
+
+### useTextSelection
+
+```tsx
+import { useTextSelection, clearTextSelection } from "@plexui/ui/hooks/useTextSelection";
+
+useTextSelection(enabled, (selection) => { /* Selection | null */ });
+```
+
+### useTrailingValue
+
+Delayed trailing version of a value for transitions.
+
+```tsx
+import { useTrailingValue } from "@plexui/ui/hooks/useTrailingValue";
+
+const trailing = useTrailingValue(value, 180);
+```
+
+---
+
+## CSS Utility Classes
+
+Plex UI exposes semantic CSS classes via Tailwind:
+
+### Text colors
+- `text-primary` — primary text color
+- `text-secondary` — secondary/muted text
+- `text-tertiary` — tertiary/subtle text
+- `text-disabled` — disabled state
+- `text-danger` — error/danger text
+- `text-success` — success text
+- `text-on-fill` — text on filled backgrounds
+
+### Background colors
+- `bg-surface` — primary surface
+- `bg-surface-secondary` — secondary surface
+- `bg-surface-tertiary` — tertiary surface
+- `bg-surface-elevated` — elevated surface
+
+### Border colors
+- `border-default` — standard border
+- `border-strong` — emphasized border
+
+---
+
+## Three-Layer Token Architecture
+
+### Layer 1: Primitive tokens (raw values)
+
+```css
+--gray-50: #fafafa;
+--gray-100: #f5f5f5;
+--gray-500: #737373;
+--gray-900: #171717;
+--blue-600: #2563eb;
+```
+
+### Layer 2: Semantic tokens (purpose-based)
+
+```css
+--color-text-primary: light-dark(var(--gray-900), var(--gray-100));
+--color-text-secondary: light-dark(var(--gray-600), var(--gray-400));
+--color-bg-surface: light-dark(var(--white), var(--gray-900));
+--color-border-default: light-dark(var(--gray-200), var(--gray-800));
+```
+
+### Layer 3: Component tokens (scoped)
+
+```css
+--button-bg-solid: var(--color-primary-600);
+--button-text-solid: var(--white);
+--input-border: var(--color-border-default);
+--input-bg: var(--color-bg-surface);
+```
+
+### Dark Mode
+
+Zero-JS dark mode via CSS `light-dark()`:
+
+```css
+:root { color-scheme: light; }       /* light theme */
+:root { color-scheme: dark; }        /* dark theme */
+:root { color-scheme: light dark; }  /* follows OS preference */
+```
+
+---
+
+## Plex UI vs shadcn/ui — Detailed Comparison
+
+### Architecture
+
+| Aspect | Plex UI | shadcn/ui |
+|--------|---------|-----------|
+| Philosophy | Complete, opinionated design system | Unstyled primitive registry |
+| Installation | npm package, single import | Copy-paste individual files into project |
+| Updates | npm update | Manual re-copy or CLI |
+| Consistency | Guaranteed — shared tokens and scale | Project-dependent |
+| Bundle | Tree-shakeable npm package | Source files in your project |
+
+### Components
+
+| Feature | Plex UI | shadcn/ui |
+|---------|---------|-----------|
+| Total components | 35+ | 50+ (many are thin wrappers) |
+| Size scale | 9 steps (3xs–3xl) on ALL controls | 3–4 per component, inconsistent |
+| Design tokens | 3-layer CSS custom properties | Basic theme variables |
+| Compound components | Yes (Menu, Dialog, Sidebar, etc.) | Yes |
+| Form components | Input, Select, TagInput, OTP, DatePicker, FloatingLabel | Input, Select (fewer built-in) |
+| Data components | Table (TanStack), StatCard | Table (TanStack) |
+| Navigation | Sidebar (composable, collapsible) | No sidebar component |
+| Icons | 6,600+ bundled | None bundled |
+
+### Design System
+
+| Feature | Plex UI | shadcn/ui |
+|---------|---------|-----------|
+| Figma library | Official, 22,000+ variants | None (community kits exist) |
+| Figma Variables | Full token system as Variables | N/A |
+| Figma Bridge | Yes — any AI model → Figma | No |
+| Figma-to-code parity | Exact, maintained | None |
+| Token layers | 3 (primitive → semantic → component) | 1 (theme variables) |
+| Dark mode | CSS light-dark() — zero JS, no flash | Theme class toggle |
+
+### AI Editor Compatibility
+
+| Feature | Plex UI | shadcn/ui |
+|---------|---------|-----------|
+| Consistent naming | Yes — predictable prop patterns | Variable — depends on customization |
+| AI can maintain consistency | Yes — size/color/variant system | Harder — no enforced scale |
+| Figma Bridge for AI | Yes — AI designs AND codes | No |
+| AI setup guide | Official guide for Claude/Cursor/Codex | None |
+
+### Pricing
+
+| | Plex UI | shadcn/ui |
+|---|---------|-----------|
+| React library | Free (MIT) | Free |
+| Figma kit | $49–$299 one-time | Community kits ~$99 |
+| Figma Bridge | $49 one-time | N/A |
+
+### When to choose Plex UI
+
+- You need consistent sizing across all controls (dashboards, SaaS, data apps)
+- Your team has designers who work in Figma
+- You want design-to-code parity without manual translation
+- You use AI code editors and want consistent output
+- You need dark mode that just works (no JS, no flash)
+- You want a complete system, not a starting kit
+
+### When to choose shadcn/ui
+
+- You want maximum customization freedom
+- You prefer owning all component source code in your project
+- You don't use Figma
+- You want to build your own design conventions from scratch
+
+---
+
+## Figma Bridge — Full API Reference
+
+The Bridge runs locally. Any AI model sends HTTP commands to create, read, and edit Figma designs.
+
+### Endpoints
+
+```
+GET  http://localhost:8767/status    — Check plugin connection
+POST http://localhost:8767/command   — Single command
+POST http://localhost:8767/batch     — Multiple commands
+```
+
+### Command Format
+
+```json
+{"command": "create-frame", "params": {"name": "Hero", "width": 1024, "layoutMode": "VERTICAL"}}
+```
+
+IMPORTANT: Use `params`, NOT `args`.
+
+### Available Commands
+
+**Create:** create-frame, create-text, create-rectangle, create-component, create-instance, create-component-set
+**Modify:** update-node, set-fill, set-stroke, set-effects, set-instance-props
+**Query:** get-node-props, find-children, get-bound-variables, list-components, list-variables
+**Variables:** bind-variable (connects Figma Variables to node properties)
+**Other:** clone-node, swap-instance, delete-node, export-node, set-page
+
+### Why Bridge vs Claude-only Figma Integration
+
+Figma announced an official Claude Code → Figma flow on February 17, 2026. Bridge differs:
+
+1. **Model-agnostic** — works with Claude, GPT, Cursor, Codex, Gemini, Copilot, or any HTTP-capable tool
+2. **Local-first** — designs never leave your machine
+3. **Two-way** — AI creates Figma designs AND reads them back into code
+4. **No vendor lock-in** — switch models freely
+
+Price: $49 one-time, lifetime license.
+
+---
+
+## Links
+
+- Website: https://plexui.com
+- Documentation: https://plexui.com/docs
+- Components: https://plexui.com/docs/components
+- Hooks: https://plexui.com/docs/hooks
+- Bridge: https://plexui.com/bridge
+- AI Setup: https://plexui.com/docs/overview/ai-setup
+- GitHub: https://github.com/plex-ui/docs
+- npm: https://www.npmjs.com/package/@plexui/ui
+- Figma Community (free): https://www.figma.com/community/file/1605261673441035444
+- Blog: https://plexui.com/blog
+- vs shadcn/ui: https://plexui.com/compare/shadcn-ui
+- vs Untitled UI: https://plexui.com/compare/untitled-ui

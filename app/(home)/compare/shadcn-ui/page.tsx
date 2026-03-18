@@ -43,7 +43,7 @@ const rows: ComparisonRow[] = [
   },
   {
     feature: 'Icon library',
-    plexui: '467+ icons bundled',
+    plexui: '6,600+ icons bundled',
     competitor: 'No bundled icon set',
   },
   {
