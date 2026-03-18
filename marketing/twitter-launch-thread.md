@@ -6,30 +6,37 @@
 
 **Tweet 1 (Hook):**
 
-Most UI kits give you 3 button sizes.
+Figma just announced a Claude-only code-to-design flow.
 
-I built a design system with 9.
+I built one that works with any AI model.
 
-Here's why that matters (and why your AI editor will thank you):
-
-🧵
+Here's the full system — free React library, paid Figma kit, and a model-agnostic Bridge:
 
 ---
 
-**Tweet 2 (Problem):**
+**Tweet 2 (Bridge):**
 
-The problem with 3-4 sizes:
+The Bridge: a local Figma plugin + HTTP server.
 
-- Your dashboard toolbar needs 24px controls
-- Your forms need 32px
-- Your settings page needs 36px
-- Your landing hero needs 48px
+Your AI sends commands to localhost:8767. It creates real Figma nodes — frames, text, components, auto-layout, design tokens. Any model works: Claude, GPT, Cursor, Codex, Gemini.
+
+Designs never leave your machine. $49 one-time.
+
+plexui.com/bridge
+
+---
+
+**Tweet 3 (The Problem):**
+
+The other problem nobody talks about:
+
+Most UI kits give you 3–4 button sizes. Your dashboard toolbar needs 24px. Forms need 32px. Settings page needs 36px. Landing hero needs 48px.
 
 With 3 sizes, you're overriding everything. Your "design system" becomes a suggestion system.
 
 ---
 
-**Tweet 3 (Solution):**
+**Tweet 4 (9 Sizes):**
 
 Plex UI has 9 sizes from 22px to 48px.
 
@@ -41,25 +48,23 @@ One `size` prop. Zero overrides.
 
 ---
 
-**Tweet 4 (AI angle):**
-
-Here's the part nobody talks about:
+**Tweet 5 (AI angle):**
 
 AI code editors (Claude, Cursor, Codex) generate magic numbers without a system.
 
 A button is 36px on one page, 42px on the next. Colors are random hex values.
 
-Plex UI gives AI a foundation. Same tokens, same sizes, every time.
+Plex UI gives AI a vocabulary. Same tokens. Same sizes. Every time.
 
 ---
 
-**Tweet 5 (Token system):**
+**Tweet 6 (Token system):**
 
 Three-layer design tokens:
 
-Primitive → `--gray-500`
-Semantic → `--color-text-secondary`
-Component → `--button-text-color`
+Primitive: --gray-500
+Semantic: --color-text-secondary
+Component: --button-text-color
 
 Change one value. The whole system updates.
 
@@ -67,78 +72,71 @@ Works in CSS, in React, AND in Figma Variables.
 
 ---
 
-**Tweet 6 (What's included):**
+**Tweet 7 (What's included):**
 
 What you get (free, MIT licensed):
 
-- 35 components (Radix + Tailwind 4)
-- 9-step size scale
+- 35+ components (Radix + Tailwind 4)
+- 9-step size scale (3xs–3xl)
 - Three-layer token system
 - Dark mode via CSS light-dark()
-- 467+ icons
+- 6,600+ icons
 - 14 hooks
 
-```
 npm install @plexui/ui
-```
 
 ---
 
-**Tweet 7 (Figma angle):**
+**Tweet 8 (Figma):**
 
 For design teams: every component exists identically in Figma.
 
 22,000+ variants. Three-layer tokens as Figma Variables.
 
-Same sizes. Same colors. Same dark mode.
+Plus: any AI model can now design AND read your Figma file via the Bridge.
 
-No Figma-to-code translation layer.
+Design-to-code. Code-to-design. Both directions.
 
 [ATTACH: side-by-side Figma vs React screenshot]
 
 ---
 
-**Tweet 8 (CTA):**
+**Tweet 9 (CTA):**
 
 React library: free forever on npm
-Figma kit: from $49 (launch price)
-Docs: plexui.com
+Figma kit: from $49 (one-time)
+Bridge plugin: $49 (one-time, any AI model)
 
-If you're building with AI code editors, this is the foundation your prompts have been missing.
+Docs: plexui.com
+Bridge: plexui.com/bridge
 
 ---
 
 ## Follow-up Tweets (post throughout launch day):
 
 **1 hour later:**
-"Here's the size comparison. Left: what most libraries give you. Right: Plex UI."
-[ATTACH: comparison image]
+"How the Bridge works in practice: describe a UI to your AI → it creates it in Figma → designer tweaks → AI reads the updated design → generates matching React code. Two-way loop. Any model."
 
 **3 hours later:**
-"FAQ from the thread: 'Why not just use shadcn?'
+"FAQ: 'Why not just use shadcn?'
 
-shadcn is great for unstyled primitives you fully customize. Plex UI is a complete system with a defined scale and Figma parity.
-
-Different tools. Both valid. The React library is also free."
+shadcn is great for unstyled primitives you fully customize. Plex UI is a complete system with a defined scale and Figma parity. Both free for React. Different tools."
 
 **5 hours later:**
 "The three-layer token system in action. One variable change updates everything from the button to the input to the select."
 [ATTACH: GIF of theme change]
 
 **End of day:**
-"Thank you for the incredible response today. X likes, Y reposts.
-
-If you installed @plexui/ui today, I'd love to hear what you're building with it. Reply or DM."
+"Thank you for the response. If you installed @plexui/ui today, I'd love to hear what you're building with it. Reply or DM."
 
 ---
 
-## Hashtags (use sparingly, 2-3 max per tweet):
+## Hashtags (use sparingly, 2–3 max per tweet):
 
-`#reactjs #designsystem #figma #tailwindcss #opensource #webdev`
+#reactjs #designsystem #figma #tailwindcss #opensource #webdev
 
 ## Accounts to tag (only in relevant tweets, not every one):
 
 - @tailwindcss (when mentioning Tailwind 4)
-- @radaborhof / @radaborhof (Radix)
 - @figma (when showing Figma features)
-- Don't tag competitors (shadcn, etc.) — let the comparison speak for itself
+- Don't tag competitors

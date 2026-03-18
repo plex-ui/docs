@@ -1,213 +1,172 @@
-[search-mode]
-MAXIMIZE SEARCH EFFORT. Launch multiple background agents IN PARALLEL:
-- explore agents (codebase patterns, file structures, ast-grep)
-- librarian agents (remote repos, official docs, GitHub examples)
-Plus direct tools: Grep, ripgrep (rg), ast-grep (sg)
-NEVER stop at first result - be exhaustive.
+# Plex UI — Marketing Strategy (Updated March 2026)
+
+## Current State
+
+### Products
+| Product | Price | Status |
+|---------|-------|--------|
+| React Library (@plexui/ui) | Free MIT | Live on npm, v0.7.45 |
+| Figma Design System | $49–$299 one-time | Live on Lemon Squeezy |
+| Figma Bridge Plugin | $49 one-time | Live, model-agnostic |
+
+### Positioning
+
+**"Figma + React design system where ANY AI model designs AND codes — not just Claude."**
+
+Three audiences, three hooks:
+
+| Audience | Hook | Where |
+|----------|------|-------|
+| AI editor users | "Your AI can now design in Figma, not just code" | r/ClaudeAI, r/cursor, r/ChatGPT, HN |
+| React devs | "9 sizes, design tokens, AI-ready components" | r/reactjs, r/webdev, Dev.to |
+| Designers | "22K variants + any AI model can edit your Figma file" | r/FigmaDesign, Threads, Dribbble |
+
+### AI Discovery (COMPLETED)
+- [x] llms.txt with competitive positioning vs shadcn
+- [x] llms-full.txt with full component API reference
+- [x] robots.ts with 35+ AI crawler directives
+- [x] JSON-LD structured data (Organization, WebSite, SoftwareApplication, 2x Product, FAQ)
+- [x] FAQ schema on home page, pricing page, comparison pages, bridge page
+- [x] Meta descriptions optimized for GEO/AEO
+- [x] Sitemap includes all pages (static + docs + blog)
+- [x] BlogPosting schema on all blog posts
+- [x] OG images programmatically generated
+
+### Marketing Materials (UPDATED)
+- [x] marketing/reddit-r-reactjs.md — 3 post variants with Bridge angle
+- [x] marketing/reddit-r-claudeai.md — Bridge focus
+- [x] marketing/reddit-r-cursor.md — Cursor integration focus
+- [x] marketing/reddit-r-chatgpt.md — GPT focus
+- [x] marketing/hackernews-show-hn.md — Bridge + 9 sizes + tokens
+- [x] marketing/twitter-launch-thread.md — 9-tweet thread with Bridge lead
+- [x] marketing/producthunt.md — Full listing with Bridge product
+- [x] marketing/threads-content.md — 4-week content plan with Bridge lead
 
 ---
 
-Начал делать план
+## Launch Plan (Step by Step)
 
----
+### Step 1: Deploy (today)
 
-
-## Сегодня — техническая подготовка
-
-
-### Шаг 1. Задеплой сайт
-
-
-Все изменения (блог, comparison pages, pricing, footer) готовы. Пушни и деплой.
-
-
-```
-git add -A && git commit -m "..." && git push
-```
-
-
-После деплоя проверь что работают:
+Push all changes and verify:
+- plexui.com/llms.txt
+- plexui.com/llms-full.txt
 - plexui.com/blog
-- plexui.com/blog/why-9-sizes (демо крутится?)
 - plexui.com/compare/shadcn-ui
 - plexui.com/compare/untitled-ui
-- plexui.com/#pricing (зачёркнутые цены видны?)
+- plexui.com/bridge
+- plexui.com/#pricing
 
+### Step 2: Test Purchase Flow
 
-### Шаг 2. Протестируй покупку
+1. Lemon Squeezy → Test Mode → buy Figma Kit
+2. Verify email + file delivery
+3. Test Bridge purchase flow
+4. Verify "Duplicate to drafts" works
 
+### Step 3: Analytics
 
-Зайди в Lemon Squeezy → включи **Test Mode** → пройди весь путь:
-1. Нажми "Get Team" на plexui.com
-2. Оплати тестовой картой
-3. Убедись что приходит email с файлом/ссылкой на Figma
-4. Проверь что файл открывается и "Duplicate to drafts" работает
+- Vercel Analytics already installed
+- Enable Lemon Squeezy webhook notifications
+- Add plexui.com to Google Search Console → submit sitemap
 
+### Step 4: Visual Assets (you do this)
 
-Если файл не прикреплён к продукту — прикрепи в Lemon Squeezy dashboard.
+Record 3 GIF/videos:
+- **GIF 1 (15s):** Size scale demo — switch 3xs→3xl in real time
+- **GIF 2 (5s):** Dark mode toggle
+- **GIF 3 (20s):** Bridge in action — AI creates Figma design
 
+### Step 5: Figma Community File
 
-### Шаг 3. Настрой аналитику
-
-
-У тебя уже стоит `@vercel/analytics`. Дополнительно:
-- Зайди в [Lemon Squeezy → Settings → Webhooks](https://app.lemonsqueezy.com/settings/webhooks) — включи уведомления о покупках на свой email
-- Зайди в [Google Search Console](https://search.google.com/search-console) → добавь plexui.com → подтверди через DNS → отправь sitemap (`plexui.com/sitemap.xml`)
-
-
----
-
-
-## Завтра — визуальные ассеты
-
-
-### Шаг 4. Запиши 3 GIF/видео
-
-
-Тебе нужны короткие демо для постов. Используй [CleanShot X](https://cleanshot.com/) или Screen Studio:
-
-
-**GIF 1: Size scale (15 сек)**
-Открой plexui.com/docs/overview/sizing → переключай размеры с 3xs до 3xl → запиши
-
-
-**GIF 2: Dark mode (5 сек)**
-Переключи тему на сайте light→dark → запиши
-
-
-**GIF 3: Figma-to-code (20 сек)**
-Открой Figma файл с компонентом → рядом открой ту же страницу на plexui.com → покажи что идентичны
-
-
-Сохрани в `marketing/assets/`.
-
-
-### Шаг 5. Сделай free Figma community file
-
-
-Это критично для трафика. Figma Community — бесплатный канал привлечения.
-
-
-1. Открой полный Figma kit
-2. Скопируй 4-5 компонентов: **Button, Input, Select, SegmentedControl, Badge**
-3. Добавь страницу "Get the full kit → plexui.com/pricing"
-4. Опубликуй в [Figma Community](https://www.figma.com/community) как бесплатный файл
-5. В описании: ссылка на plexui.com + "35 components, 9-size scale, 22,000+ variants in the full kit"
-
+Publish free file with 4-5 components (Button, Input, Select, SegmentedControl, Badge).
+Include "Get the full kit → plexui.com/pricing" page.
 
 ---
 
+## Wave 1: Dev Community (Week 1-2)
 
-## Через 2-3 дня — запуск (Wave 1: Dev community)
+### Day 1: Reddit AI subs (most receptive to Bridge)
 
+**r/ClaudeAI** — Post from `marketing/reddit-r-claudeai.md`
+- Fresh accounts OK here
+- Bridge angle: "open alternative to official Claude-Figma"
+- First 2 hours: answer EVERY comment
 
-### Шаг 6. Запости на Reddit
+**r/cursor** — Post from `marketing/reddit-r-cursor.md`
+- Cursor integration details
+- Include .cursor/rules setup
 
+### Day 2: r/reactjs
 
-Файл с готовым постом: `marketing/reddit-r-reactjs.md`
+Post from `marketing/reddit-r-reactjs.md` (Option A or B)
+- Most critical sub — technical, no hype
+- First 2 hours: answer EVERY comment
 
+### Day 3: Twitter/X Thread
 
-1. Иди в [r/reactjs](https://reddit.com/r/reactjs)
-2. Создай текстовый пост (не ссылку!)
-3. Скопируй **Option A** (technical) из файла
-4. Прикрепи GIF с size scale если можно
-5. **Первые 2 часа отвечай на КАЖДЫЙ комментарий**
+Post from `marketing/twitter-launch-thread.md`
+- 9 tweets + follow-ups throughout day
+- Pin thread
+- Attach GIFs to tweets 2, 4, 8
 
+### Day 4-5: r/webdev + Threads
 
-Через 2-3 дня — тот же пост в r/webdev (адаптация есть в файле).
-
-
-### Шаг 7. Запости Show HN
-
-
-Файл: `marketing/hackernews-show-hn.md`
-
-
-1. Иди на [news.ycombinator.com/submit](https://news.ycombinator.com/submit)
-2. Title: `Show HN: Plex UI – Open-source React design system with 9-size scale and Figma parity`
-3. URL: `https://plexui.com`
-4. Сразу после публикации — добавь первый комментарий из файла
-5. Лучшее время: вторник-четверг, 15:00-17:00 по Мадриду (8-10 AM ET)
-
-
-### Шаг 8. Запусти Twitter тред
-
-
-Файл: `marketing/twitter-launch-thread.md`
-
-
-1. Запости тред из 8 твитов (каждый раздел = один твит)
-2. К твитам 3, 5, 7 прикрепи GIF/скриншоты
-3. Закрепи тред в профиле
-4. В течение дня добавляй reply-твиты из секции "Follow-up Tweets"
-
+- r/webdev adaptation from reddit-r-reactjs.md
+- Start Threads content plan (Week 1 posts)
 
 ---
 
+## Wave 2: Product Hunt (Week 2-3)
 
-## Через неделю — Wave 2: Product Hunt
-
-
-### Шаг 9. Подготовь PH листинг
-
-
-Файл: `marketing/producthunt.md`
-
-
-1. Зайди на [producthunt.com/posts/new](https://www.producthunt.com/posts/new)
-2. Заполни по файлу: tagline, description, topics
-3. Загрузи 5 скриншотов (1270x760px) — что снять описано в файле
-4. **НЕ публикуй сразу** — сохрани как draft
-
-
-### Шаг 10. Собери поддержку
-
-
-За 2-3 дня до PH launch:
-- Напиши 10-20 людям (друзья, коллеги, знакомые разработчики)
-- Попроси: "Я запускаю проект на Product Hunt в [день]. Буду рад если зайдёшь и оставишь честный отзыв"
-- **НЕ проси "upvote"** — PH банит за это. Проси "check it out and leave feedback"
-
-
-### Шаг 11. Запусти PH
-
-
-- Лучший день: **вторник или среда**
-- Время: 00:01 AM PT (9:01 утра по Мадриду)
-- Сразу добавь Maker comment из файла
-- Шарь в Twitter: "We just launched on Product Hunt! [ссылка]"
-- Отвечай на каждый комментарий в течение 12 часов
-
+From `marketing/producthunt.md`:
+1. Create draft listing with all assets
+2. Gather 10-20 supporters (ask for "honest feedback", not upvotes)
+3. Launch Tuesday/Wednesday 00:01 AM PT
+4. Maker comment immediately
+5. Share on Twitter + Reddit
+6. Respond to every PH comment for 12 hours
 
 ---
 
+## Wave 3: Design Community (Week 3-4)
 
-## Дальше — контент-машина (месяц 2+)
+- Figma Community free file
+- r/FigmaDesign post
+- Dribbble/Behance shots
+- Threads designer-focused content
 
+---
 
-### Шаг 12. Публикуй статью в неделю
+## Wave 4: Content Engine (Month 2+)
 
-
-Блог уже работает. Следующие статьи по приоритету:
-
-
-1. "Plex UI vs shadcn/ui — honest comparison" (уже есть как /compare страница, переработай в blog post)
+Blog articles (publish 1/week):
+1. "Plex UI vs shadcn/ui — honest comparison" (expand /compare page into blog post)
 2. "Three-layer design tokens explained"
 3. "From Figma Variables to CSS custom properties"
+4. "Building a design system for AI editors"
 
-
-Формат: пиши в `content/blog/[slug].mdx`, деплой, шарь в Twitter.
-
-
-### Шаг 13. Twitter cadence
-
-
-- **Понедельник**: Component spotlight (GIF + код)
-- **Среда**: Design token tip или Figma trick
-- **Пятница**: Community feature или user showcase
-
+Twitter cadence:
+- Monday: Component spotlight
+- Wednesday: Bridge use case / design token tip
+- Friday: Community / behind-the-scenes
 
 ---
 
+## Metrics
 
-Нужна помощь
+### Week 1-2 Targets
+| Metric | Target |
+|--------|--------|
+| Site visits | 2,000+ |
+| npm installs | 100+ |
+| GitHub stars | 50+ |
+| Sales | 5+ |
+
+### Month 1 Targets
+| Metric | Target |
+|--------|--------|
+| Site visits | 10,000+ |
+| npm weekly downloads | 200+ |
+| GitHub stars | 200+ |
+| Revenue | $500–1,500 |
