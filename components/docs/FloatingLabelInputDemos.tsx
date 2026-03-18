@@ -624,7 +624,7 @@ export function FloatingLabelInputAboutYouFormDemo() {
             <span className="underline">Terms</span> and have read our{' '}
             <span className="underline">Privacy Policy</span>.
           </p>
-          <Button color="primary" type="submit" className="h-[3.25rem]">Continue</Button>
+          <Button color="primary" size="3xl" type="submit" className="h-[3.25rem]">Continue</Button>
         </form>
       </div>
     </div>
@@ -1041,7 +1041,7 @@ export function FloatingLabelSelectAboutYouFormDemo() {
           <span className="underline">Terms</span> and have read our{' '}
           <span className="underline">Privacy Policy</span>.
         </p>
-        <Button color="primary" type="submit" className="h-[3.25rem]">Continue</Button>
+        <Button color="primary" size="3xl" type="submit" className="h-[3.25rem]">Continue</Button>
       </form>
     </div>
   );
@@ -1324,7 +1324,7 @@ export function FloatingLabelInputPhoneLoginFormDemo() {
           checkPosition="end"
         />
         <FloatingLabelInput ref={phoneInputRef} {...phoneInputProps} />
-        <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
+        <Button color="primary" size="3xl" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
         <p className="text-base text-center mt-4">
           Don&apos;t have an account?{' '}
           <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
@@ -1428,7 +1428,7 @@ export function FloatingLabelInputPhoneSignupFormDemo() {
           By clicking &ldquo;Continue&rdquo;, you agree to our <span className="underline">Terms</span> and have read our{' '}
           <span className="underline">Privacy Policy</span>.
         </p>
-        <Button color="primary" type="submit" className="w-full h-[3.25rem]">Continue</Button>
+        <Button color="primary" size="3xl" type="submit" className="w-full h-[3.25rem]">Continue</Button>
         <p className="text-base text-center mt-4">
           Already have an account?{' '}
           <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
@@ -1501,7 +1501,7 @@ export function FloatingLabelInputPasswordFormDemo() {
             Forgot password?
           </button>
         </div>
-        <Button color="primary" type="submit" className="w-full h-[3.25rem] mt-2">Continue</Button>
+        <Button color="primary" size="3xl" type="submit" className="w-full h-[3.25rem] mt-2">Continue</Button>
         <p className="text-base text-center mt-4">
           Don&apos;t have an account?{' '}
           <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
