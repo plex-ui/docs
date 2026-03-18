@@ -37,9 +37,79 @@ const modelPrompt = `Figma Bridge API: http://localhost:8867
 2) POST /command with {"command":"...","params":{...}}
 3) Use params, not args`;
 
+const bridgeJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Plex UI Figma Bridge',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'macOS, Windows',
+  description:
+    'Local Figma plugin that lets ANY AI model (Claude, GPT, Cursor, Codex, Gemini) create, read, and edit real Figma designs via HTTP API. Model-agnostic alternative to the Claude-only Figma integration. Two-way design-to-code flow.',
+  url: 'https://plexui.com/bridge',
+  author: { '@type': 'Organization', name: 'Plex UI', url: 'https://plexui.com' },
+  offers: {
+    '@type': 'Offer',
+    price: '49',
+    priceCurrency: 'USD',
+    description: 'One-time payment, lifetime license. No subscription.',
+    availability: 'https://schema.org/InStock',
+  },
+  featureList: [
+    'Works with ANY AI model — Claude, GPT, Cursor, Codex, Gemini, and more',
+    'Two-way flow: AI creates Figma designs AND reads them back into code',
+    'Local-first — designs never leave your machine',
+    'Model-agnostic HTTP API at localhost:8767',
+    'Create frames, text, components, instances, auto-layout',
+    'Bind Figma Variables (design tokens) to any property',
+    'Read node structure, component props, and token bindings',
+    'Batch operations for performance',
+    'Export as PNG/SVG',
+    'Alternative to Claude-only Figma integration (Feb 2026)',
+  ],
+};
+
+const bridgeFaqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is Plex UI Bridge different from the official Claude-to-Figma integration?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The official Figma integration only works with Claude and routes through Figma servers. Plex UI Bridge runs 100% locally and works with ANY AI model — Claude, GPT, Cursor, Codex, Gemini, or any tool that can make HTTP calls. Your designs never leave your machine.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which AI models work with Figma Bridge?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Any AI model that can make HTTP requests: Claude (Anthropic), ChatGPT/GPT-4 (OpenAI), Cursor, Codex, Gemini (Google), Copilot, Windsurf, and more. The Bridge is a simple HTTP API — no vendor lock-in.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is Figma Bridge a subscription?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Figma Bridge is $49 one-time, lifetime license. No subscription, no recurring payments.',
+      },
+    },
+  ],
+};
+
 export default function BridgePage() {
   return (
     <main className="flex flex-1 flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bridgeJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bridgeFaqJsonLd) }}
+      />
       <LandingSection maxWidth="2xl">
         <div className="mx-auto max-w-xl">
           <div className="mb-3 inline-flex rounded-full border border-fd-border px-3 py-1 text-xs font-medium text-fd-muted-foreground">
