@@ -9,6 +9,7 @@
   /* NOTE: Whenever this is not 16px on mobile, zooming occurs. */
   font-size: var(--input-font-size);
   font-weight: var(--font-weight-normal);
+  line-height: 1;
   transition-duration: var(--transition-duration-basic);
   transition-property: color, box-shadow, background-color;
   transition-timing-function: var(--transition-ease-basic);

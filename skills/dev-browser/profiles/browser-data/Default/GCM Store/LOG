@@ -1,2 +1,3 @@
-2026/03/08-14:04:46.833 573e8 Creating DB /Users/sergeytomashevsky/github/plexui-docs/skills/dev-browser/profiles/browser-data/Default/GCM Store since it was missing.
-2026/03/08-14:04:46.838 573e8 Reusing MANIFEST /Users/sergeytomashevsky/github/plexui-docs/skills/dev-browser/profiles/browser-data/Default/GCM Store/MANIFEST-000001
+2026/03/16-15:38:42.626 419825 Reusing MANIFEST /Users/sergeytomashevsky/github/plexui-docs/skills/dev-browser/profiles/browser-data/Default/GCM Store/MANIFEST-000001
+2026/03/16-15:38:42.627 419825 Recovering log #3
+2026/03/16-15:38:42.627 419825 Reusing old log /Users/sergeytomashevsky/github/plexui-docs/skills/dev-browser/profiles/browser-data/Default/GCM Store/000003.log 
