@@ -57,15 +57,17 @@ function DemoControlRow({ name, children }: { name: string; children: React.Reac
 }
 
 const SIZE_OPTIONS = ['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const;
-const GUTTER_OPTIONS = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;
+const GUTTER_OPTIONS = ['auto', '2xs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;
+type GutterOption = (typeof GUTTER_OPTIONS)[number];
 
 
 export function InputSizingDemo() {
   const [username, setUsername] = useState('');
-  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
-  const [gutterSize, setGutterSize] = useState<(typeof GUTTER_OPTIONS)[number]>('md');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [gutterSize, setGutterSize] = useState<GutterOption>('auto');
   const [pill, setPill] = useState(false);
-  const args = { size, gutterSize, pill };
+  const resolvedGutterSize = gutterSize === 'auto' ? undefined : gutterSize;
+  const args = { size, gutterSize: resolvedGutterSize, pill };
   return (
     <>
       <div data-demo-controls style={controlsTableStyle}>
@@ -84,7 +86,7 @@ export function InputSizingDemo() {
           </SegmentedControl>
         </DemoControlRow>
         <DemoControlRow name="gutterSize">
-          <SegmentedControl<(typeof GUTTER_OPTIONS)[number]>
+          <SegmentedControl<GutterOption>
             value={gutterSize}
             onChange={setGutterSize}
             aria-label="gutterSize"

@@ -143,5 +143,10 @@
 @media (width <= 640px) {
   .Footer {
     flex-direction: column;
+
+    & > * {
+      width: 100%;
+      --button-size: var(--control-size-lg);
+    }
   }
 }

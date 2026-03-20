@@ -1135,18 +1135,18 @@ const PHONE_FORMATS: Record<string, number[]> = {
 const DEFAULT_PHONE_FORMAT = [3, 3, 4];
 
 function formatPhoneNumber(raw: string, countryCode?: string): string {
-  const digits = raw.replace(/\D/g, '');
-  if (!digits) return '';
+  const allDigits = raw.replace(/\D/g, '');
+  if (!allDigits) return '';
   const format = (countryCode && PHONE_FORMATS[countryCode]) || DEFAULT_PHONE_FORMAT;
+  const maxDigits = format.reduce((sum, n) => sum + n, 0);
+  const digits = allDigits.slice(0, maxDigits);
   const groups: string[] = [];
   let i = 0;
-
   for (const groupSize of format) {
     if (i >= digits.length) break;
     groups.push(digits.slice(i, i + groupSize));
     i += groupSize;
   }
-  if (i < digits.length) groups.push(digits.slice(i));
   return groups.join(' ');
 }
 
