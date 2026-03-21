@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "packages/ui"
+    "packages/ui",
+    "packages/mcp"
   ],
   "scripts": {
     "dev": "next dev",
@@ -11,10 +12,14 @@
     "build": "next build",
     "postinstall": "npm run build:ui",
     "build:ui": "npm run build --workspace=packages/ui",
+    "build:mcp": "npm run build --workspace=packages/mcp",
+    "generate:manifest": "node scripts/generate-mcp-manifest.mjs",
+    "generate:llms": "node scripts/generate-llms-txt.mjs",
     "start": "next start",
     "lint": "eslint",
     "lint:docs-code": "node scripts/check-doc-code-duplicates.mjs",
-    "publish:ui": "npm run build:ui && npm publish --access public --workspace=packages/ui"
+    "publish:ui": "npm run build:ui && npm publish --access public --workspace=packages/ui",
+    "publish:mcp": "npm run generate:manifest && npm run build:mcp && npm publish --access public --workspace=packages/mcp"
   },
   "dependencies": {
     "@plexui/ui": "*",

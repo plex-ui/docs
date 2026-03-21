@@ -1,0 +1,129 @@
+---
+title: MCP Server
+description: Give AI editors full access to PlexUI components, props, and examples
+---
+
+Use the PlexUI MCP server to give AI assistants direct access to component documentation, props, and code examples — without leaving your editor.
+
+## Quick Start
+
+Select your editor and add the configuration:
+
+### Claude Code
+
+Add to your project's `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "plexui": {
+      "command": "npx",
+      "args": ["-y", "@plexui/mcp@latest"]
+    }
+  }
+}
+```
+
+Restart Claude Code and run `/mcp` to verify the connection.
+
+### Cursor
+
+Add to `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "plexui": {
+      "command": "npx",
+      "args": ["-y", "@plexui/mcp@latest"]
+    }
+  }
+}
+```
+
+Enable the PlexUI server in Cursor Settings under MCP.
+
+### VS Code (GitHub Copilot)
+
+Add to `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "plexui": {
+      "command": "npx",
+      "args": ["-y", "@plexui/mcp@latest"]
+    }
+  }
+}
+```
+
+Open `.vscode/mcp.json` and click **Start** next to the plexui server.
+
+### OpenCode
+
+Add to your OpenCode MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "plexui": {
+      "command": "npx",
+      "args": ["-y", "@plexui/mcp@latest"]
+    }
+  }
+}
+```
+
+## Available Tools
+
+The MCP server exposes 4 tools:
+
+| Tool | Description |
+|------|-------------|
+| `list_components` | List all 38 components with descriptions and import paths |
+| `get_component` | Full docs for a component: props, types, defaults, code examples |
+| `search_components` | Find components by name, description, or functionality |
+| `get_setup_guide` | Installation, CSS setup, provider config, and a quick example |
+
+## Example Prompts
+
+Once connected, try these prompts in your AI editor:
+
+**Discover components:**
+- "Show me all available PlexUI components"
+- "What input components does PlexUI have?"
+
+**Get component details:**
+- "How do I use the PlexUI Button component?"
+- "Show me the props for Select"
+- "Give me code examples for Sidebar"
+
+**Build with PlexUI:**
+- "Create a login form using PlexUI Button, Input, and Field"
+- "Build a settings page with PlexUI Tabs, Switch, and Select"
+- "Set up PlexUI in my Next.js project"
+
+## How It Works
+
+The MCP server bundles a pre-generated manifest of all PlexUI component documentation. When an AI assistant calls a tool, the server returns structured documentation including:
+
+- Component name, description, and import path
+- Complete props table with types, defaults, and descriptions
+- Code examples from the official docs
+- Sub-component documentation (for composite components like Sidebar)
+- Hook APIs (e.g. `useSidebar`)
+
+The manifest is generated from the same MDX files that power this documentation site, so it's always consistent with what you see here.
+
+## Troubleshooting
+
+### Server not responding
+
+1. Verify `npx @plexui/mcp@latest` runs without errors in your terminal
+2. Restart your editor after adding MCP configuration
+3. Check your editor's MCP debug output for connection errors
+
+### Component not found
+
+The `get_component` tool accepts flexible names — `Button`, `button`, `date-picker`, `datepicker` all work. If a name doesn't match, the tool suggests similar components.
