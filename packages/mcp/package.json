@@ -1,0 +1,42 @@
+{
+  "name": "@plexui/mcp",
+  "version": "0.1.0",
+  "description": "MCP server for PlexUI — browse components, props, and examples from AI editors",
+  "type": "module",
+  "bin": {
+    "@plexui/mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "generate": "node ../../scripts/generate-mcp-manifest.mjs",
+    "prebuild": "npm run generate",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "@types/node": "^22.15.0"
+  },
+  "keywords": [
+    "plexui",
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "components"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plex-ui/docs",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://plexui.com/docs/mcp"
+}
