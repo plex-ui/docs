@@ -2,6 +2,7 @@ const productJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: 'Plex UI — Figma Design System',
+  image: 'https://plexui.com/opengraph-image.png',
   description:
     '22,000+ Figma variants built on Figma Variables. Three-layer token system, 35 components, 6,600+ icons. Built for AI-driven workflows.',
   url: 'https://plexui.com/pricing',

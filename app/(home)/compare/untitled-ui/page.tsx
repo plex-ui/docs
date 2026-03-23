@@ -116,6 +116,7 @@ export const metadata: Metadata = {
     description:
       'Detailed comparison of Plex UI and Untitled UI design systems. Size scale, token architecture, pricing, and Figma-to-code workflow.',
     url: 'https://plexui.com/compare/untitled-ui',
+    images: [{ url: '/opengraph-image.png' }],
   },
   twitter: {
     title: 'Plex UI vs Untitled UI — Feature Comparison (2026)',

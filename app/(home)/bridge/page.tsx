@@ -41,6 +41,7 @@ const bridgeJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'Plex UI Figma Bridge',
+  image: 'https://plexui.com/opengraph-image.png',
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'macOS, Windows',
   description:

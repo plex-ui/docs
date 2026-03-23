@@ -121,6 +121,7 @@ export const metadata: Metadata = {
     description:
       'Detailed comparison of Plex UI and shadcn/ui. 9 sizes vs 4, Figma parity, design tokens, pricing, and more.',
     url: 'https://plexui.com/compare/shadcn-ui',
+    images: [{ url: '/opengraph-image.png' }],
   },
   twitter: {
     title: 'Plex UI vs shadcn/ui — Feature Comparison (2026)',
