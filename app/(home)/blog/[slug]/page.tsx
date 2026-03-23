@@ -42,6 +42,7 @@ export async function generateMetadata(props: {
       description: page.data.description,
       url: `https://plexui.com${page.url}`,
       type: 'article',
+      images: [{ url: '/opengraph-image.png' }],
     },
     twitter: {
       title: `${page.data.title} — Plex UI Blog`,

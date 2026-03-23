@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     description:
       'Engineering notes on design systems, component architecture, and building consistent UI with Plex UI.',
     url: 'https://plexui.com/blog',
+    images: [{ url: '/opengraph-image.png' }],
   },
   twitter: {
     title: 'Blog — Plex UI',
