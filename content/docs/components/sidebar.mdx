@@ -8,6 +8,7 @@ import {
   SidebarCollapsibleIconDemo,
   SidebarNestedDemo,
   SidebarFilteredTreeDemo,
+  SidebarActionTreeDemo,
   SidebarScrollableDemo,
   SidebarTextOnlyDemo,
   SidebarSearchDemo,
@@ -220,6 +221,29 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
   </SidebarLayout>
 </SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarExtraTall}>
   <SidebarFilteredTreeDemo />
+</ComponentPreview>
+
+### Action Tree
+
+<ComponentPreview details={<>Tree navigation with chevrons on the left and action buttons on the right. Clicking a row selects the item. Chevrons toggle expand/collapse. Action buttons (<code>...</code> and <code>+</code>) appear on hover for parent items.</>} code={`<SidebarMenuItem className="group/action">
+  <SidebarMenuButton isActive onClick={() => setActiveItem(id)}>
+    <SidebarMenuChevron className="!ml-0 ..."
+      onClick={(e) => { e.stopPropagation(); toggleExpanded(id); }}
+    />
+    <SidebarMenuButtonIcon><Icon /></SidebarMenuButtonIcon>
+    <SidebarMenuButtonLabel>Label</SidebarMenuButtonLabel>
+    <span className="ml-auto opacity-0 group-hover/action:opacity-100">
+      <Button variant="ghost" size="xs" uniform>
+        <DotsHorizontal />
+      </Button>
+      <Button variant="ghost" size="xs" uniform>
+        <Plus />
+      </Button>
+    </span>
+  </SidebarMenuButton>
+  <SidebarMenuSub open hasIcons>...</SidebarMenuSub>
+</SidebarMenuItem>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarExtraTall}>
+  <SidebarActionTreeDemo />
 </ComponentPreview>
 
 ### Mobile Menu
