@@ -8,9 +8,14 @@ import { Switch } from '@plexui/ui/components/Switch';
 import {
   Analytics,
   ApiKeys,
+  Bolt,
+  CameraPhoto,
   Code,
   CreditCard,
+  Desktop,
   FileDocument,
+  Filter,
+  FilterBadge,
   Folder,
   Globe,
   Home,
@@ -19,6 +24,7 @@ import {
   Storage,
   Terminal,
 } from '@plexui/ui/components/Icon';
+import { Menu } from '@plexui/ui/components/Menu';
 import {
   Sidebar,
   SidebarCard,
@@ -560,6 +566,347 @@ export function SidebarNestedDemo() {
       </div>
       <div data-demo-controls style={controlsTableStyle}>
         <DemoControlBoolean name="icons" value={icons} onChange={setIcons} />
+      </div>
+    </>
+  );
+}
+
+// =============================================
+// Filtered tree navigation
+// =============================================
+
+type StepType = 'screen' | 'action' | 'document' | 'selfie';
+
+type WorkflowStep = {
+  id: string;
+  label: string;
+  type: StepType;
+  children?: WorkflowStep[];
+};
+
+const stepTypeConfig: Record<StepType, { icon: React.ComponentType; label: string }> = {
+  screen: { icon: Desktop, label: 'Screen' },
+  action: { icon: Bolt, label: 'Action' },
+  document: { icon: FileDocument, label: 'Document' },
+  selfie: { icon: CameraPhoto, label: 'Selfie' },
+};
+
+const stepFilterOptions = (Object.keys(stepTypeConfig) as StepType[]).map((type) => ({
+  value: type,
+  label: stepTypeConfig[type].label,
+}));
+
+
+
+const workflowSteps: WorkflowStep[] = [
+  { id: 'start', label: 'Start', type: 'screen' },
+  { id: 'country-select', label: 'Country select', type: 'screen' },
+  {
+    id: 'gov-id',
+    label: 'ID verification',
+    type: 'document',
+    children: [
+      { id: 'run-gov-id', label: 'Run ID verification', type: 'action' },
+      { id: 'update-gov-fields', label: 'Update inquiry fields', type: 'action' },
+    ],
+  },
+  {
+    id: 'selfie-check',
+    label: 'Selfie verification',
+    type: 'selfie',
+    children: [
+      { id: 'capture-selfie', label: 'Capture selfie', type: 'action' },
+      { id: 'run-selfie', label: 'Run selfie check', type: 'action' },
+    ],
+  },
+  {
+    id: 'doc-check',
+    label: 'Document check',
+    type: 'document',
+    children: [
+      { id: 'run-doc', label: 'Run document check', type: 'action' },
+      { id: 'update-doc-fields', label: 'Update inquiry fields', type: 'action' },
+    ],
+  },
+  { id: 'success', label: 'Success', type: 'screen' },
+  {
+    id: 'fail',
+    label: 'Fail',
+    type: 'screen',
+    children: [
+      { id: 'retry-doc', label: 'Retry document', type: 'action' },
+      { id: 'retry-selfie', label: 'Retry selfie', type: 'action' },
+    ],
+  },
+  { id: 'doc-retry', label: 'Document retry', type: 'screen' },
+  { id: 'selfie-retry', label: 'Selfie retry', type: 'screen' },
+];
+
+function filterWorkflowTree(
+  items: WorkflowStep[],
+  search: string,
+): WorkflowStep[] {
+  if (!search) return items;
+
+  return items.reduce<WorkflowStep[]>((acc, item) => {
+    const matchesSearch = item.label.toLowerCase().includes(search.toLowerCase());
+    const filteredChildren = item.children
+      ? filterWorkflowTree(item.children, search)
+      : undefined;
+    const hasMatchingChildren = filteredChildren && filteredChildren.length > 0;
+
+    if (matchesSearch || hasMatchingChildren) {
+      acc.push(hasMatchingChildren ? { ...item, children: filteredChildren } : item);
+    }
+
+    return acc;
+  }, []);
+}
+
+function flattenByType(
+  items: WorkflowStep[],
+  typeFilters: Set<StepType>,
+  search: string,
+): WorkflowStep[] {
+  const result: WorkflowStep[] = [];
+
+  function collect(list: WorkflowStep[]) {
+    for (const item of list) {
+      const matchesType = typeFilters.has(item.type);
+      const matchesSearch = !search || item.label.toLowerCase().includes(search.toLowerCase());
+      if (matchesType && matchesSearch) result.push(item);
+      if (item.children) collect(item.children);
+    }
+  }
+
+  collect(items);
+  return result;
+}
+
+export function SidebarFilteredTreeDemo() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilters, setTypeFilters] = useState<string[]>([]);
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(
+    new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
+  );
+  const [activeItem, setActiveItem] = useState('start');
+  const [iconSize, setIconSize] = useState<'sm' | 'md'>('sm');
+
+  const toggleExpanded = (id: string) => {
+    setExpandedItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const isFiltering = typeFilters.length > 0;
+  const typeFilterSet = new Set(typeFilters as StepType[]);
+
+  const displaySteps = isFiltering
+    ? flattenByType(workflowSteps, typeFilterSet, searchQuery)
+    : filterWorkflowTree(workflowSteps, searchQuery);
+
+  const iconPx = iconSize === 'sm' ? 16 : 20;
+  const iconSizeVar = { '--sidebar-icon-size': `${iconPx}px` } as React.CSSProperties;
+  const nestedIconStyle: React.CSSProperties = { width: iconPx, height: iconPx, flexShrink: 0 };
+
+  const renderTreeItems = (items: WorkflowStep[], depth: number = 0): React.ReactNode => {
+    return items.map((item) => {
+      const hasChildren = item.children && item.children.length > 0;
+      const isExpanded = expandedItems.has(item.id);
+      const TypeIcon = stepTypeConfig[item.type].icon;
+
+      if (depth === 0) {
+        if (hasChildren) {
+          return (
+            <SidebarMenuItem key={item.id} expanded={isExpanded}>
+              <SidebarMenuButton
+                isActive={activeItem === item.id}
+                onClick={() => toggleExpanded(item.id)}
+              >
+                <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
+                <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+                <SidebarMenuChevron />
+              </SidebarMenuButton>
+              <SidebarMenuSub open={isExpanded} hasIcons>
+                {renderTreeItems(item.children!, depth + 1)}
+              </SidebarMenuSub>
+            </SidebarMenuItem>
+          );
+        }
+
+        return (
+          <SidebarMenuItem key={item.id}>
+            <SidebarMenuButton
+              isActive={activeItem === item.id}
+              onClick={() => setActiveItem(item.id)}
+            >
+              <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
+              <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        );
+      }
+
+      if (hasChildren) {
+        return (
+          <SidebarMenuItem key={item.id} expanded={isExpanded}>
+            <SidebarMenuSubButton
+              className="gap-2"
+              indent={Math.min(depth, 3) as 0 | 1 | 2 | 3}
+              onClick={() => toggleExpanded(item.id)}
+            >
+              <span style={nestedIconStyle} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
+              {item.label}
+              <SidebarMenuChevron />
+            </SidebarMenuSubButton>
+            <SidebarMenuSub open={isExpanded}>
+              {renderTreeItems(item.children!, depth + 1)}
+            </SidebarMenuSub>
+          </SidebarMenuItem>
+        );
+      }
+
+      return (
+        <SidebarMenuSubItem key={item.id}>
+          <SidebarMenuSubButton
+            className="gap-2"
+            indent={Math.min(depth, 3) as 0 | 1 | 2 | 3}
+            isActive={activeItem === item.id}
+            onClick={() => setActiveItem(item.id)}
+          >
+            <span style={nestedIconStyle} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
+            {item.label}
+          </SidebarMenuSubButton>
+        </SidebarMenuSubItem>
+      );
+    });
+  };
+
+  const renderFlatItems = (items: WorkflowStep[]): React.ReactNode => {
+    return items.map((item) => {
+      const TypeIcon = stepTypeConfig[item.type].icon;
+      return (
+        <SidebarMenuItem key={item.id}>
+          <SidebarMenuButton
+            isActive={activeItem === item.id}
+            onClick={() => setActiveItem(item.id)}
+          >
+            <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
+            <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      );
+    });
+  };
+
+  const findLabel = (items: WorkflowStep[]): string => {
+    for (const item of items) {
+      if (item.id === activeItem) return item.label;
+      if (item.children) {
+        const found = findLabel(item.children);
+        if (found) return found;
+      }
+    }
+    return '';
+  };
+  const activeItemLabel = findLabel(workflowSteps) || 'Start';
+
+  return (
+    <>
+      <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+        <div style={{ width: 640, height: 650 }}>
+          <SidebarProvider collapsible="none">
+            <SidebarLayout style={{ height: 650 }}>
+              <Sidebar style={{ width: '280px' }}>
+                <SidebarHeader>
+                  <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
+                    <div className="flex-1">
+                      <SidebarInput
+                        size="md"
+                        pill={false}
+                        variant="soft"
+                        placeholder="Search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onClear={() => setSearchQuery('')}
+                      />
+                    </div>
+                    <Menu>
+                      <Menu.Trigger>
+                        <Button
+                          variant="soft"
+                          size="md"
+                          color="secondary"
+                          pill={false}
+                          aria-label="Filter by type"
+                          uniform
+                        >
+                          {isFiltering ? <FilterBadge /> : <Filter />}
+                        </Button>
+                      </Menu.Trigger>
+                      <Menu.Content minWidth="auto" align="end">
+                        {stepFilterOptions.map((opt) => (
+                          <Menu.CheckboxItem
+                            key={opt.value}
+                            checked={typeFilters.includes(opt.value)}
+                            indicatorPosition="end"
+                            indicatorVariant="ghost"
+                            onCheckedChange={(checked) =>
+                              setTypeFilters((prev) =>
+                                checked
+                                  ? [...prev, opt.value]
+                                  : prev.filter((v) => v !== opt.value),
+                              )
+                            }
+                            onSelect={(evt) => evt.preventDefault()}
+                          >
+                            {opt.label}
+                          </Menu.CheckboxItem>
+                        ))}
+                      </Menu.Content>
+                    </Menu>
+                  </div>
+                </SidebarHeader>
+                <SidebarContent>
+                  <SidebarGroup>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        {isFiltering ? renderFlatItems(displaySteps) : renderTreeItems(displaySteps)}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                </SidebarContent>
+              </Sidebar>
+
+              <SidebarInset>
+                <div className="p-6">
+                  <h1 className="text-2xl font-semibold mb-4">{activeItemLabel}</h1>
+                  <p className="text-secondary">
+                    {isFiltering
+                      ? 'Filtered results shown as a flat list.'
+                      : 'Use the search and filter controls to narrow the navigation tree.'}
+                  </p>
+                </div>
+              </SidebarInset>
+            </SidebarLayout>
+          </SidebarProvider>
+        </div>
+      </div>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="iconSize">
+          <SegmentedControl<'sm' | 'md'>
+            value={iconSize}
+            onChange={setIconSize}
+            aria-label="Icon size"
+            size="xs"
+          >
+            <SegmentedControl.Option value="sm">sm</SegmentedControl.Option>
+            <SegmentedControl.Option value="md">md</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
       </div>
     </>
   );
