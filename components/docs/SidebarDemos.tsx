@@ -6,24 +6,25 @@ import { Button } from '@plexui/ui/components/Button';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Switch } from '@plexui/ui/components/Switch';
 import {
-  Analytics,
-  ApiKeys,
-  Bolt,
-  CameraPhoto,
-  Code,
-  CreditCard,
-  Desktop,
-  FileDocument,
-  Filter,
-  FilterBadge,
-  Folder,
-  Globe,
-  Home,
-  Members,
-  SettingsCog,
-  Storage,
-  Terminal,
-} from '@plexui/ui/components/Icon';
+   Analytics,
+   Bolt,
+   CameraPhoto,
+   ChevronDownMd,
+   Code,
+   CreditCard,
+   Desktop,
+   DotsHorizontal,
+   FileDocument,
+   Filter,
+   FilterBadge,
+   Folder,
+   Home,
+   Members,
+   Plus,
+   SettingsCog,
+   Storage,
+   Terminal,
+ } from '@plexui/ui/components/Icon';
 import { Menu } from '@plexui/ui/components/Menu';
 import {
   Sidebar,
@@ -83,13 +84,12 @@ const resourcesNavItems = [
 // =============================================
 
 export function SidebarBaseDemo() {
-  const [activeItem, setActiveItem] = useState('Overview');
+   const [activeItem, setActiveItem] = useState('Overview');
 
-  return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <div style={{ width: 640, height: 600 }}>
-        <SidebarProvider>
-          <SidebarLayout style={{ height: 600 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full">
+        <SidebarLayout className="h-full">
             <Sidebar>
               <SidebarContent>
                 <SidebarGroup>
@@ -158,7 +158,6 @@ export function SidebarBaseDemo() {
             </SidebarInset>
           </SidebarLayout>
         </SidebarProvider>
-      </div>
     </div>
   );
 }
@@ -182,15 +181,14 @@ function SidebarCollapsibleIconDemoRoot({ children }: { children: React.ReactNod
 }
 
 function SidebarCollapsibleIconDemoPreview() {
-  const ctx = useContext(CollapsibleIconContext);
-  const [activeItem, setActiveItem] = useState('Overview');
-  const open = ctx?.open ?? true;
+   const ctx = useContext(CollapsibleIconContext);
+   const [activeItem, setActiveItem] = useState('Overview');
+   const open = ctx?.open ?? true;
 
-  return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <div style={{ width: 640, height: 600 }}>
-        <SidebarProvider collapsible="icon" open={open} onOpenChange={ctx?.setOpen}>
-          <SidebarLayout style={{ height: 600 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full" collapsible="icon" open={open} onOpenChange={ctx?.setOpen}>
+        <SidebarLayout className="h-full">
             <Sidebar>
               <SidebarContent>
                 <SidebarGroup>
@@ -252,7 +250,6 @@ function SidebarCollapsibleIconDemoPreview() {
             </SidebarInset>
           </SidebarLayout>
         </SidebarProvider>
-      </div>
     </div>
   );
 }
@@ -498,12 +495,11 @@ export function SidebarNestedDemo() {
     });
   };
 
-  return (
-    <>
-      <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-        <div style={{ width: 640, height: 600 }}>
-          <SidebarProvider collapsible="none" key={icons ? 'icons' : 'no-icons'}>
-            <SidebarLayout style={{ height: 600 }}>
+   return (
+     <>
+       <div data-demo-stage className="flex-1 w-full !p-0">
+         <SidebarProvider className="h-full" collapsible="none" key={icons ? 'icons' : 'no-icons'}>
+          <SidebarLayout className="h-full">
               <Sidebar variant={icons ? undefined : 'docs'} style={{ width: '280px' }}>
                 <SidebarContent>
                   {icons ? (
@@ -559,10 +555,9 @@ export function SidebarNestedDemo() {
                     Documentation page for {activeItem.label}. This is where the content would be displayed.
                   </p>
                 </div>
-              </SidebarInset>
+               </SidebarInset>
             </SidebarLayout>
           </SidebarProvider>
-        </div>
       </div>
       <div data-demo-controls style={controlsTableStyle}>
         <DemoControlBoolean name="icons" value={icons} onChange={setIcons} />
@@ -733,10 +728,21 @@ export function SidebarFilteredTreeDemo() {
               >
                 <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
                 <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
-                <SidebarMenuChevron
-                  className={chevronOnly ? 'rounded-sm p-1 -m-1 cursor-pointer hover:bg-[var(--color-background-secondary-ghost-hover)]' : undefined}
-                  onClick={chevronOnly ? (e) => { e.stopPropagation(); toggleExpanded(item.id); } : undefined}
-                />
+                {chevronOnly ? (
+                  <Button
+                    variant="ghost"
+                    size="xs"
+                    color="secondary"
+                    uniform
+                    className="rounded-sm transition-transform shrink-0"
+                    style={{ marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                    onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                  >
+                    <ChevronDownMd />
+                  </Button>
+                ) : (
+                  <SidebarMenuChevron />
+                )}
               </SidebarMenuButton>
               <SidebarMenuSub open={isExpanded} hasIcons>
                 {renderTreeItems(item.children!, depth + 1)}
@@ -771,12 +777,23 @@ export function SidebarFilteredTreeDemo() {
                 else toggleExpanded(item.id);
               }}
             >
-              <span style={nestedIconStyle} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
-              {item.label}
-              <SidebarMenuChevron
-                className={chevronOnly ? 'rounded-sm p-1 -m-1 cursor-pointer hover:bg-[var(--color-background-secondary-ghost-hover)]' : undefined}
-                onClick={chevronOnly ? (e) => { e.stopPropagation(); toggleExpanded(item.id); } : undefined}
-              />
+               <span style={nestedIconStyle} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
+               {item.label}
+               {chevronOnly ? (
+                 <Button
+                   variant="ghost"
+                   size="xs"
+                   color="secondary"
+                   uniform
+                   className="rounded-sm transition-transform shrink-0"
+                   style={{ marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                   onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                 >
+                   <ChevronDownMd />
+                 </Button>
+               ) : (
+                 <SidebarMenuChevron />
+               )}
             </SidebarMenuSubButton>
             <SidebarMenuSub open={isExpanded}>
               {renderTreeItems(item.children!, depth + 1)}
@@ -830,15 +847,14 @@ export function SidebarFilteredTreeDemo() {
   };
   const activeItemLabel = findLabel(workflowSteps) || 'Start';
 
-  return (
-    <>
-      <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-        <div style={{ width: 640, height: 650 }}>
-          <SidebarProvider collapsible="none">
-            <SidebarLayout style={{ height: 650 }}>
-              <Sidebar style={{ width: '280px' }}>
-                <SidebarHeader>
-                  <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
+   return (
+     <>
+       <div data-demo-stage className="flex-1 w-full !p-0">
+         <SidebarProvider className="h-full" collapsible="none">
+           <SidebarLayout className="h-full">
+               <Sidebar style={{ width: '280px' }}>
+                 <SidebarHeader>
+                   <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
                     <div className="flex-1">
                       <SidebarInput
                         size="md"
@@ -906,10 +922,9 @@ export function SidebarFilteredTreeDemo() {
                       : 'Use the search and filter controls to narrow the navigation tree.'}
                   </p>
                 </div>
-              </SidebarInset>
+               </SidebarInset>
             </SidebarLayout>
           </SidebarProvider>
-        </div>
       </div>
       <div data-demo-controls style={controlsTableStyle}>
         <DemoControlRow name="iconSize">
@@ -940,17 +955,204 @@ export function SidebarFilteredTreeDemo() {
 }
 
 // =============================================
-// Scrollable
+// Action tree navigation
 // =============================================
 
-export function SidebarScrollableDemo() {
-  const [activeItem, setActiveItem] = useState('Overview');
+export function SidebarActionTreeDemo() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilters, setTypeFilters] = useState<string[]>([]);
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(
+    new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
+  );
+  const [activeItem, setActiveItem] = useState('gov-id');
 
-  return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <div style={{ width: 640, height: 500 }}>
-        <SidebarProvider>
-          <SidebarLayout style={{ height: 500 }}>
+  const toggleExpanded = (id: string) => {
+    setExpandedItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const isFiltering = typeFilters.length > 0;
+  const typeFilterSet = new Set(typeFilters as StepType[]);
+
+  const displaySteps = isFiltering
+    ? flattenByType(workflowSteps, typeFilterSet, searchQuery)
+    : filterWorkflowTree(workflowSteps, searchQuery);
+
+   const actionsCls = 'ml-auto flex items-center gap-0.5 opacity-0 group-hover/action:opacity-100 transition-opacity';
+
+   const renderActions = () => (
+    <span className={actionsCls} style={{ height: 0, marginRight: -9 }}>
+      <Button variant="ghost" size="xs" color="secondary" uniform className="rounded-sm" onClick={(e) => e.stopPropagation()}>
+        <DotsHorizontal />
+      </Button>
+      <Button variant="ghost" size="xs" color="secondary" uniform className="rounded-sm" onClick={(e) => e.stopPropagation()}>
+        <Plus />
+      </Button>
+    </span>
+  );
+
+  const renderTreeItems = (items: WorkflowStep[], depth: number = 0): React.ReactNode => {
+    return items.map((item) => {
+      const hasChildren = item.children && item.children.length > 0;
+      const isExpanded = expandedItems.has(item.id);
+      const TypeIcon = stepTypeConfig[item.type].icon;
+
+      if (depth === 0) {
+        return (
+          <SidebarMenuItem key={item.id} expanded={isExpanded} className="group/action">
+            <SidebarMenuButton
+              isActive={activeItem === item.id}
+              onClick={() => setActiveItem(item.id)}
+            >
+              {hasChildren ? (
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  color="secondary"
+                  uniform
+                  className="rounded-sm transition-transform shrink-0"
+                  style={{ marginLeft: 3, marginRight: -3, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                  onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                >
+                  <ChevronDownMd />
+                </Button>
+              ) : (
+                <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
+              )}
+              <SidebarMenuButtonIcon style={{ marginLeft: 0 }}><TypeIcon /></SidebarMenuButtonIcon>
+              <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+              {hasChildren && renderActions()}
+            </SidebarMenuButton>
+            {hasChildren && (
+              <SidebarMenuSub open={isExpanded} hasIcons>
+                {renderTreeItems(item.children!, depth + 1)}
+              </SidebarMenuSub>
+            )}
+          </SidebarMenuItem>
+        );
+      }
+
+      return (
+        <SidebarMenuSubItem key={item.id} className="group/action">
+          <SidebarMenuSubButton
+            className="gap-2"
+            indent={0}
+            style={{ paddingLeft: 60 }}
+            isActive={activeItem === item.id}
+            onClick={() => setActiveItem(item.id)}
+          >
+            <span style={{ width: 16, height: 16, flexShrink: 0 }} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
+            {item.label}
+          </SidebarMenuSubButton>
+        </SidebarMenuSubItem>
+      );
+    });
+  };
+
+  const renderFlatItems = (items: WorkflowStep[]): React.ReactNode => {
+    return items.map((item) => {
+      const TypeIcon = stepTypeConfig[item.type].icon;
+      return (
+        <SidebarMenuItem key={item.id} className="group/action">
+          <SidebarMenuButton
+            isActive={activeItem === item.id}
+            onClick={() => setActiveItem(item.id)}
+          >
+            <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
+            <SidebarMenuButtonIcon style={{ marginLeft: 0 }}><TypeIcon /></SidebarMenuButtonIcon>
+            <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      );
+    });
+  };
+
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full" collapsible="none">
+         <SidebarLayout className="h-full">
+             <Sidebar style={{ width: '280px' }}>
+               <SidebarHeader>
+                 <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
+                  <div className="flex-1">
+                    <SidebarInput
+                      size="md"
+                      pill={false}
+                      variant="soft"
+                      placeholder="Search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onClear={() => setSearchQuery('')}
+                    />
+                  </div>
+                  <Menu>
+                    <Menu.Trigger>
+                      <Button variant="soft" size="md" color="secondary" pill={false} aria-label="Filter by type" uniform>
+                        {isFiltering ? <FilterBadge /> : <Filter />}
+                      </Button>
+                    </Menu.Trigger>
+                    <Menu.Content minWidth="auto" align="end">
+                      {stepFilterOptions.map((opt) => (
+                        <Menu.CheckboxItem
+                          key={opt.value}
+                          checked={typeFilters.includes(opt.value)}
+                          indicatorPosition="end"
+                          indicatorVariant="ghost"
+                          onCheckedChange={(checked) =>
+                            setTypeFilters((prev) =>
+                              checked ? [...prev, opt.value] : prev.filter((v) => v !== opt.value),
+                            )
+                          }
+                          onSelect={(evt) => evt.preventDefault()}
+                        >
+                          {opt.label}
+                        </Menu.CheckboxItem>
+                      ))}
+                    </Menu.Content>
+                  </Menu>
+                </div>
+              </SidebarHeader>
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {isFiltering ? renderFlatItems(displaySteps) : renderTreeItems(displaySteps)}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+            </Sidebar>
+
+            <SidebarInset>
+              <div className="p-6">
+                <p className="text-secondary">
+                  {isFiltering
+                    ? 'Filtered results shown as a flat list.'
+                    : 'Chevrons on the left expand/collapse. Action buttons appear on hover.'}
+                </p>
+              </div>
+             </SidebarInset>
+           </SidebarLayout>
+         </SidebarProvider>
+     </div>
+   );
+ }
+
+ // =============================================
+ // Scrollable
+ // =============================================
+
+export function SidebarScrollableDemo() {
+   const [activeItem, setActiveItem] = useState('Overview');
+
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full">
+        <SidebarLayout className="h-full">
             <Sidebar>
               <SidebarContent>
                 <SidebarGroup>
@@ -1030,32 +1232,30 @@ export function SidebarScrollableDemo() {
                   When content exceeds the container height, it scrolls vertically.
                 </p>
               </div>
-            </SidebarInset>
-          </SidebarLayout>
-        </SidebarProvider>
-      </div>
-    </div>
-  );
-}
+             </SidebarInset>
+           </SidebarLayout>
+         </SidebarProvider>
+     </div>
+   );
+ }
 
-// =============================================
-// Text only
-// =============================================
+ // =============================================
+ // Text only
+ // =============================================
 
 export function SidebarTextOnlyDemo() {
-  const [activeItem, setActiveItem] = useState('General');
+   const [activeItem, setActiveItem] = useState('General');
 
-  const categories = [
-    { label: 'Settings', items: ['Your profile'] },
-    { label: 'Organization', items: ['General', 'API keys', 'Admin keys'] },
-    { label: 'People', items: ['People', 'Projects', 'Billing', 'Limits', 'Usage'] },
-  ];
+   const categories = [
+     { label: 'Settings', items: ['Your profile'] },
+     { label: 'Organization', items: ['General', 'API keys', 'Admin keys'] },
+     { label: 'People', items: ['People', 'Projects', 'Billing', 'Limits', 'Usage'] },
+   ];
 
-  return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <div style={{ width: 640, height: 600 }}>
-        <SidebarProvider collapsible="none">
-          <SidebarLayout style={{ height: 600 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full" collapsible="none">
+        <SidebarLayout className="h-full">
             <Sidebar variant="docs" style={{ width: '180px' }}>
               <SidebarContent>
                 {categories.map((cat) => (
@@ -1086,33 +1286,31 @@ export function SidebarTextOnlyDemo() {
                   Text-only sidebar for settings pages. Uses <code>collapsible=&quot;none&quot;</code>.
                 </p>
               </div>
-            </SidebarInset>
-          </SidebarLayout>
-        </SidebarProvider>
-      </div>
-    </div>
-  );
-}
+             </SidebarInset>
+           </SidebarLayout>
+         </SidebarProvider>
+     </div>
+   );
+ }
 
-// =============================================
-// Search
-// =============================================
+ // =============================================
+ // Search
+ // =============================================
 
 export function SidebarSearchDemo() {
-  const [activeItem, setActiveItem] = useState('Overview');
-  const [searchValue, setSearchValue] = useState('');
+   const [activeItem, setActiveItem] = useState('Overview');
+   const [searchValue, setSearchValue] = useState('');
 
-  const docsSections = [
-    { label: 'Get started', items: ['Overview', 'Quickstart', 'Models', 'Pricing', 'Libraries'] },
-    { label: 'Core concepts', items: ['Text generation', 'Code generation', 'Images and vision', 'Structured output'] },
-    { label: 'Agents', items: ['Overview', 'Build agents'] },
-  ];
+   const docsSections = [
+     { label: 'Get started', items: ['Overview', 'Quickstart', 'Models', 'Pricing', 'Libraries'] },
+     { label: 'Core concepts', items: ['Text generation', 'Code generation', 'Images and vision', 'Structured output'] },
+     { label: 'Agents', items: ['Overview', 'Build agents'] },
+   ];
 
-  return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <div style={{ width: 640, height: 600 }}>
-        <SidebarProvider collapsible="none">
-          <SidebarLayout style={{ height: 600 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full" collapsible="none">
+        <SidebarLayout className="h-full">
             <Sidebar variant="docs" style={{ width: '220px' }}>
               <SidebarHeader>
                 <div style={{ padding: '16px 0 8px' }}>
@@ -1155,24 +1353,22 @@ export function SidebarSearchDemo() {
                   Search input stays fixed at the top while sidebar content scrolls.
                 </p>
               </div>
-            </SidebarInset>
-          </SidebarLayout>
-        </SidebarProvider>
-      </div>
-    </div>
-  );
-}
+             </SidebarInset>
+           </SidebarLayout>
+         </SidebarProvider>
+     </div>
+   );
+ }
 
-// =============================================
-// Skeleton
-// =============================================
+ // =============================================
+ // Skeleton
+ // =============================================
 
 export function SidebarSkeletonDemo() {
-  return (
-    <div data-demo-stage className="flex justify-center items-center py-10">
-      <div style={{ width: 640, height: 300 }}>
-        <SidebarProvider>
-          <SidebarLayout style={{ height: 300 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full">
+        <SidebarLayout className="h-full">
             <Sidebar>
               <SidebarContent>
                 <SidebarGroup>
@@ -1200,17 +1396,16 @@ export function SidebarSkeletonDemo() {
                 <h1 className="text-2xl font-semibold mb-4">Loading</h1>
                 <p className="text-secondary">Skeleton placeholders while navigation loads.</p>
               </div>
-            </SidebarInset>
-          </SidebarLayout>
-        </SidebarProvider>
-      </div>
-    </div>
-  );
-}
+             </SidebarInset>
+           </SidebarLayout>
+         </SidebarProvider>
+     </div>
+   );
+ }
 
-// =============================================
-// Badges (with pill control)
-// =============================================
+ // =============================================
+ // Badges (with pill control)
+ // =============================================
 
 export function SidebarBadgesDemo() {
   const [activeItem, setActiveItem] = useState('Overview');
@@ -1227,16 +1422,15 @@ export function SidebarBadgesDemo() {
     { label: 'Billing', icon: CreditCard },
   ];
 
-  return (
-    <>
-      <div data-demo-stage className="flex justify-center items-center py-10">
-        <div style={{ width: 640, height: 400 }}>
-          <SidebarProvider collapsible="none">
-            <SidebarLayout style={{ height: 400 }}>
-              <Sidebar>
-                <SidebarContent>
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+   return (
+     <>
+       <div data-demo-stage className="flex-1 w-full !p-0">
+         <SidebarProvider className="h-full" collapsible="none">
+           <SidebarLayout className="h-full">
+               <Sidebar>
+                 <SidebarContent>
+                   <SidebarGroup>
+                     <SidebarGroupLabel>Navigation</SidebarGroupLabel>
                     <SidebarGroupContent>
                       <SidebarMenu>
                         {menuItems.map((item) => (
@@ -1271,30 +1465,28 @@ export function SidebarBadgesDemo() {
                     Badges indicate status, counts, or special states for menu items.
                   </p>
                 </div>
-              </SidebarInset>
-            </SidebarLayout>
-          </SidebarProvider>
-        </div>
-      </div>
-      <div data-demo-controls style={controlsTableStyle}>
-        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
-      </div>
-    </>
-  );
-}
+               </SidebarInset>
+             </SidebarLayout>
+           </SidebarProvider>
+       </div>
+       <div data-demo-controls style={controlsTableStyle}>
+         <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+       </div>
+     </>
+   );
+ }
 
 // =============================================
 // Footer cards
 // =============================================
 
 export function SidebarFooterCardsDemo() {
-  const [activeItem, setActiveItem] = useState('Overview');
+   const [activeItem, setActiveItem] = useState('Overview');
 
-  return (
-    <div data-demo-stage className="flex justify-center items-center py-10">
-      <div style={{ width: 640, height: 600 }}>
-        <SidebarProvider collapsible="icon">
-          <SidebarLayout style={{ height: 600 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full" collapsible="icon">
+        <SidebarLayout className="h-full">
             <Sidebar>
               <SidebarContent>
                 <SidebarGroup>
@@ -1367,17 +1559,16 @@ export function SidebarFooterCardsDemo() {
                   Footer cards are hidden when the sidebar is collapsed.
                 </p>
               </div>
-            </SidebarInset>
-          </SidebarLayout>
-        </SidebarProvider>
-      </div>
-    </div>
-  );
-}
+             </SidebarInset>
+           </SidebarLayout>
+         </SidebarProvider>
+     </div>
+   );
+ }
 
-// =============================================
-// Header sizes (with controls)
-// =============================================
+ // =============================================
+ // Header sizes (with controls)
+ // =============================================
 
 const dashboardSections = [
   { label: 'Project', items: [{ icon: Home, label: 'Overview' }, { icon: Folder, label: 'Projects' }, { icon: Analytics, label: 'Analytics' }] },
@@ -1415,17 +1606,16 @@ export function SidebarHeaderSizesDemoRoot({ children }: { children: React.React
 }
 
 export function SidebarHeaderSizesDemoPreview() {
-  const ctx = useContext(HeaderSizesContext);
-  const size = ctx?.size ?? 'sm';
-  const activeItem = ctx?.activeItem ?? 'Overview';
-  const setActiveItem = ctx?.setActiveItem ?? (() => { });
+   const ctx = useContext(HeaderSizesContext);
+   const size = ctx?.size ?? 'sm';
+   const activeItem = ctx?.activeItem ?? 'Overview';
+   const setActiveItem = ctx?.setActiveItem ?? (() => { });
 
-  return (
-    <div data-demo-stage className="flex justify-center items-center py-10">
-      <div style={{ width: 640 }}>
-        {size === 'sm' ? (
-          <SidebarProvider collapsible="none" key="sm">
-            <SidebarLayout style={{ height: 400 }}>
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+      {size === 'sm' ? (
+        <SidebarProvider className="h-full" collapsible="none" key="sm">
+          <SidebarLayout className="h-full">
               <Sidebar style={{ width: '200px' }}>
                 <SidebarContent>
                   {dashboardSections.map((section) => (
@@ -1461,8 +1651,8 @@ export function SidebarHeaderSizesDemoPreview() {
             </SidebarLayout>
           </SidebarProvider>
         ) : (
-          <SidebarProvider collapsible="none" key="lg">
-            <SidebarLayout style={{ height: 400 }}>
+          <SidebarProvider className="h-full" collapsible="none" key="lg">
+            <SidebarLayout className="h-full">
               <Sidebar variant="docs" style={{ width: '220px' }}>
                 <SidebarContent>
                   {docsSectionsHeaderSizes.map((section) => (
@@ -1489,17 +1679,16 @@ export function SidebarHeaderSizesDemoPreview() {
                   <p className="text-secondary">Prominent headers with primary color.</p>
                 </div>
               </SidebarInset>
-            </SidebarLayout>
-          </SidebarProvider>
-        )}
-      </div>
-    </div>
-  );
-}
+             </SidebarLayout>
+           </SidebarProvider>
+         )}
+     </div>
+   );
+ }
 
-// =============================================
-// Shared controls table UI (Storybook-style)
-// =============================================
+ // =============================================
+ // Shared controls table UI (Storybook-style)
+ // =============================================
 
 const controlsTableStyle: React.CSSProperties = {
   background: 'var(--docs-surface-elevated)',
@@ -2026,8 +2215,7 @@ function MobileMenuInner({ mobile, nested, icons }: { mobile: boolean; nested: b
 
   // Desktop view
   return (
-    <div style={{ width: nested ? 680 : 640, height: 667 }}>
-      <SidebarLayout style={{ height: 667 }}>
+    <SidebarLayout className="h-full">
         {renderDesktopSidebar()}
         <SidebarInset>
           <div className="p-6">
@@ -2036,13 +2224,12 @@ function MobileMenuInner({ mobile, nested, icons }: { mobile: boolean; nested: b
               Toggle mobile to see the mobile sidebar.
             </p>
           </div>
-        </SidebarInset>
-      </SidebarLayout>
-    </div>
-  );
-}
+         </SidebarInset>
+       </SidebarLayout>
+   );
+ }
 
-type MobileDemoContextValue = {
+ type MobileDemoContextValue = {
   mobile: boolean;
   setMobile: (v: boolean) => void;
   nested: boolean;
@@ -2066,18 +2253,16 @@ export function SidebarMobileDemoRoot({ children }: { children: React.ReactNode 
 }
 
 export function SidebarMobileDemoPreview() {
-  const ctx = useContext(MobileDemoContext);
-  const mobile = ctx?.mobile ?? false;
-  const nested = ctx?.nested ?? false;
-  const icons = ctx?.icons ?? false;
-  const key = `${mobile}-${nested}-${icons}`;
-  return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <div style={{ width: mobile ? 400 : (nested ? 680 : 640) }}>
-        <SidebarProvider collapsible={mobile ? 'offcanvas' : 'icon'} key={key}>
-          <MobileMenuInner mobile={mobile} nested={nested} icons={icons} />
-        </SidebarProvider>
-      </div>
+   const ctx = useContext(MobileDemoContext);
+   const mobile = ctx?.mobile ?? false;
+   const nested = ctx?.nested ?? false;
+   const icons = ctx?.icons ?? false;
+   const key = `${mobile}-${nested}-${icons}`;
+   return (
+     <div data-demo-stage className="flex-1 w-full !p-0">
+       <SidebarProvider className="h-full" collapsible={mobile ? 'offcanvas' : 'icon'} key={key}>
+        <MobileMenuInner mobile={mobile} nested={nested} icons={icons} />
+      </SidebarProvider>
     </div>
   );
 }
