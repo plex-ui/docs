@@ -1,6 +1,21 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Badge } from '@plexui/ui/components/Badge';
 import { Button } from '@plexui/ui/components/Button';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
@@ -18,6 +33,7 @@ import {
    Filter,
    FilterBadge,
    Folder,
+   GripVertical,
    Home,
    Members,
    Plus,
@@ -87,7 +103,7 @@ export function SidebarBaseDemo() {
    const [activeItem, setActiveItem] = useState('Overview');
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full">
         <SidebarLayout className="h-full">
             <Sidebar>
@@ -186,7 +202,7 @@ function SidebarCollapsibleIconDemoPreview() {
    const open = ctx?.open ?? true;
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible="icon" open={open} onOpenChange={ctx?.setOpen}>
         <SidebarLayout className="h-full">
             <Sidebar>
@@ -497,7 +513,7 @@ export function SidebarNestedDemo() {
 
    return (
      <>
-       <div data-demo-stage className="flex-1 w-full !p-0">
+       <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
          <SidebarProvider className="h-full" collapsible="none" key={icons ? 'icons' : 'no-icons'}>
           <SidebarLayout className="h-full">
               <Sidebar variant={icons ? undefined : 'docs'} style={{ width: '280px' }}>
@@ -729,17 +745,15 @@ export function SidebarFilteredTreeDemo() {
                 <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
                 <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
                 {chevronOnly ? (
-                  <Button
-                    variant="ghost"
-                    size="xs"
-                    color="secondary"
-                    uniform
-                    className="rounded-sm transition-transform shrink-0"
-                    style={{ marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                  <span
+                    role="none"
+                    className={`${ghostBtnCls} ml-auto transition-transform`}
+                    style={{ width: 26, height: 26, marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
                     onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
                   >
                     <ChevronDownMd />
-                  </Button>
+                  </span>
                 ) : (
                   <SidebarMenuChevron />
                 )}
@@ -780,17 +794,15 @@ export function SidebarFilteredTreeDemo() {
                <span style={nestedIconStyle} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
                {item.label}
                {chevronOnly ? (
-                 <Button
-                   variant="ghost"
-                   size="xs"
-                   color="secondary"
-                   uniform
-                   className="rounded-sm transition-transform shrink-0"
-                   style={{ marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                 <span
+                   role="none"
+                   className={`${ghostBtnCls} ml-auto transition-transform`}
+                   style={{ width: 26, height: 26, marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
                    onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
                  >
                    <ChevronDownMd />
-                 </Button>
+                 </span>
                ) : (
                  <SidebarMenuChevron />
                )}
@@ -849,7 +861,7 @@ export function SidebarFilteredTreeDemo() {
 
    return (
      <>
-       <div data-demo-stage className="flex-1 w-full !p-0">
+       <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
          <SidebarProvider className="h-full" collapsible="none">
            <SidebarLayout className="h-full">
                <Sidebar style={{ width: '280px' }}>
@@ -958,13 +970,17 @@ export function SidebarFilteredTreeDemo() {
 // Action tree navigation
 // =============================================
 
+const ghostBtnCls = 'inline-flex items-center justify-center shrink-0 rounded-sm cursor-pointer hover:bg-[var(--color-background-secondary-ghost-hover)] active:bg-[var(--color-background-secondary-ghost-hover)] active:scale-95 transition-all [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto';
+
 export function SidebarActionTreeDemo() {
+  const [steps, setSteps] = useState(workflowSteps);
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilters, setTypeFilters] = useState<string[]>([]);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(
     new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
   );
   const [activeItem, setActiveItem] = useState('gov-id');
+  const [iconSize, setIconSize] = useState<'sm' | 'md'>('sm');
 
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) => {
@@ -979,21 +995,96 @@ export function SidebarActionTreeDemo() {
   const typeFilterSet = new Set(typeFilters as StepType[]);
 
   const displaySteps = isFiltering
-    ? flattenByType(workflowSteps, typeFilterSet, searchQuery)
-    : filterWorkflowTree(workflowSteps, searchQuery);
+    ? flattenByType(steps, typeFilterSet, searchQuery)
+    : filterWorkflowTree(steps, searchQuery);
 
-   const actionsCls = 'ml-auto flex items-center gap-0.5 opacity-0 group-hover/action:opacity-100 transition-opacity';
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 5 },
+    }),
+  );
 
-   const renderActions = () => (
-    <span className={actionsCls} style={{ height: 0, marginRight: -9 }}>
-      <Button variant="ghost" size="xs" color="secondary" uniform className="rounded-sm" onClick={(e) => e.stopPropagation()}>
+  const iconPx = iconSize === 'sm' ? 16 : 20;
+  const iconSizeVar = { '--sidebar-icon-size': `${iconPx}px` } as React.CSSProperties;
+  const nestedIconStyle: React.CSSProperties = { width: iconPx, height: iconPx, flexShrink: 0 };
+
+  const parentActionsCls = 'ml-auto flex items-center gap-0.5 opacity-0 group-hover/parent:opacity-100 transition-opacity relative z-[1]';
+  const childActionsCls = 'hidden group-hover/action:flex items-center gap-0.5 shrink-0 relative z-[1] ml-auto';
+  const btnSize = 26;
+
+  const renderActions = () => (
+    <span className={parentActionsCls} style={{ height: 0, marginRight: -9 }}>
+      <span className={ghostBtnCls} style={{ width: btnSize, height: btnSize }} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="none">
         <DotsHorizontal />
-      </Button>
-      <Button variant="ghost" size="xs" color="secondary" uniform className="rounded-sm" onClick={(e) => e.stopPropagation()}>
+      </span>
+      <span className={ghostBtnCls} style={{ width: btnSize, height: btnSize }} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="none">
         <Plus />
-      </Button>
+      </span>
     </span>
   );
+
+  const SortableNestedItem = ({ item }: { item: WorkflowStep }) => {
+    const TypeIcon = stepTypeConfig[item.type].icon;
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
+    const sortableStyle: React.CSSProperties = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    };
+
+    return (
+      <SidebarMenuSubItem ref={setNodeRef} style={sortableStyle} className="group/action">
+        <SidebarMenuSubButton
+          asChild
+          indent={0}
+          isActive={activeItem === item.id}
+        >
+          <div
+            role="button"
+            tabIndex={0}
+            className="[&:has(.item-actions:hover)::before]:!opacity-[0.3] [&:has(.item-actions:hover):active::before]:!scale-100"
+            style={{ padding: '6px 12px 6px 60px', cursor: 'pointer' }}
+            onClick={() => setActiveItem(item.id)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveItem(item.id); }}
+          >
+            <span style={{ ...nestedIconStyle, marginRight: 8 }} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full relative z-[1]"><TypeIcon /></span>
+            <span className="min-w-0 truncate relative z-[1]">{item.label}</span>
+            <span className={childActionsCls} style={{ height: 0, marginRight: -9 }}>
+              <span className={ghostBtnCls} style={{ width: btnSize, height: btnSize }} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="none">
+                <DotsHorizontal />
+              </span>
+              <span
+                className={ghostBtnCls}
+                style={{ width: btnSize, height: btnSize, cursor: isDragging ? 'grabbing' : 'grab' }}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
+                {...listeners}
+                {...attributes}
+                role="none"
+              >
+                <GripVertical />
+              </span>
+            </span>
+          </div>
+        </SidebarMenuSubButton>
+      </SidebarMenuSubItem>
+    );
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    setSteps((prev) => {
+      return prev.map((parent) => {
+        if (!parent.children) return parent;
+        const oldIdx = parent.children.findIndex((child) => child.id === active.id);
+        const newIdx = parent.children.findIndex((child) => child.id === over.id);
+        if (oldIdx === -1 || newIdx === -1) return parent;
+        return { ...parent, children: arrayMove(parent.children, oldIdx, newIdx) };
+      });
+    });
+  };
 
   const renderTreeItems = (items: WorkflowStep[], depth: number = 0): React.ReactNode => {
     return items.map((item) => {
@@ -1003,53 +1094,40 @@ export function SidebarActionTreeDemo() {
 
       if (depth === 0) {
         return (
-          <SidebarMenuItem key={item.id} expanded={isExpanded} className="group/action">
+          <SidebarMenuItem key={item.id} expanded={isExpanded} className="group/parent">
             <SidebarMenuButton
               isActive={activeItem === item.id}
               onClick={() => setActiveItem(item.id)}
             >
               {hasChildren ? (
-                <Button
-                  variant="ghost"
-                  size="xs"
-                  color="secondary"
-                  uniform
-                  className="rounded-sm transition-transform shrink-0"
-                  style={{ marginLeft: 3, marginRight: -3, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                <span
+                  role="none"
+                  className={`${ghostBtnCls} transition-transform`}
+                  style={{ width: btnSize, height: btnSize, marginLeft: 3, marginRight: -3, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
                   onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
                 >
                   <ChevronDownMd />
-                </Button>
+                </span>
               ) : (
                 <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
               )}
-              <SidebarMenuButtonIcon style={{ marginLeft: 0 }}><TypeIcon /></SidebarMenuButtonIcon>
+              <SidebarMenuButtonIcon style={{ marginLeft: 0, ...iconSizeVar }}><TypeIcon /></SidebarMenuButtonIcon>
               <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
               {hasChildren && renderActions()}
             </SidebarMenuButton>
             {hasChildren && (
               <SidebarMenuSub open={isExpanded} hasIcons>
-                {renderTreeItems(item.children!, depth + 1)}
+                <SortableContext items={item.children!.map((child) => child.id)} strategy={verticalListSortingStrategy}>
+                  {renderTreeItems(item.children!, depth + 1)}
+                </SortableContext>
               </SidebarMenuSub>
             )}
           </SidebarMenuItem>
         );
       }
 
-      return (
-        <SidebarMenuSubItem key={item.id} className="group/action">
-          <SidebarMenuSubButton
-            className="gap-2"
-            indent={0}
-            style={{ paddingLeft: 60 }}
-            isActive={activeItem === item.id}
-            onClick={() => setActiveItem(item.id)}
-          >
-            <span style={{ width: 16, height: 16, flexShrink: 0 }} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
-            {item.label}
-          </SidebarMenuSubButton>
-        </SidebarMenuSubItem>
-      );
+      return <SortableNestedItem key={item.id} item={item} />;
     });
   };
 
@@ -1063,7 +1141,7 @@ export function SidebarActionTreeDemo() {
             onClick={() => setActiveItem(item.id)}
           >
             <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
-            <SidebarMenuButtonIcon style={{ marginLeft: 0 }}><TypeIcon /></SidebarMenuButtonIcon>
+            <SidebarMenuButtonIcon style={{ marginLeft: 0, ...iconSizeVar }}><TypeIcon /></SidebarMenuButtonIcon>
             <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -1071,13 +1149,14 @@ export function SidebarActionTreeDemo() {
     });
   };
 
-   return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
-       <SidebarProvider className="h-full" collapsible="none">
-         <SidebarLayout className="h-full">
-             <Sidebar style={{ width: '280px' }}>
-               <SidebarHeader>
-                 <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
+  return (
+    <>
+      <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
+        <SidebarProvider className="h-full" collapsible="none">
+          <SidebarLayout className="h-full">
+            <Sidebar style={{ width: '280px' }}>
+              <SidebarHeader>
+                <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
                   <div className="flex-1">
                     <SidebarInput
                       size="md"
@@ -1119,9 +1198,11 @@ export function SidebarActionTreeDemo() {
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupContent>
-                    <SidebarMenu>
-                      {isFiltering ? renderFlatItems(displaySteps) : renderTreeItems(displaySteps)}
-                    </SidebarMenu>
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                      <SidebarMenu>
+                        {isFiltering ? renderFlatItems(displaySteps) : renderTreeItems(displaySteps)}
+                      </SidebarMenu>
+                    </DndContext>
                   </SidebarGroupContent>
                 </SidebarGroup>
               </SidebarContent>
@@ -1135,12 +1216,26 @@ export function SidebarActionTreeDemo() {
                     : 'Chevrons on the left expand/collapse. Action buttons appear on hover.'}
                 </p>
               </div>
-             </SidebarInset>
-           </SidebarLayout>
-         </SidebarProvider>
-     </div>
-   );
- }
+            </SidebarInset>
+          </SidebarLayout>
+        </SidebarProvider>
+      </div>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="iconSize">
+          <SegmentedControl<'sm' | 'md'>
+            value={iconSize}
+            onChange={setIconSize}
+            aria-label="Icon size"
+            size="xs"
+          >
+            <SegmentedControl.Option value="sm">sm</SegmentedControl.Option>
+            <SegmentedControl.Option value="md">md</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+    </>
+  );
+}
 
  // =============================================
  // Scrollable
@@ -1150,7 +1245,7 @@ export function SidebarScrollableDemo() {
    const [activeItem, setActiveItem] = useState('Overview');
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full">
         <SidebarLayout className="h-full">
             <Sidebar>
@@ -1253,7 +1348,7 @@ export function SidebarTextOnlyDemo() {
    ];
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible="none">
         <SidebarLayout className="h-full">
             <Sidebar variant="docs" style={{ width: '180px' }}>
@@ -1308,7 +1403,7 @@ export function SidebarSearchDemo() {
    ];
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible="none">
         <SidebarLayout className="h-full">
             <Sidebar variant="docs" style={{ width: '220px' }}>
@@ -1366,7 +1461,7 @@ export function SidebarSearchDemo() {
 
 export function SidebarSkeletonDemo() {
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full">
         <SidebarLayout className="h-full">
             <Sidebar>
@@ -1424,7 +1519,7 @@ export function SidebarBadgesDemo() {
 
    return (
      <>
-       <div data-demo-stage className="flex-1 w-full !p-0">
+       <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
          <SidebarProvider className="h-full" collapsible="none">
            <SidebarLayout className="h-full">
                <Sidebar>
@@ -1484,7 +1579,7 @@ export function SidebarFooterCardsDemo() {
    const [activeItem, setActiveItem] = useState('Overview');
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible="icon">
         <SidebarLayout className="h-full">
             <Sidebar>
@@ -1612,7 +1707,7 @@ export function SidebarHeaderSizesDemoPreview() {
    const setActiveItem = ctx?.setActiveItem ?? (() => { });
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
       {size === 'sm' ? (
         <SidebarProvider className="h-full" collapsible="none" key="sm">
           <SidebarLayout className="h-full">
@@ -2259,7 +2354,7 @@ export function SidebarMobileDemoPreview() {
    const icons = ctx?.icons ?? false;
    const key = `${mobile}-${nested}-${icons}`;
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0">
+     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible={mobile ? 'offcanvas' : 'icon'} key={key}>
         <MobileMenuInner mobile={mobile} nested={nested} icons={icons} />
       </SidebarProvider>
@@ -2288,4 +2383,3 @@ export function SidebarMobileDemo() {
     </SidebarMobileDemoRoot>
   );
 }
-
