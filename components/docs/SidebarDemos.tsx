@@ -691,6 +691,7 @@ export function SidebarFilteredTreeDemo() {
   );
   const [activeItem, setActiveItem] = useState('start');
   const [iconSize, setIconSize] = useState<'sm' | 'md'>('sm');
+  const [expandMode, setExpandMode] = useState<'row' | 'chevron'>('chevron');
 
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) => {
@@ -720,15 +721,22 @@ export function SidebarFilteredTreeDemo() {
 
       if (depth === 0) {
         if (hasChildren) {
+          const chevronOnly = expandMode === 'chevron';
           return (
             <SidebarMenuItem key={item.id} expanded={isExpanded}>
               <SidebarMenuButton
                 isActive={activeItem === item.id}
-                onClick={() => toggleExpanded(item.id)}
+                onClick={() => {
+                  if (chevronOnly) setActiveItem(item.id);
+                  else toggleExpanded(item.id);
+                }}
               >
                 <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
                 <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
-                <SidebarMenuChevron />
+                <SidebarMenuChevron
+                  className={chevronOnly ? 'rounded-sm p-1 -m-1 cursor-pointer hover:bg-[var(--color-background-secondary-ghost-hover)]' : undefined}
+                  onClick={chevronOnly ? (e) => { e.stopPropagation(); toggleExpanded(item.id); } : undefined}
+                />
               </SidebarMenuButton>
               <SidebarMenuSub open={isExpanded} hasIcons>
                 {renderTreeItems(item.children!, depth + 1)}
@@ -751,16 +759,24 @@ export function SidebarFilteredTreeDemo() {
       }
 
       if (hasChildren) {
+        const chevronOnly = expandMode === 'chevron';
         return (
           <SidebarMenuItem key={item.id} expanded={isExpanded}>
             <SidebarMenuSubButton
               className="gap-2"
               indent={Math.min(depth, 3) as 0 | 1 | 2 | 3}
-              onClick={() => toggleExpanded(item.id)}
+              isActive={chevronOnly ? activeItem === item.id : undefined}
+              onClick={() => {
+                if (chevronOnly) setActiveItem(item.id);
+                else toggleExpanded(item.id);
+              }}
             >
               <span style={nestedIconStyle} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"><TypeIcon /></span>
               {item.label}
-              <SidebarMenuChevron />
+              <SidebarMenuChevron
+                className={chevronOnly ? 'rounded-sm p-1 -m-1 cursor-pointer hover:bg-[var(--color-background-secondary-ghost-hover)]' : undefined}
+                onClick={chevronOnly ? (e) => { e.stopPropagation(); toggleExpanded(item.id); } : undefined}
+              />
             </SidebarMenuSubButton>
             <SidebarMenuSub open={isExpanded}>
               {renderTreeItems(item.children!, depth + 1)}
@@ -905,6 +921,17 @@ export function SidebarFilteredTreeDemo() {
           >
             <SegmentedControl.Option value="sm">sm</SegmentedControl.Option>
             <SegmentedControl.Option value="md">md</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="expand">
+          <SegmentedControl<'row' | 'chevron'>
+            value={expandMode}
+            onChange={setExpandMode}
+            aria-label="Expand trigger"
+            size="xs"
+          >
+            <SegmentedControl.Option value="row">row</SegmentedControl.Option>
+            <SegmentedControl.Option value="chevron">chevron</SegmentedControl.Option>
           </SegmentedControl>
         </DemoControlRow>
       </div>
@@ -1088,12 +1115,15 @@ export function SidebarSearchDemo() {
           <SidebarLayout style={{ height: 600 }}>
             <Sidebar variant="docs" style={{ width: '220px' }}>
               <SidebarHeader>
-                <SidebarInput
-                  placeholder="Search"
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  onClear={() => setSearchValue('')}
-                />
+                <div style={{ padding: '16px 0 8px' }}>
+                  <SidebarInput
+                    variant="soft"
+                    placeholder="Search"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onClear={() => setSearchValue('')}
+                  />
+                </div>
               </SidebarHeader>
               <SidebarContent>
                 {docsSections.map((section) => (
