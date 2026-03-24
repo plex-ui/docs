@@ -7,6 +7,7 @@ import {
   SidebarBaseDemo,
   SidebarCollapsibleIconDemo,
   SidebarNestedDemo,
+  SidebarFilteredTreeDemo,
   SidebarScrollableDemo,
   SidebarTextOnlyDemo,
   SidebarSearchDemo,
@@ -174,6 +175,51 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
   </SidebarLayout>
 </SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarTall}>
   <SidebarNestedDemo />
+</ComponentPreview>
+
+### Filtered Tree
+
+<ComponentPreview details={<>Combine search and type-based filtering with nested tree navigation. Each item has an icon based on its type. A multi-select <code>Select</code> filters items by type.</>} code={`<SidebarProvider collapsible="none">
+  <SidebarLayout style={{ height: 650 }}>
+    <Sidebar style={{ width: "280px" }}>
+      <SidebarHeader>
+        <div className="flex items-center gap-1.5">
+          <SidebarInput size="sm" placeholder="Search" ... />
+          <Select
+            multiple
+            clearable
+            placeholder="Filter"
+            variant="outline"
+            size="sm"
+            options={stepFilterOptions}
+            value={typeFilters}
+            onChange={(selected) =>
+              setTypeFilters(selected.map((o) => o.value))
+            }
+            block={false}
+          />
+        </div>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton isActive>
+                  <SidebarMenuButtonIcon><Desktop /></SidebarMenuButtonIcon>
+                  <SidebarMenuButtonLabel>Start</SidebarMenuButtonLabel>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              ...
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+    <SidebarInset>...</SidebarInset>
+  </SidebarLayout>
+</SidebarProvider>`} previewMinHeight={PREVIEW_MIN_HEIGHT.sidebarExtraTall}>
+  <SidebarFilteredTreeDemo />
 </ComponentPreview>
 
 ### Mobile Menu
