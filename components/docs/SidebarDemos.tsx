@@ -701,7 +701,7 @@ export function SidebarFilteredTreeDemo() {
     new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
   );
   const [activeItem, setActiveItem] = useState('start');
-  const [iconSize, setIconSize] = useState<'sm' | 'md'>('sm');
+  const iconSize = 'sm' as const;
   const [expandMode, setExpandMode] = useState<'row' | 'chevron'>('chevron');
 
   const toggleExpanded = (id: string) => {
@@ -755,7 +755,12 @@ export function SidebarFilteredTreeDemo() {
                     <ChevronDownMd />
                   </span>
                 ) : (
-                  <SidebarMenuChevron />
+                  <span
+                    className="inline-flex items-center justify-center shrink-0 ml-auto transition-transform [&>svg]:block [&>svg]:w-4 [&>svg]:h-4"
+                    style={{ width: 26, height: 26, marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                  >
+                    <ChevronDownMd />
+                  </span>
                 )}
               </SidebarMenuButton>
               <SidebarMenuSub open={isExpanded} hasIcons>
@@ -804,7 +809,12 @@ export function SidebarFilteredTreeDemo() {
                    <ChevronDownMd />
                  </span>
                ) : (
-                 <SidebarMenuChevron />
+                 <span
+                   className="inline-flex items-center justify-center shrink-0 ml-auto transition-transform [&>svg]:block [&>svg]:w-4 [&>svg]:h-4"
+                   style={{ width: 26, height: 26, marginRight: -9, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                 >
+                   <ChevronDownMd />
+                 </span>
                )}
             </SidebarMenuSubButton>
             <SidebarMenuSub open={isExpanded}>
@@ -939,17 +949,6 @@ export function SidebarFilteredTreeDemo() {
           </SidebarProvider>
       </div>
       <div data-demo-controls style={controlsTableStyle}>
-        <DemoControlRow name="iconSize">
-          <SegmentedControl<'sm' | 'md'>
-            value={iconSize}
-            onChange={setIconSize}
-            aria-label="Icon size"
-            size="xs"
-          >
-            <SegmentedControl.Option value="sm">sm</SegmentedControl.Option>
-            <SegmentedControl.Option value="md">md</SegmentedControl.Option>
-          </SegmentedControl>
-        </DemoControlRow>
         <DemoControlRow name="expand">
           <SegmentedControl<'row' | 'chevron'>
             value={expandMode}
@@ -970,7 +969,63 @@ export function SidebarFilteredTreeDemo() {
 // Action tree navigation
 // =============================================
 
-const ghostBtnCls = 'inline-flex items-center justify-center shrink-0 rounded-sm cursor-pointer hover:bg-[var(--color-background-secondary-ghost-hover)] active:bg-[var(--color-background-secondary-ghost-hover)] active:scale-95 transition-all [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto';
+const ghostBtnCls = 'inline-flex items-center justify-center shrink-0 rounded-sm cursor-pointer p-0 m-0 border-0 bg-transparent appearance-none leading-none align-middle select-none hover:bg-[var(--color-background-secondary-ghost-hover)] active:bg-[var(--color-background-secondary-ghost-hover)] active:scale-95 transition-all [&>svg]:block [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto';
+
+const ACTION_TREE_CHILD_ACTIONS_CLS = 'item-actions absolute right-[3px] top-[3px] bottom-[3px] flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/action:opacity-100 group-hover/action:pointer-events-auto transition-opacity z-[2]';
+const ACTION_TREE_BTN_SIZE = 26;
+const ACTION_TREE_NESTED_ICON_STYLE: React.CSSProperties = { width: 16, height: 16, flexShrink: 0 };
+
+function SortableNestedItem({ item, activeItem, onSelect }: { item: WorkflowStep; activeItem: string; onSelect: (id: string) => void }) {
+  const TypeIcon = stepTypeConfig[item.type].icon;
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
+  const sortableStyle: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <SidebarMenuSubItem ref={setNodeRef} style={sortableStyle}>
+      <div className="group/action relative">
+        <SidebarMenuSubButton
+          indent={1}
+          isActive={activeItem === item.id}
+          className="gap-2 group-hover/action:text-[var(--sidebar-menu-text-active)] group-hover/action:[&::before]:!opacity-50 group-hover/action:[&::before]:![transform:scale(1)]"
+          style={{ paddingLeft: 60 }}
+          onClick={() => onSelect(item.id)}
+        >
+          <span style={ACTION_TREE_NESTED_ICON_STYLE} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full relative z-[1]"><TypeIcon /></span>
+          <span className="flex-1 min-w-0 truncate text-left relative z-[1] group-hover/action:pr-[48px]">{item.label}</span>
+        </SidebarMenuSubButton>
+        <span data-actions className={ACTION_TREE_CHILD_ACTIONS_CLS}>
+          <button
+            type="button"
+            className={ghostBtnCls}
+            style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE }}
+            onClick={(e) => e.stopPropagation()}
+            onClickCapture={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            onPointerDownCapture={(e) => e.stopPropagation()}
+            aria-label="More actions"
+          >
+            <DotsHorizontal />
+          </button>
+          <button
+            type="button"
+            className={ghostBtnCls}
+            style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE, cursor: isDragging ? 'grabbing' : 'grab' }}
+            onClick={(e) => e.stopPropagation()}
+            onClickCapture={(e) => e.stopPropagation()}
+            aria-label="Drag to reorder"
+            {...listeners}
+            {...attributes}
+          >
+            <GripVertical />
+          </button>
+        </span>
+      </div>
+    </SidebarMenuSubItem>
+  );
+}
 
 export function SidebarActionTreeDemo() {
   const [steps, setSteps] = useState(workflowSteps);
@@ -980,7 +1035,7 @@ export function SidebarActionTreeDemo() {
     new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
   );
   const [activeItem, setActiveItem] = useState('gov-id');
-  const [iconSize, setIconSize] = useState<'sm' | 'md'>('sm');
+  const iconSize = 'sm' as const;
 
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) => {
@@ -1008,68 +1063,48 @@ export function SidebarActionTreeDemo() {
   const iconSizeVar = { '--sidebar-icon-size': `${iconPx}px` } as React.CSSProperties;
   const nestedIconStyle: React.CSSProperties = { width: iconPx, height: iconPx, flexShrink: 0 };
 
-  const parentActionsCls = 'ml-auto flex items-center gap-0.5 opacity-0 group-hover/parent:opacity-100 transition-opacity relative z-[1]';
-  const childActionsCls = 'hidden group-hover/action:flex items-center gap-0.5 shrink-0 relative z-[1] ml-auto';
-  const btnSize = 26;
+  const findLabel = (items: WorkflowStep[]): string => {
+    for (const item of items) {
+      if (item.id === activeItem) return item.label;
+      if (item.children) {
+        const found = findLabel(item.children);
+        if (found) return found;
+      }
+    }
+    return '';
+  };
+  const activeItemLabel = findLabel(steps) || 'Start';
+
+  const parentActionsCls = 'item-actions absolute right-[3px] top-[3px] bottom-[3px] flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/parent:opacity-100 group-hover/parent:pointer-events-auto transition-opacity z-[2]';
 
   const renderActions = () => (
-    <span className={parentActionsCls} style={{ height: 0, marginRight: -9 }}>
-      <span className={ghostBtnCls} style={{ width: btnSize, height: btnSize }} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="none">
+    <span className={parentActionsCls}>
+      <button
+        type="button"
+        className={ghostBtnCls}
+        style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE }}
+        onClick={(e) => e.stopPropagation()}
+        onClickCapture={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerDownCapture={(e) => e.stopPropagation()}
+        aria-label="More actions"
+      >
         <DotsHorizontal />
-      </span>
-      <span className={ghostBtnCls} style={{ width: btnSize, height: btnSize }} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="none">
+      </button>
+      <button
+        type="button"
+        className={ghostBtnCls}
+        style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE }}
+        onClick={(e) => e.stopPropagation()}
+        onClickCapture={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerDownCapture={(e) => e.stopPropagation()}
+        aria-label="Add child step"
+      >
         <Plus />
-      </span>
+      </button>
     </span>
   );
-
-  const SortableNestedItem = ({ item }: { item: WorkflowStep }) => {
-    const TypeIcon = stepTypeConfig[item.type].icon;
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
-    const sortableStyle: React.CSSProperties = {
-      transform: CSS.Transform.toString(transform),
-      transition,
-    };
-
-    return (
-      <SidebarMenuSubItem ref={setNodeRef} style={sortableStyle} className="group/action">
-        <SidebarMenuSubButton
-          asChild
-          indent={0}
-          isActive={activeItem === item.id}
-        >
-          <div
-            role="button"
-            tabIndex={0}
-            className="[&:has(.item-actions:hover)::before]:!opacity-[0.3] [&:has(.item-actions:hover):active::before]:!scale-100"
-            style={{ padding: '6px 12px 6px 60px', cursor: 'pointer' }}
-            onClick={() => setActiveItem(item.id)}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveItem(item.id); }}
-          >
-            <span style={{ ...nestedIconStyle, marginRight: 8 }} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full relative z-[1]"><TypeIcon /></span>
-            <span className="min-w-0 truncate relative z-[1]">{item.label}</span>
-            <span className={childActionsCls} style={{ height: 0, marginRight: -9 }}>
-              <span className={ghostBtnCls} style={{ width: btnSize, height: btnSize }} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()} role="none">
-                <DotsHorizontal />
-              </span>
-              <span
-                className={ghostBtnCls}
-                style={{ width: btnSize, height: btnSize, cursor: isDragging ? 'grabbing' : 'grab' }}
-                onPointerDown={(e) => e.stopPropagation()}
-                onClick={(e) => e.stopPropagation()}
-                onKeyDown={(e) => e.stopPropagation()}
-                {...listeners}
-                {...attributes}
-                role="none"
-              >
-                <GripVertical />
-              </span>
-            </span>
-          </div>
-        </SidebarMenuSubButton>
-      </SidebarMenuSubItem>
-    );
-  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -1094,28 +1129,31 @@ export function SidebarActionTreeDemo() {
 
       if (depth === 0) {
         return (
-          <SidebarMenuItem key={item.id} expanded={isExpanded} className="group/parent">
-            <SidebarMenuButton
-              isActive={activeItem === item.id}
-              onClick={() => setActiveItem(item.id)}
-            >
-              {hasChildren ? (
-                <span
-                  role="none"
-                  className={`${ghostBtnCls} transition-transform`}
-                  style={{ width: btnSize, height: btnSize, marginLeft: 3, marginRight: -3, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
-                  onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
-                >
-                  <ChevronDownMd />
-                </span>
-              ) : (
-                <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
-              )}
-              <SidebarMenuButtonIcon style={{ marginLeft: 0, ...iconSizeVar }}><TypeIcon /></SidebarMenuButtonIcon>
-              <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+          <SidebarMenuItem key={item.id} expanded={isExpanded}>
+            <div className="group/parent relative">
+              <SidebarMenuButton
+                isActive={activeItem === item.id}
+                className="group-hover/parent:text-[var(--sidebar-menu-text-active)] group-hover/parent:[&::before]:!opacity-50 group-hover/parent:[&::before]:![transform:scale(1)]"
+                onClick={() => setActiveItem(item.id)}
+              >
+                {hasChildren ? (
+                  <span
+                    role="none"
+                    className={`${ghostBtnCls} transition-transform`}
+                    style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE, marginLeft: 3, marginRight: -3, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                    onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
+                  >
+                    <ChevronDownMd />
+                  </span>
+                ) : (
+                  <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
+                )}
+                <SidebarMenuButtonIcon style={{ marginLeft: 0, ...iconSizeVar }}><TypeIcon /></SidebarMenuButtonIcon>
+                <SidebarMenuButtonLabel className="group-hover/parent:pr-[48px]">{item.label}</SidebarMenuButtonLabel>
+              </SidebarMenuButton>
               {hasChildren && renderActions()}
-            </SidebarMenuButton>
+            </div>
             {hasChildren && (
               <SidebarMenuSub open={isExpanded} hasIcons>
                 <SortableContext items={item.children!.map((child) => child.id)} strategy={verticalListSortingStrategy}>
@@ -1127,7 +1165,7 @@ export function SidebarActionTreeDemo() {
         );
       }
 
-      return <SortableNestedItem key={item.id} item={item} />;
+      return <SortableNestedItem key={item.id} item={item} activeItem={activeItem} onSelect={setActiveItem} />;
     });
   };
 
@@ -1140,8 +1178,7 @@ export function SidebarActionTreeDemo() {
             isActive={activeItem === item.id}
             onClick={() => setActiveItem(item.id)}
           >
-            <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
-            <SidebarMenuButtonIcon style={{ marginLeft: 0, ...iconSizeVar }}><TypeIcon /></SidebarMenuButtonIcon>
+            <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
             <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -1210,6 +1247,7 @@ export function SidebarActionTreeDemo() {
 
             <SidebarInset>
               <div className="p-6">
+                <h1 className="text-2xl font-semibold mb-4">{activeItemLabel}</h1>
                 <p className="text-secondary">
                   {isFiltering
                     ? 'Filtered results shown as a flat list.'
@@ -1219,19 +1257,6 @@ export function SidebarActionTreeDemo() {
             </SidebarInset>
           </SidebarLayout>
         </SidebarProvider>
-      </div>
-      <div data-demo-controls style={controlsTableStyle}>
-        <DemoControlRow name="iconSize">
-          <SegmentedControl<'sm' | 'md'>
-            value={iconSize}
-            onChange={setIconSize}
-            aria-label="Icon size"
-            size="xs"
-          >
-            <SegmentedControl.Option value="sm">sm</SegmentedControl.Option>
-            <SegmentedControl.Option value="md">md</SegmentedControl.Option>
-          </SegmentedControl>
-        </DemoControlRow>
       </div>
     </>
   );
