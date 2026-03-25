@@ -3,12 +3,10 @@
 @import 'fumadocs-ui/css/preset.css';
 
 /* Plex UI design tokens only (NOT the full @plexui/ui/css bundle, which
-   resets Tailwind theme tokens and overrides dark-mode variants).
-   Direct dist paths because @tailwindcss/postcss doesn't resolve
-   package.json "exports" subpaths through monorepo symlinks. */
-@import '../packages/ui/dist/es/styles/variables-primitive.css';
-@import '../packages/ui/dist/es/styles/variables-semantic.css';
-@import '../packages/ui/dist/es/styles/variables-components.css';
+   resets Tailwind theme tokens and overrides dark-mode variants). */
+@import '@plexui/ui/styles/variables-primitive.css';
+@import '@plexui/ui/styles/variables-semantic.css';
+@import '@plexui/ui/styles/variables-components.css';
 
 /* Let Tailwind scan Plex UI component class usage */
 @source "../packages/ui";

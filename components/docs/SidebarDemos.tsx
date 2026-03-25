@@ -1001,7 +1001,7 @@ export function SidebarFilteredTreeDemo() {
 // Action tree navigation
 // =============================================
 
-const ghostBtnCls = 'inline-flex items-center justify-center shrink-0 rounded-sm cursor-pointer p-0 m-0 border-0 bg-transparent appearance-none leading-none align-middle select-none hover:bg-[var(--color-background-secondary-ghost-hover)] active:bg-[var(--color-background-secondary-ghost-hover)] active:scale-95 transition-all [&>svg]:block [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto';
+const ghostBtnCls = 'inline-flex items-center justify-center shrink-0 rounded-sm cursor-pointer p-0 m-0 border-0 bg-transparent appearance-none leading-none align-middle select-none hover:bg-[var(--color-background-secondary-ghost-hover)] active:bg-[var(--color-background-secondary-ghost-hover)] transition-colors [&>svg]:block [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto';
 
 // =============================================
 // Action Tree — Types, Config, Data
@@ -1181,7 +1181,7 @@ function ScreenMoreMenu({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Menu>
       <Menu.Trigger>{trigger}</Menu.Trigger>
-      <Menu.Content minWidth="auto" align="start">
+      <Menu.Content minWidth="auto" align="end">
         <Menu.Sub>
           <Menu.SubTrigger><ATMenuIcon type="action" icon={Plus} /> Add</Menu.SubTrigger>
           <Menu.SubContent>
@@ -1200,7 +1200,7 @@ function ContainerMoreMenu({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Menu>
       <Menu.Trigger>{trigger}</Menu.Trigger>
-      <Menu.Content minWidth="auto" align="start">
+      <Menu.Content minWidth="auto" align="end">
         <Menu.Sub>
           <Menu.SubTrigger><ATMenuIcon icon={Plus} /> Add</Menu.SubTrigger>
           <Menu.SubContent>
@@ -1231,7 +1231,7 @@ function ContainerMoreMenu({ trigger }: { trigger: React.ReactNode }) {
 
 const AT_BTN = 24;
 const AT_ICON: React.CSSProperties = { width: 24, height: 24, flexShrink: 0, borderRadius: 6 };
-const AT_ACTIONS = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/ati:opacity-100 group-hover/ati:pointer-events-auto transition-opacity z-[2]';
+const AT_ACTIONS = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/ati:opacity-100 group-hover/ati:pointer-events-auto z-[2]';
 const atItemPl = (depth: number, isGroup: boolean) => 4 + (isGroup ? depth : depth + 1) * 24;
 
 function SortableActionItem({
@@ -1377,7 +1377,7 @@ export function SidebarActionTreeDemo() {
   };
   const activeItemLabel = findLabel(steps) || 'Screen';
 
-  const parentActionsCls = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/atp:opacity-100 group-hover/atp:pointer-events-auto transition-opacity z-[2]';
+  const parentActionsCls = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/atp:opacity-100 group-hover/atp:pointer-events-auto z-[2]';
 
   const handleDragStart = (event: DragStartEvent) => {
     const id = String(event.active.id);
