@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const FolderPlus = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M20 15C20 14.4477 19.5523 14 19 14C18.4477 14 18 14.4477 18 15V17H16C15.4477 17 15 17.4477 15 18C15 18.5523 15.4477 19 16 19H18V21C18 21.5523 18.4477 22 19 22C19.5523 22 20 21.5523 20 21V19H22C22.5523 19 23 18.5523 23 18C23 17.4477 22.5523 17 22 17H20V15Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const FolderPlus = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+FolderPlus.displayName = "FolderPlus"
 export default FolderPlus

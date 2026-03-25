@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ComposeEditStar = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M5.5 2C5.73834 2 5.94355 2.16823 5.99029 2.40194C6.12681 3.08456 6.39366 3.66798 6.8039 4.10977C7.20968 4.54678 7.78143 4.87334 8.5822 5.0068C8.82329 5.04699 9 5.25558 9 5.5C9 5.74442 8.82329 5.95301 8.5822 5.9932C7.78143 6.12666 7.20968 6.45322 6.8039 6.89023C6.39366 7.33202 6.12681 7.91544 5.99029 8.59806C5.94355 8.83177 5.73834 9 5.5 9C5.26166 9 5.05645 8.83177 5.00971 8.59806C4.87319 7.91544 4.60634 7.33202 4.1961 6.89023C3.79032 6.45322 3.21857 6.12666 2.4178 5.9932C2.17671 5.95301 2 5.74442 2 5.5C2 5.25558 2.17671 5.04699 2.4178 5.0068C3.21857 4.87334 3.79032 4.54678 4.1961 4.10977C4.60634 3.66798 4.87319 3.08456 5.00971 2.40194C5.05645 2.16823 5.26166 2 5.5 2Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const ComposeEditStar = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ComposeEditStar.displayName = "ComposeEditStar"
 export default ComposeEditStar

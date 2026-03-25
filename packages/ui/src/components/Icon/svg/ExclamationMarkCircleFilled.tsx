@@ -1,7 +1,7 @@
 import type { SVGProps } from "react"
 
 const ExclamationMarkCircleFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -11,4 +11,5 @@ const ExclamationMarkCircleFilled = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
+ExclamationMarkCircleFilled.displayName = "ExclamationMarkCircleFilled"
 export default ExclamationMarkCircleFilled

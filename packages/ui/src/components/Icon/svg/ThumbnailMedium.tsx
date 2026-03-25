@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ThumbnailMedium = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10 17C10.5523 17 11 16.5523 11 16C11 15.4477 10.5523 15 10 15C9.44772 15 9 15.4477 9 16C9 16.5523 9.44772 17 10 17Z"
       fill="currentColor"
@@ -29,4 +29,5 @@ const ThumbnailMedium = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ThumbnailMedium.displayName = "ThumbnailMedium"
 export default ThumbnailMedium

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Sleep = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M22.1279 1.10938L22 1.09961H18C17.5029 1.09961 17.0996 1.50294 17.0996 2C17.0996 2.49706 17.5029 2.90039 18 2.90039H20.127L17.2969 6.4375C17.0808 6.70756 17.0388 7.0779 17.1885 7.38965C17.3383 7.70147 17.654 7.90039 18 7.90039H22L22.0918 7.89551C22.5457 7.84953 22.9004 7.46607 22.9004 7C22.9004 6.53393 22.5457 6.15047 22.0918 6.10449L22 6.09961H19.873L22.7031 2.5625L22.7754 2.45605C22.926 2.20011 22.9424 1.88303 22.8115 1.61035C22.6804 1.33749 22.4221 1.15158 22.1279 1.10938Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const Sleep = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Sleep.displayName = "Sleep"
 export default Sleep

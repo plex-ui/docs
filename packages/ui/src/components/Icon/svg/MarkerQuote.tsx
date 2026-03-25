@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const MarkerQuote = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.32526 12.7227C9.3003 12.7239 9.27521 12.7246 9.25 12.7246C8.2835 12.7246 7.5 11.8348 7.5 10.7373C7.5 9.63973 8.2835 8.75 9.25 8.75C9.75959 8.75 10.2159 8.85459 10.6247 9.22596C11.17 9.72133 11.5 10.5434 11.5 11.7025C11.5 13.6938 8.54895 16.4625 8.02379 14.6743C7.87545 14.1692 8.20537 13.9542 8.57045 13.7163C8.91404 13.4924 9.28877 13.2482 9.32526 12.7227Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const MarkerQuote = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+MarkerQuote.displayName = "MarkerQuote"
 export default MarkerQuote

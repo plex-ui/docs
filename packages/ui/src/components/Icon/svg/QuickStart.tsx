@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const QuickStart = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.66699 9.81868V14.1813C9.66699 14.828 10.4257 15.2187 11.003 14.8693L14.603 12.688C14.724 12.6185 14.8246 12.5183 14.8946 12.3975C14.9645 12.2767 15.0013 12.1396 15.0013 12C15.0013 11.8604 14.9645 11.7233 14.8946 11.6025C14.8246 11.4817 14.724 11.3815 14.603 11.312L11.003 9.13068C10.427 8.78135 9.66699 9.17201 9.66699 9.81868Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const QuickStart = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+QuickStart.displayName = "QuickStart"
 export default QuickStart

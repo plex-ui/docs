@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Resolution1080P = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -9,4 +9,5 @@ const Resolution1080P = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Resolution1080P.displayName = "Resolution1080P"
 export default Resolution1080P

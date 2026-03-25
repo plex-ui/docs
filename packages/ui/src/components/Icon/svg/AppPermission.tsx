@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const AppPermission = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M6.9855 2.14251C6.51192 2.42665 6.35836 3.04091 6.64251 3.51449L7.78041 5.41101L4.22378 11H2.5C1.94772 11 1.5 11.4477 1.5 12C1.5 12.5523 1.94772 13 2.5 13H2.95105L2.65634 13.4631C2.35983 13.9291 2.49718 14.5472 2.96312 14.8437C3.42907 15.1402 4.04715 15.0028 4.34366 14.5369L5.32167 13H8.5C9.05228 13 9.5 12.5523 9.5 12C9.5 11.4477 9.05228 11 8.5 11H6.5944L8.93086 7.32842L9.64251 8.51449C9.92665 8.98807 10.5409 9.14164 11.0145 8.85749C11.4881 8.57334 11.6416 7.95908 11.3575 7.4855L10.1314 5.44193L11.3437 3.53687C11.6402 3.07093 11.5028 2.45285 11.0369 2.15634C10.5709 1.85983 9.95285 1.99718 9.65634 2.46312L8.9809 3.52452L8.35749 2.4855C8.07334 2.01192 7.45908 1.85836 6.9855 2.14251Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const AppPermission = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+AppPermission.displayName = "AppPermission"
 export default AppPermission

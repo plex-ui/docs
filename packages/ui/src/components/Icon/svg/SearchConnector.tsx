@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const SearchConnector = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10.5 3.25C11.0523 3.25 11.5 3.69772 11.5 4.25C11.5 4.80228 11.0523 5.25 10.5 5.25C6.91015 5.25 4 8.16015 4 11.75C4 15.3399 6.91015 18.25 10.5 18.25C13.8698 18.25 16.6417 15.6849 16.9678 12.4014C17.0223 11.8519 17.512 11.4505 18.0615 11.5049C18.6111 11.5594 19.0125 12.0491 18.958 12.5986C18.7997 14.1934 18.1991 15.6572 17.2832 16.8691L20.707 20.293L20.7754 20.3691C21.0957 20.7619 21.0731 21.3409 20.707 21.707C20.3409 22.0731 19.7619 22.0957 19.3691 21.7754L19.293 21.707L15.8994 18.3135C14.4312 19.5229 12.5509 20.25 10.5 20.25C5.80558 20.25 2 16.4444 2 11.75C2 7.05558 5.80558 3.25 10.5 3.25Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const SearchConnector = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+SearchConnector.displayName = "SearchConnector"
 export default SearchConnector

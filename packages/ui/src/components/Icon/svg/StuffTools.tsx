@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const StuffTools = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10.5 13.5C9.94771 13.5 9.5 13.9477 9.5 14.5C9.5 15.0523 9.94771 15.5 10.5 15.5H13.5C14.0523 15.5 14.5 15.0523 14.5 14.5C14.5 13.9477 14.0523 13.5 13.5 13.5H10.5Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const StuffTools = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+StuffTools.displayName = "StuffTools"
 export default StuffTools

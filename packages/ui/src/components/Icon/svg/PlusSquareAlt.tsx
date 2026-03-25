@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const PlusSquareAlt = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -35,4 +35,5 @@ const PlusSquareAlt = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+PlusSquareAlt.displayName = "PlusSquareAlt"
 export default PlusSquareAlt

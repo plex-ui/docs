@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const AnalyzeData = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M15 15C15.5523 15 16 15.4477 16 16C16 16.5523 15.5523 17 15 17H8C7.44772 17 7 16.5523 7 16C7 15.4477 7.44772 15 8 15H15Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const AnalyzeData = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+AnalyzeData.displayName = "AnalyzeData"
 export default AnalyzeData

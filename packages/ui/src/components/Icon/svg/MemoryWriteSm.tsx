@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const MemoryWriteSm = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.8825 22.3235L14.8593 21.9282C15.4401 21.8119 15.9735 21.5265 16.3923 21.1077L20.9987 16.5014C21.8277 15.6723 21.8274 14.3281 20.9979 13.4994C20.169 12.6713 18.8256 12.6717 17.9973 13.5005L13.3919 18.1079C12.9733 18.5265 12.688 19.0597 12.5719 19.6404L12.1765 21.6175C12.0925 22.0372 12.4627 22.4075 12.8825 22.3235Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const MemoryWriteSm = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+MemoryWriteSm.displayName = "MemoryWriteSm"
 export default MemoryWriteSm

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const FolderShared = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10.4512 13.5713C11.2625 13.5713 12.1053 13.7853 12.7617 14.249C13.4351 14.7249 13.9023 15.4618 13.9023 16.4287C13.9023 16.7441 13.6446 16.9998 13.3272 17H7.5752C7.25759 17 7.00008 16.7442 7 16.4287C7 15.4617 7.46711 14.7249 8.14063 14.249C8.79711 13.7852 9.63976 13.5713 10.4512 13.5713Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const FolderShared = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+FolderShared.displayName = "FolderShared"
 export default FolderShared

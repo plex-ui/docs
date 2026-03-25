@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const UpscaleXs = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.7707 13.3698C13.1972 13.3698 13.5441 13.7155 13.5441 14.1419V15.6862C13.5441 16.1127 13.1972 16.4584 12.7707 16.4584H11.2264C10.8 16.4583 10.4543 16.1127 10.4543 15.6862V14.1419C10.4543 13.7155 10.8 13.3699 11.2264 13.3698H12.7707Z"
       fill="currentColor"
@@ -21,4 +21,5 @@ const UpscaleXs = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+UpscaleXs.displayName = "UpscaleXs"
 export default UpscaleXs

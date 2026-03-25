@@ -7,19 +7,27 @@
   background: var(--color-surface);
 }
 
-.Container {
+.SearchRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.InputWrap {
   position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 .Input {
   display: block;
   width: 100%;
-  padding: 12px 20px 12px 44px;
+  padding: 10px 16px 10px 40px;
   border: 1px solid var(--alpha-10);
   border-radius: var(--radius-md);
-  margin: 0 0 24px;
   background: var(--color-surface);
-  font-size: 15px;
+  font-size: 14px;
   transition: border-color 0.15s ease;
 }
 
@@ -39,12 +47,19 @@
 .InputIcon {
   position: absolute;
   top: 50%;
-  left: 16px;
-  width: 18px;
-  height: 18px;
-  margin-top: -9px;
+  left: 14px;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
   color: var(--color-text-tertiary);
   pointer-events: none;
+}
+
+.Count {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
 }
 
 .EmptyMessage {
@@ -57,44 +72,113 @@
 
 .Grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  column-gap: 14px;
-  row-gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 8px;
 }
 
 .Item {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  min-width: 0;
+  gap: 6px;
+  padding: 12px 6px 10px;
+  border: 1px solid var(--alpha-06);
+  border-radius: var(--radius-md);
+  background: transparent;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.Item:hover {
+  border-color: var(--alpha-12);
+  background: var(--alpha-03);
+}
+
+.ItemCopied {
+  border-color: var(--color-success, #22c55e);
+  background: color-mix(in srgb, var(--color-success, #22c55e) 6%, transparent);
+}
+
+.ItemCopied:hover {
+  border-color: var(--color-success, #22c55e);
+  background: color-mix(in srgb, var(--color-success, #22c55e) 6%, transparent);
 }
 
 .IconWrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  border: 1px solid var(--alpha-10);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
+  width: 32px;
+  height: 32px;
   color: var(--color-text);
 }
 
+.ItemCopied .IconWrap {
+  color: var(--color-success, #22c55e);
+}
+
 .IconWrap svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .Name {
-  min-width: 0;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 11px;
+  line-height: 1.2;
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.ItemCopied .Name {
+  color: var(--color-success, #22c55e);
+  font-weight: var(--font-weight-medium);
+}
+
+.Actions {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: inherit;
+  background: var(--color-surface);
+}
+
+.Item:hover .Actions {
+  display: flex;
+}
+
+.Action {
+  padding: 4px 10px;
+  border: 1px solid var(--alpha-10);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: 12px;
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
-  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease;
+  appearance: none;
+}
+
+.Action:hover {
+  border-color: var(--alpha-15);
+  background: var(--alpha-06);
+  color: var(--color-text);
+}
+
+.Action:active {
+  background: var(--alpha-10);
 }

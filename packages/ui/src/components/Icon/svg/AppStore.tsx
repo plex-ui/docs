@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const AppStore = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M3.25061 16.9233H14.6228C15.169 15.8803 14.4646 14.3752 13.2073 14.3752H9.32834L14.6917 4.917C15.0352 4.30436 14.8325 3.52374 14.2312 3.17373C13.6299 2.82372 12.8637 3.0302 12.5202 3.64283L11.9636 4.6229L11.4174 3.63921C11.0669 3.02657 10.3076 2.8201 9.70632 3.17011C9.10501 3.52714 8.90236 4.30074 9.2459 4.91337L10.5205 7.16762L6.43891 14.375H3.25061C2.55664 14.375 2 14.9421 2 15.6492C2 16.3564 2.55664 16.9233 3.25061 16.9233Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const AppStore = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+AppStore.displayName = "AppStore"
 export default AppStore

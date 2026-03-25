@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const TuningFork = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M15.7071 4.20711C16.0976 3.81658 16.0976 3.18342 15.7071 2.79289C15.3166 2.40237 14.6834 2.40237 14.2929 2.79289L7.37585 9.70993C5.70652 11.3793 5.4507 13.9592 6.67837 15.9074L5.01804 17.5677C4.85282 17.5236 4.67916 17.5 4.5 17.5C3.39543 17.5 2.5 18.3954 2.5 19.5C2.5 20.6046 3.39543 21.5 4.5 21.5C5.60457 21.5 6.5 20.6046 6.5 19.5C6.5 19.3208 6.47644 19.1472 6.43226 18.982L8.09258 17.3216C10.0408 18.5493 12.6207 18.2935 14.2901 16.6241L21.2071 9.70711C21.5976 9.31658 21.5976 8.68342 21.2071 8.29289C20.8166 7.90237 20.1834 7.90237 19.7929 8.29289L12.8759 15.2099C11.7787 16.3071 10.026 16.3866 8.83398 15.3933L8.71002 15.29L8.60672 15.166C7.61341 13.974 7.69291 12.2213 8.79007 11.1241L15.7071 4.20711Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const TuningFork = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+TuningFork.displayName = "TuningFork"
 export default TuningFork

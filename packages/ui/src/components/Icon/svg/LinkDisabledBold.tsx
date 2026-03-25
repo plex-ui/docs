@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const LinkDisabledBold = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -21,4 +21,5 @@ const LinkDisabledBold = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+LinkDisabledBold.displayName = "LinkDisabledBold"
 export default LinkDisabledBold

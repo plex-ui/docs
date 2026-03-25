@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const RegenerateStar = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M3.07029 10.8763C3.62403 6.43564 7.41039 3 12.0007 3C14.2815 3 16.4023 3.84959 18.0126 5.25438V4C18.0126 3.44772 18.4603 3 19.0126 3C19.5648 3 20.0126 3.44772 20.0126 4V8C20.0126 8.54906 19.5701 8.99477 19.0222 8.99995C19.0094 9.00022 18.9963 9.00023 18.9834 9H15.0126C14.4603 9 14.0126 8.55228 14.0126 8C14.0126 7.44772 14.4603 7 15.0126 7H16.9579C15.6777 5.76514 13.9126 5 12.0007 5C8.4318 5 5.48538 7.67174 5.05492 11.1237C4.98658 11.6718 4.48691 12.0607 3.93887 11.9923C3.39082 11.924 3.00195 11.4243 3.07029 10.8763Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const RegenerateStar = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+RegenerateStar.displayName = "RegenerateStar"
 export default RegenerateStar

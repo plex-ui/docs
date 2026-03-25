@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const KeyboardShortcut = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.0317 8.0023L8.58353 12.7043C8.34134 13.0346 8.57718 13.5 8.98673 13.5H11.5789L11.0789 15.5854C10.9517 16.1162 11.6456 16.4378 11.9684 15.9977L15.4165 11.2957C15.6587 10.9654 15.4228 10.5 15.0133 10.5H12.4211L12.9211 8.41456C13.0483 7.8838 12.3544 7.56216 12.0317 8.0023Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const KeyboardShortcut = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+KeyboardShortcut.displayName = "KeyboardShortcut"
 export default KeyboardShortcut

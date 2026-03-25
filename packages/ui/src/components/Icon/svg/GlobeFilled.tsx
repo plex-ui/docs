@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const GlobeFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.01685 11C9.10305 8.45621 9.51396 6.2064 10.1113 4.56357C10.4501 3.63192 10.8299 2.94833 11.2012 2.51636C11.5754 2.08113 11.8488 2 11.9999 2C12.1511 2 12.4245 2.08113 12.7986 2.51636C13.17 2.94833 13.5498 3.63192 13.8886 4.56357C14.486 6.2064 14.8969 8.45621 14.9831 11H9.01685Z"
       fill="currentColor"
@@ -27,4 +27,5 @@ const GlobeFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+GlobeFilled.displayName = "GlobeFilled"
 export default GlobeFilled

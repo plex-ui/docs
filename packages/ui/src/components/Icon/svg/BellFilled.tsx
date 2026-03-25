@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const BellFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.0007 2.25C7.78707 2.25 4.24043 5.40385 3.7481 9.58864L3.13896 14.7663C2.99908 15.9553 3.92808 17 5.12526 17H18.8762C20.0734 17 21.0024 15.9553 20.8625 14.7663L20.2533 9.58864C19.761 5.40385 16.2144 2.25 12.0007 2.25Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const BellFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+BellFilled.displayName = "BellFilled"
 export default BellFilled

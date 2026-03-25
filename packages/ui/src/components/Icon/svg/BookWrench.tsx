@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const BookWrench = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10.663 6.38721C10.8152 6.29069 11 6.40985 11 6.59008V8.00001C11 8.5523 11.4477 9.00001 12 9.00001C12.5523 9.00001 13 8.5523 13 8.00001V6.59008C13 6.40985 13.1848 6.29069 13.337 6.38721C14.036 6.83048 14.5 7.61106 14.5 8.50001C14.5 9.53285 13.8737 10.4194 12.9801 10.8006C12.9932 10.865 13 10.9317 13 11V13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13V11C11 10.9317 11.0068 10.865 11.0199 10.8006C10.1263 10.4194 9.5 9.53285 9.5 8.50001C9.5 7.61106 9.96397 6.83048 10.663 6.38721Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const BookWrench = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+BookWrench.displayName = "BookWrench"
 export default BookWrench

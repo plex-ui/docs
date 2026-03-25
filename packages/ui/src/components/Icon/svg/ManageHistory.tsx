@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ManageHistory = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M4 4.5V5.99929C5.82361 3.57195 8.72759 2 12 2C16.7603 2 20.7416 5.32525 21.7522 9.77871C21.8744 10.3173 21.5369 10.853 20.9983 10.9752C20.4597 11.0974 19.924 10.7599 19.8018 10.2213C18.9934 6.65879 15.806 4 12 4C9.04034 4 6.4544 5.60707 5.07004 8H7C7.55228 8 8 8.44772 8 9C8 9.55228 7.55228 10 7 10H3C2.44772 10 2 9.55228 2 9V4.5C2 3.94772 2.44772 3.5 3 3.5C3.55228 3.5 4 3.94772 4 4.5Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const ManageHistory = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ManageHistory.displayName = "ManageHistory"
 export default ManageHistory

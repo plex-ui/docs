@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ProDiamond = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.00042 7C9.21297 7.00022 9.39154 7.15986 9.41546 7.37106C9.56266 8.67066 10.2996 9.46633 11.6189 9.58352C11.8348 9.6027 12.0002 9.78371 12 10.0005C11.9998 10.2172 11.8339 10.3979 11.6179 10.4166C10.3173 10.5291 9.52915 11.3173 9.41656 12.6179C9.39786 12.8339 9.21723 12.9998 9.00047 13C8.7837 13.0002 8.6027 12.8348 8.58352 12.6189C8.46632 11.2996 7.67066 10.5627 6.37106 10.4155C6.15986 10.3915 6.00021 10.213 6 10.0004C5.99978 9.78788 6.15906 9.60899 6.37021 9.58464C7.68851 9.43258 8.43258 8.68851 8.58463 7.37021C8.60899 7.15906 8.78788 6.99978 9.00042 7Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const ProDiamond = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ProDiamond.displayName = "ProDiamond"
 export default ProDiamond

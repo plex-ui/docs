@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const TextLonger = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M5.60952 4.22486C6.00229 3.90451 6.5813 3.92711 6.94741 4.29322L9.44741 6.79322C9.83781 7.18376 9.8379 7.8168 9.44741 8.20728C9.05692 8.59772 8.42387 8.59767 8.03335 8.20728L7.14077 7.31471V16.6858L8.03335 15.7932C8.42387 15.4027 9.05689 15.4027 9.44741 15.7932C9.83775 16.1838 9.83788 16.8168 9.44741 17.2073L6.94741 19.7073C6.55694 20.0976 5.92385 20.0976 5.53335 19.7073L3.03335 17.2073C2.64286 16.8168 2.64293 16.1838 3.03335 15.7932C3.42387 15.4027 4.05689 15.4027 4.44741 15.7932L5.33999 16.6858V7.31471L4.44741 8.20728C4.05692 8.59772 3.42387 8.59767 3.03335 8.20728C2.64284 7.81678 2.64287 7.18375 3.03335 6.79322L5.53335 4.29322L5.60952 4.22486Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const TextLonger = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+TextLonger.displayName = "TextLonger"
 export default TextLonger

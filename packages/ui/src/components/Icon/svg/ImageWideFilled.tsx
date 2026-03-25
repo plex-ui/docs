@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ImageWideFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -9,4 +9,5 @@ const ImageWideFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ImageWideFilled.displayName = "ImageWideFilled"
 export default ImageWideFilled

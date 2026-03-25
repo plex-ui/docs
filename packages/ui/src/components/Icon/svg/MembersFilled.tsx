@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const MembersFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M2.22222 20C1.54721 20 1 19.4563 1 18.7857C1 16.7307 1.99227 15.1645 3.42364 14.1533C4.81866 13.1677 6.60907 12.7143 8.33333 12.7143C10.0576 12.7143 11.848 13.1677 13.243 14.1533C14.6744 15.1645 15.6667 16.7307 15.6667 18.7857C15.6667 19.4563 15.1195 20 14.4444 20C12.7348 20 3.93184 20 2.22222 20Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const MembersFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+MembersFilled.displayName = "MembersFilled"
 export default MembersFilled

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const MessageImage = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M18.25 7.5C18.25 8.19036 17.6904 8.75 17 8.75C16.3096 8.75 15.75 8.19036 15.75 7.5C15.75 6.80965 16.3096 6.25 17 6.25C17.6904 6.25 18.25 6.80965 18.25 7.5Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const MessageImage = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+MessageImage.displayName = "MessageImage"
 export default MessageImage

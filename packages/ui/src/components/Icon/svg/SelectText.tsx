@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const SelectText = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M6 4C6 4.74028 5.5978 5.38663 5 5.73244V14.2C5 15.0566 5.00078 15.6389 5.03755 16.089C5.07337 16.5274 5.1383 16.7516 5.21799 16.908C5.40973 17.2843 5.7157 17.5903 6.09202 17.782C6.24842 17.8617 6.47262 17.9266 6.91104 17.9624C7.36113 17.9992 7.94342 18 8.8 18H15C15.5523 18 16 18.4477 16 19C16 19.5523 15.5523 20 15 20H8.75868C7.95372 20 7.28936 20 6.74817 19.9558C6.18608 19.9099 5.66937 19.8113 5.18404 19.564C4.43139 19.1805 3.81947 18.5686 3.43597 17.816C3.18868 17.3306 3.09012 16.8139 3.04419 16.2518C2.99998 15.7106 2.99999 15.0463 3 14.2413V5.73244C2.4022 5.38663 2 4.74028 2 4C2 2.89543 2.89543 2 4 2C5.10457 2 6 2.89543 6 4Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const SelectText = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+SelectText.displayName = "SelectText"
 export default SelectText

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Loop = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M2.5117 10.806C3.10004 6.08786 7.12305 2.4375 12.0003 2.4375C14.3607 2.4375 16.5582 3.29386 18.2502 4.71499V4C18.2502 3.44772 18.6979 3 19.2502 3C19.8025 3 20.2502 3.44772 20.2502 4V7.5C20.2502 8.05228 19.8025 8.5 19.2502 8.5H15.7502C15.1979 8.5 14.7502 8.05228 14.7502 7.5C14.7502 6.94772 15.1979 6.5 15.7502 6.5H17.0656C15.7234 5.29726 13.9314 4.5625 12.0003 4.5625C8.2083 4.5625 5.07773 7.40122 4.62036 11.069C4.54775 11.6513 4.01685 12.0644 3.43456 11.9918C2.85226 11.9192 2.43908 11.3883 2.5117 10.806Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const Loop = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Loop.displayName = "Loop"
 export default Loop

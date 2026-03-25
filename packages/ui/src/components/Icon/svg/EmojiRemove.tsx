@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const EmojiRemove = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M11.2678 10.4407C14.6244 9.30567 15.7445 7.43901 15.412 5.91834C15.2509 5.18214 14.7469 4.59029 14.0827 4.31816C13.4978 4.07854 12.8079 4.09412 12.1462 4.44337C11.6438 3.88885 11.0009 3.63827 10.3693 3.6634C9.65207 3.69193 8.97602 4.0757 8.57293 4.71243C7.74031 6.02765 8.15452 8.16487 10.9205 10.3794C11.0182 10.4577 11.1491 10.4808 11.2678 10.4407Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const EmojiRemove = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+EmojiRemove.displayName = "EmojiRemove"
 export default EmojiRemove

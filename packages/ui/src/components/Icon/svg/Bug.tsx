@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Bug = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.5 13.5C10.3284 13.5 11 12.9404 11 12.25C11 11.5596 10.3284 11 9.5 11C8.67157 11 8 11.5596 8 12.25C8 12.9404 8.67157 13.5 9.5 13.5Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const Bug = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Bug.displayName = "Bug"
 export default Bug

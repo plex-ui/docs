@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ShieldLock = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.4008 3.76695C12.1453 3.65516 11.8547 3.65516 11.5992 3.76695L5.59918 6.39195C5.23519 6.55119 5 6.91081 5 7.3081V13.0001C5 16.8661 8.13401 20.0001 12 20.0001C15.866 20.0001 19 16.8661 19 13.0001V7.30811C19 6.91081 18.7648 6.55119 18.4008 6.39195L12.4008 3.76695ZM10.7975 1.93463C11.5641 1.59926 12.4359 1.59926 13.2025 1.93463L19.2025 4.55963C20.2944 5.03737 21 6.11621 21 7.30811V13.0001C21 17.9706 16.9706 22.0001 12 22.0001C7.02944 22.0001 3 17.9706 3 13.0001V7.3081C3 6.11621 3.70558 5.03737 4.79754 4.55963L10.7975 1.93463Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const ShieldLock = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ShieldLock.displayName = "ShieldLock"
 export default ShieldLock

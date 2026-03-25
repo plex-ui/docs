@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const PauseCircle = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.75 9.5C12.75 9.08578 13.0858 8.75 13.5 8.75H14.5C14.9142 8.75 15.25 9.08578 15.25 9.5V14.5C15.25 14.9142 14.9142 15.25 14.5 15.25H13.5C13.0858 15.25 12.75 14.9142 12.75 14.5V9.5Z"
       fill="currentColor"
@@ -17,4 +17,5 @@ const PauseCircle = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+PauseCircle.displayName = "PauseCircle"
 export default PauseCircle

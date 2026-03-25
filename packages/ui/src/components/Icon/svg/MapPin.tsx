@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const MapPin = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12 9.25C10.8954 9.25 10 10.1454 10 11.25C10 12.3546 10.8954 13.25 12 13.25C13.1046 13.25 14 12.3546 14 11.25C14 10.1454 13.1046 9.25 12 9.25ZM8 11.25C8 9.04086 9.79086 7.25 12 7.25C14.2091 7.25 16 9.04086 16 11.25C16 13.4591 14.2091 15.25 12 15.25C9.79086 15.25 8 13.4591 8 11.25Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const MapPin = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+MapPin.displayName = "MapPin"
 export default MapPin

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ScreenPosition = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10.0511 13.6118C10 13.8025 10 14.035 10 14.5C10 14.965 10 15.1975 10.0511 15.3882C10.1898 15.9059 10.5941 16.3102 11.1118 16.4489C11.3025 16.5 11.535 16.5 12 16.5H16C16.465 16.5 16.6975 16.5 16.8882 16.4489C17.4059 16.3102 17.8102 15.9059 17.9489 15.3882C18 15.1975 18 14.965 18 14.5C18 14.035 18 13.8025 17.9489 13.6118C17.8102 13.0941 17.4059 12.6898 16.8882 12.5511C16.6975 12.5 16.465 12.5 16 12.5H12C11.535 12.5 11.3025 12.5 11.1118 12.5511C10.5941 12.6898 10.1898 13.0941 10.0511 13.6118Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const ScreenPosition = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ScreenPosition.displayName = "ScreenPosition"
 export default ScreenPosition

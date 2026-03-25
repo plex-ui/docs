@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const QuoteReplyFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M7.5 13.25C7.98703 13.25 8.45082 13.1505 8.87217 12.9708C8.46129 14.0478 7.62459 15.5792 6.35846 15.7601C5.81173 15.8382 5.43183 16.3447 5.50993 16.8914C5.58804 17.4382 6.09457 17.8181 6.6413 17.74C9.19413 17.3753 10.7256 14.4711 11.169 12.1909C11.4118 10.9421 11.3856 9.58097 10.8491 8.44727C10.2424 7.16518 8.92256 6.24403 7.48508 6.25003C5.55895 6.25807 4 7.82198 4 9.75C4 11.683 5.567 13.25 7.5 13.25Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const QuoteReplyFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+QuoteReplyFilled.displayName = "QuoteReplyFilled"
 export default QuoteReplyFilled

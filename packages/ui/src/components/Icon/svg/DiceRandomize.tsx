@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const DiceRandomize = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M7.13273 15.7664C7.81779 15.6825 8.44119 16.1702 8.52531 16.8553C8.60938 17.5403 8.1224 18.1636 7.43742 18.2479C6.75223 18.332 6.12803 17.8452 6.04386 17.16C5.95973 16.4748 6.44752 15.8506 7.13273 15.7664Z"
       fill="currentColor"
@@ -29,4 +29,5 @@ const DiceRandomize = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+DiceRandomize.displayName = "DiceRandomize"
 export default DiceRandomize

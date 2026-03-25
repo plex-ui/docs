@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const SuitcaseAlt = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M13 13C13 13.2652 12.8946 13.5196 12.7071 13.7071C12.5196 13.8946 12.2652 14 12 14C11.7348 14 11.4804 13.8946 11.2929 13.7071C11.1054 13.5196 11 13.2652 11 13C11 12.7348 11.1054 12.4804 11.2929 12.2929C11.4804 12.1054 11.7348 12 12 12C12.2652 12 12.5196 12.1054 12.7071 12.2929C12.8946 12.4804 13 12.7348 13 13Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const SuitcaseAlt = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+SuitcaseAlt.displayName = "SuitcaseAlt"
 export default SuitcaseAlt

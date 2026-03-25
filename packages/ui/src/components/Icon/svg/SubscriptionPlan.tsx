@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const SubscriptionPlan = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.4125 8.10186C12.2139 7.81208 11.7863 7.81208 11.5877 8.10186L10.5136 9.66906C10.4486 9.76393 10.3528 9.83348 10.2425 9.866L8.42019 10.4032C8.08322 10.5026 7.95106 10.9093 8.1653 11.1877L9.32388 12.6935C9.39401 12.7847 9.43058 12.8972 9.42742 13.0122L9.37518 14.9114C9.36553 15.2626 9.71151 15.5139 10.0425 15.3962L11.8326 14.7597C11.9409 14.7211 12.0593 14.7211 12.1676 14.7597L13.9577 15.3962C14.2887 15.5139 14.6347 15.2626 14.6251 14.9114L14.5728 13.0122C14.5697 12.8972 14.6062 12.7847 14.6764 12.6935L15.835 11.1877C16.0492 10.9093 15.917 10.5026 15.5801 10.4032L13.7577 9.866C13.6474 9.83348 13.5516 9.76393 13.4866 9.66906L12.4125 8.10186Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const SubscriptionPlan = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+SubscriptionPlan.displayName = "SubscriptionPlan"
 export default SubscriptionPlan

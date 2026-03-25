@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Pulse = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M2.05311 10.5647C2.60469 10.5888 3.03308 11.056 3.00916 11.6077C2.90367 14.0417 3.77928 16.5065 5.63611 18.3636C6.02639 18.754 6.0264 19.3881 5.63611 19.7786C5.24566 20.1687 4.61249 20.1687 4.22205 19.7786C1.95219 17.5087 0.882309 14.4915 1.01111 11.5208C1.03509 10.9691 1.50139 10.5408 2.05311 10.5647Z"
       fill="currentColor"
@@ -31,4 +31,5 @@ const Pulse = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Pulse.displayName = "Pulse"
 export default Pulse

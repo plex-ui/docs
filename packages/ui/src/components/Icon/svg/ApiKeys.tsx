@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ApiKeys = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M7.75 9C8.57843 9 9.25 8.32843 9.25 7.5C9.25 6.67157 8.57843 6 7.75 6C6.92157 6 6.25 6.67157 6.25 7.5C6.25 8.32843 6.92157 9 7.75 9Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const ApiKeys = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ApiKeys.displayName = "ApiKeys"
 export default ApiKeys

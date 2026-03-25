@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Blend = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M7.7 11.5C7.58954 11.5 7.5 11.5895 7.5 11.7V12.3C7.5 12.4105 7.58954 12.5 7.7 12.5H8.3C8.41046 12.5 8.5 12.4105 8.5 12.3V11.7C8.5 11.5895 8.41046 11.5 8.3 11.5H7.7Z"
       fill="currentColor"
@@ -49,4 +49,5 @@ const Blend = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Blend.displayName = "Blend"
 export default Blend

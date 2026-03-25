@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Variation2V2 = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       opacity="0.4"
       d="M6 11C6 10.4477 6.44772 10 7 10H10C10.5523 10 11 10.4477 11 11V13C11 13.5523 10.5523 14 10 14H7C6.44772 14 6 13.5523 6 13V11Z"
@@ -18,4 +18,5 @@ const Variation2V2 = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Variation2V2.displayName = "Variation2V2"
 export default Variation2V2

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ImageCaption = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M7.00024 10.5C7.82867 10.5 8.50024 9.82843 8.50024 9C8.50024 8.17157 7.82867 7.5 7.00024 7.5C6.17182 7.5 5.50024 8.17157 5.50024 9C5.50024 9.82843 6.17182 10.5 7.00024 10.5Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const ImageCaption = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ImageCaption.displayName = "ImageCaption"
 export default ImageCaption

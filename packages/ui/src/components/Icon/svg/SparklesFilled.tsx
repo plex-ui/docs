@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const SparklesFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M4.94605 4.99475C4.97795 4.71314 5.21603 4.50029 5.49943 4.5C5.78282 4.49971 6.02135 4.71209 6.05382 4.99362C6.25655 6.75134 7.24865 7.74344 9.00638 7.94618C9.28792 7.97866 9.50029 8.21717 9.5 8.50057C9.49972 8.78396 9.28685 9.02206 9.00526 9.05395C7.27246 9.25022 6.21156 10.2328 6.05531 11.9918C6.02974 12.2797 5.78839 12.5004 5.49937 12.5C5.21035 12.4996 4.96951 12.2785 4.94459 11.9906C4.79447 10.2564 3.74362 9.20554 2.00941 9.05542C1.72147 9.03049 1.50032 8.78965 1.5 8.50063C1.49968 8.21161 1.72028 7.97027 2.00816 7.9447C3.76724 7.78844 4.74978 6.72755 4.94605 4.99475Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const SparklesFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+SparklesFilled.displayName = "SparklesFilled"
 export default SparklesFilled
