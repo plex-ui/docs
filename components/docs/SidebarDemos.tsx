@@ -1235,7 +1235,7 @@ export function SidebarActionTreeDemo() {
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupContent>
-                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                    <DndContext id="sidebar-action-tree" sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                       <SidebarMenu>
                         {isFiltering ? renderFlatItems(displaySteps) : renderTreeItems(displaySteps)}
                       </SidebarMenu>
