@@ -1,0 +1,8 @@
+import type { SVGProps } from "react"
+const TextAlignStart = (props: SVGProps<SVGSVGElement>) => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M17 18C17.5523 18 18 18.4477 18 19C18 19.5523 17.5523 20 17 20H3C2.44772 20 2 19.5523 2 19C2 18.4477 2.44772 18 3 18H17ZM15 11C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H3C2.44772 13 2 12.5523 2 12C2 11.4477 2.44772 11 3 11H15ZM21 4C21.5523 4 22 4.44772 22 5C22 5.55228 21.5523 6 21 6H3C2.44772 6 2 5.55228 2 5C2 4.44772 2.44772 4 3 4H21Z" fill="currentColor" />
+  </svg>
+)
+TextAlignStart.displayName = "TextAlignStart"
+export default TextAlignStart
