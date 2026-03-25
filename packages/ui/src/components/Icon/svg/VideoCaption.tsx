@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const VideoCaption = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M6 12.5C6 11.9477 6.44772 11.5 7 11.5H8.5C9.05229 11.5 9.5 11.9477 9.5 12.5C9.5 13.0523 9.05229 13.5 8.5 13.5H7C6.44772 13.5 6 13.0523 6 12.5Z"
       fill="currentColor"
@@ -25,4 +25,5 @@ const VideoCaption = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+VideoCaption.displayName = "VideoCaption"
 export default VideoCaption

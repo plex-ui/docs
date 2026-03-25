@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const VariationV32 = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <g opacity="0.4">
       <path
         d="M6 14C6 13.4477 6.44772 13 7 13H10C10.5523 13 11 13.4477 11 14V16C11 16.5523 10.5523 17 10 17H7C6.44772 17 6 16.5523 6 16V14Z"
@@ -23,4 +23,5 @@ const VariationV32 = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+VariationV32.displayName = "VariationV32"
 export default VariationV32

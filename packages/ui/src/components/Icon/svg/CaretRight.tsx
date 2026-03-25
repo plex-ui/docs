@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const CaretRight = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path d="M15 12L9 7V17L15 12Z" fill="currentColor" />
     <path
       fillRule="evenodd"
@@ -10,4 +10,5 @@ const CaretRight = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+CaretRight.displayName = "CaretRight"
 export default CaretRight

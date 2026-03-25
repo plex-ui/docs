@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const MarkerMultiple = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M13.3 12.0002C13.3 12.7182 12.718 13.3002 12 13.3002C11.282 13.3002 10.7 12.7182 10.7 12.0002C10.7 11.2822 11.282 10.7002 12 10.7002C12.718 10.7002 13.3 11.2822 13.3 12.0002Z"
       fill="currentColor"
@@ -21,4 +21,5 @@ const MarkerMultiple = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+MarkerMultiple.displayName = "MarkerMultiple"
 export default MarkerMultiple

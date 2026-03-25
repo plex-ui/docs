@@ -8,8 +8,9 @@ const pathProps: SVGProps<SVGPathElement> = {
 }
 
 const Reload = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path {...pathProps} />
   </svg>
 )
+Reload.displayName = "Reload"
 export default Reload

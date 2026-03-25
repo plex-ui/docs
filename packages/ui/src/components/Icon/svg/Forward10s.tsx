@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Forward10s = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M3.65316 8.62478C4.98754 5.32832 8.21996 3 11.9986 3C14.8272 3 17.3497 4.30473 18.9991 6.34362V5C18.9991 4.44772 19.4468 4 19.9991 4C20.5514 4 20.9991 4.44772 20.9991 5V9C20.9991 9.55228 20.5514 10 19.9991 10H15.9991C15.4468 10 14.9991 9.55228 14.9991 9C14.9991 8.44772 15.4468 8 15.9991 8H17.7442C16.4786 6.18566 14.3763 5 11.9986 5C9.06245 5 6.54621 6.80802 5.50704 9.37522C5.29981 9.88715 4.71682 10.1342 4.20488 9.92694C3.69295 9.71971 3.44594 9.13672 3.65316 8.62478Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const Forward10s = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Forward10s.displayName = "Forward10s"
 export default Forward10s

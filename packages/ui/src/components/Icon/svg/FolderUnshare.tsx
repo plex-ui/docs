@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const FolderUnshare = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M21.2929 15.293C21.6834 14.9025 22.3165 14.9025 22.707 15.293C23.0976 15.6835 23.0976 16.3165 22.707 16.707L20.9141 18.5L22.707 20.293C23.0976 20.6835 23.0976 21.3165 22.707 21.707C22.3165 22.0976 21.6834 22.0976 21.2929 21.707L19.5 19.9141L17.707 21.707C17.3165 22.0976 16.6834 22.0976 16.2929 21.707C15.9023 21.3165 15.9023 20.6835 16.2929 20.293L18.0858 18.5L16.2929 16.707C15.9023 16.3165 15.9023 15.6835 16.2929 15.293C16.6834 14.9025 17.3165 14.9025 17.707 15.293L19.5 17.0859L21.2929 15.293Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const FolderUnshare = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+FolderUnshare.displayName = "FolderUnshare"
 export default FolderUnshare

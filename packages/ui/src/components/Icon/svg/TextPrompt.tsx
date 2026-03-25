@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const TextPrompt = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8 9C7.44772 9 7 9.44772 7 10C7 10.5523 7.44772 11 8 11H16C16.5523 11 17 10.5523 17 10C17 9.44772 16.5523 9 16 9H8Z"
       fill="currentColor"
@@ -17,4 +17,5 @@ const TextPrompt = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+TextPrompt.displayName = "TextPrompt"
 export default TextPrompt

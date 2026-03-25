@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Education = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <g clipPath="url(#clip0_6131_11698)">
       <path
         fillRule="evenodd"
@@ -16,4 +16,5 @@ const Education = (props: SVGProps<SVGSVGElement>) => (
     </defs>
   </svg>
 )
+Education.displayName = "Education"
 export default Education

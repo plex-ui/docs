@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const LightbulbGlow = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12 0C12.5523 0 13 0.447715 13 1V2C13 2.55228 12.5523 3 12 3C11.4477 3 11 2.55228 11 2V1C11 0.447715 11.4477 0 12 0Z"
       fill="currentColor"
@@ -27,4 +27,5 @@ const LightbulbGlow = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+LightbulbGlow.displayName = "LightbulbGlow"
 export default LightbulbGlow

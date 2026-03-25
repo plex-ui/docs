@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Stopwatch = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8.5 2.5C8.5 1.94772 8.94772 1.5 9.5 1.5H14.5C15.0523 1.5 15.5 1.94772 15.5 2.5C15.5 3.05228 15.0523 3.5 14.5 3.5H9.5C8.94772 3.5 8.5 3.05228 8.5 2.5Z"
       fill="currentColor"
@@ -17,4 +17,5 @@ const Stopwatch = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Stopwatch.displayName = "Stopwatch"
 export default Stopwatch

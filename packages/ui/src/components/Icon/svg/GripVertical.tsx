@@ -9,4 +9,5 @@ const GripVertical = (props: SVGProps<SVGSVGElement>) => (
     <circle cx="15" cy="17" r="1.5" />
   </svg>
 )
+GripVertical.displayName = "GripVertical"
 export default GripVertical

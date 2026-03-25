@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Record = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const Record = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Record.displayName = "Record"
 export default Record

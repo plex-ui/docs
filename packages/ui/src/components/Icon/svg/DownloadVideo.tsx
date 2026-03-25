@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const DownloadVideo = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.75 9.65066V14.4493C9.75 15.1607 10.5326 15.5904 11.1277 15.2057L14.8393 12.8064C15.3869 12.4524 15.3869 11.6476 14.8393 11.2936L11.1277 8.89428C10.5326 8.50958 9.75 8.93925 9.75 9.65066Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const DownloadVideo = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+DownloadVideo.displayName = "DownloadVideo"
 export default DownloadVideo

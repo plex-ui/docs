@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Shortcuts = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M14.5 9C14.5 8.44772 14.0523 8 13.5 8C12.9477 8 12.5 8.44772 12.5 9V15C12.5 15.5523 12.9477 16 13.5 16C14.0523 16 14.5 15.5523 14.5 15V9Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const Shortcuts = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Shortcuts.displayName = "Shortcuts"
 export default Shortcuts

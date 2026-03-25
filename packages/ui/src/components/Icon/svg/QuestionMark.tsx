@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const QuestionMark = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M13.75 20.25C13.75 21.2165 12.9665 22 12 22C11.0335 22 10.25 21.2165 10.25 20.25C10.25 19.2835 11.0335 18.5 12 18.5C12.9665 18.5 13.75 19.2835 13.75 20.25Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const QuestionMark = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+QuestionMark.displayName = "QuestionMark"
 export default QuestionMark

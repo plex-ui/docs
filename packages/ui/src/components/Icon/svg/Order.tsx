@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Order = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M13.5097 11.3271C13.8501 10.9517 14.4269 10.8881 14.8437 11.1953C15.2601 11.5026 15.3691 12.0717 15.1112 12.5078L15.0546 12.5938L12.1063 16.5938C11.9309 16.8315 11.659 16.9795 11.3642 16.998C11.0692 17.0165 10.7808 16.9035 10.577 16.6895L9.02533 15.0596L8.95892 14.9824C8.64829 14.582 8.68561 14.0035 9.06049 13.6465C9.43555 13.2894 10.0155 13.2802 10.4003 13.6104L10.4745 13.6807L11.204 14.4463L13.4452 11.4062L13.5097 11.3271Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const Order = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Order.displayName = "Order"
 export default Order

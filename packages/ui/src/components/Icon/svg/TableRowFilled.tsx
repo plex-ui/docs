@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const TableRowFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M5 4C3.34315 4 2 5.34315 2 7V11H22V7C22 5.34315 20.6569 4 19 4H5Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const TableRowFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+TableRowFilled.displayName = "TableRowFilled"
 export default TableRowFilled

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const UserLock = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12 4C10.3431 4 9 5.34315 9 7C9 8.65685 10.3431 10 12 10C13.6569 10 15 8.65685 15 7C15 5.34315 13.6569 4 12 4ZM7 7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7C17 9.76142 14.7614 12 12 12C9.23858 12 7 9.76142 7 7ZM17.5 14.5C18.0523 14.5 18.5 14.9477 18.5 15.5V16H16.5V15.5C16.5 14.9477 16.9477 14.5 17.5 14.5ZM20.5 16.208V15.5C20.5 13.8431 19.1569 12.5 17.5 12.5C15.8431 12.5 14.5 13.8431 14.5 15.5V16.208C13.617 16.5938 13 17.4748 13 18.5V20.5C13 21.8807 14.1193 23 15.5 23H19.5C20.8807 23 22 21.8807 22 20.5V18.5C22 17.4748 21.383 16.5938 20.5 16.208ZM15.5 18H19.5C19.7761 18 20 18.2239 20 18.5V20.5C20 20.7761 19.7761 21 19.5 21H15.5C15.2239 21 15 20.7761 15 20.5V18.5C15 18.2239 15.2239 18 15.5 18Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const UserLock = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+UserLock.displayName = "UserLock"
 export default UserLock

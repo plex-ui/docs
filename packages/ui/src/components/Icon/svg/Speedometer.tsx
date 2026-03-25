@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Speedometer = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M14.6675 6.45553C11.8509 5.46218 8.59305 6.09329 6.34324 8.3431C3.83232 10.854 3.33818 14.621 4.86621 17.6258C4.96852 17.827 5.22149 18 5.58253 18H18.4177C18.7788 18 19.0316 17.8271 19.1339 17.626C20.1297 15.6678 20.2673 13.3821 19.5445 11.3326C19.3608 10.8117 19.6342 10.2406 20.155 10.0569C20.6758 9.8732 21.247 10.1465 21.4307 10.6674C22.3336 13.2277 22.163 16.0818 20.9166 18.5326C20.4139 19.5211 19.3911 20 18.4177 20H5.58253C4.60896 20 3.58614 19.5208 3.08348 18.5324C1.17456 14.7786 1.78794 10.07 4.92902 6.92889C7.74368 4.11424 11.8174 3.32965 15.3327 4.56939C15.8535 4.75308 16.1268 5.32421 15.9432 5.84506C15.7595 6.3659 15.1883 6.63922 14.6675 6.45553Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const Speedometer = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Speedometer.displayName = "Speedometer"
 export default Speedometer

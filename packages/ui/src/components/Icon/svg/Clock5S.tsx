@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Clock5S = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -9,4 +9,5 @@ const Clock5S = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Clock5S.displayName = "Clock5S"
 export default Clock5S

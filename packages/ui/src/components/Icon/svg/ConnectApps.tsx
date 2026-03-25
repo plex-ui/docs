@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ConnectApps = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M6.75 4.5C5.50736 4.5 4.5 5.50736 4.5 6.75C4.5 7.99264 5.50736 9 6.75 9C7.99264 9 9 7.99264 9 6.75C9 5.50736 7.99264 4.5 6.75 4.5ZM2.5 6.75C2.5 4.40279 4.40279 2.5 6.75 2.5C9.09721 2.5 11 4.40279 11 6.75C11 9.09721 9.09721 11 6.75 11C4.40279 11 2.5 9.09721 2.5 6.75Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const ConnectApps = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ConnectApps.displayName = "ConnectApps"
 export default ConnectApps

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ChevronDownUp = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8.65852 5.74744C8.24288 5.38375 7.61112 5.42587 7.24744 5.84151C6.88375 6.25715 6.92587 6.88891 7.34151 7.25259L11.3415 10.7526C11.7185 11.0825 12.2815 11.0825 12.6585 10.7526L16.6585 7.25259C17.0742 6.88891 17.1163 6.25715 16.7526 5.84151C16.3889 5.42587 15.7571 5.38375 15.3415 5.74744L12 8.67125L8.65852 5.74744Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const ChevronDownUp = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ChevronDownUp.displayName = "ChevronDownUp"
 export default ChevronDownUp

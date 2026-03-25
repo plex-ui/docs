@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ProfileCard = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M14 12.5C14 13.6046 13.1046 14.5 12 14.5C10.8954 14.5 10 13.6046 10 12.5C10 11.3954 10.8954 10.5 12 10.5C13.1046 10.5 14 11.3954 14 12.5Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const ProfileCard = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ProfileCard.displayName = "ProfileCard"
 export default ProfileCard

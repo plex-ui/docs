@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Mic = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M18.9953 11.5415C19.5246 11.6991 19.826 12.2559 19.6685 12.7852C18.7771 15.7804 16.179 18.0417 13 18.4381V19.5H14.5C15.0523 19.5 15.5 19.9477 15.5 20.5C15.5 21.0523 15.0523 21.5 14.5 21.5H9.50002C8.94773 21.5 8.50002 21.0523 8.50002 20.5C8.50002 19.9477 8.94773 19.5 9.50002 19.5H11V18.4381C7.82093 18.0418 5.22279 15.7805 4.33136 12.7852C4.17382 12.2559 4.47522 11.6991 5.00456 11.5415C5.5339 11.384 6.09073 11.6854 6.24827 12.2148C6.98609 14.6939 9.2834 16.5 11.9999 16.5C14.7165 16.5 17.0138 14.6939 17.7516 12.2148C17.9091 11.6854 18.466 11.384 18.9953 11.5415Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const Mic = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Mic.displayName = "Mic"
 export default Mic

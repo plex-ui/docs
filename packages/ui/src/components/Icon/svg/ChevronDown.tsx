@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ChevronDown = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 16 9" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 16 9" fill="currentColor" aria-hidden="true" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -8,4 +8,5 @@ const ChevronDown = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ChevronDown.displayName = "ChevronDown"
 export default ChevronDown

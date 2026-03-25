@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const BlendingCurveSharp = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8.70711 7.29289C8.31658 6.90237 7.68342 6.90237 7.29289 7.29289C6.90237 7.68342 6.90237 8.31658 7.29289 8.70711L15.2929 16.7071C15.6834 17.0976 16.3166 17.0976 16.7071 16.7071C17.0976 16.3166 17.0976 15.6834 16.7071 15.2929L8.70711 7.29289Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const BlendingCurveSharp = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+BlendingCurveSharp.displayName = "BlendingCurveSharp"
 export default BlendingCurveSharp

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Back10s = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8 10C8.55228 10 9 9.55228 9 9C9 8.44772 8.55228 8 8 8H6.25494C7.5205 6.18566 9.62283 5 12.0005 5C14.9366 5 17.4529 6.80802 18.4921 9.37522C18.6993 9.88715 19.2823 10.1342 19.7942 9.92694C20.3061 9.71971 20.5532 9.13672 20.3459 8.62478C19.0116 5.32832 15.7791 3 12.0005 3C9.1719 3 6.64937 4.30473 5 6.34362V5C5 4.44772 4.55228 4 4 4C3.44772 4 3 4.44772 3 5V9C3 9.55228 3.44772 10 4 10C5.33333 10 6.66666 10 8 10Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const Back10s = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Back10s.displayName = "Back10s"
 export default Back10s

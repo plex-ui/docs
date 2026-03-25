@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ThumbUpFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.5921 2.50392C12.8048 2.1302 13.2318 1.93507 13.6521 2.01948C15.5628 2.4032 16.7247 4.36086 16.1517 6.23091L15.3031 9.00006H17.0143C19.641 9.00006 21.5486 11.508 20.8575 14.0525L19.4995 19.0525C19.0268 20.7928 17.4527 22.0001 15.6563 22.0001H9.96731C8.8691 21.9979 7.97949 21.1033 7.97949 20.0001V9.00006H8.31744C8.67482 9.00006 9.0048 8.80777 9.18211 8.4962L12.5921 2.50392Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const ThumbUpFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ThumbUpFilled.displayName = "ThumbUpFilled"
 export default ThumbUpFilled

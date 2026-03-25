@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ColorTheme = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8.25 13.25C9.07843 13.25 9.75 13.9216 9.75 14.75C9.75 15.5784 9.07843 16.25 8.25 16.25C7.42157 16.25 6.75 15.5784 6.75 14.75C6.75 13.9216 7.42157 13.25 8.25 13.25Z"
       fill="currentColor"
@@ -23,4 +23,5 @@ const ColorTheme = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ColorTheme.displayName = "ColorTheme"
 export default ColorTheme

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const RemoveTrash = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M11 11C11 10.4477 10.5523 10 10 10C9.44772 10 9 10.4477 9 11V16C9 16.5523 9.44772 17 10 17C10.5523 17 11 16.5523 11 16V11Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const RemoveTrash = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+RemoveTrash.displayName = "RemoveTrash"
 export default RemoveTrash

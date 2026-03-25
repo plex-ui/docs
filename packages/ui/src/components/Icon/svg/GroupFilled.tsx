@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const GroupFilled = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M7 19C6.44772 19 6 18.5523 6 18C6 16.3077 6.81186 15.0179 7.98298 14.1851C9.12436 13.3734 10.5892 13 12 13C13.4108 13 14.8756 13.3734 16.017 14.1851C17.1881 15.0178 18 16.3076 18 18C18 18.5523 17.5523 19 17 19C15.6012 19 8.39878 19 7 19Z"
       fill="currentColor"
@@ -27,4 +27,5 @@ const GroupFilled = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+GroupFilled.displayName = "GroupFilled"
 export default GroupFilled

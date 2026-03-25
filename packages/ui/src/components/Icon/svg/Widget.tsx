@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Widget = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M16.5 14C16.7652 14 17.0196 14.1054 17.2071 14.2929C17.3946 14.4804 17.5 14.7348 17.5 15C17.5 15.2652 17.3946 15.5196 17.2071 15.7071C17.0196 15.8946 16.7652 16 16.5 16H7.5C7.23478 16 6.98043 15.8946 6.79289 15.7071C6.60536 15.5196 6.5 15.2652 6.5 15C6.5 14.7348 6.60536 14.4804 6.79289 14.2929C6.98043 14.1054 7.23478 14 7.5 14H16.5ZM9.667 7.5C10.127 7.5 10.5 7.873 10.5 8.333V10.667C10.5 11.127 10.127 11.5 9.667 11.5H7.333C7.22361 11.5 7.11529 11.4785 7.01422 11.4366C6.91316 11.3947 6.82133 11.3334 6.74398 11.256C6.66663 11.1787 6.60527 11.0868 6.56341 10.9858C6.52155 10.8847 6.5 10.7764 6.5 10.667V8.333C6.5 7.873 6.873 7.5 7.333 7.5H9.667Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const Widget = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Widget.displayName = "Widget"
 export default Widget

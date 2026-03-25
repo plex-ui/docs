@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const InfoCircle = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12V16C11 16.5523 11.4477 17 12 17C12.5523 17 13 16.5523 13 16V12Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const InfoCircle = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+InfoCircle.displayName = "InfoCircle"
 export default InfoCircle

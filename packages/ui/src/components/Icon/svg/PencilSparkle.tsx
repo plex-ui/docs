@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const PencilSparkle = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M2.5 5.5C4.3 5.2 5.2 4 5.5 2.5C5.8 4 6.7 5.2 8.5 5.5C6.7 5.8 5.8 7 5.5 8.5C5.2 7 4.3 5.8 2.5 5.5Z"
       fill="currentColor"
@@ -18,4 +18,5 @@ const PencilSparkle = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+PencilSparkle.displayName = "PencilSparkle"
 export default PencilSparkle

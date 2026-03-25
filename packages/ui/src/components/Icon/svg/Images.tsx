@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Images = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M12.1797 11.8179C12.295 12.6383 11.7234 13.3968 10.9031 13.5121C10.0827 13.6274 9.32418 13.0558 9.20888 12.2354C9.09359 11.4151 9.66516 10.6566 10.4855 10.5413C11.3059 10.426 12.0644 10.9976 12.1797 11.8179Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const Images = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Images.displayName = "Images"
 export default Images

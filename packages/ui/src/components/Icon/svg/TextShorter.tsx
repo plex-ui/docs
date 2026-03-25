@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const TextShorter = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M5.60954 13.2246C6.00231 12.9044 6.58137 12.9269 6.94743 13.293L9.44743 15.793C9.83773 16.1835 9.83777 16.8166 9.44743 17.207C9.05697 17.5975 8.42391 17.5974 8.03337 17.207L7.14079 16.3145V20C7.14079 20.497 6.73731 20.9002 6.2404 20.9004C5.74335 20.9004 5.34001 20.4971 5.34001 20V16.3145L4.44743 17.207C4.05697 17.5975 3.42391 17.5974 3.03337 17.207C2.64285 16.8165 2.64285 16.1835 3.03337 15.793L5.53337 13.293L5.60954 13.2246Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const TextShorter = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+TextShorter.displayName = "TextShorter"
 export default TextShorter

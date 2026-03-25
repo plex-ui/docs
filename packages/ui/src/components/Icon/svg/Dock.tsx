@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Dock = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8 14.5C7.44772 14.5 7 14.9477 7 15.5C7 16.0523 7.44772 16.5 8 16.5H16C16.5523 16.5 17 16.0523 17 15.5C17 14.9477 16.5523 14.5 16 14.5H8Z"
       fill="currentColor"
@@ -11,4 +11,5 @@ const Dock = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Dock.displayName = "Dock"
 export default Dock

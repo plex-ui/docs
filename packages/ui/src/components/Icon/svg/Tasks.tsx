@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const Tasks = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M9.30002 5.60006C9.6314 5.15823 9.54185 4.53143 9.10003 4.20006C8.6582 3.86869 8.0314 3.95823 7.70003 4.40006L5.33158 7.55798L4.64021 6.98184C4.21593 6.62827 3.58537 6.6856 3.2318 7.10987C2.87824 7.53415 2.93556 8.16472 3.35984 8.51828L4.85984 9.76828C5.07041 9.94376 5.34379 10.0251 5.61604 9.99331C5.8883 9.9615 6.13556 9.81934 6.30002 9.60006L9.30002 5.60006Z"
       fill="currentColor"
@@ -21,4 +21,5 @@ const Tasks = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+Tasks.displayName = "Tasks"
 export default Tasks

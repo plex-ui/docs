@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const RobotHeadSad = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M10 10C10 10.8284 9.32843 11.5 8.5 11.5C7.67157 11.5 7 10.8284 7 10C7 9.17157 7.67157 8.5 8.5 8.5C9.32843 8.5 10 9.17157 10 10Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const RobotHeadSad = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+RobotHeadSad.displayName = "RobotHeadSad"
 export default RobotHeadSad

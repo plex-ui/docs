@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const ExclamationMarkCircle = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V12Z"
       fill="currentColor"
@@ -15,4 +15,5 @@ const ExclamationMarkCircle = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+ExclamationMarkCircle.displayName = "ExclamationMarkCircle"
 export default ExclamationMarkCircle

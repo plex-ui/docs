@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const EmojiLists = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M6.14473 10.3906C8.69611 8.9948 9.33551 7.32632 8.84995 6.14456C8.61487 5.57244 8.12312 5.16589 7.54741 5.0406C7.0405 4.93027 6.48512 5.04119 6 5.4178C5.51487 5.04119 4.9595 4.93027 4.45258 5.0406C3.87687 5.16589 3.38512 5.57245 3.15005 6.14457C2.6645 7.32633 3.30391 8.99481 5.85529 10.3906C5.94547 10.44 6.05456 10.44 6.14473 10.3906Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const EmojiLists = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+EmojiLists.displayName = "EmojiLists"
 export default EmojiLists

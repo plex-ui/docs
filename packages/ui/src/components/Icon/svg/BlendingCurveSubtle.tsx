@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const BlendingCurveSubtle = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M8.09958 8.00297C7.54894 7.94791 7.05792 8.34965 7.00285 8.9003C6.94779 9.45094 7.34953 9.94196 7.90018 9.99703C8.95944 10.103 9.56111 10.4318 9.9773 10.8151C10.43 11.2321 10.7329 11.7696 11.1202 12.4798L11.1476 12.5299C11.5054 13.1863 11.9483 13.999 12.6648 14.6589C13.4361 15.3693 14.4595 15.853 15.9002 15.997C16.4508 16.0521 16.9419 15.6503 16.9969 15.0997C17.052 14.5491 16.6502 14.058 16.0996 14.003C15.0403 13.897 14.4387 13.5682 14.0225 13.1849C13.5698 12.7679 13.2669 12.2304 12.8796 11.5202L12.8522 11.4701C12.4944 10.8137 12.0515 10.001 11.335 9.34111C10.5637 8.63069 9.54032 8.14705 8.09958 8.00297Z"
       fill="currentColor"
@@ -13,4 +13,5 @@ const BlendingCurveSubtle = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+BlendingCurveSubtle.displayName = "BlendingCurveSubtle"
 export default BlendingCurveSubtle

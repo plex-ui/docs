@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 const PullRequestDraft = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path
       d="M6.5 2.75C8.29493 2.75 9.75 4.20507 9.75 6C9.75 7.44586 8.80541 8.66989 7.5 9.0918V14.9072C8.80556 15.329 9.75 16.554 9.75 18C9.75 19.7949 8.29493 21.25 6.5 21.25C4.70507 21.25 3.25 19.7949 3.25 18C3.25 16.554 4.19444 15.329 5.5 14.9072V9.0918C4.19459 8.66989 3.25 7.44586 3.25 6C3.25 4.20507 4.70507 2.75 6.5 2.75ZM6.5 16.75C5.80964 16.75 5.25 17.3096 5.25 18C5.25 18.6904 5.80964 19.25 6.5 19.25C7.19036 19.25 7.75 18.6904 7.75 18C7.75 17.3096 7.19036 16.75 6.5 16.75ZM6.5 4.75C5.80964 4.75 5.25 5.30964 5.25 6C5.25 6.69036 5.80964 7.25 6.5 7.25C7.19036 7.25 7.75 6.69036 7.75 6C7.75 5.30964 7.19036 4.75 6.5 4.75Z"
       fill="currentColor"
@@ -19,4 +19,5 @@ const PullRequestDraft = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+PullRequestDraft.displayName = "PullRequestDraft"
 export default PullRequestDraft
