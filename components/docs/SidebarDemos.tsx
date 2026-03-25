@@ -36,7 +36,7 @@ import {
    ChevronDownMd,
    Clip,
    Code,
-   CollapseLayers,
+   Blocks,
    Commit,
    CreditCard,
    Desktop,
@@ -52,6 +52,7 @@ import {
    Home,
    ImageSquare,
    LinkExternal,
+   ListChevronsDownUp,
    MapPin,
    Members,
    Number123,
@@ -67,7 +68,9 @@ import {
    Storage,
    Terminal,
    TextAlignStart,
+   TextCursorInput,
    TextInitial,
+   TextSelect,
  } from '@plexui/ui/components/Icon';
 import { Menu } from '@plexui/ui/components/Menu';
 import {
@@ -1040,7 +1043,7 @@ const actionNodeConfig: Record<ActionNodeType, { icon: React.ComponentType; labe
   'phone-number': { icon: Phone, label: 'Phone number' },
   'radio-group': { icon: GroupCheckCircle, label: 'Radio group' },
   select: { icon: CheckMd, label: 'Select' },
-  'text-area': { icon: PastedText, label: 'Text area' },
+  'text-area': { icon: TextSelect, label: 'Text area' },
   'text-input': { icon: Abc, label: 'Text input' },
   'url-input': { icon: LinkExternal, label: 'URL input' },
 };
@@ -1190,13 +1193,13 @@ function ContainerMoreMenu({ trigger }: { trigger: React.ReactNode }) {
           <Menu.SubTrigger><ATMenuIcon icon={Plus} /> Add</Menu.SubTrigger>
           <Menu.SubContent>
             <Menu.Sub>
-              <Menu.SubTrigger>Elements</Menu.SubTrigger>
+              <Menu.SubTrigger><ATMenuIcon icon={Blocks} /> Elements</Menu.SubTrigger>
               <Menu.SubContent>
                 {elementTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
               </Menu.SubContent>
             </Menu.Sub>
             <Menu.Sub>
-              <Menu.SubTrigger>Forms</Menu.SubTrigger>
+              <Menu.SubTrigger><ATMenuIcon icon={TextCursorInput} /> Forms</Menu.SubTrigger>
               <Menu.SubContent>
                 {formTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
               </Menu.SubContent>
@@ -1551,7 +1554,7 @@ export function SidebarActionTreeDemo() {
                       aria-label="Collapse all" aria-pressed={!hasAnyExpanded}
                       onClick={toggleCollapseAll}
                     >
-                      <CollapseLayers />
+                      <ListChevronsDownUp />
                     </Button>
                   ) : (
                     <Menu>
