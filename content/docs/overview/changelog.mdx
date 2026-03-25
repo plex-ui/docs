@@ -7,6 +7,67 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.7.51 — 2026-03-25
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Sidebar Filtered Tree example</strong> (<a href="/docs/components/sidebar#filtered-tree">Sidebar</a>)<br/>
+    New demo with type-based filtering via <code>Filter</code> / <code>FilterBadge</code> icons, expand mode toggle (row vs chevron), and search with soft Input variant.
+  </li>
+  <li>
+    <strong>Sidebar Action Tree example</strong> (<a href="/docs/components/sidebar#action-tree">Sidebar</a>)<br/>
+    Drag-and-drop sortable nested items using <code>@dnd-kit/sortable</code>. Hover-revealed action buttons (more, add, reorder). New <code>GripVertical</code> and <code>Parallel</code> icons.
+  </li>
+  <li>
+    <strong>Icons</strong>: <code>Filter</code>, <code>FilterBadge</code>, <code>GripVertical</code>, <code>Parallel</code>.
+  </li>
+  <li>
+    <strong>@plexui/mcp</strong><br/>
+    MCP server package for AI agents, docs page, and <code>llms.txt</code>.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Sidebar menu item press effect on action hover</strong><br/>
+    Hovering action buttons no longer triggers scale/press animation on the parent menu item. Root cause: Tailwind <code>scale</code> property didn't override CSS module <code>transform: scale()</code>.
+  </li>
+  <li>
+    <strong>Sidebar action tree DnD not working</strong><br/>
+    Extracted <code>SortableNestedItem</code> to module level (was re-created every render). Removed <code>onPointerDownCapture</code> <code>stopPropagation</code> on drag handle that blocked dnd-kit's <code>onPointerDown</code> listener.
+  </li>
+  <li>
+    <strong>Sidebar child item text centered instead of left-aligned</strong><br/>
+    <code>&lt;button&gt;</code> default <code>text-align: center</code> inherited by <code>flex-1</code> text spans. Added <code>text-left</code>.
+  </li>
+  <li>
+    <strong>Hydration mismatch on sidebar page</strong><br/>
+    Added stable <code>id</code> prop to <code>DndContext</code> to prevent dnd-kit's auto-incrementing counter from diverging between SSR and client.
+  </li>
+  <li>
+    <strong>Dialog mobile buttons, Input line-height &amp; sizing demo</strong>
+  </li>
+</ul>
+
+---
+
+## 0.7.45 — 2026-03-18
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>DatePicker variants</strong> (<a href="/docs/components/date-picker">DatePicker</a>)<br/>
+    DOB dropdown, time picker, masked date/datetime inputs.
+  </li>
+</ul>
+
+---
+
 ## 0.7.44 — 2026-03-16
 
 ### Added
