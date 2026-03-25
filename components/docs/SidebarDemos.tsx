@@ -8,6 +8,7 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
+  type DragStartEvent,
 } from '@dnd-kit/core';
 import {
   SortableContext,
@@ -21,11 +22,22 @@ import { Button } from '@plexui/ui/components/Button';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Switch } from '@plexui/ui/components/Switch';
 import {
+   Abc,
+   AllProductsExplore,
    Analytics,
    Bolt,
+   ButtonMousePointer,
+   Calendar,
    CameraPhoto,
+   CheckCheck,
+   CheckCircle,
+   CheckMd,
+   CheckboxChecked,
    ChevronDownMd,
+   Clip,
    Code,
+   CollapseLayers,
+   Commit,
    CreditCard,
    Desktop,
    DotsHorizontal,
@@ -33,13 +45,29 @@ import {
    Filter,
    FilterBadge,
    Folder,
+   Globe,
    GripVertical,
+   GroupCheck,
+   GroupCheckCircle,
    Home,
+   ImageSquare,
+   LinkExternal,
+   MapPin,
    Members,
+   Number123,
+   PanelBottom,
+   PastedText,
+   Phone,
    Plus,
+   RemoveTrash,
    SettingsCog,
+   SpacingVertical,
+   SquareAsterisk,
+   SquareDashed,
    Storage,
    Terminal,
+   TextAlignStart,
+   TextInitial,
  } from '@plexui/ui/components/Icon';
 import { Menu } from '@plexui/ui/components/Menu';
 import {
@@ -971,71 +999,304 @@ export function SidebarFilteredTreeDemo() {
 
 const ghostBtnCls = 'inline-flex items-center justify-center shrink-0 rounded-sm cursor-pointer p-0 m-0 border-0 bg-transparent appearance-none leading-none align-middle select-none hover:bg-[var(--color-background-secondary-ghost-hover)] active:bg-[var(--color-background-secondary-ghost-hover)] active:scale-95 transition-all [&>svg]:block [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto';
 
-const ACTION_TREE_CHILD_ACTIONS_CLS = 'item-actions absolute right-[3px] top-[3px] bottom-[3px] flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/action:opacity-100 group-hover/action:pointer-events-auto transition-opacity z-[2]';
-const ACTION_TREE_BTN_SIZE = 26;
-const ACTION_TREE_NESTED_ICON_STYLE: React.CSSProperties = { width: 16, height: 16, flexShrink: 0 };
+// =============================================
+// Action Tree — Types, Config, Data
+// =============================================
 
-function SortableNestedItem({ item, activeItem, onSelect }: { item: WorkflowStep; activeItem: string; onSelect: (id: string) => void }) {
-  const TypeIcon = stepTypeConfig[item.type].icon;
+type ActionNodeType = 'action' | 'condition' | 'module' | 'screen' | 'container' | 'footer' |
+  'button' | 'image' | 'text' | 'title' | 'spacer' |
+  'address-input' | 'checkbox' | 'checkbox-group' | 'country-select' | 'date' |
+  'file-upload' | 'masked-text' | 'multi-select' | 'number-input' | 'phone-number' |
+  'radio-group' | 'select' | 'text-area' | 'text-input' | 'url-input';
+
+type ActionNode = {
+  id: string;
+  label: string;
+  type: ActionNodeType;
+  children?: ActionNode[];
+};
+
+const actionNodeConfig: Record<ActionNodeType, { icon: React.ComponentType; label: string }> = {
+  action: { icon: Bolt, label: 'Action' },
+  condition: { icon: Commit, label: 'Condition' },
+  module: { icon: AllProductsExplore, label: 'Module' },
+  screen: { icon: Desktop, label: 'Screen' },
+  container: { icon: SquareDashed, label: 'Container' },
+  footer: { icon: PanelBottom, label: 'Footer' },
+  button: { icon: ButtonMousePointer, label: 'Button' },
+  image: { icon: ImageSquare, label: 'Image' },
+  text: { icon: TextAlignStart, label: 'Text' },
+  title: { icon: TextInitial, label: 'Title' },
+  spacer: { icon: SpacingVertical, label: 'Spacer' },
+  'address-input': { icon: MapPin, label: 'Address input' },
+  checkbox: { icon: CheckboxChecked, label: 'Checkbox' },
+  'checkbox-group': { icon: GroupCheck, label: 'Checkbox group' },
+  'country-select': { icon: Globe, label: 'Country select' },
+  date: { icon: Calendar, label: 'Date' },
+  'file-upload': { icon: Clip, label: 'File upload' },
+  'masked-text': { icon: SquareAsterisk, label: 'Masked text' },
+  'multi-select': { icon: CheckCheck, label: 'Multi select' },
+  'number-input': { icon: Number123, label: 'Number input' },
+  'phone-number': { icon: Phone, label: 'Phone number' },
+  'radio-group': { icon: GroupCheckCircle, label: 'Radio group' },
+  select: { icon: CheckMd, label: 'Select' },
+  'text-area': { icon: PastedText, label: 'Text area' },
+  'text-input': { icon: Abc, label: 'Text input' },
+  'url-input': { icon: LinkExternal, label: 'URL input' },
+};
+
+const actionFilterOptions = (['action', 'condition', 'module', 'screen', 'container', 'footer'] as ActionNodeType[]).map((t) => ({
+  value: t,
+  label: actionNodeConfig[t].label,
+}));
+
+const actionTreeData: ActionNode[] = [
+  { id: 'action', label: 'Action', type: 'action' },
+  { id: 'condition', label: 'Condition', type: 'condition' },
+  {
+    id: 'screen', label: 'Screen', type: 'screen',
+    children: [
+      {
+        id: 'container-elements', label: 'Container 1', type: 'container',
+        children: [
+          { id: 'el-button', label: 'Button', type: 'button' },
+          { id: 'el-image', label: 'Image', type: 'image' },
+          { id: 'el-text', label: 'Text', type: 'text' },
+          { id: 'el-title', label: 'Title', type: 'title' },
+          { id: 'el-spacer', label: 'Spacer', type: 'spacer' },
+        ],
+      },
+      {
+        id: 'container-forms', label: 'Container 2', type: 'container',
+        children: [
+          { id: 'fm-address', label: 'Address input', type: 'address-input' },
+          { id: 'fm-checkbox', label: 'Checkbox', type: 'checkbox' },
+          { id: 'fm-checkgroup', label: 'Checkbox group', type: 'checkbox-group' },
+          { id: 'fm-country', label: 'Country select', type: 'country-select' },
+          { id: 'fm-date', label: 'Date', type: 'date' },
+          { id: 'fm-file', label: 'File upload', type: 'file-upload' },
+          { id: 'fm-masked', label: 'Masked text', type: 'masked-text' },
+          { id: 'fm-multi', label: 'Multi select', type: 'multi-select' },
+          { id: 'fm-number', label: 'Number input', type: 'number-input' },
+          { id: 'fm-phone', label: 'Phone number', type: 'phone-number' },
+          { id: 'fm-radio', label: 'Radio group', type: 'radio-group' },
+          { id: 'fm-select', label: 'Select', type: 'select' },
+          { id: 'fm-textarea', label: 'Text area', type: 'text-area' },
+          { id: 'fm-textinput', label: 'Text input', type: 'text-input' },
+          { id: 'fm-url', label: 'URL input', type: 'url-input' },
+        ],
+      },
+      {
+        id: 'footer', label: 'Footer', type: 'footer',
+        children: [
+          { id: 'ft-text', label: 'Text', type: 'text' },
+          { id: 'ft-button', label: 'Button', type: 'button' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'module', label: 'Module', type: 'module',
+    children: [
+      { id: 'mod-screen-1', label: 'Screen 1', type: 'screen' },
+      { id: 'mod-screen-2', label: 'Screen 2', type: 'screen' },
+      { id: 'mod-screen-3', label: 'Screen 3', type: 'screen' },
+    ],
+  },
+];
+
+function filterActionTree(items: ActionNode[], search: string): ActionNode[] {
+  if (!search) return items;
+  return items.reduce<ActionNode[]>((acc, item) => {
+    const match = item.label.toLowerCase().includes(search.toLowerCase());
+    const filtered = item.children ? filterActionTree(item.children, search) : undefined;
+    const childMatch = filtered && filtered.length > 0;
+    if (match || childMatch) acc.push(childMatch ? { ...item, children: filtered } : item);
+    return acc;
+  }, []);
+}
+
+function flattenActionNodes(items: ActionNode[], typeFilters: Set<ActionNodeType> | null, search: string): ActionNode[] {
+  const result: ActionNode[] = [];
+  const hasTypeFilter = typeFilters && typeFilters.size > 0;
+  (function collect(list: ActionNode[]) {
+    for (const item of list) {
+      const matchType = !hasTypeFilter || typeFilters!.has(item.type);
+      const matchSearch = !search || item.label.toLowerCase().includes(search.toLowerCase());
+      if (matchType && matchSearch) {
+        result.push(item);
+      }
+      if (item.children) collect(item.children);
+    }
+  })(items);
+  return result;
+}
+
+function reorderActionTree(items: ActionNode[], activeId: string, overId: string): ActionNode[] {
+  return items.map((item) => {
+    if (!item.children) return item;
+    const aIdx = item.children.findIndex((c) => c.id === activeId);
+    const oIdx = item.children.findIndex((c) => c.id === overId);
+    if (aIdx !== -1 && oIdx !== -1) {
+      if (item.children[aIdx].type === 'footer' || item.children[oIdx].type === 'footer') return item;
+      return { ...item, children: arrayMove(item.children, aIdx, oIdx) };
+    }
+    return { ...item, children: reorderActionTree(item.children, activeId, overId) };
+  });
+}
+
+const elementTypes: ActionNodeType[] = ['button', 'image', 'text', 'title', 'spacer'];
+const formTypes: ActionNodeType[] = [
+  'address-input', 'checkbox', 'checkbox-group', 'country-select', 'date',
+  'file-upload', 'masked-text', 'multi-select', 'number-input', 'phone-number',
+  'radio-group', 'select', 'text-area', 'text-input', 'url-input',
+];
+
+function ATMenuIcon({ type, icon }: { type?: ActionNodeType; icon?: React.ComponentType }) {
+  const Icon = icon || (type ? actionNodeConfig[type].icon : null);
+  if (!Icon) return null;
+  return <span className="inline-flex items-center justify-center w-4 h-4 shrink-0 [&>svg]:w-full [&>svg]:h-full"><Icon /></span>;
+}
+
+function ActionMenuItem({ type }: { type: ActionNodeType }) {
+  return <Menu.Item onSelect={() => {}}><ATMenuIcon type={type} /> {actionNodeConfig[type].label}</Menu.Item>;
+}
+
+function ScreenMoreMenu({ trigger }: { trigger: React.ReactNode }) {
+  return (
+    <Menu>
+      <Menu.Trigger>{trigger}</Menu.Trigger>
+      <Menu.Content minWidth="auto" align="start">
+        <Menu.Sub>
+          <Menu.SubTrigger><ATMenuIcon type="action" icon={Plus} /> Add</Menu.SubTrigger>
+          <Menu.SubContent>
+            <Menu.Item onSelect={() => {}}><ATMenuIcon type="container" /> {actionNodeConfig.container.label}</Menu.Item>
+            <Menu.Item onSelect={() => {}}><ATMenuIcon type="footer" /> {actionNodeConfig.footer.label}</Menu.Item>
+          </Menu.SubContent>
+        </Menu.Sub>
+        <Menu.Separator />
+        <Menu.Item onSelect={() => {}}><ATMenuIcon type="action" icon={RemoveTrash} /> Delete</Menu.Item>
+      </Menu.Content>
+    </Menu>
+  );
+}
+
+function ContainerMoreMenu({ trigger }: { trigger: React.ReactNode }) {
+  return (
+    <Menu>
+      <Menu.Trigger>{trigger}</Menu.Trigger>
+      <Menu.Content minWidth="auto" align="start">
+        <Menu.Sub>
+          <Menu.SubTrigger><ATMenuIcon icon={Plus} /> Add</Menu.SubTrigger>
+          <Menu.SubContent>
+            <Menu.Sub>
+              <Menu.SubTrigger>Elements</Menu.SubTrigger>
+              <Menu.SubContent>
+                {elementTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
+              </Menu.SubContent>
+            </Menu.Sub>
+            <Menu.Sub>
+              <Menu.SubTrigger>Forms</Menu.SubTrigger>
+              <Menu.SubContent>
+                {formTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
+              </Menu.SubContent>
+            </Menu.Sub>
+          </Menu.SubContent>
+        </Menu.Sub>
+        <Menu.Separator />
+        <Menu.Item onSelect={() => {}}><ATMenuIcon icon={RemoveTrash} /> Delete</Menu.Item>
+      </Menu.Content>
+    </Menu>
+  );
+}
+
+// =============================================
+// Action Tree — Sortable Item
+// =============================================
+
+const AT_BTN = 24;
+const AT_ICON: React.CSSProperties = { width: 24, height: 24, flexShrink: 0, borderRadius: 6 };
+const AT_ACTIONS = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/ati:opacity-100 group-hover/ati:pointer-events-auto transition-opacity z-[2]';
+const atItemPl = (depth: number, isGroup: boolean) => 4 + (isGroup ? depth : depth + 1) * 24;
+
+function SortableActionItem({
+  item, pl, activeItem, expanded, onSelect, onToggle, childRenderer,
+}: {
+  item: ActionNode;
+  pl: number;
+  activeItem: string;
+  expanded: boolean;
+  onSelect: (id: string) => void;
+  onToggle: (id: string) => void;
+  childRenderer: (parent: ActionNode) => React.ReactNode;
+}) {
+  const TypeIcon = actionNodeConfig[item.type].icon;
+  const isGroup = !!item.children;
+  const hasKids = isGroup && item.children!.length > 0;
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
-  const sortableStyle: React.CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
+  const style: React.CSSProperties = { transform: CSS.Transform.toString(transform), transition };
 
   return (
-    <SidebarMenuSubItem ref={setNodeRef} style={sortableStyle}>
-      <div className="group/action relative">
+    <SidebarMenuSubItem ref={setNodeRef} style={style}>
+      <div className="group/ati relative">
         <SidebarMenuSubButton
           indent={1}
           isActive={activeItem === item.id}
-          className="gap-2 group-hover/action:text-[var(--sidebar-menu-text-active)] group-hover/action:[&::before]:!opacity-50 group-hover/action:[&::before]:![transform:scale(1)]"
-          style={{ paddingLeft: 60 }}
+          className="gap-0.5 group-hover/ati:text-[var(--sidebar-menu-text-active)] group-hover/ati:[&::before]:!opacity-50 group-hover/ati:[&::before]:![transform:scale(1)]"
+          style={{ paddingLeft: pl, paddingRight: 4, paddingTop: 0, paddingBottom: 0, height: 32 }}
           onClick={() => onSelect(item.id)}
         >
-          <span style={ACTION_TREE_NESTED_ICON_STYLE} className="inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full relative z-[1]"><TypeIcon /></span>
-          <span className="flex-1 min-w-0 truncate text-left relative z-[1] group-hover/action:pr-[48px]">{item.label}</span>
+          <span className="flex items-center shrink-0">
+            {isGroup && (
+              <span role="none" className={`${ghostBtnCls} transition-transform shrink-0`}
+                style={{ width: 24, height: 24, transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                onClick={(e) => { e.stopPropagation(); onToggle(item.id); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); onToggle(item.id); } }}
+              ><ChevronDownMd /></span>
+            )}
+            <span style={AT_ICON} className="inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4 relative z-[1]"><TypeIcon /></span>
+          </span>
+          <span className="flex-1 min-w-0 truncate text-left relative z-[1] group-hover/ati:pr-[54px]">{item.label}</span>
         </SidebarMenuSubButton>
-        <span data-actions className={ACTION_TREE_CHILD_ACTIONS_CLS}>
-          <button
-            type="button"
-            className={ghostBtnCls}
-            style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE }}
-            onClick={(e) => e.stopPropagation()}
-            onClickCapture={(e) => e.stopPropagation()}
-            onPointerDown={(e) => e.stopPropagation()}
-            onPointerDownCapture={(e) => e.stopPropagation()}
-            aria-label="More actions"
-          >
-            <DotsHorizontal />
-          </button>
-          <button
-            type="button"
-            className={ghostBtnCls}
-            style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE, cursor: isDragging ? 'grabbing' : 'grab' }}
-            onClick={(e) => e.stopPropagation()}
-            onClickCapture={(e) => e.stopPropagation()}
-            aria-label="Drag to reorder"
-            {...listeners}
-            {...attributes}
-          >
-            <GripVertical />
-          </button>
+        <span className={AT_ACTIONS}>
+          {isGroup ? (
+            <ContainerMoreMenu trigger={
+              <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
+                aria-label="More"><DotsHorizontal /></button>
+            } />
+          ) : (
+            <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
+              onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()} aria-label="More"><DotsHorizontal /></button>
+          )}
+          <span
+            className="inline-flex items-center justify-center shrink-0 [&>svg]:block [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto text-[var(--color-text-tertiary)]"
+            style={{ width: AT_BTN, height: AT_BTN, borderRadius: 6, cursor: isDragging ? 'grabbing' : 'grab' }}
+            {...listeners} {...attributes}><GripVertical /></span>
         </span>
       </div>
+      {isGroup && (
+        <SidebarMenuSub open={expanded} hasIcons>
+          {hasKids && childRenderer(item)}
+        </SidebarMenuSub>
+      )}
     </SidebarMenuSubItem>
   );
 }
 
+// =============================================
+// Action Tree — Demo
+// =============================================
+
 export function SidebarActionTreeDemo() {
-  const [steps, setSteps] = useState(workflowSteps);
+  const [steps, setSteps] = useState(actionTreeData);
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilters, setTypeFilters] = useState<string[]>([]);
+  const [headerMode, setHeaderMode] = useState<'collapse' | 'filter'>('collapse');
+  const defaultExpanded = ['screen', 'container-elements', 'container-forms', 'footer', 'module'];
   const [expandedItems, setExpandedItems] = useState<Set<string>>(
-    new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
+    new Set(defaultExpanded),
   );
-  const [activeItem, setActiveItem] = useState('gov-id');
-  const iconSize = 'sm' as const;
+  const [activeItem, setActiveItem] = useState('screen');
 
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) => {
@@ -1046,138 +1307,224 @@ export function SidebarActionTreeDemo() {
     });
   };
 
-  const isFiltering = typeFilters.length > 0;
-  const typeFilterSet = new Set(typeFilters as StepType[]);
+  /* Collapse mode: toggle all groups expanded / collapsed */
+  const groupIds = ['screen', 'container-elements', 'container-forms', 'footer', 'module'];
+  const hasAnyExpanded = groupIds.some((id) => expandedItems.has(id));
+  const toggleCollapseAll = () => {
+    if (hasAnyExpanded) {
+      setExpandedItems(new Set());
+    } else {
+      setExpandedItems(new Set(defaultExpanded));
+    }
+  };
 
-  const displaySteps = isFiltering
-    ? flattenByType(steps, typeFilterSet, searchQuery)
-    : filterWorkflowTree(steps, searchQuery);
+  /* Filter mode: flatten when searching OR type filters active */
+  const isFilterMode = headerMode === 'filter';
+  const hasTypeFilters = typeFilters.length > 0;
+  const isFlattening = isFilterMode && (hasTypeFilters || searchQuery.length > 0);
+  const typeFilterSet = new Set(typeFilters as ActionNodeType[]);
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: { distance: 5 },
-    }),
-  );
+  const displaySteps = isFlattening
+    ? flattenActionNodes(steps, hasTypeFilters ? typeFilterSet : null, searchQuery)
+    : filterActionTree(steps, searchQuery);
 
-  const iconPx = iconSize === 'sm' ? 16 : 20;
-  const iconSizeVar = { '--sidebar-icon-size': `${iconPx}px` } as React.CSSProperties;
-  const nestedIconStyle: React.CSSProperties = { width: iconPx, height: iconPx, flexShrink: 0 };
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+  const iconSizeVar = { '--sidebar-icon-size': '16px' } as React.CSSProperties;
 
-  const findLabel = (items: WorkflowStep[]): string => {
+  const findLabel = (items: ActionNode[]): string => {
     for (const item of items) {
       if (item.id === activeItem) return item.label;
-      if (item.children) {
-        const found = findLabel(item.children);
-        if (found) return found;
-      }
+      if (item.children) { const f = findLabel(item.children); if (f) return f; }
     }
     return '';
   };
-  const activeItemLabel = findLabel(steps) || 'Start';
+  const activeItemLabel = findLabel(steps) || 'Screen';
 
-  const parentActionsCls = 'item-actions absolute right-[3px] top-[3px] bottom-[3px] flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/parent:opacity-100 group-hover/parent:pointer-events-auto transition-opacity z-[2]';
+  const parentActionsCls = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/atp:opacity-100 group-hover/atp:pointer-events-auto transition-opacity z-[2]';
 
-  const renderActions = () => (
-    <span className={parentActionsCls}>
-      <button
-        type="button"
-        className={ghostBtnCls}
-        style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE }}
-        onClick={(e) => e.stopPropagation()}
-        onClickCapture={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
-        onPointerDownCapture={(e) => e.stopPropagation()}
-        aria-label="More actions"
-      >
-        <DotsHorizontal />
-      </button>
-      <button
-        type="button"
-        className={ghostBtnCls}
-        style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE }}
-        onClick={(e) => e.stopPropagation()}
-        onClickCapture={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
-        onPointerDownCapture={(e) => e.stopPropagation()}
-        aria-label="Add child step"
-      >
-        <Plus />
-      </button>
-    </span>
-  );
+  const findSiblingIds = (items: ActionNode[], targetId: string): string[] | null => {
+    for (const item of items) {
+      if (item.children) {
+        if (item.children.some((c) => c.id === targetId)) return item.children.map((c) => c.id);
+        const found = findSiblingIds(item.children, targetId);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+
+  const handleDragStart = (event: DragStartEvent) => {
+    const id = String(event.active.id);
+    const siblings = findSiblingIds(steps, id);
+    if (!siblings) return;
+    setExpandedItems((prev) => {
+      const next = new Set(prev);
+      for (const sid of siblings) next.delete(sid);
+      return next;
+    });
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-
-    setSteps((prev) => {
-      return prev.map((parent) => {
-        if (!parent.children) return parent;
-        const oldIdx = parent.children.findIndex((child) => child.id === active.id);
-        const newIdx = parent.children.findIndex((child) => child.id === over.id);
-        if (oldIdx === -1 || newIdx === -1) return parent;
-        return { ...parent, children: arrayMove(parent.children, oldIdx, newIdx) };
-      });
-    });
+    setSteps((prev) => reorderActionTree(prev, String(active.id), String(over.id)));
   };
 
-  const renderTreeItems = (items: WorkflowStep[], depth: number = 0): React.ReactNode => {
-    return items.map((item) => {
-      const hasChildren = item.children && item.children.length > 0;
-      const isExpanded = expandedItems.has(item.id);
-      const TypeIcon = stepTypeConfig[item.type].icon;
-
-      if (depth === 0) {
-        return (
-          <SidebarMenuItem key={item.id} expanded={isExpanded}>
-            <div className="group/parent relative">
-              <SidebarMenuButton
-                isActive={activeItem === item.id}
-                className="group-hover/parent:text-[var(--sidebar-menu-text-active)] group-hover/parent:[&::before]:!opacity-50 group-hover/parent:[&::before]:![transform:scale(1)]"
-                onClick={() => setActiveItem(item.id)}
-              >
-                {hasChildren ? (
-                  <span
-                    role="none"
-                    className={`${ghostBtnCls} transition-transform`}
-                    style={{ width: ACTION_TREE_BTN_SIZE, height: ACTION_TREE_BTN_SIZE, marginLeft: 3, marginRight: -3, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
-                    onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
-                  >
-                    <ChevronDownMd />
-                  </span>
-                ) : (
-                  <span style={{ width: 23, flexShrink: 0, marginLeft: 3 }} />
-                )}
-                <SidebarMenuButtonIcon style={{ marginLeft: 0, ...iconSizeVar }}><TypeIcon /></SidebarMenuButtonIcon>
-                <SidebarMenuButtonLabel className="group-hover/parent:pr-[48px]">{item.label}</SidebarMenuButtonLabel>
-              </SidebarMenuButton>
-              {hasChildren && renderActions()}
-            </div>
-            {hasChildren && (
-              <SidebarMenuSub open={isExpanded} hasIcons>
-                <SortableContext items={item.children!.map((child) => child.id)} strategy={verticalListSortingStrategy}>
-                  {renderTreeItems(item.children!, depth + 1)}
-                </SortableContext>
-              </SidebarMenuSub>
-            )}
-          </SidebarMenuItem>
-        );
-      }
-
-      return <SortableNestedItem key={item.id} item={item} activeItem={activeItem} onSelect={setActiveItem} />;
-    });
+  const handleModeChange = (mode: 'collapse' | 'filter') => {
+    setHeaderMode(mode);
+    setTypeFilters([]);
+    setSearchQuery('');
+    if (mode === 'collapse') {
+      setExpandedItems(new Set(defaultExpanded));
+    }
   };
 
-  const renderFlatItems = (items: WorkflowStep[]): React.ReactNode => {
-    return items.map((item) => {
-      const TypeIcon = stepTypeConfig[item.type].icon;
+  /* Render sortable children of a parent node */
+  const renderChildGroup = (parent: ActionNode, childDepth: number): React.ReactNode => {
+    if (!parent.children?.length) return null;
+
+    if (parent.type === 'module') {
+      /* Module → children: NOT sortable */
+      return parent.children.map((child) => renderSubItem(child, childDepth));
+    }
+
+    if (parent.type === 'screen') {
+      /* Screen → Containers (sortable) + Footer (fixed at end) */
+      const containers = parent.children.filter((c) => c.type !== 'footer');
+      const footer = parent.children.find((c) => c.type === 'footer');
       return (
-        <SidebarMenuItem key={item.id} className="group/action">
-          <SidebarMenuButton
+        <>
+          <SortableContext items={containers.map((c) => c.id)} strategy={verticalListSortingStrategy}>
+            {containers.map((c) => (
+              <SortableActionItem key={c.id} item={c} pl={atItemPl(childDepth, !!c.children)}
+                activeItem={activeItem} expanded={expandedItems.has(c.id)}
+                onSelect={setActiveItem} onToggle={toggleExpanded}
+                childRenderer={(p) => renderChildGroup(p, childDepth + 1)} />
+            ))}
+          </SortableContext>
+          {footer && renderSubItem(footer, childDepth)}
+        </>
+      );
+    }
+
+    return (
+      <SortableContext items={parent.children.map((c) => c.id)} strategy={verticalListSortingStrategy}>
+        {parent.children.map((c) => (
+          <SortableActionItem key={c.id} item={c} pl={atItemPl(childDepth, !!c.children)}
+            activeItem={activeItem} expanded={expandedItems.has(c.id)}
+            onSelect={setActiveItem} onToggle={toggleExpanded}
+            childRenderer={(p) => renderChildGroup(p, childDepth + 1)} />
+        ))}
+      </SortableContext>
+    );
+  };
+
+  /* Non-sortable sub-item (footer in screen, children of module) */
+  const renderSubItem = (item: ActionNode, depth: number): React.ReactNode => {
+    const TypeIcon = actionNodeConfig[item.type].icon;
+    const isGroup = !!item.children;
+    const hasKids = isGroup && item.children!.length > 0;
+    const isExpanded = expandedItems.has(item.id);
+    const pl = atItemPl(depth, isGroup);
+
+    return (
+      <SidebarMenuSubItem key={item.id}>
+        <div className="group/atp relative">
+          <SidebarMenuSubButton
+            indent={1}
             isActive={activeItem === item.id}
+            className="gap-0.5 group-hover/atp:text-[var(--sidebar-menu-text-active)] group-hover/atp:[&::before]:!opacity-50 group-hover/atp:[&::before]:![transform:scale(1)]"
+            style={{ paddingLeft: pl, paddingRight: 4, paddingTop: 0, paddingBottom: 0, height: 32 }}
             onClick={() => setActiveItem(item.id)}
           >
+            <span className="flex items-center shrink-0">
+              {isGroup && (
+                <span role="none" className={`${ghostBtnCls} transition-transform shrink-0`}
+                  style={{ width: 24, height: 24, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                  onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
+                ><ChevronDownMd /></span>
+              )}
+              <span style={AT_ICON} className="inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4 relative z-[1]"><TypeIcon /></span>
+            </span>
+            <span className="flex-1 min-w-0 truncate text-left relative z-[1] group-hover/atp:pr-[30px]">{item.label}</span>
+          </SidebarMenuSubButton>
+          {isGroup && (
+            <span className={parentActionsCls}>
+              <ContainerMoreMenu trigger={
+                <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
+                  aria-label="More"><DotsHorizontal /></button>
+              } />
+            </span>
+          )}
+        </div>
+        {isGroup && (
+          <SidebarMenuSub open={isExpanded} hasIcons>
+            {hasKids && renderChildGroup(item, depth + 1)}
+          </SidebarMenuSub>
+        )}
+      </SidebarMenuSubItem>
+    );
+  };
+
+  /* Root-level items */
+  const renderRootItems = (items: ActionNode[]): React.ReactNode => {
+    return items.map((item) => {
+      const TypeIcon = actionNodeConfig[item.type].icon;
+      const isGroup = !!item.children;
+      const hasKids = isGroup && item.children!.length > 0;
+      const isExpanded = expandedItems.has(item.id);
+
+      return (
+        <SidebarMenuItem key={item.id} expanded={isExpanded}>
+          <div className="group/atp relative">
+            <SidebarMenuButton
+              isActive={activeItem === item.id}
+              className="group-hover/atp:text-[var(--sidebar-menu-text-active)] group-hover/atp:[&::before]:!opacity-50 group-hover/atp:[&::before]:![transform:scale(1)]"
+              onClick={() => setActiveItem(item.id)}
+            >
+              <span className="flex items-center shrink-0" style={{ marginLeft: 4 }}>
+                {isGroup ? (
+                  <span role="none" className={`${ghostBtnCls} transition-transform`}
+                    style={{ width: 24, height: 24, transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                    onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); toggleExpanded(item.id); } }}
+                  ><ChevronDownMd /></span>
+                ) : (
+                  <span style={{ width: 24, flexShrink: 0 }} />
+                )}
+                <span style={AT_ICON} className="inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4 relative z-[1]"><TypeIcon /></span>
+              </span>
+              <SidebarMenuButtonLabel className="group-hover/atp:pr-[52px]">{item.label}</SidebarMenuButtonLabel>
+            </SidebarMenuButton>
+            <span className={parentActionsCls}>
+              {item.type === 'screen' ? (
+                <ScreenMoreMenu trigger={
+                  <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
+                    aria-label="More"><DotsHorizontal /></button>
+                } />
+              ) : (
+                <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
+                  onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()} aria-label="More"><DotsHorizontal /></button>
+              )}
+            </span>
+          </div>
+          {isGroup && (
+            <SidebarMenuSub open={isExpanded} hasIcons>
+              {hasKids && renderChildGroup(item, 1)}
+            </SidebarMenuSub>
+          )}
+        </SidebarMenuItem>
+      );
+    });
+  };
+
+  const renderFlatItems = (items: ActionNode[]): React.ReactNode => {
+    return items.map((item) => {
+      const TypeIcon = actionNodeConfig[item.type].icon;
+      return (
+        <SidebarMenuItem key={item.id}>
+          <SidebarMenuButton isActive={activeItem === item.id} onClick={() => setActiveItem(item.id)}>
             <SidebarMenuButtonIcon style={iconSizeVar}><TypeIcon /></SidebarMenuButtonIcon>
             <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
           </SidebarMenuButton>
@@ -1191,53 +1538,49 @@ export function SidebarActionTreeDemo() {
       <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
         <SidebarProvider className="h-full" collapsible="none">
           <SidebarLayout className="h-full">
-            <Sidebar style={{ width: '280px' }}>
+            <Sidebar style={{ width: '264px' }} className="!py-4">
               <SidebarHeader>
-                <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
+                <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0">
                   <div className="flex-1">
-                    <SidebarInput
-                      size="md"
-                      pill={false}
-                      variant="soft"
-                      placeholder="Search"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onClear={() => setSearchQuery('')}
-                    />
+                    <SidebarInput size="md" pill={false} variant="soft" placeholder="Search..."
+                      value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onClear={() => setSearchQuery('')} />
                   </div>
-                  <Menu>
-                    <Menu.Trigger>
-                      <Button variant="soft" size="md" color="secondary" pill={false} aria-label="Filter by type" uniform>
-                        {isFiltering ? <FilterBadge /> : <Filter />}
-                      </Button>
-                    </Menu.Trigger>
-                    <Menu.Content minWidth="auto" align="end">
-                      {stepFilterOptions.map((opt) => (
-                        <Menu.CheckboxItem
-                          key={opt.value}
-                          checked={typeFilters.includes(opt.value)}
-                          indicatorPosition="end"
-                          indicatorVariant="ghost"
-                          onCheckedChange={(checked) =>
-                            setTypeFilters((prev) =>
-                              checked ? [...prev, opt.value] : prev.filter((v) => v !== opt.value),
-                            )
-                          }
-                          onSelect={(evt) => evt.preventDefault()}
-                        >
-                          {opt.label}
-                        </Menu.CheckboxItem>
-                      ))}
-                    </Menu.Content>
-                  </Menu>
+                  {headerMode === 'collapse' ? (
+                    <Button
+                      variant="soft" size="md" color="secondary" pill={false} uniform
+                      aria-label="Collapse all" aria-pressed={!hasAnyExpanded}
+                      onClick={toggleCollapseAll}
+                    >
+                      <CollapseLayers />
+                    </Button>
+                  ) : (
+                    <Menu>
+                      <Menu.Trigger>
+                        <Button variant="soft" size="md" color="secondary" pill={false} aria-label="Filter by type" uniform>
+                          {hasTypeFilters ? <FilterBadge /> : <Filter />}
+                        </Button>
+                      </Menu.Trigger>
+                      <Menu.Content minWidth="auto" align="end">
+                        {actionFilterOptions.map((opt) => (
+                          <Menu.CheckboxItem key={opt.value} checked={typeFilters.includes(opt.value)}
+                            indicatorPosition="end" indicatorVariant="ghost"
+                            onCheckedChange={(checked) => setTypeFilters((prev) =>
+                              checked ? [...prev, opt.value] : prev.filter((v) => v !== opt.value))}
+                            onSelect={(evt) => evt.preventDefault()}>
+                            {opt.label}
+                          </Menu.CheckboxItem>
+                        ))}
+                      </Menu.Content>
+                    </Menu>
+                  )}
                 </div>
               </SidebarHeader>
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupContent>
-                    <DndContext id="sidebar-action-tree" sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                    <DndContext id="sidebar-action-tree" sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                       <SidebarMenu>
-                        {isFiltering ? renderFlatItems(displaySteps) : renderTreeItems(displaySteps)}
+                        {isFlattening ? renderFlatItems(displaySteps) : renderRootItems(displaySteps)}
                       </SidebarMenu>
                     </DndContext>
                   </SidebarGroupContent>
@@ -1249,14 +1592,27 @@ export function SidebarActionTreeDemo() {
               <div className="p-6">
                 <h1 className="text-2xl font-semibold mb-4">{activeItemLabel}</h1>
                 <p className="text-secondary">
-                  {isFiltering
+                  {isFlattening
                     ? 'Filtered results shown as a flat list.'
-                    : 'Chevrons on the left expand/collapse. Action buttons appear on hover.'}
+                    : 'Screen → Container / Footer → Elements. Containers and elements are drag-reorderable; Footer stays pinned.'}
                 </p>
               </div>
             </SidebarInset>
           </SidebarLayout>
         </SidebarProvider>
+      </div>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="action">
+          <SegmentedControl<'collapse' | 'filter'>
+            value={headerMode}
+            onChange={handleModeChange}
+            aria-label="Header action mode"
+            size="xs"
+          >
+            <SegmentedControl.Option value="collapse">collapse</SegmentedControl.Option>
+            <SegmentedControl.Option value="filter">filter</SegmentedControl.Option>
+          </SegmentedControl>
+        </DemoControlRow>
       </div>
     </>
   );
