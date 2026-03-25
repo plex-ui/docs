@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: 'https://plexui.com',
     siteName: 'Plex UI',
     type: 'website',
-    images: [{ url: '/opengraph-image.png' }],
+    images: [{ url: '/opengraph-image.png?v=2' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -66,7 +66,7 @@ const jsonLd = {
       '@type': 'SoftwareApplication',
       '@id': 'https://plexui.com/#react-library',
       name: 'Plex UI React Library',
-      image: 'https://plexui.com/opengraph-image.png',
+      image: 'https://plexui.com/opengraph-image.png?v=2',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
       description:
@@ -96,7 +96,7 @@ const jsonLd = {
       '@type': 'Product',
       '@id': 'https://plexui.com/#figma-kit',
       name: 'Plex UI Figma Design System',
-      image: 'https://plexui.com/opengraph-image.png',
+      image: 'https://plexui.com/opengraph-image.png?v=2',
       description:
         'Professional Figma design system with 22,000+ variants, three-layer token system as Figma Variables, 6,600+ icons, dark & light modes, and lifetime updates.',
       url: 'https://plexui.com/pricing',
@@ -130,7 +130,7 @@ const jsonLd = {
       '@type': 'Product',
       '@id': 'https://plexui.com/#bridge',
       name: 'Plex UI Figma Bridge Plugin',
-      image: 'https://plexui.com/opengraph-image.png',
+      image: 'https://plexui.com/opengraph-image.png?v=2',
       description:
         'Local Figma plugin that lets ANY AI model (Claude, GPT, Cursor, Codex, Gemini) create, read, and edit real Figma designs via HTTP API. Model-agnostic alternative to Claude-only Figma integration.',
       url: 'https://plexui.com/bridge',
