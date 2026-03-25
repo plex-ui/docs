@@ -1,11 +1,65 @@
 ---
 title: AI Setup
-description: One prompt to set up Plex UI in any AI code editor
+description: Give AI code editors full context about Plex UI components, props, and design tokens
 ---
 
-## Set up for AI coding
+## AGENT.md — full component reference
 
-Copy the prompt below into your AI editor (Claude, Codex, Antigravity, Cursor, etc.) and it will install and configure Plex UI for you.
+Download a comprehensive reference file that gives your AI editor complete knowledge of all 35+ components, 14 hooks, design tokens, and usage patterns.
+
+### Claude Code
+
+```bash
+curl -o CLAUDE.md https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md
+```
+
+Place `CLAUDE.md` in your project root. Claude Code reads it automatically on every session.
+
+### Cursor
+
+```bash
+mkdir -p .cursor/rules
+curl -o .cursor/rules/plexui.mdc https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md
+```
+
+Cursor loads rule files from `.cursor/rules/` automatically.
+
+### Gemini CLI
+
+```bash
+curl -o GEMINI.md https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md
+```
+
+Place `GEMINI.md` in your project root. Gemini CLI reads it automatically.
+
+### OpenCode
+
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md
+```
+
+Place `AGENTS.md` in your project root. OpenCode reads it automatically.
+
+### Manual download
+
+[Download AGENT.md](https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md) and rename it for your editor.
+
+### What your AI editor gets
+
+- **35+ components** — import paths, props, types, defaults, sub-components
+- **619 icons** — import examples and naming conventions
+- **14 hooks** — signatures, params, return types
+- **Design tokens** — colors, typography, spacing, radius, shadows, motion
+- **9-step control size scale** — 3xs through 3xl with pixel values
+- **8 semantic colors** — primary, secondary, danger, success, warning, info, discovery, caution
+- **Dark mode** — CSS, HTML, and JS setup
+- **Usage patterns** — controlled/uncontrolled, composition, forms, sidebar layouts
+
+---
+
+## Quick setup prompt
+
+For a faster setup without downloading a file, copy this prompt into any AI editor:
 
 ````markdown
 Install and configure @plexui/ui in this project.
@@ -50,10 +104,13 @@ Slider, Switch, Tabs, TagInput, TextLink, Textarea, Tooltip.
 - `color` prop: `primary`, `secondary`, `danger`, `success`, `warning`, `caution`, `discovery`, `info`
 - `variant` prop: `solid`, `soft`, `outline`, `ghost`, `surface`
 - Use Tailwind classes alongside components. Plex UI provides semantic color utilities like `text-primary`, `bg-surface`, `border-default`, `text-secondary`
-- Icons: `import { IconName } from "@plexui/ui/components/Icon"` — 460+ icons available
+- Icons: `import { IconName } from "@plexui/ui/components/Icon"` — 619 icons available
 - Dark mode works automatically via CSS `light-dark()` — no extra config needed
 
 Full docs: https://plexui.com/docs
+
+For comprehensive component reference with all props and types, download AGENT.md:
+curl -o CLAUDE.md https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md
 ````
 
 ### Tips
@@ -62,17 +119,8 @@ Full docs: https://plexui.com/docs
 - **Claude Code** — Paste into chat or add to your `CLAUDE.md` project file
 - **Codex / ChatGPT** — Paste into the system prompt or chat
 
-### What the AI gets
-
-The prompt gives your AI editor everything it needs:
-- Install commands and stylesheet setup
-- Full list of available components
-- The size, color, and variant systems
-- Tailwind utility classes that ship with Plex UI
-- Link to the full documentation for deeper reference
-
-No custom config files, no plugins, no build step beyond the standard Tailwind 4 setup.
-
 ---
 
 Prefer to install manually? Follow the [Installation guide](/docs/overview/installation).
+
+Want richer AI integration? Set up the [MCP Server](/docs/overview/mcp) for interactive component discovery.
