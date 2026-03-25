@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useRef, useState } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -37,7 +37,7 @@ import {
    ChevronDownMd,
    Clip,
    Code,
-   Blocks,
+
    Commit,
    CreditCard,
    Desktop,
@@ -61,7 +61,7 @@ import {
    PastedText,
    Phone,
    Plus,
-   RemoveTrash,
+
    SettingsCog,
    SpacingVertical,
    SquareAsterisk,
@@ -69,7 +69,7 @@ import {
    Storage,
    Terminal,
    TextAlignStart,
-   TextCursorInput,
+
    TextInitial,
    TextSelect,
  } from '@plexui/ui/components/Icon';
@@ -1177,49 +1177,26 @@ function ActionMenuItem({ type }: { type: ActionNodeType }) {
   return <Menu.Item onSelect={() => {}}><ATMenuIcon type={type} /> {actionNodeConfig[type].label}</Menu.Item>;
 }
 
-function ScreenMoreMenu({ trigger }: { trigger: React.ReactNode }) {
+function ScreenAddMenu({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Menu>
       <Menu.Trigger>{trigger}</Menu.Trigger>
       <Menu.Content minWidth="auto" align="end">
-        <Menu.Sub>
-          <Menu.SubTrigger><ATMenuIcon type="action" icon={Plus} /> Add</Menu.SubTrigger>
-          <Menu.SubContent>
-            <Menu.Item onSelect={() => {}}><ATMenuIcon type="container" /> {actionNodeConfig.container.label}</Menu.Item>
-            <Menu.Item onSelect={() => {}}><ATMenuIcon type="footer" /> {actionNodeConfig.footer.label}</Menu.Item>
-          </Menu.SubContent>
-        </Menu.Sub>
-        <Menu.Separator />
-        <Menu.Item onSelect={() => {}}><ATMenuIcon type="action" icon={RemoveTrash} /> Delete</Menu.Item>
+        <Menu.Item onSelect={() => {}}><ATMenuIcon type="container" /> {actionNodeConfig.container.label}</Menu.Item>
+        <Menu.Item onSelect={() => {}}><ATMenuIcon type="footer" /> {actionNodeConfig.footer.label}</Menu.Item>
       </Menu.Content>
     </Menu>
   );
 }
 
-function ContainerMoreMenu({ trigger }: { trigger: React.ReactNode }) {
+function ContainerAddMenu({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Menu>
       <Menu.Trigger>{trigger}</Menu.Trigger>
       <Menu.Content minWidth="auto" align="end">
-        <Menu.Sub>
-          <Menu.SubTrigger><ATMenuIcon icon={Plus} /> Add</Menu.SubTrigger>
-          <Menu.SubContent>
-            <Menu.Sub>
-              <Menu.SubTrigger><span className="inline-flex items-center gap-2"><ATMenuIcon icon={Blocks} /> Elements</span></Menu.SubTrigger>
-              <Menu.SubContent>
-                {elementTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
-              </Menu.SubContent>
-            </Menu.Sub>
-            <Menu.Sub>
-              <Menu.SubTrigger><span className="inline-flex items-center gap-2"><ATMenuIcon icon={TextCursorInput} /> Forms</span></Menu.SubTrigger>
-              <Menu.SubContent>
-                {formTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
-              </Menu.SubContent>
-            </Menu.Sub>
-          </Menu.SubContent>
-        </Menu.Sub>
+        {elementTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
         <Menu.Separator />
-        <Menu.Item onSelect={() => {}}><ATMenuIcon icon={RemoveTrash} /> Delete</Menu.Item>
+        {formTypes.map((t) => <ActionMenuItem key={t} type={t} />)}
       </Menu.Content>
     </Menu>
   );
@@ -1235,13 +1212,12 @@ const AT_ACTIONS = 'item-actions absolute right-1 top-0 bottom-0 flex items-cent
 const atItemPl = (depth: number, isGroup: boolean) => 4 + (isGroup ? depth : depth + 1) * 24;
 
 function SortableActionItem({
-  item, pl, activeItem, expanded, dragActive, onSelect, onToggle, childRenderer,
+  item, pl, activeItem, expanded, onSelect, onToggle, childRenderer,
 }: {
   item: ActionNode;
   pl: number;
   activeItem: string;
   expanded: boolean;
-  dragActive: boolean;
   onSelect: (id: string) => void;
   onToggle: (id: string) => void;
   childRenderer: (parent: ActionNode) => React.ReactNode;
@@ -1252,7 +1228,7 @@ function SortableActionItem({
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id });
   const yOnly = transform ? { ...transform, x: 0 } : null;
   const style: React.CSSProperties = {
-    transform: CSS.Transform.toString(yOnly),
+    transform: CSS.Translate.toString(yOnly),
     transition: isDragging ? 'none' : transition,
     zIndex: isDragging ? 10 : undefined,
     opacity: isDragging ? 0.7 : undefined,
@@ -1268,8 +1244,8 @@ function SortableActionItem({
     : AT_ACTIONS;
 
   const labelPadCls = isDragging
-    ? 'flex-1 min-w-0 truncate text-left relative z-[1] pr-[54px]'
-    : 'flex-1 min-w-0 truncate text-left relative z-[1] group-hover/ati:pr-[54px]';
+    ? `flex-1 min-w-0 truncate text-left relative z-[1] ${isGroup ? 'pr-[54px]' : 'pr-[30px]'}`
+    : `flex-1 min-w-0 truncate text-left relative z-[1] ${isGroup ? 'group-hover/ati:pr-[54px]' : 'group-hover/ati:pr-[30px]'}`;
 
   return (
     <SidebarMenuSubItem ref={setNodeRef} style={style}>
@@ -1294,14 +1270,11 @@ function SortableActionItem({
           <span className={labelPadCls}>{item.label}</span>
         </SidebarMenuSubButton>
         <span className={actionsCls}>
-          {isGroup ? (
-            <ContainerMoreMenu trigger={
+          {isGroup && (
+            <ContainerAddMenu trigger={
               <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
-                aria-label="More"><DotsHorizontal /></button>
+                aria-label="Add"><Plus /></button>
             } />
-          ) : (
-            <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
-              onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()} aria-label="More"><DotsHorizontal /></button>
           )}
           <span
             className="inline-flex items-center justify-center shrink-0 [&>svg]:block [&>svg]:w-4 [&>svg]:h-4 relative z-[1] pointer-events-auto text-[var(--color-text-tertiary)]"
@@ -1309,7 +1282,7 @@ function SortableActionItem({
             {...listeners} {...attributes}><GripVertical /></span>
         </span>
       </div>
-      {isGroup && (!dragActive || expanded) && (
+      {isGroup && !isDragging && (
         <SidebarMenuSub open={expanded} hasIcons>
           {hasKids && childRenderer(item)}
         </SidebarMenuSub>
@@ -1333,7 +1306,7 @@ export function SidebarActionTreeDemo() {
   );
   const [activeItem, setActiveItem] = useState('screen');
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
-  const preCollapseRef = useRef<Set<string> | null>(null);
+  const dragSiblingIds = useRef<Set<string> | null>(null);
 
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) => {
@@ -1379,34 +1352,37 @@ export function SidebarActionTreeDemo() {
 
   const parentActionsCls = 'item-actions absolute right-1 top-0 bottom-0 flex items-center gap-0.5 opacity-0 pointer-events-none group-hover/atp:opacity-100 group-hover/atp:pointer-events-auto z-[2]';
 
+  /* Scoped collision: only match items within the same parent */
+  const scopedCollision = useCallback<typeof closestCenter>(
+    (args) => {
+      if (!dragSiblingIds.current) return closestCenter(args);
+      const filtered = args.droppableContainers.filter(
+        (c) => dragSiblingIds.current!.has(String(c.id)),
+      );
+      if (filtered.length === 0) return closestCenter(args);
+      return closestCenter({ ...args, droppableContainers: filtered });
+    },
+    [],
+  );
+
   const handleDragStart = (event: DragStartEvent) => {
     const id = String(event.active.id);
     setActiveDragId(id);
-    preCollapseRef.current = new Set(expandedItems);
     const siblings = findSiblingIds(steps, id);
-    if (siblings) {
-      setExpandedItems((prev) => {
-        const next = new Set(prev);
-        for (const sid of siblings) next.delete(sid);
-        return next;
-      });
-    }
+    dragSiblingIds.current = siblings ? new Set(siblings) : null;
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     setActiveDragId(null);
-    preCollapseRef.current = null;
+    dragSiblingIds.current = null;
     if (!over || active.id === over.id) return;
     setSteps((prev) => reorderActionTree(prev, String(active.id), String(over.id)));
   };
 
   const handleDragCancel = () => {
     setActiveDragId(null);
-    if (preCollapseRef.current) {
-      setExpandedItems(preCollapseRef.current);
-      preCollapseRef.current = null;
-    }
+    dragSiblingIds.current = null;
   };
 
   const handleModeChange = (mode: 'collapse' | 'filter') => {
@@ -1436,7 +1412,7 @@ export function SidebarActionTreeDemo() {
           <SortableContext items={containers.map((c) => c.id)} strategy={verticalListSortingStrategy}>
             {containers.map((c) => (
               <SortableActionItem key={c.id} item={c} pl={atItemPl(childDepth, !!c.children)}
-                activeItem={activeItem} expanded={expandedItems.has(c.id)} dragActive={!!activeDragId}
+                activeItem={activeItem} expanded={expandedItems.has(c.id)}
                 onSelect={setActiveItem} onToggle={toggleExpanded}
                 childRenderer={(p) => renderChildGroup(p, childDepth + 1)} />
             ))}
@@ -1450,7 +1426,7 @@ export function SidebarActionTreeDemo() {
       <SortableContext items={parent.children.map((c) => c.id)} strategy={verticalListSortingStrategy}>
         {parent.children.map((c) => (
           <SortableActionItem key={c.id} item={c} pl={atItemPl(childDepth, !!c.children)}
-            activeItem={activeItem} expanded={expandedItems.has(c.id)} dragActive={!!activeDragId}
+            activeItem={activeItem} expanded={expandedItems.has(c.id)}
             onSelect={setActiveItem} onToggle={toggleExpanded}
             childRenderer={(p) => renderChildGroup(p, childDepth + 1)} />
         ))}
@@ -1490,9 +1466,9 @@ export function SidebarActionTreeDemo() {
           </SidebarMenuSubButton>
           {isGroup && (
             <span className={parentActionsCls}>
-              <ContainerMoreMenu trigger={
+              <ContainerAddMenu trigger={
                 <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
-                  aria-label="More"><DotsHorizontal /></button>
+                  aria-label="Add"><Plus /></button>
               } />
             </span>
           )}
@@ -1538,13 +1514,15 @@ export function SidebarActionTreeDemo() {
             </SidebarMenuButton>
             <span className={parentActionsCls}>
               {item.type === 'screen' ? (
-                <ScreenMoreMenu trigger={
+                <ScreenAddMenu trigger={
                   <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
-                    aria-label="More"><DotsHorizontal /></button>
+                    aria-label="Add"><Plus /></button>
                 } />
               ) : (
-                <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
-                  onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()} aria-label="More"><DotsHorizontal /></button>
+                <ContainerAddMenu trigger={
+                  <button type="button" className={ghostBtnCls} style={{ width: AT_BTN, height: AT_BTN }}
+                    aria-label="Add"><Plus /></button>
+                } />
               )}
             </span>
           </div>
@@ -1617,7 +1595,7 @@ export function SidebarActionTreeDemo() {
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupContent>
-                    <DndContext id="sidebar-action-tree" sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragCancel={handleDragCancel} measuring={{ droppable: { strategy: MeasuringStrategy.WhileDragging } }}>
+                    <DndContext id="sidebar-action-tree" sensors={sensors} collisionDetection={scopedCollision} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragCancel={handleDragCancel} measuring={{ droppable: { strategy: MeasuringStrategy.WhileDragging } }}>
                       <SidebarMenu>
                         {isFlattening ? renderFlatItems(displaySteps) : renderRootItems(displaySteps)}
                       </SidebarMenu>
