@@ -46,7 +46,7 @@ async function buildCss() {
     return
   }
 
-  const passthroughCssFiles = new Set(["styles/index.css"])
+  const passthroughCssFiles = new Set(["styles/index.css", "styles/variables-tailwind-theme.css"])
 
   for (const file of cssFiles) {
     const relativePath = path.relative(SRC_DIR, file)
