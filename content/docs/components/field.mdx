@@ -25,6 +25,8 @@ import {
   FieldValidationDemo,
   FieldFormExampleDemo,
   FieldOpticalAlignDemo,
+  FieldBirthdayInputDemo,
+  FieldBirthdayValidationDemo,
   FieldBirthdaySegmentedDemo,
   FieldBirthdaySelectDemo,
 } from "@/components/docs/FieldDemos"
@@ -284,6 +286,34 @@ For controls that need explicit prop wiring, pass a function as `children`. The 
   <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
 </div>`} previewMinHeight={168}>
   <FieldFormExampleDemo />
+</ComponentPreview>
+
+### Birthday input
+
+<ComponentPreview details={<>A date-of-birth input with inline formatting that inserts <code>MM / DD / YYYY</code> separators as you type, wrapped in a <code>Field</code> for label and accessibility.</>} code={`<Field label="Birthday">
+  <Input
+    placeholder="MM / DD / YYYY"
+    value={birthday}
+    onChange={(evt) => setBirthday(formatBirthdayValue(evt.target.value))}
+    inputMode="numeric"
+    maxLength={14}
+  />
+</Field>`} previewMinHeight={168}>
+  <FieldBirthdayInputDemo />
+</ComponentPreview>
+
+### Birthday with validation
+
+<ComponentPreview details={<>Birthday input with <code>errorMessage</code> on <code>Field</code> — Field automatically passes <code>aria-invalid</code> down and renders <code>FieldError</code>.</>} code={`<Field label="Birthday" errorMessage={errorMessage}>
+  <Input
+    placeholder="MM / DD / YYYY"
+    value={birthday}
+    onChange={(evt) => setBirthday(formatBirthdayValue(evt.target.value))}
+    inputMode="numeric"
+    maxLength={14}
+  />
+</Field>`} previewMinHeight={168}>
+  <FieldBirthdayValidationDemo />
 </ComponentPreview>
 
 ### Birthday segmented input
