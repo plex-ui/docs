@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Field } from '@plexui/ui/components/Field';
+import { FieldError } from '@plexui/ui/components/FieldError';
 import { Input } from '@plexui/ui/components/Input';
 import { Textarea } from '@plexui/ui/components/Textarea';
 import { Select } from '@plexui/ui/components/Select';
@@ -565,6 +566,104 @@ const BIRTHDAY_YEAR_OPTIONS = Array.from({ length: 2025 - 1920 + 1 }, (_, index)
   const year = String(2025 - index);
   return { label: year, value: year };
 });
+
+function getBirthdayDigits(value: string): string {
+  return value.replace(/\D/g, '').slice(0, 8);
+}
+
+function formatBirthdayValue(rawValue: string): string {
+  const digits = getBirthdayDigits(rawValue);
+  const month = digits.slice(0, 2);
+  const day = digits.slice(2, 4);
+  const year = digits.slice(4, 8);
+  if (digits.length < 2) return month;
+  if (digits.length === 2) return `${month} / `;
+  if (digits.length < 4) return `${month} / ${day}`;
+  if (digits.length === 4) return `${month} / ${day} / `;
+  return `${month} / ${day} / ${year}`;
+}
+
+function isValidBirthday(value: string): boolean {
+  const parsed = value.match(/^(\d{2})\s\/\s(\d{2})\s\/\s(\d{4})$/);
+  if (!parsed) return false;
+  const m = Number(parsed[1]);
+  const d = Number(parsed[2]);
+  const y = Number(parsed[3]);
+  if (m < 1 || m > 12) return false;
+  const maxDay = new Date(y, m, 0).getDate();
+  return d >= 1 && d <= maxDay;
+}
+
+export function FieldBirthdayInputDemo() {
+  const [birthday, setBirthday] = useState('');
+
+  const handleChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = evt.target.value;
+      const newDigits = getBirthdayDigits(raw);
+      const oldDigits = getBirthdayDigits(birthday);
+      if (raw.length < birthday.length && newDigits.length === oldDigits.length) {
+        setBirthday(formatBirthdayValue(newDigits.slice(0, -1)));
+      } else {
+        setBirthday(formatBirthdayValue(raw));
+      }
+    },
+    [birthday],
+  );
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[320px]">
+        <Field label="Birthday">
+          <Input
+            placeholder="MM / DD / YYYY"
+            value={birthday}
+            onChange={handleChange}
+            inputMode="numeric"
+            maxLength={14}
+            autoComplete="off"
+          />
+        </Field>
+      </div>
+    </div>
+  );
+}
+
+export function FieldBirthdayValidationDemo() {
+  const [birthday, setBirthday] = useState('02 / 30 / 2001');
+  const errorMessage = birthday ? (isValidBirthday(birthday) ? undefined : 'Please enter a valid date.') : undefined;
+
+  const handleChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = evt.target.value;
+      const newDigits = getBirthdayDigits(raw);
+      const oldDigits = getBirthdayDigits(birthday);
+      if (raw.length < birthday.length && newDigits.length === oldDigits.length) {
+        setBirthday(formatBirthdayValue(newDigits.slice(0, -1)));
+      } else {
+        setBirthday(formatBirthdayValue(raw));
+      }
+    },
+    [birthday],
+  );
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[320px]">
+        <Field label="Birthday" errorMessage={errorMessage}>
+          <Input
+            placeholder="MM / DD / YYYY"
+            value={birthday}
+            onChange={handleChange}
+            inputMode="numeric"
+            maxLength={14}
+            autoComplete="off"
+          />
+        </Field>
+      </div>
+    </div>
+  );
+}
 
 export function FieldBirthdaySegmentedDemo() {
   const [month, setMonth] = useState('');
