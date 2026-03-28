@@ -17,9 +17,9 @@ import {
 
 ## Examples
 
-### Base
+### Placeholder
 
-<ComponentPreview code={`<MarkdownEditor placeholder="Enter text..." />`} previewMinHeight={168}>
+<ComponentPreview details={<>Use <code>placeholder</code> to display hint text when the editor is empty.</>} code={`<MarkdownEditor placeholder="Enter text..." />`} previewMinHeight={168}>
   <MarkdownEditorBaseDemo />
 </ComponentPreview>
 
@@ -83,5 +83,5 @@ import {
   { prop: "defaultValue", type: "string", description: "Initial markdown for uncontrolled mode" },
   { prop: "onChange", type: "(markdown: string) => void", description: "Called on content change" },
   { prop: "toolbarEnd", type: "ReactNode", description: "Content rendered at the end of the toolbar" },
-  { prop: "rows", type: "number", default: "3", description: "Minimum visible rows" },
+  { prop: "rows", type: "number", default: "1", description: "Minimum visible rows" },
 ]} />
