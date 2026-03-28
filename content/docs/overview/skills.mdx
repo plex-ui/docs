@@ -1,0 +1,93 @@
+---
+title: Skills
+description: Teach your AI coding agent Plex UI conventions with one command
+---
+
+Skills give AI assistants like Claude Code, Cursor, Codex, Windsurf and others project-aware context about Plex UI. When installed, your AI assistant knows how to install, compose, and customize components using the correct APIs and patterns.
+
+For example, you can ask your AI assistant to:
+
+- *"Add a login form with email and password fields."*
+- *"Create a settings page with tabs, inputs, and a save button."*
+- *"Build a dashboard with a sidebar, stat cards, and a data table."*
+- *"Add a date range picker with size lg."*
+- *"Switch to dark mode."*
+
+The skill provides the assistant with your component library's import patterns, size scale, color system, variant system, and icon usage — so it generates correct code on the first try.
+
+---
+
+## Install
+
+```bash
+npx skills add plex-ui/docs
+```
+
+This installs the Plex UI skill into your project. Once installed, your AI assistant automatically loads it when working with Plex UI components.
+
+Learn more about skills at [skills.sh](https://skills.sh).
+
+---
+
+## What's Included
+
+The skill provides your AI assistant with the following knowledge:
+
+### Component Reference
+
+Full API reference for all 35+ components: Button, Input, Select, Sidebar, Menu, Dialog, Tabs, DatePicker, and more. Includes props, composition patterns, and common usage examples.
+
+### Size Scale & Conventions
+
+The unified 9-step size scale (`3xs` to `3xl`), how the `size` prop works across controls, and when to use each size. Ensures consistent sizing across forms, toolbars, and layouts.
+
+### Color System & Theming
+
+Semantic color props (`primary`, `secondary`, `danger`, etc.), variant props (`solid`, `soft`, `outline`, `ghost`), Tailwind utility classes from Plex UI tokens (`text-primary`, `bg-surface`), and the three-layer design token architecture.
+
+### Dark Mode
+
+How Plex UI uses CSS `light-dark()` for automatic dark mode — no `dark:` prefixes needed. Theme toggling via `color-scheme`.
+
+### Icon Library
+
+Import patterns for 460+ built-in icons, auto-sizing behavior inside components, and the `iconSize` override prop.
+
+### Import Patterns
+
+Subpath import convention (`@plexui/ui/components/Button`), `PlexUIProvider` setup, and hook imports.
+
+---
+
+## How It Works
+
+1. **Project detection** — The skill activates when your AI assistant encounters `@plexui/ui` imports or Plex UI components in the codebase.
+2. **Context injection** — The assistant receives Plex UI's component APIs, conventions, and patterns as project context.
+3. **Pattern enforcement** — The assistant follows Plex UI conventions: subpath imports, semantic color props, unified size scale, and automatic dark mode.
+4. **Correct on first try** — Instead of guessing API shapes, the assistant uses the exact props and patterns from the skill.
+
+---
+
+## Supported Agents
+
+The skill works with any AI coding agent that supports the [skills.sh](https://skills.sh) ecosystem:
+
+- [Claude Code](https://claude.com/product/claude-code)
+- [Cursor](https://cursor.sh)
+- [Codex](https://openai.com/codex)
+- [Windsurf](https://codeium.com/windsurf)
+- [GitHub Copilot](https://github.com/features/copilot)
+- [OpenCode](https://opencode.ai)
+- [Cline](https://cline.bot)
+- [Amp](https://ampcode.com)
+- And [30+ more agents](https://skills.sh)
+
+---
+
+## Learn More
+
+- [AI Setup](/docs/overview/ai-setup) — Quick setup prompt for AI editors
+- [Installation](/docs/overview/installation) — Manual installation guide
+- [Components](/docs/components) — Full component documentation
+- [Design Tokens](/docs/foundations/design-tokens) — Token architecture
+- [skills.sh](https://skills.sh) — Learn more about AI skills

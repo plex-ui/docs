@@ -1,0 +1,8 @@
+{
+  "lsp": {
+    "mdx": {
+      "command": ["mdx-language-server", "--stdio"],
+      "extensions": [".mdx"]
+    }
+  }
+}

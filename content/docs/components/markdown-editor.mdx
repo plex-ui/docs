@@ -1,0 +1,94 @@
+---
+title: Markdown Editor
+description: Compact rich text editor embedded in a form field, powered by Tiptap
+---
+
+import {
+  MarkdownEditorBaseDemo,
+  MarkdownEditorAllFormattingDemo,
+  MarkdownEditorWithFieldDemo,
+  MarkdownEditorToolbarEndDemo,
+  MarkdownEditorVariantsDemo,
+  MarkdownEditorDisabledDemo,
+  MarkdownEditorInvalidDemo,
+  MarkdownEditorControlledDemo,
+} from '@/components/docs/MarkdownEditorDemos'
+
+<UsageBlock>{`import { MarkdownEditor } from "@plexui/ui/components/MarkdownEditor";`}</UsageBlock>
+
+## Examples
+
+### Base
+
+<ComponentPreview code={`<MarkdownEditor placeholder="Enter text..." />`} previewMinHeight={168}>
+  <MarkdownEditorBaseDemo />
+</ComponentPreview>
+
+### All formatting
+
+<ComponentPreview details={<>Example with all supported formatting: <strong>bold</strong>, <em>italic</em>, links, ordered lists, and unordered lists. Click inside formatted text to see toolbar buttons toggle.</>} code={`<MarkdownEditor defaultValue={allFormattingHtml} />`} previewMinHeight={300}>
+  <MarkdownEditorAllFormattingDemo />
+</ComponentPreview>
+
+### With Field
+
+<ComponentPreview details={<>Wrap with <code>Field</code> to add label, description, and error handling. The editor receives <code>id</code> and <code>aria-describedby</code> automatically.</>} code={`<Field label="Description" description="Supports bold, italic, lists, and links.">
+  <MarkdownEditor placeholder="Enter description..." />
+</Field>`} previewMinHeight={200}>
+  <MarkdownEditorWithFieldDemo />
+</ComponentPreview>
+
+### Toolbar end slot
+
+<ComponentPreview details={<>Use <code>toolbarEnd</code> to render custom content at the end of the toolbar &mdash; for example, an &ldquo;Edit translations&rdquo; button.</>} code={`<MarkdownEditor
+  placeholder="Enter text..."
+  toolbarEnd={
+    <button aria-label="Edit translations">
+      <Translate />
+    </button>
+  }
+/>`} previewMinHeight={200}>
+  <MarkdownEditorToolbarEndDemo />
+</ComponentPreview>
+
+### Variants
+
+<ComponentPreview details={<>Use <code>variant</code> to switch between <code>outline</code> (default) and <code>soft</code> styles.</>} code={`<MarkdownEditor variant="outline" />
+<MarkdownEditor variant="soft" />`} previewMinHeight={380}>
+  <MarkdownEditorVariantsDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Use <code>disabled</code> to prevent editing and grey out the component.</>} code={`<MarkdownEditor disabled defaultValue="<p>Read-only content</p>" />`} previewMinHeight={168}>
+  <MarkdownEditorDisabledDemo />
+</ComponentPreview>
+
+### Invalid
+
+<ComponentPreview details={<>Use <code>invalid</code> or wrap with <code>Field</code> and pass <code>errorMessage</code> to show an error state.</>} code={`<Field label="Bio" errorMessage="This field is required.">
+  <MarkdownEditor placeholder="Tell us about yourself..." invalid />
+</Field>`} previewMinHeight={200}>
+  <MarkdownEditorInvalidDemo />
+</ComponentPreview>
+
+### Controlled
+
+<ComponentPreview details={<>Pass <code>value</code> and <code>onChange</code> for controlled mode. The value is an HTML string.</>} code={`const [html, setHtml] = useState('<p>Edit this <strong>bold</strong> text.</p>');
+<MarkdownEditor value={html} onChange={setHtml} />`} previewMinHeight={260}>
+  <MarkdownEditorControlledDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "variant", type: '"outline" | "soft"', default: '"outline"', description: "Visual style of the editor" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable the editor" },
+  { prop: "invalid", type: "boolean", default: "false", description: "Mark as invalid" },
+  { prop: "placeholder", type: "string", description: "Placeholder text when empty" },
+  { prop: "value", type: "string", description: "Controlled HTML value" },
+  { prop: "defaultValue", type: "string", description: "Initial HTML for uncontrolled mode" },
+  { prop: "onChange", type: "(html: string) => void", description: "Called on content change" },
+  { prop: "toolbarEnd", type: "ReactNode", description: "Content rendered at the end of the toolbar" },
+  { prop: "rows", type: "number", default: "3", description: "Minimum visible rows" },
+]} />
