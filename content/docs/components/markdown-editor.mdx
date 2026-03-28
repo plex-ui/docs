@@ -11,7 +11,6 @@ import {
   MarkdownEditorVariantsDemo,
   MarkdownEditorDisabledDemo,
   MarkdownEditorInvalidDemo,
-  MarkdownEditorControlledDemo,
 } from '@/components/docs/MarkdownEditorDemos'
 
 <UsageBlock>{`import { MarkdownEditor } from "@plexui/ui/components/MarkdownEditor";`}</UsageBlock>
@@ -26,7 +25,7 @@ import {
 
 ### All formatting
 
-<ComponentPreview details={<>Example with all supported formatting: <strong>bold</strong>, <em>italic</em>, links, ordered lists, and unordered lists. Click inside formatted text to see toolbar buttons toggle.</>} code={`<MarkdownEditor defaultValue={allFormattingHtml} />`} previewMinHeight={300}>
+<ComponentPreview details={<>Example with all supported formatting: <strong>bold</strong>, <em>italic</em>, links, ordered lists, and unordered lists. Click inside formatted text to see toolbar buttons toggle.</>} code={`<MarkdownEditor defaultValue={allFormattingMd} />`} previewMinHeight={300}>
   <MarkdownEditorAllFormattingDemo />
 </ComponentPreview>
 
@@ -60,7 +59,7 @@ import {
 
 ### Disabled
 
-<ComponentPreview details={<>Use <code>disabled</code> to prevent editing and grey out the component.</>} code={`<MarkdownEditor disabled defaultValue="<p>Read-only content</p>" />`} previewMinHeight={168}>
+<ComponentPreview details={<>Use <code>disabled</code> to prevent editing and grey out the component.</>} code={`<MarkdownEditor disabled defaultValue="This content is **read-only**." />`} previewMinHeight={168}>
   <MarkdownEditorDisabledDemo />
 </ComponentPreview>
 
@@ -72,12 +71,6 @@ import {
   <MarkdownEditorInvalidDemo />
 </ComponentPreview>
 
-### Controlled
-
-<ComponentPreview details={<>Pass <code>value</code> and <code>onChange</code> for controlled mode. The value is an HTML string.</>} code={`const [html, setHtml] = useState('<p>Edit this <strong>bold</strong> text.</p>');
-<MarkdownEditor value={html} onChange={setHtml} />`} previewMinHeight={260}>
-  <MarkdownEditorControlledDemo />
-</ComponentPreview>
 
 ## Reference
 
@@ -86,9 +79,9 @@ import {
   { prop: "disabled", type: "boolean", default: "false", description: "Disable the editor" },
   { prop: "invalid", type: "boolean", default: "false", description: "Mark as invalid" },
   { prop: "placeholder", type: "string", description: "Placeholder text when empty" },
-  { prop: "value", type: "string", description: "Controlled HTML value" },
-  { prop: "defaultValue", type: "string", description: "Initial HTML for uncontrolled mode" },
-  { prop: "onChange", type: "(html: string) => void", description: "Called on content change" },
+  { prop: "value", type: "string", description: "Controlled markdown value" },
+  { prop: "defaultValue", type: "string", description: "Initial markdown for uncontrolled mode" },
+  { prop: "onChange", type: "(markdown: string) => void", description: "Called on content change" },
   { prop: "toolbarEnd", type: "ReactNode", description: "Content rendered at the end of the toolbar" },
   { prop: "rows", type: "number", default: "3", description: "Minimum visible rows" },
 ]} />

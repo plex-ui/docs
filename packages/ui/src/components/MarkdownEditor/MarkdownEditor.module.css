@@ -275,8 +275,8 @@
   padding: 0 12px;
   border: 0;
   border-radius: var(--control-radius-md);
-  background: none;
-  color: var(--color-text-danger);
+  background-color: var(--color-background-danger-solid, #dc2626);
+  color: #fff;
   cursor: pointer;
   font-size: 14px;
   font-weight: var(--font-weight-medium);
@@ -286,7 +286,7 @@
   transition-timing-function: var(--transition-ease-basic);
 
   @mixin hover {
-    background-color: var(--color-background-danger-ghost-hover, rgba(239, 68, 68, 0.08));
+    background-color: var(--color-background-danger-solid-hover, #b91c1c);
   }
 }
 

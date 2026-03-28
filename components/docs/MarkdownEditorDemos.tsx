@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { MarkdownEditor, markdownEditorStyles } from '@plexui/ui/components/MarkdownEditor';
 import { Field } from '@plexui/ui/components/Field';
 import { Translate } from '@plexui/ui/components/Icon';
@@ -99,27 +98,4 @@ export function MarkdownEditorInvalidDemo() {
   );
 }
 
-export function MarkdownEditorControlledDemo() {
-  const [md, setMd] = useState('Edit this **bold** text.');
 
-  return (
-    <div className="flex flex-col gap-4 w-[500px]">
-      <MarkdownEditor value={md} onChange={setMd} placeholder="Type here..." />
-      <pre
-        style={{
-          padding: '8px 12px',
-          borderRadius: 8,
-          background: 'var(--color-surface-secondary)',
-          fontSize: 12,
-          lineHeight: '18px',
-          overflow: 'auto',
-          maxHeight: 120,
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-all',
-        }}
-      >
-        {md || '(empty)'}
-      </pre>
-    </div>
-  );
-}
