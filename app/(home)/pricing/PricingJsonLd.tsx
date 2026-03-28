@@ -1,3 +1,20 @@
+const digitalReturnPolicy = {
+  '@type': 'MerchantReturnPolicy' as const,
+  applicableCountry: 'US',
+  returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+  merchantReturnDays: 0,
+};
+const digitalShipping = {
+  '@type': 'OfferShippingDetails' as const,
+  shippingRate: { '@type': 'MonetaryAmount' as const, value: '0', currency: 'USD' },
+  shippingDestination: { '@type': 'DefinedRegion' as const, addressCountry: 'US' },
+  deliveryTime: {
+    '@type': 'ShippingDeliveryTime' as const,
+    handlingTime: { '@type': 'QuantitativeValue' as const, minValue: '0', maxValue: '0', unitCode: 'd' },
+    transitTime: { '@type': 'QuantitativeValue' as const, minValue: '0', maxValue: '0', unitCode: 'd' },
+  },
+};
+
 const productJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
@@ -19,6 +36,8 @@ const productJsonLd = {
       priceCurrency: 'USD',
       url: 'https://plexui.com/pricing',
       availability: 'https://schema.org/InStock',
+      hasMerchantReturnPolicy: digitalReturnPolicy,
+      shippingDetails: digitalShipping,
     },
     {
       '@type': 'Offer',
@@ -28,6 +47,8 @@ const productJsonLd = {
       priceCurrency: 'USD',
       url: 'https://plexui.com/pricing',
       availability: 'https://schema.org/InStock',
+      hasMerchantReturnPolicy: digitalReturnPolicy,
+      shippingDetails: digitalShipping,
     },
     {
       '@type': 'Offer',
@@ -37,6 +58,8 @@ const productJsonLd = {
       priceCurrency: 'USD',
       url: 'https://plexui.com/pricing',
       availability: 'https://schema.org/InStock',
+      hasMerchantReturnPolicy: digitalReturnPolicy,
+      shippingDetails: digitalShipping,
     },
   ],
 };

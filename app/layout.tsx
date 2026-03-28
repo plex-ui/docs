@@ -38,6 +38,23 @@ export const metadata: Metadata = {
   },
 };
 
+const digitalReturnPolicy = {
+  '@type': 'MerchantReturnPolicy',
+  applicableCountry: 'US',
+  returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+  merchantReturnDays: 0,
+};
+const digitalShipping = {
+  '@type': 'OfferShippingDetails',
+  shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
+  shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
+  deliveryTime: {
+    '@type': 'ShippingDeliveryTime',
+    handlingTime: { '@type': 'QuantitativeValue', minValue: '0', maxValue: '0', unitCode: 'd' },
+    transitTime: { '@type': 'QuantitativeValue', minValue: '0', maxValue: '0', unitCode: 'd' },
+  },
+};
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -103,7 +120,7 @@ const jsonLd = {
       description:
         'Professional Figma design system with 22,000+ variants, three-layer token system as Figma Variables, 6,600+ icons, dark & light modes, and lifetime updates.',
       url: 'https://plexui.com/pricing',
-      brand: { '@id': 'https://plexui.com/#organization' },
+      brand: { '@type': 'Brand', name: 'Plex UI' },
       offers: [
         {
           '@type': 'Offer',
@@ -111,6 +128,8 @@ const jsonLd = {
           price: '49',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
+          hasMerchantReturnPolicy: digitalReturnPolicy,
+          shippingDetails: digitalShipping,
           description: '1 designer, 1 project, lifetime updates',
         },
         {
@@ -119,6 +138,8 @@ const jsonLd = {
           price: '149',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
+          hasMerchantReturnPolicy: digitalReturnPolicy,
+          shippingDetails: digitalShipping,
           description: 'Up to 5 designers, unlimited projects, priority support',
         },
         {
@@ -127,6 +148,8 @@ const jsonLd = {
           price: '299',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
+          hasMerchantReturnPolicy: digitalReturnPolicy,
+          shippingDetails: digitalShipping,
           description:
             'Unlimited designers & projects, white-label OK, priority support',
         },
@@ -140,12 +163,14 @@ const jsonLd = {
       description:
         'Local Figma plugin that lets ANY AI model (Claude, GPT, Cursor, Codex, Gemini) create, read, and edit real Figma designs via HTTP API. Model-agnostic alternative to Claude-only Figma integration.',
       url: 'https://plexui.com/bridge',
-      brand: { '@id': 'https://plexui.com/#organization' },
+      brand: { '@type': 'Brand', name: 'Plex UI' },
       offers: {
         '@type': 'Offer',
         price: '49',
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
+        hasMerchantReturnPolicy: digitalReturnPolicy,
+        shippingDetails: digitalShipping,
         description: 'One-time payment, lifetime license',
       },
     },
