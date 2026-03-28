@@ -127,7 +127,7 @@
     margin-top: 8px;
   }
 
-  p.is-editor-empty:first-child::before {
+  :global(p.is-editor-empty):first-child::before {
     content: attr(data-placeholder);
     float: left;
     height: 0;

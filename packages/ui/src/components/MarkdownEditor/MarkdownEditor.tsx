@@ -53,7 +53,7 @@ export type MarkdownEditorProps = {
   onChange?: (markdown: string) => void
   toolbarEnd?: React.ReactNode
   /**
-   * @default 3
+   * @default 1
    */
   rows?: number
   className?: string
@@ -195,7 +195,7 @@ export function MarkdownEditor({
   defaultValue,
   onChange,
   toolbarEnd,
-  rows = 3,
+  rows = 1,
   className,
   id,
   "aria-describedby": ariaDescribedby,
