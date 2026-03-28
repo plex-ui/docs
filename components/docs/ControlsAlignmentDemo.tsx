@@ -71,7 +71,7 @@ export function ControlsAlignmentDemo() {
         </div>
       </div>
       <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 w-full max-w-md">
           <Field label="Notification channel" description="Choose how you'd like to be notified.">
             {() => (
               <RadioGroup direction={direction} defaultValue="email" aria-label="Notification channel">
