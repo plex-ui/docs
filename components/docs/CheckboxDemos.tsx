@@ -99,7 +99,7 @@ export function CheckboxVariantsDemo() {
         <DemoControlBoolean name="disabled" value={disabled} onChange={setDisabled} />
       </div>
       <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
-        <div className="flex gap-12">
+        <div className="flex flex-wrap gap-x-12 gap-y-6">
           <div className="flex flex-col gap-3 items-start">
             <span className="text-xs text-secondary font-mono mb-1">solid</span>
             <Checkbox label="Unchecked" disabled={disabled} />
@@ -178,7 +178,7 @@ export function CheckboxIndeterminateDemo() {
 export function CheckboxDisabledDemo() {
   return (
     <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
-      <div className="flex gap-12">
+      <div className="flex flex-wrap gap-x-12 gap-y-6">
         <div className="flex flex-col gap-3 items-start">
           <span className="text-xs text-secondary font-mono mb-1">solid</span>
           <Checkbox label="Unchecked" disabled />

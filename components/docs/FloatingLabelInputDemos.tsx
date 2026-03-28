@@ -555,22 +555,22 @@ export function FloatingLabelInputBirthdayStatesDemo() {
   const [invalid, setInvalid] = useState('02 / 30 / 2001');
 
   return (
-    <div className="flex flex-col items-center gap-8 py-8">
-      <div className="flex items-center">
-        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Empty</div>
-        <BirthdayMaskedInput value={empty} onChange={setEmpty} className="w-[320px]" />
+    <div className="flex flex-col items-center gap-8 py-8 w-full">
+      <div className="flex items-center w-full max-w-[432px]">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem] shrink-0">Empty</div>
+        <BirthdayMaskedInput value={empty} onChange={setEmpty} className="flex-1 min-w-0" />
       </div>
-      <div className="flex items-center">
-        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Filled</div>
-        <BirthdayMaskedInput value={filled} onChange={setFilled} className="w-[320px]" />
+      <div className="flex items-center w-full max-w-[432px]">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem] shrink-0">Filled</div>
+        <BirthdayMaskedInput value={filled} onChange={setFilled} className="flex-1 min-w-0" />
       </div>
-      <div className="flex items-center">
-        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Invalid</div>
-        <BirthdayMaskedInput value={invalid} onChange={setInvalid} invalid className="w-[320px]" />
+      <div className="flex items-center w-full max-w-[432px]">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem] shrink-0">Invalid</div>
+        <BirthdayMaskedInput value={invalid} onChange={setInvalid} invalid className="flex-1 min-w-0" />
       </div>
-      <div className="flex items-center">
-        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem]">Disabled</div>
-        <BirthdayMaskedInput value="01 / 15 / 1995" onChange={() => {}} disabled className="w-[320px]" />
+      <div className="flex items-center w-full max-w-[432px]">
+        <div className="text-right text-secondary text-sm mr-8 min-w-[5rem] shrink-0">Disabled</div>
+        <BirthdayMaskedInput value="01 / 15 / 1995" onChange={() => {}} disabled className="flex-1 min-w-0" />
       </div>
     </div>
   );
