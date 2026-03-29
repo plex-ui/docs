@@ -11,6 +11,8 @@ import {
   MenuItemActionsDemo,
   MenuWithCheckboxesDemoWithControls,
   MenuWithRadioItemsDemoWithControls,
+  MenuHorizontalIconsOnlyDemo,
+  MenuHorizontalWithLabelsDemo,
 } from "@/components/docs/MenuDemos"
 
 <UsageBlock>{`import { Menu } from "@plexui/ui/components/Menu";`}</UsageBlock>
@@ -54,6 +56,38 @@ import {
   </Menu.Content>
 </Menu>`} previewMinHeight={168}>
   <MenuNaturalSizingDemo />
+</ComponentPreview>
+
+### Horizontal (icons only)
+
+<ComponentPreview details={<>Set <code>layout="horizontal"</code> on <code>Menu.Content</code> for an iOS-style icon toolbar.</>} code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost">Actions <ChevronDownMd /></Button>
+  </Menu.Trigger>
+  <Menu.Content layout="horizontal" minWidth="auto">
+    <Menu.Item onSelect={() => {}}><EditPencil width={20} height={20} /></Menu.Item>
+    <Menu.Item onSelect={() => {}}><SettingsCog width={20} height={20} /></Menu.Item>
+    <Menu.Item onSelect={() => {}}><Play width={20} height={20} /></Menu.Item>
+    <Menu.Item onSelect={() => {}}><ExpandLg width={20} height={20} /></Menu.Item>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuHorizontalIconsOnlyDemo />
+</ComponentPreview>
+
+### Horizontal (icons with labels)
+
+<ComponentPreview details={<>Add text labels below icons for a labeled toolbar. The horizontal layout automatically stacks icon and text vertically within each item.</>} code={`<Menu>
+  <Menu.Trigger>
+    <Button color="primary" size="lg" variant="ghost">Actions <ChevronDownMd /></Button>
+  </Menu.Trigger>
+  <Menu.Content layout="horizontal" minWidth="auto">
+    <Menu.Item onSelect={() => {}}><EditPencil width={20} height={20} /> Edit</Menu.Item>
+    <Menu.Item onSelect={() => {}}><SettingsCog width={20} height={20} /> Settings</Menu.Item>
+    <Menu.Item onSelect={() => {}}><Play width={20} height={20} /> Play</Menu.Item>
+    <Menu.Item onSelect={() => {}}><ExpandLg width={20} height={20} /> Expand</Menu.Item>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <MenuHorizontalWithLabelsDemo />
 </ComponentPreview>
 
 ### Grouped items
@@ -237,6 +271,7 @@ return (
   { prop: "minWidth", type: "number | string", default: "auto", description: "Minimum panel width" },
   { prop: "side", type: '"top" | "right" | "bottom" | "left"', description: "Preferred placement" },
   { prop: "align", type: '"start" | "center" | "end"', description: "Alignment relative to trigger" },
+  { prop: "layout", type: '"vertical" | "horizontal"', default: '"vertical"', description: "Layout direction. Use horizontal for icon toolbars" },
 ]} />
 
 **Menu.Item** — List item. Use `onSelect` for actions; omit for non-interactive content.

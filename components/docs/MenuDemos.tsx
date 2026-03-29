@@ -8,12 +8,16 @@ import {
   ArrowUp,
   ChevronDownMd,
   Code,
+  EditPencil,
+  ExpandLg,
   Functions,
   Globe,
   History,
   ImageSquare,
   Link,
+  Play,
   Search,
+  SettingsCog,
   Tools,
   Trash,
   FileDocument,
@@ -345,6 +349,66 @@ export function MenuWithRadioItemsDemoWithControls() {
   );
 }
 
+
+export function MenuHorizontalIconsOnlyDemo() {
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <Menu>
+        <Menu.Trigger>
+          <Button color="primary" size="lg" variant="ghost">
+            Actions <ChevronDownMd />
+          </Button>
+        </Menu.Trigger>
+        <Menu.Content layout="horizontal" minWidth="auto">
+          <Menu.Item onSelect={() => { }}>
+            <EditPencil width={20} height={20} />
+          </Menu.Item>
+          <Menu.Item onSelect={() => { }}>
+            <SettingsCog width={20} height={20} />
+          </Menu.Item>
+          <Menu.Item onSelect={() => { }}>
+            <Play width={20} height={20} />
+          </Menu.Item>
+          <Menu.Item onSelect={() => { }}>
+            <ExpandLg width={20} height={20} />
+          </Menu.Item>
+        </Menu.Content>
+      </Menu>
+    </div>
+  );
+}
+
+export function MenuHorizontalWithLabelsDemo() {
+  return (
+    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+      <Menu>
+        <Menu.Trigger>
+          <Button color="primary" size="lg" variant="ghost">
+            Actions <ChevronDownMd />
+          </Button>
+        </Menu.Trigger>
+        <Menu.Content layout="horizontal" minWidth="auto">
+          <Menu.Item onSelect={() => { }}>
+            <EditPencil width={20} height={20} />
+            Edit
+          </Menu.Item>
+          <Menu.Item onSelect={() => { }}>
+            <SettingsCog width={20} height={20} />
+            Settings
+          </Menu.Item>
+          <Menu.Item onSelect={() => { }}>
+            <Play width={20} height={20} />
+            Play
+          </Menu.Item>
+          <Menu.Item onSelect={() => { }}>
+            <ExpandLg width={20} height={20} />
+            Expand
+          </Menu.Item>
+        </Menu.Content>
+      </Menu>
+    </div>
+  );
+}
 
 export function MenuGroupedDemo() {
   return (

@@ -3,11 +3,15 @@ import { Button } from "../Button"
 import {
   ChevronDownMd,
   Code,
+  EditPencil,
+  ExpandLg,
   Functions,
   Globe,
   History,
   ImageSquare,
+  Play,
   Search,
+  SettingsCog,
   Tools,
   Trash,
 } from "../Icon"
@@ -343,3 +347,55 @@ WithRadioItems.parameters = {
     },
   },
 }
+
+export const HorizontalIconsOnly = () => (
+  <Menu>
+    <Menu.Trigger>
+      <Button color="primary" size="lg" variant="ghost">
+        Actions <ChevronDownMd />
+      </Button>
+    </Menu.Trigger>
+    <Menu.Content layout="horizontal" minWidth="auto">
+      <Menu.Item onSelect={() => {}}>
+        <EditPencil width={20} height={20} />
+      </Menu.Item>
+      <Menu.Item onSelect={() => {}}>
+        <SettingsCog width={20} height={20} />
+      </Menu.Item>
+      <Menu.Item onSelect={() => {}}>
+        <Play width={20} height={20} />
+      </Menu.Item>
+      <Menu.Item onSelect={() => {}}>
+        <ExpandLg width={20} height={20} />
+      </Menu.Item>
+    </Menu.Content>
+  </Menu>
+)
+
+export const HorizontalWithLabels = () => (
+  <Menu>
+    <Menu.Trigger>
+      <Button color="primary" size="lg" variant="ghost">
+        Actions <ChevronDownMd />
+      </Button>
+    </Menu.Trigger>
+    <Menu.Content layout="horizontal" minWidth="auto">
+      <Menu.Item onSelect={() => {}}>
+        <EditPencil width={20} height={20} />
+        Edit
+      </Menu.Item>
+      <Menu.Item onSelect={() => {}}>
+        <SettingsCog width={20} height={20} />
+        Settings
+      </Menu.Item>
+      <Menu.Item onSelect={() => {}}>
+        <Play width={20} height={20} />
+        Play
+      </Menu.Item>
+      <Menu.Item onSelect={() => {}}>
+        <ExpandLg width={20} height={20} />
+        Expand
+      </Menu.Item>
+    </Menu.Content>
+  </Menu>
+)
