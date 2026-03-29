@@ -294,6 +294,12 @@ export type MenuContentProps = {
    * Defines the `max-width` property of the content, in pixels.
    */
   maxHeight?: number
+  /**
+   * Layout direction of menu items.
+   * Use `"horizontal"` for icon-based toolbars (iOS-style).
+   * @default "vertical"
+   */
+  layout?: "vertical" | "horizontal"
 }
 
 const Content = ({
@@ -305,8 +311,10 @@ const Content = ({
   width,
   minWidth,
   maxHeight,
+  layout = "vertical",
 }: MenuContentProps) => {
   const { open } = useMenuContext()
+  const isHorizontal = layout === "horizontal"
 
   return (
     <DropdownMenu.Portal forceMount>
@@ -323,9 +331,10 @@ const Content = ({
             avoidCollisions
             collisionPadding={{ bottom: 30, top: 30, left: 12, right: 12 }}
             onEscapeKeyDown={preventDefaultHandler}
+            data-layout={isHorizontal ? "horizontal" : undefined}
             style={toCssVariables({
               "menu-width": width,
-              "menu-min-width": minWidth,
+              "menu-min-width": isHorizontal ? "auto" : minWidth,
               "menu-max-height": maxHeight,
             })}
           >

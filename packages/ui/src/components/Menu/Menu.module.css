@@ -330,3 +330,42 @@
     animation-duration: 0s;
   }
 }
+
+.MenuList[data-layout="horizontal"] {
+  display: flex;
+  flex-direction: row;
+  min-width: auto;
+
+  & .MenuItem {
+    flex: 1 1 0%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: spacing(1);
+    padding: spacing(2);
+    text-align: center;
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-xs);
+  }
+
+  & .PressableInner {
+    flex-direction: column;
+    align-items: center;
+    gap: spacing(1);
+  }
+
+  & .MenuItemContent {
+    flex-direction: column;
+    align-items: center;
+    gap: spacing(1);
+    padding: spacing(2);
+    text-align: center;
+  }
+
+  & .Separator {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    margin: spacing(1) 0;
+  }
+}
