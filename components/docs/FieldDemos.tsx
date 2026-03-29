@@ -98,7 +98,7 @@ export function FieldOverviewDemo() {
         <DemoControlBoolean name="horizontal" value={horizontal} onChange={setHorizontal} />
       </div>
       <div data-demo-stage className="py-10">
-        <div className={horizontal ? "max-w-[480px] w-full" : "max-w-[320px] w-full"}>
+        <div className={horizontal ? "w-full max-w-[480px]" : "w-full max-w-[320px]"}>
           <Field
             label="Email"
             size={size}
@@ -185,7 +185,7 @@ export function FieldOrientationDemo() {
         </DemoControlRow>
       </div>
       <div data-demo-stage className="py-10">
-        <div className="max-w-[480px] w-full flex flex-col gap-4">
+        <div className="w-full max-w-[480px] flex flex-col gap-4">
           <Field label="First name" orientation={orientation}>
             <Input placeholder="Jane" />
           </Field>
