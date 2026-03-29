@@ -4,7 +4,7 @@ import {
   ChevronDownMd,
   Code,
   EditPencil,
-  ExpandLg,
+  UnfoldHorizontal,
   Functions,
   Globe,
   History,
@@ -366,7 +366,7 @@ export const HorizontalIconsOnly = () => (
         <Play width={20} height={20} />
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <ExpandLg width={20} height={20} />
+        <UnfoldHorizontal width={20} height={20} />
       </Menu.Item>
     </Menu.Content>
   </Menu>
@@ -393,7 +393,7 @@ export const HorizontalWithLabels = () => (
         Play
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <ExpandLg width={20} height={20} />
+        <UnfoldHorizontal width={20} height={20} />
         Expand
       </Menu.Item>
     </Menu.Content>

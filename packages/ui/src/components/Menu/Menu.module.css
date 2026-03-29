@@ -337,15 +337,15 @@
   min-width: auto;
 
   & .MenuItem {
-    flex: 1 1 0%;
+    flex: 1 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: spacing(1);
     padding: spacing(2);
     text-align: center;
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-xs);
+    font-size: var(--font-text-2xs-size);
+    line-height: var(--font-text-2xs-line-height);
   }
 
   & .PressableInner {
