@@ -125,9 +125,14 @@ html.dark .PreviewInner>[data-demo-controls]> :last-child {
 .PreviewInner [data-demo-stage] > * {
   margin-left: auto;
   margin-right: auto;
-  max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .PreviewInner [data-demo-stage] > * {
+    max-width: 100% !important;
+  }
 }
 
 /* Fallback for raw components (e.g. Loading button) */
@@ -145,9 +150,14 @@ html.dark .PreviewInner>[data-demo-controls]> :last-child {
 }
 
 .PreviewInner:not(:has([data-demo-controls])):not(:has([data-demo-stage])) > * {
-  max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .PreviewInner:not(:has([data-demo-controls])):not(:has([data-demo-stage])) > * {
+    max-width: 100% !important;
+  }
 }
 
 .PreviewInner:has([data-demo-controls]) > :not([data-demo-controls]):not([data-demo-stage]) {

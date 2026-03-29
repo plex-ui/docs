@@ -78,7 +78,7 @@
 }
 
 .Field:where([data-size="md"]) {
-  --field-gap: spacing(2);
+  --field-gap: spacing(1.5);
   --field-label-description-gap: 2px;
   --field-label-font-size: var(--font-text-sm-size);
   --field-label-line-height: var(--font-text-sm-line-height);
@@ -88,7 +88,7 @@
 
 .Field:where([data-size="lg"]),
 .Field:where([data-size="xl"]) {
-  --field-gap: spacing(2);
+  --field-gap: spacing(1.5);
   --field-label-description-gap: 2px;
   --field-label-font-size: var(--font-text-sm-size);
   --field-label-line-height: var(--font-text-sm-line-height);
@@ -98,7 +98,7 @@
 
 .Field:where([data-size="2xl"]),
 .Field:where([data-size="3xl"]) {
-  --field-gap: spacing(2.5);
+  --field-gap: spacing(1.5);
   --field-label-description-gap: 2px;
   --field-label-font-size: var(--font-text-md-size);
   --field-label-line-height: var(--font-text-md-line-height);
