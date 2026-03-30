@@ -300,6 +300,12 @@ export type MenuContentProps = {
    * @default "vertical"
    */
   layout?: "vertical" | "horizontal"
+  /**
+   * Size of horizontal menu items. Controls icon size and padding.
+   * Only applies when `layout="horizontal"`.
+   * @default "md"
+   */
+  size?: "sm" | "md" | "lg"
 }
 
 const Content = ({
@@ -312,6 +318,7 @@ const Content = ({
   minWidth,
   maxHeight,
   layout = "vertical",
+  size,
 }: MenuContentProps) => {
   const { open } = useMenuContext()
   const isHorizontal = layout === "horizontal"
@@ -332,6 +339,7 @@ const Content = ({
             collisionPadding={{ bottom: 30, top: 30, left: 12, right: 12 }}
             onEscapeKeyDown={preventDefaultHandler}
             data-layout={isHorizontal ? "horizontal" : undefined}
+            data-size={isHorizontal && size ? size : undefined}
             style={toCssVariables({
               "menu-width": width,
               "menu-min-width": isHorizontal ? "auto" : minWidth,
