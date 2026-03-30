@@ -11,8 +11,8 @@ import {
   MenuItemActionsDemo,
   MenuWithCheckboxesDemoWithControls,
   MenuWithRadioItemsDemoWithControls,
-  MenuHorizontalIconsOnlyDemo,
-  MenuHorizontalWithLabelsDemo,
+  MenuHorizontalIconsOnlyDemoWithControls,
+  MenuHorizontalWithLabelsDemoWithControls,
 } from "@/components/docs/MenuDemos"
 
 <UsageBlock>{`import { Menu } from "@plexui/ui/components/Menu";`}</UsageBlock>
@@ -71,7 +71,7 @@ import {
     <Menu.Item onSelect={() => {}}><ExpandLg width={20} height={20} /></Menu.Item>
   </Menu.Content>
 </Menu>`} previewMinHeight={168}>
-  <MenuHorizontalIconsOnlyDemo />
+  <MenuHorizontalIconsOnlyDemoWithControls />
 </ComponentPreview>
 
 ### Horizontal (icons with labels)
@@ -87,7 +87,7 @@ import {
     <Menu.Item onSelect={() => {}}><ExpandLg width={20} height={20} /> Expand</Menu.Item>
   </Menu.Content>
 </Menu>`} previewMinHeight={168}>
-  <MenuHorizontalWithLabelsDemo />
+  <MenuHorizontalWithLabelsDemoWithControls />
 </ComponentPreview>
 
 ### Grouped items
@@ -272,6 +272,7 @@ return (
   { prop: "side", type: '"top" | "right" | "bottom" | "left"', description: "Preferred placement" },
   { prop: "align", type: '"start" | "center" | "end"', description: "Alignment relative to trigger" },
   { prop: "layout", type: '"vertical" | "horizontal"', default: '"vertical"', description: "Layout direction. Use horizontal for icon toolbars" },
+  { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Size of horizontal menu items (icon size + padding)" },
 ]} />
 
 **Menu.Item** — List item. Use `onSelect` for actions; omit for non-interactive content.

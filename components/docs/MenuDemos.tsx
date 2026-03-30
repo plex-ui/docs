@@ -53,6 +53,7 @@ function DemoControlRow({ name, children }: { name: string; children: React.Reac
 
 const INDICATOR_POSITION_OPTIONS = ['start', 'end'] as const;
 const INDICATOR_VARIANT_OPTIONS = ['solid', 'ghost'] as const;
+const SIZE_OPTIONS = ['sm', 'md', 'lg'] as const;
 
 export function MenuHeroContent() {
   return (
@@ -350,63 +351,103 @@ export function MenuWithRadioItemsDemoWithControls() {
 }
 
 
-export function MenuHorizontalIconsOnlyDemo() {
+export function MenuHorizontalIconsOnlyDemoWithControls() {
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+
   return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <Menu>
-        <Menu.Trigger>
-          <Button color="primary" size="lg" variant="ghost">
-            Actions <ChevronDownMd />
-          </Button>
-        </Menu.Trigger>
-        <Menu.Content layout="horizontal" minWidth="auto">
-          <Menu.Item onSelect={() => { }}>
-            <EditPencil width={20} height={20} />
-          </Menu.Item>
-          <Menu.Item onSelect={() => { }}>
-            <SettingsCog width={20} height={20} />
-          </Menu.Item>
-          <Menu.Item onSelect={() => { }}>
-            <Play width={20} height={20} />
-          </Menu.Item>
-          <Menu.Item onSelect={() => { }}>
-            <UnfoldHorizontal width={20} height={20} />
-          </Menu.Item>
-        </Menu.Content>
-      </Menu>
-    </div>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((o) => (
+              <SegmentedControl.Option key={o} value={o}>
+                {o}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+        <Menu>
+          <Menu.Trigger>
+            <Button color="primary" size="lg" variant="ghost">
+              Actions <ChevronDownMd />
+            </Button>
+          </Menu.Trigger>
+          <Menu.Content layout="horizontal" size={size} minWidth="auto">
+            <Menu.Item onSelect={() => { }}>
+              <EditPencil />
+            </Menu.Item>
+            <Menu.Item onSelect={() => { }}>
+              <SettingsCog />
+            </Menu.Item>
+            <Menu.Item onSelect={() => { }}>
+              <Play />
+            </Menu.Item>
+            <Menu.Item onSelect={() => { }}>
+              <UnfoldHorizontal />
+            </Menu.Item>
+          </Menu.Content>
+        </Menu>
+      </div>
+    </>
   );
 }
 
-export function MenuHorizontalWithLabelsDemo() {
+export function MenuHorizontalWithLabelsDemoWithControls() {
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+
   return (
-    <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
-      <Menu>
-        <Menu.Trigger>
-          <Button color="primary" size="lg" variant="ghost">
-            Actions <ChevronDownMd />
-          </Button>
-        </Menu.Trigger>
-        <Menu.Content layout="horizontal" minWidth="auto">
-          <Menu.Item onSelect={() => { }}>
-            <EditPencil width={20} height={20} />
-            Edit
-          </Menu.Item>
-          <Menu.Item onSelect={() => { }}>
-            <SettingsCog width={20} height={20} />
-            Settings
-          </Menu.Item>
-          <Menu.Item onSelect={() => { }}>
-            <Play width={20} height={20} />
-            Play
-          </Menu.Item>
-          <Menu.Item onSelect={() => { }}>
-            <UnfoldHorizontal width={20} height={20} />
-            Expand
-          </Menu.Item>
-        </Menu.Content>
-      </Menu>
-    </div>
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((o) => (
+              <SegmentedControl.Option key={o} value={o}>
+                {o}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+      </div>
+      <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+        <Menu>
+          <Menu.Trigger>
+            <Button color="primary" size="lg" variant="ghost">
+              Actions <ChevronDownMd />
+            </Button>
+          </Menu.Trigger>
+          <Menu.Content layout="horizontal" size={size} minWidth="auto">
+            <Menu.Item onSelect={() => { }}>
+              <EditPencil />
+              Edit
+            </Menu.Item>
+            <Menu.Item onSelect={() => { }}>
+              <SettingsCog />
+              Settings
+            </Menu.Item>
+            <Menu.Item onSelect={() => { }}>
+              <Play />
+              Play
+            </Menu.Item>
+            <Menu.Item onSelect={() => { }}>
+              <UnfoldHorizontal />
+              Expand
+            </Menu.Item>
+          </Menu.Content>
+        </Menu>
+      </div>
+    </>
   );
 }
 

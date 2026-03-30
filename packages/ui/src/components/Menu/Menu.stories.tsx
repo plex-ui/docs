@@ -348,54 +348,62 @@ WithRadioItems.parameters = {
   },
 }
 
-export const HorizontalIconsOnly = () => (
+export const HorizontalIconsOnly = (args: { size: "sm" | "md" | "lg" }) => (
   <Menu>
     <Menu.Trigger>
       <Button color="primary" size="lg" variant="ghost">
         Actions <ChevronDownMd />
       </Button>
     </Menu.Trigger>
-    <Menu.Content layout="horizontal" minWidth="auto">
+    <Menu.Content layout="horizontal" size={args.size} minWidth="auto">
       <Menu.Item onSelect={() => {}}>
-        <EditPencil width={20} height={20} />
+        <EditPencil />
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <SettingsCog width={20} height={20} />
+        <SettingsCog />
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <Play width={20} height={20} />
+        <Play />
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <UnfoldHorizontal width={20} height={20} />
+        <UnfoldHorizontal />
       </Menu.Item>
     </Menu.Content>
   </Menu>
 )
 
-export const HorizontalWithLabels = () => (
+HorizontalIconsOnly.args = { size: "md" }
+HorizontalIconsOnly.argTypes = { size: { control: "select", options: ["sm", "md", "lg"] } }
+HorizontalIconsOnly.parameters = { controls: { include: ["size"] } }
+
+export const HorizontalWithLabels = (args: { size: "sm" | "md" | "lg" }) => (
   <Menu>
     <Menu.Trigger>
       <Button color="primary" size="lg" variant="ghost">
         Actions <ChevronDownMd />
       </Button>
     </Menu.Trigger>
-    <Menu.Content layout="horizontal" minWidth="auto">
+    <Menu.Content layout="horizontal" size={args.size} minWidth="auto">
       <Menu.Item onSelect={() => {}}>
-        <EditPencil width={20} height={20} />
+        <EditPencil />
         Edit
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <SettingsCog width={20} height={20} />
+        <SettingsCog />
         Settings
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <Play width={20} height={20} />
+        <Play />
         Play
       </Menu.Item>
       <Menu.Item onSelect={() => {}}>
-        <UnfoldHorizontal width={20} height={20} />
+        <UnfoldHorizontal />
         Expand
       </Menu.Item>
     </Menu.Content>
   </Menu>
 )
+
+HorizontalWithLabels.args = { size: "md" }
+HorizontalWithLabels.argTypes = { size: { control: "select", options: ["sm", "md", "lg"] } }
+HorizontalWithLabels.parameters = { controls: { include: ["size"] } }

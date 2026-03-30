@@ -332,33 +332,53 @@
 }
 
 .MenuList[data-layout="horizontal"] {
+  --h-icon-size: 20px;
+  --h-padding: spacing(2);
+  --h-gap: spacing(1);
+
   display: flex;
   flex-direction: row;
   min-width: auto;
+
+  &[data-size="sm"] {
+    --h-icon-size: 16px;
+    --h-padding: spacing(1.5);
+  }
+
+  &[data-size="lg"] {
+    --h-icon-size: 24px;
+    --h-padding: spacing(2.5);
+  }
 
   & .MenuItem {
     flex: 1 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: spacing(1);
-    padding: spacing(2);
+    gap: var(--h-gap);
+    padding: var(--h-padding);
     text-align: center;
-    font-size: var(--font-text-2xs-size);
-    line-height: var(--font-text-2xs-line-height);
+    font-size: var(--h-icon-size);
+    line-height: 1;
   }
 
   & .PressableInner {
     flex-direction: column;
     align-items: center;
-    gap: spacing(1);
+    gap: var(--h-gap);
+    font-size: var(--font-text-2xs-size);
+    line-height: var(--font-text-2xs-line-height);
+
+    & > svg {
+      font-size: var(--h-icon-size);
+    }
   }
 
   & .MenuItemContent {
     flex-direction: column;
     align-items: center;
-    gap: spacing(1);
-    padding: spacing(2);
+    gap: var(--h-gap);
+    padding: var(--h-padding);
     text-align: center;
   }
 
