@@ -295,6 +295,52 @@ export function TabsSegmentedIconsDemo() {
   );
 }
 
+// ─── Icon only ───
+export function TabsIconOnlyDemo() {
+  const [tab, setTab] = useState('home');
+  const [variant, setVariant] = useState<(typeof VARIANT_OPTIONS)[number]>('segmented');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [pill, setPill] = useState(true);
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="variant">
+          <SegmentedControl value={variant} onChange={setVariant} size="xs" aria-label="variant">
+            {VARIANT_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>{v}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SegmentedControl value={size} onChange={setSize} size="xs" aria-label="size">
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>{s}</SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        {variant === 'segmented' && (
+          <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+        )}
+      </div>
+      <div className="flex-1 flex items-center justify-center py-12 w-full" data-demo-stage>
+        <Tabs
+          value={tab}
+          onChange={setTab}
+          variant={variant}
+          size={size}
+          pill={pill}
+          aria-label="Navigation"
+        >
+          <Tabs.Tab value="home" icon={<Home />} aria-label="Home" />
+          <Tabs.Tab value="settings" icon={<SettingsCog />} aria-label="Settings" />
+          <Tabs.Tab value="notifications" icon={<Bell />} aria-label="Notifications" />
+        </Tabs>
+      </div>
+    </>
+  );
+}
+
 // ─── Segmented with badge ───
 export function TabsSegmentedBadgeDemo() {
   const [tab, setTab] = useState('all');
