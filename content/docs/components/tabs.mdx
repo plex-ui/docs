@@ -6,6 +6,7 @@ description: Toggle through grouped options with segmented or underline styles
 import {
   TabsOverviewDemo,
   TabsSegmentedIconsDemo,
+  TabsIconOnlyDemo,
   TabsSegmentedBadgeDemo,
   TabsUnderlineDemo,
   TabsUnderlineFlushDemo,
@@ -44,6 +45,16 @@ import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
   <Tabs.Tab value="notifications" icon={<Bell />}>Notifications</Tabs.Tab>
 </Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
   <TabsSegmentedIconsDemo />
+</ComponentPreview>
+
+### Icon only
+
+<ComponentPreview details={<>Omit the text children and pass only the <code>icon</code> prop for compact icon-only tabs. Always provide an <code>aria-label</code> on each tab for accessibility.</>} code={`<Tabs value={tab} onChange={setTab} aria-label="Navigation">
+  <Tabs.Tab value="home" icon={<Home />} aria-label="Home" />
+  <Tabs.Tab value="settings" icon={<SettingsCog />} aria-label="Settings" />
+  <Tabs.Tab value="notifications" icon={<Bell />} aria-label="Notifications" />
+</Tabs>`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <TabsIconOnlyDemo />
 </ComponentPreview>
 
 ### Segmented with badge
