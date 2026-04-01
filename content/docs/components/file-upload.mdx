@@ -3,7 +3,12 @@ title: File Upload
 description: Mobile-first file picker with type validation and multi-file support
 ---
 
-import { FileUploadFormDemo } from '@/components/docs/FileUploadDemos'
+import {
+  FileUploadDemo,
+  FileUploadWithFilesDemo,
+  FileUploadDisabledDemo,
+  FileUploadErrorDemo,
+} from '@/components/docs/FileUploadDemos'
 
 <UsageBlock>{`import { FileUpload } from "@plexui/ui/components/FileUpload";`}</UsageBlock>
 
@@ -12,14 +17,50 @@ import { FileUploadFormDemo } from '@/components/docs/FileUploadDemos'
 ### Overview
 
 <ComponentPreview code={`<FileUpload
+  accept=".pdf,.png,.jpg,.jpeg"
+  multiple
+  maxFiles={5}
+  maxSize={10 * 1024 * 1024}
+  value={files}
+  onValueChange={setFiles}
+/>`}>
+  <FileUploadDemo />
+</ComponentPreview>
+
+### With files
+
+<ComponentPreview details={<>File list renders below the button in a bordered pill container. Each file shows a type icon, name with middle truncation, size, and a remove button.</>} code={`const files = [
+  new File([], "government-id-scan.pdf"),
+  new File([], "passport-photo.png"),
+  new File([], "non-citizen-travel-2026-approved-document.pdf"),
+];
+
+<FileUpload
   accept=".pdf,.png"
   multiple
   maxFiles={5}
   value={files}
   onValueChange={setFiles}
-/>
-<Button color="primary" size="3xl" pill block>Continue</Button>`}>
-  <FileUploadFormDemo />
+/>`}>
+  <FileUploadWithFilesDemo />
+</ComponentPreview>
+
+### Error state
+
+<ComponentPreview code={`<FileUpload
+  accept=".pdf"
+  multiple
+  value={files}
+  onValueChange={setFiles}
+  errorMessage="Please upload at least 2 documents."
+/>`}>
+  <FileUploadErrorDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview code={`<FileUpload disabled />`}>
+  <FileUploadDisabledDemo />
 </ComponentPreview>
 
 ## Reference

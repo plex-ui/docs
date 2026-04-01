@@ -15,6 +15,71 @@ const MOCK_FILES = [
   createMockFile('non-citizen-travel-2026-approved-document.pdf', 1500, 'application/pdf'),
 ];
 
+export function FileUploadDemo() {
+  const [files, setFiles] = useState<File[]>([]);
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileUpload
+          accept=".pdf,.png,.jpg,.jpeg"
+          multiple
+          maxFiles={5}
+          maxSize={10 * 1024 * 1024}
+          value={files}
+          onValueChange={setFiles}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function FileUploadWithFilesDemo() {
+  const [files, setFiles] = useState<File[]>(MOCK_FILES);
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileUpload
+          accept=".pdf,.png"
+          multiple
+          maxFiles={5}
+          value={files}
+          onValueChange={setFiles}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function FileUploadDisabledDemo() {
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileUpload disabled />
+      </div>
+    </div>
+  );
+}
+
+export function FileUploadErrorDemo() {
+  const [files, setFiles] = useState<File[]>(MOCK_FILES.slice(0, 1));
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileUpload
+          accept=".pdf"
+          multiple
+          value={files}
+          onValueChange={setFiles}
+          errorMessage="Please upload at least 2 documents."
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FileUploadFormDemo() {
   const [files, setFiles] = useState<File[]>(MOCK_FILES);
 
