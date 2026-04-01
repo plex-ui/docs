@@ -470,7 +470,7 @@ export function FloatingLabelInputTextareaDemo() {
           </div>
         </div>
       </div>
-      <div data-demo-stage className="py-[40px]">
+      <div data-demo-stage style={{ minHeight: 160 }}>
         <div className="w-[360px]">
           <FloatingLabelInput
             key={String(multiline)}
