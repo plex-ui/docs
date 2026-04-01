@@ -39,7 +39,7 @@ import {
 
 ### Textarea
 
-<ComponentPreview details={<>Use <code>multiline</code> to render a multi-line textarea with the same floating-label treatment. The border radius adjusts to half the input height. All existing paddings and label animations are preserved.</>} code={`<FloatingLabelInput label="Message" multiline rows={4} />`} previewMinHeight={200}>
+<ComponentPreview details={<>Use <code>multiline</code> to render an auto-growing textarea with the same floating-label treatment. The textarea starts at 2 rows and grows automatically as content is added. The border radius adjusts to half the input height.</>} code={`<FloatingLabelInput label="Message" multiline />`} previewMinHeight={200}>
   <FloatingLabelInputTextareaDemo />
 </ComponentPreview>
 
@@ -282,6 +282,6 @@ const selected = COUNTRIES.find((c) => c.value === country)
   { prop: "onClear", type: "() => void", description: "Shows a clear button when input has value" },
   { prop: "startAdornment", type: "ReactNode", description: "Content rendered before the input, inside the field. Visible when focused or has value." },
   { prop: "endAdornment", type: "ReactNode", description: "Content rendered after the input, before the clear button" },
-  { prop: "multiline", type: "boolean", default: "false", description: "Render as a multi-line textarea" },
-  { prop: "rows", type: "number", default: "3", description: "Visible text lines when multiline is true" },
+  { prop: "multiline", type: "boolean", default: "false", description: "Render as an auto-growing textarea" },
+  { prop: "rows", type: "number", default: "2", description: "Initial visible text lines when multiline is true" },
 ]} />

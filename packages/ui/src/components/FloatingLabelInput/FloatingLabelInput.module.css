@@ -221,8 +221,9 @@
   color: inherit;
   position: relative;
   z-index: 1;
-  resize: vertical;
+  resize: none;
   line-height: 1.5rem;
+  overflow: hidden;
 }
 
 .Textarea::placeholder {
