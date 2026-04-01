@@ -1,6 +1,6 @@
 {
   "name": "@plexui/ui",
-  "version": "0.7.80",
+  "version": "0.7.81",
   "description": "Modern design system for building high-quality applications",
   "type": "module",
   "license": "MIT",
@@ -72,7 +72,8 @@
     "build:css": "node ./scripts/build-css.mjs",
     "build:assets": "node -e \"const fs=require('fs'),p=require('path');function c(s,d){fs.readdirSync(s,{withFileTypes:true}).forEach(e=>{const sp=p.join(s,e.name),dp=p.join(d,e.name);if(e.isDirectory()){c(sp,dp)}else if(e.name.endsWith('.d.ts')){fs.mkdirSync(d,{recursive:true});fs.copyFileSync(sp,dp)}})}c('src','dist/types')\"",
     "build": "npm run build:clean && npm run build:js && npm run build:css && npm run build:assets",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run build"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
