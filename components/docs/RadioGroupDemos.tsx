@@ -365,6 +365,56 @@ export function RadioGroupCardSelectionDemo() {
   );
 }
 
+export function RadioGroupDescriptionsDemo() {
+  const [channel, setChannel] = useState('email');
+  const [frequency, setFrequency] = useState('weekly');
+
+  return (
+    <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
+      <div className="flex flex-col max-w-sm w-full divide-y divide-alpha/15">
+        <div className="pb-5">
+          <Field label="Notification channel" description="Choose how you'd like to be notified.">
+            {() => (
+              <RadioGroup direction="col" value={channel} onChange={setChannel} aria-label="Notification channel">
+                <RadioGroup.Item value="email">
+                  <div className="flex flex-col">
+                    <span className="font-medium">Email</span>
+                    <span className="text-xs text-secondary mt-0.5">Messages delivered to your inbox.</span>
+                  </div>
+                </RadioGroup.Item>
+                <RadioGroup.Item value="sms">
+                  <div className="flex flex-col">
+                    <span className="font-medium">SMS</span>
+                    <span className="text-xs text-secondary mt-0.5">Text messages to your phone number.</span>
+                  </div>
+                </RadioGroup.Item>
+                <RadioGroup.Item value="push">
+                  <div className="flex flex-col">
+                    <span className="font-medium">Push</span>
+                    <span className="text-xs text-secondary mt-0.5">Real-time alerts on your device.</span>
+                  </div>
+                </RadioGroup.Item>
+              </RadioGroup>
+            )}
+          </Field>
+        </div>
+        <div className="pt-5">
+          <Field label="Notification frequency">
+            {() => (
+              <RadioGroup direction="col" value={frequency} onChange={setFrequency} aria-label="Notification frequency">
+                <RadioGroup.Item value="daily">Daily</RadioGroup.Item>
+                <RadioGroup.Item value="weekly">Weekly</RadioGroup.Item>
+                <RadioGroup.Item value="monthly">Monthly</RadioGroup.Item>
+                <RadioGroup.Item value="never">Never</RadioGroup.Item>
+              </RadioGroup>
+            )}
+          </Field>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function RadioGroupNotificationSettingsDemo() {
   const [visibility, setVisibility] = useState('owners');
   const [frequency, setFrequency] = useState('weekly');

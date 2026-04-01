@@ -29,7 +29,7 @@ const controlLabelStyle: React.CSSProperties = {
 const DIRECTION_OPTIONS = ['row', 'col'] as const;
 const BOOL_OPTIONS = ['true', 'false'] as const;
 export function ControlsAlignmentDemo() {
-  const [direction, setDirection] = useState<'row' | 'col'>('row');
+  const [direction, setDirection] = useState<'row' | 'col'>('col');
   const [showDesc, setShowDesc] = useState<'true' | 'false'>('true');
   const hasDescription = showDesc === 'true';
   return (
