@@ -55,9 +55,8 @@
   list-style: none;
   padding: 0;
   overflow: hidden;
-  border: 1px solid var(--floating-input-border-color);
-  border-radius: calc(var(--floating-input-height) / 2);
-  background-color: var(--floating-input-background);
+  border: 1px solid light-dark(rgb(0 0 0 / 16%), rgb(255 255 255 / 16%));
+  border-radius: 26px;
 }
 
 .FileItem {
@@ -68,14 +67,21 @@
 }
 
 .FileItem + .FileItem {
-  border-top: 1px solid var(--floating-input-border-color);
+  border-top: 1px solid light-dark(rgb(0 0 0 / 16%), rgb(255 255 255 / 16%));
 }
 
 .FileIcon {
-  color: var(--color-text-secondary);
-  font-size: 1rem;
-  flex-shrink: 0;
   display: flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-left: -4px;
+  color: light-dark(#0D0D0D, #F2F2F2);
+}
+
+.FileIcon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .FileInfo {
@@ -94,20 +100,30 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.875rem;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 1.4285714286;
+  letter-spacing: -0.01em;
+  color: light-dark(#0D0D0D, #F2F2F2);
 }
 
 .FileNameExt {
   flex-shrink: 0;
-  font-size: 0.875rem;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 1.4285714286;
+  letter-spacing: -0.01em;
+  color: light-dark(#0D0D0D, #F2F2F2);
 }
 
 .FileSize {
-  color: var(--color-text-tertiary);
-  font-size: 0.75rem;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 1.5;
+  color: light-dark(#5D5D5D, #A3A3A3);
 }
 
 .FileRemove {
@@ -117,12 +133,12 @@
   width: 20px;
   height: 20px;
   padding: 0;
-  margin: 0;
+  margin: 0 -7px 0 0;
   border: none;
-  border-radius: var(--radius-full);
-  background: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 8%));
+  border-radius: 9999px;
+  background: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 12%));
   cursor: pointer;
-  color: var(--color-text-tertiary);
+  color: light-dark(#5D5D5D, #A3A3A3);
   transition: background-color 150ms ease;
   flex-shrink: 0;
 }
@@ -133,8 +149,8 @@
 }
 
 .FileRemove:hover {
-  background: light-dark(rgb(0 0 0 / 12%), rgb(255 255 255 / 12%));
-  color: var(--color-text);
+  background: light-dark(rgb(0 0 0 / 12%), rgb(255 255 255 / 16%));
+  color: light-dark(#0D0D0D, #F2F2F2);
 }
 
 .FileRemove:disabled {
