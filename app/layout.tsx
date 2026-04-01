@@ -38,23 +38,6 @@ export const metadata: Metadata = {
   },
 };
 
-const digitalReturnPolicy = {
-  '@type': 'MerchantReturnPolicy',
-  applicableCountry: 'US',
-  returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-  merchantReturnDays: 0,
-};
-const digitalShipping = {
-  '@type': 'OfferShippingDetails',
-  shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
-  shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
-  deliveryTime: {
-    '@type': 'ShippingDeliveryTime',
-    handlingTime: { '@type': 'QuantitativeValue', minValue: '0', maxValue: '0', unitCode: 'd' },
-    transitTime: { '@type': 'QuantitativeValue', minValue: '0', maxValue: '0', unitCode: 'd' },
-  },
-};
-
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -112,68 +95,7 @@ const jsonLd = {
         'AI code editor ready (Claude, Cursor, Codex)',
       ],
     },
-    {
-      '@type': 'Product',
-      '@id': 'https://plexui.com/#figma-kit',
-      name: 'Plex UI Figma Design System',
-      image: 'https://plexui.com/opengraph-image.png?v=3',
-      description:
-        'Professional Figma design system with 22,000+ variants, three-layer token system as Figma Variables, 6,600+ icons, dark & light modes, and lifetime updates.',
-      url: 'https://plexui.com/pricing',
-      brand: { '@type': 'Brand', name: 'Plex UI' },
-      offers: [
-        {
-          '@type': 'Offer',
-          name: 'Personal',
-          price: '49',
-          priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-          hasMerchantReturnPolicy: digitalReturnPolicy,
-          shippingDetails: digitalShipping,
-          description: '1 designer, 1 project, lifetime updates',
-        },
-        {
-          '@type': 'Offer',
-          name: 'Team',
-          price: '149',
-          priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-          hasMerchantReturnPolicy: digitalReturnPolicy,
-          shippingDetails: digitalShipping,
-          description: 'Up to 5 designers, unlimited projects, priority support',
-        },
-        {
-          '@type': 'Offer',
-          name: 'Unlimited',
-          price: '299',
-          priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-          hasMerchantReturnPolicy: digitalReturnPolicy,
-          shippingDetails: digitalShipping,
-          description:
-            'Unlimited designers & projects, white-label OK, priority support',
-        },
-      ],
-    },
-    {
-      '@type': 'Product',
-      '@id': 'https://plexui.com/#bridge',
-      name: 'Plex UI Figma Bridge Plugin',
-      image: 'https://plexui.com/opengraph-image.png?v=3',
-      description:
-        'Local Figma plugin that lets ANY AI model (Claude, GPT, Cursor, Codex, Gemini) create, read, and edit real Figma designs via HTTP API. Model-agnostic alternative to Claude-only Figma integration.',
-      url: 'https://plexui.com/bridge',
-      brand: { '@type': 'Brand', name: 'Plex UI' },
-      offers: {
-        '@type': 'Offer',
-        price: '49',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-        hasMerchantReturnPolicy: digitalReturnPolicy,
-        shippingDetails: digitalShipping,
-        description: 'One-time payment, lifetime license',
-      },
-    },
+
   ],
 };
 
