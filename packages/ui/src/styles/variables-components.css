@@ -147,6 +147,23 @@
     --floating-input-label-scale: 0.88;
 
     /* =============================================
+      FileUpload
+    ============================================= */
+    --file-upload-height: var(--floating-input-height);
+    --file-upload-gutter: var(--floating-input-gutter);
+    --file-upload-border-radius: var(--floating-input-border-radius);
+    --file-upload-border-color: var(--floating-input-border-color);
+    --file-upload-border-color-hover: var(--floating-input-border-color-hover);
+    --file-upload-border-color-invalid: var(--floating-input-border-color-invalid);
+    --file-upload-background: var(--floating-input-background);
+    --file-upload-transition-duration: var(--floating-input-transition-duration);
+    --file-upload-list-border-radius: var(--radius-lg);
+    --file-upload-list-gap: 0.5rem;
+    --file-upload-separator-color: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 8%));
+    --file-upload-area-border-radius: var(--radius-xl);
+    --file-upload-area-min-height: 10rem;
+
+    /* =============================================
       Link
     ============================================= */
     --link-font-weight: inherit;

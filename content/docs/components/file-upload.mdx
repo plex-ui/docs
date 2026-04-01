@@ -1,0 +1,41 @@
+---
+title: File Upload
+description: Mobile-first file picker with type validation and multi-file support
+---
+
+import { FileUploadFormDemo } from '@/components/docs/FileUploadDemos'
+
+<UsageBlock>{`import { FileUpload } from "@plexui/ui/components/FileUpload";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<FileUpload
+  accept=".pdf,.png"
+  multiple
+  maxFiles={5}
+  value={files}
+  onValueChange={setFiles}
+/>
+<Button color="primary" size="3xl" pill block>Continue</Button>`}>
+  <FileUploadFormDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "variant", type: '"compact" | "area"', default: '"compact"', description: "Visual variant — compact button or larger tappable area" },
+  { prop: "label", type: "string", description: "Button label text" },
+  { prop: "description", type: "string", description: "Helper text below the icon (area variant only)" },
+  { prop: "accept", type: "string", description: 'Accepted file types (e.g. ".pdf,.png,image/*")' },
+  { prop: "multiple", type: "boolean", default: "false", description: "Allow selecting multiple files" },
+  { prop: "maxFiles", type: "number", description: "Maximum number of files. Button disables at limit." },
+  { prop: "maxSize", type: "number", description: "Maximum file size in bytes" },
+  { prop: "value", type: "File[]", description: "Controlled file list" },
+  { prop: "onValueChange", type: "(files: File[]) => void", description: "Callback when files are added or removed" },
+  { prop: "onFileReject", type: "(file: File, reason: string) => void", description: "Callback when a file is rejected (wrong type, too large, over limit)" },
+  { prop: "errorMessage", type: "string", description: "Error message — sets invalid visual state" },
+  { prop: "invalid", type: "boolean", default: "false", description: "Invalid state (auto-set when errorMessage is provided)" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable all interactions" },
+]} />

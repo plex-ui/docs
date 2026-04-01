@@ -1,0 +1,164 @@
+.Root {
+  position: relative;
+  --field-error-padding-inline: 0;
+  --field-error-margin-top: 0.25rem;
+}
+
+.AreaTrigger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: var(--file-upload-area-min-height);
+  padding: 2rem var(--file-upload-gutter);
+  gap: 0.5rem;
+  border: 1px solid var(--floating-input-border-color);
+  border-radius: var(--file-upload-area-border-radius);
+  background-color: var(--floating-input-background);
+  color: var(--color-text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color var(--floating-input-transition-duration) ease-in-out;
+}
+
+.AreaTrigger:hover:not(:disabled) {
+  border-color: var(--floating-input-border-color-hover);
+}
+
+.AreaTrigger[data-invalid] {
+  border-color: var(--floating-input-border-color-invalid);
+}
+
+.AreaTrigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.AreaIcon {
+  color: var(--color-text-tertiary);
+  font-size: 2rem;
+}
+
+.AreaLabel {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.AreaDescription {
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+}
+
+.FileList {
+  margin-top: var(--file-upload-list-gap);
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--floating-input-border-color);
+  border-radius: calc(var(--floating-input-height) / 2);
+  background-color: var(--floating-input-background);
+}
+
+.FileItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 21px;
+}
+
+.FileItem + .FileItem {
+  border-top: 1px solid var(--floating-input-border-color);
+}
+
+.FileIcon {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.FileInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.FileNameRow {
+  display: flex;
+  min-width: 0;
+}
+
+.FileNameStem {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  line-height: 1.4285714286;
+}
+
+.FileNameExt {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  line-height: 1.4285714286;
+}
+
+.FileSize {
+  color: var(--color-text-tertiary);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.FileRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 8%));
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  transition: background-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.FileRemove svg {
+  width: 15px;
+  height: 15px;
+}
+
+.FileRemove:hover {
+  background: light-dark(rgb(0 0 0 / 12%), rgb(255 255 255 / 12%));
+  color: var(--color-text);
+}
+
+.FileRemove:disabled {
+  pointer-events: none;
+}
+
+.HiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.ErrorMessage {
+  margin-top: var(--field-error-margin-top);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .AreaTrigger {
+    transition: none;
+  }
+}
