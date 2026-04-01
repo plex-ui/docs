@@ -5,6 +5,7 @@ import { FloatingLabelSelect } from '@plexui/ui/components/FloatingLabelSelect';
 
 import { Select, type Option } from '@plexui/ui/components/Select';
 import { Switch } from '@plexui/ui/components/Switch';
+import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Button } from '@plexui/ui/components/Button';
 import { FieldError } from '@plexui/ui/components/FieldError';
 import { Tooltip } from '@plexui/ui/components/Tooltip';
@@ -447,6 +448,44 @@ function DialogShell({ children, width = 420 }: { children: React.ReactNode; wid
 // ---------------------------------------------------------------------------
 // Exported demos
 // ---------------------------------------------------------------------------
+export function FloatingLabelInputTextareaDemo() {
+  const [multiline, setMultiline] = useState(true);
+  const [value, setValue] = useState('');
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <div style={controlRowStyle}>
+          <span style={controlLabelStyle}>multiline</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <SegmentedControl<'true' | 'false'>
+              value={multiline ? 'true' : 'false'}
+              onChange={(v) => setMultiline(v === 'true')}
+              aria-label="multiline"
+              size="xs"
+            >
+              <SegmentedControl.Option value="true">true</SegmentedControl.Option>
+              <SegmentedControl.Option value="false">false</SegmentedControl.Option>
+            </SegmentedControl>
+          </div>
+        </div>
+      </div>
+      <div data-demo-stage className="py-10">
+        <div className="w-[360px]">
+          <FloatingLabelInput
+            key={String(multiline)}
+            label="Message"
+            multiline={multiline}
+            rows={4}
+            value={value}
+            onChange={(evt) => setValue(evt.target.value)}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function FloatingLabelInputWithClearButtonDemoWithControls() {
   const [value, setValue] = useState('clearable@example.com');
   const [disabled, setDisabled] = useState(false);
