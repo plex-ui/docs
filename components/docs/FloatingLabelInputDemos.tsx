@@ -470,7 +470,7 @@ export function FloatingLabelInputTextareaDemo() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center py-[40px] px-6">
+      <div data-demo-stage className="py-10" style={{ alignItems: 'flex-start', paddingTop: 40, paddingBottom: 40 }}>
         <div className="w-[360px]">
           <FloatingLabelInput
             key={String(multiline)}
