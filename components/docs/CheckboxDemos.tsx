@@ -377,6 +377,65 @@ export function CheckboxWithFieldDemo() {
   );
 }
 
+export function CheckboxDescriptionsDemo() {
+  const [settings, setSettings] = useState({
+    marketing: true,
+    security: true,
+    everything: false,
+    mentions: true,
+    nothing: false,
+  });
+
+  const toggle = (key: keyof typeof settings) => () =>
+    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  return (
+    <div data-demo-stage className="flex-1 flex items-center justify-center py-12 w-full">
+      <div className="flex flex-col max-w-sm w-full divide-y divide-alpha/15">
+        <div className="pb-5">
+          <Field label="Email notifications" description="Configure which emails you receive.">
+            {() => (
+              <div className="flex flex-col gap-2.5">
+                <Checkbox
+                  label={
+                    <div className="flex flex-col">
+                      <span className="font-medium">Marketing</span>
+                      <span className="text-xs text-secondary mt-0.5">Receive emails about new products and features.</span>
+                    </div>
+                  }
+                  checked={settings.marketing}
+                  onCheckedChange={toggle('marketing')}
+                />
+                <Checkbox
+                  label={
+                    <div className="flex flex-col">
+                      <span className="font-medium">Security</span>
+                      <span className="text-xs text-secondary mt-0.5">Receive emails about account activity and security.</span>
+                    </div>
+                  }
+                  checked={settings.security}
+                  onCheckedChange={toggle('security')}
+                />
+              </div>
+            )}
+          </Field>
+        </div>
+        <div className="pt-5">
+          <Field label="Push notifications">
+            {() => (
+              <div className="flex flex-col gap-3">
+                <Checkbox label="Everything" checked={settings.everything} onCheckedChange={toggle('everything')} />
+                <Checkbox label="Direct messages and mentions" checked={settings.mentions} onCheckedChange={toggle('mentions')} />
+                <Checkbox label="Nothing" checked={settings.nothing} onCheckedChange={toggle('nothing')} />
+              </div>
+            )}
+          </Field>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function CheckboxNotificationSettingsDemo() {
   const [settings, setSettings] = useState({
     emailMarketing: true,

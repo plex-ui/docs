@@ -17,6 +17,7 @@ import {
   CheckboxWithDescriptionDemo,
   CheckboxGroupWithDescriptionDemo,
   CheckboxWithFieldDemo,
+  CheckboxDescriptionsDemo,
   CheckboxNotificationSettingsDemo,
 } from '@/components/docs/CheckboxDemos'
 import { ControlsAlignmentDemo } from "@/components/docs/ControlsAlignmentDemo"
@@ -24,6 +25,70 @@ import { ControlsAlignmentDemo } from "@/components/docs/ControlsAlignmentDemo"
 <UsageBlock>{`import { Checkbox } from "@plexui/ui/components/Checkbox";`}</UsageBlock>
 
 ## Examples
+
+### With Radio Group
+
+<ComponentPreview details={<>Place <code>Checkbox</code> alongside <code>RadioGroup</code> controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts.</>} code={`<div className="flex flex-col gap-6 w-full max-w-md">
+  <Field label="Notification channel" description="Choose how you'd like to be notified.">
+    {() => (
+      <RadioGroup direction="col" defaultValue="email" aria-label="Notification channel">
+        <RadioGroup.Item value="email">
+          <div className="flex flex-col">
+            <span className="font-medium">Email</span>
+            <span className="text-xs text-secondary mt-0.5">Messages delivered to your inbox.</span>
+          </div>
+        </RadioGroup.Item>
+        ...
+      </RadioGroup>
+    )}
+  </Field>
+  <Field label="Topics" description="Select the topics you want to follow.">
+    {() => (
+      <div className="flex flex-col gap-2.5">
+        <Checkbox defaultChecked label={...} />
+        ...
+      </div>
+    )}
+  </Field>
+</div>`} previewMinHeight={168}>
+  <ControlsAlignmentDemo />
+</ComponentPreview>
+
+### Descriptions
+
+<ComponentPreview details={<>Combine <code>Field</code>-level label and description with item-level descriptions for options that need additional context. Use a plain label without descriptions when the options are self-explanatory.</>} code={`<div className="flex flex-col divide-y divide-alpha/15">
+  <div className="pb-5">
+    <Field label="Email notifications" description="Configure which emails you receive.">
+      {() => (
+        <div className="flex flex-col gap-2.5">
+          <Checkbox
+            label={
+              <div className="flex flex-col">
+                <span className="font-medium">Marketing</span>
+                <span className="text-xs text-secondary mt-0.5">Receive emails about new products and features.</span>
+              </div>
+            }
+            defaultChecked
+          />
+          ...
+        </div>
+      )}
+    </Field>
+  </div>
+  <div className="pt-5">
+    <Field label="Push notifications">
+      {() => (
+        <div className="flex flex-col gap-3">
+          <Checkbox label="Everything" />
+          <Checkbox label="Direct messages and mentions" defaultChecked />
+          <Checkbox label="Nothing" />
+        </div>
+      )}
+    </Field>
+  </div>
+</div>`} previewMinHeight={380}>
+  <CheckboxDescriptionsDemo />
+</ComponentPreview>
 
 ### Overview
 
@@ -255,29 +320,6 @@ const parentChecked = allChecked ? true : noneChecked ? false : "indeterminate";
   <CheckboxNotificationSettingsDemo />
 </ComponentPreview>
 
-
-### With Radio Group
-
-<ComponentPreview details={<>Place <code>Checkbox</code> alongside <code>RadioGroup</code> controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts.</>} code={`<div className="flex flex-row gap-12 items-start">
-  <div>
-    <span className="text-xs text-tertiary font-mono mb-1">RadioGroup</span>
-    <RadioGroup direction="row" defaultValue="email" aria-label="Channel">
-      <RadioGroup.Item value="email">Email</RadioGroup.Item>
-      <RadioGroup.Item value="sms">SMS</RadioGroup.Item>
-      <RadioGroup.Item value="push">Push</RadioGroup.Item>
-    </RadioGroup>
-  </div>
-  <div>
-    <span className="text-xs text-tertiary font-mono mb-1">Checkbox</span>
-    <div className="flex flex-row gap-5">
-      <Checkbox label="Email" defaultChecked />
-      <Checkbox label="SMS" />
-      <Checkbox label="Push" />
-    </div>
-  </div>
-</div>`} previewMinHeight={168}>
-  <ControlsAlignmentDemo />
-</ComponentPreview>
 
 ## Reference
 
