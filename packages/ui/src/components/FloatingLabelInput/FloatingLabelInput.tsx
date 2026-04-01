@@ -52,6 +52,16 @@ export type FloatingLabelInputProps = {
    */
   startAdornment?: React.ReactNode
   endAdornment?: React.ReactNode
+  /**
+   * Render as a multi-line textarea instead of a single-line input.
+   * @default false
+   */
+  multiline?: boolean
+  /**
+   * Number of visible text lines when `multiline` is true.
+   * @default 3
+   */
+  rows?: number
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInputProps>(
@@ -67,6 +77,8 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       allowAutofillExtensions = false,
       startAdornment,
       endAdornment,
+      multiline = false,
+      rows = 3,
       className,
       "id": idProp,
       name,
@@ -176,6 +188,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
           data-invalid={invalid ? "" : undefined}
           data-disabled={disabled ? "" : undefined}
           data-readonly={readOnly ? "" : undefined}
+          data-multiline={multiline ? "" : undefined}
           onMouseDown={handleContainerMouseDown}
         >
           <label className={s.TypeableLabel} htmlFor={inputId}>
@@ -186,26 +199,45 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
           {startAdornment && (
             <div className={s.StartAdornment}>{startAdornment}</div>
           )}
-          <input
-            {...restProps}
-            ref={mergeRefs([ref, inputRef])}
-            id={inputId}
-            name={name}
-            type={type}
-            className={s.Input}
-            value={value}
-            defaultValue={defaultValue}
-            disabled={disabled}
-            readOnly={readOnly}
-            aria-invalid={invalid ? true : undefined}
-            aria-describedby={ariaDescribedBy}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onAnimationStart={handleAnimationStart}
-            data-lpignore={allowAutofillExtensions ? undefined : true}
-            data-1p-ignore={allowAutofillExtensions ? undefined : true}
-          />
+          {multiline ? (
+            <textarea
+              ref={mergeRefs([ref, inputRef]) as React.Ref<HTMLTextAreaElement>}
+              id={inputId}
+              name={name}
+              rows={rows}
+              className={s.Textarea}
+              value={value}
+              defaultValue={defaultValue}
+              disabled={disabled}
+              readOnly={readOnly}
+              aria-invalid={invalid ? true : undefined}
+              aria-describedby={ariaDescribedBy}
+              onChange={handleChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>}
+              onFocus={handleFocus as unknown as React.FocusEventHandler<HTMLTextAreaElement>}
+              onBlur={handleBlur as unknown as React.FocusEventHandler<HTMLTextAreaElement>}
+            />
+          ) : (
+            <input
+              {...restProps}
+              ref={mergeRefs([ref, inputRef])}
+              id={inputId}
+              name={name}
+              type={type}
+              className={s.Input}
+              value={value}
+              defaultValue={defaultValue}
+              disabled={disabled}
+              readOnly={readOnly}
+              aria-invalid={invalid ? true : undefined}
+              aria-describedby={ariaDescribedBy}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onAnimationStart={handleAnimationStart}
+              data-lpignore={allowAutofillExtensions ? undefined : true}
+              data-1p-ignore={allowAutofillExtensions ? undefined : true}
+            />
+          )}
           {endAdornment && (
             <div className={s.EndAdornment}>
               {endAdornment}

@@ -190,6 +190,54 @@
   margin-top: var(--field-error-margin-top);
 }
 
+/* =============================================
+   Multiline (textarea) variant
+============================================= */
+.FieldFootprint[data-multiline] {
+  height: auto;
+  min-height: var(--floating-input-height);
+  align-items: flex-start;
+  border-radius: calc(var(--floating-input-height) / 2);
+}
+
+.FieldFootprint[data-multiline] .LabelPositioner {
+  align-items: flex-start;
+  padding-top: calc((var(--floating-input-height) - 1.5rem) / 2);
+}
+
+.FieldFootprint[data-multiline][data-focused] .LabelPositioner,
+.FieldFootprint[data-multiline][data-invalid] .LabelPositioner,
+.FieldFootprint[data-multiline].HasValue .LabelPositioner {
+  transform: translateY(calc(var(--floating-input-height) / -2));
+}
+
+.Textarea {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  font: inherit;
+  width: 100%;
+  padding: calc((var(--floating-input-height) - 1.5rem) / 2) 0;
+  color: inherit;
+  position: relative;
+  z-index: 1;
+  resize: vertical;
+  line-height: 1.5rem;
+}
+
+.Textarea::placeholder {
+  opacity: 0;
+}
+
+.FieldFootprint[data-focused] .Textarea::placeholder {
+  opacity: 1;
+  color: var(--color-text-tertiary);
+}
+
+.Textarea:disabled {
+  cursor: not-allowed;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .FieldFootprint,
