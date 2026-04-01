@@ -55,7 +55,7 @@
   list-style: none;
   padding: 0;
   overflow: hidden;
-  border: 1px solid light-dark(rgb(0 0 0 / 16%), rgb(255 255 255 / 16%));
+  border: 1px solid var(--color-border-primary-outline);
   border-radius: 26px;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .FileItem + .FileItem {
-  border-top: 1px solid light-dark(rgb(0 0 0 / 16%), rgb(255 255 255 / 16%));
+  border-top: 1px solid var(--color-border-primary-outline);
 }
 
 .FileIcon {
@@ -76,7 +76,7 @@
   width: 16px;
   height: 16px;
   margin-left: -4px;
-  color: light-dark(#0D0D0D, #F2F2F2);
+  color: var(--color-text);
 }
 
 .FileIcon svg {
@@ -100,30 +100,24 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Inter, sans-serif;
   font-size: 14px;
-  font-weight: 400;
   line-height: 1.4285714286;
   letter-spacing: -0.01em;
-  color: light-dark(#0D0D0D, #F2F2F2);
+  color: var(--color-text);
 }
 
 .FileNameExt {
   flex-shrink: 0;
-  font-family: Inter, sans-serif;
   font-size: 14px;
-  font-weight: 400;
   line-height: 1.4285714286;
   letter-spacing: -0.01em;
-  color: light-dark(#0D0D0D, #F2F2F2);
+  color: var(--color-text);
 }
 
 .FileSize {
-  font-family: Inter, sans-serif;
   font-size: 12px;
-  font-weight: 400;
   line-height: 1.5;
-  color: light-dark(#5D5D5D, #A3A3A3);
+  color: var(--color-text-secondary);
 }
 
 .FileRemove {
@@ -135,11 +129,10 @@
   padding: 0;
   margin: 0 -7px 0 0;
   border: none;
-  border-radius: 9999px;
-  background: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 12%));
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-secondary-soft-alpha);
   cursor: pointer;
-  color: light-dark(#5D5D5D, #A3A3A3);
-  transition: background-color 150ms ease;
+  color: var(--color-text-secondary-soft);
   flex-shrink: 0;
 }
 
@@ -149,8 +142,11 @@
 }
 
 .FileRemove:hover {
-  background: light-dark(rgb(0 0 0 / 12%), rgb(255 255 255 / 16%));
-  color: light-dark(#0D0D0D, #F2F2F2);
+  background-color: var(--color-background-secondary-soft-alpha-hover);
+}
+
+.FileRemove:active {
+  background-color: var(--color-background-secondary-soft-alpha-active);
 }
 
 .FileRemove:disabled {
