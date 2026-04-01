@@ -476,7 +476,6 @@ export function FloatingLabelInputTextareaDemo() {
             key={String(multiline)}
             label="Message"
             multiline={multiline}
-            rows={4}
             value={value}
             onChange={(evt) => setValue(evt.target.value)}
           />

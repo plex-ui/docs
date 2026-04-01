@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { forwardRef, useCallback, useEffect, useId, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react"
 import { mergeRefs } from "react-merge-refs"
 
 import { FieldError } from "../FieldError"
@@ -59,7 +59,7 @@ export type FloatingLabelInputProps = {
   multiline?: boolean
   /**
    * Number of visible text lines when `multiline` is true.
-   * @default 3
+   * @default 2
    */
   rows?: number
 } & React.InputHTMLAttributes<HTMLInputElement>
@@ -78,7 +78,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       startAdornment,
       endAdornment,
       multiline = false,
-      rows = 3,
+      rows = 2,
       className,
       "id": idProp,
       name,
@@ -110,7 +110,15 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       }
     }, [value])
 
-    // Determine invalid state from prop or presence of errorMessage
+    const autoResize = useCallback(() => {
+      const el = inputRef.current
+      if (!multiline || !el) return
+      el.style.height = "auto"
+      el.style.height = `${el.scrollHeight}px`
+    }, [multiline])
+
+    useLayoutEffect(autoResize, [autoResize])
+
     const invalid = invalidProp ?? !!errorMessage
 
     // Determine if clear button should be shown
@@ -161,8 +169,9 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       (evt: React.ChangeEvent<HTMLInputElement>) => {
         setHasValue(!!evt.currentTarget.value)
         onChange?.(evt)
+        autoResize()
       },
-      [onChange],
+      [onChange, autoResize],
     )
 
     const handleAnimationStart = useCallback(
