@@ -76,7 +76,7 @@
   width: 16px;
   height: 16px;
   margin-left: -4px;
-  color: var(--color-text);
+  color: var(--input-text-color);
 }
 
 .FileIcon svg {
@@ -117,7 +117,7 @@
 .FileSize {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--color-text-secondary);
+  color: var(--color-text-tertiary);
 }
 
 .FileRemove {
