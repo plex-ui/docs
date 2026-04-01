@@ -14,9 +14,17 @@ import {
   OTPInputVerifyEmailDemo,
   OTPInputConfirmPhoneDemo,
 } from "@/components/docs/OTPInputDemos"
+import { FileUploadFormDemo } from "@/components/docs/FileUploadDemos"
 
 
-Real-world authentication forms composed from [Float Input](/docs/components/floating-label-input), [OTP Input](/docs/components/otp-input), [Select](/docs/components/select), and [Button](/docs/components/button).
+Real-world forms composed from [Float Input](/docs/components/floating-label-input), [File Upload](/docs/components/file-upload), [OTP Input](/docs/components/otp-input), [Select](/docs/components/select), and [Button](/docs/components/button).
+
+## Upload file
+
+<ComponentPreview details={<>A document upload form with <code>FileUpload</code>. The file list grows dynamically as files are added. Button and file list share the same 52px pill shape.</>} code={`<FileUpload accept=".pdf,.png" multiple maxFiles={5} />
+<Button color="primary" size="3xl" pill block>Continue</Button>`}>
+  <FileUploadFormDemo />
+</ComponentPreview>
 
 ## About You
 
@@ -91,5 +99,6 @@ Real-world authentication forms composed from [Float Input](/docs/components/flo
 <Button color="primary" size="3xl" className="h-[3.25rem]">Continue</Button>`} previewMinHeight={380}>
   <OTPInputConfirmPhoneDemo />
 </ComponentPreview>
+
 
 
