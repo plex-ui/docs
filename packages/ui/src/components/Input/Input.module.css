@@ -123,7 +123,7 @@
   &:where([data-size="sm"]) {
     --input-size: var(--control-size-sm);
     --input-font-size: var(--control-font-size-md);
-    --input-radius: var(--control-radius-md);
+    --input-radius: var(--control-radius-sm);
     --input-gutter: var(--control-gutter-sm);
     --input-gap: var(--input-gap-md);
     --input-adornment-offset: -1px;
@@ -148,7 +148,7 @@
   &:where([data-size="lg"]) {
     --input-size: var(--control-size-lg);
     --input-font-size: var(--control-font-size-md);
-    --input-radius: var(--control-radius-md);
+    --input-radius: var(--control-radius-lg);
     --input-gutter: var(--control-gutter-md);
     --input-gap: var(--input-gap-md);
     --input-clear-size: 18px;
@@ -160,7 +160,7 @@
   &:where([data-size="xl"]) {
     --input-size: var(--control-size-xl);
     --input-font-size: var(--control-font-size-lg);
-    --input-radius: var(--control-radius-lg);
+    --input-radius: var(--control-radius-xl);
     --input-gutter: var(--control-gutter-lg);
     --input-gap: var(--input-gap-lg);
     --input-clear-size: 18px;
