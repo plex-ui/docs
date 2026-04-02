@@ -1,1 +1,8 @@
-export { FileUpload, type FileUploadProps } from "./FileUpload"
+export {
+  FileUpload,
+  type FileUploadProps,
+  FileCard,
+  type FileCardProps,
+  FileCardGroup,
+  type FileCardGroupProps,
+} from "./FileUpload"

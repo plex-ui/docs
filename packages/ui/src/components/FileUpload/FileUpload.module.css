@@ -59,6 +59,12 @@
   border-radius: 26px;
 }
 
+.FileCardGroup {
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary-outline);
+  border-radius: 26px;
+}
+
 .FileItem {
   display: flex;
   align-items: center;
@@ -67,6 +73,10 @@
 }
 
 .FileItem + .FileItem {
+  border-top: 1px solid var(--color-border-primary-outline);
+}
+
+.FileList li + li > .FileItem {
   border-top: 1px solid var(--color-border-primary-outline);
 }
 
