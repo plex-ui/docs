@@ -212,7 +212,7 @@
     --select-control-gutter: var(--control-gutter-md);
     --select-control-font-size: var(--control-font-size-md);
     --select-control-gap: 8px;
-    --select-control-radius: var(--control-radius-md);
+    --select-control-radius: var(--control-radius-lg);
     --start-icon-size: var(--control-icon-size-md);
     --start-icon-offset: -2px;
     --start-icon-pill-offset: -4px;
@@ -237,7 +237,7 @@
     --select-control-gutter: var(--control-gutter-lg);
     --select-control-font-size: var(--control-font-size-md);
     --select-control-gap: 8px;
-    --select-control-radius: var(--control-radius-lg);
+    --select-control-radius: var(--control-radius-xl);
     --start-icon-size: var(--control-icon-size-md);
     --start-icon-offset: -2px;
     --start-icon-pill-offset: -4px;

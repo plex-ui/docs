@@ -170,7 +170,7 @@
     --button-font-size: var(--control-font-size-md);
     --button-icon-size: var(--control-icon-size-md);
     --button-gap: var(--button-gap-lg);
-    --button-radius: var(--control-radius-md);
+    --button-radius: var(--control-radius-lg);
     --button-icon-offset: -1px;
     --indicator-size: 16px;
     --circular-progress-size: 16px;
@@ -182,7 +182,7 @@
     --button-font-size: var(--control-font-size-md);
     --button-icon-size: var(--control-icon-size-md);
     --button-gap: var(--button-gap-lg);
-    --button-radius: var(--control-radius-lg);
+    --button-radius: var(--control-radius-xl);
     --button-icon-offset: -1px;
     --indicator-size: 18px;
     --circular-progress-size: 18px;

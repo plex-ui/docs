@@ -37,7 +37,7 @@
   &:where([data-size="sm"]) {
     --textarea-base-height: var(--control-size-sm);
     --textarea-font-size: var(--control-font-size-md);
-    --textarea-radius: var(--control-radius-md);
+    --textarea-radius: var(--control-radius-sm);
     --textarea-gutter-x: var(--control-gutter-sm);
   }
 
@@ -52,14 +52,14 @@
   &:where([data-size="lg"]) {
     --textarea-base-height: var(--control-size-lg);
     --textarea-font-size: var(--control-font-size-md);
-    --textarea-radius: var(--control-radius-md);
+    --textarea-radius: var(--control-radius-lg);
     --textarea-gutter-x: var(--control-gutter-md);
   }
 
   &:where([data-size="xl"]) {
     --textarea-base-height: var(--control-size-xl);
     --textarea-font-size: var(--control-font-size-lg);
-    --textarea-radius: var(--control-radius-lg);
+    --textarea-radius: var(--control-radius-xl);
     --textarea-gutter-x: var(--control-gutter-lg);
   }
 

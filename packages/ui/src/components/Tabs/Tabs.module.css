@@ -177,7 +177,7 @@
   &:where([data-size="sm"]) {
     --segmented-control-size: var(--control-size-sm);
     --segmented-control-font-size: var(--control-font-size-md);
-    --segmented-control-radius: var(--control-radius-md);
+    --segmented-control-radius: var(--control-radius-sm);
     --segmented-control-option-gutter: var(--control-gutter-sm);
     /* Icon and content */
     --segmented-control-icon-size: var(--control-icon-size-md);
@@ -215,7 +215,7 @@
   &:where([data-size="lg"]) {
     --segmented-control-size: var(--control-size-lg);
     --segmented-control-font-size: var(--control-font-size-md);
-    --segmented-control-radius: var(--control-radius-md);
+    --segmented-control-radius: var(--control-radius-lg);
     --segmented-control-option-gutter: var(--control-gutter-md);
     /* Icon and content */
     --segmented-control-icon-size: var(--control-icon-size-md);
@@ -234,7 +234,7 @@
   &:where([data-size="xl"]) {
     --segmented-control-size: var(--control-size-xl);
     --segmented-control-font-size: var(--control-font-size-md);
-    --segmented-control-radius: var(--control-radius-lg);
+    --segmented-control-radius: var(--control-radius-xl);
     --segmented-control-option-gutter: var(--control-gutter-lg);
     /* Icon and content */
     --segmented-control-icon-size: var(--control-icon-size-md);
