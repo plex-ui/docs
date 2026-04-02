@@ -71,6 +71,50 @@ function splitFileName(name: string): { stem: string; ext: string } {
   }
 }
 
+export type FileCardGroupProps = {
+  children: React.ReactNode
+  className?: string
+}
+
+export const FileCardGroup = ({ children, className }: FileCardGroupProps) => {
+  return <div className={clsx(s.FileCardGroup, className)}>{children}</div>
+}
+
+export type FileCardProps = {
+  file: File
+  onRemove?: () => void
+  disabled?: boolean
+  className?: string
+}
+
+export const FileCard = ({ file, onRemove, disabled, className }: FileCardProps) => {
+  const { stem, ext } = splitFileName(file.name)
+
+  return (
+    <div className={clsx(s.FileItem, className)}>
+      <div className={s.FileIcon}>{getFileIcon(file)}</div>
+      <div className={s.FileInfo}>
+        <div className={s.FileNameRow}>
+          <span className={s.FileNameStem}>{stem}</span>
+          {ext && <span className={s.FileNameExt}>{ext}</span>}
+        </div>
+        <span className={s.FileSize}>{formatFileSize(file.size)}</span>
+      </div>
+      {onRemove && (
+        <button
+          type="button"
+          className={s.FileRemove}
+          onClick={onRemove}
+          aria-label={`Remove ${file.name}`}
+          disabled={disabled}
+        >
+          <X />
+        </button>
+      )}
+    </div>
+  )
+}
+
 function matchesAccept(file: File, accept: string): boolean {
   const acceptTypes = accept.split(",").map((t) => t.trim().toLowerCase())
   const fileName = file.name.toLowerCase()
@@ -211,33 +255,15 @@ export const FileUpload = (props: FileUploadProps) => {
           data-variant={variant}
           aria-label="Attached files"
         >
-          {files.map((file, index) => {
-            const { stem, ext } = splitFileName(file.name)
-            return (
-              <li
-                key={`${file.name}-${file.size}-${file.lastModified}`}
-                className={s.FileItem}
-              >
-                <div className={s.FileIcon}>{getFileIcon(file)}</div>
-                <div className={s.FileInfo}>
-                  <div className={s.FileNameRow}>
-                    <span className={s.FileNameStem}>{stem}</span>
-                    {ext && <span className={s.FileNameExt}>{ext}</span>}
-                  </div>
-                  <span className={s.FileSize}>{formatFileSize(file.size)}</span>
-                </div>
-                <button
-                  type="button"
-                  className={s.FileRemove}
-                  onClick={() => removeFile(index)}
-                  aria-label={`Remove ${file.name}`}
-                  disabled={disabled}
-                >
-                  <X />
-                </button>
-              </li>
-            )
-          })}
+          {files.map((file, index) => (
+            <li key={`${file.name}-${file.size}-${file.lastModified}`}>
+              <FileCard
+                file={file}
+                onRemove={() => removeFile(index)}
+                disabled={disabled}
+              />
+            </li>
+          ))}
         </ul>
       )}
 

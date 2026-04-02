@@ -8,9 +8,13 @@ import {
   FileUploadWithFilesDemo,
   FileUploadDisabledDemo,
   FileUploadErrorDemo,
+  FileCardDemo,
+  FileCardWithRemoveDemo,
+  FileCardListDemo,
+  FileCardReadOnlyListDemo,
 } from '@/components/docs/FileUploadDemos'
 
-<UsageBlock>{`import { FileUpload } from "@plexui/ui/components/FileUpload";`}</UsageBlock>
+<UsageBlock>{`import { FileUpload, FileCard, FileCardGroup } from "@plexui/ui/components/FileUpload";`}</UsageBlock>
 
 ## Examples
 
@@ -63,6 +67,46 @@ import {
   <FileUploadDisabledDemo />
 </ComponentPreview>
 
+## File Card
+
+Standalone file card component. Wrap with `FileCardGroup` for the bordered container. Omit `onRemove` to hide the delete button.
+
+### Read-only
+
+<ComponentPreview code={`<FileCardGroup>
+  <FileCard file={file} />
+</FileCardGroup>`}>
+  <FileCardDemo />
+</ComponentPreview>
+
+### With remove
+
+<ComponentPreview code={`<FileCardGroup>
+  <FileCard file={file} onRemove={() => removeFile()} />
+</FileCardGroup>`}>
+  <FileCardWithRemoveDemo />
+</ComponentPreview>
+
+### Multiple files
+
+<ComponentPreview code={`<FileCardGroup>
+  {files.map((file, i) => (
+    <FileCard key={file.name} file={file} onRemove={() => removeFile(i)} />
+  ))}
+</FileCardGroup>`}>
+  <FileCardListDemo />
+</ComponentPreview>
+
+### Read-only list
+
+<ComponentPreview code={`<FileCardGroup>
+  {files.map((file) => (
+    <FileCard key={file.name} file={file} />
+  ))}
+</FileCardGroup>`}>
+  <FileCardReadOnlyListDemo />
+</ComponentPreview>
+
 ## Reference
 
 <PropsTable data={[
@@ -79,4 +123,20 @@ import {
   { prop: "errorMessage", type: "string", description: "Error message — sets invalid visual state" },
   { prop: "invalid", type: "boolean", default: "false", description: "Invalid state (auto-set when errorMessage is provided)" },
   { prop: "disabled", type: "boolean", default: "false", description: "Disable all interactions" },
+]} />
+
+### FileCard
+
+<PropsTable data={[
+  { prop: "file", type: "File", description: "The file to display" },
+  { prop: "onRemove", type: "() => void", description: "Remove callback. When omitted, the delete button is hidden." },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable the remove button" },
+  { prop: "className", type: "string", description: "Additional CSS class" },
+]} />
+
+### FileCardGroup
+
+<PropsTable data={[
+  { prop: "children", type: "ReactNode", description: "FileCard elements" },
+  { prop: "className", type: "string", description: "Additional CSS class" },
 ]} />

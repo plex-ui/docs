@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FileUpload } from '@plexui/ui/components/FileUpload';
+import { FileUpload, FileCard, FileCardGroup } from '@plexui/ui/components/FileUpload';
 import { Button } from '@plexui/ui/components/Button';
 
 function createMockFile(name: string, sizeKB: number, type: string): File {
@@ -75,6 +75,78 @@ export function FileUploadErrorDemo() {
           onValueChange={setFiles}
           errorMessage="Please upload at least 2 documents."
         />
+      </div>
+    </div>
+  );
+}
+
+export function FileCardDemo() {
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileCardGroup>
+          <FileCard file={createMockFile('project-brief.pdf', 2400, 'application/pdf')} />
+        </FileCardGroup>
+      </div>
+    </div>
+  );
+}
+
+export function FileCardWithRemoveDemo() {
+  const [file, setFile] = useState<File | null>(
+    () => createMockFile('project-brief.pdf', 2400, 'application/pdf'),
+  );
+
+  if (!file) return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px] text-center text-sm text-tertiary">File removed</div>
+    </div>
+  );
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileCardGroup>
+          <FileCard file={file} onRemove={() => setFile(null)} />
+        </FileCardGroup>
+      </div>
+    </div>
+  );
+}
+
+export function FileCardListDemo() {
+  const [files, setFiles] = useState<File[]>(MOCK_FILES);
+
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileCardGroup>
+          {files.map((file, index) => (
+            <FileCard
+              key={`${file.name}-${file.size}`}
+              file={file}
+              onRemove={() => removeFile(index)}
+            />
+          ))}
+        </FileCardGroup>
+      </div>
+    </div>
+  );
+}
+
+export function FileCardReadOnlyListDemo() {
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <FileCardGroup>
+          {MOCK_FILES.map((file) => (
+            <FileCard key={`${file.name}-${file.size}`} file={file} />
+          ))}
+        </FileCardGroup>
       </div>
     </div>
   );
