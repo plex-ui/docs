@@ -29,6 +29,9 @@ import {
   FieldBirthdayValidationDemo,
   FieldBirthdaySegmentedDemo,
   FieldBirthdaySelectDemo,
+  FieldProfileSettingsDemo,
+  FieldCreateProjectDemo,
+  FieldConfigurationDemo,
 } from "@/components/docs/FieldDemos"
 
 <UsageBlock>{`import { Field } from "@plexui/ui/components/Field";`}</UsageBlock>
@@ -127,7 +130,7 @@ import {
 
 <ComponentPreview details={<>Group related fields under a heading and description to create a logical fieldset.</>} code={`<div>
   <div className="mb-3">
-    <h3 className="text-base font-semibold">Address Information</h3>
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Address Information</h3>
     <p className="text-sm text-secondary mt-1">We need your address to deliver your order.</p>
   </div>
   <div className="flex flex-col gap-4">
@@ -252,25 +255,23 @@ For controls that need explicit prop wiring, pass a function as `children`. The 
 
 ### Form example
 
-<ComponentPreview details={<>A payment form built with Field, showing two fieldsets, a 3-column grid row, and a <code>pill</code> toggle that applies rounded corners to all controls.</>} code={`const [pill, setPill] = useState(false);
-
-<fieldset className="flex flex-col gap-5">
-  <h3 className="text-base font-semibold">Payment Method</h3>
+<ComponentPreview details={<>A payment form built with Field, showing two fieldsets with small uppercase section headers and a 3-column grid row for expiry and CVV.</>} code={`<fieldset className="flex flex-col gap-5">
+  <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Payment Method</h3>
   <Field label="Name on Card">
-    <Input placeholder="Evil Rabbit" pill={pill} />
+    <Input placeholder="Evil Rabbit" />
   </Field>
   <Field label="Card Number">
-    <Input placeholder="1234 5678 9012 3456" pill={pill} />
+    <Input placeholder="1234 5678 9012 3456" />
   </Field>
   <div className="grid grid-cols-3 gap-3">
     <Field label="Month">
-      {(fp) => <Select id={fp.id} placeholder="MM" pill={pill} options={months} />}
+      {(fp) => <Select id={fp.id} placeholder="MM" options={months} />}
     </Field>
     <Field label="Year">
-      {(fp) => <Select id={fp.id} placeholder="YYYY" pill={pill} options={years} />}
+      {(fp) => <Select id={fp.id} placeholder="YYYY" options={years} />}
     </Field>
     <Field label="CVV">
-      <Input placeholder="123" pill={pill} />
+      <Input placeholder="123" />
     </Field>
   </div>
 </fieldset>
@@ -282,10 +283,137 @@ For controls that need explicit prop wiring, pass a function as `children`. The 
 </Field>
 
 <div className="flex gap-2">
-  <Button color="primary" pill={pill}>Submit</Button>
-  <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
+  <Button color="primary">Submit</Button>
+  <Button color="secondary" variant="outline">Cancel</Button>
 </div>`} previewMinHeight={168}>
   <FieldFormExampleDemo />
+</ComponentPreview>
+
+### Profile settings
+
+<ComponentPreview details={<>A profile settings form with three fieldset sections — personal info, preferences, and notifications — combining text inputs, select, radio group, and horizontal switch fields.</>} code={`<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Personal Information</h3>
+    <p className="text-xs text-tertiary mt-0.5">Your public profile details</p>
+  </div>
+  <div className="grid grid-cols-2 gap-3">
+    <Field label="First name"><Input placeholder="Jane" /></Field>
+    <Field label="Last name"><Input placeholder="Doe" /></Field>
+  </div>
+  <Field label="Email" description="This is the email associated with your account.">
+    <Input placeholder="jane@example.com" />
+  </Field>
+  <Field label="Bio" description="Brief description for your profile. Max 160 characters.">
+    <Textarea placeholder="Tell us about yourself..." rows={3} />
+  </Field>
+</fieldset>
+
+<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Preferences</h3>
+    <p className="text-xs text-tertiary mt-0.5">Customize your experience</p>
+  </div>
+  <Field label="Language">
+    {(fp) => <Select id={fp.id} value={language} options={languages} />}
+  </Field>
+  <Field label="Theme" description="Select your preferred appearance.">
+    {() => <RadioGroup value={theme} onChange={setTheme} direction="col">...</RadioGroup>}
+  </Field>
+</fieldset>
+
+<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Notifications</h3>
+    <p className="text-xs text-tertiary mt-0.5">Manage how you receive updates</p>
+  </div>
+  <Field label="Email notifications" description="Receive weekly digests." orientation="horizontal">
+    {(fp) => <Switch id={fp.id} defaultChecked />}
+  </Field>
+</fieldset>`} previewMinHeight={168}>
+  <FieldProfileSettingsDemo />
+</ComponentPreview>
+
+### Create project
+
+<ComponentPreview details={<>A project creation form with general settings, team access with tag input and checkboxes, and infrastructure config — demonstrating diverse field types organized in sections.</>} code={`<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">General</h3>
+    <p className="text-xs text-tertiary mt-0.5">Basic information about your project</p>
+  </div>
+  <Field label="Project name" required>
+    <Input placeholder="my-project" />
+  </Field>
+  <Field label="Description" description="A short summary shown in project listings.">
+    <Textarea placeholder="What does this project do?" rows={3} />
+  </Field>
+  <Field label="Visibility" description="Controls who can see this project.">
+    {() => <RadioGroup value={visibility} onChange={setVisibility} direction="col">...</RadioGroup>}
+  </Field>
+</fieldset>
+
+<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Team Access</h3>
+    <p className="text-xs text-tertiary mt-0.5">Invite collaborators and set permissions</p>
+  </div>
+  <Field label="Team members" description="Add people by email address.">
+    {(fp) => <TagInput id={fp.id} placeholder="Add email..." validator={(v) => v.includes('@')} />}
+  </Field>
+  <Field label="Permissions" description="Default permissions for new members.">
+    {() => <div className="flex flex-col gap-3 mt-1">
+      <Checkbox label="Can view project" defaultChecked />
+      <Checkbox label="Can edit resources" defaultChecked />
+      <Checkbox label="Can manage members" />
+    </div>}
+  </Field>
+</fieldset>`} previewMinHeight={168}>
+  <FieldCreateProjectDemo />
+</ComponentPreview>
+
+### Field configuration
+
+<ComponentPreview details={<>A CMS-style field configuration form with setup, formatting, and privacy sections — matching the pattern used in content management systems for defining custom fields with type, validation, and access rules.</>} code={`<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Setup</h3>
+    <p className="text-xs text-tertiary mt-0.5">Define the basic field properties</p>
+  </div>
+  <Field label="Key" description="Unique identifier used in the API.">
+    <Input defaultValue="registration_method" />
+  </Field>
+  <Field label="Label" description="Human-readable name displayed in the UI.">
+    <Input defaultValue="Registration method" />
+  </Field>
+  <Field label="Type">
+    {(fp) => <Select id={fp.id} value={type} options={types} />}
+  </Field>
+</fieldset>
+
+<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Formatting</h3>
+    <p className="text-xs text-tertiary mt-0.5">Input constraints and sanitization rules</p>
+  </div>
+  <Field label="Max length" description="Max length cannot exceed 4096.">
+    <Input placeholder="256" inputMode="numeric" />
+  </Field>
+  <Field label="HTML sanitization" description="Strip unsafe HTML tags." orientation="horizontal">
+    {(fp) => <Switch id={fp.id} />}
+  </Field>
+</fieldset>
+
+<fieldset className="flex flex-col gap-5">
+  <div className="mb-1">
+    <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Privacy & Access</h3>
+    <p className="text-xs text-tertiary mt-0.5">Control field visibility and mutability</p>
+  </div>
+  <Field label="Not redactable" description="Prevent from being redacted." orientation="horizontal">
+    {(fp) => <Switch id={fp.id} />}
+  </Field>
+  <Field label="Write once" description="Value can only be set once." orientation="horizontal">
+    {(fp) => <Switch id={fp.id} />}
+  </Field>
+</fieldset>`} previewMinHeight={168}>
+  <FieldConfigurationDemo />
 </ComponentPreview>
 
 ### Birthday input

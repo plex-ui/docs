@@ -126,6 +126,7 @@
     /* =============================================
       Field
     ============================================= */
+    --field-label-font-weight: var(--font-weight-medium);
     --field-horizontal-label-width: 120px;
     --field-horizontal-control-width: 240px;
 
