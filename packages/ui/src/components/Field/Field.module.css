@@ -154,7 +154,7 @@
   color: var(--color-text);
   font-size: var(--field-label-font-size);
   line-height: var(--field-label-line-height);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--field-label-font-weight);
   cursor: default;
 }
 

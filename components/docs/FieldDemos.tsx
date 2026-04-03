@@ -10,6 +10,7 @@ import { Button } from '@plexui/ui/components/Button';
 import { Checkbox } from '@plexui/ui/components/Checkbox';
 import { Switch } from '@plexui/ui/components/Switch';
 import { RadioGroup } from '@plexui/ui/components/RadioGroup';
+import { TagInput } from '@plexui/ui/components/TagInput';
 import dynamic from 'next/dynamic';
 
 const Slider = dynamic(
@@ -254,8 +255,8 @@ export function FieldFieldsetDemo() {
   return (
     <div className="w-[400px]">
       <div className="mb-3">
-        <h3 className="text-base font-semibold">Address Information</h3>
-        <p className="text-sm text-secondary mt-1">We need your address to deliver your order.</p>
+        <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Address Information</h3>
+        <p className="text-xs text-tertiary mt-0.5">We need your address to deliver your order.</p>
       </div>
       <div className="flex flex-col gap-4">
         <Field label="Street Address">
@@ -409,19 +410,18 @@ export function FieldFormExampleDemo() {
 
       <div data-demo-stage>
         <div className="flex flex-col gap-8 w-full !max-w-[460px]">
-          {/* ─── Payment Method ─── */}
           <fieldset className="flex flex-col gap-5">
             <div className="mb-1">
-              <h3 className="text-base font-semibold">Payment Method</h3>
-              <p className="text-sm text-secondary mt-0.5">All transactions are secure and encrypted</p>
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Payment Method</h3>
+              <p className="text-xs text-tertiary mt-0.5">All transactions are secure and encrypted</p>
             </div>
 
             <Field label="Name on Card">
-              <Input placeholder="Evil Rabbit" pill={pill} />
+              <Input placeholder="Evil Rabbit" pill={pill} autoComplete="off" />
             </Field>
 
             <Field label="Card Number">
-              <Input placeholder="1234 5678 9012 3456" pill={pill} />
+              <Input placeholder="1234 5678 9012 3456" pill={pill} autoComplete="off" />
             </Field>
 
             <div className="grid grid-cols-3 gap-3">
@@ -463,17 +463,16 @@ export function FieldFormExampleDemo() {
 
           <hr className="border-default" />
 
-          {/* ─── Billing Address ─── */}
           <fieldset className="flex flex-col gap-5">
             <div className="mb-1">
-              <h3 className="text-base font-semibold">Billing Address</h3>
-              <p className="text-sm text-secondary mt-0.5">The billing address associated with your payment method</p>
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Billing Address</h3>
+              <p className="text-xs text-tertiary mt-0.5">The billing address associated with your payment method</p>
             </div>
 
             <Checkbox label="Same as shipping address" defaultChecked />
 
             <Field label="Comments">
-              <Textarea placeholder="Add any additional comments" rows={3} />
+              <Textarea placeholder="Add any additional comments" />
             </Field>
           </fieldset>
 
@@ -489,7 +488,7 @@ export function FieldFormExampleDemo() {
 
 export function FieldOpticalAlignDemo() {
   const [opticallyAlign, setOpticallyAlign] = useState(true);
-  const [pill, setPill] = useState(true);
+  const [pill, setPill] = useState(false);
 
   return (
     <>
@@ -787,3 +786,372 @@ export function FieldBirthdaySelectDemo() {
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// Form example: User Profile Settings
+// ---------------------------------------------------------------------------
+
+export function FieldProfileSettingsDemo() {
+  const [pill, setPill] = useState(false);
+  const [language, setLanguage] = useState('en');
+  const [theme, setTheme] = useState('system');
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+
+      <div data-demo-stage>
+        <div className="flex flex-col gap-8 w-full !max-w-[460px]">
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Personal Information</h3>
+              <p className="text-xs text-tertiary mt-0.5">Your public profile details</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="First name">
+                <Input placeholder="Jane" defaultValue="Jane" pill={pill} />
+              </Field>
+              <Field label="Last name">
+                <Input placeholder="Doe" defaultValue="Doe" pill={pill} />
+              </Field>
+            </div>
+
+            <Field label="Email" description="This is the email associated with your account.">
+              <Input placeholder="jane@example.com" defaultValue="jane@example.com" pill={pill} />
+            </Field>
+
+            <Field label="Bio" description="Brief description for your profile. Max 160 characters.">
+              <Textarea placeholder="Tell us about yourself..." rows={3} />
+            </Field>
+          </fieldset>
+
+          <hr className="border-default" />
+
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Preferences</h3>
+              <p className="text-xs text-tertiary mt-0.5">Customize your experience</p>
+            </div>
+
+            <Field label="Language">
+              {(fieldProps) => (
+                <Select
+                  id={fieldProps.id}
+                  pill={pill}
+                  value={language}
+                  onChange={(opt) => setLanguage(opt.value)}
+                  options={[
+                    { label: 'English', value: 'en' },
+                    { label: 'Spanish', value: 'es' },
+                    { label: 'French', value: 'fr' },
+                    { label: 'German', value: 'de' },
+                    { label: 'Japanese', value: 'ja' },
+                  ]}
+                />
+              )}
+            </Field>
+
+            <Field label="Theme" description="Select your preferred appearance.">
+              {(fieldProps) => (
+                <RadioGroup
+                  aria-label="Theme"
+                  value={theme}
+                  onChange={setTheme}
+                  direction="col"
+                >
+                  <RadioGroup.Item value="system">System</RadioGroup.Item>
+                  <RadioGroup.Item value="light">Light</RadioGroup.Item>
+                  <RadioGroup.Item value="dark">Dark</RadioGroup.Item>
+                </RadioGroup>
+              )}
+            </Field>
+          </fieldset>
+
+          <hr className="border-default" />
+
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Notifications</h3>
+              <p className="text-xs text-tertiary mt-0.5">Manage how you receive updates</p>
+            </div>
+
+            <Field label="Email notifications" description="Receive weekly digests and important updates." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} defaultChecked />
+              )}
+            </Field>
+
+            <Field label="Push notifications" description="Get real-time alerts in your browser." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} />
+              )}
+            </Field>
+
+            <Field label="Marketing emails" description="Tips, product updates, and promotions." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} />
+              )}
+            </Field>
+          </fieldset>
+
+          <div className="flex gap-2">
+            <Button color="primary" pill={pill}>Save changes</Button>
+            <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Form example: Create Project
+// ---------------------------------------------------------------------------
+
+export function FieldCreateProjectDemo() {
+  const [pill, setPill] = useState(false);
+  const [visibility, setVisibility] = useState('private');
+  const [region, setRegion] = useState('');
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+
+      <div data-demo-stage>
+        <div className="flex flex-col gap-8 w-full !max-w-[460px]">
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">General</h3>
+              <p className="text-xs text-tertiary mt-0.5">Basic information about your project</p>
+            </div>
+
+            <Field label="Project name" required>
+              <Input placeholder="my-project" pill={pill} />
+            </Field>
+
+            <Field label="Description" description="A short summary shown in project listings.">
+              <Textarea placeholder="What does this project do?" rows={3} />
+            </Field>
+
+            <Field label="Visibility" description="Controls who can see this project.">
+              {() => (
+                <RadioGroup
+                  aria-label="Visibility"
+                  value={visibility}
+                  onChange={setVisibility}
+                  direction="col"
+                >
+                  <RadioGroup.Item value="private">Private — only invited members</RadioGroup.Item>
+                  <RadioGroup.Item value="internal">Internal — anyone in your organization</RadioGroup.Item>
+                  <RadioGroup.Item value="public">Public — visible to everyone</RadioGroup.Item>
+                </RadioGroup>
+              )}
+            </Field>
+          </fieldset>
+
+          <hr className="border-default" />
+
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Team Access</h3>
+              <p className="text-xs text-tertiary mt-0.5">Invite collaborators and set permissions</p>
+            </div>
+
+            <Field label="Team members" description="Add people by email address.">
+              {(fieldProps) => (
+                <TagInput
+                  id={fieldProps.id}
+                  placeholder="Add email..."
+                  defaultValue={[
+                    { value: 'alice@team.com', valid: true },
+                    { value: 'bob@team.com', valid: true },
+                  ]}
+                  validator={(v) => v.includes('@')}
+                />
+              )}
+            </Field>
+
+            <Field label="Permissions" description="Default permissions for new members.">
+              {() => (
+                <div className="flex flex-col gap-3 mt-1">
+                  <Checkbox label="Can view project" defaultChecked />
+                  <Checkbox label="Can edit resources" defaultChecked />
+                  <Checkbox label="Can manage members" />
+                  <Checkbox label="Can delete project" />
+                </div>
+              )}
+            </Field>
+          </fieldset>
+
+          <hr className="border-default" />
+
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Infrastructure</h3>
+              <p className="text-xs text-tertiary mt-0.5">Deployment and resource configuration</p>
+            </div>
+
+            <Field label="Region">
+              {(fieldProps) => (
+                <Select
+                  id={fieldProps.id}
+                  pill={pill}
+                  placeholder="Select region..."
+                  value={region}
+                  onChange={(opt) => setRegion(opt.value)}
+                  options={[
+                    { label: 'US East (N. Virginia)', value: 'us-east-1' },
+                    { label: 'US West (Oregon)', value: 'us-west-2' },
+                    { label: 'Europe (Frankfurt)', value: 'eu-central-1' },
+                    { label: 'Asia Pacific (Tokyo)', value: 'ap-northeast-1' },
+                  ]}
+                />
+              )}
+            </Field>
+
+            <Field label="Auto-deploy" description="Automatically deploy on push to main branch." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} defaultChecked />
+              )}
+            </Field>
+          </fieldset>
+
+          <div className="flex gap-2">
+            <Button color="primary" pill={pill}>Create project</Button>
+            <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Form example: Field Configuration (API key / CMS field setup)
+// ---------------------------------------------------------------------------
+
+export function FieldConfigurationDemo() {
+  const [pill, setPill] = useState(false);
+  const [type, setType] = useState('string');
+  const [expiresIn, setExpiresIn] = useState('');
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+
+      <div data-demo-stage>
+        <div className="flex flex-col gap-8 w-full !max-w-[460px]">
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Setup</h3>
+              <p className="text-xs text-tertiary mt-0.5">Define the basic field properties</p>
+            </div>
+
+            <Field label="Key" description="Unique identifier used in the API. Cannot be changed later.">
+              <Input placeholder="registration_method" defaultValue="registration_method" pill={pill} />
+            </Field>
+
+            <Field label="Label" description="Human-readable name displayed in the UI.">
+              <Input placeholder="Registration method" defaultValue="Registration method" pill={pill} />
+            </Field>
+
+            <Field label="Type">
+              {(fieldProps) => (
+                <Select
+                  id={fieldProps.id}
+                  pill={pill}
+                  value={type}
+                  onChange={(opt) => setType(opt.value)}
+                  options={[
+                    { label: 'String', value: 'string' },
+                    { label: 'Number', value: 'number' },
+                    { label: 'Boolean', value: 'boolean' },
+                    { label: 'Date', value: 'date' },
+                    { label: 'JSON', value: 'json' },
+                    { label: 'Rich text', value: 'richtext' },
+                  ]}
+                />
+              )}
+            </Field>
+
+            <Field label="Default value" description="Value assigned when the field is empty.">
+              <Input placeholder="Set default value (optional)" pill={pill} />
+            </Field>
+          </fieldset>
+
+          <hr className="border-default" />
+
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Formatting</h3>
+              <p className="text-xs text-tertiary mt-0.5">Input constraints and sanitization rules</p>
+            </div>
+
+            <Field label="Max length" description="Max length cannot exceed 4096.">
+              <Input placeholder="256" inputMode="numeric" pill={pill} />
+            </Field>
+
+            <Field label="HTML sanitization" description="Strip potentially unsafe HTML tags from input." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} />
+              )}
+            </Field>
+          </fieldset>
+
+          <hr className="border-default" />
+
+          <fieldset className="flex flex-col gap-5">
+            <div className="mb-1">
+              <h3 className="text-xs font-medium text-secondary uppercase tracking-wider">Privacy & Access</h3>
+              <p className="text-xs text-tertiary mt-0.5">Control field visibility and mutability</p>
+            </div>
+
+            <Field label="Not redactable" description="Prevent this field from being redacted." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} />
+              )}
+            </Field>
+
+            <Field label="Write once" description="Value can only be set once and cannot be changed." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+              {(fieldProps) => (
+                <Switch id={fieldProps.id} />
+              )}
+            </Field>
+
+            <Field label="Expires in" description="Automatically delete the field value after the specified period.">
+              {(fieldProps) => (
+                <Select
+                  id={fieldProps.id}
+                  pill={pill}
+                  placeholder="Never"
+                  value={expiresIn}
+                  onChange={(opt) => setExpiresIn(opt.value)}
+                  options={[
+                    { label: 'Never', value: 'never' },
+                    { label: '30 days', value: '30d' },
+                    { label: '90 days', value: '90d' },
+                    { label: '1 year', value: '1y' },
+                  ]}
+                />
+              )}
+            </Field>
+          </fieldset>
+
+          <div className="flex gap-2">
+            <Button color="primary" pill={pill}>Save field</Button>
+            <Button color="secondary" variant="outline" pill={pill}>Cancel</Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+
