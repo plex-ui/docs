@@ -317,7 +317,7 @@ export function FieldWithSwitchDemo() {
   const [enabled, setEnabled] = useState(false);
   return (
     <div className="self-stretch mx-auto !max-w-[480px]">
-      <Field label="Marketing emails" orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+      <Field label="Marketing emails" orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
         {(fieldProps) => (
           <Switch
             id={fieldProps.id}
@@ -878,19 +878,19 @@ export function FieldProfileSettingsDemo() {
               <p className="text-xs text-tertiary mt-0.5">Manage how you receive updates</p>
             </div>
 
-            <Field label="Email notifications" description="Receive weekly digests and important updates." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="Email notifications" description="Receive weekly digests and important updates." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} defaultChecked />
               )}
             </Field>
 
-            <Field label="Push notifications" description="Get real-time alerts in your browser." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="Push notifications" description="Get real-time alerts in your browser." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} />
               )}
             </Field>
 
-            <Field label="Marketing emails" description="Tips, product updates, and promotions." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="Marketing emails" description="Tips, product updates, and promotions." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} />
               )}
@@ -1014,7 +1014,7 @@ export function FieldCreateProjectDemo() {
               )}
             </Field>
 
-            <Field label="Auto-deploy" description="Automatically deploy on push to main branch." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="Auto-deploy" description="Automatically deploy on push to main branch." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} defaultChecked />
               )}
@@ -1098,7 +1098,7 @@ export function FieldConfigurationDemo() {
               <Input placeholder="256" inputMode="numeric" pill={pill} />
             </Field>
 
-            <Field label="HTML sanitization" description="Strip potentially unsafe HTML tags from input." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="HTML sanitization" description="Strip potentially unsafe HTML tags from input." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} />
               )}
@@ -1113,13 +1113,13 @@ export function FieldConfigurationDemo() {
               <p className="text-xs text-tertiary mt-0.5">Control field visibility and mutability</p>
             </div>
 
-            <Field label="Not redactable" description="Prevent this field from being redacted." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="Not redactable" description="Prevent this field from being redacted." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} />
               )}
             </Field>
 
-            <Field label="Write once" description="Value can only be set once and cannot be changed." orientation="horizontal" className="items-center justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
+            <Field label="Write once" description="Value can only be set once and cannot be changed." orientation="horizontal" className="justify-between [--field-horizontal-label-width:auto] [--field-horizontal-control-width:auto] [--field-label-horizontal-offset:0px]">
               {(fieldProps) => (
                 <Switch id={fieldProps.id} />
               )}
