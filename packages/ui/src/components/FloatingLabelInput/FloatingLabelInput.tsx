@@ -47,6 +47,11 @@ export type FloatingLabelInputProps = {
    */
   allowAutofillExtensions?: boolean
   /**
+   * Helper/description text displayed below the input.
+   * Shown alongside the error message when both are present.
+   */
+  description?: React.ReactNode
+  /**
    * Content rendered after the input, before the clear button.
    * Useful for toggle buttons (e.g. password visibility), icons, or other interactive elements.
    */
@@ -68,6 +73,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
   function FloatingLabelInput(props, ref) {
     const {
       label,
+      description,
       errorMessage,
       "invalid": invalidProp,
       disabled = false,
@@ -96,7 +102,8 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
     const inputRef = useRef<HTMLInputElement | null>(null)
     const generatedId = useId()
     const inputId = idProp || `floating-label-input-${generatedId}`
-    const errorId = `${inputId}-error`
+    const descriptionId = description ? `${inputId}-description` : undefined
+    const errorId = errorMessage ? `${inputId}-error` : undefined
 
     const [focused, setFocused] = useState(false)
     const [hasValue, setHasValue] = useState(() => {
@@ -126,8 +133,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
 
     // Merge aria-describedby with error id
     const ariaDescribedBy =
-      [ariaDescribedByProp, errorMessage ? errorId : undefined].filter(Boolean).join(" ") ||
-      undefined
+      [ariaDescribedByProp, errorId, descriptionId].filter(Boolean).join(" ") || undefined
 
     // Handle clicks on the container to focus the input
     const handleContainerMouseDown = useCallback((evt: React.MouseEvent<HTMLDivElement>) => {
@@ -267,6 +273,11 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
           <FieldError id={errorId} className={s.ErrorMessage}>
             {errorMessage}
           </FieldError>
+        )}
+        {description && (
+          <div id={descriptionId} className={s.Description}>
+            {description}
+          </div>
         )}
       </div>
     )

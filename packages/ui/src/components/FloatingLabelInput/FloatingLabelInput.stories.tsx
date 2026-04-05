@@ -54,6 +54,31 @@ WithError.args = {
   errorMessage: "Email is not valid.",
 }
 
+export const WithDescription = (args: FloatingLabelInputProps) => (
+  <div className="w-[360px]">
+    <FloatingLabelInput {...args} />
+  </div>
+)
+
+WithDescription.args = {
+  label: "Email address",
+  description: "We'll never share your email with anyone else.",
+}
+
+export const WithDescriptionAndError = (args: FloatingLabelInputProps) => (
+  <div className="w-[360px]">
+    <FloatingLabelInput {...args} />
+  </div>
+)
+
+WithDescriptionAndError.args = {
+  label: "Email address",
+  defaultValue: "jane.doe@example",
+  invalid: true,
+  errorMessage: "Email is not valid.",
+  description: "We'll never share your email with anyone else.",
+}
+
 export const WithClearButton = (args: FloatingLabelInputProps) => {
   const [value, setValue] = useState("clearable@example.com")
 
