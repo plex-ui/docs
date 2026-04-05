@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { source, blog } from '@/lib/source';
 
-const STATIC_UPDATED = '2026-02-18';
+const STATIC_UPDATED = '2026-04-05';
 
 function toISODate(d: Date | string | undefined): string {
   if (!d) return STATIC_UPDATED;
@@ -18,6 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/bridge`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/compare/shadcn-ui`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/compare/untitled-ui`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/compare/radix-ui`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/compare/mui`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/compare/ant-design`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
   ];
 
   const docsPages: MetadataRoute.Sitemap = source.getPages().map((page) => ({

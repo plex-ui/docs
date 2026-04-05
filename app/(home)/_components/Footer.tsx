@@ -23,6 +23,9 @@ const footerSections = [
       { label: 'Transitions', href: '/docs/transitions' },
       { label: 'Plex UI vs shadcn/ui', href: '/compare/shadcn-ui' },
       { label: 'Plex UI vs Untitled UI', href: '/compare/untitled-ui' },
+      { label: 'Plex UI vs Radix UI', href: '/compare/radix-ui' },
+      { label: 'Plex UI vs MUI', href: '/compare/mui' },
+      { label: 'Plex UI vs Ant Design', href: '/compare/ant-design' },
     ],
   },
   {
