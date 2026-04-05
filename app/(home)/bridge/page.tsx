@@ -10,21 +10,21 @@ const DEFAULT_CHECKOUT_URL =
 const checkoutUrl = process.env.NEXT_PUBLIC_BRIDGE_CHECKOUT_URL ?? DEFAULT_CHECKOUT_URL;
 
 export const metadata: Metadata = {
-  title: 'Figma Code↔Design Bridge for ANY AI Model',
+  title: 'Figma Bridge with Design Tokens — Not Just Pixels',
   description:
-    'Two-way Figma bridge for ANY AI model: model can draw in editable Figma and read structure back into code context.',
+    'The only Figma bridge that gives AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
   openGraph: {
-    title: 'Figma Code↔Design Bridge for ANY AI Model',
+    title: 'Figma Bridge with Design Tokens — Not Just Pixels',
     description:
-      'Two-way Figma bridge for ANY AI model: model can draw in editable Figma and read structure back into code context.',
+      'The only Figma bridge that gives AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
     url: 'https://plexui.com/bridge',
     images: [{ url: '/opengraph-image' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Figma Code↔Design Bridge for ANY AI Model',
+    title: 'Figma Bridge with Design Tokens — Not Just Pixels',
     description:
-      'Two-way Figma bridge for ANY AI model: model can draw in editable Figma and read structure back into code context.',
+      'The only Figma bridge that gives AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model.',
     images: ['/opengraph-image'],
   },
   alternates: {
@@ -45,7 +45,7 @@ const bridgeJsonLd = {
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'macOS, Windows',
   description:
-    'Local Figma plugin that lets ANY AI model (Claude, GPT, Cursor, Codex, Gemini) create, read, and edit real Figma designs via HTTP API. Model-agnostic alternative to the Claude-only Figma integration. Two-way design-to-code flow.',
+    'Figma plugin with design token support. Standard Figma MCPs return raw hex and pixels — Bridge returns actual variable bindings (background/primary/solid, spacing/xl, radius/full). Works with any AI model via local HTTP API. Two-way: create Figma nodes and read token bindings back into code.',
   url: 'https://plexui.com/bridge',
   author: { '@type': 'Organization', name: 'Plex UI', url: 'https://plexui.com' },
   offers: {
@@ -56,16 +56,16 @@ const bridgeJsonLd = {
     availability: 'https://schema.org/InStock',
   },
   featureList: [
+    'Design token bindings — returns variable names (background/primary/solid, spacing/xl) not raw values (#181818, 16px)',
     'Works with ANY AI model — Claude, GPT, Cursor, Codex, Gemini, and more',
-    'Two-way flow: AI creates Figma designs AND reads them back into code',
+    'Two-way flow: AI creates Figma designs AND reads token bindings back into code',
     'Local-first — designs never leave your machine',
-    'Model-agnostic HTTP API at localhost:8767',
+    'Model-agnostic HTTP API at localhost:8867',
     'Create frames, text, components, instances, auto-layout',
     'Bind Figma Variables (design tokens) to any property',
-    'Read node structure, component props, and token bindings',
+    'Read node structure, component props, and variable bindings',
     'Batch operations for performance',
     'Export as PNG/SVG',
-    'Alternative to Claude-only Figma integration (Feb 2026)',
   ],
 };
 
@@ -75,10 +75,10 @@ const bridgeFaqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How is Plex UI Bridge different from the official Claude-to-Figma integration?',
+      name: 'How is Plex UI Bridge different from standard Figma MCPs?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The official Figma integration only works with Claude and routes through Figma servers. Plex UI Bridge runs 100% locally and works with ANY AI model — Claude, GPT, Cursor, Codex, Gemini, or any tool that can make HTTP calls. Your designs never leave your machine.',
+        text: 'Standard Figma MCPs (including the official read-only one) return raw hex colors (#181818) and pixel values (16px). Bridge returns actual design token variable bindings (background/primary/solid, spacing/xl, radius/full) — so AI generates CSS with var() references instead of hardcoded values. Bridge also works with any AI model and runs 100% locally.',
       },
     },
     {
@@ -114,20 +114,21 @@ export default function BridgePage() {
       <LandingSection maxWidth="2xl">
         <div className="mx-auto max-w-xl">
           <div className="mb-3 inline-flex rounded-full border border-fd-border px-3 py-1 text-xs font-medium text-fd-muted-foreground">
-            Works with ANY AI model
+            Design tokens, not just pixels
           </div>
 
           <h1 className="text-3xl font-semibold tracking-tight text-fd-foreground md:text-4xl">
-            Figma Code↔Design Bridge for ANY AI model
+            Figma Bridge with Design Tokens
           </h1>
 
           <p className="mt-4 text-base leading-relaxed text-fd-muted-foreground">
-            Your model can turn ideas into editable Figma layouts, inspect structure (components, tokens, auto-layout),
-            and work design ↔ code in both directions.
+            Standard Figma MCPs return <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">#181818</code> and <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">16px</code>.
+            Bridge returns <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">background/primary/solid</code> and <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">spacing/xl</code> —
+            the actual design token bindings your AI needs to generate production CSS.
           </p>
 
           <p className="mt-3 text-sm font-medium text-fd-foreground">
-            Two-way flow: Design ↔ Code
+            Works with any AI model. Two-way: Design ↔ Code.
           </p>
 
           <div className="relative left-1/2 mt-6 w-[min(100vw-2rem,1200px)] -translate-x-1/2 overflow-hidden rounded-xl border border-fd-border bg-fd-card">
@@ -141,33 +142,28 @@ export default function BridgePage() {
               <source src="/bridge/figma-code-design-bridge.mov" type="video/quicktime" />
             </video>
             <p className="px-4 py-3 text-xs text-fd-muted-foreground">
-              Live demo: ANY AI model draws directly in Figma via local Bridge API.
+              Live demo: AI creates Figma nodes with design token bindings via local Bridge API.
             </p>
           </div>
 
           <p className="mt-4 text-sm font-semibold leading-relaxed text-fd-foreground">
-            Bridge works on a different principle: more freedom and faster iteration than the official Claude Code to Figma flow.
+            Why tokens matter: raw values break at scale.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-fd-muted-foreground">
-            Figma&apos;s official announcement (February 17, 2026) is Claude-specific.
-            Bridge uses a model-agnostic local command API, so ANY model can directly create/update real Figma nodes.
-            Result: less tooling lock-in, more control, and faster design ↔ code loops.
+            When AI gets <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">#181818</code> from Figma,
+            it hardcodes that hex into CSS. Dark mode breaks. Theme changes require find-and-replace.
+            Bridge gives the variable name — so AI writes <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">var(--color-background-primary-solid)</code>,
+            and your tokens handle the rest.
           </p>
-          <p className="mt-2 text-sm text-fd-muted-foreground">
-            Reference:{' '}
-            <a
-              href="https://www.figma.com/blog/introducing-claude-code-to-figma/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-fd-foreground"
-            >
-              Introducing Claude Code to Figma (Feb 17, 2026)
-            </a>
+          <p className="mt-2 text-sm leading-relaxed text-fd-muted-foreground">
+            Same for spacing (<code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">button/pill-gutter/md</code> instead of <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">16px</code>),
+            sizing (<code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">control/size/md</code> instead of <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">32</code>),
+            and radii (<code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">radius/full</code> instead of <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">9999px</code>).
           </p>
           <p className="mt-2 text-sm text-fd-muted-foreground">
             More details:{' '}
             <Link href="/blog/figma-code-design-bridge-any-model" className="underline underline-offset-2 hover:text-fd-foreground">
-              Figma Code↔Design Bridge for ANY AI model
+              How Bridge compares to standard Figma MCPs
             </Link>
           </p>
 
