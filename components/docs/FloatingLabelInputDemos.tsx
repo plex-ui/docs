@@ -996,6 +996,58 @@ export function FloatingLabelSelectCountryDemo() {
     </div>
   );
 }
+// ---------------------------------------------------------------------------
+// Plain text select (no icons)
+// ---------------------------------------------------------------------------
+const ROLES: Option[] = [
+  { value: 'designer', label: 'Designer' },
+  { value: 'engineer', label: 'Engineer' },
+  { value: 'product-manager', label: 'Product Manager' },
+  { value: 'marketing', label: 'Marketing' },
+  { value: 'operations', label: 'Operations' },
+  { value: 'sales', label: 'Sales' },
+];
+
+function useRoleTrigger(role: string, onClear: () => void) {
+  const selected = ROLES.find((r) => r.value === role);
+  return useCallback(
+    ({ open }: { open: boolean; onToggle: () => void }) => (
+      <FloatingLabelSelect
+        label="Role"
+        selected={!!selected}
+        open={open}
+        onClearClick={selected ? onClear : undefined}
+      >
+        {selected?.label}
+      </FloatingLabelSelect>
+    ),
+    [selected, onClear],
+  );
+}
+
+export function FloatingLabelSelectPlainDemo() {
+  const [role, setRole] = useState('');
+  const handleClear = useCallback(() => setRole(''), []);
+  const trigger = useRoleTrigger(role, handleClear);
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <Select
+          value={role}
+          options={ROLES}
+          onChange={(option) => setRole(option.value)}
+          searchPlaceholder="Search roles..."
+          listMinWidth={360}
+          block
+          trigger={trigger}
+          checkPosition="end"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FloatingLabelSelectAboutYouFormDemo() {
   const [inDialog, setInDialog] = useState(false);
 

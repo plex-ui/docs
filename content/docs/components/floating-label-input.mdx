@@ -14,6 +14,7 @@ import {
   FloatingLabelInputBirthdayValidationDemo,
   FloatingLabelInputBirthdayStatesDemo,
   FloatingLabelInputPhoneDemo,
+  FloatingLabelSelectPlainDemo,
   FloatingLabelSelectCountryDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
 
@@ -261,6 +262,36 @@ const formatted = formatSSN(rawDigits)
   </div>
 </div>`} previewMinHeight={168}>
   <FloatingLabelInputBirthdayStatesDemo />
+</ComponentPreview>
+
+### Select
+
+<ComponentPreview details={<>Use <code>FloatingLabelSelect</code> for plain text dropdowns. The label floats up when a value is selected, matching <code>FloatingLabelInput</code> styling.</>} code={`import { FloatingLabelSelect } from "@plexui/ui/components/FloatingLabelSelect"
+
+const [role, setRole] = useState(null)
+const selected = ROLES.find((r) => r.value === role)
+
+<Menu>
+  <Menu.Trigger>
+    <FloatingLabelSelect
+      label="Role"
+      selected={!!selected}
+      onClearClick={() => setRole(null)}
+    >
+      {selected?.label}
+    </FloatingLabelSelect>
+  </Menu.Trigger>
+  <Menu.Content>
+    <Menu.RadioGroup value={role} onChange={setRole}>
+      {ROLES.map((r) => (
+        <Menu.RadioItem key={r.value} value={r.value}>
+          {r.label}
+        </Menu.RadioItem>
+      ))}
+    </Menu.RadioGroup>
+  </Menu.Content>
+</Menu>`} previewMinHeight={168}>
+  <FloatingLabelSelectPlainDemo />
 </ComponentPreview>
 
 ### Country select
