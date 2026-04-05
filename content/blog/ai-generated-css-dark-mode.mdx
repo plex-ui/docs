@@ -1,0 +1,127 @@
+---
+title: "Why AI-Generated CSS Breaks in Dark Mode"
+description: "AI tools hardcode hex colors instead of using design tokens. Dark mode exposes the problem instantly. Here is how to fix it."
+author: Sergey
+date: 2026-04-01
+---
+
+Your AI writes beautiful CSS in light mode. Clean layout, correct spacing, proper typography. You toggle dark mode and half the UI disappears. Text becomes invisible against the background. Borders vanish. Cards collapse into the page.
+
+This is the single most common failure of AI-generated UI code, and it has nothing to do with model quality.
+
+## The root cause: hex values have no meaning
+
+When an AI reads a design — whether from a Figma file, a screenshot, or a prompt — it extracts raw color values. `#ffffff` for backgrounds. `#1a1a1a` for text. `#e5e5e5` for borders.
+
+Those values are correct for light mode. But they carry zero semantic information. The AI has no way to know that `#ffffff` means "primary surface" or that `#1a1a1a` means "primary text." It just sees hex strings and writes them into your stylesheet.
+
+When dark mode activates, roles invert. The background should become dark, text should become light, borders should shift. But the AI hardcoded both sides of the equation into the same mode. Nothing adapts.
+
+This is not a hallucination or a reasoning failure. The model did exactly what you would expect given the information it received.
+
+## See the failure
+
+AI-generated CSS for a card component:
+
+```css
+/* AI output — hardcoded values */
+.card {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  color: #0d0d0d;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-muted {
+  color: #6b7280;
+}
+```
+
+Toggle dark mode. White card on dark background — blinding. Or worse: if your dark mode sets `background: #1a1a1a` at the body level, the text becomes `#1a1a1a` on `#1a1a1a`. Invisible.
+
+The same component with design tokens:
+
+```css
+/* Token-aware — adapts automatically */
+.card {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card-muted {
+  color: var(--color-text-tertiary);
+}
+```
+
+Zero dark mode code. The token layer handles the mapping. Light mode, dark mode, high contrast, custom themes — all resolved at the variable level.
+
+## Why AI defaults to hardcoding
+
+Models do not know your token system. They cannot infer it from raw values. Standard Figma MCPs and design inspection tools return computed hex values with no variable binding information.
+
+When you ask Claude or Cursor to "make this match the design," the model receives `fills: ['#181818']` — not `fills: 'background/primary/solid'`. It has no mechanism to reverse-engineer that `#181818` maps to a semantic role in your token architecture.
+
+The same applies to spacing (`16px` instead of `spacing/xl`), radii (`8px` instead of `radius/md`), and typography (`14px` instead of `size/text/sm`). Every hardcoded value is a dark mode bug waiting to happen, a theme change that requires manual replacement, a density adjustment that breaks layout.
+
+This is a tooling problem, not a model problem.
+
+## The fix: give AI semantic bindings, not raw values
+
+The solution is not better prompts. It is better input.
+
+When your [Figma bridge](/bridge) returns actual variable bindings instead of computed values, the AI generates token-aware CSS by default. Instead of reading `#181818`, it reads `background/primary/solid` and writes `var(--color-background-primary-solid)`.
+
+Dark mode works automatically because the CSS variable resolves to the correct value in each mode. The AI never needed to know what dark mode looks like — it only needed to reference the right semantic name.
+
+This is the core idea behind [design tokens, not just pixels](/blog/figma-code-design-bridge-any-model). Raw values are rendering artifacts. Tokens are the actual design decisions. AI needs the decisions, not the artifacts.
+
+## Everything else that breaks without tokens
+
+Dark mode is the most visible failure, but hardcoded values break more than color schemes:
+
+**Theming.** If you white-label your product or offer multiple brand themes, every hardcoded hex is a value that needs manual replacement per theme. Tokens resolve per-theme automatically.
+
+**Density scales.** Compact mode, comfortable mode, spacious mode. Hardcoded `padding: 12px` does not adapt. `padding: var(--spacing-md)` does.
+
+**Accessibility.** High contrast mode requires specific color pairings that meet WCAG ratios. Hardcoded colors cannot respond to user preference. Token-based systems can map `prefers-contrast: more` to a high-contrast token set.
+
+**Consistency at scale.** Even without dark mode, hardcoded values drift. One AI-generated screen uses `#6b7280` for muted text, another uses `#9ca3af`. Both look "gray" but they are different grays. Tokens eliminate this class of inconsistency entirely.
+
+## How to audit your AI-generated CSS
+
+If you already have AI-generated CSS in your codebase, run a quick audit. Any match is a potential dark mode (or theming) bug:
+
+```bash
+# Find hardcoded hex colors in CSS files
+grep -rn '#[0-9a-fA-F]\{3,8\}' src/ --include='*.css' --include='*.module.css'
+
+# Find hardcoded rgb/rgba values
+grep -rn 'rgba\?\s*(' src/ --include='*.css' --include='*.module.css'
+
+# Find hardcoded pixel values for spacing (likely should be tokens)
+grep -rn 'padding:\s*[0-9]' src/ --include='*.css' --include='*.module.css'
+```
+
+Every hit is a value that will not adapt to mode changes, theme changes, or density changes. Replace with your token equivalents.
+
+## Dark mode is a litmus test
+
+Dark mode support is not really about dark mode. It is a test of whether your CSS architecture uses semantic abstraction or hardcoded rendering values.
+
+AI tools will always produce hardcoded values if that is what they receive as input. Give them [semantic token bindings](/bridge) and they produce adaptive CSS automatically — no special dark mode logic, no override sheets, no manual fixups.
+
+The fix is not in the model. It is in what you feed it. If your design tooling returns raw hex values, you will keep fixing dark mode bugs by hand. If it returns [design tokens](/blog/figma-code-design-bridge-any-model), the problem disappears at the source.
+
+Build the bridge. Stop fixing the symptoms. Read more about [why your AI editor needs a design system](/blog/why-ai-needs-design-system).
