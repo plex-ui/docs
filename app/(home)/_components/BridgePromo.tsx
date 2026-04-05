@@ -9,7 +9,7 @@ export function BridgePromo() {
           New
         </p>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight text-fd-foreground md:text-3xl">
-          Figma Bridge with Design Tokens
+          Figma AI Bridge with Design Tokens
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-fd-muted-foreground md:text-base">
           Standard Figma MCPs give raw hex colors and pixel values. Bridge gives your AI the actual
@@ -19,7 +19,7 @@ export function BridgePromo() {
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <ButtonLink href="/bridge" color="primary" variant="solid" size="md" pill={false}>
-            Open Bridge
+            Open AI Bridge
           </ButtonLink>
           <ButtonLink href="/bridge/success" color="secondary" variant="outline" size="md" pill={false}>
             Install in 2 min
