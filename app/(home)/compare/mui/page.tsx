@@ -177,14 +177,14 @@ export default function MuiComparisonPage() {
           <h2 id="tldr" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Key differences
           </h2>
-          <div className="mt-4 rounded-xl border border-fd-border bg-fd-background p-6">
-            <ul className="space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>MUI offers the largest React component catalog and the biggest community in the ecosystem.</li>
-              <li>Plex UI uses Tailwind CSS 4 and CSS variables instead of runtime CSS-in-JS, resulting in lighter bundles.</li>
-              <li>Plex UI provides 9 production-ready control sizes, while MUI provides 3 (small, medium, large).</li>
-              <li>Both have official Figma kits, but Plex UI maintains exact Figma-to-code parity by design.</li>
-            </ul>
-          </div>
+           <div className="mt-4 space-y-3">
+             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+               <li>MUI offers the largest React component catalog and the biggest community in the ecosystem.</li>
+               <li>Plex UI uses Tailwind CSS 4 and CSS variables instead of runtime CSS-in-JS, resulting in lighter bundles.</li>
+               <li>Plex UI provides 9 production-ready control sizes, while MUI provides 3 (small, medium, large).</li>
+               <li>Both have official Figma kits, but Plex UI maintains exact Figma-to-code parity by design.</li>
+             </ul>
+           </div>
         </section>
 
         <section aria-labelledby="feature-comparison">
@@ -193,7 +193,7 @@ export default function MuiComparisonPage() {
           </h2>
 
           <div className="mt-5 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-            <table className="w-full text-center">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-fd-border bg-fd-muted/40">
                   <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Feature</th>
@@ -206,12 +206,12 @@ export default function MuiComparisonPage() {
                   <tr key={row.feature} className={index < rows.length - 1 ? 'border-b border-fd-border' : undefined}>
                     <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">{row.feature}</td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.plexui} />
                       </div>
                     </td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.competitor} />
                       </div>
                     </td>
@@ -240,32 +240,28 @@ export default function MuiComparisonPage() {
           </div>
         </section>
 
-        <section aria-labelledby="where-mui-wins" className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 id="where-mui-wins" className="text-lg font-semibold text-fd-foreground md:text-xl">
-              Where MUI wins
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Massive component library with 50+ ready-to-use components covering most use cases.</li>
-              <li>Largest React UI community with extensive documentation, tutorials, and Stack Overflow answers.</li>
-              <li>Strong enterprise adoption and proven track record at scale.</li>
-              <li>Comprehensive theming system with createTheme() for deep customization.</li>
-            </ul>
-          </div>
+         <section aria-labelledby="where-mui-wins">
+           <h2 id="where-mui-wins" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Where MUI wins
+           </h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Massive component library with 50+ ready-to-use components covering most use cases.</li>
+             <li>Largest React UI community with extensive documentation, tutorials, and Stack Overflow answers.</li>
+             <li>Strong enterprise adoption and proven track record at scale.</li>
+             <li>Comprehensive theming system with createTheme() for deep customization.</li>
+           </ul>
 
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 className="text-lg font-semibold text-fd-foreground md:text-xl">Where Plex UI wins</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Modern CSS approach (Tailwind CSS 4 + CSS variables) with no runtime styling overhead.</li>
-              <li>Lighter bundle size without @emotion or styled-components dependencies.</li>
-              <li>Tighter Figma-to-code parity with exact design-to-implementation alignment.</li>
-              <li>9-step control sizing gives more precision than small/medium/large for complex layouts.</li>
-              <li>Built with explicit AI editor compatibility for fast code generation workflows.</li>
-            </ul>
-          </div>
-        </section>
+           <h2 className="mt-10 text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">Where Plex UI wins</h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Modern CSS approach (Tailwind CSS 4 + CSS variables) with no runtime styling overhead.</li>
+             <li>Lighter bundle size without @emotion or styled-components dependencies.</li>
+             <li>Tighter Figma-to-code parity with exact design-to-implementation alignment.</li>
+             <li>9-step control sizing gives more precision than small/medium/large for complex layouts.</li>
+             <li>Built with explicit AI editor compatibility for fast code generation workflows.</li>
+           </ul>
+         </section>
 
-        <section aria-labelledby="pricing-comparison" className="rounded-xl border border-fd-border bg-fd-background p-6">
+        <section aria-labelledby="pricing-comparison" className="space-y-3">
           <h2 id="pricing-comparison" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Pricing comparison: Plex UI vs MUI
           </h2>
@@ -276,29 +272,24 @@ export default function MuiComparisonPage() {
           </p>
         </section>
 
-        <section aria-labelledby="who-should-use-which" className="rounded-xl border border-fd-border bg-fd-background p-6">
-          <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
-            Who should use which?
-          </h2>
-          <div className="mt-4 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose MUI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>The widest component catalog with advanced data components (DataGrid, Date Pickers).</li>
-                <li>A well-established ecosystem with extensive community support.</li>
-                <li>Material Design conventions and familiarity across your team.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>Modern CSS without runtime overhead and smaller production bundles.</li>
-                <li>Consistent sizing with 9-step controls across key components.</li>
-                <li>A production-ready token architecture with exact Figma parity.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+         <section aria-labelledby="who-should-use-which" className="space-y-3">
+           <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Who should use which?
+           </h2>
+           <h3 className="mt-4 text-base font-semibold text-fd-foreground">Choose MUI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>The widest component catalog with advanced data components (DataGrid, Date Pickers).</li>
+             <li>A well-established ecosystem with extensive community support.</li>
+             <li>Material Design conventions and familiarity across your team.</li>
+           </ul>
+
+           <h3 className="mt-6 text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Modern CSS without runtime overhead and smaller production bundles.</li>
+             <li>Consistent sizing with 9-step controls across key components.</li>
+             <li>A production-ready token architecture with exact Figma parity.</li>
+           </ul>
+         </section>
 
         <section className="rounded-xl border border-fd-border bg-fd-accent/40 p-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">

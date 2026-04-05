@@ -172,8 +172,8 @@ export default function ShadcnComparisonPage() {
           <h2 id="tldr" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Key differences
           </h2>
-          <div className="mt-4 rounded-xl border border-fd-border bg-fd-background p-6">
-            <ul className="space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+          <div className="mt-4 space-y-3">
+            <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
               <li>Plex UI gives you 9 production-ready control sizes, while shadcn/ui provides 4 common size presets.</li>
               <li>shadcn/ui stays unmatched for zero-cost entry and open-source ecosystem depth.</li>
               <li>Plex UI adds an official Figma system and explicit Figma-to-code parity for design and engineering teams.</li>
@@ -188,7 +188,7 @@ export default function ShadcnComparisonPage() {
           </h2>
 
           <div className="mt-5 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-            <table className="w-full text-center">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-fd-border bg-fd-muted/40">
                   <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Feature</th>
@@ -201,12 +201,12 @@ export default function ShadcnComparisonPage() {
                   <tr key={row.feature} className={index < rows.length - 1 ? 'border-b border-fd-border' : undefined}>
                     <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">{row.feature}</td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.plexui} />
                       </div>
                     </td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.competitor} />
                       </div>
                     </td>
@@ -235,30 +235,26 @@ export default function ShadcnComparisonPage() {
           </div>
         </section>
 
-        <section aria-labelledby="where-shadcn-wins" className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 id="where-shadcn-wins" className="text-lg font-semibold text-fd-foreground md:text-xl">
-              Where shadcn/ui wins
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Completely free starting point for teams that want maximum control and no commercial dependency.</li>
-              <li>Massive community momentum, examples, and ecosystem references.</li>
-              <li>Highly customizable approach for teams comfortable owning every design and implementation decision.</li>
-            </ul>
-          </div>
+        <section aria-labelledby="where-shadcn-wins">
+          <h2 id="where-shadcn-wins" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+            Where shadcn/ui wins
+          </h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+            <li>Completely free starting point for teams that want maximum control and no commercial dependency.</li>
+            <li>Massive community momentum, examples, and ecosystem references.</li>
+            <li>Highly customizable approach for teams comfortable owning every design and implementation decision.</li>
+          </ul>
 
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 className="text-lg font-semibold text-fd-foreground md:text-xl">Where Plex UI wins</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>9-step control sizing gives more precision for dense dashboards and spacious marketing layouts.</li>
-              <li>Official Figma + React system improves handoff and consistency across design and engineering.</li>
-              <li>Three-layer token model scales better for theming and component-level overrides.</li>
-              <li>Built with explicit AI editor compatibility in mind for fast code generation workflows.</li>
-            </ul>
-          </div>
+          <h2 className="mt-10 text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">Where Plex UI wins</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+            <li>9-step control sizing gives more precision for dense dashboards and spacious marketing layouts.</li>
+            <li>Official Figma + React system improves handoff and consistency across design and engineering.</li>
+            <li>Three-layer token model scales better for theming and component-level overrides.</li>
+            <li>Built with explicit AI editor compatibility in mind for fast code generation workflows.</li>
+          </ul>
         </section>
 
-        <section aria-labelledby="pricing-comparison" className="rounded-xl border border-fd-border bg-fd-background p-6">
+        <section aria-labelledby="pricing-comparison" className="space-y-3">
           <h2 id="pricing-comparison" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Pricing comparison: Plex UI vs shadcn/ui
           </h2>
@@ -269,28 +265,23 @@ export default function ShadcnComparisonPage() {
           </p>
         </section>
 
-        <section aria-labelledby="who-should-use-which" className="rounded-xl border border-fd-border bg-fd-background p-6">
+        <section aria-labelledby="who-should-use-which" className="space-y-3">
           <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Who should use which?
           </h2>
-          <div className="mt-4 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose shadcn/ui if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>A fully free, open-source-only stack.</li>
-                <li>Maximum flexibility to define your own design conventions from scratch.</li>
-                <li>Broad community snippets for experimentation.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>Design and code systems that stay aligned over time.</li>
-                <li>Consistent sizing with 9-step controls across key components.</li>
-                <li>A production-ready token architecture for long-term scaling.</li>
-              </ul>
-            </div>
-          </div>
+          <h3 className="mt-4 text-base font-semibold text-fd-foreground">Choose shadcn/ui if you need</h3>
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+            <li>A fully free, open-source-only stack.</li>
+            <li>Maximum flexibility to define your own design conventions from scratch.</li>
+            <li>Broad community snippets for experimentation.</li>
+          </ul>
+
+          <h3 className="mt-6 text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+            <li>Design and code systems that stay aligned over time.</li>
+            <li>Consistent sizing with 9-step controls across key components.</li>
+            <li>A production-ready token architecture for long-term scaling.</li>
+          </ul>
         </section>
 
         <section className="rounded-xl border border-fd-border bg-fd-accent/40 p-6 text-center">

@@ -1,0 +1,85 @@
+---
+title: "Do Startups Need a Design System?"
+description: "Startups think they are too early for a design system. With AI writing UI code faster than ever, you are too early to skip one."
+author: Sergey
+date: 2026-03-10
+---
+
+The common belief goes like this: "We are a five-person team shipping fast. We do not have time for a design system. That is a Big Company Problem."
+
+It is not. It is a consistency problem, and consistency problems do not wait until you have fifty engineers. They start the week your second engineer copies a button from the wrong file. They accelerate the moment you point an AI code editor at your codebase and ask it to build screens.
+
+You are not too early for a design system. You are too early to survive without one, especially now that AI is writing your UI.
+
+## The cost of not having one
+
+Design debt at startups does not arrive as one dramatic failure. It arrives as a hundred small inconsistencies that each seem fine in isolation:
+
+- **AI generates three different button heights in one sprint.** One screen uses `h-10`, another `h-9`, a third `h-11`. Nobody notices until the founder screenshots the app for a pitch deck and something feels off.
+- **Dark mode breaks on every screen.** Someone hardcoded `text-gray-700` instead of using a semantic token. Now every new feature requires a separate dark mode pass.
+- **A new engineer joins and copies patterns from the wrong file.** There are four ways to build a card in the codebase. They pick the oldest, most brittle one. Now there are five.
+- **The designer updates the color palette.** The engineer does not know. The Figma file says one thing, production says another, and the gap widens with each commit.
+
+None of these are catastrophic on day one. All of them compound. By month six, your codebase has more one-off UI decisions than shared patterns. Refactoring becomes a project in itself, and you have lost the speed advantage you thought you were preserving by skipping the system.
+
+## What "design system" actually means at startup scale
+
+When startup engineers hear "design system," they picture a team of six maintaining a monorepo with 200 components, a Storybook instance, and a quarterly release cycle. That is not what you need.
+
+At startup scale, a design system is three things:
+
+1. **Shared components with a consistent API.** One `Button` component, not twelve `<button>` elements with different class strings. One `Input`, not a mix of styled divs and native inputs with conflicting height logic.
+2. **Design tokens instead of hardcoded values.** Semantic color names instead of hex codes scattered across files. A spacing scale instead of arbitrary pixel values. This is what makes dark mode, theming, and future redesigns possible without rewriting every component.
+3. **One source of truth.** Either Figma or code, ideally both. When the designer says "primary button" and the engineer says "primary button," they should be describing the same object with the same dimensions, colors, and states.
+
+That is it. No governance board. No design ops team. Just enough structure that two people building different screens end up with UI that looks like it came from the same product.
+
+## Buy vs build
+
+The fastest way to kill momentum at a startup is to spend three weeks building your own button component. The second fastest way is to pick a library that does not fit your product and fight it for months.
+
+Here is a practical framework:
+
+- **Under 5 engineers:** Use an existing component library. [Plex UI](/docs/components), shadcn, Radix Themes — pick one that matches your stack and design taste, then commit to it. Customization at this stage means adjusting tokens, not forking components.
+- **5 to 15 engineers:** Customize an existing library. Wrap components with your own API where needed. Extend the token set. Build a thin layer on top, not a replacement underneath.
+- **15+ engineers:** Consider building on top of primitives like Radix or React Aria. At this scale you likely have product-specific interaction patterns that justify the investment. You also have the headcount to maintain it.
+
+Most startups overestimate where they sit on this scale. If you are wondering whether you need a custom design system, you almost certainly do not. Use what exists.
+
+## How AI changes the equation
+
+This is the part most teams underestimate.
+
+AI writes code faster than humans. That is the selling point. But speed without constraints produces inconsistency at the same accelerated rate. [Every problem that exists without a design system gets worse with AI](/blog/why-ai-needs-design-system).
+
+Ask Claude or Cursor to build a settings page without a component library in context, and you will get a locally correct result — reasonable classes, functional JSX, plausible styling. Ask it to build a second page next week, and you will get another locally correct result that does not match the first one.
+
+The model optimizes for the screen in front of it. It has no memory of what it built last Tuesday. If you hand it raw Tailwind and no component API, it will produce [nine different button sizes across nine screens](/blog/why-9-sizes) because nothing in its context tells it not to.
+
+A design system is the constraint layer. It turns "build me a settings page" into "compose these known components into a settings page." The model stops inventing structure and starts assembling it. Output stays aligned because the building blocks are aligned.
+
+This is not a theoretical concern. It is the primary reason teams with AI-heavy workflows hit visual entropy faster than teams writing everything by hand.
+
+## Getting started in one afternoon
+
+You do not need a month. You need an afternoon and a decision to stop deferring.
+
+**Pick a component library.** Browse [Plex UI components](/docs/components) or another library that fits your stack. Install it. Use it for one real screen before debating customization.
+
+**Set up design tokens.** At minimum, define your color palette as CSS custom properties or a token file. Map semantic names to values: `--color-text-primary`, `--color-surface`, `--color-border`. Do not let hex codes live in component files.
+
+**Write five rules in a README.** Something like:
+
+1. All interactive controls use library components.
+2. No hardcoded color values in feature code.
+3. Spacing uses the token scale.
+4. New patterns get discussed before being built.
+5. Dark mode must work by default, not as an afterthought.
+
+**Point your AI at the rules.** Add a project guide or cursor rules file that references your component library and token set. AI tools follow constraints they can see. Give them constraints worth following.
+
+If you are using a [Figma-to-code bridge](/bridge), connect it now. The cost of setting it up is an hour. The cost of not having it is every future handoff where the designer and the AI editor disagree on padding.
+
+## One line to close on
+
+You will build a design system eventually. The only question is whether you do it now, when it takes an afternoon, or later, when it takes a quarter.

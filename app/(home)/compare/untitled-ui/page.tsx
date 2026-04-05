@@ -167,14 +167,14 @@ export default function UntitledUiComparisonPage() {
           <h2 id="tldr" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Key differences
           </h2>
-          <div className="mt-4 rounded-xl border border-fd-border bg-fd-background p-6">
-            <ul className="space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Plex UI provides 9 control sizes and three-layer tokens for tighter design-to-code scaling.</li>
-              <li>Untitled UI remains strong in templates, ecosystem maturity, and design-first workflows.</li>
-              <li>Plex UI keeps React components free and aligns Figma variables with production code.</li>
-              <li>Both support modern dark mode and strong accessibility baselines.</li>
-            </ul>
-          </div>
+           <div className="mt-4 space-y-3">
+             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+               <li>Plex UI provides 9 control sizes and three-layer tokens for tighter design-to-code scaling.</li>
+               <li>Untitled UI remains strong in templates, ecosystem maturity, and design-first workflows.</li>
+               <li>Plex UI keeps React components free and aligns Figma variables with production code.</li>
+               <li>Both support modern dark mode and strong accessibility baselines.</li>
+             </ul>
+           </div>
         </section>
 
         <section aria-labelledby="feature-comparison">
@@ -183,7 +183,7 @@ export default function UntitledUiComparisonPage() {
           </h2>
 
           <div className="mt-5 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-            <table className="w-full text-center">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-fd-border bg-fd-muted/40">
                   <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Feature</th>
@@ -196,12 +196,12 @@ export default function UntitledUiComparisonPage() {
                   <tr key={row.feature} className={index < rows.length - 1 ? 'border-b border-fd-border' : undefined}>
                     <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">{row.feature}</td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.plexui} />
                       </div>
                     </td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.competitor} />
                       </div>
                     </td>
@@ -230,30 +230,26 @@ export default function UntitledUiComparisonPage() {
           </div>
         </section>
 
-        <section aria-labelledby="where-untitled-wins" className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 id="where-untitled-wins" className="text-lg font-semibold text-fd-foreground md:text-xl">
-              Where Untitled UI wins
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>More templates and prebuilt page patterns across marketing and product scenarios.</li>
-              <li>Larger community footprint and broader third-party resources.</li>
-              <li>Strong design-first approach with a longer market track record.</li>
-            </ul>
-          </div>
+         <section aria-labelledby="where-untitled-wins">
+           <h2 id="where-untitled-wins" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Where Untitled UI wins
+           </h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>More templates and prebuilt page patterns across marketing and product scenarios.</li>
+             <li>Larger community footprint and broader third-party resources.</li>
+             <li>Strong design-first approach with a longer market track record.</li>
+           </ul>
 
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 className="text-lg font-semibold text-fd-foreground md:text-xl">Where Plex UI wins</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>9-size control system is more granular than typical 4 to 5 size scales.</li>
-              <li>Free React library lowers implementation cost for engineering teams.</li>
-              <li>Three-layer tokens improve maintainability for large product surfaces.</li>
-              <li>Exact Figma parity and AI editor focus support faster implementation loops.</li>
-            </ul>
-          </div>
-        </section>
+           <h2 className="mt-10 text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">Where Plex UI wins</h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>9-size control system is more granular than typical 4 to 5 size scales.</li>
+             <li>Free React library lowers implementation cost for engineering teams.</li>
+             <li>Three-layer tokens improve maintainability for large product surfaces.</li>
+             <li>Exact Figma parity and AI editor focus support faster implementation loops.</li>
+           </ul>
+         </section>
 
-        <section aria-labelledby="pricing-comparison" className="rounded-xl border border-fd-border bg-fd-background p-6">
+        <section aria-labelledby="pricing-comparison" className="space-y-3">
           <h2 id="pricing-comparison" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Pricing comparison: Plex UI vs Untitled UI
           </h2>
@@ -263,29 +259,24 @@ export default function UntitledUiComparisonPage() {
           </p>
         </section>
 
-        <section aria-labelledby="who-should-use-which" className="rounded-xl border border-fd-border bg-fd-background p-6">
-          <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
-            Who should use which?
-          </h2>
-          <div className="mt-4 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Untitled UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>A design-first library with many page templates ready early in a project.</li>
-                <li>An ecosystem with broad market awareness and longer history.</li>
-                <li>Figma-first delivery where engineering assets are secondary.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>One system shared by designers and engineers with exact parity.</li>
-                <li>Fine-grained sizing flexibility across real product surfaces.</li>
-                <li>A free React starting point with optional paid Figma expansion.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+         <section aria-labelledby="who-should-use-which" className="space-y-3">
+           <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Who should use which?
+           </h2>
+           <h3 className="mt-4 text-base font-semibold text-fd-foreground">Choose Untitled UI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>A design-first library with many page templates ready early in a project.</li>
+             <li>An ecosystem with broad market awareness and longer history.</li>
+             <li>Figma-first delivery where engineering assets are secondary.</li>
+           </ul>
+
+           <h3 className="mt-6 text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>One system shared by designers and engineers with exact parity.</li>
+             <li>Fine-grained sizing flexibility across real product surfaces.</li>
+             <li>A free React starting point with optional paid Figma expansion.</li>
+           </ul>
+         </section>
 
         <section className="rounded-xl border border-fd-border bg-fd-accent/40 p-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">

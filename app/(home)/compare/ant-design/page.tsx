@@ -178,14 +178,14 @@ export default function AntDesignComparisonPage() {
           <h2 id="tldr" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Key differences
           </h2>
-          <div className="mt-4 rounded-xl border border-fd-border bg-fd-background p-6">
-            <ul className="space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Plex UI uses Tailwind CSS 4 with zero-runtime styling, while Ant Design relies on CSS-in-JS or Less.</li>
-              <li>Ant Design provides 60+ battle-tested components with deep enterprise and data-heavy use cases.</li>
-              <li>Plex UI offers exact Figma-to-code parity and a 9-step sizing scale for precise layout control.</li>
-              <li>Both support TypeScript, design tokens, and dark mode out of the box.</li>
-            </ul>
-          </div>
+           <div className="mt-4 space-y-3">
+             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+               <li>Plex UI uses Tailwind CSS 4 with zero-runtime styling, while Ant Design relies on CSS-in-JS or Less.</li>
+               <li>Ant Design provides 60+ battle-tested components with deep enterprise and data-heavy use cases.</li>
+               <li>Plex UI offers exact Figma-to-code parity and a 9-step sizing scale for precise layout control.</li>
+               <li>Both support TypeScript, design tokens, and dark mode out of the box.</li>
+             </ul>
+           </div>
         </section>
 
         <section aria-labelledby="feature-comparison">
@@ -194,7 +194,7 @@ export default function AntDesignComparisonPage() {
           </h2>
 
           <div className="mt-5 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-            <table className="w-full text-center">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-fd-border bg-fd-muted/40">
                   <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Feature</th>
@@ -207,12 +207,12 @@ export default function AntDesignComparisonPage() {
                   <tr key={row.feature} className={index < rows.length - 1 ? 'border-b border-fd-border' : undefined}>
                     <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">{row.feature}</td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.plexui} />
                       </div>
                     </td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.competitor} />
                       </div>
                     </td>
@@ -241,32 +241,28 @@ export default function AntDesignComparisonPage() {
           </div>
         </section>
 
-        <section aria-labelledby="where-antd-wins" className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 id="where-antd-wins" className="text-lg font-semibold text-fd-foreground md:text-xl">
-              Where Ant Design wins
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Huge component library with 60+ production-ready components covering enterprise and data-heavy UIs.</li>
-              <li>Massive adoption and community, especially across China and Asia-Pacific markets.</li>
-              <li>Extensive data display components like Table, Tree, Transfer, and Calendar out of the box.</li>
-              <li>Enterprise-grade maturity with years of battle-testing at Ant Group scale.</li>
-            </ul>
-          </div>
+         <section aria-labelledby="where-antd-wins">
+           <h2 id="where-antd-wins" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Where Ant Design wins
+           </h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Huge component library with 60+ production-ready components covering enterprise and data-heavy UIs.</li>
+             <li>Massive adoption and community, especially across China and Asia-Pacific markets.</li>
+             <li>Extensive data display components like Table, Tree, Transfer, and Calendar out of the box.</li>
+             <li>Enterprise-grade maturity with years of battle-testing at Ant Group scale.</li>
+           </ul>
 
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 className="text-lg font-semibold text-fd-foreground md:text-xl">Where Plex UI wins</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Modern CSS with Tailwind 4 and zero runtime overhead, no CSS-in-JS dependency.</li>
-              <li>9-step control sizing gives more precision than Ant Design's 3 size presets.</li>
-              <li>Tighter Figma-to-code parity with an official Figma design system built in sync with React.</li>
-              <li>Lighter bundle size with tree-shaking and no CSS-in-JS runtime cost.</li>
-              <li>Designed for AI-assisted development workflows from the ground up.</li>
-            </ul>
-          </div>
-        </section>
+           <h2 className="mt-10 text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">Where Plex UI wins</h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Modern CSS with Tailwind 4 and zero runtime overhead, no CSS-in-JS dependency.</li>
+             <li>9-step control sizing gives more precision than Ant Design's 3 size presets.</li>
+             <li>Tighter Figma-to-code parity with an official Figma design system built in sync with React.</li>
+             <li>Lighter bundle size with tree-shaking and no CSS-in-JS runtime cost.</li>
+             <li>Designed for AI-assisted development workflows from the ground up.</li>
+           </ul>
+         </section>
 
-        <section aria-labelledby="pricing-comparison" className="rounded-xl border border-fd-border bg-fd-background p-6">
+        <section aria-labelledby="pricing-comparison" className="space-y-3">
           <h2 id="pricing-comparison" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Pricing comparison: Plex UI vs Ant Design
           </h2>
@@ -277,29 +273,24 @@ export default function AntDesignComparisonPage() {
           </p>
         </section>
 
-        <section aria-labelledby="who-should-use-which" className="rounded-xl border border-fd-border bg-fd-background p-6">
-          <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
-            Who should use which?
-          </h2>
-          <div className="mt-4 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Ant Design if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>A massive component catalog with data-heavy components like Table, Tree, and Transfer.</li>
-                <li>An established enterprise ecosystem with deep community support in Asia.</li>
-                <li>A fully free, open-source stack with optional paid Pro templates.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>Zero-runtime CSS with Tailwind and no CSS-in-JS overhead.</li>
-                <li>Consistent sizing with 9-step controls across key components.</li>
-                <li>Exact Figma-to-code parity with a synchronized design system.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+         <section aria-labelledby="who-should-use-which" className="space-y-3">
+           <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Who should use which?
+           </h2>
+           <h3 className="mt-4 text-base font-semibold text-fd-foreground">Choose Ant Design if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>A massive component catalog with data-heavy components like Table, Tree, and Transfer.</li>
+             <li>An established enterprise ecosystem with deep community support in Asia.</li>
+             <li>A fully free, open-source stack with optional paid Pro templates.</li>
+           </ul>
+
+           <h3 className="mt-6 text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Zero-runtime CSS with Tailwind and no CSS-in-JS overhead.</li>
+             <li>Consistent sizing with 9-step controls across key components.</li>
+             <li>Exact Figma-to-code parity with a synchronized design system.</li>
+           </ul>
+         </section>
 
         <section className="rounded-xl border border-fd-border bg-fd-accent/40 p-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">

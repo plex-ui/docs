@@ -5,6 +5,8 @@ author: Sergey
 date: 2026-04-04
 ---
 
+<script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Cursor editor work with Figma?","acceptedAnswer":{"@type":"Answer","text":"Not natively. Cursor needs AI Bridge, a Figma plugin that exposes a local HTTP API. Once connected, Cursor's agent mode can read design tokens, component structure, and variable bindings directly from your Figma file."}},{"@type":"Question","name":"How to connect Cursor to Figma for design-to-code?","acceptedAnswer":{"@type":"Answer","text":"Install AI Bridge in Figma, start the bridge server, then add the Bridge API instructions to your .cursorrules file. Cursor's agent mode can then query Figma components and extract design tokens while generating code."}},{"@type":"Question","name":"Can Cursor read Figma design tokens?","acceptedAnswer":{"@type":"Answer","text":"Yes, through AI Bridge. Cursor reads the semantic variable layer in Figma — token names like spacing/lg and surface/primary — and writes CSS with var() references instead of hardcoded values."}}]})}} />
+
 Cursor is the most popular AI code editor right now. It writes UI components fast, handles multi-file edits well, and understands React out of the box.
 
 It has no idea what your Figma designs look like.
@@ -92,7 +94,7 @@ Cursor uses these names to generate CSS with proper `var()` references. The diff
 
 **`.cursorrules` is your best tool.** Cursor reads this file before every conversation. Put your Bridge API reference, component naming conventions, and token mapping rules there. The model follows them consistently without re-prompting.
 
-**Use Composer for multi-file generation.** When Cursor generates a component, you usually need the TSX file, a CSS module, and possibly a story file. Composer handles this in one pass. With Bridge context, all three files reference the correct design tokens from the start.
+**Use Composer for multi-file generation.** When Cursor [generates a React component](/blog/figma-to-react-with-ai), you usually need the TSX file, a CSS module, and possibly a story file. Composer handles this in one pass. With Bridge context, all three files reference the correct design tokens from the start.
 
 **Inline edit for CSS tweaks.** After generating a component from Figma data, use Cursor's inline edit (Cmd+K) to adjust individual properties. Select a CSS block, tell it "use the md size token instead of sm," and it rewrites just that section.
 
@@ -140,6 +142,6 @@ Every component Cursor builds without Figma context is a component you will manu
 
 The setup takes two minutes. The `.cursorrules` file carries the context forward permanently.
 
-Read more about how the Bridge handles [design tokens instead of raw values](/blog/figma-code-design-bridge-any-model), or why [AI editors need a design system](/blog/why-ai-needs-design-system) in the first place.
+The same Bridge works with [Claude Code](/blog/connect-claude-code-to-figma) and [Codex](/blog/connect-codex-to-figma). Read more about how it handles [design tokens instead of raw values](/blog/figma-code-design-bridge-any-model), or why [AI editors need a design system](/blog/why-ai-needs-design-system) in the first place.
 
 [Get AI Bridge →](/bridge)

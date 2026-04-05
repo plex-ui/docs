@@ -172,14 +172,14 @@ export default function RadixComparisonPage() {
           <h2 id="tldr" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Key differences
           </h2>
-          <div className="mt-4 rounded-xl border border-fd-border bg-fd-background p-6">
-            <ul className="space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Radix UI provides unstyled, accessible primitives — you bring all styling and design decisions.</li>
-              <li>Plex UI builds on Radix primitives and adds production-ready styles, design tokens, and Figma parity.</li>
-              <li>Radix is the right pick when you need full control over every visual detail from scratch.</li>
-              <li>Plex UI is the right pick when you want a styled system that works out of the box with consistent sizing.</li>
-            </ul>
-          </div>
+           <div className="mt-4 space-y-3">
+             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+               <li>Radix UI provides unstyled, accessible primitives — you bring all styling and design decisions.</li>
+               <li>Plex UI builds on Radix primitives and adds production-ready styles, design tokens, and Figma parity.</li>
+               <li>Radix is the right pick when you need full control over every visual detail from scratch.</li>
+               <li>Plex UI is the right pick when you want a styled system that works out of the box with consistent sizing.</li>
+             </ul>
+           </div>
         </section>
 
         <section aria-labelledby="feature-comparison">
@@ -188,7 +188,7 @@ export default function RadixComparisonPage() {
           </h2>
 
           <div className="mt-5 hidden overflow-hidden rounded-xl border border-fd-border sm:block">
-            <table className="w-full text-center">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-fd-border bg-fd-muted/40">
                   <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Feature</th>
@@ -201,12 +201,12 @@ export default function RadixComparisonPage() {
                   <tr key={row.feature} className={index < rows.length - 1 ? 'border-b border-fd-border' : undefined}>
                     <td className="px-5 py-3 text-left text-sm text-fd-muted-foreground">{row.feature}</td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.plexui} />
                       </div>
                     </td>
                     <td className="px-5 py-3">
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center">
                         <CellContent value={row.competitor} />
                       </div>
                     </td>
@@ -235,32 +235,28 @@ export default function RadixComparisonPage() {
           </div>
         </section>
 
-        <section aria-labelledby="where-radix-wins" className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 id="where-radix-wins" className="text-lg font-semibold text-fd-foreground md:text-xl">
-              Where Radix UI wins
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Fully unstyled primitives give maximum control over every visual detail.</li>
-              <li>Battle-tested accessibility patterns trusted across the React ecosystem.</li>
-              <li>Zero styling opinions — works with any CSS approach or design system.</li>
-              <li>Large ecosystem of styled wrappers and community integrations built on top.</li>
-            </ul>
-          </div>
+         <section aria-labelledby="where-radix-wins">
+           <h2 id="where-radix-wins" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Where Radix UI wins
+           </h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Fully unstyled primitives give maximum control over every visual detail.</li>
+             <li>Battle-tested accessibility patterns trusted across the React ecosystem.</li>
+             <li>Zero styling opinions — works with any CSS approach or design system.</li>
+             <li>Large ecosystem of styled wrappers and community integrations built on top.</li>
+           </ul>
 
-          <div className="rounded-xl border border-fd-border bg-fd-background p-6">
-            <h2 className="text-lg font-semibold text-fd-foreground md:text-xl">Where Plex UI wins</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-              <li>Production-ready styles out of the box — no need to build a design system on top of primitives.</li>
-              <li>Official Figma design system with exact Figma-to-code parity.</li>
-              <li>9-step control sizing for precise density control across dashboards and marketing layouts.</li>
-              <li>Three-layer design token architecture for scalable theming and component-level overrides.</li>
-              <li>Built with explicit AI editor compatibility in mind for fast code generation workflows.</li>
-            </ul>
-          </div>
-        </section>
+           <h2 className="mt-10 text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">Where Plex UI wins</h2>
+           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Production-ready styles out of the box — no need to build a design system on top of primitives.</li>
+             <li>Official Figma design system with exact Figma-to-code parity.</li>
+             <li>9-step control sizing for precise density control across dashboards and marketing layouts.</li>
+             <li>Three-layer design token architecture for scalable theming and component-level overrides.</li>
+             <li>Built with explicit AI editor compatibility in mind for fast code generation workflows.</li>
+           </ul>
+         </section>
 
-        <section aria-labelledby="pricing-comparison" className="rounded-xl border border-fd-border bg-fd-background p-6">
+        <section aria-labelledby="pricing-comparison" className="space-y-3">
           <h2 id="pricing-comparison" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
             Pricing comparison: Plex UI vs Radix UI
           </h2>
@@ -271,29 +267,24 @@ export default function RadixComparisonPage() {
           </p>
         </section>
 
-        <section aria-labelledby="who-should-use-which" className="rounded-xl border border-fd-border bg-fd-background p-6">
-          <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
-            Who should use which?
-          </h2>
-          <div className="mt-4 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Radix UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>Full control over styling with no visual opinions imposed.</li>
-                <li>A foundation for building a fully custom design system from scratch.</li>
-                <li>Accessible primitives that integrate into any existing CSS workflow.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
-              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-fd-muted-foreground">
-                <li>Design and code systems that stay aligned over time.</li>
-                <li>Consistent sizing with 9-step controls across key components.</li>
-                <li>A production-ready token architecture for long-term scaling.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+         <section aria-labelledby="who-should-use-which" className="space-y-3">
+           <h2 id="who-should-use-which" className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
+             Who should use which?
+           </h2>
+           <h3 className="mt-4 text-base font-semibold text-fd-foreground">Choose Radix UI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Full control over styling with no visual opinions imposed.</li>
+             <li>A foundation for building a fully custom design system from scratch.</li>
+             <li>Accessible primitives that integrate into any existing CSS workflow.</li>
+           </ul>
+
+           <h3 className="mt-6 text-base font-semibold text-fd-foreground">Choose Plex UI if you need</h3>
+           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
+             <li>Design and code systems that stay aligned over time.</li>
+             <li>Consistent sizing with 9-step controls across key components.</li>
+             <li>A production-ready token architecture for long-term scaling.</li>
+           </ul>
+         </section>
 
         <section className="rounded-xl border border-fd-border bg-fd-accent/40 p-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight text-fd-foreground md:text-2xl">
