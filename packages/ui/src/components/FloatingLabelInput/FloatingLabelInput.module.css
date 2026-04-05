@@ -1,7 +1,5 @@
 .Root {
   position: relative;
-  --field-error-padding-inline: 0;
-  --field-error-margin-top: 0.25rem;
 }
 
 .Root:has(:disabled) {
@@ -185,16 +183,20 @@
   z-index: 1;
 }
 
-/* Error message spacing */
 .ErrorMessage {
-  margin-top: var(--field-error-margin-top);
+  color: var(--field-error-color);
+  font-size: var(--field-error-font-size);
+  line-height: var(--field-error-line-height);
+  margin-top: 0.25rem;
+  padding-inline-start: var(--floating-input-gutter);
 }
 
 .Description {
   color: var(--color-text-secondary);
   font-size: var(--field-error-font-size);
   line-height: var(--field-error-line-height);
-  margin-top: var(--field-error-margin-top);
+  margin-top: 0.25rem;
+  padding-inline-start: var(--floating-input-gutter);
 }
 
 /* =============================================

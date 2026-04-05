@@ -4,7 +4,6 @@ import clsx from "clsx"
 import { forwardRef, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react"
 import { mergeRefs } from "react-merge-refs"
 
-import { FieldError } from "../FieldError"
 import { X } from "../Icon"
 
 import s from "./FloatingLabelInput.module.css"
@@ -270,9 +269,9 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
           )}
         </div>
         {errorMessage && (
-          <FieldError id={errorId} className={s.ErrorMessage}>
+          <div id={errorId} className={s.ErrorMessage} role="alert">
             {errorMessage}
-          </FieldError>
+          </div>
         )}
         {description && (
           <div id={descriptionId} className={s.Description}>
