@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { LandingSection } from '../../_components/LandingSection';
 
 export const metadata: Metadata = {
-  title: 'Bridge Setup — Figma Bridge with Design Tokens',
-  description: 'Install and run the Figma Bridge after purchase.',
+  title: 'Bridge Setup — Figma AI Bridge with Design Tokens',
+  description: 'Install and run the Figma AI Bridge after purchase.',
   robots: {
     index: false,
     follow: false,

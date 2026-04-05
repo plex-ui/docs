@@ -10,21 +10,21 @@ const DEFAULT_CHECKOUT_URL =
 const checkoutUrl = process.env.NEXT_PUBLIC_BRIDGE_CHECKOUT_URL ?? DEFAULT_CHECKOUT_URL;
 
 export const metadata: Metadata = {
-  title: 'Figma Bridge with Design Tokens — Not Just Pixels',
+  title: 'Figma AI Bridge with Design Tokens — Not Just Pixels',
   description:
-    'The only Figma bridge that gives AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
+    'The only Figma AI bridge that gives your AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
   openGraph: {
-    title: 'Figma Bridge with Design Tokens — Not Just Pixels',
+    title: 'Figma AI Bridge with Design Tokens — Not Just Pixels',
     description:
-      'The only Figma bridge that gives AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
+      'The only Figma AI bridge that gives your AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
     url: 'https://plexui.com/bridge',
     images: [{ url: '/opengraph-image' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Figma Bridge with Design Tokens — Not Just Pixels',
+    title: 'Figma AI Bridge with Design Tokens — Not Just Pixels',
     description:
-      'The only Figma bridge that gives AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model.',
+      'The only Figma AI bridge that gives your AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model.',
     images: ['/opengraph-image'],
   },
   alternates: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-const modelPrompt = `Figma Bridge API: http://localhost:8867
+const modelPrompt = `Figma AI Bridge API: http://localhost:8867
 1) GET /status (connected=true)
 2) POST /command with {"command":"...","params":{...}}
 3) Use params, not args`;
@@ -40,12 +40,12 @@ const modelPrompt = `Figma Bridge API: http://localhost:8867
 const bridgeJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Plex UI Figma Bridge',
+  name: 'Plex UI Figma AI Bridge',
   image: 'https://plexui.com/opengraph-image.png',
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'macOS, Windows',
   description:
-    'Figma plugin with design token support. Standard Figma MCPs return raw hex and pixels — Bridge returns actual variable bindings (background/primary/solid, spacing/xl, radius/full). Works with any AI model via local HTTP API. Two-way: create Figma nodes and read token bindings back into code.',
+    'Figma AI plugin with design token support. Standard Figma MCPs return raw hex and pixels — AI Bridge returns actual variable bindings (background/primary/solid, spacing/xl, radius/full). Works with any AI model via local HTTP API. Two-way: create Figma nodes and read token bindings back into code.',
   url: 'https://plexui.com/bridge',
   author: { '@type': 'Organization', name: 'Plex UI', url: 'https://plexui.com' },
   offers: {
@@ -75,26 +75,26 @@ const bridgeFaqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How is Plex UI Bridge different from standard Figma MCPs?',
+      name: 'How is Plex UI AI Bridge different from standard Figma MCPs?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Standard Figma MCPs (including the official read-only one) return raw hex colors (#181818) and pixel values (16px). Bridge returns actual design token variable bindings (background/primary/solid, spacing/xl, radius/full) — so AI generates CSS with var() references instead of hardcoded values. Bridge also works with any AI model and runs 100% locally.',
+        text: 'Standard Figma MCPs (including the official read-only one) return raw hex colors (#181818) and pixel values (16px). AI Bridge returns actual design token variable bindings (background/primary/solid, spacing/xl, radius/full) — so AI generates CSS with var() references instead of hardcoded values. AI Bridge also works with any AI model and runs 100% locally.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Which AI models work with Figma Bridge?',
+      name: 'Which AI models work with Figma AI Bridge?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Any AI model that can make HTTP requests: Claude (Anthropic), ChatGPT/GPT-4 (OpenAI), Cursor, Codex, Gemini (Google), Copilot, Windsurf, and more. The Bridge is a simple HTTP API — no vendor lock-in.',
+        text: 'Any AI model that can make HTTP requests: Claude (Anthropic), ChatGPT/GPT-4 (OpenAI), Cursor, Codex, Gemini (Google), Copilot, Windsurf, and more. AI Bridge is a simple HTTP API — no vendor lock-in.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Is Figma Bridge a subscription?',
+      name: 'Is Figma AI Bridge a subscription?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. Figma Bridge is $49 one-time, lifetime license. No subscription, no recurring payments.',
+        text: 'No. Figma AI Bridge is $49 one-time, lifetime license. No subscription, no recurring payments.',
       },
     },
   ],
@@ -118,7 +118,7 @@ export default function BridgePage() {
           </div>
 
           <h1 className="text-3xl font-semibold tracking-tight text-fd-foreground md:text-4xl">
-            Figma Bridge with Design Tokens
+            Figma AI Bridge with Design Tokens
           </h1>
 
           <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
