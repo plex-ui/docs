@@ -197,8 +197,8 @@ export default function MuiComparisonPage() {
               <thead>
                 <tr className="border-b border-fd-border bg-fd-muted/40">
                   <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Feature</th>
-                  <th className="px-5 py-3.5 text-sm font-semibold text-fd-foreground">Plex UI</th>
-                  <th className="px-5 py-3.5 text-sm font-semibold text-fd-foreground">MUI</th>
+                  <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">Plex UI</th>
+                  <th className="px-5 py-3.5 text-left text-sm font-semibold text-fd-foreground">MUI</th>
                 </tr>
               </thead>
               <tbody>
