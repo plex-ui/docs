@@ -190,6 +190,13 @@
   margin-top: var(--field-error-margin-top);
 }
 
+.Description {
+  color: var(--color-text-secondary);
+  font-size: var(--field-error-font-size);
+  line-height: var(--field-error-line-height);
+  margin-top: var(--field-error-margin-top);
+}
+
 /* =============================================
    Multiline (textarea) variant
 ============================================= */

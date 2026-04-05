@@ -61,6 +61,40 @@ import {
   </div>
 </ComponentPreview>
 
+### With description
+
+<ComponentPreview details={<>Use the <code>description</code> prop to display helper text below the input.</>} code={`<FloatingLabelInput
+  label="Email address"
+  description="We'll never share your email with anyone else."
+/>`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput
+      label="Email address"
+      description="We'll never share your email with anyone else."
+    />
+  </div>
+</ComponentPreview>
+
+### With description and error
+
+<ComponentPreview details={<>When both <code>description</code> and <code>errorMessage</code> are provided, the error appears first (closest to the input), followed by the description.</>} code={`<FloatingLabelInput
+  label="Email address"
+  defaultValue="jane.doe@example"
+  invalid
+  errorMessage="Email is not valid."
+  description="We'll never share your email with anyone else."
+/>`} previewMinHeight={168}>
+  <div className="w-[360px]">
+    <FloatingLabelInput
+      label="Email address"
+      defaultValue="jane.doe@example"
+      invalid
+      errorMessage="Email is not valid."
+      description="We'll never share your email with anyone else."
+    />
+  </div>
+</ComponentPreview>
+
 ### Clear button
 
 <ComponentPreview details={<>Use the <code>onClear</code> prop to display a built-in clear button. The button appears when the input has a value and is not disabled or read-only.</>} code={`const [value, setValue] = useState("clearable@example.com")
@@ -275,6 +309,7 @@ const selected = COUNTRIES.find((c) => c.value === country)
 
 <PropsTable data={[
   { prop: "label", type: "string", description: "Floating label text" },
+  { prop: "description", type: "ReactNode", description: "Helper text below the input" },
   { prop: "errorMessage", type: "string", description: "Validation message below input; sets invalid state" },
   { prop: "disabled", type: "boolean", default: "false", description: "Disable input interactions" },
   { prop: "invalid", type: "boolean", default: "false", description: "Invalid visual state" },
