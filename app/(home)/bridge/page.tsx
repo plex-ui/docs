@@ -121,34 +121,20 @@ export default function BridgePage() {
             Figma Bridge with Design Tokens
           </h1>
 
-          <p className="mt-4 text-base leading-relaxed text-fd-muted-foreground">
-            Standard Figma MCPs return <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">#181818</code> and <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">16px</code>.
-            Bridge returns <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">background/primary/solid</code> and <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-sm text-fd-foreground">spacing/xl</code> —
-            the actual design token bindings your AI needs to generate production CSS.
+          <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
+            Standard Figma MCPs return raw hex colors and pixel values.
+            Bridge returns the actual design token names — so your AI generates
+            production CSS with variable references instead of hardcoded values.
           </p>
 
-          <p className="mt-3 text-sm font-medium text-fd-foreground">
-            Works with any AI model. Two-way: Design ↔ Code.
+          <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
+            Dark mode, theme changes, density scales — all handled by your tokens automatically.
+            Works with any AI model. Two-way: create in Figma and read back into code.
           </p>
 
-          <p className="mt-6 text-sm font-semibold leading-relaxed text-fd-foreground">
-            Why tokens matter: raw values break at scale.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-fd-muted-foreground">
-            When AI gets <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">#181818</code> from Figma,
-            it hardcodes that hex into CSS. Dark mode breaks. Theme changes require find-and-replace.
-            Bridge gives the variable name — so AI writes <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">var(--color-background-primary-solid)</code>,
-            and your tokens handle the rest.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-fd-muted-foreground">
-            Same for spacing (<code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">button/pill-gutter/md</code> instead of <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">16px</code>),
-            sizing (<code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">control/size/md</code> instead of <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">32</code>),
-            and radii (<code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">radius/full</code> instead of <code className="rounded bg-fd-secondary px-1 py-0.5 text-xs text-fd-foreground">9999px</code>).
-          </p>
           <p className="mt-2 text-sm text-fd-muted-foreground">
-            More details:{' '}
             <Link href="/blog/figma-code-design-bridge-any-model" className="underline underline-offset-2 hover:text-fd-foreground">
-              How Bridge compares to standard Figma MCPs
+              How it works
             </Link>
           </p>
 
