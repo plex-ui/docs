@@ -20,6 +20,133 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.7.87 — 2026-04-03
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Form examples</strong> (<a href="/docs/components/form-examples">Form Examples</a>)<br/>
+    New docs page with real-world form patterns: Field label vs section header hierarchy following Apple Settings strategy — <code>SidebarGroupLabel</code> for section headers, <code>Field</code> labels for individual controls.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Field label-description gap</strong><br/>
+    Set gap between label and description to 0px for all Field sizes (align with Figma).
+  </li>
+  <li>
+    <strong>Switch label-description gap</strong><br/>
+    Removed 4px gap between Switch label and description (align with Figma).
+  </li>
+  <li>
+    <strong>Switch horizontal alignment</strong><br/>
+    Horizontal Switch fields now align to top instead of center.
+  </li>
+</ul>
+
+---
+
+## 0.7.82 — 2026-04-02
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>FileCard</strong> (<a href="/docs/components/file-upload">FileUpload</a>)<br/>
+    Extracted <code>FileCard</code> as a standalone component with optional delete button.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Control border-radius</strong><br/>
+    Aligned control border-radius with Figma design tokens for sm, lg, and xl sizes.
+  </li>
+</ul>
+
+---
+
+## 0.7.76 — 2026-04-01
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>FileUpload</strong> (<a href="/docs/components/file-upload">FileUpload</a>)<br/>
+    New file upload component with drag-and-drop, multi-file support, middle-truncated filenames, and form integration. CSS pixel-perfect from Figma specs.
+  </li>
+  <li>
+    <strong>FloatingLabelInput multiline</strong> (<a href="/docs/components/floating-label-input#multiline-textarea">FloatingLabelInput</a>)<br/>
+    New textarea mode with auto-resize, no resize handle, 2-row default, and exact padding match with input mode.
+  </li>
+  <li>
+    <strong>RadioGroup/Checkbox descriptions</strong><br/>
+    Added description examples to RadioGroup and Checkbox docs.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>FileUpload colors</strong><br/>
+    Icon color set to <code>--input-text-color</code>, filesize to <code>--color-text-tertiary</code>. All colors use CSS variables (no hardcoded values).
+  </li>
+  <li>
+    <strong>Textarea label position</strong><br/>
+    Matched textarea label position to input mode, accounting for border-box.
+  </li>
+</ul>
+
+---
+
+## 0.7.68 — 2026-03-30
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Horizontal menu</strong> (<a href="/docs/components/menu">Menu</a>)<br/>
+    New horizontal menu layout with <code>size</code> prop (sm/md/lg), equal-width items, and <code>Play</code> icon.
+  </li>
+  <li>
+    <strong>Icon-only tabs</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    New example showing icon-only tab items.
+  </li>
+  <li>
+    <strong>Icons</strong>: <code>AlignCenterVertical</code>, <code>AlignStartVertical</code>, <code>AlignEndVertical</code>, <code>FoldHorizontal</code>, <code>UnfoldHorizontal</code>, <code>TextAlignCenter</code>, <code>TextAlignEnd</code>, <code>ArrowsMaximize</code>, <code>ArrowsMinimize</code>, <code>Play</code>.
+  </li>
+</ul>
+
+---
+
+## 0.7.64 — 2026-03-28
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Field gap</strong><br/>
+    Synced Field gap with Figma (6px). Fixed desktop preview max-width.
+  </li>
+  <li>
+    <strong>Mobile previews</strong><br/>
+    Responsive mobile previews, OG image for Twitter, Product structured data.
+  </li>
+  <li>
+    <strong>MarkdownEditor</strong><br/>
+    Fixed placeholder visibility, default <code>rows=1</code>.
+  </li>
+</ul>
+
+---
+
 ## 0.7.61 — 2026-03-28
 
 ### Added
