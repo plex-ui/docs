@@ -105,7 +105,8 @@
 .FieldFootprint[data-focused] .LabelText,
 .FieldFootprint[data-invalid] .LabelText,
 .HasValue .LabelText {
-  transform: translate(-12px) scale(var(--floating-input-label-scale));
+  transform: translate(calc(-1 * var(--horizontal-padding))) scale(var(--floating-input-label-scale));
+  transform-origin: left center;
   max-width: 133%;
 }
 
