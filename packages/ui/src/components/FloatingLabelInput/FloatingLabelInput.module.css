@@ -188,7 +188,7 @@
   font-size: var(--field-error-font-size);
   line-height: var(--field-error-line-height);
   margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
   padding-inline-start: var(--floating-input-gutter);
 }
 
@@ -197,7 +197,7 @@
   font-size: var(--field-error-font-size);
   line-height: var(--field-error-line-height);
   margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
   padding-inline-start: var(--floating-input-gutter);
 }
 
