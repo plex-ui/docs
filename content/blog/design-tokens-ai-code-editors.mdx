@@ -1,0 +1,129 @@
+---
+title: "Design Tokens: What AI Code Editors Get Wrong"
+description: "AI editors write valid CSS but miss design intent. Here is how design tokens get lost in translation and what to do about it."
+author: Sergey
+date: 2026-03-28
+---
+
+AI code editors understand syntax. They do not understand design intent. That distinction matters more than most teams realize, because it means the model can produce CSS that compiles, passes review, and still produces the wrong UI.
+
+The failure mode is not broken code. It is code that looks close enough on one screen, in one color mode, at one viewport, then drifts everywhere else. The root cause is always the same: the model operates on raw values when it should operate on design tokens.
+
+## Three things AI consistently gets wrong
+
+### Colors without meaning
+
+Ask an AI editor to match a dark sidebar background and you will get something like this:
+
+```css
+.sidebar {
+  background-color: #181818;
+}
+```
+
+That hex value is visually correct in dark mode. It is also a maintenance trap. In a token-based system, that color is `--color-background-primary-solid`. It resolves to `#181818` in dark mode and `#ffffff` in light mode. The raw value locks you into one mode. The token carries intent across both.
+
+AI models pick hex values because that is what they have seen in training data. They do not know your token map exists unless you tell them, and even then, they do not know which token to use for which context. The result is [CSS that breaks in dark mode](/blog/ai-generated-css-dark-mode) the moment someone toggles the theme.
+
+### Spacing without scale
+
+Generated code tends to produce reasonable-looking spacing:
+
+```css
+.card {
+  padding: 16px;
+  gap: 12px;
+}
+```
+
+Both values look fine in isolation. But your system uses a spacing scale: `--spacing-xl` is `16px`, `--spacing-lg` is `12px`. When those tokens resolve to different values at smaller breakpoints or denser contexts, the raw-value version does not adapt. The token-based version does.
+
+This gets worse over time. Across fifty generated components, you end up with a mix of `12px`, `14px`, `13px`, and `16px` where the system intended exactly two values. The visual rhythm breaks not because any single value is wrong, but because the constraint was never applied.
+
+### Components without variants
+
+The most expensive mistake is structural. Ask an AI editor to build a button and you get:
+
+```tsx
+<button className="h-10 rounded-md bg-blue-600 px-4 text-sm font-medium text-white">
+  Save
+</button>
+```
+
+Your design system has a `Button` component with nine sizes and six color variants. Every size carries correct padding, font size, icon size, and radius. The AI-generated version captures one snapshot of one variant and hardcodes everything.
+
+This is the pattern that compounds fastest. Every new feature gets its own version of the same component, each with slightly different geometry. [A design system exists to prevent exactly this](/blog/why-ai-needs-design-system).
+
+## Why prompting alone does not fix this
+
+The instinct is to add "use design tokens" to your prompt or system instructions. That helps marginally. It does not solve the real problem.
+
+The model needs to know _which_ tokens exist, what they map to, and which one applies in each context. Saying "use semantic tokens" is like saying "write idiomatic code" — directionally correct, practically useless without specifics.
+
+Consider what the model would need to produce correct output for a single component:
+
+- The full list of spacing tokens and their values
+- The full list of color tokens, separated by role (text, surface, border, state)
+- Which tokens are scoped to which components
+- How tokens behave across modes (light, dark, high contrast)
+
+That is not prompt engineering. That is a runtime data problem.
+
+## The token hierarchy most teams miss
+
+Design tokens are not flat. A well-structured system has three layers:
+
+**Layer 0 — Primitive tokens.** Raw values. `gray-900: #181818`. `spacing-4: 16px`. These define the palette. They should never appear in component code.
+
+**Layer 1 — Semantic tokens.** Intent-based mappings. `background/primary/solid` resolves to `gray-900` in dark mode, `white` in light mode. `text/secondary` resolves to different grays depending on context. This is where meaning lives.
+
+**Layer 2 — Component tokens.** Scoped bindings. `--menu-item-padding` maps to `spacing-md`. `--button-radius-lg` maps to `radius-lg`. These encode component-specific decisions that designers already made.
+
+AI operates at layer 0 by default. It picks raw values from training data or visual inspection. Correct output requires layers 1 and 2, which exist in your design system but are invisible to the model unless explicitly provided.
+
+## What correct output looks like
+
+Here is the same sidebar background, written correctly:
+
+```css
+.sidebar {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-xl);
+}
+
+.sidebar-item {
+  padding: var(--menu-item-padding-top-bottom) var(--menu-item-padding-left-right);
+  gap: var(--menu-item-gap);
+  border-radius: var(--menu-item-radius);
+  color: var(--color-text-secondary);
+}
+
+.sidebar-item[data-active] {
+  background-color: var(--color-background-primary-ghost-selected);
+  color: var(--color-text-primary);
+}
+```
+
+Every value is a reference, not a literal. Mode switching works automatically. Density changes propagate through token updates, not file-by-file edits. If a designer adjusts menu item padding from `6px` to `8px`, one token change updates every instance.
+
+No AI editor produces this output without knowing the token vocabulary.
+
+## How to bridge the gap
+
+There are two approaches, and most teams will use both.
+
+**Manual: document and inject.** Write a token reference into your repository context — a markdown file or JSON map that lists every available token, its role, and its resolved values. Add it to your AI editor's context window. This works for teams with stable, well-documented systems. It breaks down when tokens change frequently or span thousands of entries.
+
+**Automated: read tokens from the source.** A bridge that reads variable bindings directly from Figma or your token pipeline and exposes them to the model at generation time. The model does not guess which token to use — it receives the binding that the designer already set. This is what [Plex UI Bridge](/bridge) does: it reads Figma variable bindings and translates them into the correct CSS custom property references, including mode-aware resolution.
+
+The manual approach is always worth doing. The automated approach is what makes it scale.
+
+## Best constraints produce best output
+
+AI code editors are not going to learn your design system from public training data. They will not infer your token hierarchy from a few example files. The quality of generated UI is directly proportional to the quality of constraints you provide.
+
+Design tokens are those constraints. Not as documentation humans read, but as structured data the model can reference at generation time. Teams that invest in making tokens accessible to their AI tooling get consistent output. Teams that rely on prompting get output that looks right once and drifts everywhere else.
+
+The gap between "AI-generated UI" and "production-grade UI" is not model capability. It is token accessibility.

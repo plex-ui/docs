@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { DocsBody } from 'fumadocs-ui/page';
 import { blog } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 import { ArrowLeft } from 'lucide-react';
@@ -97,9 +98,9 @@ export default async function BlogPostPage(props: {
           <p className="mt-4 text-base leading-relaxed text-fd-muted-foreground">{page.data.description}</p>
         </header>
 
-        <div className="prose prose-neutral max-w-none text-fd-foreground dark:prose-invert prose-headings:tracking-tight prose-a:text-fd-foreground hover:prose-a:text-fd-foreground/80">
+        <DocsBody>
           <MDX components={getMDXComponents()} />
-        </div>
+        </DocsBody>
       </div>
     </main>
   );
