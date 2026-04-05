@@ -131,22 +131,7 @@ export default function BridgePage() {
             Works with any AI model. Two-way: Design ↔ Code.
           </p>
 
-          <div className="relative left-1/2 mt-6 w-[min(100vw-2rem,1200px)] -translate-x-1/2 overflow-hidden rounded-xl border border-fd-border bg-fd-card">
-            <video
-              className="block h-auto w-full"
-              controls
-              playsInline
-              preload="metadata"
-            >
-              <source src="/bridge/figma-code-design-bridge-hq.mp4" type="video/mp4" />
-              <source src="/bridge/figma-code-design-bridge.mov" type="video/quicktime" />
-            </video>
-            <p className="px-4 py-3 text-xs text-fd-muted-foreground">
-              Live demo: AI creates Figma nodes with design token bindings via local Bridge API.
-            </p>
-          </div>
-
-          <p className="mt-4 text-sm font-semibold leading-relaxed text-fd-foreground">
+          <p className="mt-6 text-sm font-semibold leading-relaxed text-fd-foreground">
             Why tokens matter: raw values break at scale.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-fd-muted-foreground">
