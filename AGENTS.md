@@ -2,36 +2,36 @@
 
 ## Location
 
-`figma/plugin/figma-mcp-bridge/` — 4 files: `code.js`, `manifest.json`, `ui.html`, `server.mjs`
+`figma/plugin/figma-code-design-bridge/` — files: `code.js`, `manifest.json`, `ui.html`, `server.mjs`
 
 ## Architecture
 
 ```
 HTTP Client (curl)          UI (ui.html)              Plugin (code.js)
-   ──── POST :8767 ────►  WebSocket :8766  ────►   Figma Plugin API
+   ──── POST :8867 ────►  WebSocket :8866  ────►   Figma Plugin API
    ◄─── JSON response ──  ◄──────────────  ◄───   (read/write document)
 ```
 
-- **HTTP API**: `http://localhost:8767` — send commands, check status
-- **WebSocket**: `ws://localhost:8766` — internal bridge between UI and server (don't use directly)
+- **HTTP API**: `http://localhost:8867` — send commands, check status
+- **WebSocket**: `ws://localhost:8866` — internal bridge between UI and server (don't use directly)
 - Plugin must be **running in Figma** for commands to work
 
 ## Usage
 
 ### Check status
 ```bash
-curl http://localhost:8767/status
+curl http://localhost:8867/status
 ```
 
 ### Single command
 ```bash
-curl -X POST http://localhost:8767/command -H "Content-Type: application/json" \
+curl -X POST http://localhost:8867/command -H "Content-Type: application/json" \
   -d '{"command":"<name>","params":{...}}'
 ```
 
 ### Batch (multiple commands)
 ```bash
-curl -X POST http://localhost:8767/batch -H "Content-Type: application/json" \
+curl -X POST http://localhost:8867/batch -H "Content-Type: application/json" \
   -d '{"commands":[{"command":"...","params":{...}},...]}'
 ```
 
@@ -234,11 +234,11 @@ Primitive tokens → Semantic tokens → Component CSS custom properties
 ### Binding via Bridge:
 ```bash
 # Bind sizing variable
-curl -X POST http://localhost:8767/command -H "Content-Type: application/json" \
+curl -X POST http://localhost:8867/command -H "Content-Type: application/json" \
   -d '{"command":"bind-variable","params":{"nodeId":"ID","field":"paddingLeft","variableId":"VariableID:..."}}'
 
 # Bind color variable (fills)
-curl -X POST http://localhost:8767/command -H "Content-Type: application/json" \
+curl -X POST http://localhost:8867/command -H "Content-Type: application/json" \
   -d '{"command":"bind-variable","params":{"nodeId":"ID","field":"fills","variableId":"VariableID:..."}}'
 ```
 
@@ -358,22 +358,22 @@ FRAME "preview" (VERTICAL, auto-height)
 
 ## Plugin Bridge Commands
 
-Available via HTTP API at `http://localhost:8767/command`.
+Available via HTTP API at `http://localhost:8867/command`.
 **IMPORTANT**: Use `params` key (NOT `args`) for command parameters.
 
 ### Request Format:
 ```bash
-curl -X POST http://localhost:8767/command -H "Content-Type: application/json" \
+curl -X POST http://localhost:8867/command -H "Content-Type: application/json" \
   -d '{"command":"<name>","params":{...}}'
 ```
 
 ### Batch:
 ```bash
-curl -X POST http://localhost:8767/batch -H "Content-Type: application/json" \
+curl -X POST http://localhost:8867/batch -H "Content-Type: application/json" \
   -d '{"commands":[{"command":"...","params":{...}},...]}'
 ```
 
-### Status: `GET http://localhost:8767/status`
+### Status: `GET http://localhost:8867/status`
 
 ### Core Commands:
 - `create-frame`, `create-text`, `create-rectangle`
@@ -394,7 +394,7 @@ curl -X POST http://localhost:8767/batch -H "Content-Type: application/json" \
 
 - File ID: `NjWXNCiJeb6mfICN1IN7OR`
 - Plugin API (via bridge) is READ-WRITE
-- Bridge: WebSocket 8766 (plugin), HTTP 8767 (commands)
+- Bridge: WebSocket 8866 (plugin), HTTP 8867 (commands)
 
 ### Page Node IDs:
 | Page | Node ID |
