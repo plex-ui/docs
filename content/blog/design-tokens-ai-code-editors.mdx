@@ -5,6 +5,8 @@ author: Sergey
 date: 2026-03-28
 ---
 
+<script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are design tokens and why do AI code editors miss them?","acceptedAnswer":{"@type":"Answer","text":"Design tokens are named values (like spacing/lg or surface/primary) that store design intent. AI editors miss them because they operate on raw CSS values from training data, not the semantic token layer defined in your design system."}},{"@type":"Question","name":"How to make AI code editors use design tokens?","acceptedAnswer":{"@type":"Answer","text":"Give the AI direct access to your token map via tools like AI Bridge, which reads variable bindings from Figma. Include your token names in prompts or project instructions so the model knows which token to use for each context."}},{"@type":"Question","name":"Why does AI-generated CSS drift from the design system?","acceptedAnswer":{"@type":"Answer","text":"AI models write plausible values like padding: 16px that look correct in isolation but miss the design system's token scale. Without knowing that 16px means --spacing-xl, the code cannot adapt to breakpoints, density changes, or theme switches."}}]})}} />
+
 AI code editors understand syntax. They do not understand design intent. That distinction matters more than most teams realize, because it means the model can produce CSS that compiles, passes review, and still produces the wrong UI.
 
 The failure mode is not broken code. It is code that looks close enough on one screen, in one color mode, at one viewport, then drifts everywhere else. The root cause is always the same: the model operates on raw values when it should operate on design tokens.
@@ -50,7 +52,7 @@ The most expensive mistake is structural. Ask an AI editor to build a button and
 </button>
 ```
 
-Your design system has a `Button` component with nine sizes and six color variants. Every size carries correct padding, font size, icon size, and radius. The AI-generated version captures one snapshot of one variant and hardcodes everything.
+Your design system has a `Button` component with [nine sizes](/blog/why-9-sizes) and six color variants. Every size carries correct padding, font size, icon size, and radius. The AI-generated version captures one snapshot of one variant and hardcodes everything.
 
 This is the pattern that compounds fastest. Every new feature gets its own version of the same component, each with slightly different geometry. [A design system exists to prevent exactly this](/blog/why-ai-needs-design-system).
 

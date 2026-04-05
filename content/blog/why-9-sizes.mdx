@@ -8,7 +8,7 @@ date: 2026-02-16
 import { SizingOverviewDemo } from "@/components/docs/SizingDemos"
 import { ComponentPreview } from "@/components/docs/ComponentPreview"
 
-Most UI kits stop at three or four button sizes. For quick prototypes, that is enough. For production products that mix dashboards, dense data views, settings forms, and marketing pages, it is not.
+Most UI kits — including popular options like [shadcn/ui](/compare/shadcn-ui) and [MUI](/compare/mui) — stop at three or four button sizes. For quick prototypes, that is enough. For production products that mix dashboards, dense data views, settings forms, and marketing pages, it is not.
 
 The result is familiar: teams start with the built-in sizes, hit layout pressure, then patch with custom heights and paddings. The library still exists, but sizing consistency is gone.
 
@@ -55,7 +55,7 @@ Plex UI uses a unified button size scale from `3xs` to `3xl`:
 - `2xl` 44px
 - `3xl` 48px
 
-The important part is not only the number of steps. It is that the same scale applies across primary controls: Button, Input, Select, SelectControl, and SegmentedControl.
+The important part is not only the number of steps. It is that the same scale applies across [primary controls](/docs/components): Button, Input, Select, SelectControl, and SegmentedControl.
 
 A button next to an input no longer requires manual tuning. Their geometry and spacing assumptions come from the same scale contract.
 
@@ -133,7 +133,7 @@ With nine explicit sizes shared in both Figma and React, parity becomes mechanic
 - apply the same size token in implementation,
 - get matching geometry by default.
 
-This is especially useful when AI tools are involved. Models perform better when size options are explicit and complete, because they can select from known tokens instead of inventing ad-hoc values.
+This is especially useful when [AI tools are involved](/blog/why-ai-needs-design-system). Models perform better when size options are explicit and complete, because they can select from known tokens instead of inventing ad-hoc values.
 
 ## What happens if you do not offer enough sizes
 

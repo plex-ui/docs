@@ -5,7 +5,7 @@ author: Sergey
 date: 2026-02-18
 ---
 
-Standard Figma MCPs — including the official read-only one — return raw values from your designs.
+[Standard Figma MCPs](/blog/figma-mcp-vs-ai-bridge) — including the official read-only one — return raw values from your designs.
 Bridge returns the actual design token variable bindings.
 
 That is the core difference.
@@ -41,7 +41,7 @@ The same button through Bridge `get-bound-variables`:
 }
 ```
 
-Now the AI writes `var(--color-background-primary-solid)` instead of `#181818`. Your design tokens handle light/dark mode, density scales, and theme changes automatically.
+Now the AI writes `var(--color-background-primary-solid)` instead of `#181818`. Your [design tokens](/blog/design-tokens-ai-code-editors) handle light/dark mode, density scales, and theme changes automatically.
 
 ## Two-way flow
 
@@ -56,7 +56,7 @@ Your AI can create a component in Figma, bind it to design tokens, then read tho
 
 Bridge works with any AI model that can make HTTP calls:
 
-- Claude, GPT, Cursor, Codex, Gemini, Copilot, Windsurf, and others.
+- [Claude](/blog/connect-claude-code-to-figma), GPT, [Cursor](/blog/connect-cursor-to-figma), Codex, Gemini, Copilot, Windsurf, and others.
 - Local HTTP API at `http://localhost:8867`.
 - No vendor lock-in to one assistant.
 

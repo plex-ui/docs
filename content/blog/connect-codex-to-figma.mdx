@@ -5,6 +5,8 @@ author: Sergey
 date: 2026-04-03
 ---
 
+<script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can OpenAI Codex access Figma designs?","acceptedAnswer":{"@type":"Answer","text":"Yes, but it requires a tunnel. Since Codex runs in a cloud sandbox, you need to expose your local AI Bridge server via ngrok or cloudflared so the sandbox can reach your Figma file over the internet."}},{"@type":"Question","name":"How to connect OpenAI Codex to Figma?","acceptedAnswer":{"@type":"Answer","text":"Start AI Bridge locally, expose it via a tunnel like ngrok http 8867, then pass the tunnel URL to Codex in your task prompt. Codex can then read Figma components and design tokens from its cloud sandbox."}},{"@type":"Question","name":"Why can't Codex connect to Figma directly?","acceptedAnswer":{"@type":"Answer","text":"Codex runs in a remote cloud sandbox that cannot reach localhost. Unlike Claude Code or Cursor which run locally, Codex needs AI Bridge exposed via a public tunnel to access your Figma designs."}}]})}} />
+
 OpenAI Codex is a cloud-based coding agent. You give it a task, it spins up a sandboxed environment, writes code, runs tests, and opens a PR. No local terminal, no IDE — just autonomous execution.
 
 Connecting Codex to Figma means giving that sandbox access to the [AI Bridge](/bridge) API. The challenge: Bridge runs locally on your machine at `localhost:8867`, and Codex runs in a remote cloud sandbox that cannot reach your localhost.
@@ -108,7 +110,7 @@ function Card({ title, children }) {
 }
 ```
 
-No hardcoded `#181818`. No magic `16px`. Every value traces back to a design token from Figma.
+No hardcoded `#181818`. No magic `16px`. Every value traces back to a [design token](/blog/design-tokens-ai-code-editors) from Figma.
 
 ## Codex vs Claude Code vs Cursor
 
@@ -137,6 +139,6 @@ Tunnels expose your Bridge to the internet. A few things to keep in mind:
 
 ## Get started
 
-AI Bridge works with Codex, Claude Code, Cursor, and any tool that can make HTTP calls.
+AI Bridge works with Codex, Claude Code, Cursor, and [any model that can make HTTP calls](/blog/figma-code-design-bridge-any-model).
 
 [Get AI Bridge →](/bridge)

@@ -5,6 +5,8 @@ author: Sergey
 date: 2026-03-25
 ---
 
+<script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between Figma MCP and AI Bridge?","acceptedAnswer":{"@type":"Answer","text":"Figma MCPs are read-only and return raw computed values like hex colors and pixel sizes. AI Bridge reads and writes the design token layer — returning semantic variable names like spacing/lg instead of raw 12px values."}},{"@type":"Question","name":"Do I need Figma MCP or AI Bridge?","acceptedAnswer":{"@type":"Answer","text":"Use an MCP if you need AI to understand layout structure and text content. Use AI Bridge if you need production CSS with design token references. For full design-to-code workflows, Bridge gives the AI the semantic layer that MCPs miss."}},{"@type":"Question","name":"Can I use Figma MCP and AI Bridge together?","acceptedAnswer":{"@type":"Answer","text":"Yes. MCPs handle structural queries well — traversing the node tree, reading text, understanding hierarchy. AI Bridge adds the token layer on top, providing variable bindings that produce production-grade CSS with var() references."}}]})}} />
+
 Both Figma MCPs and AI Bridge let your AI read Figma files. They solve different problems. MCPs give you read access to layout, text, and hierarchy. Bridge gives you read-write access to the design token layer underneath.
 
 Here is when to use which.
@@ -96,11 +98,11 @@ Common cases where an MCP is sufficient:
 
 Bridge matters when there is a token system and you want the AI to use it. Specifically:
 
-**Production CSS with `var()` references.** If your codebase uses CSS custom properties mapped to design tokens, you need the AI to output `var(--spacing-lg)` instead of `12px`. MCPs cannot provide this mapping because they do not read variable bindings.
+**Production CSS with `var()` references.** If your codebase uses CSS custom properties mapped to [design tokens](/blog/design-tokens-ai-code-editors), you need the AI to output `var(--spacing-lg)` instead of `12px`. MCPs cannot provide this mapping because they do not read variable bindings.
 
-**Dark mode and theming.** Hardcoded hex values break across themes. Token references adapt automatically. Bridge returns the token name; the AI uses it directly in code.
+**[Dark mode](/blog/ai-generated-css-dark-mode) and theming.** Hardcoded hex values break across themes. Token references adapt automatically. Bridge returns the token name; the AI uses it directly in code.
 
-**Two-way design workflows.** Bridge is not read-only. Your AI can create a component in Figma, bind it to the correct tokens, and verify the result — all through the same API. This is useful when the AI is building Figma components alongside code, as described in [Connect Claude Code to Figma](/blog/connect-claude-code-to-figma).
+**Two-way design workflows.** Bridge is not read-only. Your AI can create a component in Figma, bind it to the correct tokens, and verify the result — all through the same API. This is useful when the AI is building Figma components alongside code, as described in [Connect Claude Code to Figma](/blog/connect-claude-code-to-figma) and [Connect Cursor to Figma](/blog/connect-cursor-to-figma).
 
 **Consistency at scale.** When an AI builds 30 components over a week, drift between design and code compounds. Token bindings eliminate drift by construction — the AI references the same source of truth the designer used.
 

@@ -5,7 +5,9 @@ author: Sergey
 date: 2026-04-02
 ---
 
-The Figma-to-React pipeline has been broken for years. Export plugins produce div soup with hardcoded values. Manual translation is accurate but slow. AI tools get the structure right but miss design tokens entirely.
+<script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How to convert Figma designs to React components with AI?","acceptedAnswer":{"@type":"Answer","text":"Use AI Bridge to give your AI editor direct access to Figma's design token layer. The AI reads variable bindings — not just pixels — and generates React components with CSS custom properties that match your design system."}},{"@type":"Question","name":"What is the best tool for Figma to React conversion?","acceptedAnswer":{"@type":"Answer","text":"Token-aware tools like AI Bridge produce the best results because they read design intent, not rendered pixels. The AI gets variable names like spacing/lg instead of raw values, generating production CSS with var() references."}},{"@type":"Question","name":"Why do Figma export plugins produce bad React code?","acceptedAnswer":{"@type":"Answer","text":"Export plugins read the visual tree and produce nested divs with hardcoded inline styles. They miss component abstraction, design token references, and semantic meaning — outputting values like background: #181818 instead of var(--color-background-primary-solid)."}}]})}} />
+
+The Figma-to-React pipeline has been broken for years. Export plugins produce div soup with hardcoded values. Manual translation is accurate but slow. AI tools get the structure right but miss [design tokens](/blog/design-tokens-ai-code-editors) entirely.
 
 The missing piece is not smarter AI. It is giving AI access to what designers actually defined: variable bindings, not rendered pixels.
 
@@ -165,7 +167,7 @@ All of them. Bridge exposes a local HTTP API at `localhost:8867`. Any model that
 
 - **Claude Code** — native tool use, reads Bridge commands directly
 - **Cursor** — via MCP configuration or terminal commands
-- **Codex** — HTTP calls from code generation context
+- **[Codex](/blog/connect-codex-to-figma)** — HTTP calls from code generation context
 - **GPT / ChatGPT** — through function calling or plugin interface
 - **Gemini** — via tool definitions
 

@@ -87,7 +87,7 @@ That is what makes AI throughput sustainable.
 
 Most component libraries expose too few control sizes for real products. If your only options are small, default, and large, AI will keep reaching for custom overrides to satisfy context-specific constraints. That reintroduces inconsistency.
 
-Plex UI uses a nine-step control scale from 22px to 48px across Button, Input, Select, SelectControl, and SegmentedControl. This matters for AI-generated interfaces because the model can pick precise intent without custom CSS:
+Plex UI uses a [nine-step control scale](/blog/why-9-sizes) from 22px to 48px across Button, Input, Select, SelectControl, and SegmentedControl. This matters for AI-generated interfaces because the model can pick precise intent without custom CSS:
 
 - compact admin tables use `2xs` and `xs`,
 - standard forms use `md`,
@@ -104,13 +104,13 @@ Try switching sizes below — every control responds to the same `size` prop:
 
 ## Token architecture is what stops color and spacing drift
 
-Even with shared components, drift appears if tokens are vague. A robust AI code editor design system should have explicit token layers:
+Even with shared components, drift appears if tokens are vague. A robust AI code editor design system should have [explicit token layers](/blog/design-tokens-ai-code-editors):
 
 1. Primitive tokens for raw palettes and alpha values.
 2. Semantic tokens for role-based meaning (`text`, `border`, `surface`, `danger`).
 3. Component tokens for per-component behavior.
 
-This architecture gives AI tools a stable map. They do not need to decide between five similar grays or guess whether error text should be hardcoded red. They reference semantic intent and inherit proper light/dark behavior.
+This architecture gives AI tools a stable map. They do not need to decide between five similar grays or guess whether error text should be hardcoded red. They reference semantic intent and inherit proper [light/dark behavior](/blog/ai-generated-css-dark-mode).
 
 In practice, this is the difference between "works on one screen" and "remains coherent across fifty screens."
 
@@ -144,6 +144,6 @@ AI coding tools are now good enough to create UI quickly. They are not responsib
 
 If your team is evaluating claude ui components stacks or building a cursor design system workflow, optimize for constraints first and generation second. The model can only be as consistent as the contract you hand it.
 
-Plex UI exists to make that contract explicit: shared components, a full control-size scale, and token architecture that maps cleanly from Figma to React.
+Plex UI exists to make that contract explicit: shared [components](/docs/components), a full control-size scale, and token architecture that maps cleanly from Figma to React with [AI Bridge](/bridge).
 
 Fast output is easy. Repeatable quality requires a system.
