@@ -101,6 +101,7 @@
 }
 
 .Label {
+  font-weight: var(--field-label-font-weight);
   cursor: pointer;
 
   /* Use padding so that the spacing is intrinsic to the label, remaining clickable. */
