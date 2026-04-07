@@ -3,7 +3,7 @@ title: Tag Input
 description: Enter multiple unique tags
 ---
 
-import { TagInputBaseDemoWithControls } from '@/components/docs/TagInputDemo'
+import { TagInputBaseDemoWithControls, TagInputSuggestionsDemo } from '@/components/docs/TagInputDemo'
 
 <UsageBlock>{`import { TagInput } from "@plexui/ui/components/TagInput";`}</UsageBlock>
 
@@ -12,11 +12,38 @@ import { TagInputBaseDemoWithControls } from '@/components/docs/TagInputDemo'
 ### Overview
 
 <ComponentPreview code={`<TagInput
-  placeholder="example@example.com"
-  validator={(email) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)}
+  placeholder="Add a tag..."
   rows={3}
 />`} previewMinHeight={168}>
   <TagInputBaseDemoWithControls />
+</ComponentPreview>
+
+### Suggestions
+
+<ComponentPreview details={<>Combine <code>TagInput</code> with clickable buttons to let users add tags by clicking suggestions or typing manually. Suggestions disappear once selected.</>} code={`const SUGGESTIONS = ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Node.js', 'GraphQL', 'PostgreSQL', 'Redis', 'Docker', 'AWS'];
+
+const [tags, setTags] = useState([
+  { value: 'React', valid: true },
+  { value: 'TypeScript', valid: true },
+]);
+
+const selectedValues = new Set(tags.map((t) => t.value));
+const available = SUGGESTIONS.filter((s) => !selectedValues.has(s));
+
+<div className="flex flex-col gap-3">
+  <TagInput value={tags} onChange={setTags} placeholder="Add a skill..." />
+  {available.length > 0 && (
+    <div className="flex flex-wrap gap-1.5">
+      {available.map((s) => (
+        <Button key={s} size="xs" color="secondary" variant="soft" pill={false}
+          onClick={() => setTags([...tags, { value: s, valid: true }])}>
+          {s}
+        </Button>
+      ))}
+    </div>
+  )}
+</div>`} previewMinHeight={168}>
+  <TagInputSuggestionsDemo />
 </ComponentPreview>
 
 ## Reference

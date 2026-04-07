@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TagInput } from '@plexui/ui/components/TagInput';
+import { TagInput, type Tag } from '@plexui/ui/components/TagInput';
+import { Button } from '@plexui/ui/components/Button';
 import { Switch } from '@plexui/ui/components/Switch';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 
@@ -59,8 +60,7 @@ export function TagInputBaseDemo() {
     <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
       <div style={{ width: 350 }}>
         <TagInput
-          placeholder="example@example.com"
-          validator={(email) => EMAIL_REGEX.test(email)}
+          placeholder="Add a tag..."
           rows={3}
         />
       </div>
@@ -93,13 +93,51 @@ export function TagInputBaseDemoWithControls() {
       <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
         <div style={{ width: 350 }}>
           <TagInput
-            placeholder="example@example.com"
-            validator={(email) => EMAIL_REGEX.test(email)}
+            placeholder="Add a tag..."
             rows={Number(rows)}
             autoFocus={autoFocus}
           />
         </div>
       </div>
     </>
+  );
+}
+
+const SUGGESTIONS = [
+  'React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Node.js',
+  'GraphQL', 'PostgreSQL', 'Redis', 'Docker', 'AWS',
+];
+
+export function TagInputSuggestionsDemo() {
+  const [tags, setTags] = useState<Tag[]>([
+    { value: 'React', valid: true },
+    { value: 'TypeScript', valid: true },
+  ]);
+
+  const selectedValues = new Set(tags.map((t) => t.value));
+  const available = SUGGESTIONS.filter((s) => !selectedValues.has(s));
+
+  const addSuggestion = (value: string) => {
+    if (selectedValues.has(value)) return;
+    setTags((prev) => [...prev, { value, valid: true }]);
+  };
+
+  return (
+    <div className="flex w-full max-w-sm flex-col gap-3">
+      <TagInput
+        value={tags}
+        onChange={setTags}
+        placeholder="Add a skill..."
+      />
+      {available.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {available.map((suggestion) => (
+            <Button key={suggestion} size="xs" color="secondary" variant="soft" pill={false} onClick={() => addSuggestion(suggestion)}>
+              {suggestion}
+            </Button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

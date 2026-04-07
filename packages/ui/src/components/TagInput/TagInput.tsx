@@ -433,7 +433,7 @@ export const TagInput = (props: TagInputProps) => {
                 role="button"
                 aria-label="Remove item"
               >
-                <X height={14} width={14} />
+                <X />
               </div>
             </div>
           ))}
