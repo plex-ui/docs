@@ -1389,7 +1389,7 @@ const CustomSelectOption = (option: Option) => {
           )}
         </div>
         {option.description && (
-          <div className={s.OptionInner}>
+          <div className={clsx(s.OptionInner, s.OptionDescription)}>
             {checkPosition === 'start' && <div className={s.OptionIndicatorSlot} />}
             {option.description}
           </div>

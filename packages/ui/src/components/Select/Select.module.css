@@ -147,6 +147,11 @@
   height: 16px;
 }
 
+.OptionDescription {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+}
+
 .OptionGroupHeading {
   display: flex;
   align-items: center;
