@@ -32,7 +32,7 @@ export type DateInputProps = {
   ref?: React.Ref<HTMLInputElement | null>
 } & Omit<
   InputProps,
-  "value" | "defaultValue" | "onChange" | "onInput" | "onClear" | "ref" | "type"
+  "value" | "defaultValue" | "onChange" | "onInput" | "onClear" | "ref" | "type" | "min" | "max"
 >
 
 export const DateInput = (props: DateInputProps) => {
