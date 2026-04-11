@@ -95,7 +95,7 @@ export function DateInputBaseDemo() {
         <div className="w-[200px]">
           <DateInput
             value={date}
-            onChange={setDate}
+            onChange={(v) => setDate(v)}
             size={size}
             variant={variant}
             pill={pill}
@@ -114,7 +114,7 @@ export function DateInputLimitsDemo() {
     <div className="w-[200px]">
       <DateInput
         value={date}
-        onChange={setDate}
+        onChange={(v) => setDate(v)}
         min={today.minus({ days: 30 }).startOf('day')}
         max={today.plus({ days: 30 }).endOf('day')}
         clearable
@@ -127,7 +127,7 @@ export function DateInputUSFormatDemo() {
   const [date, setDate] = useState<DateTime | null>(null);
   return (
     <div className="w-[200px]">
-      <DateInput value={date} onChange={setDate} mode="mm/dd/yyyy" separator="/" clearable />
+      <DateInput value={date} onChange={(v) => setDate(v)} mode="mm/dd/yyyy" separator="/" clearable />
     </div>
   );
 }
@@ -136,7 +136,7 @@ export function DateInputISOFormatDemo() {
   const [date, setDate] = useState<DateTime | null>(null);
   return (
     <div className="w-[200px]">
-      <DateInput value={date} onChange={setDate} mode="yyyy/mm/dd" separator="-" clearable />
+      <DateInput value={date} onChange={(v) => setDate(v)} mode="yyyy/mm/dd" separator="-" clearable />
     </div>
   );
 }
@@ -146,7 +146,7 @@ export function DateInputWithFieldDemo() {
   return (
     <div className="w-[200px]">
       <Field label="Date of birth" description="Enter your date of birth">
-        <DateInput value={date} onChange={setDate} clearable />
+        <DateInput value={date} onChange={(v) => setDate(v)} clearable />
       </Field>
     </div>
   );
@@ -157,7 +157,7 @@ export function DateInputWithFieldErrorDemo() {
   return (
     <div className="w-[200px]">
       <Field label="Date of birth" errorMessage={!date ? 'Date is required' : undefined}>
-        <DateInput value={date} onChange={setDate} clearable />
+        <DateInput value={date} onChange={(v) => setDate(v)} clearable />
       </Field>
     </div>
   );
@@ -167,7 +167,7 @@ export function DateInputWithTimeDemo() {
   const [date, setDate] = useState<DateTime | null>(null);
   return (
     <div className="w-[260px]">
-      <DateInput value={date} onChange={setDate} timeMode="HH:MM" clearable />
+      <DateInput value={date} onChange={(v) => setDate(v)} timeMode="HH:MM" clearable />
     </div>
   );
 }
@@ -176,7 +176,7 @@ export function DateInputWithSecondsDemo() {
   const [date, setDate] = useState<DateTime | null>(null);
   return (
     <div className="w-[300px]">
-      <DateInput value={date} onChange={setDate} timeMode="HH:MM:SS" clearable />
+      <DateInput value={date} onChange={(v) => setDate(v)} timeMode="HH:MM:SS" clearable />
     </div>
   );
 }
@@ -185,7 +185,7 @@ export function DateInputDisabledDemo() {
   const [date, setDate] = useState<DateTime | null>(DateTime.local(2025, 1, 1));
   return (
     <div className="w-[200px]">
-      <DateInput value={date} onChange={setDate} disabled />
+      <DateInput value={date} onChange={(v) => setDate(v)} disabled />
     </div>
   );
 }
