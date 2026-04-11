@@ -107,7 +107,7 @@ import { Select, Option } from "@plexui/ui/components/Select";
 <details>
 <summary>Full component list</summary>
 
-Alert, Avatar, AvatarGroup, Badge, Button, ButtonLink, Checkbox, CodeBlock, CopyTooltip, DatePicker, DateRangePicker, EmptyMessage, FieldError, FloatingLabelInput, Icon, Image, Indicators (LoadingIndicator, LoadingDots, CircularProgress), Input, Markdown, Menu, PlexUIProvider, Popover, ProgressSteps, RadioGroup, SegmentedControl, Select, SelectControl, ShimmerText, Sidebar, Skeleton, Slider, Switch, TagInput, TextLink, Textarea, Tooltip, Transition (Animate, AnimateLayout, AnimateLayoutGroup, TransitionGroup)
+Alert, Avatar, AvatarGroup, Badge, Button, ButtonLink, Checkbox, CodeBlock, CopyTooltip, DateInput, DatePicker, DateRangePicker, EmptyMessage, FieldError, FloatingLabelInput, Icon, Image, Indicators (LoadingIndicator, LoadingDots, CircularProgress), Input, Markdown, Menu, PlexUIProvider, Popover, ProgressSteps, RadioGroup, SegmentedControl, Select, SelectControl, ShimmerText, Sidebar, Skeleton, Slider, Switch, TagInput, TextLink, Textarea, Tooltip, Transition (Animate, AnimateLayout, AnimateLayoutGroup, TransitionGroup)
 
 </details>
 
