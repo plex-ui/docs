@@ -119,7 +119,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "4.0.17",
     "@types/lodash": "4.17.16",
-    "@types/luxon": "3.6.2",
+    "@types/luxon": "^3.7.1",
     "@types/mdast": "^4.0.4",
     "@types/postcss-functions": "4.0.4",
     "@types/postcss-mixins": "9.0.6",
