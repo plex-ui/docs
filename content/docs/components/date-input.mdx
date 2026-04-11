@@ -1,0 +1,103 @@
+---
+title: Date Input
+description: Masked text input for typing dates with automatic formatting and validation
+---
+
+import {
+  DateInputBaseDemo,
+  DateInputLimitsDemo,
+  DateInputUSFormatDemo,
+  DateInputISOFormatDemo,
+  DateInputWithTimeDemo,
+  DateInputWithSecondsDemo,
+  DateInputWithFieldDemo,
+  DateInputWithFieldErrorDemo,
+  DateInputDisabledDemo,
+} from "@/components/docs/DateInputDemos"
+
+<UsageBlock>{`import { DateInput } from "@plexui/ui/components/DateInput";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`const [date, setDate] = useState<DateTime | null>(null)
+<DateInput value={date} onChange={setDate} clearable />`} previewMinHeight={168}>
+  <DateInputBaseDemo />
+</ComponentPreview>
+
+### With time
+
+<ComponentPreview details={<>Pass <code>timeMode="HH:MM"</code> to enable date + time input in one field.</>} code={`<DateInput value={date} onChange={setDate} timeMode="HH:MM" clearable />`} previewMinHeight={80}>
+  <DateInputWithTimeDemo />
+</ComponentPreview>
+
+### With seconds
+
+<ComponentPreview details={<>Use <code>timeMode="HH:MM:SS"</code> for second-level precision.</>} code={`<DateInput timeMode="HH:MM:SS" ... />`} previewMinHeight={80}>
+  <DateInputWithSecondsDemo />
+</ComponentPreview>
+
+### Limits
+
+<ComponentPreview details={<>Use <code>min</code> and <code>max</code> to restrict the date range. The mask prevents entering values outside the allowed range.</>} code={`<DateInput
+  min={today.minus({ days: 30 }).startOf('day')}
+  max={today.plus({ days: 30 }).endOf('day')}
+  clearable
+/>`} previewMinHeight={80}>
+  <DateInputLimitsDemo />
+</ComponentPreview>
+
+### US format
+
+<ComponentPreview details={<>Set <code>mode="mm/dd/yyyy"</code> and <code>separator="/"</code> for US-style date formatting.</>} code={`<DateInput mode="mm/dd/yyyy" separator="/" ... />`} previewMinHeight={80}>
+  <DateInputUSFormatDemo />
+</ComponentPreview>
+
+### ISO format
+
+<ComponentPreview details={<>Set <code>mode="yyyy/mm/dd"</code> and <code>separator="-"</code> for ISO 8601 formatting.</>} code={`<DateInput mode="yyyy/mm/dd" separator="-" ... />`} previewMinHeight={80}>
+  <DateInputISOFormatDemo />
+</ComponentPreview>
+
+### With Field
+
+<ComponentPreview details={<>Wrap with <code>Field</code> to add a label, description, and automatic accessibility attributes.</>} code={`<Field label="Date of birth" description="Enter your date of birth">
+  <DateInput value={date} onChange={setDate} clearable />
+</Field>`} previewMinHeight={100}>
+  <DateInputWithFieldDemo />
+</ComponentPreview>
+
+### Validation
+
+<ComponentPreview details={<>Pass <code>errorMessage</code> to <code>Field</code> to display a validation error.</>} code={`<Field label="Date of birth" errorMessage={!date ? 'Date is required' : undefined}>
+  <DateInput value={date} onChange={setDate} clearable />
+</Field>`} previewMinHeight={100}>
+  <DateInputWithFieldErrorDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview code={`<DateInput disabled value={DateTime.local(2025, 1, 1)} onChange={...} />`} previewMinHeight={80}>
+  <DateInputDisabledDemo />
+</ComponentPreview>
+
+## Reference
+
+<PropsTable data={[
+  { prop: "value", type: "DateTime | null", description: "Selected date (Luxon DateTime)" },
+  { prop: "onChange", type: "(date: DateTime | null) => void", description: "Called when a complete valid date is entered or the field is cleared" },
+  { prop: "mode", type: "MaskitoDateMode", default: '"dd/mm/yyyy"', description: "Date format mode: dd/mm/yyyy, mm/dd/yyyy, yyyy/mm/dd, etc." },
+  { prop: "separator", type: "string", default: '"."', description: "Character between date parts" },
+  { prop: "timeMode", type: "MaskitoTimeMode", description: "Enable time input: HH:MM, HH:MM:SS, etc." },
+  { prop: "dateTimeSeparator", type: "string", default: '", "', description: "Separator between date and time parts" },
+  { prop: "timeStep", type: "number", default: "0", description: "Arrow-key increment step for time (ms)" },
+  { prop: "min", type: "DateTime", description: "Earliest allowed date" },
+  { prop: "max", type: "DateTime", description: "Latest allowed date" },
+  { prop: "clearable", type: "boolean", default: "false", description: "Show clear button when input has a value" },
+  { prop: "size", type: "ControlSize", default: '"md"', description: "Input size (3xs–3xl)" },
+  { prop: "variant", type: '"outline" | "soft"', default: '"outline"', description: "Visual style" },
+  { prop: "disabled", type: "boolean", default: "false", description: "Disable input" },
+  { prop: "invalid", type: "boolean", default: "false", description: "Mark as invalid" },
+  { prop: "placeholder", type: "string", description: "Auto-generated from format if not set" },
+]} />

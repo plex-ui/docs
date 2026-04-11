@@ -40,6 +40,7 @@ const footerSections = [
       { label: 'Checkbox', href: '/docs/components/checkbox' },
       { label: 'Code Block', href: '/docs/components/code-block' },
       { label: 'Copy Tooltip', href: '/docs/components/copy-tooltip' },
+      { label: 'Date Input', href: '/docs/components/date-input' },
       { label: 'Date Picker', href: '/docs/components/date-picker' },
       { label: 'Date Range Picker', href: '/docs/components/date-range-picker' },
       { label: 'Dialog', href: '/docs/components/dialog' },
