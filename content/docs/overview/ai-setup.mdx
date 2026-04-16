@@ -40,6 +40,16 @@ curl -o AGENTS.md https://raw.githubusercontent.com/plex-ui/docs/master/packages
 
 Place `AGENTS.md` in your project root. OpenCode reads it automatically.
 
+### Codex
+
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md
+```
+
+Codex auto-loads `AGENTS.md` from the git repo root on every session (up to 32 KiB). For a user-level install that applies to every project, write to `~/.codex/AGENTS.md` instead. See the [Codex AGENTS.md docs](https://developers.openai.com/codex/guides/agents-md).
+
+For a deeper integration — slash-command skill, auto-invocation, UI metadata — use the [Plex UI skill](/docs/overview/skills#codex) instead.
+
 ### Manual download
 
 [Download AGENT.md](https://raw.githubusercontent.com/plex-ui/docs/master/packages/ui/AGENT.md) and rename it for your editor.
