@@ -15,6 +15,7 @@ The most flexible UI kit for Figma & React. Production-grade components with pix
 - **14 hooks** — useBreakpoints, useScrollable, and more
 - **Full dark mode** — via CSS `light-dark()` and Figma variable modes
 - **Built for AI code editors** — production-grade building blocks for Claude, Cursor, Codex & AI-driven workflows
+- **Installable AI skill** — one-line setup for Claude Code and Codex, auto-invokes on `@plexui/ui`
 
 ## Quick Start
 
@@ -35,6 +36,19 @@ export function Example() {
   return <Button color="primary" size="md">Get started</Button>;
 }
 ```
+
+### AI coding agents
+
+```shell
+# Claude Code
+/plugin marketplace add plex-ui/docs
+/plugin install plex-ui@plex-ui
+
+# Codex
+npx degit plex-ui/docs/skills/plexui/skills/plex-ui .agents/skills/plex-ui
+```
+
+See [Skills](https://plexui.com/docs/overview/skills) for Cursor, Windsurf, Copilot, and other editors.
 
 ## Figma Design System PRO
 

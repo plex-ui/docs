@@ -52,7 +52,10 @@ export function AiFoundationSection() {
           </p>
         </div>
 
-        <div className="mt-8 flex">
+        <div className="mt-8 flex flex-wrap gap-3">
+          <ButtonLink href="/docs/overview/skills" color="primary" variant="solid" size="md" pill={false}>
+            Install as skill
+          </ButtonLink>
           <ButtonLink href="/docs/overview/ai-setup" color="secondary" variant="outline" size="md" pill={false}>
             Set up for AI coding
           </ButtonLink>
