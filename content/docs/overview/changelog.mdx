@@ -7,6 +7,129 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.7.97 — 2026-04-16
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Installable AI skill</strong> (<a href="/docs/overview/skills">Skills</a>)<br/>
+    Plex UI now ships as a Claude Code plugin marketplace and a Codex skill. One-step install in Claude Code via <code>/plugin marketplace add plex-ui/docs</code> + <code>/plugin install plex-ui@plex-ui</code>; one-line install in Codex via <code>npx degit plex-ui/docs/skills/plexui/skills/plex-ui .agents/skills/plex-ui</code>. Ships <code>agents/openai.yaml</code> with Codex UI metadata (display name, SVG + PNG icons, brand color, default prompt, invocation policy) and <code>.claude-plugin/marketplace.json</code> with full manifest. Standalone <code>SKILL.md</code> install also supported for any agent that reads the open Agent Skills format.
+  </li>
+  <li>
+    <strong>DateInput component</strong> (<a href="/docs/components/date-input">DateInput</a>)<br/>
+    New masked date and datetime input with Luxon-backed value parsing, configurable format, and min/max bounds.
+  </li>
+  <li>
+    <strong>FloatingLabelSelect multi-select</strong> (<a href="/docs/components/floating-label-input#multiple-selection">Floating Label Input</a>)<br/>
+    New demo pairing <code>FloatingLabelSelect</code> with a <code>multiple</code> + <code>clearable</code> <code>Select</code>. Trigger shows the single label when one value is picked, <em>N skills</em> when more, with an integrated clear button that resets the list.
+  </li>
+  <li>
+    <strong>Skill promoted on marketing surfaces</strong><br/>
+    Homepage Hero CTA <em>Install as skill</em>, AiFoundationSection primary CTA, expanded FAQ answer with the one-line install commands for each agent, and a Quick Start block in the repo <code>README.md</code>.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>figma-sidebar-mcp skill missing frontmatter</strong><br/>
+    <code>skills/figma-sidebar-mcp/SKILL.md</code> was shipped without a YAML frontmatter block, so Claude Code never registered it as a skill. Added <code>name</code> and <code>description</code> per the <a href="https://code.claude.com/docs/en/skills">official Claude Code skill spec</a>.
+  </li>
+  <li>
+    <strong>Hero and /bridge pills removed, BridgePromo width balanced</strong><br/>
+    Dropped the &ldquo;New · Plex UI ships as…&rdquo; pill above the Hero icon tiles and the &ldquo;Design tokens, not just pixels&rdquo; eyebrow pill on <code>/bridge</code> — both were visual clutter. BridgePromo <code>LandingSection</code> now uses <code>maxWidth=&quot;2xl&quot;</code> so the card width matches its paragraph instead of stretching to a 4xl container.
+  </li>
+  <li>
+    <strong>Luxon type conflicts</strong> (<a href="/docs/components/date-input">DateInput</a>)<br/>
+    Aligned <code>@types/luxon</code> versions across workspace and fixed a <code>DateTime</code> / <code>min</code>/<code>max</code> prop type mismatch in DateInput demos.
+  </li>
+</ul>
+
+---
+
+## 0.7.96 — 2026-04-08
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Select description styling</strong> (<a href="/docs/components/select">Select</a>)<br/>
+    Polished the option description treatment and rewrote <a href="/docs/components/empty-message">EmptyMessage</a> docs so LLMs pick the right component and props on the first try.
+  </li>
+</ul>
+
+---
+
+## 0.7.95 — 2026-04-07
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>TagInput tags restyled</strong> (<a href="/docs/components/tag-input">TagInput</a>)<br/>
+    Tags now render as soft buttons for consistency with the rest of the system. Added a new suggestions demo.
+  </li>
+</ul>
+
+---
+
+## 0.7.94 — 2026-04-06
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Switch label font-weight</strong> (<a href="/docs/components/switch">Switch</a>)<br/>
+    Switch label font-weight now matches <code>Field</code> label (medium) — previously rendered lighter than surrounding form labels.
+  </li>
+</ul>
+
+---
+
+## 0.7.93 — 2026-04-05
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Plain text FloatingLabelSelect example</strong> (<a href="/docs/components/floating-label-input#select">Floating Label Input</a>)<br/>
+    New example without icons — a cleaner reference for simple role / category selects.
+  </li>
+  <li>
+    <strong>SEO blog posts (10 new)</strong> (<a href="/blog">Blog</a>)<br/>
+    First push of 7 posts covering AI + design systems, Figma MCP, Bridge, design tokens, and component-library comparisons. Second push of 3 more with FAQ schema, internal linking, and updated sitemap.
+  </li>
+  <li>
+    <strong>Comparison pages</strong> (<a href="/compare/radix-ui">Radix UI</a>, <a href="/compare/mui">MUI</a>, <a href="/compare/ant-design">Ant Design</a>)<br/>
+    Three new comparison pages alongside the existing <a href="/compare/shadcn-ui">shadcn/ui</a> and <a href="/compare/untitled-ui">Untitled UI</a> pages. Footer and sitemap updated.
+  </li>
+  <li>
+    <strong>Figma AI Bridge branding</strong> (<a href="/bridge">Bridge</a>)<br/>
+    Renamed &ldquo;Figma Bridge&rdquo; to &ldquo;Figma AI Bridge&rdquo; across all pages and metadata. Landing page repositioned to lead with design tokens; ports in docs corrected (8766/8767 → 8866/8867).
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Floating label alignment</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    Set <code>transform-origin: left</code> so the label scales from its left edge instead of jumping horizontally when it floats up.
+  </li>
+  <li>
+    <strong>Blog code block styling</strong> (<a href="/blog">Blog</a>)<br/>
+    Unified Plex code block styles across blog and docs. Prose overrides for <code>pre</code>/<code>code</code>, default <code>text</code> language for bare fences, removed outdated Bridge demo video, and replaced placeholder <code>/some-path</code> links in <a href="/docs/components/button-link">ButtonLink</a> examples.
+  </li>
+  <li>
+    <strong>Comparison pages polish</strong><br/>
+    Left-aligned table headers across all comparison pages, fixed typography consistency.
+  </li>
+</ul>
+
+---
+
 ## 0.7.92 — 2026-04-05
 
 ### Added
