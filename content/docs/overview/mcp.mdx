@@ -75,6 +75,24 @@ Add to your OpenCode MCP configuration:
 }
 ```
 
+### Codex
+
+From the CLI:
+
+```bash
+codex mcp add plexui -- npx -y @plexui/mcp@latest
+```
+
+Or edit `~/.codex/config.toml` (global) / `.codex/config.toml` (project):
+
+```toml
+[mcp_servers.plexui]
+command = "npx"
+args = ["-y", "@plexui/mcp@latest"]
+```
+
+Restart Codex to pick up the server. See the [Codex MCP docs](https://developers.openai.com/codex/mcp) for OAuth, streamable HTTP, and per-tool config options.
+
 ## Available Tools
 
 The MCP server exposes 4 tools:
