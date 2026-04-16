@@ -1,3 +1,8 @@
+---
+name: figma-sidebar-mcp
+description: Create or edit Plex UI Sidebar components in Figma via the local MCP Bridge at http://localhost:8767. Use when working on the Sidebar page (6610:356461), building or repairing sidebar bricks (sidebar-menu-item, sidebar-group-label, sidebar-search, sidebar-card, sidebar-skeleton), wiring examples, reusing Badge/Input instance components, or diagnosing bridge connection issues.
+---
+
 # Sidebar Figma MCP Skill
 
 Use this skill when creating or editing Sidebar UI kit bricks in Figma via the local MCP Bridge (`http://localhost:8767`).
