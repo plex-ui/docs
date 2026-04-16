@@ -42,7 +42,7 @@ const faqs = [
   {
     question: 'How do I set up Plex UI for Claude, Cursor, or Codex?',
     answer:
-      'Install @plexui/ui from npm and add the CSS import to your global stylesheet. The AI will recognize component names and props automatically. See the installation guide for the full setup.',
+      'Install @plexui/ui from npm and add the CSS import to your global stylesheet. For Claude Code, the one-step install is "/plugin marketplace add plex-ui/docs" followed by "/plugin install plex-ui@plex-ui" — it auto-invokes the Plex UI skill whenever you touch @plexui/ui code. For Codex, run "npx degit plex-ui/docs/skills/plexui/skills/plex-ui .agents/skills/plex-ui". For Cursor and other editors, use the single-file AGENT.md setup. See the Skills and AI Setup pages in the docs.',
   },
   {
     question: 'What does "three-layer token system" mean?',
