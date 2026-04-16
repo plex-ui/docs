@@ -13,7 +13,7 @@ For example, you can ask your AI assistant to:
 - *"Add a date range picker with size lg."*
 - *"Switch to dark mode."*
 
-The skill source lives at [`skills/plexui`](https://github.com/plex-ui/docs/tree/master/skills/plexui) and ships with UI metadata for both [Codex](https://github.com/plex-ui/docs/blob/master/skills/plexui/agents/openai.yaml) and [Claude Code](https://github.com/plex-ui/docs/blob/master/.claude-plugin/marketplace.json).
+The skill source lives at [`skills/plexui/skills/plex-ui`](https://github.com/plex-ui/docs/tree/master/skills/plexui/skills/plex-ui) and ships with UI metadata for both [Codex](https://github.com/plex-ui/docs/blob/master/skills/plexui/skills/plex-ui/agents/openai.yaml) and [Claude Code](https://github.com/plex-ui/docs/blob/master/.claude-plugin/marketplace.json).
 
 ---
 
@@ -43,7 +43,7 @@ Claude Code fetches the skill via sparse git-subdir clone, registers it under th
 If you prefer a plain skill directory without the plugin wrapper:
 
 ```bash
-npx degit plex-ui/docs/skills/plexui .claude/skills/plex-ui
+npx degit plex-ui/docs/skills/plexui/skills/plex-ui .claude/skills/plex-ui
 ```
 
 For user-level (every project), use `~/.claude/skills/plex-ui` as the target.
@@ -53,7 +53,7 @@ For user-level (every project), use `~/.claude/skills/plex-ui` as the target.
 ### Codex
 
 ```bash
-npx degit plex-ui/docs/skills/plexui .agents/skills/plex-ui
+npx degit plex-ui/docs/skills/plexui/skills/plex-ui .agents/skills/plex-ui
 ```
 
 Codex auto-detects skills under `.agents/skills/` and reads the `agents/openai.yaml` we ship for the display name, icon, brand color, and default prompt shown in the Codex UI. See the [Codex Agent Skills docs](https://developers.openai.com/codex/skills).
@@ -64,7 +64,7 @@ These agents use rule files rather than the `SKILL.md` format. Use the single-fi
 
 ### Manual install
 
-Clone or download the [`skills/plexui`](https://github.com/plex-ui/docs/tree/master/skills/plexui) folder and place it wherever your agent loads skills from.
+Clone or download the [`skills/plexui/skills/plex-ui`](https://github.com/plex-ui/docs/tree/master/skills/plexui/skills/plex-ui) folder and place it wherever your agent loads skills from.
 
 ---
 
@@ -80,13 +80,13 @@ Docs: [Submit your plugin to the official marketplace](https://code.claude.com/d
 
 ### OpenAI Codex curated catalog
 
-The Codex catalog lives at **[github.com/openai/skills](https://github.com/openai/skills)**, split into `.system`, `.curated`, and `.experimental`. To get Plex UI into the `.curated` tier (installable by name with `$skill-installer plex-ui`), open a pull request against that repo adding the skill under `skills/.curated/plex-ui/` — our [`agents/openai.yaml`](https://github.com/plex-ui/docs/blob/master/skills/plexui/agents/openai.yaml) supplies the UI metadata.
+The Codex catalog lives at **[github.com/openai/skills](https://github.com/openai/skills)**, split into `.system`, `.curated`, and `.experimental`. To get Plex UI into the `.curated` tier (installable by name with `$skill-installer plex-ui`), open a pull request against that repo adding the skill under `skills/.curated/plex-ui/` — our [`agents/openai.yaml`](https://github.com/plex-ui/docs/blob/master/skills/plexui/skills/plex-ui/agents/openai.yaml) supplies the UI metadata.
 
 Docs: [Codex Agent Skills](https://developers.openai.com/codex/skills). Follow the repo's `CONTRIBUTING.md` for the exact submission checklist.
 
 ### Aggregators
 
-Third-party aggregators like [agentskills.io](https://agentskills.io) index any skill that follows the open `SKILL.md` standard. If they add a submission flow, the skill at [`skills/plexui/SKILL.md`](https://github.com/plex-ui/docs/blob/master/skills/plexui/SKILL.md) is ready as-is.
+Third-party aggregators like [agentskills.io](https://agentskills.io) index any skill that follows the open `SKILL.md` standard. If they add a submission flow, the skill at [`skills/plexui/skills/plex-ui/SKILL.md`](https://github.com/plex-ui/docs/blob/master/skills/plexui/skills/plex-ui/SKILL.md) is ready as-is.
 
 ---
 
