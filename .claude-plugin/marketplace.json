@@ -1,0 +1,32 @@
+{
+  "name": "plex-ui",
+  "owner": {
+    "name": "Plex UI",
+    "email": "hello@plexui.com"
+  },
+  "metadata": {
+    "description": "Plex UI — production-grade React component library and Figma kit. Skill for AI coding agents.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "plex-ui",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/plex-ui/docs.git",
+        "path": "skills/plexui"
+      },
+      "description": "Teach your AI agent the Plex UI component library — subpath imports, unified size scale (3xs–3xl), semantic colors, dark mode via light-dark(), and 460+ icons.",
+      "category": "ui",
+      "keywords": [
+        "ui",
+        "components",
+        "react",
+        "tailwind",
+        "design-system",
+        "figma",
+        "plexui"
+      ]
+    }
+  ]
+}
