@@ -1048,6 +1048,68 @@ export function FloatingLabelSelectPlainDemo() {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Multi-select with clearable
+// ---------------------------------------------------------------------------
+const SKILLS: Option[] = [
+  { value: 'figma', label: 'Figma' },
+  { value: 'react', label: 'React' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'tailwind', label: 'Tailwind CSS' },
+  { value: 'nodejs', label: 'Node.js' },
+  { value: 'graphql', label: 'GraphQL' },
+  { value: 'postgres', label: 'PostgreSQL' },
+  { value: 'rust', label: 'Rust' },
+];
+
+function useSkillsTrigger(skills: string[], onClear: () => void) {
+  const hasSelection = skills.length > 0;
+  const display =
+    skills.length === 1
+      ? (SKILLS.find((s) => s.value === skills[0])?.label ?? '')
+      : skills.length > 1
+        ? `${skills.length} skills`
+        : '';
+  return useCallback(
+    ({ open }: { open: boolean; onToggle: () => void }) => (
+      <FloatingLabelSelect
+        label="Skills"
+        selected={hasSelection}
+        open={open}
+        onClearClick={hasSelection ? onClear : undefined}
+      >
+        {display}
+      </FloatingLabelSelect>
+    ),
+    [hasSelection, display, onClear],
+  );
+}
+
+export function FloatingLabelSelectMultiDemo() {
+  const [skills, setSkills] = useState<string[]>([]);
+  const handleClear = useCallback(() => setSkills([]), []);
+  const trigger = useSkillsTrigger(skills, handleClear);
+
+  return (
+    <div data-demo-stage className="py-10">
+      <div className="w-[360px]">
+        <Select
+          multiple
+          clearable
+          value={skills}
+          options={SKILLS}
+          onChange={(options) => setSkills(options.map((o) => o.value))}
+          searchPlaceholder="Search skills..."
+          listMinWidth={360}
+          block
+          trigger={trigger}
+          checkPosition="end"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FloatingLabelSelectAboutYouFormDemo() {
   const [inDialog, setInDialog] = useState(false);
 

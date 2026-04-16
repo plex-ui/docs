@@ -15,6 +15,7 @@ import {
   FloatingLabelInputBirthdayStatesDemo,
   FloatingLabelInputPhoneDemo,
   FloatingLabelSelectPlainDemo,
+  FloatingLabelSelectMultiDemo,
   FloatingLabelSelectCountryDemo,
 } from "@/components/docs/FloatingLabelInputDemos"
 
@@ -292,6 +293,38 @@ const selected = ROLES.find((r) => r.value === role)
   </Menu.Content>
 </Menu>`} previewMinHeight={168}>
   <FloatingLabelSelectPlainDemo />
+</ComponentPreview>
+
+### Multiple selection
+
+<ComponentPreview details={<>Pair <code>FloatingLabelSelect</code> with a <code>multiple</code> <code>Select</code> to collect several values while keeping the floating-label treatment. The trigger shows the selected count and exposes a clear button that resets the whole list.</>} code={`import { FloatingLabelSelect } from "@plexui/ui/components/FloatingLabelSelect"
+import { Select } from "@plexui/ui/components/Select"
+
+const [skills, setSkills] = useState([])
+const hasSelection = skills.length > 0
+const display = skills.length === 1
+  ? SKILLS.find((s) => s.value === skills[0])?.label
+  : skills.length > 1 ? \`\${skills.length} skills\` : ""
+
+<Select
+  multiple
+  clearable
+  value={skills}
+  options={SKILLS}
+  onChange={(options) => setSkills(options.map((o) => o.value))}
+  block
+  trigger={({ open }) => (
+    <FloatingLabelSelect
+      label="Skills"
+      selected={hasSelection}
+      open={open}
+      onClearClick={hasSelection ? () => setSkills([]) : undefined}
+    >
+      {display}
+    </FloatingLabelSelect>
+  )}
+/>`} previewMinHeight={168}>
+  <FloatingLabelSelectMultiDemo />
 </ComponentPreview>
 
 ### Country select
