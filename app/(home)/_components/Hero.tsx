@@ -114,18 +114,6 @@ export function Hero() {
       className="relative flex flex-col items-center px-6 pt-16 pb-14 sm:pt-24 sm:pb-18 md:pt-32 md:pb-24"
     >
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-        {/* Announcement pill */}
-        <a
-          href="/docs/overview/skills"
-          className="group mb-6 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-background px-3 py-1 text-xs font-medium text-fd-muted-foreground transition-colors hover:text-fd-foreground"
-        >
-          <span className="rounded-full bg-primary-solid px-2 py-0.5 text-[10px] font-semibold text-primary-solid-inverse">
-            New
-          </span>
-          Plex UI ships as a Claude Code plugin &amp; Codex skill
-          <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
-        </a>
-
         {/* Icon tiles */}
         <div className="flex items-center gap-2">
           <IconTile>
