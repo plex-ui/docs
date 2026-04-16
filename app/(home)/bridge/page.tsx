@@ -113,10 +113,6 @@ export default function BridgePage() {
       />
       <LandingSection maxWidth="2xl">
         <div className="mx-auto max-w-xl">
-          <div className="mb-3 inline-flex rounded-full border border-fd-border px-3 py-1 text-xs font-medium text-fd-muted-foreground">
-            Design tokens, not just pixels
-          </div>
-
           <h1 className="text-3xl font-semibold tracking-tight text-fd-foreground md:text-4xl">
             Figma AI Bridge with Design Tokens
           </h1>
