@@ -1,9 +1,9 @@
 ---
 title: Skills
-description: Teach your AI coding agent Plex UI conventions with one command
+description: Install the Plex UI skill in Claude Code, Codex, and other AI coding agents
 ---
 
-Skills give AI assistants like Claude Code, Cursor, Codex, Windsurf and others project-aware context about Plex UI. When installed, your AI assistant knows how to install, compose, and customize components using the correct APIs and patterns.
+Skills give AI assistants project-aware context about Plex UI — component APIs, the 9-step size scale, color system, variants, icons, and import conventions. Once installed, your agent generates correct Plex UI code on the first try.
 
 For example, you can ask your AI assistant to:
 
@@ -13,19 +13,80 @@ For example, you can ask your AI assistant to:
 - *"Add a date range picker with size lg."*
 - *"Switch to dark mode."*
 
-The skill provides the assistant with your component library's import patterns, size scale, color system, variant system, and icon usage — so it generates correct code on the first try.
+The skill source lives at [`skills/plexui`](https://github.com/plex-ui/docs/tree/master/skills/plexui) and ships with UI metadata for both [Codex](https://github.com/plex-ui/docs/blob/master/skills/plexui/agents/openai.yaml) and [Claude Code](https://github.com/plex-ui/docs/blob/master/.claude-plugin/marketplace.json).
 
 ---
 
 ## Install
 
-```bash
-npx skills add plex-ui/docs
+### Claude Code
+
+Plex UI is a Claude Code [plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces). Inside Claude Code:
+
+```shell
+/plugin marketplace add plex-ui/docs
+/plugin install plex-ui@plex-ui
 ```
 
-This installs the Plex UI skill into your project. Once installed, your AI assistant automatically loads it when working with Plex UI components.
+Or from the shell:
 
-Learn more about skills at [skills.sh](https://skills.sh).
+```bash
+claude plugin marketplace add plex-ui/docs
+claude plugin install plex-ui@plex-ui
+```
+
+Claude Code fetches the skill via sparse git-subdir clone, registers it under the `plex-ui` namespace, and auto-invokes it when you work with `@plexui/ui` or Plex UI components. To update later: `/plugin marketplace update plex-ui`.
+
+<details>
+<summary>Standalone skill install (no plugin system)</summary>
+
+If you prefer a plain skill directory without the plugin wrapper:
+
+```bash
+npx degit plex-ui/docs/skills/plexui .claude/skills/plex-ui
+```
+
+For user-level (every project), use `~/.claude/skills/plex-ui` as the target.
+
+</details>
+
+### Codex
+
+```bash
+npx degit plex-ui/docs/skills/plexui .agents/skills/plex-ui
+```
+
+Codex auto-detects skills under `.agents/skills/` and reads the `agents/openai.yaml` we ship for the display name, icon, brand color, and default prompt shown in the Codex UI. See the [Codex Agent Skills docs](https://developers.openai.com/codex/skills).
+
+### Cursor, Windsurf, Copilot, and others
+
+These agents use rule files rather than the `SKILL.md` format. Use the single-file [AGENT.md setup](/docs/overview/ai-setup) instead — same knowledge delivered as `.cursor/rules/plexui.mdc`, `AGENTS.md`, or `CLAUDE.md` depending on the agent.
+
+### Manual install
+
+Clone or download the [`skills/plexui`](https://github.com/plex-ui/docs/tree/master/skills/plexui) folder and place it wherever your agent loads skills from.
+
+---
+
+## Official catalogs
+
+The commands above work today via our GitHub repo. To make Plex UI discoverable from inside the agent itself — browsing the official skill/plugin catalogs — the skill needs to be submitted to each vendor's registry. These submissions are manual and go through forms or pull requests, so they're not auto-updated from this repo.
+
+### Anthropic official marketplace
+
+Submit the `plex-ui` plugin via the in-app form at **[claude.ai/settings/plugins/submit](https://claude.ai/settings/plugins/submit)** or **[platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit)**. The form takes the marketplace URL (`github.com/plex-ui/docs`); our [marketplace.json](https://github.com/plex-ui/docs/blob/master/.claude-plugin/marketplace.json) supplies the rest (name, description, keywords, icon). Once accepted, users see Plex UI in the in-app plugin browser without needing to run `/plugin marketplace add`.
+
+Docs: [Submit your plugin to the official marketplace](https://code.claude.com/docs/en/plugins#submit-your-plugin-to-the-official-marketplace).
+
+### OpenAI Codex curated catalog
+
+The Codex catalog lives at **[github.com/openai/skills](https://github.com/openai/skills)**, split into `.system`, `.curated`, and `.experimental`. To get Plex UI into the `.curated` tier (installable by name with `$skill-installer plex-ui`), open a pull request against that repo adding the skill under `skills/.curated/plex-ui/` — our [`agents/openai.yaml`](https://github.com/plex-ui/docs/blob/master/skills/plexui/agents/openai.yaml) supplies the UI metadata.
+
+Docs: [Codex Agent Skills](https://developers.openai.com/codex/skills). Follow the repo's `CONTRIBUTING.md` for the exact submission checklist.
+
+### Aggregators
+
+Third-party aggregators like [agentskills.io](https://agentskills.io) index any skill that follows the open `SKILL.md` standard. If they add a submission flow, the skill at [`skills/plexui/SKILL.md`](https://github.com/plex-ui/docs/blob/master/skills/plexui/SKILL.md) is ready as-is.
 
 ---
 
@@ -68,26 +129,10 @@ Subpath import convention (`@plexui/ui/components/Button`), `PlexUIProvider` set
 
 ---
 
-## Supported Agents
-
-The skill works with any AI coding agent that supports the [skills.sh](https://skills.sh) ecosystem:
-
-- [Claude Code](https://claude.com/product/claude-code)
-- [Cursor](https://cursor.sh)
-- [Codex](https://openai.com/codex)
-- [Windsurf](https://codeium.com/windsurf)
-- [GitHub Copilot](https://github.com/features/copilot)
-- [OpenCode](https://opencode.ai)
-- [Cline](https://cline.bot)
-- [Amp](https://ampcode.com)
-- And [30+ more agents](https://skills.sh)
-
----
-
 ## Learn More
 
-- [AI Setup](/docs/overview/ai-setup) — Quick setup prompt for AI editors
-- [Installation](/docs/overview/installation) — Manual installation guide
-- [Components](/docs/components) — Full component documentation
-- [Design Tokens](/docs/foundations/design-tokens) — Token architecture
-- [skills.sh](https://skills.sh) — Learn more about AI skills
+- [AI Setup](/docs/overview/ai-setup) — single-file `AGENT.md` for agents without `SKILL.md` support
+- [MCP Server](/docs/overview/mcp) — interactive component discovery over MCP
+- [Installation](/docs/overview/installation) — manual package setup
+- [Components](/docs/components) — full component documentation
+- [Design Tokens](/docs/foundations/design-tokens) — token architecture
