@@ -1,8 +1,9 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { theme } from '../theme';
+import { lightTheme, theme } from '../theme';
 import { Terminal } from '../components/Terminal';
 
-export const SceneHook: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
+export const SceneHook: React.FC<{ vertical?: boolean; light?: boolean }> = ({ vertical, light }) => {
+  const t = light ? lightTheme : theme;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const titleOpacity = interpolate(frame, [0, 12], [0, 1], { extrapolateRight: 'clamp' });
@@ -31,7 +32,7 @@ export const SceneHook: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
             fontSize: vertical ? 56 : 72,
             fontWeight: 800,
             letterSpacing: '-0.02em',
-            color: theme.fg,
+            color: t.fg,
           }}
         >
           Why doesn&apos;t my AI agent

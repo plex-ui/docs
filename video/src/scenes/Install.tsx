@@ -39,15 +39,33 @@ export const SceneInstall: React.FC<{ vertical?: boolean }> = ({ vertical }) => 
               opacity: checkSpring,
               transform: `translateY(${interpolate(checkSpring, [0, 1], [12, 0])}px)`,
               fontFamily: theme.mono,
+              fontSize: 22,
+              lineHeight: 1.55,
             }}
           >
-            <div style={{ color: theme.fgMuted, fontSize: 16 }}>
-              <span style={{ color: theme.green }}>added</span> 1 package in 4s
+            <div style={{ color: theme.fgMuted }}>
+              <span style={{ color: '#8cdfad' }}>added</span> 1 package in 4s
             </div>
-            <div style={{ marginTop: 14, color: theme.green, fontSize: 22, fontWeight: 600 }}>
-              ✓ Ready to use Plex UI
+            <div
+              style={{
+                marginTop: 18,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 12,
+                backgroundColor: 'rgba(4, 184, 76, 0.20)',
+                border: '1px solid rgba(4, 184, 76, 0.45)',
+                color: '#8cdfad',
+                fontFamily: theme.mono,
+                fontSize: 22,
+                fontWeight: 600,
+                padding: '10px 20px',
+                borderRadius: 999,
+              }}
+            >
+              <span style={{ fontSize: 20 }}>✓</span>
+              Ready to use Plex UI
             </div>
-            <div style={{ marginTop: 6, fontSize: 16, color: theme.fgMuted }}>
+            <div style={{ marginTop: 14, color: theme.fgMuted }}>
               ~50 components · accessible · dark mode · AI-ready
             </div>
           </div>

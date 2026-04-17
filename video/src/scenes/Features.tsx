@@ -1,5 +1,5 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
-import { theme } from '../theme';
+import { lightTheme, theme } from '../theme';
 
 const FEATURES = [
   { title: '~50 components', sub: 'Radix + accessible' },
@@ -8,9 +8,10 @@ const FEATURES = [
   { title: 'Figma parity', sub: '22,000+ variants' },
 ];
 
-export const SceneFeatures: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
+export const SceneFeatures: React.FC<{ vertical?: boolean; light?: boolean }> = ({ vertical, light }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const t = light ? lightTheme : theme;
 
   return (
     <AbsoluteFill
@@ -34,8 +35,8 @@ export const SceneFeatures: React.FC<{ vertical?: boolean }> = ({ vertical }) =>
               width: vertical ? '90%' : 'auto',
               opacity,
               transform: `translateY(${y}px)`,
-              backgroundColor: theme.surface,
-              border: `1px solid ${theme.border}`,
+              backgroundColor: t.surface,
+              border: `1px solid ${t.border}`,
               borderRadius: 16,
               padding: '40px 32px',
               minHeight: vertical ? 0 : 260,
@@ -49,7 +50,7 @@ export const SceneFeatures: React.FC<{ vertical?: boolean }> = ({ vertical }) =>
                 fontSize: vertical ? 36 : 38,
                 fontWeight: 800,
                 letterSpacing: '-0.01em',
-                color: theme.fg,
+                color: t.fg,
                 marginBottom: 8,
               }}
             >
@@ -58,8 +59,8 @@ export const SceneFeatures: React.FC<{ vertical?: boolean }> = ({ vertical }) =>
             <div
               style={{
                 fontSize: vertical ? 22 : 20,
-                color: theme.fgMuted,
-                fontFamily: theme.mono,
+                color: t.fgMuted,
+                fontFamily: t.mono,
               }}
             >
               {f.sub}

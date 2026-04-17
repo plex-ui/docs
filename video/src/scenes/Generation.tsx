@@ -21,7 +21,7 @@ const CODE_LINES: { content: React.ReactNode; minLen: number }[] = [
   { content: <span><span style={{ color: t.punct }}>{`}`}</span></span>, minLen: 16 },
 ];
 
-export const SceneGeneration: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
+export const SceneGeneration: React.FC<{ vertical?: boolean; light?: boolean }> = ({ vertical, light }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -62,20 +62,28 @@ export const SceneGeneration: React.FC<{ vertical?: boolean }> = ({ vertical }) 
         <div
           style={{
             position: 'absolute',
-            top: 24,
-            right: 28,
+            left: '50%',
+            bottom: '20%',
+            transform: `translateX(-50%) scale(${interpolate(bannerOpacity, [0, 1], [0.92, 1])})`,
             opacity: bannerOpacity,
-            backgroundColor: theme.green,
-            color: '#003a14',
-            fontSize: 28,
-            fontWeight: 800,
-            padding: '14px 28px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 12,
+            backgroundColor: 'rgba(4, 184, 76, 0.20)',
+            border: '1px solid rgba(4, 184, 76, 0.45)',
+            color: '#8cdfad',
+            fontFamily: theme.mono,
+            fontSize: 22,
+            fontWeight: 600,
+            padding: '12px 24px',
             borderRadius: 999,
-            boxShadow: '0 12px 32px rgba(74, 222, 128, 0.35)',
+            backdropFilter: 'blur(8px)',
             letterSpacing: '-0.005em',
+            whiteSpace: 'nowrap',
           }}
         >
-          ✓ All props correct · 0 hallucinations
+          <span style={{ fontSize: 20 }}>✓</span>
+          All props correct · 0 hallucinations
         </div>
       </div>
       <div
@@ -90,7 +98,7 @@ export const SceneGeneration: React.FC<{ vertical?: boolean }> = ({ vertical }) 
         }}
       >
         <Img
-          src={staticFile('signup-form.png')}
+          src={staticFile(light ? 'signup-form-light.png' : 'signup-form.png')}
           style={{
             display: 'block',
             height: vertical ? 1050 : 880,

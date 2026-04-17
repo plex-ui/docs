@@ -25,6 +25,24 @@ export const Root = () => {
         height={1920}
         defaultProps={{ vertical: true }}
       />
+      <Composition
+        id="HeroVideoLight"
+        component={HeroVideo}
+        durationInFrames={DURATION_FRAMES}
+        fps={FPS}
+        width={1920}
+        height={1080}
+        defaultProps={{ light: true }}
+      />
+      <Composition
+        id="HeroVideoLightVertical"
+        component={HeroVideo}
+        durationInFrames={DURATION_FRAMES}
+        fps={FPS}
+        width={1080}
+        height={1920}
+        defaultProps={{ vertical: true, light: true }}
+      />
     </>
   );
 };
