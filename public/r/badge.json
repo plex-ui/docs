@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "description": "Plex UI Badge — status/label indicator with multiple colors, sizes and variants.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/badge.tsx",
+      "type": "registry:ui",
+      "content": "export { Badge } from '@plexui/ui/components/Badge';\nexport type { BadgeProps } from '@plexui/ui/components/Badge';\n"
+    }
+  ],
+  "docs": "Import as `import { Badge } from '@/components/ui/badge'`. See https://plexui.dev/docs/components/badge for full prop reference."
+}

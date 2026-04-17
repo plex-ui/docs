@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "type": "registry:ui",
+  "title": "Alert",
+  "description": "Plex UI Alert — inline notification with info/success/warning/danger colors, dismissible and actionable variants.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/alert.tsx",
+      "type": "registry:ui",
+      "content": "export { Alert } from '@plexui/ui/components/Alert';\nexport type { AlertProps } from '@plexui/ui/components/Alert';\n"
+    }
+  ],
+  "docs": "Import as `import { Alert } from '@/components/ui/alert'`. See https://plexui.dev/docs/components/alert for full prop reference."
+}

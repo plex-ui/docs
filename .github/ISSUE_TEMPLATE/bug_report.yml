@@ -1,0 +1,55 @@
+name: 🐛 Bug report
+description: Something broken in a Plex UI component, docs, or skill
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please fill in the form — issues with reproduction steps get fixed much faster.
+
+  - type: input
+    id: version
+    attributes:
+      label: "`@plexui/ui` version"
+      description: Run `npm ls @plexui/ui` or check your package.json
+      placeholder: "e.g. 0.7.97"
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: Framework + React + browser
+      placeholder: "Next.js 15.3, React 19, Chrome 131"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Describe the bug in one or two sentences
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Ideally a minimal CodeSandbox / StackBlitz link, otherwise a numbered list
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Screenshots, logs, anything else

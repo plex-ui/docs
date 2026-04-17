@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "menu",
+  "type": "registry:ui",
+  "title": "Menu",
+  "description": "Plex UI Menu — dropdown menu with items, separators, checkable items, submenus, and keyboard navigation.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/menu.tsx",
+      "type": "registry:ui",
+      "content": "export { Menu } from '@plexui/ui/components/Menu';\nexport type { MenuProps } from '@plexui/ui/components/Menu';\n"
+    }
+  ],
+  "docs": "Import as `import { Menu } from '@/components/ui/menu'`. See https://plexui.dev/docs/components/menu for full prop reference."
+}
