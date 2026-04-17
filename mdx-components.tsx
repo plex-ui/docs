@@ -26,5 +26,5 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     PropsTable,
     UsageBlock,
     ...components,
-  };
+  } as MDXComponents;
 }
