@@ -38,6 +38,11 @@ html.dark .PreviewBlock {
   display: flex;
   flex-direction: column;
   color-scheme: inherit;
+  /* Inputs on the preview surface need their floating-label mask to match
+     the preview background, not --color-surface, otherwise the floating
+     label paints a lighter patch over the page bg in dark mode. */
+  --floating-input-background: var(--color-fd-background);
+  --file-upload-background: var(--color-fd-background);
 }
 
 .PreviewContent {
