@@ -52,11 +52,31 @@ export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
           fontSize: vertical ? 26 : 28,
           color: theme.fg,
           opacity: interpolate(frame, [20, 40], [0, 1], { extrapolateRight: 'clamp' }),
-          marginBottom: 40,
+          marginBottom: 28,
         }}
       >
         <span style={{ color: theme.fgMuted }}>$ </span>
         <TypedText text="npm install @plexui/ui" startFrame={30} cps={28} cursor={false} />
+      </div>
+
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 12,
+          padding: '10px 22px',
+          borderRadius: 999,
+          backgroundColor: 'rgba(74, 222, 128, 0.12)',
+          border: `1px solid rgba(74, 222, 128, 0.35)`,
+          color: theme.green,
+          fontWeight: 700,
+          fontSize: vertical ? 24 : 26,
+          letterSpacing: '0.02em',
+          opacity: interpolate(frame, [40, 60], [0, 1], { extrapolateRight: 'clamp' }),
+          marginBottom: 36,
+        }}
+      >
+        Free · MIT · 100% open source
       </div>
 
       <div

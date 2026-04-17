@@ -23,6 +23,7 @@ export const Terminal: React.FC<{
     >
       <div
         style={{
+          position: 'relative',
           height: 36,
           display: 'flex',
           alignItems: 'center',
@@ -38,12 +39,14 @@ export const Terminal: React.FC<{
         <span style={{ width: 12, height: 12, borderRadius: 6, background: '#28c840' }} />
         <span
           style={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            pointerEvents: 'none',
             color: theme.fgMuted,
             fontFamily: theme.mono,
             fontSize: 13,
-            paddingLeft: 60,
           }}
         >
           {title}

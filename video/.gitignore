@@ -2,3 +2,4 @@ node_modules/
 out/
 .cache/
 *.log
+public/music.mp3
