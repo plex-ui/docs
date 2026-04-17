@@ -44,12 +44,12 @@ const footerSections = [
       { label: 'Date Picker', href: '/docs/components/date-picker' },
       { label: 'Date Range Picker', href: '/docs/components/date-range-picker' },
       { label: 'Dialog', href: '/docs/components/dialog' },
+      { label: 'Empty Message', href: '/docs/components/empty-message' },
     ],
   },
   {
     title: '\u00A0', // non-breaking space, continuation column
     links: [
-      { label: 'Empty Message', href: '/docs/components/empty-message' },
       { label: 'Field', href: '/docs/components/field' },
       { label: 'File Upload', href: '/docs/components/file-upload' },
       { label: 'Floating Label Input', href: '/docs/components/floating-label-input' },
@@ -62,12 +62,12 @@ const footerSections = [
       { label: 'Popover', href: '/docs/components/popover' },
       { label: 'Progress Steps', href: '/docs/components/progress-steps' },
       { label: 'Radio Group', href: '/docs/components/radio-group' },
+      { label: 'Select', href: '/docs/components/select' },
     ],
   },
   {
     title: '\u00A0',
     links: [
-      { label: 'Select', href: '/docs/components/select' },
       { label: 'Select Control', href: '/docs/components/select-control' },
       { label: 'Shimmer Text', href: '/docs/components/shimmer-text' },
       { label: 'Sidebar', href: '/docs/components/sidebar' },

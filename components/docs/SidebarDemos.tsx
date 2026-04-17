@@ -18,28 +18,38 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { Avatar } from '@plexui/ui/components/Avatar';
 import { Badge } from '@plexui/ui/components/Badge';
 import { Button } from '@plexui/ui/components/Button';
+import { Popover } from '@plexui/ui/components/Popover';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Switch } from '@plexui/ui/components/Switch';
+import { Tooltip } from '@plexui/ui/components/Tooltip';
 import {
    Abc,
    AllProductsExplore,
    Analytics,
    Bolt,
+   Book,
+   Branch,
+   BuildingWorkspace,
    ButtonMousePointer,
    Calendar,
    CameraPhoto,
+   Chat,
    CheckCheck,
    CheckCircle,
    CheckMd,
    CheckboxChecked,
    ChevronDownMd,
+   ChevronRightMd,
+   ChevronUpDown,
    Clip,
    Code,
 
    Commit,
    CreditCard,
+   Cube,
    Desktop,
    DotsHorizontal,
    FileDocument,
@@ -50,10 +60,13 @@ import {
    GripVertical,
    GroupCheck,
    GroupCheckCircle,
+   Help,
    Home,
    ImageSquare,
+   InfoCircle,
    LinkExternal,
    ListChevronsDownUp,
+   Logout,
    MapPin,
    Members,
    Number123,
@@ -63,6 +76,9 @@ import {
    Plus,
 
    SettingsCog,
+   SidebarCollapseLeft,
+   SidebarCollapseRight,
+   SettingsWrench,
    SpacingVertical,
    SquareAsterisk,
    SquareDashed,
@@ -72,6 +88,7 @@ import {
 
    TextInitial,
    TextSelect,
+   Tools,
  } from '@plexui/ui/components/Icon';
 import { Menu } from '@plexui/ui/components/Menu';
 import {
@@ -102,6 +119,7 @@ import {
   SidebarMenuSubItem,
   SidebarMobileMenuButton,
   SidebarProvider,
+  SidebarSeparator,
   SidebarTrigger,
   useSidebar,
 } from '@plexui/ui/components/Sidebar';
@@ -128,85 +146,179 @@ const resourcesNavItems = [
 ];
 
 // =============================================
+// Shared demo header with wordmark + tooltip-wrapped trigger
+// =============================================
+
+function DemoSidebarHeader({ title = 'App' }: { title?: string } = {}) {
+  const { state, toggleSidebar, collapsible } = useSidebar();
+  const isCollapsed = state === 'collapsed';
+  const trigger = (
+    <Tooltip
+      compact
+      onClick={() => toggleSidebar()}
+      content={
+        <span className="inline-flex items-center gap-1.5">
+          {isCollapsed ? 'Expand' : 'Collapse'}
+          <kbd className="console-trigger-kbd">⌘.</kbd>
+        </span>
+      }
+    >
+      <SidebarTrigger>
+        {isCollapsed ? <SidebarCollapseRight /> : <SidebarCollapseLeft />}
+      </SidebarTrigger>
+    </Tooltip>
+  );
+  return (
+    <SidebarHeader>
+      <span className="demo-sidebar-wordmark">{title}</span>
+      {collapsible !== 'none' && trigger}
+    </SidebarHeader>
+  );
+}
+
+// =============================================
 // Base
 // =============================================
 
 export function SidebarBaseDemo() {
    const [activeItem, setActiveItem] = useState('Overview');
+   const [bordered, setBordered] = useState(true);
+   const [collapsible, setCollapsible] = useState<'none' | 'icon' | 'offcanvas'>('icon');
+   const [icons, setIcons] = useState(true);
+   const [badges, setBadges] = useState(true);
+   const [labelSize, setLabelSize] = useState<'sm' | 'lg'>('sm');
+   const [footerCard, setFooterCard] = useState(false);
+
+   const renderGroup = (label: string, items: typeof mainNavItems) => (
+     <SidebarGroup>
+       <SidebarGroupLabel size={labelSize}>{label}</SidebarGroupLabel>
+       <SidebarGroupContent>
+         <SidebarMenu>
+           {items.map((item) => (
+             <SidebarMenuItem key={item.label}>
+               <SidebarMenuButton
+                 isActive={activeItem === item.label}
+                 tooltip={item.label}
+                 onClick={() => setActiveItem(item.label)}
+               >
+                 {icons && (
+                   <SidebarMenuButtonIcon>
+                     <item.icon />
+                   </SidebarMenuButtonIcon>
+                 )}
+                 <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
+                 {badges && item.badge && (
+                   <SidebarMenuBadge>
+                     <Badge size="sm" color="info">{item.badge}</Badge>
+                   </SidebarMenuBadge>
+                 )}
+               </SidebarMenuButton>
+             </SidebarMenuItem>
+           ))}
+         </SidebarMenu>
+       </SidebarGroupContent>
+     </SidebarGroup>
+   );
 
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
-       <SidebarProvider className="h-full">
+     <>
+     <div data-demo-stage data-bordered={bordered ? 'true' : 'false'} className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
+       <style>{`
+         [data-demo-stage] [class*="SidebarLayout"] { --sidebar-width: 260px; }
+         [data-demo-stage] aside[class*="Sidebar-module"] { --sidebar-icon-size: 16px; padding-top: 12px; }
+         [data-demo-stage] aside[class*="Sidebar-module"] > [class*="Header"] { min-height: 0; }
+         [data-demo-stage] aside[class*="Sidebar-module"] > [class*="Content"] { padding-top: 12px; -webkit-mask-image: none; mask-image: none; }
+         [data-demo-stage] aside[class*="Sidebar-module"] [class*="Sidebar-module__"][class*="Group"]:not([class*="GroupLabel"]):not([class*="GroupContent"]) { padding-top: 18px; padding-bottom: 0; }
+         [data-demo-stage] aside[class*="Sidebar-module"] [class*="Sidebar-module__"][class*="Group"]:first-child:not([class*="GroupLabel"]):not([class*="GroupContent"]) { padding-top: 0; }
+         [data-demo-stage] aside[class*="Sidebar-module"] [class*="GroupLabel"] { margin-top: 0; padding-bottom: 6px; }
+         [data-demo-stage] aside[class*="Sidebar-module"] [class*="Header"]:has(.demo-sidebar-wordmark) { padding-left: 12px; padding-right: 0; gap: 4px; transition: padding var(--sidebar-collapse-duration) var(--cubic-move); }
+         [data-demo-stage][data-bordered="false"] [class*="SidebarLayout"] { background: var(--color-surface); }
+         [data-demo-stage][data-bordered="false"] aside[class*="Sidebar-module"] { background: var(--color-surface-tertiary); }
+         [data-demo-stage][data-bordered="false"] [class*="Inset"] { margin: 0; box-shadow: none; border-radius: 0; }
+         [data-demo-stage] aside[class*="Sidebar-module"] [class*="Header"] button[class*="Trigger"] { width: auto; margin-left: auto; flex: 0 0 auto; }
+         [data-demo-stage] aside[class*="Sidebar-module"] [class*="Header"] button[class*="Trigger"] span { opacity: 1 !important; pointer-events: auto !important; }
+         [data-demo-stage] aside[class*="Sidebar-module"] button[class*="Trigger"] [class*="TriggerIcon"] { margin: 0 3px; }
+         [data-demo-stage] [data-sidebar="collapsed"] aside [class*="Sidebar-module__"][class*="Header"] { padding-left: 0; padding-right: 0; justify-content: center; gap: 0; }
+         [data-demo-stage] [data-sidebar="collapsed"] aside [class*="Sidebar-module__"][class*="Header"] button[class*="Trigger"] { margin-left: 0; margin-right: 0; }
+         [data-demo-stage] .demo-sidebar-wordmark {
+           flex: 1;
+           min-width: 0;
+           max-width: 1000px;
+           font-size: 15px;
+           font-weight: 600;
+           letter-spacing: -0.005em;
+           white-space: nowrap;
+           overflow: hidden;
+           opacity: 1;
+           transition: opacity var(--sidebar-collapse-duration) var(--cubic-move), max-width var(--sidebar-collapse-duration) var(--cubic-move);
+         }
+         [data-demo-stage] [data-sidebar="collapsed"] .demo-sidebar-wordmark { opacity: 0; max-width: 0; pointer-events: none; }
+       `}</style>
+       <SidebarProvider className="h-full" collapsible={icons ? collapsible : 'none'} key={`${collapsible}-${icons}`}>
         <SidebarLayout className="h-full">
             <Sidebar>
+              <DemoSidebarHeader />
               <SidebarContent>
-                <SidebarGroup>
-                  <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {mainNavItems.map((item) => (
-                        <SidebarMenuItem key={item.label}>
-                          <SidebarMenuButton
-                            isActive={activeItem === item.label}
-                            tooltip={item.label}
-                            onClick={() => setActiveItem(item.label)}
-                          >
-                            <SidebarMenuButtonIcon>
-                              <item.icon />
-                            </SidebarMenuButtonIcon>
-                            <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
-                            {item.badge && (
-                              <SidebarMenuBadge>
-                                <Badge size="sm" color="info">
-                                  {item.badge}
-                                </Badge>
-                              </SidebarMenuBadge>
-                            )}
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-
-                <SidebarGroup>
-                  <SidebarGroupLabel size="sm">System</SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {systemNavItems.map((item) => (
-                        <SidebarMenuItem key={item.label}>
-                          <SidebarMenuButton
-                            isActive={activeItem === item.label}
-                            tooltip={item.label}
-                            onClick={() => setActiveItem(item.label)}
-                          >
-                            <SidebarMenuButtonIcon>
-                              <item.icon />
-                            </SidebarMenuButtonIcon>
-                            <SidebarMenuButtonLabel>{item.label}</SidebarMenuButtonLabel>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
+                {renderGroup('Project', mainNavItems)}
+                {renderGroup('System', systemNavItems)}
+                {renderGroup('Resources', resourcesNavItems)}
               </SidebarContent>
-              <SidebarFooter>
-                <SidebarTrigger />
-              </SidebarFooter>
+              {footerCard && (
+                <SidebarFooter>
+                  <SidebarCard dismissible onDismiss={() => {}}>
+                    <SidebarCardTitleLink href="#" onClick={(e) => e.preventDefault()}>
+                      Upgrade to Pro
+                    </SidebarCardTitleLink>
+                    <SidebarCardContent>
+                      Unlock higher rate limits, priority support, and advanced features.
+                    </SidebarCardContent>
+                    <SidebarCardFooter>
+                      <Button size="sm" pill color="primary">View Plans</Button>
+                    </SidebarCardFooter>
+                  </SidebarCard>
+                </SidebarFooter>
+              )}
             </Sidebar>
 
             <SidebarInset>
               <div className="p-6">
                 <h1 className="text-2xl font-semibold mb-4">{activeItem}</h1>
-                <p className="text-secondary">
-                  Main content area. Press <kbd className="kbd">Cmd+B</kbd> to collapse.
-                </p>
+                <p className="text-secondary">Main content area.</p>
               </div>
             </SidebarInset>
           </SidebarLayout>
         </SidebarProvider>
     </div>
+    <div data-demo-controls style={controlsTableStyle}>
+      <DemoControlRow name="collapsible">
+        <SegmentedControl<'none' | 'icon' | 'offcanvas'>
+          value={collapsible}
+          onChange={setCollapsible}
+          aria-label="Collapsible mode"
+          size="xs"
+        >
+          <SegmentedControl.Option value="none">none</SegmentedControl.Option>
+          <SegmentedControl.Option value="icon">icon</SegmentedControl.Option>
+          <SegmentedControl.Option value="offcanvas">offcanvas</SegmentedControl.Option>
+        </SegmentedControl>
+      </DemoControlRow>
+      <DemoControlRow name="labelSize">
+        <SegmentedControl<'sm' | 'lg'>
+          value={labelSize}
+          onChange={setLabelSize}
+          aria-label="Group label size"
+          size="xs"
+        >
+          <SegmentedControl.Option value="sm">sm</SegmentedControl.Option>
+          <SegmentedControl.Option value="lg">lg</SegmentedControl.Option>
+        </SegmentedControl>
+      </DemoControlRow>
+      <DemoControlBoolean name="icons" value={icons} onChange={setIcons} />
+      <DemoControlBoolean name="badges" value={badges} onChange={setBadges} />
+      <DemoControlBoolean name="footerCard" value={footerCard} onChange={setFooterCard} />
+      <DemoControlBoolean name="bordered" value={bordered} onChange={setBordered} />
+    </div>
+    </>
   );
 }
 
@@ -238,6 +350,7 @@ function SidebarCollapsibleIconDemoPreview() {
        <SidebarProvider className="h-full" collapsible="icon" open={open} onOpenChange={ctx?.setOpen}>
         <SidebarLayout className="h-full">
             <Sidebar>
+              <DemoSidebarHeader />
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
@@ -283,9 +396,6 @@ function SidebarCollapsibleIconDemoPreview() {
                   </SidebarGroupContent>
                 </SidebarGroup>
               </SidebarContent>
-              <SidebarFooter>
-                <SidebarTrigger />
-              </SidebarFooter>
             </Sidebar>
 
             <SidebarInset>
@@ -548,7 +658,7 @@ export function SidebarNestedDemo() {
        <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
          <SidebarProvider className="h-full" collapsible="none" key={icons ? 'icons' : 'no-icons'}>
           <SidebarLayout className="h-full">
-              <Sidebar variant={icons ? undefined : 'docs'} style={{ width: '280px' }}>
+              <Sidebar variant={icons ? undefined : 'docs'}>
                 <SidebarContent>
                   {icons ? (
                     <SidebarGroup>
@@ -733,6 +843,7 @@ export function SidebarFilteredTreeDemo() {
     new Set(['gov-id', 'selfie-check', 'doc-check', 'fail']),
   );
   const [activeItem, setActiveItem] = useState('start');
+  const [bordered, setBordered] = useState(true);
   const iconSize = 'sm' as const;
   const [expandMode, setExpandMode] = useState<'row' | 'chevron'>('chevron');
 
@@ -903,10 +1014,10 @@ export function SidebarFilteredTreeDemo() {
 
    return (
      <>
-       <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
+       <div data-demo-stage data-bordered={bordered ? 'true' : 'false'} className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
          <SidebarProvider className="h-full" collapsible="none">
            <SidebarLayout className="h-full">
-               <Sidebar style={{ width: '280px' }}>
+               <Sidebar>
                  <SidebarHeader>
                    <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0" style={{ padding: '16px 0 8px' }}>
                     <div className="flex-1">
@@ -992,6 +1103,7 @@ export function SidebarFilteredTreeDemo() {
             <SegmentedControl.Option value="chevron">chevron</SegmentedControl.Option>
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlBoolean name="bordered" value={bordered} onChange={setBordered} />
       </div>
     </>
   );
@@ -1306,6 +1418,7 @@ export function SidebarActionTreeDemo() {
   );
   const [activeItem, setActiveItem] = useState('screen');
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
+  const [bordered, setBordered] = useState(true);
   const dragSiblingIds = useRef<Set<string> | null>(null);
 
   const toggleExpanded = (id: string) => {
@@ -1552,10 +1665,10 @@ export function SidebarActionTreeDemo() {
 
   return (
     <>
-      <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
+      <div data-demo-stage data-bordered={bordered ? 'true' : 'false'} className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
         <SidebarProvider className="h-full" collapsible="none">
           <SidebarLayout className="h-full">
-            <Sidebar style={{ width: '264px' }} className="!py-4">
+            <Sidebar className="!py-4">
               <SidebarHeader>
                 <div className="flex items-center gap-2 w-full [&>div:first-child>div]:!p-0">
                   <div className="flex-1">
@@ -1630,6 +1743,7 @@ export function SidebarActionTreeDemo() {
             <SegmentedControl.Option value="filter">filter</SegmentedControl.Option>
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlBoolean name="bordered" value={bordered} onChange={setBordered} />
       </div>
     </>
   );
@@ -1647,6 +1761,7 @@ export function SidebarScrollableDemo() {
        <SidebarProvider className="h-full">
         <SidebarLayout className="h-full">
             <Sidebar>
+              <DemoSidebarHeader />
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
@@ -1714,9 +1829,6 @@ export function SidebarScrollableDemo() {
                   </SidebarGroupContent>
                 </SidebarGroup>
               </SidebarContent>
-              <SidebarFooter>
-                <SidebarTrigger />
-              </SidebarFooter>
             </Sidebar>
             <SidebarInset>
               <div className="p-6">
@@ -1749,7 +1861,7 @@ export function SidebarTextOnlyDemo() {
      <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible="none">
         <SidebarLayout className="h-full">
-            <Sidebar variant="docs" style={{ width: '180px' }}>
+            <Sidebar variant="docs">
               <SidebarContent>
                 {categories.map((cat) => (
                   <SidebarGroup key={cat.label}>
@@ -1791,7 +1903,7 @@ export function SidebarTextOnlyDemo() {
  // =============================================
 
 export function SidebarSearchDemo() {
-   const [activeItem, setActiveItem] = useState('Overview');
+   const [activeItem, setActiveItem] = useState('Get started-Overview');
    const [searchValue, setSearchValue] = useState('');
 
    const docsSections = [
@@ -1804,9 +1916,9 @@ export function SidebarSearchDemo() {
      <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
        <SidebarProvider className="h-full" collapsible="none">
         <SidebarLayout className="h-full">
-            <Sidebar variant="docs" style={{ width: '220px' }}>
+            <Sidebar variant="docs">
               <SidebarHeader>
-                <div style={{ padding: '16px 0 8px' }}>
+                <div style={{ padding: '12px 0 8px', width: '100%' }}>
                   <SidebarInput
                     variant="soft"
                     placeholder="Search"
@@ -1822,17 +1934,20 @@ export function SidebarSearchDemo() {
                     <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
                     <SidebarGroupContent>
                       <SidebarMenu>
-                        {section.items.map((item) => (
-                          <SidebarMenuItem key={`${section.label}-${item}`}>
-                            <SidebarMenuSubButton
-                              indent={0}
-                              isActive={activeItem === item}
-                              onClick={() => setActiveItem(item)}
-                            >
-                              {item}
-                            </SidebarMenuSubButton>
-                          </SidebarMenuItem>
-                        ))}
+                        {section.items.map((item) => {
+                          const id = `${section.label}-${item}`;
+                          return (
+                            <SidebarMenuItem key={id}>
+                              <SidebarMenuSubButton
+                                indent={0}
+                                isActive={activeItem === id}
+                                onClick={() => setActiveItem(id)}
+                              >
+                                {item}
+                              </SidebarMenuSubButton>
+                            </SidebarMenuItem>
+                          );
+                        })}
                       </SidebarMenu>
                     </SidebarGroupContent>
                   </SidebarGroup>
@@ -1981,6 +2096,7 @@ export function SidebarFooterCardsDemo() {
        <SidebarProvider className="h-full" collapsible="icon">
         <SidebarLayout className="h-full">
             <Sidebar>
+              <DemoSidebarHeader />
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
@@ -2041,7 +2157,6 @@ export function SidebarFooterCardsDemo() {
                     </Button>
                   </SidebarCardFooter>
                 </SidebarCard>
-                <SidebarTrigger />
               </SidebarFooter>
             </Sidebar>
 
@@ -2058,6 +2173,413 @@ export function SidebarFooterCardsDemo() {
      </div>
    );
  }
+
+ // =============================================
+ // Console (App-shell sidebar with hover flyout when collapsed)
+ // =============================================
+
+type ConsoleSection = {
+  id: string;
+  label: string;
+  icon: React.ComponentType;
+  badge?: string;
+  items?: { id: string; label: string }[];
+};
+
+const consoleSections: ConsoleSection[] = [
+  {
+    id: 'build',
+    label: 'Build',
+    icon: SettingsWrench,
+    items: [
+      { id: 'workbench', label: 'Workbench' },
+      { id: 'files', label: 'Files' },
+      { id: 'skills', label: 'Skills' },
+      { id: 'batches', label: 'Batches' },
+    ],
+  },
+  {
+    id: 'managed-agents',
+    label: 'Managed Agents',
+    icon: Branch,
+    badge: 'New',
+    items: [
+      { id: 'quickstart', label: 'Quickstart' },
+      { id: 'agents', label: 'Agents' },
+      { id: 'sessions', label: 'Sessions' },
+      { id: 'environments', label: 'Environments' },
+      { id: 'credential-vaults', label: 'Credential vaults' },
+    ],
+  },
+  {
+    id: 'analytics',
+    label: 'Analytics',
+    icon: Bolt,
+    items: [
+      { id: 'analytics-usage', label: 'Usage' },
+      { id: 'analytics-cost', label: 'Cost' },
+      { id: 'analytics-logs', label: 'Logs' },
+    ],
+  },
+  {
+    id: 'cli',
+    label: 'CLI',
+    icon: Terminal,
+    items: [
+      { id: 'cli-usage', label: 'Usage' },
+      { id: 'cli-settings', label: 'Settings' },
+    ],
+  },
+  {
+    id: 'manage',
+    label: 'Manage',
+    icon: Tools,
+    items: [
+      { id: 'api-keys', label: 'API keys' },
+      { id: 'limits', label: 'Limits' },
+      { id: 'members', label: 'Members' },
+      { id: 'security', label: 'Security and compliance' },
+    ],
+  },
+];
+
+const consoleFlyoutItemCls =
+  'flex items-center w-full text-left rounded-md px-3 py-1.5 text-sm text-primary cursor-pointer bg-transparent border-0 appearance-none select-none transition-colors hover:bg-[var(--sidebar-accent)] data-[active=true]:bg-[var(--sidebar-accent)] data-[active=true]:text-[var(--sidebar-menu-text-active)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]';
+
+function ConsoleSectionItem({
+  section,
+  expanded,
+  activeId,
+  onToggle,
+  onItemClick,
+}: {
+  section: ConsoleSection;
+  expanded: boolean;
+  activeId: string;
+  onToggle: (id: string) => void;
+  onItemClick: (sectionId: string, itemId: string) => void;
+}) {
+  const { state, isMobile } = useSidebar();
+  const isCollapsed = state === 'collapsed' && !isMobile;
+  const Icon = section.icon;
+  const hasItems = !!section.items && section.items.length > 0;
+  const isSectionActive =
+    activeId === section.id || section.items?.some((i) => i.id === activeId) === true;
+
+  const button = (
+    <SidebarMenuButton
+      className="console-menu-button"
+      isActive={!hasItems && isSectionActive}
+      tooltip={isCollapsed && !hasItems ? section.label : undefined}
+      onClick={() => {
+        if (!hasItems) {
+          onItemClick(section.id, section.id);
+        } else if (!isCollapsed) {
+          onToggle(section.id);
+        }
+      }}
+    >
+      <SidebarMenuButtonIcon>
+        <Icon />
+      </SidebarMenuButtonIcon>
+      <SidebarMenuButtonLabel>{section.label}</SidebarMenuButtonLabel>
+      {section.badge != null && (
+        <SidebarMenuBadge>
+          <Badge size="sm" color="info">
+            {section.badge}
+          </Badge>
+        </SidebarMenuBadge>
+      )}
+      {hasItems && (
+        <SidebarMenuChevron
+          className="ml-auto transition-transform"
+          style={{
+            transform: !isCollapsed && expanded ? 'rotate(90deg)' : undefined,
+          }}
+        />
+      )}
+    </SidebarMenuButton>
+  );
+
+  if (isCollapsed && hasItems) {
+    return (
+      <SidebarMenuItem>
+        <Popover showOnHover hoverOpenDelay={80}>
+          <Popover.Trigger>{button}</Popover.Trigger>
+          <Popover.Content
+            side="right"
+            sideOffset={8}
+            minWidth={220}
+            align="start"
+            autoFocus={false}
+          >
+            <div className="p-1">
+              <div className="px-3 py-2 text-xs font-medium text-tertiary">
+                {section.label}
+              </div>
+              {section.items!.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  data-active={activeId === item.id ? 'true' : undefined}
+                  className={consoleFlyoutItemCls}
+                  onClick={() => onItemClick(section.id, item.id)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </Popover.Content>
+        </Popover>
+      </SidebarMenuItem>
+    );
+  }
+
+  return (
+    <SidebarMenuItem expanded={!isCollapsed && expanded}>
+      {button}
+      {hasItems && (
+        <SidebarMenuSub open={!isCollapsed && expanded} hasIcons>
+          {section.items!.map((item) => (
+            <SidebarMenuSubItem key={item.id}>
+              <SidebarMenuSubButton
+                indent={1}
+                isActive={activeId === item.id}
+                onClick={() => onItemClick(section.id, item.id)}
+              >
+                {item.label}
+              </SidebarMenuSubButton>
+            </SidebarMenuSubItem>
+          ))}
+        </SidebarMenuSub>
+      )}
+    </SidebarMenuItem>
+  );
+}
+
+const ConsoleDemoContext = createContext<{
+  open: boolean;
+  setOpen: (v: boolean) => void;
+  bordered: boolean;
+  setBordered: (v: boolean) => void;
+} | null>(null);
+
+function SidebarConsoleDemoPreview() {
+  const ctx = useContext(ConsoleDemoContext);
+  const [activeId, setActiveId] = useState('workbench');
+  const [expandedSections, setExpandedSections] = useState<string[]>([
+    'build',
+    'managed-agents',
+    'analytics',
+    'cli',
+    'manage',
+  ]);
+  const open = ctx?.open ?? true;
+
+  const handleToggle = (id: string) => {
+    setExpandedSections((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
+    );
+  };
+
+  const handleItemClick = (_sectionId: string, itemId: string) => {
+    setActiveId(itemId);
+  };
+
+  const activeLabel =
+    consoleSections.flatMap((s) => [s, ...(s.items ?? [])]).find((i) => i.id === activeId)
+      ?.label ?? 'Workbench';
+
+  const bordered = ctx?.bordered ?? false;
+
+  return (
+    <div data-demo-stage data-bordered={bordered ? 'true' : 'false'} className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
+      <style>{`
+        .console-demo .console-content { -webkit-mask-image: none; mask-image: none; padding-top: 0; }
+        .console-demo .console-menu-button > span > span:first-child > svg { width: 16px; height: 16px; }
+        .console-demo .console-workspace-chevron {
+          transition: opacity var(--sidebar-collapse-duration) var(--cubic-move);
+        }
+        .console-demo[data-sidebar="collapsed"] .console-menu-button > span > span:nth-child(2),
+        .console-demo[data-sidebar="collapsed"] .console-menu-button > span > span:nth-child(3) { display: none; }
+        .console-demo[data-sidebar="collapsed"] .console-workspace-chevron { opacity: 0; pointer-events: none; }
+        .console-demo .console-footer { padding-top: 8px; padding-bottom: 8px; }
+        .console-demo .console-footer-separator { display: block; margin-top: 8px; margin-bottom: 8px; }
+        .console-demo .console-account-button > span { height: auto; min-height: 44px; padding-top: 6px; padding-bottom: 6px; }
+        .console-trigger-kbd {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 4px;
+          min-width: 18px;
+          height: 16px;
+          font-size: 10px;
+          font-family: inherit;
+          border-radius: 3px;
+          background: rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.7);
+        }
+      `}</style>
+      <SidebarProvider
+        className="h-full console-demo"
+        collapsible="icon"
+        open={open}
+        onOpenChange={ctx?.setOpen}
+      >
+        <SidebarLayout className="h-full">
+          <Sidebar>
+            <DemoSidebarHeader title="Console" />
+
+            <SidebarContent className="console-content">
+              <SidebarGroup className="console-group">
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <Menu>
+                        <Menu.Trigger>
+                          <SidebarMenuButton className="console-menu-button" tooltip="Default">
+                            <SidebarMenuButtonIcon>
+                              <Cube />
+                            </SidebarMenuButtonIcon>
+                            <SidebarMenuButtonLabel>Default</SidebarMenuButtonLabel>
+                            <ChevronUpDown
+                              className="ml-auto console-workspace-chevron"
+                              style={{ width: 14, height: 14 }}
+                            />
+                          </SidebarMenuButton>
+                        </Menu.Trigger>
+                        <Menu.Content minWidth={200} align="start">
+                          <Menu.Item onSelect={() => {}}>Default</Menu.Item>
+                          <Menu.Item onSelect={() => {}}>Production</Menu.Item>
+                          <Menu.Item onSelect={() => {}}>Staging</Menu.Item>
+                          <Menu.Separator />
+                          <Menu.Item onSelect={() => {}}>
+                            <Plus /> New workspace
+                          </Menu.Item>
+                        </Menu.Content>
+                      </Menu>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+
+              <SidebarGroup className="console-group">
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {consoleSections.map((section) => (
+                      <ConsoleSectionItem
+                        key={section.id}
+                        section={section}
+                        expanded={expandedSections.includes(section.id)}
+                        activeId={activeId}
+                        onToggle={handleToggle}
+                        onItemClick={handleItemClick}
+                      />
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+
+            <SidebarFooter className="console-footer">
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton className="console-menu-button" tooltip="Documentation">
+                    <SidebarMenuButtonIcon>
+                      <Book />
+                    </SidebarMenuButtonIcon>
+                    <SidebarMenuButtonLabel>Documentation</SidebarMenuButtonLabel>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarSeparator className="console-footer-separator" />
+                <SidebarMenuItem>
+                  <Menu>
+                    <Menu.Trigger>
+                      <SidebarMenuButton
+                        className="console-menu-button console-account-button"
+                        tooltip="Alex · Acme Inc"
+                      >
+                        <SidebarMenuButtonIcon>
+                          <Avatar name="Alex" size={24} color="secondary" variant="solid" />
+                        </SidebarMenuButtonIcon>
+                        <SidebarMenuButtonLabel>
+                          <span className="flex flex-col leading-tight">
+                            <span className="font-medium text-primary text-sm">Alex</span>
+                            <span className="text-tertiary text-xs">Admin</span>
+                          </span>
+                        </SidebarMenuButtonLabel>
+                        <ChevronDownMd className="ml-auto" style={{ width: 14, height: 14 }} />
+                      </SidebarMenuButton>
+                    </Menu.Trigger>
+                    <Menu.Content minWidth={260} align="start" side="top">
+                      <Menu.Item disabled>
+                        <span className="text-tertiary text-sm">alex@example.com</span>
+                      </Menu.Item>
+                      <Menu.Item onSelect={() => {}}>
+                        <BuildingWorkspace /> Acme Inc
+                        <span className="ml-auto text-xs text-tertiary">API plan</span>
+                      </Menu.Item>
+                      <Menu.Separator />
+                      <Menu.Item onSelect={() => {}}>
+                        <SettingsCog /> Organization settings
+                      </Menu.Item>
+                      <Menu.Separator />
+                      <Menu.Item onSelect={() => {}}>
+                        <Chat /> Feedback
+                      </Menu.Item>
+                      <Menu.Item onSelect={() => {}}>
+                        <Help /> Get help
+                      </Menu.Item>
+                      <Menu.Item onSelect={() => {}}>
+                        <InfoCircle /> Legal center
+                        <ChevronRightMd className="ml-auto" />
+                      </Menu.Item>
+                      <Menu.Separator />
+                      <Menu.Item onSelect={() => {}}>
+                        <Logout /> Log out
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarFooter>
+          </Sidebar>
+
+          <SidebarInset>
+            <div className="p-6">
+              <h1 className="text-2xl font-semibold mb-2">{activeLabel}</h1>
+              <p className="text-secondary">
+                Hover the icons when collapsed to reveal a flyout with the section&apos;s items.
+              </p>
+            </div>
+          </SidebarInset>
+        </SidebarLayout>
+      </SidebarProvider>
+    </div>
+  );
+}
+
+function SidebarConsoleDemoControls() {
+  const ctx = useContext(ConsoleDemoContext);
+  if (!ctx) return null;
+  return (
+    <div data-demo-controls style={controlsTableStyle}>
+      <DemoControlBoolean name="open" value={ctx.open} onChange={ctx.setOpen} />
+      <DemoControlBoolean name="bordered" value={ctx.bordered} onChange={ctx.setBordered} />
+    </div>
+  );
+}
+
+export function SidebarConsoleDemo() {
+  const [open, setOpen] = useState(true);
+  const [bordered, setBordered] = useState(false);
+  return (
+    <ConsoleDemoContext.Provider value={{ open, setOpen, bordered, setBordered }}>
+      <SidebarConsoleDemoPreview />
+      <SidebarConsoleDemoControls />
+    </ConsoleDemoContext.Provider>
+  );
+}
 
  // =============================================
  // Header sizes (with controls)
@@ -2109,7 +2631,7 @@ export function SidebarHeaderSizesDemoPreview() {
       {size === 'sm' ? (
         <SidebarProvider className="h-full" collapsible="none" key="sm">
           <SidebarLayout className="h-full">
-              <Sidebar style={{ width: '200px' }}>
+              <Sidebar>
                 <SidebarContent>
                   {dashboardSections.map((section) => (
                     <SidebarGroup key={section.label}>
@@ -2146,7 +2668,7 @@ export function SidebarHeaderSizesDemoPreview() {
         ) : (
           <SidebarProvider className="h-full" collapsible="none" key="lg">
             <SidebarLayout className="h-full">
-              <Sidebar variant="docs" style={{ width: '220px' }}>
+              <Sidebar variant="docs">
                 <SidebarContent>
                   {docsSectionsHeaderSizes.map((section) => (
                     <SidebarGroup key={section.label}>
@@ -2318,6 +2840,7 @@ function MobileMenuInner({ mobile, nested, icons }: { mobile: boolean; nested: b
   // Desktop: simple flat nav with icons (default)
   const renderDesktopSimpleNav = () => (
     <Sidebar>
+      <DemoSidebarHeader />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
@@ -2365,15 +2888,13 @@ function MobileMenuInner({ mobile, nested, icons }: { mobile: boolean; nested: b
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarTrigger />
-      </SidebarFooter>
     </Sidebar>
   );
 
   // Desktop: simple flat nav without icons
   const renderDesktopSimpleNavNoIcons = () => (
     <Sidebar>
+      <DemoSidebarHeader />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel size="sm">Project</SidebarGroupLabel>
@@ -2418,9 +2939,6 @@ function MobileMenuInner({ mobile, nested, icons }: { mobile: boolean; nested: b
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarTrigger />
-      </SidebarFooter>
     </Sidebar>
   );
 
@@ -2729,6 +3247,8 @@ function MobileMenuInner({ mobile, nested, icons }: { mobile: boolean; nested: b
   setNested: (v: boolean) => void;
   icons: boolean;
   setIcons: (v: boolean) => void;
+  bordered: boolean;
+  setBordered: (v: boolean) => void;
 };
 
 const MobileDemoContext = createContext<MobileDemoContextValue | null>(null);
@@ -2737,7 +3257,8 @@ export function SidebarMobileDemoRoot({ children }: { children: React.ReactNode 
   const [mobile, setMobile] = useState(false);
   const [nested, setNested] = useState(false);
   const [icons, setIcons] = useState(false);
-  const value: MobileDemoContextValue = { mobile, setMobile, nested, setNested, icons, setIcons };
+  const [bordered, setBordered] = useState(true);
+  const value: MobileDemoContextValue = { mobile, setMobile, nested, setNested, icons, setIcons, bordered, setBordered };
   return (
     <MobileDemoContext.Provider value={value}>
       {children}
@@ -2750,10 +3271,11 @@ export function SidebarMobileDemoPreview() {
    const mobile = ctx?.mobile ?? false;
    const nested = ctx?.nested ?? false;
    const icons = ctx?.icons ?? false;
+   const bordered = ctx?.bordered ?? true;
    const key = `${mobile}-${nested}-${icons}`;
    return (
-     <div data-demo-stage className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
-       <SidebarProvider className="h-full" collapsible={mobile ? 'offcanvas' : 'icon'} key={key}>
+     <div data-demo-stage data-bordered={bordered ? 'true' : 'false'} className="flex-1 w-full !p-0 !items-stretch !justify-stretch [&>*]:!m-0">
+       <SidebarProvider className="h-full" collapsible={mobile ? 'offcanvas' : icons ? 'icon' : 'none'} key={key}>
         <MobileMenuInner mobile={mobile} nested={nested} icons={icons} />
       </SidebarProvider>
     </div>
@@ -2763,12 +3285,13 @@ export function SidebarMobileDemoPreview() {
 function SidebarMobileDemoControls() {
   const ctx = useContext(MobileDemoContext);
   if (!ctx) return null;
-  const { mobile, setMobile, nested, setNested, icons, setIcons } = ctx;
+  const { mobile, setMobile, nested, setNested, icons, setIcons, bordered, setBordered } = ctx;
   return (
     <div data-demo-controls style={controlsTableStyle}>
       <DemoControlBoolean name="mobile" value={mobile} onChange={setMobile} />
       <DemoControlBoolean name="nested" value={nested} onChange={setNested} />
       <DemoControlBoolean name="icons" value={icons} onChange={setIcons} />
+      <DemoControlBoolean name="bordered" value={bordered} onChange={setBordered} />
     </div>
   );
 }
