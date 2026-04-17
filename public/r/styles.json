@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "styles",
+  "type": "registry:style",
+  "dependencies": ["@plexui/ui"],
+  "files": [
+    {
+      "path": "app/plexui.css",
+      "type": "registry:file",
+      "target": "app/plexui.css",
+      "content": "@import '@plexui/ui/css';\n"
+    }
+  ],
+  "docs": "Add `import './plexui.css';` to your app root (e.g. app/layout.tsx) so Plex UI design tokens and component styles are loaded. Must be imported once, before rendering any Plex UI component."
+}

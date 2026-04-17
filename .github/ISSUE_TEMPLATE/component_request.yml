@@ -1,0 +1,39 @@
+name: 💡 Component request
+description: Request a new component or a variant of an existing one
+labels: ["component-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Before filing, please search existing issues and check the [components list](https://plexui.com/docs/components).
+
+  - type: input
+    id: name
+    attributes:
+      label: Component name
+      placeholder: "e.g. Toast, Command Palette, Breadcrumb"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What problem does this solve? What are you building?
+    validations:
+      required: true
+
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: Rough sketch of the component interface — optional but helpful
+      render: tsx
+      placeholder: |
+        <Toast title="Saved!" variant="success" duration={3000} />
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Links to similar components in Radix, shadcn, Material, etc.

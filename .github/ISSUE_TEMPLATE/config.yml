@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Ask a question
+    url: https://github.com/plex-ui/docs/discussions
+    about: Open a discussion — questions, ideas, and show & tell
+  - name: 🔐 Report a security issue
+    url: https://github.com/plex-ui/docs/security/policy
+    about: Private channel for security vulnerabilities
+  - name: 📖 Read the docs
+    url: https://plexui.com
+    about: Components, skills, Figma kit, changelog

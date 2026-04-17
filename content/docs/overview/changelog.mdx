@@ -7,7 +7,25 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
-## 0.7.97 — 2026-04-16
+## 0.7.97 — 2026-04-17
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Sidebar docs rewritten</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
+    Consolidated 14 examples into 7 — the new <strong>App Shell</strong> demo (workspace selector, expandable sections with hover flyouts when collapsed, footer with docs link + user menu) replaces the standalone <em>Console</em> example, and a beefed-up <strong>Basic</strong> demo absorbs <em>Scrollable Content</em>, <em>Without Icons</em>, <em>Collapse Modes</em>, <em>Footer Cards</em>, <em>Group Label Sizes</em>, <em>Badges</em>, and <em>Loading State</em> via toggles (<code>collapsible</code>, <code>icons</code>, <code>badges</code>, <code>footerCard</code>, <code>labelSize</code>, <code>bordered</code>). All demos now share a 260px width, the same <code>DemoSidebarHeader</code> (wordmark + tooltip-wrapped trigger with ⌘. shortcut), context-aware <code>SidebarCollapseLeft</code>/<code>SidebarCollapseRight</code> trigger icons, and consistent group/header spacing.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Sidebar trigger hidden when icons are disabled</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
+    The <code>collapsible="icon"</code> rail no longer appears when a sidebar has no icons to collapse to — there&apos;s nothing to click on. The Mobile Menu and App Shell demos now force <code>collapsible="none"</code> when the icons toggle is off.
+  </li>
+</ul>
 
 ### Added
 

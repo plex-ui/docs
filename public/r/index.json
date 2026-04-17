@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "plex-ui",
+  "homepage": "https://plexui.dev",
+  "items": [
+    {
+      "name": "styles",
+      "type": "registry:style",
+      "description": "Plex UI design tokens and component styles (import once in app root).",
+      "files": [{ "path": "styles.json", "type": "registry:file" }]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "description": "Button component — sizes, variants, loading state.",
+      "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "description": "Text input — sizes, variants, clearable, adornments.",
+      "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "description": "Status indicator badge.",
+      "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "description": "Modal dialog.",
+      "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "description": "Inline alert/notification.",
+      "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "description": "Dropdown menu with items, separators, submenus.",
+      "dependencies": ["@plexui/ui"]
+    }
+  ]
+}

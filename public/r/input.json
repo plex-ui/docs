@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "Plex UI text input — sizes, variants, clearable, start/end adornments, password toggle.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/input.tsx",
+      "type": "registry:ui",
+      "content": "export { Input } from '@plexui/ui/components/Input';\nexport type { InputProps } from '@plexui/ui/components/Input';\n"
+    }
+  ],
+  "docs": "Import as `import { Input } from '@/components/ui/input'`. See https://plexui.dev/docs/components/input for full prop reference."
+}
