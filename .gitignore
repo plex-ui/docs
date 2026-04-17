@@ -65,3 +65,7 @@ temp/
 figma/
 skills/dev-browser/profiles/
 skills/dev-browser/tmp/
+
+# Playwright MCP browser cache
+.playwright-mcp/
+

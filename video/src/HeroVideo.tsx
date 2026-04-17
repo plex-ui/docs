@@ -1,4 +1,4 @@
-import { AbsoluteFill, Sequence, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useVideoConfig } from 'remotion';
 import { theme } from './theme';
 import { SceneHook } from './scenes/Hook';
 import { SceneInstall } from './scenes/Install';
@@ -12,21 +12,23 @@ import { SceneCTA } from './scenes/CTA';
  */
 const SCENES = [
   { name: 'hook', seconds: 3 },
-  { name: 'install', seconds: 5 },
-  { name: 'prompt', seconds: 6 },
-  { name: 'generation', seconds: 31 },
-  { name: 'features', seconds: 10 },
-  { name: 'cta', seconds: 5 },
+  { name: 'install', seconds: 6 },
+  { name: 'prompt', seconds: 4 },
+  { name: 'generation', seconds: 8 },
+  { name: 'features', seconds: 6 },
+  { name: 'cta', seconds: 8 },
 ];
 
 export const HeroVideo: React.FC<{ vertical?: boolean }> = ({ vertical = false }) => {
-  const { fps } = useVideoConfig();
+  const { fps, durationInFrames } = useVideoConfig();
   let cursor = 0;
   const ranges = SCENES.map((scene) => {
     const start = cursor;
     cursor += scene.seconds * fps;
     return { ...scene, start, durationInFrames: scene.seconds * fps };
   });
+
+  const fadeFrames = fps * 1.5;
 
   return (
     <AbsoluteFill
@@ -36,6 +38,17 @@ export const HeroVideo: React.FC<{ vertical?: boolean }> = ({ vertical = false }
         color: theme.fg,
       }}
     >
+      <Audio
+        src={staticFile('music.mp3')}
+        volume={(f) =>
+          interpolate(
+            f,
+            [0, fadeFrames, durationInFrames - fadeFrames, durationInFrames],
+            [0, 0.45, 0.45, 0],
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
+          )
+        }
+      />
       <Sequence from={ranges[0].start} durationInFrames={ranges[0].durationInFrames}>
         <SceneHook vertical={vertical} />
       </Sequence>

@@ -1,6 +1,6 @@
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 import { theme } from '../theme';
-import { Terminal } from '../components/Terminal';
+import { ClaudeTerminal } from '../components/ClaudeTerminal';
 import { TypedText } from '../components/TypedText';
 
 export const ScenePrompt: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
@@ -26,17 +26,17 @@ export const ScenePrompt: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
       >
         Now watch.
       </div>
-      <div style={{ width: vertical ? '95%' : 1080 }}>
-        <Terminal title="claude code — prompt">
-          <div style={{ color: theme.fgMuted, marginBottom: 12 }}>You:</div>
-          <div style={{ fontSize: 22, lineHeight: 1.55 }}>
+      <div style={{ width: vertical ? '95%' : 1000 }}>
+        <ClaudeTerminal showWelcome>
+          <div>
+            <span style={{ color: '#d97757' }}>❯</span>{' '}
             <TypedText
-              text={`Build a settings panel with fields for email,\npassword, and a dark mode toggle. Use Plex UI.`}
+              text={`Build a sign-up form with full name, email, country selector, and phone number. Use Plex UI.`}
               startFrame={20}
-              cps={28}
+              cps={30}
             />
           </div>
-        </Terminal>
+        </ClaudeTerminal>
       </div>
     </AbsoluteFill>
   );

@@ -163,6 +163,25 @@ export function Hero() {
             Get the Figma Kit
           </ButtonLink>
         </div>
+
+        {/* Hero video — 35-second product walkthrough */}
+        <div className="mt-14 w-full max-w-3xl">
+          <div
+            className="overflow-hidden rounded-2xl border border-fd-border"
+            style={{ boxShadow: '0 30px 80px rgba(0,0,0,0.45)' }}
+          >
+            <video
+              src="/plexui-hero.mp4"
+              poster="/plexui-hero-poster.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="block aspect-video w-full"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

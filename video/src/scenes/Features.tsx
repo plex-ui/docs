@@ -4,7 +4,7 @@ import { theme } from '../theme';
 const FEATURES = [
   { title: '~50 components', sub: 'Radix + accessible' },
   { title: 'AI skill in the box', sub: 'Claude · Codex · MCP' },
-  { title: 'shadcn-compatible', sub: 'npx shadcn add …' },
+  { title: 'shadcn-ready', sub: 'npx shadcn add …' },
   { title: 'Figma parity', sub: '22,000+ variants' },
 ];
 

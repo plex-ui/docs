@@ -7,8 +7,8 @@ export const theme = {
   fg: '#ffffff',
   fgMuted: '#8a8aa5',
   fgSubtle: '#5a5a75',
-  accent: '#8b5cf6', // purple accent
-  accentSoft: 'rgba(139, 92, 246, 0.18)',
+  accent: '#0169cc', // Plex UI primary blue (from variables-primitive.css --blue-500)
+  accentSoft: 'rgba(1, 105, 204, 0.18)',
   green: '#4ade80',
   red: '#f87171',
   yellow: '#fbbf24',
