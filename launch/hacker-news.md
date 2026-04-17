@@ -12,5 +12,6 @@ Most component libraries offer 3-4 sizes. We ship 9 (xs through 5xl). Real appli
 
 The React library is free and MIT licensed (npm install @plexui/ui). The Figma Kit is paid ($49-$299). Built for AI code editors. The component API is designed to be predictable and easy for LLMs to use correctly.
 
+35-second walkthrough video on the landing: https://plexui.com
 Docs: https://plexui.com/docs
-GitHub: https://github.com/plex-ui/ui
+GitHub: https://github.com/plex-ui/docs

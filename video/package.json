@@ -7,6 +7,8 @@
     "dev": "remotion studio src/index.ts",
     "build": "remotion render src/index.ts HeroVideo out/plexui-hero.mp4 --concurrency=4",
     "build-vertical": "remotion render src/index.ts HeroVideoVertical out/plexui-hero-vertical.mp4 --concurrency=4",
+    "build-light": "remotion render src/index.ts HeroVideoLight out/plexui-hero-light.mp4 --concurrency=4",
+    "build-light-vertical": "remotion render src/index.ts HeroVideoLightVertical out/plexui-hero-light-vertical.mp4 --concurrency=4",
     "build-gif": "remotion render src/index.ts HeroVideo out/plexui-hero.gif --codec=gif --concurrency=4",
     "preview": "remotion preview src/index.ts"
   },

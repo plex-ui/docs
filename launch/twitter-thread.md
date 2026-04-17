@@ -1,11 +1,16 @@
 # Twitter/X Thread
 
+> **Asset for tweet 1:** attach `public/plexui-hero.mp4` (16:9, 35s, 2.7 MB). For X main feed. Upload directly so it autoplays inline.
+> **Asset for vertical placements (X stories, IG, TikTok):** `public/plexui-hero-vertical.mp4` (9:16).
+
 **Tweet 1:**
 We built a design system with 22,000 Figma variants.
 
 Every component has 9 sizes. Every token is a Figma Variable. Full Figma ↔ React parity.
 
 Free React library. Here's what makes it different:
+
+[ATTACH plexui-hero.mp4]
 
 ---
 
@@ -55,6 +60,6 @@ Plex UI gives you both. Full system. Design to code in minutes.
 
 **Tweet 7:**
 Check it out: plexui.com
-GitHub: github.com/plex-ui/ui
+GitHub: github.com/plex-ui/docs
 
 React is free. Figma is paid. Both built for speed.

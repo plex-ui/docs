@@ -1,11 +1,12 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { theme } from '../theme';
+import { lightTheme, theme } from '../theme';
 import { TypedText } from '../components/TypedText';
 
-export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
+export const SceneCTA: React.FC<{ vertical?: boolean; light?: boolean }> = ({ vertical, light }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const titleSpring = spring({ frame, fps, config: { damping: 16 } });
+  const t = light ? lightTheme : theme;
 
   return (
     <AbsoluteFill
@@ -24,7 +25,9 @@ export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
           marginBottom: 24,
           opacity: titleSpring,
           transform: `scale(${interpolate(titleSpring, [0, 1], [0.94, 1])})`,
-          background: `linear-gradient(135deg, #ffffff 0%, ${theme.accent} 100%)`,
+          background: light
+            ? `linear-gradient(135deg, ${t.fg} 0%, ${theme.accent} 100%)`
+            : `linear-gradient(135deg, #ffffff 0%, ${theme.accent} 100%)`,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}
@@ -34,7 +37,7 @@ export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
       <div
         style={{
           fontSize: vertical ? 32 : 36,
-          color: theme.fgMuted,
+          color: t.fgMuted,
           marginBottom: 56,
           opacity: interpolate(frame, [10, 25], [0, 1], { extrapolateRight: 'clamp' }),
         }}
@@ -44,18 +47,18 @@ export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
 
       <div
         style={{
-          backgroundColor: theme.bgSoft,
-          border: `1px solid ${theme.border}`,
+          backgroundColor: t.bgSoft,
+          border: `1px solid ${t.border}`,
           borderRadius: 12,
           padding: '20px 32px',
           fontFamily: theme.mono,
           fontSize: vertical ? 26 : 28,
-          color: theme.fg,
+          color: t.fg,
           opacity: interpolate(frame, [20, 40], [0, 1], { extrapolateRight: 'clamp' }),
           marginBottom: 28,
         }}
       >
-        <span style={{ color: theme.fgMuted }}>$ </span>
+        <span style={{ color: t.fgMuted }}>$ </span>
         <TypedText text="npm install @plexui/ui" startFrame={30} cps={28} cursor={false} />
       </div>
 
@@ -66,12 +69,12 @@ export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
           gap: 12,
           padding: '10px 22px',
           borderRadius: 999,
-          backgroundColor: 'rgba(74, 222, 128, 0.12)',
-          border: `1px solid rgba(74, 222, 128, 0.35)`,
-          color: theme.green,
-          fontWeight: 700,
-          fontSize: vertical ? 24 : 26,
-          letterSpacing: '0.02em',
+          backgroundColor: light ? 'rgba(4, 184, 76, 0.10)' : 'rgba(4, 184, 76, 0.20)',
+          border: light ? '1px solid rgba(4, 184, 76, 0.22)' : '1px solid rgba(4, 184, 76, 0.45)',
+          color: light ? '#00692a' : '#8cdfad',
+          fontWeight: light ? 500 : 600,
+          fontSize: vertical ? 22 : 24,
+          fontFamily: t.sans,
           opacity: interpolate(frame, [40, 60], [0, 1], { extrapolateRight: 'clamp' }),
           marginBottom: 36,
         }}
@@ -82,7 +85,7 @@ export const SceneCTA: React.FC<{ vertical?: boolean }> = ({ vertical }) => {
       <div
         style={{
           fontSize: vertical ? 26 : 28,
-          color: theme.fgMuted,
+          color: t.fgMuted,
           opacity: interpolate(frame, [60, 80], [0, 1], { extrapolateRight: 'clamp' }),
         }}
       >

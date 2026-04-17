@@ -1,5 +1,5 @@
 import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useVideoConfig } from 'remotion';
-import { theme } from './theme';
+import { lightTheme, theme } from './theme';
 import { SceneHook } from './scenes/Hook';
 import { SceneInstall } from './scenes/Install';
 import { ScenePrompt } from './scenes/Prompt';
@@ -19,7 +19,7 @@ const SCENES = [
   { name: 'cta', seconds: 8 },
 ];
 
-export const HeroVideo: React.FC<{ vertical?: boolean }> = ({ vertical = false }) => {
+export const HeroVideo: React.FC<{ vertical?: boolean; light?: boolean }> = ({ vertical = false, light = false }) => {
   const { fps, durationInFrames } = useVideoConfig();
   let cursor = 0;
   const ranges = SCENES.map((scene) => {
@@ -29,13 +29,14 @@ export const HeroVideo: React.FC<{ vertical?: boolean }> = ({ vertical = false }
   });
 
   const fadeFrames = fps * 1.5;
+  const t = light ? lightTheme : theme;
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: theme.bg,
-        fontFamily: theme.sans,
-        color: theme.fg,
+        backgroundColor: t.bg,
+        fontFamily: t.sans,
+        color: t.fg,
       }}
     >
       <Audio
@@ -50,7 +51,7 @@ export const HeroVideo: React.FC<{ vertical?: boolean }> = ({ vertical = false }
         }
       />
       <Sequence from={ranges[0].start} durationInFrames={ranges[0].durationInFrames}>
-        <SceneHook vertical={vertical} />
+        <SceneHook vertical={vertical} light={light} />
       </Sequence>
       <Sequence from={ranges[1].start} durationInFrames={ranges[1].durationInFrames}>
         <SceneInstall vertical={vertical} />
@@ -59,13 +60,13 @@ export const HeroVideo: React.FC<{ vertical?: boolean }> = ({ vertical = false }
         <ScenePrompt vertical={vertical} />
       </Sequence>
       <Sequence from={ranges[3].start} durationInFrames={ranges[3].durationInFrames}>
-        <SceneGeneration vertical={vertical} />
+        <SceneGeneration vertical={vertical} light={light} />
       </Sequence>
       <Sequence from={ranges[4].start} durationInFrames={ranges[4].durationInFrames}>
-        <SceneFeatures vertical={vertical} />
+        <SceneFeatures vertical={vertical} light={light} />
       </Sequence>
       <Sequence from={ranges[5].start} durationInFrames={ranges[5].durationInFrames}>
-        <SceneCTA vertical={vertical} />
+        <SceneCTA vertical={vertical} light={light} />
       </Sequence>
     </AbsoluteFill>
   );
