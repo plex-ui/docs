@@ -164,25 +164,6 @@ export function Hero() {
           </ButtonLink>
         </div>
       </div>
-
-      {/* Hero video — 35-second product walkthrough.
-          Auto-swaps light/dark variant based on user color scheme via
-          <source media>. Video bg matches each landing bg so edges blend;
-          subtle 1px border + rounded corners like buttons. */}
-      <div className="mt-10 w-full max-w-6xl px-6">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/plexui-hero-light-poster.jpg"
-          className="block aspect-video w-full rounded-2xl border border-fd-border"
-        >
-          <source src="/plexui-hero.mp4" media="(prefers-color-scheme: dark)" type="video/mp4" />
-          <source src="/plexui-hero-light.mp4" type="video/mp4" />
-        </video>
-      </div>
     </section>
   );
 }
