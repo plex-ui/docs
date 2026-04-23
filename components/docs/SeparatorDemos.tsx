@@ -3,88 +3,44 @@
 import { Separator } from '@plexui/ui/components/Separator';
 
 /* ============================================================
-   Overview — horizontal divider with a vertical inline row
+   Overview — 1:1 mirror of shadcn's single Separator demo:
+   https://ui.shadcn.com/docs/components/radix/separator
    ============================================================ */
 
 export function SeparatorOverviewDemo() {
   return (
-    <div style={{ maxWidth: 360 }}>
-      <div>
-        <div style={{ fontSize: 14, fontWeight: 600 }}>Plex UI</div>
-        <div style={{ fontSize: 13, color: 'var(--color-text-tertiary)' }}>
-          An open-source design system for building modern web apps.
-        </div>
+    <div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <h4
+          style={{
+            margin: 0,
+            fontSize: 14,
+            lineHeight: 1,
+            fontWeight: 500,
+          }}
+        >
+          Plex UI
+        </h4>
+        <p style={{ margin: 0, fontSize: 14, color: 'var(--color-text-tertiary)' }}>
+          An open-source UI component library.
+        </p>
       </div>
       <Separator style={{ margin: '16px 0' }} />
       <div
         style={{
           display: 'flex',
+          height: 20,
           alignItems: 'center',
           gap: 16,
           fontSize: 14,
-          color: 'var(--color-text-secondary)',
         }}
       >
-        <span>Blog</span>
-        <Separator orientation="vertical" style={{ height: 16 }} />
-        <span>Docs</span>
-        <Separator orientation="vertical" style={{ height: 16 }} />
-        <span>Source</span>
+        <div>Blog</div>
+        <Separator orientation="vertical" />
+        <div>Docs</div>
+        <Separator orientation="vertical" />
+        <div>Source</div>
       </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   Horizontal — between card sections (mimics Payment Method layout)
-   ============================================================ */
-
-export function SeparatorHorizontalDemo() {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
-        maxWidth: 360,
-      }}
-    >
-      <div>
-        <div style={{ fontSize: 16, fontWeight: 600 }}>Account</div>
-        <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
-          Manage your account information.
-        </div>
-      </div>
-      <Separator />
-      <div>
-        <div style={{ fontSize: 16, fontWeight: 600 }}>Notifications</div>
-        <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
-          Configure how you receive notifications.
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   Vertical — inline between items
-   ============================================================ */
-
-export function SeparatorVerticalDemo() {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        fontSize: 14,
-      }}
-    >
-      <span>One</span>
-      <Separator orientation="vertical" style={{ height: 20 }} />
-      <span>Two</span>
-      <Separator orientation="vertical" style={{ height: 20 }} />
-      <span>Three</span>
     </div>
   );
 }
