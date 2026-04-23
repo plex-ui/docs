@@ -1,3 +1,31 @@
+# 🔴 Rule 0 — never hardcode styles that a component already ships
+
+**If Plex UI has a component for the thing, USE IT.** Do not recreate `Card.Title`, `Card.Description`, `Label`, `Separator`, `Field`, or any other shipped component with inline `style={{ fontSize, fontWeight, color, margin }}` props.
+
+Forbidden pattern:
+
+```tsx
+// ❌ inline recreation
+<div style={{ fontSize: 16, fontWeight: 600 }}>Billing Address</div>
+<div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>…</div>
+```
+
+Correct pattern:
+
+```tsx
+// ✅ use the compound parts
+<Card.Header>
+  <Card.Title>Billing Address</Card.Title>
+  <Card.Description>…</Card.Description>
+</Card.Header>
+```
+
+Only **outer layout containers** (flex/grid with `gap`) may carry inline styles. Typography, color, spacing inside belongs to components. Inline hardcode next to a proper component is a code smell — fix it as part of any change that touches the area.
+
+Full decision with examples and rationale: [`.memory/decisions/0000-no-inline-hardcoded-styles-when-component-exists.md`](.memory/decisions/0000-no-inline-hardcoded-styles-when-component-exists.md)
+
+---
+
 # Persistent Memory — `.memory/` (FIRST ACTION EVERY SESSION)
 
 `.memory/` is a **git submodule** pointing at the private repo [`plex-ui/docs-memory`](https://github.com/plex-ui/docs-memory). It holds planning docs, decisions, bug notes, and session state that is not meant for the public parent repo.

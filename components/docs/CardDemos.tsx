@@ -5,15 +5,12 @@ import { Card } from '@plexui/ui/components/Card';
 import { Button } from '@plexui/ui/components/Button';
 import { Input } from '@plexui/ui/components/Input';
 import { Field } from '@plexui/ui/components/Field';
-import { Checkbox } from '@plexui/ui/components/Checkbox';
 import { RadioGroup } from '@plexui/ui/components/RadioGroup';
-import { Textarea } from '@plexui/ui/components/Textarea';
 import { TextLink } from '@plexui/ui/components/TextLink';
 import { EmptyMessage } from '@plexui/ui/components/EmptyMessage';
-import { Select } from '@plexui/ui/components/Select';
-import { Separator } from '@plexui/ui/components/Separator';
 import { LoadingIndicator } from '@plexui/ui/components/Indicator';
 import { Check, UserAdd } from '@plexui/ui/components/Icon';
+import { PaymentMethodForm } from './_shared/PaymentMethodForm';
 
 /* ============================================================
    Overview — hello-world Card used as the first demo
@@ -147,117 +144,10 @@ export function CardCreateProjectDemo() {
    Payment Method — card-details form
    ============================================================ */
 
-const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => {
-  const value = String(i + 1).padStart(2, '0');
-  return { label: value, value };
-});
-
-const YEAR_OPTIONS = Array.from({ length: 10 }, (_, i) => {
-  const value = String(2024 + i);
-  return { label: value, value };
-});
-
 export function CardPaymentMethodDemo() {
-  const [sameAsShipping, setSameAsShipping] = useState(true);
-  const [month, setMonth] = useState('02');
-  const [year, setYear] = useState('2024');
-
   return (
-    <Card style={{ maxWidth: 380 }}>
-      <Card.Header>
-        <Card.Title>Payment Method</Card.Title>
-        <Card.Description>All transactions are secure and encrypted</Card.Description>
-      </Card.Header>
-      <Card.Content>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <Field label="Name on Card">
-            <Input placeholder="John Doe" />
-          </Field>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <Field label="Card Number">
-                <Input placeholder="1234 5678 9012 3456" inputMode="numeric" />
-              </Field>
-              <span
-                style={{
-                  fontSize: 13,
-                  color: 'var(--color-text-tertiary)',
-                  lineHeight: 1.4,
-                }}
-              >
-                Enter your 16-digit number.
-              </span>
-            </div>
-            <Field label="CVV">
-              <Input placeholder="123" inputMode="numeric" />
-            </Field>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            <Field label="Month">
-              <Select
-                value={month}
-                options={MONTH_OPTIONS}
-                multiple={false}
-                pill={false}
-                onChange={(params) => setMonth(params.value)}
-              />
-            </Field>
-            <Field label="Year">
-              <Select
-                value={year}
-                options={YEAR_OPTIONS}
-                multiple={false}
-                pill={false}
-                onChange={(params) => setYear(params.value)}
-              />
-            </Field>
-          </div>
-          <Separator style={{ margin: '4px 0' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div>
-              <div
-                style={{
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: 'var(--color-text)',
-                }}
-              >
-                Billing Address
-              </div>
-              <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
-                The billing address associated with your payment method
-              </div>
-            </div>
-            <label
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                fontSize: 14,
-                cursor: 'pointer',
-              }}
-            >
-              <Checkbox
-                checked={sameAsShipping}
-                onCheckedChange={setSameAsShipping}
-              />
-              Same as shipping address
-            </label>
-          </div>
-          <Separator style={{ margin: '4px 0' }} />
-          <Field label="Comments">
-            <Textarea placeholder="Add any additional comments" rows={3} />
-          </Field>
-        </div>
-      </Card.Content>
-      <Card.Footer>
-        <Button color="primary" variant="solid" pill={false}>
-          Submit
-        </Button>
-        <Button color="secondary" variant="outline" pill={false}>
-          Cancel
-        </Button>
-      </Card.Footer>
+    <Card style={{ maxWidth: 420 }}>
+      <PaymentMethodForm />
     </Card>
   );
 }
