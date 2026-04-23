@@ -85,7 +85,7 @@ export function LabelInFieldDemo() {
       </div>
 
       <Field label="Name on Card">
-        <Input placeholder="Evil Rabbit" />
+        <Input placeholder="Aisha Cooper" />
       </Field>
 
       <Field
