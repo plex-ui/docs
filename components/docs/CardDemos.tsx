@@ -11,6 +11,7 @@ import { Textarea } from '@plexui/ui/components/Textarea';
 import { TextLink } from '@plexui/ui/components/TextLink';
 import { EmptyMessage } from '@plexui/ui/components/EmptyMessage';
 import { Select } from '@plexui/ui/components/Select';
+import { Separator } from '@plexui/ui/components/Separator';
 import { LoadingIndicator } from '@plexui/ui/components/Indicator';
 import { Check, UserAdd } from '@plexui/ui/components/Icon';
 
@@ -211,13 +212,7 @@ export function CardPaymentMethodDemo() {
               />
             </Field>
           </div>
-          <hr
-            style={{
-              border: 0,
-              borderTop: '1px solid var(--color-border)',
-              margin: '4px 0',
-            }}
-          />
+          <Separator style={{ margin: '4px 0' }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div>
               <div
@@ -249,13 +244,7 @@ export function CardPaymentMethodDemo() {
               Same as shipping address
             </label>
           </div>
-          <hr
-            style={{
-              border: 0,
-              borderTop: '1px solid var(--color-border)',
-              margin: '4px 0',
-            }}
-          />
+          <Separator style={{ margin: '4px 0' }} />
           <Field label="Comments">
             <Textarea placeholder="Add any additional comments" rows={3} />
           </Field>

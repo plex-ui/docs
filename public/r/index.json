@@ -50,6 +50,12 @@
       "type": "registry:ui",
       "description": "Dropdown menu with items, separators, submenus.",
       "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "description": "Horizontal or vertical divider for sections, inline lists, and card groupings.",
+      "dependencies": ["@plexui/ui"]
     }
   ]
 }
