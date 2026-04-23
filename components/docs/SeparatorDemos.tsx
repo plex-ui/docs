@@ -3,8 +3,7 @@
 import { Separator } from '@plexui/ui/components/Separator';
 
 /* ============================================================
-   Demo — overview (mirrors shadcn's primary SeparatorDemo)
-   https://ui.shadcn.com/docs/components/radix/separator
+   Overview — profile-card pattern: header block, separator, body
    ============================================================ */
 
 export function SeparatorOverviewDemo() {
@@ -15,26 +14,26 @@ export function SeparatorOverviewDemo() {
         maxWidth: 384,
         flexDirection: 'column',
         gap: 16,
-        fontSize: 14,
+        fontSize: 'var(--font-text-sm-size)',
+        lineHeight: 'var(--font-text-sm-line-height)',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <div style={{ lineHeight: 1, fontWeight: 500 }}>Plex UI</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2, lineHeight: 1.3 }}>
+        <div style={{ fontWeight: 500 }}>Aisha Cooper</div>
         <div style={{ color: 'var(--color-text-tertiary)' }}>
-          The Foundation for your Design System
+          Engineering · Platform team
         </div>
       </div>
       <Separator />
       <div>
-        A set of beautifully designed components that you can customize, extend,
-        and build on.
+        Shipped 24 pull requests this week across CI/CD and developer tooling.
       </div>
     </div>
   );
 }
 
 /* ============================================================
-   Vertical — use orientation="vertical" between inline items
+   Vertical — package metadata strip
    ============================================================ */
 
 export function SeparatorVerticalDemo() {
@@ -45,65 +44,75 @@ export function SeparatorVerticalDemo() {
         height: 20,
         alignItems: 'center',
         gap: 16,
-        fontSize: 14,
+        fontSize: 'var(--font-text-sm-size)',
       }}
     >
-      <div>Blog</div>
+      <div>MIT license</div>
       <Separator orientation="vertical" />
-      <div>Docs</div>
+      <div>12k weekly downloads</div>
       <Separator orientation="vertical" />
-      <div>Source</div>
+      <div>48 kB bundle</div>
     </div>
   );
 }
 
 /* ============================================================
-   Menu — vertical separators between menu items with descriptions
+   Menu — pricing tier strip, separators between plans
    ============================================================ */
 
 export function SeparatorMenuDemo() {
+  const plans = [
+    { name: 'Starter', meta: 'Free · 1 project' },
+    { name: 'Pro', meta: '$19/mo · Unlimited' },
+    { name: 'Enterprise', meta: 'Custom · Priority SLA' },
+  ];
+
   return (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: 16,
-        fontSize: 14,
+        fontSize: 'var(--font-text-sm-size)',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <span style={{ fontWeight: 500 }}>Settings</span>
-        <span style={{ fontSize: 12, color: 'var(--color-text-tertiary)' }}>
-          Manage preferences
+      {plans.map((plan, i) => (
+        <span key={plan.name} style={{ display: 'contents' }}>
+          {i > 0 && <Separator orientation="vertical" />}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              lineHeight: 1.2,
+            }}
+          >
+            <span style={{ fontWeight: 500 }}>{plan.name}</span>
+            <span
+              style={{
+                fontSize: 'var(--font-text-xs-size)',
+                color: 'var(--color-text-tertiary)',
+              }}
+            >
+              {plan.meta}
+            </span>
+          </div>
         </span>
-      </div>
-      <Separator orientation="vertical" />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <span style={{ fontWeight: 500 }}>Account</span>
-        <span style={{ fontSize: 12, color: 'var(--color-text-tertiary)' }}>
-          Profile &amp; security
-        </span>
-      </div>
-      <Separator orientation="vertical" />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <span style={{ fontWeight: 500 }}>Help</span>
-        <span style={{ fontSize: 12, color: 'var(--color-text-tertiary)' }}>
-          Support &amp; docs
-        </span>
-      </div>
+      ))}
     </div>
   );
 }
 
 /* ============================================================
-   List — horizontal separators between list rows
+   List — release metadata, separators between rows
    ============================================================ */
 
 export function SeparatorListDemo() {
   const rows = [
-    { key: 'Item 1', value: 'Value 1' },
-    { key: 'Item 2', value: 'Value 2' },
-    { key: 'Item 3', value: 'Value 3' },
+    { label: 'Version', value: '0.9.0' },
+    { label: 'Published', value: '2 days ago' },
+    { label: 'Bundle', value: '48 kB' },
+    { label: 'License', value: 'MIT' },
   ];
 
   return (
@@ -114,11 +123,12 @@ export function SeparatorListDemo() {
         maxWidth: 384,
         flexDirection: 'column',
         gap: 8,
-        fontSize: 14,
+        fontSize: 'var(--font-text-sm-size)',
+        lineHeight: 'var(--font-text-sm-line-height)',
       }}
     >
       {rows.map((row, i) => (
-        <span key={row.key} style={{ display: 'contents' }}>
+        <span key={row.label} style={{ display: 'contents' }}>
           {i > 0 && <Separator />}
           <dl
             style={{
@@ -128,7 +138,7 @@ export function SeparatorListDemo() {
               margin: 0,
             }}
           >
-            <dt>{row.key}</dt>
+            <dt>{row.label}</dt>
             <dd style={{ margin: 0, color: 'var(--color-text-tertiary)' }}>
               {row.value}
             </dd>
