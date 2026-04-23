@@ -7,6 +7,49 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.7.98 — 2026-04-23
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Toast component</strong> (<a href="/docs/components/toast">Toast</a>)<br/>
+    New themed notification surface built on <code>sonner</code>. <code>&lt;Toaster /&gt;</code> + <code>toast()</code> re-exported from <code>@plexui/ui/components/Toast</code>. Light/dark sync via <code>data-theme</code> and <code>MutationObserver</code> (no <code>next-themes</code> dependency). Semantic <code>success</code>/<code>error</code>/<code>warning</code>/<code>info</code> variants drive icon color from <code>--color-text-&#123;intent&#125;-outline</code> tokens — no <code>richColors</code>. Defaults: <code>top-center</code> position, <code>3000ms</code> duration, shrink-to-fit width centered within a 400px max, no close button (persistent toasts use an inline action). <code>compact</code> helper export for centered-text layouts. Re-exports <code>Action</code>, <code>ExternalToast</code>, <code>ToastT</code> types.
+  </li>
+  <li>
+    <strong>Avatar initial renders behind image while loading</strong> (<a href="/docs/components/avatar">Avatar</a>)<br/>
+    Initial letter (or icon / overflow count) now renders as a placeholder layer underneath the image. On slow networks the avatar is never visually empty while the image is fetching, and if the image fails the placeholder remains — <code>onError</code> just hides the image layer.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Select options with descriptions auto-bold title</strong> (<a href="/docs/components/select#with-descriptions">Select</a>)<br/>
+    The <em>item + subtitle</em> pattern is now built into the component: any option carrying a <code>description</code> keeps its label at <code>font-weight: semibold</code> in every state (idle, highlighted, selected). Consumers and AI-generated demos no longer need to pass <code>optionClassName=&quot;font-semibold&quot;</code>. <code>.OptionDescription</code>&apos;s own <code>font-weight: normal</code> rule protects the description line.
+  </li>
+  <li>
+    <strong>Select option layout refactored into leading / trailing groups</strong> (<a href="/docs/components/select">Select</a>)<br/>
+    Title and description now stack inside an <code>OptionLeading</code> column; the <code>OptionIndicatorSlot</code> is a dedicated start/end column at the <code>PressableInner</code> level. Fixes a regression where <code>checkPosition=&quot;end&quot;</code> let the description line bleed under the checkmark column. Also replaces the <code>:last-child</code> match (which was also hitting the start-position slot because text nodes don&apos;t count as element children) with an explicit <code>data-position=&quot;end&quot;</code> attribute.
+  </li>
+  <li>
+    <strong>Avatar demos migrated to shared <code>data-demo-controls</code> pattern</strong> (<a href="/docs/components/avatar">Avatar</a>)<br/>
+    Sizing, Overflow count, Roundness, and Colors &amp; variants now use the same <code>data-demo-controls</code> / <code>data-demo-stage</code> layout as every other component page — no more <code>margin: 24px -24px ...</code> + <code>width: calc(100% + 48px)</code> hack. Overflow count demo grew an <code>overflowCount</code> slider, Colors &amp; variants and Roundness gained <code>size</code> sliders. Colors is now a vertical 2-column grid (<code>soft</code> / <code>solid</code> × 6 colors) so it never clips at narrow widths.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Slider hidden in docs <code>SliderValueControl</code></strong><br/>
+    A <code>:last-child</code> rule in <code>SliderValueControl</code> was hiding the slider itself when <code>&lt;Slider&gt;</code> rendered without a label (regression from 0.7.35 when Slider&apos;s label row became conditional). The only child of <code>SliderContainer</code> matched both <code>:first-child</code> and <code>:last-child</code>, and the hide rule won. Added <code>:not(:first-child)</code> so the rule only targets the marks container when it exists. All size / roundness / overflow sliders on Avatar, Select, Alert, and Button docs are visible again.
+  </li>
+</ul>
+
+---
+
 ## 0.7.97 — 2026-04-17
 
 ### Changed
