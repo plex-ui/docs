@@ -28,6 +28,12 @@
       "dependencies": ["@plexui/ui"]
     },
     {
+      "name": "card",
+      "type": "registry:ui",
+      "description": "Surface primitive with compound parts (Header/Title/Description/Content/Footer/Action), variants, sizes, and optional link mode.",
+      "dependencies": ["@plexui/ui"]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "description": "Modal dialog.",

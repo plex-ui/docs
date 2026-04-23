@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "description": "Plex UI Card — surface primitive with compound parts (Header/Title/Description/Content/Footer/Action), variants (outline/solid/ghost), sizes, and optional link mode.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/card.tsx",
+      "type": "registry:ui",
+      "content": "export { Card } from '@plexui/ui/components/Card';\nexport type { CardProps, CardSlotProps, CardVariant, CardSize } from '@plexui/ui/components/Card';\n"
+    }
+  ],
+  "docs": "Import as `import { Card } from '@/components/ui/card'`. See https://plexui.dev/docs/components/card for full prop reference."
+}
