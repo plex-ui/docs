@@ -104,6 +104,12 @@
     --card-description-font-size: var(--font-text-sm-size);
 
     /* =============================================
+      Separator
+    ============================================= */
+    --separator-color: var(--color-border);
+    --separator-thickness: 1px;
+
+    /* =============================================
       Checkbox
     ============================================= */
     --checkbox-indicator-size: var(--radio-group-indicator-size);

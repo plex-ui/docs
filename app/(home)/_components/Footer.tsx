@@ -70,6 +70,7 @@ const footerSections = [
     title: '\u00A0',
     links: [
       { label: 'Select Control', href: '/docs/components/select-control' },
+      { label: 'Separator', href: '/docs/components/separator' },
       { label: 'Shimmer Text', href: '/docs/components/shimmer-text' },
       { label: 'Sidebar', href: '/docs/components/sidebar' },
       { label: 'Skeleton', href: '/docs/components/skeleton' },

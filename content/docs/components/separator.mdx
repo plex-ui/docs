@@ -1,0 +1,74 @@
+---
+title: Separator
+description: Visually separates content with a horizontal or vertical divider
+---
+
+import { Separator } from "@plexui/ui/components/Separator"
+import {
+  SeparatorOverviewDemo,
+  SeparatorHorizontalDemo,
+  SeparatorVerticalDemo,
+} from "@/components/docs/SeparatorDemos"
+
+<UsageBlock>{`import { Separator } from "@plexui/ui/components/Separator";`}</UsageBlock>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<div>
+  <div>
+    <strong>Plex UI</strong>
+    <p>An open-source design system for building modern web apps.</p>
+  </div>
+  <Separator style={{ margin: '16px 0' }} />
+  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+    <span>Blog</span>
+    <Separator orientation="vertical" style={{ height: 16 }} />
+    <span>Docs</span>
+    <Separator orientation="vertical" style={{ height: 16 }} />
+    <span>Source</span>
+  </div>
+</div>`}>
+  <SeparatorOverviewDemo />
+</ComponentPreview>
+
+### Horizontal
+
+<ComponentPreview details={<>The default orientation. Use it between sections inside a <code>Card</code>, <code>Menu</code>, or any vertical stack.</>} code={`<Separator />`}>
+  <SeparatorHorizontalDemo />
+</ComponentPreview>
+
+### Vertical
+
+<ComponentPreview details={<>Pass <code>orientation="vertical"</code> to separate inline items. Set an explicit <code>height</code> (or lean on the parent's flex stretch) because the divider has no content of its own.</>} code={`<Separator orientation="vertical" style={{ height: 20 }} />`}>
+  <SeparatorVerticalDemo />
+</ComponentPreview>
+
+## API
+
+### `Separator`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Direction of the divider |
+| `decorative` | `boolean` | `true` | When `true`, the separator is ignored by assistive technologies. Set `false` when the divider carries semantic grouping (renders `role="separator"`). |
+| `className` | `string` | — | Applied to the root `<div>` |
+
+All other `<div>` attributes are forwarded.
+
+## Styling
+
+Colors and thickness are controlled by component tokens:
+
+- `--separator-color` — background color (defaults to `--color-border`)
+- `--separator-thickness` — line thickness (defaults to `1px`)
+
+Override them at any scope to change the divider's look:
+
+```css
+.my-section {
+  --separator-color: var(--color-border-strong);
+  --separator-thickness: 2px;
+}
+```

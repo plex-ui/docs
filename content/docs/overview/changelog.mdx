@@ -13,6 +13,19 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
+    <strong>Separator component</strong> (<a href="/docs/components/separator">Separator</a>)<br/>
+    Thin wrapper around Radix's <code>Separator.Root</code> for horizontal or vertical dividers. Props: <code>orientation="horizontal" | "vertical"</code> and <code>decorative</code>. Styled through <code>--separator-color</code> and <code>--separator-thickness</code> tokens so any scope can override look without subclassing.
+  </li>
+</ul>
+
+---
+
+## 0.8.0 — 2026-04-23
+
+### Added
+
+<ul className="changelog-list">
+  <li>
     <strong>Card component</strong> (<a href="/docs/components/card">Card</a>)<br/>
     New surface primitive for composing forms, pricing tiles, and showcase cards. Compound API (<code>Card.Header</code>, <code>Card.Title</code>, <code>Card.Description</code>, <code>Card.Content</code>, <code>Card.Footer</code>, <code>Card.Action</code>) with <code>variant="outline" | "solid" | "ghost"</code>, <code>size="sm" | "md" | "lg"</code>, and optional <code>href</code> + <code>interactive</code> props. When <code>href</code> is provided the Card renders as the configured <code>LinkComponent</code> (e.g. <code>next/link</code>) via <code>useLinkComponent()</code>.
   </li>
