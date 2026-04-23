@@ -30,9 +30,12 @@ export function LabelOverviewDemo() {
 }
 
 /* ============================================================
-   Label in Field — full Payment Method form showing Plex UI's
-   Field component as the composed alternative to a bare Label.
-   Mirrors the shape of shadcn's "Label in Field" section.
+   Label in Field — full Payment Method form, spacing mirrors
+   shadcn's Field demo exactly:
+   - outer form gap: 16px
+   - section legend → description: margin-bottom 6px on the legend,
+     margin-top -6px on the description, net visual gap = 0
+   - 3-column grid gap: 16px
    ============================================================ */
 
 const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => {
@@ -45,6 +48,20 @@ const YEAR_OPTIONS = Array.from({ length: 6 }, (_, i) => {
   return { label: value, value };
 });
 
+const sectionTitleStyle: React.CSSProperties = {
+  fontSize: 16,
+  fontWeight: 500,
+  lineHeight: 1.5,
+  marginBottom: 6,
+};
+
+const sectionDescriptionStyle: React.CSSProperties = {
+  fontSize: 14,
+  lineHeight: 1.5,
+  color: 'var(--color-text-tertiary)',
+  marginTop: -6,
+};
+
 export function LabelInFieldDemo() {
   const [sameAsShipping, setSameAsShipping] = useState(true);
   const [month, setMonth] = useState('02');
@@ -55,14 +72,14 @@ export function LabelInFieldDemo() {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 20,
+        gap: 16,
         width: '100%',
         maxWidth: 420,
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <div style={{ fontSize: 16, fontWeight: 600 }}>Payment Method</div>
-        <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
+      <div>
+        <div style={sectionTitleStyle}>Payment Method</div>
+        <div style={sectionDescriptionStyle}>
           All transactions are secure and encrypted
         </div>
       </div>
@@ -79,7 +96,7 @@ export function LabelInFieldDemo() {
       </Field>
 
       <div
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}
+        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}
       >
         <Field label="Month">
           <Select
@@ -106,29 +123,28 @@ export function LabelInFieldDemo() {
 
       <Separator />
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div>
-          <div style={{ fontSize: 16, fontWeight: 600 }}>Billing Address</div>
-          <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
-            The billing address associated with your payment method
-          </div>
+      <div>
+        <div style={sectionTitleStyle}>Billing Address</div>
+        <div style={sectionDescriptionStyle}>
+          The billing address associated with your payment method
         </div>
-        <label
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            fontSize: 14,
-            cursor: 'pointer',
-          }}
-        >
-          <Checkbox
-            checked={sameAsShipping}
-            onCheckedChange={setSameAsShipping}
-          />
-          Same as shipping address
-        </label>
       </div>
+
+      <label
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          fontSize: 14,
+          cursor: 'pointer',
+        }}
+      >
+        <Checkbox
+          checked={sameAsShipping}
+          onCheckedChange={setSameAsShipping}
+        />
+        Same as shipping address
+      </label>
 
       <Separator />
 

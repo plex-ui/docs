@@ -89,7 +89,7 @@
 }
 
 .Title {
-  margin: 0 0 spacing(2);
+  margin: 0 0 spacing(1.5);
   color: var(--card-title-color);
   font-size: var(--card-title-font-size);
   font-weight: var(--card-title-font-weight);
@@ -99,7 +99,7 @@
 }
 
 .Description {
-  margin: 0;
+  margin: calc(spacing(1.5) * -1) 0 0;
   color: var(--card-description-color);
   font-size: var(--card-description-font-size);
   line-height: var(--font-text-sm-line-height);
