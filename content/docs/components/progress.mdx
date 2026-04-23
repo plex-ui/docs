@@ -1,0 +1,86 @@
+---
+title: Progress
+description: Displays an indicator showing the completion progress of a task
+---
+
+import { Progress } from "@plexui/ui/components/Progress"
+import {
+  ProgressOverviewDemo,
+  ProgressWithLabelDemo,
+  ProgressControlledDemo,
+} from "@/components/docs/ProgressDemos"
+
+<UsageBlock>{`import { Progress } from "@plexui/ui/components/Progress";`}</UsageBlock>
+
+<ComponentPreview code={`const [value, setValue] = useState(13);
+useEffect(() => {
+  const t = setTimeout(() => setValue(66), 500);
+  return () => clearTimeout(t);
+}, []);
+
+return <Progress value={value} />;`}>
+  <ProgressOverviewDemo />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Progress } from "@plexui/ui/components/Progress"
+```
+
+```tsx
+<Progress value={66} />
+```
+
+## Examples
+
+### With label
+
+<ComponentPreview details={<>Pair a <a href="/docs/components/label"><code>Label</code></a> with a value readout above the bar — typical upload / onboarding progress pattern.</>} code={`<div>
+  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Label htmlFor="progress-upload">Uploading plex-ui.zip</Label>
+    <span>3.2 / 4.8 MB</span>
+  </div>
+  <Progress id="progress-upload" value={67} />
+</div>`}>
+  <ProgressWithLabelDemo />
+</ComponentPreview>
+
+### Controlled
+
+<ComponentPreview details={<>Bind <code>value</code> to any source — here it follows a <a href="/docs/components/slider"><code>Slider</code></a>.</>} code={`const [value, setValue] = useState(50);
+
+return (
+  <>
+    <Progress value={value} />
+    <Slider value={value} onChange={setValue} min={0} max={100} step={1} />
+  </>
+);`}>
+  <ProgressControlledDemo />
+</ComponentPreview>
+
+## API Reference
+
+Built on [Radix Progress](https://www.radix-ui.com/primitives/docs/components/progress) — see the upstream docs for the full prop surface.
+
+### Progress
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number \| null` | `null` | Current progress between `0` and `max`. Pass `null` for indeterminate. |
+| `max` | `number` | `100` | Maximum progress value |
+| `className` | `string` | — | Applied to the root `<div>` |
+
+All other Radix `Progress.Root` props are forwarded.
+
+## Styling
+
+Component tokens:
+
+- `--progress-height` — track height (defaults to `8px`)
+- `--progress-track-color` — track background (defaults to `--color-background-secondary-soft`)
+- `--progress-indicator-color` — fill color (defaults to `--color-text`)
+- `--progress-radius` — corner radius (defaults to `--radius-full`)
+- `--progress-indeterminate-duration` — sweep duration (defaults to `1.5s`)
+
+Override at any scope to change the bar's look without subclassing.

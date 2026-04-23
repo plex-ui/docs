@@ -62,6 +62,12 @@
       "type": "registry:ui",
       "description": "Accessible label on top of Radix Label.Root; pairs with any form control via htmlFor.",
       "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "description": "Linear progress bar with determinate and indeterminate modes.",
+      "dependencies": ["@plexui/ui"]
     }
   ]
 }

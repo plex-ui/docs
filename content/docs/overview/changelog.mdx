@@ -13,8 +13,21 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
+    <strong>Progress component</strong> (<a href="/docs/components/progress">Progress</a>)<br/>
+    Linear progress bar built on Radix <code>Progress.Root</code>. Accepts <code>value</code> (0–<code>max</code>) or <code>null</code> for an indeterminate sweep. Styled through <code>--progress-height</code>, <code>--progress-track-color</code>, <code>--progress-indicator-color</code>, <code>--progress-radius</code>, <code>--progress-indeterminate-duration</code>. Use it for uploads, onboarding completion, and any determinate "X of Y" feedback; <a href="/docs/components/indicators">CircularProgress / LoadingIndicator</a> stay for loading-spinner cases.
+  </li>
+</ul>
+
+---
+
+## 0.10.0 — 2026-04-23
+
+### Added
+
+<ul className="changelog-list">
+  <li>
     <strong>Label component</strong> (<a href="/docs/components/label">Label</a>)<br/>
-    Standalone accessible label built on Radix's <code>Label.Root</code> — pairs with any form control via <code>htmlFor</code>, prevents double-click text selection, and forwards clicks to the associated control. Props: <code>htmlFor</code>, <code>required</code> (renders a red asterisk). Styled through <code>--label-color</code>, <code>--label-font-size</code>, <code>--label-font-weight</code>, <code>--label-line-height</code>. Use <code>Field</code> for stacked form rows; use <code>Label</code> when pairing with a standalone Checkbox, Switch, or custom layout.
+    Standalone accessible label built on Radix's <code>Label.Root</code> — pairs with any form control via <code>htmlFor</code>, prevents double-click text selection, and forwards clicks to the associated control. Props: <code>htmlFor</code>. Styled through <code>--label-color</code>, <code>--label-font-size</code>, <code>--label-font-weight</code>, <code>--label-line-height</code>. Use <code>Field</code> for stacked form rows; use <code>Label</code> when pairing with a standalone Checkbox, Switch, or custom layout.
   </li>
 </ul>
 

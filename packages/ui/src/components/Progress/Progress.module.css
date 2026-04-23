@@ -1,0 +1,36 @@
+.Root {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: var(--progress-height);
+  background: var(--progress-track-color);
+  border-radius: var(--progress-radius);
+  /* Prevent accidental clipping of the translateX indicator */
+  transform: translateZ(0);
+}
+
+.Indicator {
+  width: 100%;
+  height: 100%;
+  background: var(--progress-indicator-color);
+  transition: transform var(--progress-transition-duration) var(--progress-transition-ease);
+
+  /* Indeterminate — sweeping animation */
+  &:where([data-indeterminate]) {
+    transform: translateX(-100%);
+    animation: progress-sweep var(--progress-indeterminate-duration) ease-in-out infinite;
+    width: 40%;
+  }
+}
+
+@keyframes progress-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
