@@ -87,6 +87,21 @@
     --button-gap-lg: 6px;
     --button-font-weight: var(--font-weight-medium);
 
+    /* =============================================
+      Card
+    ============================================= */
+    --card-radius: var(--radius-xl);
+    --card-background: var(--color-surface);
+    --card-background-hover: var(--color-surface-secondary);
+    --card-border-color: var(--color-border);
+    --card-border-color-hover: var(--color-border-primary-outline-hover);
+    --card-text-color: var(--color-text);
+    --card-font-size: var(--font-text-sm-size);
+    --card-title-color: var(--color-text);
+    --card-title-font-size: var(--font-heading-md-size);
+    --card-title-font-weight: var(--font-weight-semibold);
+    --card-description-color: var(--color-text-tertiary);
+    --card-description-font-size: var(--font-text-sm-size);
 
     /* =============================================
       Checkbox

@@ -1,0 +1,140 @@
+.Card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+  width: 100%;
+  min-width: 0;
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  background: var(--card-background);
+  color: var(--card-text-color);
+  box-shadow: 0 0 0 1px var(--card-border-color) inset;
+  font-size: var(--card-font-size);
+  line-height: var(--font-text-sm-line-height);
+  transition-duration: var(--transition-duration-basic);
+  transition-property: background-color, box-shadow, border-color;
+  transition-timing-function: var(--transition-ease-basic);
+
+  /* When used as a link, flatten anchor defaults */
+  &:where(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* =============================================
+    Interactive
+  ============================================= */
+  &:where([data-interactive]) {
+    cursor: pointer;
+
+    &:hover {
+      --card-background: var(--card-background-hover);
+      --card-border-color: var(--card-border-color-hover);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-ring);
+      outline-offset: 2px;
+    }
+  }
+
+  /* =============================================
+    Sizes
+  ============================================= */
+  &:where([data-size="sm"]) {
+    --card-padding: spacing(4);
+    --card-gap: spacing(3);
+  }
+
+  &:where([data-size="md"]) {
+    --card-padding: spacing(5);
+    --card-gap: spacing(4);
+  }
+
+  &:where([data-size="lg"]) {
+    --card-padding: spacing(6);
+    --card-gap: spacing(5);
+  }
+
+  /* =============================================
+    Variants
+  ============================================= */
+  &:where([data-variant="outline"]) {
+    --card-background: var(--color-surface);
+    --card-border-color: var(--color-border);
+  }
+
+  &:where([data-variant="solid"]) {
+    --card-background: var(--color-surface-secondary);
+    --card-border-color: transparent;
+    box-shadow: none;
+  }
+
+  &:where([data-variant="ghost"]) {
+    --card-background: transparent;
+    --card-border-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+/* ================================================
+  Header — stacked title + description
+================================================ */
+.Header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+}
+
+.Title {
+  margin: 0 0 spacing(1);
+  color: var(--card-title-color);
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--font-heading-md-line-height);
+  letter-spacing: var(--font-heading-md-tracking);
+  text-wrap: balance;
+}
+
+.Description {
+  margin: 0;
+  color: var(--card-description-color);
+  font-size: var(--card-description-font-size);
+  line-height: var(--font-text-sm-line-height);
+  text-wrap: pretty;
+}
+
+/* ================================================
+  Content — primary body
+================================================ */
+.Content {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(3);
+  min-width: 0;
+}
+
+/* ================================================
+  Footer — aligned actions
+================================================ */
+.Footer {
+  display: flex;
+  align-items: center;
+  gap: spacing(2);
+  min-width: 0;
+  margin-top: spacing(3);
+}
+
+/* ================================================
+  Action — top-right slot in Header
+================================================ */
+.Action {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+}

@@ -37,6 +37,7 @@ const footerSections = [
       { label: 'Badge', href: '/docs/components/badge' },
       { label: 'Button', href: '/docs/components/button' },
       { label: 'Button Link', href: '/docs/components/button-link' },
+      { label: 'Card', href: '/docs/components/card' },
       { label: 'Checkbox', href: '/docs/components/checkbox' },
       { label: 'Code Block', href: '/docs/components/code-block' },
       { label: 'Copy Tooltip', href: '/docs/components/copy-tooltip' },

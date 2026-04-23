@@ -75,7 +75,7 @@
 
 .Description {
   max-width: 90%;
-  margin: 0;
+  margin: spacing(1.5) 0 0;
   color: var(--color-text-secondary);
   font-size: 14px;
   line-height: 1.45;

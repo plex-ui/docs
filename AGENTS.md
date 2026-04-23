@@ -64,6 +64,59 @@ git submodule update --remote --merge
 
 ---
 
+# Component registration / modification checklist
+
+**When adding or modifying a component in `packages/ui/src/components/*`, you MUST walk this list.** There is no safety net — the lists are hand-curated.
+
+## Every change (add OR modify)
+
+1. `content/docs/overview/changelog.mdx` — entry under `## Unreleased → ### Added` (or `### Changed` / `### Fixed`)
+2. `packages/ui/package.json` — bump `version` (minor for new component / feature, patch for fix)
+
+## New component (in addition to the above)
+
+3. `content/docs/components/meta.json` — add slug alphabetically
+4. `content/docs/components/index.mdx` — add `<ComponentCard title="…" href="…" isNew />`
+5. `lib/docs-new-badges.ts` — add slug to `NEW_COMPONENT_SLUGS`
+6. `app/(home)/_components/Footer.tsx` — add `{ label, href }` in Components links, alphabetically in correct column
+7. `public/r/index.json` + `public/r/<slug>.json` — shadcn registry entries
+
+**Audit with one grep:**
+
+```bash
+rg "<slug>" content/docs/components/meta.json content/docs/components/index.mdx \
+  lib/docs-new-badges.ts app/\(home\)/_components/Footer.tsx public/r/
+```
+
+Full record: [`.memory/domains/component-registration-checklist.md`](.memory/domains/component-registration-checklist.md)
+
+---
+
+# Component composition rules
+
+## Pill consistency inside Card / form surfaces
+
+**Inside a `Card` (or any form surface), every interactive control must share one pill style. Standard for Plex UI forms is `pill={false}` (rectangular, token-driven radius).**
+
+Components that need the explicit prop (defaults are pill):
+
+- `Button` — default `pill = true` → set `pill={false}`
+- `Select` — default `pill = true` → set `pill={false}`
+
+`Input` and `Textarea` default to rectangular and don't need the prop.
+
+Spot-check before committing a new demo:
+
+```js
+[...document.querySelectorAll('[class*=Card] button, [class*=Card] [role=combobox]')]
+  .map(el => getComputedStyle(el).borderRadius)
+// any 9999px is a violation
+```
+
+Full record: [`.memory/decisions/0001-pill-consistency-in-cards.md`](.memory/decisions/0001-pill-consistency-in-cards.md)
+
+---
+
 # Figma MCP Bridge Plugin
 
 ## Location
