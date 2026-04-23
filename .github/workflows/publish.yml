@@ -42,9 +42,11 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Publish to npm
+      # Authenticates via OIDC Trusted Publisher (id-token: write above)
+      # rather than NPM_TOKEN — the token path hit an intermittent 404 on the
+      # @plexui/ui minor bump while patch bumps still went through. OIDC is
+      # npm's recommended mechanism once Trusted Publisher is configured.
+      - name: Publish to npm (OIDC)
         if: steps.check.outputs.skip != 'true'
         run: npm publish --access public --provenance
         working-directory: packages/ui
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
