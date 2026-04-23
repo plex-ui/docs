@@ -5,6 +5,7 @@ import { Card } from '@plexui/ui/components/Card';
 import { Button } from '@plexui/ui/components/Button';
 import { Input } from '@plexui/ui/components/Input';
 import { Field } from '@plexui/ui/components/Field';
+import { Label } from '@plexui/ui/components/Label';
 import { RadioGroup } from '@plexui/ui/components/RadioGroup';
 import { TextLink } from '@plexui/ui/components/TextLink';
 import { EmptyMessage } from '@plexui/ui/components/EmptyMessage';
@@ -64,12 +65,7 @@ export function CardLoginDemo() {
                 gap: 8,
               }}
             >
-              <label
-                htmlFor="card-login-password"
-                style={{ fontSize: 14, fontWeight: 500 }}
-              >
-                Password
-              </label>
+              <Label htmlFor="card-login-password">Password</Label>
               <TextLink href="#" primary>
                 Forgot your password?
               </TextLink>

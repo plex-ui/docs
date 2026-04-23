@@ -94,21 +94,11 @@ export function PaymentMethodForm() {
         </Card.Description>
       </Card.Header>
 
-      <label
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          fontSize: 14,
-          cursor: 'pointer',
-        }}
-      >
-        <Checkbox
-          checked={sameAsShipping}
-          onCheckedChange={setSameAsShipping}
-        />
-        Same as shipping address
-      </label>
+      <Checkbox
+        checked={sameAsShipping}
+        onCheckedChange={setSameAsShipping}
+        label="Same as shipping address"
+      />
 
       <Separator />
 
