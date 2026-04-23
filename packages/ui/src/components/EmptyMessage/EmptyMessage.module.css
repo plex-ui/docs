@@ -57,6 +57,7 @@
 }
 
 .Title {
+  margin: 0 0 spacing(2);
   color: var(--color-text);
   font-size: var(--font-heading-xs-size);
   font-weight: var(--font-weight-semibold);
