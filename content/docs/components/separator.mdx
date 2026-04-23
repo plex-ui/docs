@@ -1,10 +1,15 @@
 ---
 title: Separator
-description: Visually separates content with a horizontal or vertical divider
+description: Visually or semantically separates content
 ---
 
 import { Separator } from "@plexui/ui/components/Separator"
-import { SeparatorOverviewDemo } from "@/components/docs/SeparatorDemos"
+import {
+  SeparatorOverviewDemo,
+  SeparatorVerticalDemo,
+  SeparatorMenuDemo,
+  SeparatorListDemo,
+} from "@/components/docs/SeparatorDemos"
 
 <UsageBlock>{`import { Separator } from "@plexui/ui/components/Separator";`}</UsageBlock>
 
@@ -12,21 +17,68 @@ import { SeparatorOverviewDemo } from "@/components/docs/SeparatorDemos"
 
 ### Overview
 
-<ComponentPreview code={`<div>
-  <div>
-    <h4>Plex UI</h4>
-    <p>An open-source UI component library.</p>
+<ComponentPreview code={`<div style={{ display: 'flex', maxWidth: 384, flexDirection: 'column', gap: 16 }}>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+    <div style={{ lineHeight: 1, fontWeight: 500 }}>Plex UI</div>
+    <div className="text-muted">The Foundation for your Design System</div>
   </div>
-  <Separator style={{ margin: '16px 0' }} />
-  <div style={{ display: 'flex', height: 20, alignItems: 'center', gap: 16 }}>
-    <div>Blog</div>
-    <Separator orientation="vertical" />
-    <div>Docs</div>
-    <Separator orientation="vertical" />
-    <div>Source</div>
+  <Separator />
+  <div>
+    A set of beautifully designed components that you can customize, extend, and build on.
   </div>
 </div>`}>
   <SeparatorOverviewDemo />
+</ComponentPreview>
+
+### Vertical
+
+<ComponentPreview details={<>Use <code>orientation="vertical"</code> for a vertical separator.</>} code={`<div style={{ display: 'flex', height: 20, alignItems: 'center', gap: 16 }}>
+  <div>Blog</div>
+  <Separator orientation="vertical" />
+  <div>Docs</div>
+  <Separator orientation="vertical" />
+  <div>Source</div>
+</div>`}>
+  <SeparatorVerticalDemo />
+</ComponentPreview>
+
+### Menu
+
+<ComponentPreview details={<>Vertical separators between menu items with descriptions.</>} code={`<div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+  <div>
+    <div style={{ fontWeight: 500 }}>Settings</div>
+    <div className="text-muted">Manage preferences</div>
+  </div>
+  <Separator orientation="vertical" />
+  <div>
+    <div style={{ fontWeight: 500 }}>Account</div>
+    <div className="text-muted">Profile & security</div>
+  </div>
+  <Separator orientation="vertical" />
+  <div>
+    <div style={{ fontWeight: 500 }}>Help</div>
+    <div className="text-muted">Support & docs</div>
+  </div>
+</div>`}>
+  <SeparatorMenuDemo />
+</ComponentPreview>
+
+### List
+
+<ComponentPreview details={<>Horizontal separators between list items.</>} code={`<div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 384 }}>
+  <dl style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <dt>Item 1</dt><dd>Value 1</dd>
+  </dl>
+  <Separator />
+  <dl style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <dt>Item 2</dt><dd>Value 2</dd>
+  </dl>
+  <Separator />
+  <dl style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <dt>Item 3</dt><dd>Value 3</dd>
+  </dl>
+</div>`}>
+  <SeparatorListDemo />
 </ComponentPreview>
 
 ## API
