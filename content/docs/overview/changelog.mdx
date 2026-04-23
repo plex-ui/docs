@@ -13,6 +13,19 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
+    <strong>Label component</strong> (<a href="/docs/components/label">Label</a>)<br/>
+    Standalone accessible label built on Radix's <code>Label.Root</code> — pairs with any form control via <code>htmlFor</code>, prevents double-click text selection, and forwards clicks to the associated control. Props: <code>htmlFor</code>, <code>required</code> (renders a red asterisk). Styled through <code>--label-color</code>, <code>--label-font-size</code>, <code>--label-font-weight</code>, <code>--label-line-height</code>. Use <code>Field</code> for stacked form rows; use <code>Label</code> when pairing with a standalone Checkbox, Switch, or custom layout.
+  </li>
+</ul>
+
+---
+
+## 0.9.0 — 2026-04-23
+
+### Added
+
+<ul className="changelog-list">
+  <li>
     <strong>Separator component</strong> (<a href="/docs/components/separator">Separator</a>)<br/>
     Thin wrapper around Radix's <code>Separator.Root</code> for horizontal or vertical dividers. Props: <code>orientation="horizontal" | "vertical"</code> and <code>decorative</code>. Styled through <code>--separator-color</code> and <code>--separator-thickness</code> tokens so any scope can override look without subclassing.
   </li>

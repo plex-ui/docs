@@ -104,6 +104,14 @@
     --card-description-font-size: var(--font-text-sm-size);
 
     /* =============================================
+      Label
+    ============================================= */
+    --label-color: var(--color-text);
+    --label-font-size: var(--font-text-sm-size);
+    --label-font-weight: var(--font-weight-medium);
+    --label-line-height: 1;
+
+    /* =============================================
       Separator
     ============================================= */
     --separator-color: var(--color-border);
