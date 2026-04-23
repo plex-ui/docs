@@ -89,7 +89,7 @@
 }
 
 .Title {
-  margin: 0 0 spacing(1.5);
+  margin: 0;
   color: var(--card-title-color);
   font-size: var(--card-title-font-size);
   font-weight: var(--card-title-font-weight);

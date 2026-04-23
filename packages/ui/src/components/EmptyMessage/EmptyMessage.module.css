@@ -57,10 +57,11 @@
 }
 
 .Title {
-  max-width: 90%;
   color: var(--color-text);
-  font-size: 16px;
+  font-size: var(--font-heading-xs-size);
   font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  letter-spacing: var(--font-heading-xs-tracking);
   text-align: center;
   text-wrap: balance;
 
@@ -74,13 +75,12 @@
 }
 
 .Description {
-  max-width: 90%;
-  margin: spacing(1.5) 0 0;
-  color: var(--color-text-secondary);
-  font-size: 14px;
-  line-height: 1.45;
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-text-sm-size);
+  line-height: var(--font-text-sm-line-height);
   text-align: center;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .ActionRow {

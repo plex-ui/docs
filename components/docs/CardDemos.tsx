@@ -218,18 +218,20 @@ export function CardPaymentMethodDemo() {
               margin: '4px 0',
             }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div
-              style={{
-                fontSize: 16,
-                fontWeight: 600,
-                color: 'var(--color-text)',
-              }}
-            >
-              Billing Address
-            </div>
-            <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
-              The billing address associated with your payment method
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontWeight: 600,
+                  color: 'var(--color-text)',
+                }}
+              >
+                Billing Address
+              </div>
+              <div style={{ fontSize: 14, color: 'var(--color-text-tertiary)' }}>
+                The billing address associated with your payment method
+              </div>
             </div>
             <label
               style={{
@@ -238,10 +240,12 @@ export function CardPaymentMethodDemo() {
                 gap: 8,
                 fontSize: 14,
                 cursor: 'pointer',
-                marginTop: 4,
               }}
             >
-              <Checkbox checked={sameAsShipping} onChange={setSameAsShipping} />
+              <Checkbox
+                checked={sameAsShipping}
+                onCheckedChange={setSameAsShipping}
+              />
               Same as shipping address
             </label>
           </div>
