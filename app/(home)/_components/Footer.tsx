@@ -62,6 +62,7 @@ const footerSections = [
       { label: 'Menu', href: '/docs/components/menu' },
       { label: 'OTP Input', href: '/docs/components/otp-input' },
       { label: 'Popover', href: '/docs/components/popover' },
+      { label: 'Progress', href: '/docs/components/progress' },
       { label: 'Progress Steps', href: '/docs/components/progress-steps' },
       { label: 'Radio Group', href: '/docs/components/radio-group' },
       { label: 'Select', href: '/docs/components/select' },

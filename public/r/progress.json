@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "type": "registry:ui",
+  "title": "Progress",
+  "description": "Plex UI Progress — linear progress bar built on Radix Progress.Root with determinate (value 0-max) and indeterminate (sweep) modes.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/progress.tsx",
+      "type": "registry:ui",
+      "content": "export { Progress } from '@plexui/ui/components/Progress';\nexport type { ProgressProps } from '@plexui/ui/components/Progress';\n"
+    }
+  ],
+  "docs": "Import as `import { Progress } from '@/components/ui/progress'`. See https://plexui.dev/docs/components/progress for full prop reference."
+}
