@@ -91,6 +91,25 @@ Full record: [`.memory/domains/component-registration-checklist.md`](.memory/dom
 
 ---
 
+# Deploy hygiene — Vercel verification is mandatory
+
+**After EVERY `git push` to `master`, verify the production Vercel deploy succeeded.**
+
+```bash
+gh api /repos/plex-ui/docs/commits/HEAD/status \
+  --jq '.statuses[] | select(.context=="Vercel") | {state, target_url}'
+```
+
+- `state: success` → done.
+- `state: pending` → wait, re-check.
+- `state: failure` → open `target_url` in authorized Chrome, expand Build Logs, find the first red line, fix, repush.
+
+Local `npx tsc --noEmit` can pass while Vercel fails — Next.js production build is stricter. Do not move on to the next task with a red deploy.
+
+Full record: [`.memory/decisions/0005-always-verify-vercel-deploy.md`](.memory/decisions/0005-always-verify-vercel-deploy.md)
+
+---
+
 # Component composition rules
 
 ## Pill consistency inside Card / form surfaces
