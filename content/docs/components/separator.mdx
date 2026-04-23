@@ -4,11 +4,7 @@ description: Visually separates content with a horizontal or vertical divider
 ---
 
 import { Separator } from "@plexui/ui/components/Separator"
-import {
-  SeparatorOverviewDemo,
-  SeparatorHorizontalDemo,
-  SeparatorVerticalDemo,
-} from "@/components/docs/SeparatorDemos"
+import { SeparatorOverviewDemo } from "@/components/docs/SeparatorDemos"
 
 <UsageBlock>{`import { Separator } from "@plexui/ui/components/Separator";`}</UsageBlock>
 
@@ -18,31 +14,19 @@ import {
 
 <ComponentPreview code={`<div>
   <div>
-    <strong>Plex UI</strong>
-    <p>An open-source design system for building modern web apps.</p>
+    <h4>Plex UI</h4>
+    <p>An open-source UI component library.</p>
   </div>
   <Separator style={{ margin: '16px 0' }} />
-  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-    <span>Blog</span>
-    <Separator orientation="vertical" style={{ height: 16 }} />
-    <span>Docs</span>
-    <Separator orientation="vertical" style={{ height: 16 }} />
-    <span>Source</span>
+  <div style={{ display: 'flex', height: 20, alignItems: 'center', gap: 16 }}>
+    <div>Blog</div>
+    <Separator orientation="vertical" />
+    <div>Docs</div>
+    <Separator orientation="vertical" />
+    <div>Source</div>
   </div>
 </div>`}>
   <SeparatorOverviewDemo />
-</ComponentPreview>
-
-### Horizontal
-
-<ComponentPreview details={<>The default orientation. Use it between sections inside a <code>Card</code>, <code>Menu</code>, or any vertical stack.</>} code={`<Separator />`}>
-  <SeparatorHorizontalDemo />
-</ComponentPreview>
-
-### Vertical
-
-<ComponentPreview details={<>Pass <code>orientation="vertical"</code> to separate inline items. Set an explicit <code>height</code> (or lean on the parent's flex stretch) because the divider has no content of its own.</>} code={`<Separator orientation="vertical" style={{ height: 20 }} />`}>
-  <SeparatorVerticalDemo />
 </ComponentPreview>
 
 ## API
