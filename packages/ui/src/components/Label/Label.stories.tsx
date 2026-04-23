@@ -21,12 +21,6 @@ export const WithCheckbox = () => (
   </div>
 )
 
-export const Required = () => (
-  <Label htmlFor="story-email" required>
-    Email address
-  </Label>
-)
-
 export const Disabled = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
     <Label htmlFor="story-disabled-input" data-disabled>
