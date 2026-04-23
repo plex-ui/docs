@@ -64,8 +64,8 @@ const sectionDescriptionStyle: React.CSSProperties = {
 
 export function LabelInFieldDemo() {
   const [sameAsShipping, setSameAsShipping] = useState(true);
-  const [month, setMonth] = useState('02');
-  const [year, setYear] = useState('2026');
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
 
   return (
     <form
@@ -104,6 +104,7 @@ export function LabelInFieldDemo() {
             options={MONTH_OPTIONS}
             multiple={false}
             pill={false}
+            placeholder="MM"
             onChange={(params) => setMonth(params.value)}
           />
         </Field>
@@ -113,6 +114,7 @@ export function LabelInFieldDemo() {
             options={YEAR_OPTIONS}
             multiple={false}
             pill={false}
+            placeholder="YYYY"
             onChange={(params) => setYear(params.value)}
           />
         </Field>
