@@ -76,16 +76,15 @@ git submodule update --remote --merge
 ## New component (in addition to the above)
 
 3. `content/docs/components/meta.json` — add slug alphabetically
-4. `content/docs/components/index.mdx` — add `<ComponentCard title="…" href="…" isNew />`
-5. `lib/docs-new-badges.ts` — add slug to `NEW_COMPONENT_SLUGS`
-6. `app/(home)/_components/Footer.tsx` — add `{ label, href }` in Components links, alphabetically in correct column
-7. `public/r/index.json` + `public/r/<slug>.json` — shadcn registry entries
+4. `content/docs/components/index.mdx` — add `<ComponentCard title="…" href="…" />` (do **not** pass `isNew` — retired, see [decision 0002](.memory/decisions/0002-no-new-badges.md))
+5. `app/(home)/_components/Footer.tsx` — add `{ label, href }` in Components links, alphabetically in correct column
+6. `public/r/index.json` + `public/r/<slug>.json` — shadcn registry entries
 
 **Audit with one grep:**
 
 ```bash
 rg "<slug>" content/docs/components/meta.json content/docs/components/index.mdx \
-  lib/docs-new-badges.ts app/\(home\)/_components/Footer.tsx public/r/
+  app/\(home\)/_components/Footer.tsx public/r/
 ```
 
 Full record: [`.memory/domains/component-registration-checklist.md`](.memory/domains/component-registration-checklist.md)

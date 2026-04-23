@@ -98,7 +98,7 @@
     --card-text-color: var(--color-text);
     --card-font-size: var(--font-text-sm-size);
     --card-title-color: var(--color-text);
-    --card-title-font-size: var(--font-heading-md-size);
+    --card-title-font-size: var(--font-heading-xs-size);
     --card-title-font-weight: var(--font-weight-semibold);
     --card-description-color: var(--color-text-tertiary);
     --card-description-font-size: var(--font-text-sm-size);
