@@ -47,6 +47,9 @@
   width: 100%;
 }
 
-.SliderCompact > div:last-child > *:last-child {
+/* Hide the marks container (2nd+ child of SliderContainer). Don't match the
+   only child — if marks aren't rendered, `:last-child` is also `:first-child`
+   which is the slider itself, and display:none would hide the whole slider. */
+.SliderCompact > div:last-child > *:last-child:not(:first-child) {
   display: none;
 }

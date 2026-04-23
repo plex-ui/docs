@@ -1,0 +1,117 @@
+/* Overrides sonner's inline `z-index: 999999999` with a tamed, token-friendly
+   value. Consumers can lower it via `--z-toast` if their app pushes something
+   legitimately higher (rare — toasts should sit above modals and headers). */
+.Toaster:where([data-sonner-toaster]) {
+  z-index: var(--z-toast, 100000) !important;
+}
+
+/* Sonner reads --normal-bg / --normal-text / --normal-border / --border-radius
+   from the Toaster element (wired up in Toaster.tsx). The rules below only
+   layer on things sonner's stylesheet doesn't cover on its own. */
+
+.Toast {
+  --toast-icon-color: currentColor;
+
+  /* Shrink to fit: short toasts don't pad out empty space, long ones wrap
+     at the Toaster's --width. Sonner positions toasts absolutely, so we set
+     left/right: 0 + auto margins to center without touching its transform. */
+  width: max-content !important;
+  max-width: var(--width) !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin-inline: auto !important;
+  /* Tight gap between icon and content; action button gets extra breathing
+     room via its own margin-left below. */
+  gap: spacing(2) !important;
+  padding: spacing(3) !important;
+  font-size: var(--font-text-sm-size);
+  line-height: var(--font-text-sm-line-height);
+  /* Sonner's own stylesheet lives outside any @layer and hardcodes a light
+     drop shadow — we need !important to land our layered token value.
+     Same shadow + hairline combo as Menu / Popover for visual parity. */
+  box-shadow: var(--shadow), var(--shadow-hairline) !important;
+}
+
+.Title {
+  color: var(--color-text);
+  font-size: var(--font-text-sm-size);
+  line-height: var(--font-text-sm-line-height);
+  /* Sonner pins font-weight: 500; keep that for title-only toasts and only
+     lift to semibold when a description sits alongside (so the title is
+     visually anchored against the secondary text). */
+  font-weight: var(--font-weight-medium);
+  text-wrap: pretty;
+}
+
+.Content:has(.Description) .Title {
+  font-weight: var(--font-weight-semibold) !important;
+}
+
+.Description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-text-sm-size);
+  line-height: var(--font-text-sm-line-height);
+  text-wrap: pretty;
+}
+
+.Content {
+  gap: 0 !important;
+}
+
+.Icon {
+  color: var(--toast-icon-color);
+
+  & > svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.ActionButton {
+  margin-left: spacing(2) !important;
+  background: var(--color-background-primary-solid) !important;
+  color: var(--color-text-primary-solid) !important;
+  font-weight: var(--font-weight-medium);
+
+  &:hover {
+    background: var(--color-background-primary-solid-hover) !important;
+  }
+}
+
+.CancelButton {
+  color: var(--color-text-secondary) !important;
+  font-weight: var(--font-weight-medium);
+}
+
+/* =============================================
+  Centered text variant — shrink-to-fit is already the default
+============================================= */
+
+.Compact {
+  justify-content: center;
+}
+
+.Compact .Title,
+.Compact .Description {
+  text-align: center;
+}
+
+/* =============================================
+  Semantic variants — driven by tokens
+============================================= */
+
+.Success {
+  --toast-icon-color: var(--color-text-success-outline);
+}
+
+.Error {
+  --toast-icon-color: var(--color-text-danger-outline);
+}
+
+.Warning {
+  --toast-icon-color: var(--color-text-warning-outline);
+}
+
+.Info {
+  --toast-icon-color: var(--color-text-info-outline);
+}

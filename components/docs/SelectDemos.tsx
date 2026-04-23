@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import React, { useState, type ReactNode } from 'react';
 import { Plus, SettingsSlider, User, UserLock, Workspace } from '@plexui/ui/components/Icon';
 import { Select } from '@plexui/ui/components/Select';
 import { Popover } from '@plexui/ui/components/Popover';
+import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Switch } from '@plexui/ui/components/Switch';
 import { Button } from '@plexui/ui/components/Button';
 
@@ -117,41 +118,215 @@ const roles: Role[] = [
   },
 ];
 
-export function SelectBaseDemo() {
-  const [fruit, setFruit] = useState<string>('');
+const SELECT_VARIANT_OPTIONS = ['outline', 'soft', 'ghost'] as const;
+const SELECT_SIZE_OPTIONS = ['sm', 'md', 'lg'] as const;
+const CHECK_POSITION_OPTIONS = ['start', 'end'] as const;
+
+const selectControlsTableStyle: React.CSSProperties = {
+  background: 'var(--docs-surface-elevated)',
+  width: '100%',
+};
+
+const selectControlRowStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '6px 16px 6px 8px',
+  borderTop: '1px solid var(--color-fd-border)',
+};
+
+const selectControlLabelStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+  fontSize: '0.8125rem',
+  padding: '2px 8px',
+};
+
+function SelectDemoControlRow({ name, children }: { name: string; children: ReactNode }) {
   return (
-    <div style={{ width: 200 }}>
-      <Select
-        placeholder="Select a fruit..."
-        multiple={false}
-        value={fruit}
-        options={fruitsOptions}
-        name="fruits"
-        onChange={(params) => setFruit(params.value)}
-      />
+    <div style={selectControlRowStyle}>
+      <span style={selectControlLabelStyle}>{name}</span>
+      <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
     </div>
+  );
+}
+
+export function SelectBaseDemo() {
+  const [variant, setVariant] = useState<(typeof SELECT_VARIANT_OPTIONS)[number]>('outline');
+  const [size, setSize] = useState<(typeof SELECT_SIZE_OPTIONS)[number]>('md');
+  const [clearable, setClearable] = useState(false);
+  const [checkPosition, setCheckPosition] = useState<(typeof CHECK_POSITION_OPTIONS)[number]>('start');
+  const [multiple, setMultiple] = useState(false);
+
+  const [singleFruit, setSingleFruit] = useState<string>('');
+  const [multiFruits, setMultiFruits] = useState<string[]>([]);
+
+  return (
+    <>
+      <div data-demo-controls style={selectControlsTableStyle}>
+        <SelectDemoControlRow name="variant">
+          <SegmentedControl<(typeof SELECT_VARIANT_OPTIONS)[number]>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            {SELECT_VARIANT_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="size">
+          <SegmentedControl<(typeof SELECT_SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SELECT_SIZE_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="checkPosition">
+          <SegmentedControl<(typeof CHECK_POSITION_OPTIONS)[number]>
+            value={checkPosition}
+            onChange={setCheckPosition}
+            aria-label="checkPosition"
+            size="xs"
+          >
+            {CHECK_POSITION_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="clearable">
+          <Switch checked={clearable} onCheckedChange={setClearable} />
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="multiple">
+          <Switch checked={multiple} onCheckedChange={setMultiple} />
+        </SelectDemoControlRow>
+      </div>
+      <div
+        data-demo-stage
+        className="flex-1 w-full py-12 flex items-center justify-center"
+      >
+        <div style={{ width: 200 }}>
+          {multiple ? (
+            <Select
+              key="multi"
+              placeholder="Select fruits..."
+              options={fruitsOptions}
+              name="fruits"
+              multiple
+              variant={variant}
+              size={size}
+              clearable={clearable}
+              checkPosition={checkPosition}
+              value={multiFruits}
+              onChange={(values) => setMultiFruits(values.map(({ value }) => value))}
+              TriggerView={MultiFruitTriggerView}
+            />
+          ) : (
+            <Select
+              key="single"
+              placeholder="Select a fruit..."
+              options={fruitsOptions}
+              name="fruits"
+              multiple={false}
+              variant={variant}
+              size={size}
+              clearable={clearable}
+              checkPosition={checkPosition}
+              value={singleFruit}
+              onChange={(params) => setSingleFruit(params.value)}
+            />
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 
 export function SelectCustomViewsDemo() {
   const [role, setRole] = useState<string>('reader');
+  const [variant, setVariant] = useState<(typeof SELECT_VARIANT_OPTIONS)[number]>('outline');
+  const [size, setSize] = useState<(typeof SELECT_SIZE_OPTIONS)[number]>('md');
+  const [checkPosition, setCheckPosition] = useState<(typeof CHECK_POSITION_OPTIONS)[number]>('start');
+  const [showIcon, setShowIcon] = useState(true);
 
   return (
-    <div style={{ width: 200 }}>
-      <Select
-        value={role}
-        options={roles}
-        placeholder="Select role..."
-        align="start"
-        listMinWidth={260}
-        variant="ghost"
-        size="lg"
-        onChange={({ value }) => setRole(value)}
-        TriggerStartIcon={role === 'owner' ? UserLock : User}
-        triggerClassName="font-semibold"
-        optionClassName="font-semibold"
-      />
-    </div>
+    <>
+      <div data-demo-controls style={selectControlsTableStyle}>
+        <SelectDemoControlRow name="variant">
+          <SegmentedControl<(typeof SELECT_VARIANT_OPTIONS)[number]>
+            value={variant}
+            onChange={setVariant}
+            aria-label="variant"
+            size="xs"
+          >
+            {SELECT_VARIANT_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="size">
+          <SegmentedControl<(typeof SELECT_SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SELECT_SIZE_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="checkPosition">
+          <SegmentedControl<(typeof CHECK_POSITION_OPTIONS)[number]>
+            value={checkPosition}
+            onChange={setCheckPosition}
+            aria-label="checkPosition"
+            size="xs"
+          >
+            {CHECK_POSITION_OPTIONS.map((v) => (
+              <SegmentedControl.Option key={v} value={v}>
+                {v}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </SelectDemoControlRow>
+        <SelectDemoControlRow name="triggerIcon">
+          <Switch checked={showIcon} onCheckedChange={setShowIcon} />
+        </SelectDemoControlRow>
+      </div>
+      <div data-demo-stage className="flex-1 w-full py-12 flex items-center justify-center">
+        <div style={{ width: 220 }}>
+          <Select
+            value={role}
+            options={roles}
+            placeholder="Select role..."
+            align="start"
+            listMinWidth={260}
+            variant={variant}
+            size={size}
+            checkPosition={checkPosition}
+            onChange={({ value }) => setRole(value)}
+            TriggerStartIcon={showIcon ? (role === 'owner' ? UserLock : User) : undefined}
+            triggerClassName="font-semibold"
+          />
+        </div>
+      </div>
+    </>
   );
 }
 

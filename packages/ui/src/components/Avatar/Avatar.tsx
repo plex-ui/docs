@@ -75,24 +75,32 @@ export const AvatarInner = (props: AvatarProps) => {
       {...restProps}
     >
       {(() => {
-        if (imageUrl && imageStatus !== "error") {
-          return (
-            <AvatarImage
-              status={imageStatus}
-              url={imageUrl}
-              onError={() => setImageStatus("error")}
-              onLoad={() => setImageStatus("loaded")}
-            />
-          )
-        }
-        if (Icon) {
-          return <Icon className={s.AvatarIcon} />
-        }
-        return overflowCount ? (
+        // Render a placeholder layer (initials / overflow / icon) behind the
+        // image so slow networks never leave the avatar visually empty while
+        // the image is loading. The image overlays it once loaded and hides
+        // it when it fails — either way the avatar is never blank.
+        const placeholder = overflowCount ? (
           <AvatarOverflowCount count={overflowCount} />
+        ) : Icon ? (
+          <Icon className={s.AvatarIcon} />
         ) : (
           <AvatarInitial name={name} />
         )
+
+        if (imageUrl && imageStatus !== "error") {
+          return (
+            <>
+              {placeholder}
+              <AvatarImage
+                status={imageStatus}
+                url={imageUrl}
+                onError={() => setImageStatus("error")}
+                onLoad={() => setImageStatus("loaded")}
+              />
+            </>
+          )
+        }
+        return placeholder
       })()}
     </TagName>
   )

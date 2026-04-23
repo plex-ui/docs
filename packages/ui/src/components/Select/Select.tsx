@@ -1370,28 +1370,29 @@ const CustomSelectOption = (option: Option) => {
       data-disabled={disabled ? "" : undefined}
     >
       <div className={s.PressableInner}>
-        <div className={s.OptionInner}>
-          {checkPosition === 'start' && (
-            <div className={s.OptionIndicatorSlot}>
-              {isSelected && <Check className={s.OptionCheck} />}
-            </div>
-          )}
-          <OptionView {...option} />
-          {tooltip && (
-            <Tooltip content={tooltip.content} maxWidth={tooltip.maxWidth} side="right">
-              <Info />
-            </Tooltip>
-          )}
-          {checkPosition === 'end' && (
-            <div className={s.OptionIndicatorSlot}>
-              {isSelected && <Check className={s.OptionCheck} />}
+        {checkPosition === 'start' && (
+          <div className={s.OptionIndicatorSlot} data-position="start">
+            {isSelected && <Check className={s.OptionCheck} />}
+          </div>
+        )}
+        <div className={s.OptionLeading}>
+          <div className={s.OptionInner}>
+            <OptionView {...option} />
+            {tooltip && (
+              <Tooltip content={tooltip.content} maxWidth={tooltip.maxWidth} side="right">
+                <Info />
+              </Tooltip>
+            )}
+          </div>
+          {option.description && (
+            <div className={clsx(s.OptionInner, s.OptionDescription)}>
+              {option.description}
             </div>
           )}
         </div>
-        {option.description && (
-          <div className={clsx(s.OptionInner, s.OptionDescription)}>
-            {checkPosition === 'start' && <div className={s.OptionIndicatorSlot} />}
-            {option.description}
+        {checkPosition === 'end' && (
+          <div className={s.OptionIndicatorSlot} data-position="end">
+            {isSelected && <Check className={s.OptionCheck} />}
           </div>
         )}
       </div>
