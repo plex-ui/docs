@@ -13,6 +13,7 @@
   width: 100%;
   height: 100%;
   background: var(--progress-indicator-color);
+  border-radius: inherit;
   transition: transform var(--progress-transition-duration) var(--progress-transition-ease);
 
   /* Indeterminate — sweeping animation */
