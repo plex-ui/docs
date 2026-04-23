@@ -13,8 +13,3 @@
     cursor: not-allowed;
   }
 }
-
-.RequiredIndicator {
-  color: var(--color-text-danger);
-  font-weight: var(--font-weight-normal);
-}
