@@ -1,9 +1,7 @@
 'use client';
 
 import type { SVGProps } from 'react';
-import { Fragment } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Avatar } from '@plexui/ui/components/Avatar';
 import { Robot } from '@plexui/ui/components/Icon';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
@@ -23,8 +21,7 @@ const ROUNDNESS_OPTIONS = [
 
 const controlsTableStyle: React.CSSProperties = {
   background: 'var(--docs-surface-elevated)',
-  margin: '24px -24px -24px -24px',
-  width: 'calc(100% + 48px)',
+  width: '100%',
 };
 
 const controlRowStyle: React.CSSProperties = {
@@ -72,18 +69,7 @@ export function AvatarSizingDemo() {
 
   return (
     <>
-      <div
-        style={{
-          minHeight: 96,
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Avatar name="David" size={size} />
-      </div>
-      <div style={controlsTableStyle}>
+      <div data-demo-controls style={controlsTableStyle}>
         <DemoControlRow name="size">
           <SliderValueControl
             ariaLabel="size"
@@ -96,12 +82,63 @@ export function AvatarSizingDemo() {
           />
         </DemoControlRow>
       </div>
+      <div
+        data-demo-stage
+        className="flex-1 w-full py-12 flex items-center justify-center"
+      >
+        <Avatar name="David" size={size} />
+      </div>
     </>
   );
 }
 
 export function AvatarIconDemo() {
   return <Avatar Icon={IconRobot} size={48} />;
+}
+
+export function AvatarOverflowCountDemo() {
+  const mounted = useMounted();
+  const [size, setSize] = useState(48);
+  const [count, setCount] = useState(9);
+
+  if (!mounted) {
+    return <div style={{ width: 280, height: 140 }} />;
+  }
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="overflowCount">
+          <SliderValueControl
+            ariaLabel="overflowCount"
+            min={1}
+            max={999}
+            step={1}
+            value={count}
+            onChange={setCount}
+            width="min(42vw, 340px)"
+          />
+        </DemoControlRow>
+        <DemoControlRow name="size">
+          <SliderValueControl
+            ariaLabel="size"
+            min={14}
+            max={80}
+            step={2}
+            value={size}
+            onChange={setSize}
+            width="min(42vw, 340px)"
+          />
+        </DemoControlRow>
+      </div>
+      <div
+        data-demo-stage
+        className="flex-1 w-full py-12 flex items-center justify-center"
+      >
+        <Avatar overflowCount={count} size={size} />
+      </div>
+    </>
+  );
 }
 
 export function AvatarHeroStorybookDemo() {
@@ -136,59 +173,80 @@ export function AvatarInteractiveDemo() {
 }
 
 export function AvatarColorsDemo() {
-  const variantLabelColumnWidth = 88;
-  const colorColumnWidth = 104;
+  const mounted = useMounted();
+  const [size, setSize] = useState(48);
+
+  if (!mounted) {
+    return <div style={{ width: '100%', height: 240 }} />;
+  }
 
   return (
-    <div className="pt-1 pb-6 px-8 w-fit min-w-full">
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SliderValueControl
+            ariaLabel="size"
+            min={14}
+            max={80}
+            step={2}
+            value={size}
+            onChange={setSize}
+            width="min(42vw, 340px)"
+          />
+        </DemoControlRow>
+      </div>
       <div
-        className="grid gap-4 items-center justify-center"
-        style={{
-          gridTemplateColumns: `${variantLabelColumnWidth}px repeat(${COLOR_OPTIONS.length}, ${colorColumnWidth}px)`,
-        }}
+        data-demo-stage
+        className="flex-1 w-full py-8 flex items-center justify-center"
       >
-        <div />
-        {COLOR_OPTIONS.map((color) => (
-          <div
-            key={color}
-            className="text-center text-sm mb-1"
-            style={{ color: 'var(--color-text-tertiary)' }}
-          >
-            {color}
-          </div>
-        ))}
-
-        {VARIANT_OPTIONS.map((variant) => (
-          <Fragment key={variant}>
+        <div
+          className="grid items-center gap-x-8 gap-y-5"
+          style={{
+            gridTemplateColumns: `repeat(${VARIANT_OPTIONS.length}, minmax(0, auto)) auto`,
+            justifyItems: 'center',
+          }}
+        >
+          {VARIANT_OPTIONS.map((variant) => (
             <div
-              className="text-right text-sm mr-3"
+              key={`h-${variant}`}
+              className="text-sm font-medium"
               style={{ color: 'var(--color-text-tertiary)' }}
             >
               {variant}
             </div>
-            {COLOR_OPTIONS.map((color, idx) => (
-              <div key={`${variant}-${color}`} className="text-center">
+          ))}
+          <div />
+          {COLOR_OPTIONS.map((color, idx) => (
+            <Fragment key={color}>
+              {VARIANT_OPTIONS.map((variant) => (
                 <Avatar
-                  name={String.fromCharCode(97 + idx)}
+                  key={`${color}-${variant}`}
+                  name={String.fromCharCode(65 + idx)}
                   color={color}
                   variant={variant}
-                  size={48}
+                  size={size}
                 />
+              ))}
+              <div
+                className="text-sm font-medium justify-self-start"
+                style={{ color: 'var(--color-text-tertiary)' }}
+              >
+                {color}
               </div>
-            ))}
-          </Fragment>
-        ))}
+            </Fragment>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export function AvatarRoundnessDemo() {
   const [rounded, setRounded] = useState<(typeof ROUNDNESS_OPTIONS)[number]>('rounded-lg');
+  const [size, setSize] = useState(48);
   return (
     <>
-      <Avatar name="Acme, co." color="primary" variant="solid" size={48} className={rounded} />
-      <div style={controlsTableStyle}>
+      <div data-demo-controls style={controlsTableStyle}>
         <DemoControlRow name="roundness">
           <SegmentedControl<(typeof ROUNDNESS_OPTIONS)[number]>
             value={rounded}
@@ -203,6 +261,29 @@ export function AvatarRoundnessDemo() {
             ))}
           </SegmentedControl>
         </DemoControlRow>
+        <DemoControlRow name="size">
+          <SliderValueControl
+            ariaLabel="size"
+            min={14}
+            max={80}
+            step={2}
+            value={size}
+            onChange={setSize}
+            width="min(42vw, 340px)"
+          />
+        </DemoControlRow>
+      </div>
+      <div
+        data-demo-stage
+        className="flex-1 w-full py-12 flex items-center justify-center"
+      >
+        <Avatar
+          name="Acme, co."
+          color="primary"
+          variant="solid"
+          size={size}
+          className={rounded}
+        />
       </div>
     </>
   );

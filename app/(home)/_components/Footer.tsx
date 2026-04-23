@@ -80,6 +80,7 @@ const footerSections = [
       { label: 'Tag Input', href: '/docs/components/tag-input' },
       { label: 'Text Link', href: '/docs/components/text-link' },
       { label: 'Textarea', href: '/docs/components/textarea' },
+      { label: 'Toast', href: '/docs/components/toast' },
       { label: 'Tooltip', href: '/docs/components/tooltip' },
     ],
   },

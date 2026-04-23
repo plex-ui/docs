@@ -36,7 +36,7 @@
     "outline",
     "ghost"
   ],
-  "componentCount": 37,
+  "componentCount": 41,
   "components": [
     {
       "slug": "alert",
@@ -442,7 +442,7 @@
         },
         {
           "name": "Internal link",
-          "code": "<ButtonLink href=\"/some-path\" color=\"primary\">\n  Internal link <ArrowRight />\n</ButtonLink>",
+          "code": "<ButtonLink href=\"/docs/components/button\" color=\"primary\">\n  Internal link <ArrowRight />\n</ButtonLink>",
           "details": "When a relative href or to is provided, ButtonLink automatically uses the configured LinkComponent from PlexUIProvider so your router handles navigation and prefetching."
         },
         {
@@ -698,6 +698,16 @@
       ],
       "examples": [
         {
+          "name": "With Radio Group",
+          "code": "<div className=\"flex flex-col gap-6 w-full max-w-md\">\n  <Field label=\"Notification channel\" description=\"Choose how you'd like to be notified.\">\n    {() => (\n      <RadioGroup direction=\"col\" defaultValue=\"email\" aria-label=\"Notification channel\">\n        <RadioGroup.Item value=\"email\">\n          <div className=\"flex flex-col\">\n            <span className=\"font-medium\">Email</span>\n            <span className=\"text-xs text-secondary mt-0.5\">Messages delivered to your inbox.</span>\n          </div>\n        </RadioGroup.Item>\n        ...\n      </RadioGroup>\n    )}\n  </Field>\n  <Field label=\"Topics\" description=\"Select the topics you want to follow.\">\n    {() => (\n      <div className=\"flex flex-col gap-2.5\">\n        <Checkbox defaultChecked label={...} />\n        ...\n      </div>\n    )}\n  </Field>\n</div>",
+          "details": "Place Checkbox alongside RadioGroup controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts."
+        },
+        {
+          "name": "Descriptions",
+          "code": "<div className=\"flex flex-col divide-y divide-alpha/15\">\n  <div className=\"pb-5\">\n    <Field label=\"Email notifications\" description=\"Configure which emails you receive.\">\n      {() => (\n        <div className=\"flex flex-col gap-2.5\">\n          <Checkbox\n            label={\n              <div className=\"flex flex-col\">\n                <span className=\"font-medium\">Marketing</span>\n                <span className=\"text-xs text-secondary mt-0.5\">Receive emails about new products and features.</span>\n              </div>\n            }\n            defaultChecked\n          />\n          ...\n        </div>\n      )}\n    </Field>\n  </div>\n  <div className=\"pt-5\">\n    <Field label=\"Push notifications\">\n      {() => (\n        <div className=\"flex flex-col gap-3\">\n          <Checkbox label=\"Everything\" />\n          <Checkbox label=\"Direct messages and mentions\" defaultChecked />\n          <Checkbox label=\"Nothing\" />\n        </div>\n      )}\n    </Field>\n  </div>\n</div>",
+          "details": "Combine Field-level label and description with item-level descriptions for options that need additional context. Use a plain label without descriptions when the options are self-explanatory."
+        },
+        {
           "name": "Overview",
           "code": "<div className=\"flex flex-col gap-3\">\n  <Checkbox label=\"Same as billing address\" />\n  <Checkbox label=\"Subscribe to newsletter\" defaultChecked />\n</div>"
         },
@@ -760,11 +770,6 @@
           "name": "Grouped sections",
           "code": "<div className=\"divide-y\">\n  <div className=\"pb-5\">\n    <Field label=\"Email notifications\" description=\"Configure which emails you receive.\">\n      {() => (\n        <div className=\"flex flex-col gap-4\">\n          <Checkbox\n            label={\n              <div className=\"flex flex-col\">\n                <span>Marketing</span>\n                <span className=\"text-xs text-secondary mt-0.5\">\n                  Receive emails about new products and features.\n                </span>\n              </div>\n            }\n            defaultChecked\n          />\n          <Checkbox\n            label={\n              <div className=\"flex flex-col\">\n                <span>Security</span>\n                <span className=\"text-xs text-secondary mt-0.5\">\n                  Receive emails about account activity and security.\n                </span>\n              </div>\n            }\n            defaultChecked\n          />\n        </div>\n      )}\n    </Field>\n  </div>\n  <div className=\"pt-5\">\n    <Field label=\"Push notifications\" description=\"Configure which push notifications you receive.\">\n      {() => (\n        <div className=\"flex flex-col gap-3\">\n          <Checkbox label=\"Everything\" />\n          <Checkbox label=\"Direct messages and mentions\" defaultChecked />\n          <Checkbox label=\"Nothing\" />\n        </div>\n      )}\n    </Field>\n  </div>\n</div>",
           "details": "Use dividers to separate checkbox groups into logical sections. Each section can be wrapped in a Field with its own label and description."
-        },
-        {
-          "name": "With Radio Group",
-          "code": "<div className=\"flex flex-row gap-12 items-start\">\n  <div>\n    <span className=\"text-xs text-tertiary font-mono mb-1\">RadioGroup</span>\n    <RadioGroup direction=\"row\" defaultValue=\"email\" aria-label=\"Channel\">\n      <RadioGroup.Item value=\"email\">Email</RadioGroup.Item>\n      <RadioGroup.Item value=\"sms\">SMS</RadioGroup.Item>\n      <RadioGroup.Item value=\"push\">Push</RadioGroup.Item>\n    </RadioGroup>\n  </div>\n  <div>\n    <span className=\"text-xs text-tertiary font-mono mb-1\">Checkbox</span>\n    <div className=\"flex flex-row gap-5\">\n      <Checkbox label=\"Email\" defaultChecked />\n      <Checkbox label=\"SMS\" />\n      <Checkbox label=\"Push\" />\n    </div>\n  </div>\n</div>",
-          "details": "Place Checkbox alongside RadioGroup controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts."
         }
       ],
       "docsUrl": "https://plexui.com/docs/components/checkbox"
@@ -929,6 +934,147 @@
         }
       ],
       "docsUrl": "https://plexui.com/docs/components/copy-tooltip"
+    },
+    {
+      "slug": "date-input",
+      "name": "Date Input",
+      "description": "Masked text input for typing dates with automatic formatting and validation",
+      "importPath": "@plexui/ui/components/DateInput",
+      "exports": [
+        "DateInput"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "DateTime | null",
+          "description": "Selected date (Luxon DateTime)"
+        },
+        {
+          "name": "onChange",
+          "type": "(date: DateTime | null) => void",
+          "description": "Called when a complete valid date is entered or the field is cleared"
+        },
+        {
+          "name": "mode",
+          "type": "MaskitoDateMode",
+          "default": "\"dd/mm/yyyy\"",
+          "description": "Date format mode: dd/mm/yyyy, mm/dd/yyyy, yyyy/mm/dd, etc."
+        },
+        {
+          "name": "separator",
+          "type": "string",
+          "default": "\".\"",
+          "description": "Character between date parts"
+        },
+        {
+          "name": "timeMode",
+          "type": "MaskitoTimeMode",
+          "description": "Enable time input: HH:MM, HH:MM:SS, etc."
+        },
+        {
+          "name": "dateTimeSeparator",
+          "type": "string",
+          "default": "\", \"",
+          "description": "Separator between date and time parts"
+        },
+        {
+          "name": "timeStep",
+          "type": "number",
+          "default": "0",
+          "description": "Arrow-key increment step for time (ms)"
+        },
+        {
+          "name": "min",
+          "type": "DateTime",
+          "description": "Earliest allowed date"
+        },
+        {
+          "name": "max",
+          "type": "DateTime",
+          "description": "Latest allowed date"
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show clear button when input has a value"
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "default": "\"md\"",
+          "description": "Input size (3xs–3xl)"
+        },
+        {
+          "name": "variant",
+          "type": "\"outline\" | \"soft\"",
+          "default": "\"outline\"",
+          "description": "Visual style"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Disable input"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "Mark as invalid"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "description": "Auto-generated from format if not set"
+        }
+      ],
+      "examples": [
+        {
+          "name": "Overview",
+          "code": "const [date, setDate] = useState<DateTime | null>(null)\n<DateInput value={date} onChange={setDate} clearable />"
+        },
+        {
+          "name": "With time",
+          "code": "<DateInput value={date} onChange={setDate} timeMode=\"HH:MM\" clearable />",
+          "details": "Pass timeMode=\"HH:MM\" to enable date + time input in one field."
+        },
+        {
+          "name": "With seconds",
+          "code": "<DateInput timeMode=\"HH:MM:SS\" ... />",
+          "details": "Use timeMode=\"HH:MM:SS\" for second-level precision."
+        },
+        {
+          "name": "Limits",
+          "code": "<DateInput\n  min={today.minus({ days: 30 }).startOf('day')}\n  max={today.plus({ days: 30 }).endOf('day')}\n  clearable\n/>",
+          "details": "Use min and max to restrict the date range. The mask prevents entering values outside the allowed range."
+        },
+        {
+          "name": "US format",
+          "code": "<DateInput mode=\"mm/dd/yyyy\" separator=\"/\" ... />",
+          "details": "Set mode=\"mm/dd/yyyy\" and separator=\"/\" for US-style date formatting."
+        },
+        {
+          "name": "ISO format",
+          "code": "<DateInput mode=\"yyyy/mm/dd\" separator=\"-\" ... />",
+          "details": "Set mode=\"yyyy/mm/dd\" and separator=\"-\" for ISO 8601 formatting."
+        },
+        {
+          "name": "With Field",
+          "code": "<Field label=\"Date of birth\" description=\"Enter your date of birth\">\n  <DateInput value={date} onChange={setDate} clearable />\n</Field>",
+          "details": "Wrap with Field to add a label, description, and automatic accessibility attributes."
+        },
+        {
+          "name": "Validation",
+          "code": "<Field label=\"Date of birth\" errorMessage={!date ? 'Date is required' : undefined}>\n  <DateInput value={date} onChange={setDate} clearable />\n</Field>",
+          "details": "Pass errorMessage to Field to display a validation error."
+        },
+        {
+          "name": "Disabled",
+          "code": "<DateInput disabled value={DateTime.local(2025, 1, 1)} onChange={...} />"
+        }
+      ],
+      "docsUrl": "https://plexui.com/docs/components/date-input"
     },
     {
       "slug": "date-picker",
@@ -1302,7 +1448,7 @@
       "examples": [
         {
           "name": "Composition",
-          "code": "<EmptyMessage>\n  <EmptyMessage.Icon><Explore /></EmptyMessage.Icon>\n  <EmptyMessage.Title>Your evaluations will appear here</EmptyMessage.Title>\n  <EmptyMessage.Description>Create an evaluation to assess your model's responses</EmptyMessage.Description>\n  <EmptyMessage.ActionRow><Button color=\"primary\">Create</Button></EmptyMessage.ActionRow>\n</EmptyMessage>"
+          "code": "<EmptyMessage>\n  <EmptyMessage.Icon><Explore /></EmptyMessage.Icon>\n  <EmptyMessage.Title>No projects yet</EmptyMessage.Title>\n  <EmptyMessage.Description>Create your first project to get started</EmptyMessage.Description>\n  <EmptyMessage.ActionRow><Button color=\"primary\"><Plus /> New project</Button></EmptyMessage.ActionRow>\n</EmptyMessage>"
         },
         {
           "name": "Error message",
@@ -1426,7 +1572,7 @@
         },
         {
           "name": "Fieldset",
-          "code": "<div>\n  <div className=\"mb-3\">\n    <h3 className=\"text-base font-semibold\">Address Information</h3>\n    <p className=\"text-sm text-secondary mt-1\">We need your address to deliver your order.</p>\n  </div>\n  <div className=\"flex flex-col gap-4\">\n    <Field label=\"Street Address\">\n      <Input placeholder=\"123 Main St\" />\n    </Field>\n    <div className=\"flex gap-3\">\n      <Field label=\"City\" className=\"flex-1\">\n        <Input placeholder=\"New York\" />\n      </Field>\n      <Field label=\"Postal Code\" className=\"flex-1\">\n        <Input placeholder=\"90502\" />\n      </Field>\n    </div>\n  </div>\n</div>",
+          "code": "<div>\n  <div className=\"mb-3\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Address Information</h3>\n    <p className=\"text-sm text-secondary mt-1\">We need your address to deliver your order.</p>\n  </div>\n  <div className=\"flex flex-col gap-4\">\n    <Field label=\"Street Address\">\n      <Input placeholder=\"123 Main St\" />\n    </Field>\n    <div className=\"flex gap-3\">\n      <Field label=\"City\" className=\"flex-1\">\n        <Input placeholder=\"New York\" />\n      </Field>\n      <Field label=\"Postal Code\" className=\"flex-1\">\n        <Input placeholder=\"90502\" />\n      </Field>\n    </div>\n  </div>\n</div>",
           "details": "Group related fields under a heading and description to create a logical fieldset."
         },
         {
@@ -1461,8 +1607,33 @@
         },
         {
           "name": "Form example",
-          "code": "const [pill, setPill] = useState(false);\n\n<fieldset className=\"flex flex-col gap-5\">\n  <h3 className=\"text-base font-semibold\">Payment Method</h3>\n  <Field label=\"Name on Card\">\n    <Input placeholder=\"Evil Rabbit\" pill={pill} />\n  </Field>\n  <Field label=\"Card Number\">\n    <Input placeholder=\"1234 5678 9012 3456\" pill={pill} />\n  </Field>\n  <div className=\"grid grid-cols-3 gap-3\">\n    <Field label=\"Month\">\n      {(fp) => <Select id={fp.id} placeholder=\"MM\" pill={pill} options={months} />}\n    </Field>\n    <Field label=\"Year\">\n      {(fp) => <Select id={fp.id} placeholder=\"YYYY\" pill={pill} options={years} />}\n    </Field>\n    <Field label=\"CVV\">\n      <Input placeholder=\"123\" pill={pill} />\n    </Field>\n  </div>\n</fieldset>\n\n<Checkbox label=\"Same as shipping address\" defaultChecked />\n\n<Field label=\"Comments\">\n  <Textarea placeholder=\"Add any additional comments\" rows={3} />\n</Field>\n\n<div className=\"flex gap-2\">\n  <Button color=\"primary\" pill={pill}>Submit</Button>\n  <Button color=\"secondary\" variant=\"outline\" pill={pill}>Cancel</Button>\n</div>",
-          "details": "A payment form built with Field, showing two fieldsets, a 3-column grid row, and a pill toggle that applies rounded corners to all controls."
+          "code": "<fieldset className=\"flex flex-col gap-5\">\n  <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Payment Method</h3>\n  <Field label=\"Name on Card\">\n    <Input placeholder=\"Evil Rabbit\" />\n  </Field>\n  <Field label=\"Card Number\">\n    <Input placeholder=\"1234 5678 9012 3456\" />\n  </Field>\n  <div className=\"grid grid-cols-3 gap-3\">\n    <Field label=\"Month\">\n      {(fp) => <Select id={fp.id} placeholder=\"MM\" options={months} />}\n    </Field>\n    <Field label=\"Year\">\n      {(fp) => <Select id={fp.id} placeholder=\"YYYY\" options={years} />}\n    </Field>\n    <Field label=\"CVV\">\n      <Input placeholder=\"123\" />\n    </Field>\n  </div>\n</fieldset>\n\n<Checkbox label=\"Same as shipping address\" defaultChecked />\n\n<Field label=\"Comments\">\n  <Textarea placeholder=\"Add any additional comments\" rows={3} />\n</Field>\n\n<div className=\"flex gap-2\">\n  <Button color=\"primary\">Submit</Button>\n  <Button color=\"secondary\" variant=\"outline\">Cancel</Button>\n</div>",
+          "details": "A payment form built with Field, showing two fieldsets with small uppercase section headers and a 3-column grid row for expiry and CVV."
+        },
+        {
+          "name": "Profile settings",
+          "code": "<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Personal Information</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Your public profile details</p>\n  </div>\n  <div className=\"grid grid-cols-2 gap-3\">\n    <Field label=\"First name\"><Input placeholder=\"Jane\" /></Field>\n    <Field label=\"Last name\"><Input placeholder=\"Doe\" /></Field>\n  </div>\n  <Field label=\"Email\" description=\"This is the email associated with your account.\">\n    <Input placeholder=\"jane@example.com\" />\n  </Field>\n  <Field label=\"Bio\" description=\"Brief description for your profile. Max 160 characters.\">\n    <Textarea placeholder=\"Tell us about yourself...\" rows={3} />\n  </Field>\n</fieldset>\n\n<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Preferences</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Customize your experience</p>\n  </div>\n  <Field label=\"Language\">\n    {(fp) => <Select id={fp.id} value={language} options={languages} />}\n  </Field>\n  <Field label=\"Theme\" description=\"Select your preferred appearance.\">\n    {() => <RadioGroup value={theme} onChange={setTheme} direction=\"col\">...</RadioGroup>}\n  </Field>\n</fieldset>\n\n<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Notifications</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Manage how you receive updates</p>\n  </div>\n  <Field label=\"Email notifications\" description=\"Receive weekly digests.\" orientation=\"horizontal\">\n    {(fp) => <Switch id={fp.id} defaultChecked />}\n  </Field>\n</fieldset>",
+          "details": "A profile settings form with three fieldset sections — personal info, preferences, and notifications — combining text inputs, select, radio group, and horizontal switch fields."
+        },
+        {
+          "name": "Create project",
+          "code": "<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">General</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Basic information about your project</p>\n  </div>\n  <Field label=\"Project name\" required>\n    <Input placeholder=\"my-project\" />\n  </Field>\n  <Field label=\"Description\" description=\"A short summary shown in project listings.\">\n    <Textarea placeholder=\"What does this project do?\" rows={3} />\n  </Field>\n  <Field label=\"Visibility\" description=\"Controls who can see this project.\">\n    {() => <RadioGroup value={visibility} onChange={setVisibility} direction=\"col\">...</RadioGroup>}\n  </Field>\n</fieldset>\n\n<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Team Access</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Invite collaborators and set permissions</p>\n  </div>\n  <Field label=\"Team members\" description=\"Add people by email address.\">\n    {(fp) => <TagInput id={fp.id} placeholder=\"Add email...\" validator={(v) => v.includes('@')} />}\n  </Field>\n  <Field label=\"Permissions\" description=\"Default permissions for new members.\">\n    {() => <div className=\"flex flex-col gap-3 mt-1\">\n      <Checkbox label=\"Can view project\" defaultChecked />\n      <Checkbox label=\"Can edit resources\" defaultChecked />\n      <Checkbox label=\"Can manage members\" />\n    </div>}\n  </Field>\n</fieldset>",
+          "details": "A project creation form with general settings, team access with tag input and checkboxes, and infrastructure config — demonstrating diverse field types organized in sections."
+        },
+        {
+          "name": "Field configuration",
+          "code": "<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Setup</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Define the basic field properties</p>\n  </div>\n  <Field label=\"Key\" description=\"Unique identifier used in the API.\">\n    <Input defaultValue=\"registration_method\" />\n  </Field>\n  <Field label=\"Label\" description=\"Human-readable name displayed in the UI.\">\n    <Input defaultValue=\"Registration method\" />\n  </Field>\n  <Field label=\"Type\">\n    {(fp) => <Select id={fp.id} value={type} options={types} />}\n  </Field>\n</fieldset>\n\n<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Formatting</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Input constraints and sanitization rules</p>\n  </div>\n  <Field label=\"Max length\" description=\"Max length cannot exceed 4096.\">\n    <Input placeholder=\"256\" inputMode=\"numeric\" />\n  </Field>\n  <Field label=\"HTML sanitization\" description=\"Strip unsafe HTML tags.\" orientation=\"horizontal\">\n    {(fp) => <Switch id={fp.id} />}\n  </Field>\n</fieldset>\n\n<fieldset className=\"flex flex-col gap-5\">\n  <div className=\"mb-1\">\n    <h3 className=\"text-xs font-medium text-secondary uppercase tracking-wider\">Privacy & Access</h3>\n    <p className=\"text-xs text-tertiary mt-0.5\">Control field visibility and mutability</p>\n  </div>\n  <Field label=\"Not redactable\" description=\"Prevent from being redacted.\" orientation=\"horizontal\">\n    {(fp) => <Switch id={fp.id} />}\n  </Field>\n  <Field label=\"Write once\" description=\"Value can only be set once.\" orientation=\"horizontal\">\n    {(fp) => <Switch id={fp.id} />}\n  </Field>\n</fieldset>",
+          "details": "A CMS-style field configuration form with setup, formatting, and privacy sections — matching the pattern used in content management systems for defining custom fields with type, validation, and access rules."
+        },
+        {
+          "name": "Birthday input",
+          "code": "<Field label=\"Birthday\">\n  <Input\n    placeholder=\"MM / DD / YYYY\"\n    value={birthday}\n    onChange={(evt) => setBirthday(formatBirthdayValue(evt.target.value))}\n    inputMode=\"numeric\"\n    maxLength={14}\n  />\n</Field>",
+          "details": "A date-of-birth input with inline formatting that inserts MM / DD / YYYY separators as you type, wrapped in a Field for label and accessibility."
+        },
+        {
+          "name": "Birthday with validation",
+          "code": "<Field label=\"Birthday\" errorMessage={errorMessage}>\n  <Input\n    placeholder=\"MM / DD / YYYY\"\n    value={birthday}\n    onChange={(evt) => setBirthday(formatBirthdayValue(evt.target.value))}\n    inputMode=\"numeric\"\n    maxLength={14}\n  />\n</Field>",
+          "details": "Birthday input with errorMessage on Field — Field automatically passes aria-invalid down and renders FieldError."
         },
         {
           "name": "Birthday segmented input",
@@ -1478,6 +1649,156 @@
       "docsUrl": "https://plexui.com/docs/components/field"
     },
     {
+      "slug": "file-upload",
+      "name": "File Upload",
+      "description": "Mobile-first file picker with type validation and multi-file support",
+      "importPath": "@plexui/ui/components/FileUpload",
+      "exports": [
+        "FileUpload",
+        "FileCard",
+        "FileCardGroup"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"compact\" | \"area\"",
+          "default": "\"compact\"",
+          "description": "Visual variant — compact button or larger tappable area"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Button label text"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Helper text below the icon (area variant only)"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": "false",
+          "description": "Allow selecting multiple files"
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "description": "Maximum number of files. Button disables at limit."
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "description": "Maximum file size in bytes"
+        },
+        {
+          "name": "value",
+          "type": "File[]",
+          "description": "Controlled file list"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(files: File[]) => void",
+          "description": "Callback when files are added or removed"
+        },
+        {
+          "name": "onFileReject",
+          "type": "(file: File, reason: string) => void",
+          "description": "Callback when a file is rejected (wrong type, too large, over limit)"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "description": "Error message — sets invalid visual state"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "Invalid state (auto-set when errorMessage is provided)"
+        }
+      ],
+      "examples": [
+        {
+          "name": "Overview",
+          "code": "<FileUpload\n  accept=\".pdf,.png,.jpg,.jpeg\"\n  multiple\n  maxFiles={5}\n  maxSize={10 * 1024 * 1024}\n  value={files}\n  onValueChange={setFiles}\n/>"
+        },
+        {
+          "name": "With files",
+          "code": "const files = [\n  new File([], \"government-id-scan.pdf\"),\n  new File([], \"passport-photo.png\"),\n  new File([], \"non-citizen-travel-2026-approved-document.pdf\"),\n];\n\n<FileUpload\n  accept=\".pdf,.png\"\n  multiple\n  maxFiles={5}\n  value={files}\n  onValueChange={setFiles}\n/>",
+          "details": "File list renders below the button in a bordered pill container. Each file shows a type icon, name with middle truncation, size, and a remove button."
+        },
+        {
+          "name": "Error state",
+          "code": "<FileUpload\n  accept=\".pdf\"\n  multiple\n  value={files}\n  onValueChange={setFiles}\n  errorMessage=\"Please upload at least 2 documents.\"\n/>"
+        },
+        {
+          "name": "Disabled",
+          "code": "<FileUpload disabled />"
+        },
+        {
+          "name": "Read-only",
+          "code": "<FileCardGroup>\n  <FileCard file={file} />\n</FileCardGroup>"
+        },
+        {
+          "name": "With remove",
+          "code": "<FileCardGroup>\n  <FileCard file={file} onRemove={() => removeFile()} />\n</FileCardGroup>"
+        },
+        {
+          "name": "Multiple files",
+          "code": "<FileCardGroup>\n  {files.map((file, i) => (\n    <FileCard key={file.name} file={file} onRemove={() => removeFile(i)} />\n  ))}\n</FileCardGroup>"
+        },
+        {
+          "name": "Read-only list",
+          "code": "<FileCardGroup>\n  {files.map((file) => (\n    <FileCard key={file.name} file={file} />\n  ))}\n</FileCardGroup>"
+        }
+      ],
+      "subComponents": [
+        {
+          "name": "FileCard",
+          "props": [
+            {
+              "name": "file",
+              "type": "File",
+              "description": "The file to display"
+            },
+            {
+              "name": "onRemove",
+              "type": "() => void",
+              "description": "Remove callback. When omitted, the delete button is hidden."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "default": "false",
+              "description": "Disable the remove button"
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "description": "Additional CSS class"
+            }
+          ]
+        },
+        {
+          "name": "FileCardGroup",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "description": "FileCard elements"
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "description": "Additional CSS class"
+            }
+          ]
+        }
+      ],
+      "docsUrl": "https://plexui.com/docs/components/file-upload"
+    },
+    {
       "slug": "floating-label-input",
       "name": "Float Input",
       "description": "Input with floating label that animates on focus",
@@ -1490,6 +1811,11 @@
           "name": "label",
           "type": "string",
           "description": "Floating label text"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "description": "Helper text below the input"
         },
         {
           "name": "errorMessage",
@@ -1528,6 +1854,18 @@
           "name": "endAdornment",
           "type": "ReactNode",
           "description": "Content rendered after the input, before the clear button"
+        },
+        {
+          "name": "multiline",
+          "type": "boolean",
+          "default": "false",
+          "description": "Render as an auto-growing textarea"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "default": "2",
+          "description": "Initial visible text lines when multiline is true"
         }
       ],
       "examples": [
@@ -1541,9 +1879,24 @@
           "details": "When the input has a value, the label stays floated above the input."
         },
         {
+          "name": "Textarea",
+          "code": "<FloatingLabelInput label=\"Message\" multiline />",
+          "details": "Use multiline to render an auto-growing textarea with the same floating-label treatment. The textarea starts at 2 rows and grows automatically as content is added. The border radius adjusts to half the input height."
+        },
+        {
           "name": "With error message",
           "code": "<FloatingLabelInput\n  label=\"Email address\"\n  defaultValue=\"jane.doe@example\"\n  invalid\n  errorMessage=\"Email is not valid.\"\n/>",
           "details": "Use the errorMessage prop to display a validation error below the input. When errorMessage is provided, the input automatically enters the invalid state."
+        },
+        {
+          "name": "With description",
+          "code": "<FloatingLabelInput\n  label=\"Email address\"\n  description=\"We'll never share your email with anyone else.\"\n/>",
+          "details": "Use the description prop to display helper text below the input."
+        },
+        {
+          "name": "With description and error",
+          "code": "<FloatingLabelInput\n  label=\"Email address\"\n  defaultValue=\"jane.doe@example\"\n  invalid\n  errorMessage=\"Email is not valid.\"\n  description=\"We'll never share your email with anyone else.\"\n/>",
+          "details": "When both description and errorMessage are provided, the error appears first (closest to the input), followed by the description."
         },
         {
           "name": "Clear button",
@@ -1594,6 +1947,16 @@
           "name": "Birthday states",
           "code": "<div className=\"flex flex-col items-center gap-8 py-8\">\n  <div className=\"flex items-center\">\n    <div className=\"text-right text-secondary text-sm mr-8 min-w-[5rem]\">Empty</div>\n    <FloatingLabelInput label=\"Birthday\" className=\"w-[320px]\" />\n  </div>\n  <div className=\"flex items-center\">\n    <div className=\"text-right text-secondary text-sm mr-8 min-w-[5rem]\">Filled</div>\n    <FloatingLabelInput label=\"Birthday\" defaultValue=\"01 / 15 / 1995\" className=\"w-[320px]\" />\n  </div>\n  <div className=\"flex items-center\">\n    <div className=\"text-right text-secondary text-sm mr-8 min-w-[5rem]\">Invalid</div>\n    <FloatingLabelInput invalid label=\"Birthday\" defaultValue=\"02 / 30 / 2001\" className=\"w-[320px]\" />\n  </div>\n  <div className=\"flex items-center\">\n    <div className=\"text-right text-secondary text-sm mr-8 min-w-[5rem]\">Disabled</div>\n    <FloatingLabelInput disabled label=\"Birthday\" defaultValue=\"01 / 15 / 1995\" className=\"w-[320px]\" />\n  </div>\n</div>",
           "details": "Overview of birthday input states."
+        },
+        {
+          "name": "Select",
+          "code": "import { FloatingLabelSelect } from \"@plexui/ui/components/FloatingLabelSelect\"\n\nconst [role, setRole] = useState(null)\nconst selected = ROLES.find((r) => r.value === role)\n\n<Menu>\n  <Menu.Trigger>\n    <FloatingLabelSelect\n      label=\"Role\"\n      selected={!!selected}\n      onClearClick={() => setRole(null)}\n    >\n      {selected?.label}\n    </FloatingLabelSelect>\n  </Menu.Trigger>\n  <Menu.Content>\n    <Menu.RadioGroup value={role} onChange={setRole}>\n      {ROLES.map((r) => (\n        <Menu.RadioItem key={r.value} value={r.value}>\n          {r.label}\n        </Menu.RadioItem>\n      ))}\n    </Menu.RadioGroup>\n  </Menu.Content>\n</Menu>",
+          "details": "Use FloatingLabelSelect for plain text dropdowns. The label floats up when a value is selected, matching FloatingLabelInput styling."
+        },
+        {
+          "name": "Multiple selection",
+          "code": "import { FloatingLabelSelect } from \"@plexui/ui/components/FloatingLabelSelect\"\nimport { Select } from \"@plexui/ui/components/Select\"\n\nconst [skills, setSkills] = useState([])\nconst hasSelection = skills.length > 0\nconst display = skills.length === 1\n  ? SKILLS.find((s) => s.value === skills[0])?.label\n  : skills.length > 1 ? \\`\\${skills.length} skills\\` : \"\"\n\n<Select\n  multiple\n  clearable\n  value={skills}\n  options={SKILLS}\n  onChange={(options) => setSkills(options.map((o) => o.value))}\n  block\n  trigger={({ open }) => (\n    <FloatingLabelSelect\n      label=\"Skills\"\n      selected={hasSelection}\n      open={open}\n      onClearClick={hasSelection ? () => setSkills([]) : undefined}\n    >\n      {display}\n    </FloatingLabelSelect>\n  )}\n/>",
+          "details": "Pair FloatingLabelSelect with a multiple Select to collect several values while keeping the floating-label treatment. The trigger shows the selected count and exposes a clear button that resets the whole list."
         },
         {
           "name": "Country select",
@@ -1888,6 +2251,104 @@
       "docsUrl": "https://plexui.com/docs/components/input"
     },
     {
+      "slug": "markdown-editor",
+      "name": "Markdown Editor",
+      "description": "Compact rich text editor embedded in a form field, powered by Tiptap",
+      "importPath": "@plexui/ui/components/MarkdownEditor",
+      "exports": [
+        "MarkdownEditor"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"outline\" | \"soft\"",
+          "default": "\"outline\"",
+          "description": "Visual style of the editor"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Disable the editor"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "Mark as invalid"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "description": "Placeholder text when empty"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Controlled markdown value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "description": "Initial markdown for uncontrolled mode"
+        },
+        {
+          "name": "onChange",
+          "type": "(markdown: string) => void",
+          "description": "Called on content change"
+        },
+        {
+          "name": "toolbarEnd",
+          "type": "ReactNode",
+          "description": "Content rendered at the end of the toolbar"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "default": "1",
+          "description": "Minimum visible rows"
+        }
+      ],
+      "examples": [
+        {
+          "name": "Placeholder",
+          "code": "<MarkdownEditor placeholder=\"Enter text...\" />",
+          "details": "Use placeholder to display hint text when the editor is empty."
+        },
+        {
+          "name": "All formatting",
+          "code": "<MarkdownEditor defaultValue={allFormattingMd} />",
+          "details": "Example with all supported formatting: bold, italic, links, ordered lists, and unordered lists. Click inside formatted text to see toolbar buttons toggle."
+        },
+        {
+          "name": "With Field",
+          "code": "<Field label=\"Description\" description=\"Supports bold, italic, lists, and links.\">\n  <MarkdownEditor placeholder=\"Enter description...\" />\n</Field>",
+          "details": "Wrap with Field to add label, description, and error handling. The editor receives id and aria-describedby automatically."
+        },
+        {
+          "name": "Toolbar end slot",
+          "code": "<MarkdownEditor\n  placeholder=\"Enter text...\"\n  toolbarEnd={\n    <button aria-label=\"Edit translations\">\n      <Translate />\n    </button>\n  }\n/>",
+          "details": "Use toolbarEnd to render custom content at the end of the toolbar &mdash; for example, an &ldquo;Edit translations&rdquo; button."
+        },
+        {
+          "name": "Variants",
+          "code": "<MarkdownEditor variant=\"outline\" />\n<MarkdownEditor variant=\"soft\" />",
+          "details": "Use variant to switch between outline (default) and soft styles."
+        },
+        {
+          "name": "Disabled",
+          "code": "<MarkdownEditor disabled defaultValue=\"This content is **read-only**.\" />",
+          "details": "Use disabled to prevent editing and grey out the component."
+        },
+        {
+          "name": "Invalid",
+          "code": "<Field label=\"Bio\" errorMessage=\"This field is required.\">\n  <MarkdownEditor placeholder=\"Tell us about yourself...\" invalid />\n</Field>",
+          "details": "Use invalid or wrap with Field and pass errorMessage to show an error state."
+        }
+      ],
+      "docsUrl": "https://plexui.com/docs/components/markdown-editor"
+    },
+    {
       "slug": "markdown",
       "name": "Markdown",
       "description": "Render rich formatted content",
@@ -1973,6 +2434,18 @@
           "description": "Alignment relative to trigger"
         },
         {
+          "name": "layout",
+          "type": "\"vertical\" | \"horizontal\"",
+          "default": "\"vertical\"",
+          "description": "Layout direction. Use horizontal for icon toolbars"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "default": "\"md\"",
+          "description": "Size of horizontal menu items (icon size + padding)"
+        },
+        {
           "name": "onSelect",
           "type": "(event: Event) => void",
           "description": "Called when item is selected"
@@ -2012,6 +2485,16 @@
           "name": "Natural sizing",
           "code": "<Menu>\n  <Menu.Trigger>\n    <Button color=\"primary\" size=\"lg\" variant=\"ghost\" className=\"font-semibold gap-1.5\"><Tools /> Tools</Button>\n  </Menu.Trigger>\n  <Menu.Content minWidth=\"auto\">\n    <Menu.Item onSelect={() => {}}><Functions height={18} width={18} /> Function</Menu.Item>\n    <Menu.Item onSelect={() => {}}><Search height={18} width={18} /> File Search</Menu.Item>\n    <Menu.Item onSelect={() => {}}><Globe height={18} width={18} /> Web Search</Menu.Item>\n    <Menu.Item onSelect={() => {}}><Code height={18} width={18} /> Code Interpreter</Menu.Item>\n    <Menu.Item onSelect={() => {}}><ImageSquare height={18} width={18} /> Image Generation</Menu.Item>\n  </Menu.Content>\n</Menu>",
           "details": "Menu supports several sizing strategies:Natural sizing &ndash; use minWidth=\"auto\" to have the menu fit naturally to the size of the content.Fixed size &ndash; use width and minWidth to set the menu to a fixed size, regardless of content size.Flexible sizing &ndash; minWidth can be used by itself to describe a menu that must be a given size, but can grow larger depending on its content.Max sizing &ndash; apply max-width to the children of Menu.Content. maxWidth isn't exposed as a prop because it's reserved for Radix variables used in collision detection."
+        },
+        {
+          "name": "Horizontal (icons only)",
+          "code": "<Menu>\n  <Menu.Trigger>\n    <Button color=\"primary\" size=\"lg\" variant=\"ghost\">Actions <ChevronDownMd /></Button>\n  </Menu.Trigger>\n  <Menu.Content layout=\"horizontal\" minWidth=\"auto\">\n    <Menu.Item onSelect={() => {}}><EditPencil width={20} height={20} /></Menu.Item>\n    <Menu.Item onSelect={() => {}}><SettingsCog width={20} height={20} /></Menu.Item>\n    <Menu.Item onSelect={() => {}}><Play width={20} height={20} /></Menu.Item>\n    <Menu.Item onSelect={() => {}}><ExpandLg width={20} height={20} /></Menu.Item>\n  </Menu.Content>\n</Menu>",
+          "details": "Set layout=\"horizontal\" on Menu.Content for an iOS-style icon toolbar."
+        },
+        {
+          "name": "Horizontal (icons with labels)",
+          "code": "<Menu>\n  <Menu.Trigger>\n    <Button color=\"primary\" size=\"lg\" variant=\"ghost\">Actions <ChevronDownMd /></Button>\n  </Menu.Trigger>\n  <Menu.Content layout=\"horizontal\" minWidth=\"auto\">\n    <Menu.Item onSelect={() => {}}><EditPencil width={20} height={20} /> Edit</Menu.Item>\n    <Menu.Item onSelect={() => {}}><SettingsCog width={20} height={20} /> Settings</Menu.Item>\n    <Menu.Item onSelect={() => {}}><Play width={20} height={20} /> Play</Menu.Item>\n    <Menu.Item onSelect={() => {}}><ExpandLg width={20} height={20} /> Expand</Menu.Item>\n  </Menu.Content>\n</Menu>",
+          "details": "Add text labels below icons for a labeled toolbar. The horizontal layout automatically stacks icon and text vertically within each item."
         },
         {
           "name": "Grouped items",
@@ -2351,6 +2834,16 @@
       ],
       "examples": [
         {
+          "name": "With Checkbox",
+          "code": "<div className=\"flex flex-col gap-6 w-full max-w-md\">\n  <Field label=\"Notification channel\" description=\"Choose how you'd like to be notified.\">\n    {() => (\n      <RadioGroup direction=\"col\" defaultValue=\"email\" aria-label=\"Notification channel\">\n        <RadioGroup.Item value=\"email\">\n          <div className=\"flex flex-col\">\n            <span className=\"font-medium\">Email</span>\n            <span className=\"text-xs text-secondary mt-0.5\">Messages delivered to your inbox.</span>\n          </div>\n        </RadioGroup.Item>\n        <RadioGroup.Item value=\"sms\">\n          <div className=\"flex flex-col\">\n            <span className=\"font-medium\">SMS</span>\n            <span className=\"text-xs text-secondary mt-0.5\">Text messages to your phone number.</span>\n          </div>\n        </RadioGroup.Item>\n        <RadioGroup.Item value=\"push\">\n          <div className=\"flex flex-col\">\n            <span className=\"font-medium\">Push</span>\n            <span className=\"text-xs text-secondary mt-0.5\">Real-time alerts on your device.</span>\n          </div>\n        </RadioGroup.Item>\n      </RadioGroup>\n    )}\n  </Field>\n  <Field label=\"Topics\" description=\"Select the topics you want to follow.\">\n    {() => (\n      <div className=\"flex flex-col gap-2.5\">\n        <Checkbox defaultChecked label={...} />\n        ...\n      </div>\n    )}\n  </Field>\n</div>",
+          "details": "Place RadioGroup alongside Checkbox controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts."
+        },
+        {
+          "name": "Descriptions",
+          "code": "<div className=\"flex flex-col divide-y divide-alpha/15\">\n  <div className=\"pb-5\">\n    <Field label=\"Notification channel\" description=\"Choose how you'd like to be notified.\">\n      {() => (\n        <RadioGroup direction=\"col\" value={channel} onChange={setChannel} aria-label=\"Notification channel\">\n          <RadioGroup.Item value=\"email\">\n            <div className=\"flex flex-col\">\n              <span className=\"font-medium\">Email</span>\n              <span className=\"text-xs text-secondary mt-0.5\">Messages delivered to your inbox.</span>\n            </div>\n          </RadioGroup.Item>\n          ...\n        </RadioGroup>\n      )}\n    </Field>\n  </div>\n  <div className=\"pt-5\">\n    <Field label=\"Notification frequency\">\n      {() => (\n        <RadioGroup direction=\"col\" value={frequency} onChange={setFrequency} aria-label=\"Notification frequency\">\n          <RadioGroup.Item value=\"daily\">Daily</RadioGroup.Item>\n          <RadioGroup.Item value=\"weekly\">Weekly</RadioGroup.Item>\n          <RadioGroup.Item value=\"monthly\">Monthly</RadioGroup.Item>\n          <RadioGroup.Item value=\"never\">Never</RadioGroup.Item>\n        </RadioGroup>\n      )}\n    </Field>\n  </div>\n</div>",
+          "details": "Combine Field-level label and description with item-level descriptions for options that need additional context. Use a plain label without descriptions when the options are self-explanatory."
+        },
+        {
           "name": "Overview",
           "code": "const [frequency, setFrequency] = useState(\"daily\")\n<RadioGroup direction=\"col\" value={frequency} onChange={setFrequency} aria-label=\"Notification frequency\">\n  <RadioGroup.Item value=\"daily\">Daily</RadioGroup.Item>\n  <RadioGroup.Item value=\"weekly\">Weekly</RadioGroup.Item>\n  <RadioGroup.Item value=\"monthly\">Monthly</RadioGroup.Item>\n  <RadioGroup.Item value=\"never\">Never</RadioGroup.Item>\n</RadioGroup>"
         },
@@ -2403,11 +2896,6 @@
           "name": "Grouped sections",
           "code": "<div className=\"flex flex-col max-w-sm w-full divide-y divide-alpha/15\">\n  <div className=\"pb-5\">\n    <Field label=\"Visibility\" description=\"Control who can see project resources.\">\n      {() => (\n        <RadioGroup direction=\"col\" value={visibility} onChange={setVisibility} aria-label=\"Visibility\">\n          <RadioGroup.Item value=\"hidden\">Hidden</RadioGroup.Item>\n          <RadioGroup.Item value=\"owners\">Visible to organization owners</RadioGroup.Item>\n          <RadioGroup.Item value=\"everyone\">Visible to everyone</RadioGroup.Item>\n        </RadioGroup>\n      )}\n    </Field>\n  </div>\n  <div className=\"pt-5\">\n    <Field label=\"Digest frequency\" description=\"How often you receive summary emails.\">\n      {() => (\n        <RadioGroup direction=\"col\" value={frequency} onChange={setFrequency} aria-label=\"Digest frequency\">\n          <RadioGroup.Item value=\"daily\">Daily</RadioGroup.Item>\n          <RadioGroup.Item value=\"weekly\">Weekly</RadioGroup.Item>\n          <RadioGroup.Item value=\"monthly\">Monthly</RadioGroup.Item>\n          <RadioGroup.Item value=\"never\">Never</RadioGroup.Item>\n        </RadioGroup>\n      )}\n    </Field>\n  </div>\n</div>",
           "details": "Use dividers to separate radio groups into logical sections. Each section can be wrapped in a Field with its own label and description."
-        },
-        {
-          "name": "With Checkbox",
-          "code": "<div className=\"flex flex-row gap-12 items-start\">\n  <div>\n    <span className=\"text-xs text-tertiary font-mono mb-1\">RadioGroup</span>\n    <RadioGroup direction=\"row\" defaultValue=\"email\" aria-label=\"Channel\">\n      <RadioGroup.Item value=\"email\">Email</RadioGroup.Item>\n      <RadioGroup.Item value=\"sms\">SMS</RadioGroup.Item>\n      <RadioGroup.Item value=\"push\">Push</RadioGroup.Item>\n    </RadioGroup>\n  </div>\n  <div>\n    <span className=\"text-xs text-tertiary font-mono mb-1\">Checkbox</span>\n    <div className=\"flex flex-row gap-5\">\n      <Checkbox label=\"Email\" defaultChecked />\n      <Checkbox label=\"SMS\" />\n      <Checkbox label=\"Push\" />\n    </div>\n  </div>\n</div>",
-          "details": "Place RadioGroup alongside Checkbox controls to verify that indicator sizes, label baselines, and spacing align consistently in both horizontal and vertical layouts."
         }
       ],
       "docsUrl": "https://plexui.com/docs/components/radio-group"
@@ -2761,28 +3249,28 @@
       ],
       "examples": [
         {
-          "name": "Overview",
+          "name": "App Shell",
+          "code": "<SidebarProvider collapsible=\"icon\">\n  <SidebarLayout style={{ height: 600 }}>\n    <Sidebar>\n      <SidebarHeader>\n        <span>Console</span>\n        <SidebarTrigger />\n      </SidebarHeader>\n      <SidebarContent>\n        {/* Workspace selector */}\n        <SidebarMenuItem>\n          <Menu>\n            <Menu.Trigger>\n              <SidebarMenuButton tooltip=\"Default workspace\">\n                <SidebarMenuButtonIcon><Cube /></SidebarMenuButtonIcon>\n                <SidebarMenuButtonLabel>Default</SidebarMenuButtonLabel>\n                <ChevronUpDown className=\"ml-auto\" />\n              </SidebarMenuButton>\n            </Menu.Trigger>\n            <Menu.Content>...</Menu.Content>\n          </Menu>\n        </SidebarMenuItem>\n\n        {/* Parent section: hover flyout when collapsed */}\n        {state === \"collapsed\" ? (\n          <Popover showOnHover>\n            <Popover.Trigger>\n              <SidebarMenuButton>\n                <SidebarMenuButtonIcon><SettingsWrench /></SidebarMenuButtonIcon>\n                <SidebarMenuButtonLabel>Build</SidebarMenuButtonLabel>\n                <SidebarMenuChevron />\n              </SidebarMenuButton>\n            </Popover.Trigger>\n            <Popover.Content side=\"right\" minWidth={220}>\n              <div>Build / Workbench / Files / Skills / Batches</div>\n            </Popover.Content>\n          </Popover>\n        ) : (\n          <SidebarMenuItem expanded={isExpanded}>\n            <SidebarMenuButton onClick={toggle}>\n              <SidebarMenuButtonIcon><SettingsWrench /></SidebarMenuButtonIcon>\n              <SidebarMenuButtonLabel>Build</SidebarMenuButtonLabel>\n              <SidebarMenuChevron />\n            </SidebarMenuButton>\n            <SidebarMenuSub open={isExpanded} hasIcons>\n              <SidebarMenuSubButton indent={1}>Workbench</SidebarMenuSubButton>\n              ...\n            </SidebarMenuSub>\n          </SidebarMenuItem>\n        )}\n      </SidebarContent>\n      <SidebarFooter>\n        <SidebarMenuButton><Book /> Documentation</SidebarMenuButton>\n        <Menu>\n          <Menu.Trigger>\n            <SidebarMenuButton>\n              <Avatar name=\"Alex\" />\n              <SidebarMenuButtonLabel>Alex · Admin</SidebarMenuButtonLabel>\n            </SidebarMenuButton>\n          </Menu.Trigger>\n          <Menu.Content>...</Menu.Content>\n        </Menu>\n      </SidebarFooter>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
+          "details": "A multi-section app shell with a workspace selector, expandable parent sections with sub-items, and a footer with a documentation link plus a user menu. When collapsed (icon mode), hovering a parent icon opens a Popover flyout listing the section&apos;s items so users keep one-click access without expanding the rail."
+        },
+        {
+          "name": "Basic",
           "code": "<SidebarProvider>\n  <SidebarLayout style={{ height: 500 }}>\n    <Sidebar>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"sm\">Project</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem>\n                <SidebarMenuButton isActive tooltip=\"Overview\">\n                  <SidebarMenuButtonIcon><Home /></SidebarMenuButtonIcon>\n                  <SidebarMenuButtonLabel>Overview</SidebarMenuButtonLabel>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              ...\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n      <SidebarFooter><SidebarTrigger /></SidebarFooter>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>"
         },
         {
-          "name": "Scrollable Content",
-          "code": "<SidebarProvider>\n  <SidebarLayout style={{ height: 400 }}>\n    <Sidebar>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"sm\">Project</SidebarGroupLabel>\n          <SidebarGroupContent><SidebarMenu>...</SidebarMenu></SidebarGroupContent>\n        </SidebarGroup>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"sm\">System</SidebarGroupLabel>\n          <SidebarGroupContent><SidebarMenu>...</SidebarMenu></SidebarGroupContent>\n        </SidebarGroup>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"sm\">Resources</SidebarGroupLabel>\n          <SidebarGroupContent><SidebarMenu>...</SidebarMenu></SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n      <SidebarFooter><SidebarTrigger /></SidebarFooter>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "When the content is taller than the sidebar, it will scroll vertically."
-        },
-        {
-          "name": "Text-Only Navigation",
-          "code": "<SidebarProvider collapsible=\"none\">\n  <SidebarLayout style={{ height: 500 }}>\n    <Sidebar variant=\"docs\" style={{ width: \"180px\" }}>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"lg\">Settings</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem>\n                <SidebarMenuButton isActive>\n                  <SidebarMenuButtonLabel>Your profile</SidebarMenuButtonLabel>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              ...\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "A text-only sidebar without icons. Use collapsible=\"none\" since there are no icons to collapse to."
-        },
-        {
-          "name": "Collapse Modes",
-          "code": "<SidebarProvider collapsible=\"icon\">\n  <SidebarLayout style={{ height: 500 }}>\n    <Sidebar>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"sm\">Project</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem>\n                <SidebarMenuButton isActive tooltip=\"Overview\">\n                  <SidebarMenuButtonIcon><Home /></SidebarMenuButtonIcon>\n                  <SidebarMenuButtonLabel>Overview</SidebarMenuButtonLabel>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              ...\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n      <SidebarFooter><SidebarTrigger /></SidebarFooter>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "The sidebar supports different collapse behaviors via the collapsible prop on SidebarProvider:offcanvas (default) &ndash; On mobile, works as a drawer. On desktop, collapses completely.icon &ndash; Collapses to an icon-only rail.none &ndash; Static sidebar that cannot be collapsed.When using icon mode, add the tooltip prop to SidebarMenuButton to show labels on hover. Tooltips appear only in collapsed state and are hidden on mobile.You can control the open state externally with open and onOpenChange (controlled mode). Use the control below to toggle the sidebar."
-        },
-        {
-          "name": "Nested Navigation",
+          "name": "Collapsible Sections",
           "code": "<SidebarProvider collapsible=\"none\">\n  <SidebarLayout style={{ height: 500 }}>\n    <Sidebar variant=\"docs\" style={{ width: \"260px\" }}>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarMenuItem expanded={isExpanded}>\n            <SidebarMenuButton onClick={() => toggle(id)}>\n              <SidebarMenuButtonLabel>Getting Started</SidebarMenuButtonLabel>\n              <ChevronRightSm className=\"ml-auto transition-transform\" />\n            </SidebarMenuButton>\n          </SidebarMenuItem>\n          <SidebarMenuSub>\n            <SidebarMenuSubItem>\n              <SidebarMenuSubButton isActive>Introduction</SidebarMenuSubButton>\n            </SidebarMenuSubItem>\n            ...\n          </SidebarMenuSub>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
           "details": "Build collapsible nested menus with chevron toggles for documentation and API reference sidebars."
+        },
+        {
+          "name": "Search and Filter",
+          "code": "<SidebarProvider collapsible=\"none\">\n  <SidebarLayout style={{ height: 650 }}>\n    <Sidebar style={{ width: \"280px\" }}>\n      <SidebarHeader>\n        <div className=\"flex items-center gap-1.5\">\n          <SidebarInput size=\"sm\" placeholder=\"Search\" ... />\n          <Select\n            multiple\n            clearable\n            placeholder=\"Filter\"\n            variant=\"outline\"\n            size=\"sm\"\n            options={stepFilterOptions}\n            value={typeFilters}\n            onChange={(selected) =>\n              setTypeFilters(selected.map((o) => o.value))\n            }\n            block={false}\n          />\n        </div>\n      </SidebarHeader>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem>\n                <SidebarMenuButton isActive>\n                  <SidebarMenuButtonIcon><Desktop /></SidebarMenuButtonIcon>\n                  <SidebarMenuButtonLabel>Start</SidebarMenuButtonLabel>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              ...\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
+          "details": "Combine search and type-based filtering with nested tree navigation. Each item has an icon based on its type. A multi-select Select filters items by type."
+        },
+        {
+          "name": "Tree with Hover Actions",
+          "code": "<SidebarMenuItem className=\"group/action\">\n  <SidebarMenuButton isActive onClick={() => setActiveItem(id)}>\n    <SidebarMenuChevron className=\"!ml-0 ...\"\n      onClick={(e) => { e.stopPropagation(); toggleExpanded(id); }}\n    />\n    <SidebarMenuButtonIcon><Icon /></SidebarMenuButtonIcon>\n    <SidebarMenuButtonLabel>Label</SidebarMenuButtonLabel>\n    <span className=\"ml-auto opacity-0 group-hover/action:opacity-100\">\n      <Button variant=\"ghost\" size=\"xs\" uniform>\n        <DotsHorizontal />\n      </Button>\n      <Button variant=\"ghost\" size=\"xs\" uniform>\n        <Plus />\n      </Button>\n    </span>\n  </SidebarMenuButton>\n  <SidebarMenuSub open hasIcons>...</SidebarMenuSub>\n</SidebarMenuItem>",
+          "details": "Tree navigation with chevrons on the left and action buttons on the right. Clicking a row selects the item. Chevrons toggle expand/collapse. Action buttons (... and +) appear on hover for parent items."
         },
         {
           "name": "Mobile Menu",
@@ -2790,29 +3278,9 @@
           "details": "Mobile behavior is handled automatically when using SidebarProvider. The SidebarMobileMenuButton provides a standard animated hamburger trigger."
         },
         {
-          "name": "Search",
+          "name": "Search Input",
           "code": "<SidebarProvider collapsible=\"none\">\n  <SidebarLayout style={{ height: 500 }}>\n    <Sidebar variant=\"docs\" style={{ width: \"220px\" }}>\n      <SidebarHeader>\n        <SidebarInput\n          placeholder=\"Search\"\n          value={searchValue}\n          onChange={(e) => setSearchValue(e.target.value)}\n          onClear={() => setSearchValue(\"\")}\n        />\n      </SidebarHeader>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel>Get started</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem>\n                <SidebarMenuSubButton indent={0} isActive>Overview</SidebarMenuSubButton>\n              </SidebarMenuItem>\n              ...\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
           "details": "The sidebar provides a dedicated SidebarInput component for search functionality."
-        },
-        {
-          "name": "Skeleton",
-          "code": "<SidebarProvider>\n  <SidebarLayout style={{ height: 300 }}>\n    <Sidebar>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem><SidebarMenuSkeleton labelWidth=\"70%\" /></SidebarMenuItem>\n              <SidebarMenuItem><SidebarMenuSkeleton labelWidth=\"55%\" /></SidebarMenuItem>\n              <SidebarMenuItem><SidebarMenuSkeleton labelWidth=\"80%\" /></SidebarMenuItem>\n              <SidebarMenuItem><SidebarMenuSkeleton labelWidth=\"45%\" /></SidebarMenuItem>\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "Loading skeleton states while navigation data is loading."
-        },
-        {
-          "name": "Group Label Sizes",
-          "code": "<SidebarProvider collapsible=\"none\">\n  <SidebarLayout style={{ height: 350 }}>\n    <Sidebar>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel size=\"sm\">Project</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu>...</SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "SidebarGroupLabel supports two size variants:sm &ndash; Compact, tertiary color. For dashboard navigation, settings panels, sidebars with fewer items.lg (default) &ndash; Larger, primary color, more spacing. For documentation, API reference, content-heavy sections."
-        },
-        {
-          "name": "Badges",
-          "code": "<SidebarProvider collapsible=\"none\">\n  <SidebarLayout style={{ height: 400 }}>\n    <Sidebar>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarGroupLabel>Navigation</SidebarGroupLabel>\n          <SidebarGroupContent>\n            <SidebarMenu>\n              <SidebarMenuItem>\n                <SidebarMenuButton isActive>\n                  <SidebarMenuButtonIcon><Home /></SidebarMenuButtonIcon>\n                  <SidebarMenuButtonLabel>Overview</SidebarMenuButtonLabel>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              <SidebarMenuItem>\n                <SidebarMenuButton>\n                  <SidebarMenuButtonIcon><Code /></SidebarMenuButtonIcon>\n                  <SidebarMenuButtonLabel>API Reference</SidebarMenuButtonLabel>\n                  <SidebarMenuBadge>\n                    <Badge size=\"sm\" color=\"info\">New</Badge>\n                  </SidebarMenuBadge>\n                </SidebarMenuButton>\n              </SidebarMenuItem>\n              ...\n            </SidebarMenu>\n          </SidebarGroupContent>\n        </SidebarGroup>\n      </SidebarContent>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "Use SidebarMenuBadge with the Badge component to display status indicators, counts, or labels alongside menu items."
-        },
-        {
-          "name": "Footer Cards",
-          "code": "<SidebarProvider collapsible=\"icon\">\n  <SidebarLayout style={{ height: 500 }}>\n    <Sidebar>\n      <SidebarContent>...</SidebarContent>\n      <SidebarFooter>\n        <SidebarCard dismissible onDismiss={() => {}}>\n          <SidebarCardTitleLink href=\"#\">Upgrade to Pro</SidebarCardTitleLink>\n          <SidebarCardContent>\n            Unlock higher rate limits, priority support, and advanced features.\n          </SidebarCardContent>\n          <SidebarCardFooter>\n            <Button size=\"sm\" pill color=\"primary\">View Plans</Button>\n          </SidebarCardFooter>\n        </SidebarCard>\n        <SidebarTrigger />\n      </SidebarFooter>\n    </Sidebar>\n    <SidebarInset>...</SidebarInset>\n  </SidebarLayout>\n</SidebarProvider>",
-          "details": "Use SidebarCard to display promotional content, upgrade CTAs, or announcements in the sidebar footer."
         }
       ],
       "subComponents": [
@@ -3733,6 +4201,11 @@
           "details": "Icons work with the segmented variant — use the icon prop on individual tabs. Icons are automatically sized to match the current size."
         },
         {
+          "name": "Icon only",
+          "code": "<Tabs value={tab} onChange={setTab} aria-label=\"Navigation\">\n  <Tabs.Tab value=\"home\" icon={<Home />} aria-label=\"Home\" />\n  <Tabs.Tab value=\"settings\" icon={<SettingsCog />} aria-label=\"Settings\" />\n  <Tabs.Tab value=\"notifications\" icon={<Bell />} aria-label=\"Notifications\" />\n</Tabs>",
+          "details": "Omit the text children and pass only the icon prop for compact icon-only tabs. Always provide an aria-label on each tab for accessibility."
+        },
+        {
           "name": "Segmented with badge",
           "code": "<Tabs size=\"lg\" value={tab} onChange={setTab} aria-label=\"Filter\">\n  <Tabs.Tab value=\"all\" badge={128}>All</Tabs.Tab>\n  <Tabs.Tab value=\"unread\" badge={{ content: 12, color: \"info\" }}>Unread</Tabs.Tab>\n  <Tabs.Tab value=\"flagged\" badge={{ content: 3, color: \"danger\" }}>Flagged</Tabs.Tab>\n</Tabs>",
           "details": "Pass a number or an object with content, color, and variant to the badge prop. Badges render inline after the tab label inside the segmented container."
@@ -3856,7 +4329,12 @@
       "examples": [
         {
           "name": "Overview",
-          "code": "<TagInput\n  placeholder=\"example@example.com\"\n  validator={(email) => /^[^\\\\s@]+@[^\\\\s@]+\\\\.[^\\\\s@]+$/.test(email)}\n  rows={3}\n/>"
+          "code": "<TagInput\n  placeholder=\"Add a tag...\"\n  rows={3}\n/>"
+        },
+        {
+          "name": "Suggestions",
+          "code": "const SUGGESTIONS = ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Node.js', 'GraphQL', 'PostgreSQL', 'Redis', 'Docker', 'AWS'];\n\nconst [tags, setTags] = useState([\n  { value: 'React', valid: true },\n  { value: 'TypeScript', valid: true },\n]);\n\nconst selectedValues = new Set(tags.map((t) => t.value));\nconst available = SUGGESTIONS.filter((s) => !selectedValues.has(s));\n\n<div className=\"flex flex-col gap-3\">\n  <TagInput value={tags} onChange={setTags} placeholder=\"Add a skill...\" />\n  {available.length > 0 && (\n    <div className=\"flex flex-wrap gap-1.5\">\n      {available.map((s) => (\n        <Button key={s} size=\"xs\" color=\"secondary\" variant=\"soft\" pill={false}\n          onClick={() => setTags([...tags, { value: s, valid: true }])}>\n          {s}\n        </Button>\n      ))}\n    </div>\n  )}\n</div>",
+          "details": "Combine TagInput with clickable buttons to let users add tags by clicking suggestions or typing manually. Suggestions disappear once selected."
         }
       ],
       "docsUrl": "https://plexui.com/docs/components/tag-input"
@@ -4057,6 +4535,79 @@
       "docsUrl": "https://plexui.com/docs/components/textarea"
     },
     {
+      "slug": "toast",
+      "name": "Toast",
+      "description": "Transient notifications anchored to a corner of the viewport",
+      "importPath": "@plexui/ui/components/Toast",
+      "exports": [
+        "Toaster",
+        "toast"
+      ],
+      "examples": [
+        {
+          "name": "Overview",
+          "code": "toast(\"Inquiry ID copied\")"
+        },
+        {
+          "name": "Variants",
+          "code": "toast.success(\"Inquiry ID copied\")\ntoast.error(\"Failed to assign owner\")\ntoast.warning(\"Session expires in 2 minutes\")\ntoast.info(\"New version available\")",
+          "details": "Semantic variants map to PlexUI's success / danger / warning / info tokens. No richColors is passed — variants retheme automatically with data-theme."
+        },
+        {
+          "name": "Description",
+          "code": "toast(\"Changes saved\", {\n  description: \"Your profile is live for everyone on the team.\",\n})"
+        },
+        {
+          "name": "Action",
+          "code": "toast(\"Message sent\", {\n  description: \"Delivered to #design channel.\",\n  action: { label: \"Undo\", onClick: () => toast.success(\"Message recalled\") },\n})"
+        },
+        {
+          "name": "Promise",
+          "code": "toast.promise(saveProfile(), {\n  loading: \"Saving…\",\n  success: (data) => \\`\\${data.name} saved\\`,\n  error: \"Save failed\",\n})",
+          "details": "Use toast.promise to tie a single toast to an async operation. The toast shows a loading state, then swaps to success or error."
+        },
+        {
+          "name": "Long content",
+          "code": "toast(\"Your deployment is still running\", {\n  description: \"This is a long message to show how the toast handles multi-line content…\",\n})"
+        },
+        {
+          "name": "Persistent",
+          "code": "const id = toast(\"Backup scheduled for 2:00 AM UTC\", {\n  description: \"This stays open until you dismiss it.\",\n  duration: Infinity,\n  action: { label: \"Dismiss\", onClick: () => toast.dismiss(id) },\n})",
+          "details": "Pass duration: Infinity for toasts that stay open until the user acts on them. There are no close (×) affordances — put a labelled action on the toast so dismissal is intentional and keyboard-accessible."
+        }
+      ],
+      "subComponents": [
+        {
+          "name": "`<Toaster />`",
+          "props": [
+            {
+              "name": "position",
+              "type": "\"top-left\" | \"top-center\" | \"top-right\" | \"bottom-left\" | \"bottom-center\" | \"bottom-right\"",
+              "default": "\"top-center\"",
+              "description": "Where toasts anchor on the viewport"
+            },
+            {
+              "name": "duration",
+              "type": "number",
+              "default": "3000",
+              "description": "Default auto-dismiss duration in ms"
+            },
+            {
+              "name": "offset",
+              "type": "string | number | { top?; right?; bottom?; left? }",
+              "description": "Distance from the viewport edge"
+            },
+            {
+              "name": "gap",
+              "type": "number",
+              "description": "Gap between stacked toasts in px"
+            }
+          ]
+        }
+      ],
+      "docsUrl": "https://plexui.com/docs/components/toast"
+    },
+    {
       "slug": "tooltip",
       "name": "Tooltip",
       "description": "Brief and informative hover text",
@@ -4153,5 +4704,5 @@
       "docsUrl": "https://plexui.com/docs/components/tooltip"
     }
   ],
-  "generatedAt": "2026-03-21T15:31:38.907Z"
+  "generatedAt": "2026-04-23T05:31:29.592Z"
 }

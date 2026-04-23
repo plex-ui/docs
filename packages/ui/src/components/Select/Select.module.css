@@ -101,6 +101,15 @@
     font-weight: var(--font-weight-semibold);
   }
 
+  /* Options with a description automatically keep their title semibold in
+     every state (highlighted, selected, idle). This is the "item + subtitle"
+     pattern — don't make consumers (or AI generating demos) remember to pass
+     `optionClassName="font-semibold"`. OptionDescription's own rule below
+     keeps the description text at normal weight. */
+  &:has(.OptionDescription) {
+    font-weight: var(--font-weight-semibold);
+  }
+
   &[data-highlight] {
     &::before {
       opacity: 1;
@@ -122,8 +131,23 @@
   }
 }
 
+/* Option layout — three-column flex row so title+description stack as a
+   leading group, and the indicator (start or end) sits as a dedicated
+   trailing/leading column. This is what makes description never leak under
+   the end-position checkmark column. Do not inline indicators inside
+   `.OptionInner` again — it breaks the layout contract consumers rely on. */
 .PressableInner {
   position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--menu-item-gap);
+}
+
+.OptionLeading {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
 }
 
 .OptionInner {
@@ -131,6 +155,12 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--menu-item-gap);
+}
+
+/* End-position indicator gets pushed against the right edge of PressableInner.
+   Start-position sits at the natural first column. */
+.PressableInner > .OptionIndicatorSlot[data-position="end"] {
+  margin-left: auto;
 }
 
 .OptionCheck {

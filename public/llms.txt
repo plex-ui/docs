@@ -3,7 +3,7 @@
 
 Install: npm install @plexui/ui
 Docs: https://plexui.com
-Components: 37
+Components: 41
 
 ## Setup
 
@@ -132,7 +132,7 @@ Props:
   - orientation ("left" | "right") default: "left" — Label position relative to checkbox
   - className (string) — CSS classes applied to wrapper node
   - id (string) — The id of the checkbox element
-Examples: Overview, Variants, Pill, Ghost, With description, Indeterminate, Disabled, Label orientation, Without label, Group with select all, Group with description, With Field, Grouped sections, With Radio Group
+Examples: With Radio Group, Descriptions, Overview, Variants, Pill, Ghost, With description, Indeterminate, Disabled, Label orientation, Without label, Group with select all, Group with description, With Field, Grouped sections
 
 ## Code Block
 Display syntax-highlighted code snippets
@@ -164,6 +164,28 @@ Props:
   - side ("top" | "right" | "bottom" | "left") default: "top" — Preferred side of the trigger
   - sideOffset (number) default: 5 — Distance from trigger in pixels
 Examples: Overview
+
+## Date Input
+Masked text input for typing dates with automatic formatting and validation
+Import: import { DateInput } from "@plexui/ui/components/DateInput"
+Docs: https://plexui.com/docs/components/date-input
+Props:
+  - value (DateTime | null) — Selected date (Luxon DateTime)
+  - onChange ((date: DateTime | null) => void) — Called when a complete valid date is entered or the field is cleared
+  - mode (MaskitoDateMode) default: "dd/mm/yyyy" — Date format mode: dd/mm/yyyy, mm/dd/yyyy, yyyy/mm/dd, etc.
+  - separator (string) default: "." — Character between date parts
+  - timeMode (MaskitoTimeMode) — Enable time input: HH:MM, HH:MM:SS, etc.
+  - dateTimeSeparator (string) default: ", " — Separator between date and time parts
+  - timeStep (number) default: 0 — Arrow-key increment step for time (ms)
+  - min (DateTime) — Earliest allowed date
+  - max (DateTime) — Latest allowed date
+  - clearable (boolean) default: false — Show clear button when input has a value
+  - size (ControlSize) default: "md" — Input size (3xs–3xl)
+  - variant ("outline" | "soft") default: "outline" — Visual style
+  - disabled (boolean) default: false — Disable input
+  - invalid (boolean) default: false — Mark as invalid
+  - placeholder (string) — Auto-generated from format if not set
+Examples: Overview, With time, With seconds, Limits, US format, ISO format, With Field, Validation, Disabled
 
 ## Date Picker
 Select a single date with an interactive calendar
@@ -251,7 +273,33 @@ Props:
   - opticallyAlign ("start" | "end") — Applies optical alignment to the child control via negative margin using its gutter
   - id (string) — Override the auto-generated id used for htmlFor/aria linking
   - children (ReactElement | (fieldProps) => ReactNode) — Form control; receives id, aria-describedby, and aria-invalid
-Examples: Overview, With description, With error message, Required, Sizing, Horizontal layout, Textarea, Select, Slider, Fieldset, Checkbox, Radio, Switch, Field group, Validation and Errors, Optical alignment, Form example, Birthday segmented input, Birthday with selects
+Examples: Overview, With description, With error message, Required, Sizing, Horizontal layout, Textarea, Select, Slider, Fieldset, Checkbox, Radio, Switch, Field group, Validation and Errors, Optical alignment, Form example, Profile settings, Create project, Field configuration, Birthday input, Birthday with validation, Birthday segmented input, Birthday with selects
+
+## File Upload
+Mobile-first file picker with type validation and multi-file support
+Import: import { FileUpload, FileCard, FileCardGroup } from "@plexui/ui/components/FileUpload"
+Docs: https://plexui.com/docs/components/file-upload
+Props:
+  - variant ("compact" | "area") default: "compact" — Visual variant — compact button or larger tappable area
+  - label (string) — Button label text
+  - description (string) — Helper text below the icon (area variant only)
+  - multiple (boolean) default: false — Allow selecting multiple files
+  - maxFiles (number) — Maximum number of files. Button disables at limit.
+  - maxSize (number) — Maximum file size in bytes
+  - value (File[]) — Controlled file list
+  - onValueChange ((files: File[]) => void) — Callback when files are added or removed
+  - onFileReject ((file: File, reason: string) => void) — Callback when a file is rejected (wrong type, too large, over limit)
+  - errorMessage (string) — Error message — sets invalid visual state
+  - invalid (boolean) default: false — Invalid state (auto-set when errorMessage is provided)
+  FileCard:
+    - file (File) — The file to display
+    - onRemove (() => void) — Remove callback. When omitted, the delete button is hidden.
+    - disabled (boolean) default: false — Disable the remove button
+    - className (string) — Additional CSS class
+  FileCardGroup:
+    - children (ReactNode) — FileCard elements
+    - className (string) — Additional CSS class
+Examples: Overview, With files, Error state, Disabled, Read-only, With remove, Multiple files, Read-only list
 
 ## Float Input
 Input with floating label that animates on focus
@@ -259,6 +307,7 @@ Import: import { FloatingLabelInput } from "@plexui/ui/components/FloatingLabelI
 Docs: https://plexui.com/docs/components/floating-label-input
 Props:
   - label (string) — Floating label text
+  - description (ReactNode) — Helper text below the input
   - errorMessage (string) — Validation message below input; sets invalid state
   - disabled (boolean) default: false — Disable input interactions
   - invalid (boolean) default: false — Invalid visual state
@@ -266,7 +315,9 @@ Props:
   - onClear (() => void) — Shows a clear button when input has value
   - startAdornment (ReactNode) — Content rendered before the input, inside the field. Visible when focused or has value.
   - endAdornment (ReactNode) — Content rendered after the input, before the clear button
-Examples: Overview, Filled state, With error message, Clear button, Disabled, Read only, All states, Password input, Password with visibility toggle, SSN input, Birthday input, Birthday with validation, Birthday states, Country select, Phone input
+  - multiline (boolean) default: false — Render as an auto-growing textarea
+  - rows (number) default: 2 — Initial visible text lines when multiline is true
+Examples: Overview, Filled state, Textarea, With error message, With description, With description and error, Clear button, Disabled, Read only, All states, Password input, Password with visibility toggle, SSN input, Birthday input, Birthday with validation, Birthday states, Select, Multiple selection, Country select, Phone input
 
 ## Indicators
 Display loading and progress states to users
@@ -303,6 +354,22 @@ Props:
   - opticallyAlign ("start" | "end") — Applies a negative margin using the current gutter to optically align with surrounding content
 Examples: Overview, Variants, Sizing & roundness, Start adornment, Clear button, End adornment, Password with visibility toggle, SSN input, Birthday input, Birthday with validation, Disabled, Invalid, Auto select text, Autofill extensions, With button, Optical alignment
 
+## Markdown Editor
+Compact rich text editor embedded in a form field, powered by Tiptap
+Import: import { MarkdownEditor } from "@plexui/ui/components/MarkdownEditor"
+Docs: https://plexui.com/docs/components/markdown-editor
+Props:
+  - variant ("outline" | "soft") default: "outline" — Visual style of the editor
+  - disabled (boolean) default: false — Disable the editor
+  - invalid (boolean) default: false — Mark as invalid
+  - placeholder (string) — Placeholder text when empty
+  - value (string) — Controlled markdown value
+  - defaultValue (string) — Initial markdown for uncontrolled mode
+  - onChange ((markdown: string) => void) — Called on content change
+  - toolbarEnd (ReactNode) — Content rendered at the end of the toolbar
+  - rows (number) default: 1 — Minimum visible rows
+Examples: Placeholder, All formatting, With Field, Toolbar end slot, Variants, Disabled, Invalid
+
 ## Markdown
 Render rich formatted content
 Import: import { Markdown } from "@plexui/ui/components/Markdown"
@@ -325,13 +392,15 @@ Props:
   - minWidth (number | string) default: auto — Minimum panel width
   - side ("top" | "right" | "bottom" | "left") — Preferred placement
   - align ("start" | "center" | "end") — Alignment relative to trigger
+  - layout ("vertical" | "horizontal") default: "vertical" — Layout direction. Use horizontal for icon toolbars
+  - size ("sm" | "md" | "lg") default: "md" — Size of horizontal menu items (icon size + padding)
   - onSelect ((event: Event) => void) — Called when item is selected
   - disabled (boolean) — Disable the item
   - checked (boolean) — Checked state
   - onCheckedChange ((checked: boolean) => void) — When checkbox toggles
   - indicatorPosition ("start" | "end") — Checkbox position
   - indicatorVariant (string) — Badge/indicator style (e.g. solid)
-Examples: Overview, Natural sizing, Grouped items, Submenus, Checkbox items, Radio items, Item actions
+Examples: Overview, Natural sizing, Horizontal (icons only), Horizontal (icons with labels), Grouped items, Submenus, Checkbox items, Radio items, Item actions
 
 ## OTP Input
 Individual digit input cells for verification code entry
@@ -392,7 +461,7 @@ Props:
   - aria-label (string) — Accessible group label
   - block (boolean) default: false — Stretch item to fill available width
   - orientation ("left" | "right") default: "left" — Position of the radio indicator relative to the label
-Examples: Overview, Direction, Orientation, Group disabled, Item disabled, With description, With Field, With Field error, Choice card, Card selection, Grouped sections, With Checkbox
+Examples: With Checkbox, Descriptions, Overview, Direction, Orientation, Group disabled, Item disabled, With description, With Field, With Field error, Choice card, Card selection, Grouped sections
 
 ## Select Control
 Customizable select control for use with any type of floating UI
@@ -469,7 +538,7 @@ Docs: https://plexui.com/docs/components/sidebar
   SidebarCard:
     - dismissible (boolean) — Shows dismiss button
     - onDismiss (() => void) — Callback when dismissed
-Examples: Overview, Scrollable Content, Text-Only Navigation, Collapse Modes, Nested Navigation, Mobile Menu, Search, Skeleton, Group Label Sizes, Badges, Footer Cards
+Examples: App Shell, Basic, Collapsible Sections, Search and Filter, Tree with Hover Actions, Mobile Menu, Search Input
 
 ## Skeleton
 Use to show a placeholder while content is loading
@@ -595,7 +664,7 @@ Props:
   - aria-label (string) — Accessible name (required)
   - icon (ReactNode) — Icon element (sized automatically)
   - badge (number | { content: ReactNode; color?: string; variant?: string }) — Badge/count or custom badge config
-Examples: Overview, Segmented with icons, Segmented with badge, Underline, Underline flush, Underline block, Underline with icons, Underline with badge, Vertical segmented, Vertical underline, Vertical underline with icons, Disabled tab, Sizing, Scrollable
+Examples: Overview, Segmented with icons, Icon only, Segmented with badge, Underline, Underline flush, Underline block, Underline with icons, Underline with badge, Vertical segmented, Vertical underline, Vertical underline with icons, Disabled tab, Sizing, Scrollable
 
 ## Tag Input
 Enter multiple unique tags
@@ -611,7 +680,7 @@ Props:
   - rows (number) default: 1 — Min rows
   - size (string) default: xl — Control height when rows=1
   - autoFocus (boolean) default: false — Focus on mount
-Examples: Overview
+Examples: Overview, Suggestions
 
 ## Text Link
 Semantic link for internal and external links
@@ -643,6 +712,17 @@ Props:
   - autoResize (boolean) default: false — Grow/shrink with content
   - maxRows (number) — Max rows when autoResize
 Examples: Base, Variants, Auto resize, Sizing, Disabled, Invalid, Auto select text, Autofill extensions
+
+## Toast
+Transient notifications anchored to a corner of the viewport
+Import: import { Toaster, toast } from "@plexui/ui/components/Toast"
+Docs: https://plexui.com/docs/components/toast
+  `<Toaster />`:
+    - position ("top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right") default: "top-center" — Where toasts anchor on the viewport
+    - duration (number) default: 3000 — Default auto-dismiss duration in ms
+    - offset (string | number | { top?; right?; bottom?; left? }) — Distance from the viewport edge
+    - gap (number) — Gap between stacked toasts in px
+Examples: Overview, Variants, Description, Action, Promise, Long content, Persistent
 
 ## Tooltip
 Brief and informative hover text

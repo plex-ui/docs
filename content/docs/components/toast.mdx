@@ -1,0 +1,120 @@
+---
+title: Toast
+description: Transient notifications anchored to a corner of the viewport
+---
+
+import {
+  ToastDemosHost,
+  ToastOverviewDemo,
+  ToastVariantsDemo,
+  ToastWithDescriptionDemo,
+  ToastWithActionDemo,
+  ToastPromiseDemo,
+  ToastLongContentDemo,
+  ToastCompactDemo,
+  ToastDismissibleDemo,
+} from "@/components/docs/ToastDemos"
+import { PREVIEW_MIN_HEIGHT } from "@/components/docs/previewMinHeights"
+
+<ToastDemosHost />
+
+<UsageBlock>{`import { Toaster, toast } from "@plexui/ui/components/Toast";`}</UsageBlock>
+
+Render `<Toaster />` once near the root of your app, then call `toast(...)` from any handler. Toast is built on [sonner](https://sonner.emilkowal.ski/) — its full API (`toast.promise`, `toast.loading`, `toast.dismiss`, `toast.custom`) is re-exported as-is.
+
+## Examples
+
+<div id="first-component-page">
+### Overview
+
+<ComponentPreview code={`toast("Inquiry ID copied")`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastOverviewDemo />
+</ComponentPreview>
+
+### Variants
+
+<ComponentPreview details={<>Semantic variants map to PlexUI's success / danger / warning / info tokens. No <code>richColors</code> is passed — variants retheme automatically with <code>data-theme</code>.</>} code={`toast.success("Inquiry ID copied")
+toast.error("Failed to assign owner")
+toast.warning("Session expires in 2 minutes")
+toast.info("New version available")`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastVariantsDemo />
+</ComponentPreview>
+
+### Description
+
+<ComponentPreview code={`toast("Changes saved", {
+  description: "Your profile is live for everyone on the team.",
+})`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastWithDescriptionDemo />
+</ComponentPreview>
+
+### Action
+
+<ComponentPreview code={`toast("Message sent", {
+  description: "Delivered to #design channel.",
+  action: { label: "Undo", onClick: () => toast.success("Message recalled") },
+})`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastWithActionDemo />
+</ComponentPreview>
+
+### Promise
+
+<ComponentPreview details={<>Use <code>toast.promise</code> to tie a single toast to an async operation. The toast shows a loading state, then swaps to success or error.</>} code={`toast.promise(saveProfile(), {
+  loading: "Saving…",
+  success: (data) => \`\${data.name} saved\`,
+  error: "Save failed",
+})`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastPromiseDemo />
+</ComponentPreview>
+
+### Long content
+
+<ComponentPreview code={`toast("Your deployment is still running", {
+  description: "This is a long message to show how the toast handles multi-line content…",
+})`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastLongContentDemo />
+</ComponentPreview>
+
+### Compact
+
+<ComponentPreview details={<>Spread <code>compact</code> into any <code>toast(...)</code> options for a centered-text layout. Toast width shrinks to content by default regardless; the <code>compact</code> helper only adds center alignment for short status messages.</>} code={`import { toast, compact } from "@plexui/ui/components/Toast"
+
+toast.success("Inquiry ID copied", compact)`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastCompactDemo />
+</ComponentPreview>
+
+### Persistent
+
+<ComponentPreview details={<>Pass <code>duration: Infinity</code> for toasts that stay open until the user acts on them. There are no close (×) affordances — put a labelled action on the toast so dismissal is intentional and keyboard-accessible.</>} code={`const id = toast("Backup scheduled for 2:00 AM UTC", {
+  description: "This stays open until you dismiss it.",
+  duration: Infinity,
+  action: { label: "Dismiss", onClick: () => toast.dismiss(id) },
+})`} previewMinHeight={PREVIEW_MIN_HEIGHT.control}>
+  <ToastDismissibleDemo />
+</ComponentPreview>
+
+## Reference
+
+### `<Toaster />`
+
+<PropsTable data={[
+  { prop: "position", type: '"top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"', default: '"top-center"', description: "Where toasts anchor on the viewport" },
+  { prop: "duration", type: "number", default: "3000", description: "Default auto-dismiss duration in ms" },
+  { prop: "offset", type: "string | number | { top?; right?; bottom?; left? }", description: "Distance from the viewport edge" },
+  { prop: "gap", type: "number", description: "Gap between stacked toasts in px" },
+]} />
+
+Remaining sonner `Toaster` props (`expand`, `visibleToasts`, `hotkey`, `dir`, `swipeDirections`, etc.) are forwarded untouched.
+
+### `toast`
+
+Re-exported from sonner. The full surface — `toast()`, `.success`, `.error`, `.warning`, `.info`, `.message`, `.loading`, `.promise`, `.dismiss`, `.custom` — is available with full TypeScript inference.
+
+### Types
+
+`Action`, `ExternalToast`, and `ToastT` are re-exported so you can type helpers without importing from `sonner` directly.
+
+## Theme sync
+
+`<Toaster />` reads `data-theme` on `<html>` on mount and observes changes via `MutationObserver`. Toggling light ↔ dark rethemes toasts that are already on screen — no `next-themes` dependency.
+</div>
