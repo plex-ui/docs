@@ -89,12 +89,12 @@
 }
 
 .Title {
-  margin: 0 0 spacing(1);
+  margin: 0 0 spacing(1.5);
   color: var(--card-title-color);
   font-size: var(--card-title-font-size);
   font-weight: var(--card-title-font-weight);
-  line-height: var(--font-heading-md-line-height);
-  letter-spacing: var(--font-heading-md-tracking);
+  line-height: var(--font-heading-xs-line-height);
+  letter-spacing: var(--font-heading-xs-tracking);
   text-wrap: balance;
 }
 
