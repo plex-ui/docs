@@ -12,6 +12,10 @@ import {
 
 <UsageBlock>{`import { Progress } from "@plexui/ui/components/Progress";`}</UsageBlock>
 
+## Examples
+
+### Overview
+
 <ComponentPreview code={`const [value, setValue] = useState(13);
 useEffect(() => {
   const t = setTimeout(() => setValue(66), 500);
@@ -21,18 +25,6 @@ useEffect(() => {
 return <Progress value={value} />;`}>
   <ProgressOverviewDemo />
 </ComponentPreview>
-
-## Usage
-
-```tsx
-import { Progress } from "@plexui/ui/components/Progress"
-```
-
-```tsx
-<Progress value={66} />
-```
-
-## Examples
 
 ### With label
 
@@ -59,9 +51,7 @@ return (
   <ProgressControlledDemo />
 </ComponentPreview>
 
-## API Reference
-
-Built on [Radix Progress](https://www.radix-ui.com/primitives/docs/components/progress) — see the upstream docs for the full prop surface.
+## API
 
 ### Progress
 
@@ -71,13 +61,13 @@ Built on [Radix Progress](https://www.radix-ui.com/primitives/docs/components/pr
 | `max` | `number` | `100` | Maximum progress value |
 | `className` | `string` | — | Applied to the root `<div>` |
 
-All other Radix `Progress.Root` props are forwarded.
+Built on [Radix Progress](https://www.radix-ui.com/primitives/docs/components/progress) — all `Progress.Root` props are forwarded.
 
 ## Styling
 
 Component tokens:
 
-- `--progress-height` — track height (defaults to `8px`)
+- `--progress-height` — track height (defaults to `4px`)
 - `--progress-track-color` — track background (defaults to `--color-background-secondary-soft`)
 - `--progress-indicator-color` — fill color (defaults to `--color-text`)
 - `--progress-radius` — corner radius (defaults to `--radius-full`)

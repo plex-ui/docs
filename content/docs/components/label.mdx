@@ -11,6 +11,12 @@ import {
 
 <UsageBlock>{`import { Label } from "@plexui/ui/components/Label";`}</UsageBlock>
 
+For stacked form fields, prefer [`Field`](/docs/components/field) — it bundles label, description, and error handling. Reach for a standalone `Label` when you pair it directly with a checkbox, switch, or any control where Field's layout is overkill.
+
+## Examples
+
+### Overview
+
 <ComponentPreview code={`<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
   <Checkbox id="terms" />
   <Label htmlFor="terms">Accept terms and conditions</Label>
@@ -18,24 +24,10 @@ import {
   <LabelOverviewDemo />
 </ComponentPreview>
 
-For form fields, use the [`Field`](/docs/components/field) component — it includes built-in label, description, and error handling.
+### Label in Field
 
-## Usage
-
-```tsx
-import { Label } from "@plexui/ui/components/Label"
-```
-
-```tsx
-<Label htmlFor="email">Your email address</Label>
-```
-
-## Label in Field
-
-For stacked form rows with descriptions, errors, and horizontal layouts, use the [`Field`](/docs/components/field) component — it renders the label internally, hooks up `htmlFor` automatically, and handles the surrounding spacing.
-
-<ComponentPreview code={`<Field label="Name on Card">
-  <Input placeholder="Evil Rabbit" />
+<ComponentPreview details={<>For stacked form rows with descriptions, errors, and horizontal layouts, use the <a href="/docs/components/field"><code>Field</code></a> component — it renders the label internally, hooks up <code>htmlFor</code> automatically, and handles the surrounding spacing.</>} code={`<Field label="Name on Card">
+  <Input placeholder="Aisha Cooper" />
 </Field>
 
 <Field label="Card Number" description="Enter your 16-digit card number">
@@ -43,29 +35,27 @@ For stacked form rows with descriptions, errors, and horizontal layouts, use the
 </Field>
 
 {/* Month / Year / CVV in a 3-col grid */}
-<Field label="Month">
-  <Select options={MONTH_OPTIONS} />
-</Field>
-
-<Separator />
-
-{/* Billing Address section + Same-as-shipping checkbox */}
-
-<Separator />
-
-<Field label="Comments">
-  <Textarea placeholder="Add any additional comments" />
-</Field>`}>
+{/* Billing Address section + checkbox */}
+{/* Comments textarea + Submit / Cancel */}`}>
   <LabelInFieldDemo />
 </ComponentPreview>
 
-## API Reference
+## API
 
-See the [Radix UI Label documentation](https://www.radix-ui.com/primitives/docs/components/label) for the full prop surface.
+### Label
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `htmlFor` | `string` | — | `id` of the associated control. Clicks on the label focus or activate the control. |
 | `className` | `string` | — | Applied to the root `<label>` element |
 
-All other `<label>` attributes are forwarded.
+Built on [Radix Label](https://www.radix-ui.com/primitives/docs/components/label) — prevents double-click text selection and forwards clicks to the associated control. All other `<label>` attributes are forwarded.
+
+## Styling
+
+Component tokens:
+
+- `--label-color` — text color (defaults to `--color-text`)
+- `--label-font-size` — text size (defaults to `--font-text-sm-size`)
+- `--label-font-weight` — weight (defaults to `--font-weight-medium`)
+- `--label-line-height` — line height (defaults to `1`)
