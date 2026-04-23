@@ -1,3 +1,69 @@
+# Persistent Memory — `.memory/` (FIRST ACTION EVERY SESSION)
+
+`.memory/` is a **git submodule** pointing at the private repo [`plex-ui/docs-memory`](https://github.com/plex-ui/docs-memory). It holds planning docs, decisions, bug notes, and session state that is not meant for the public parent repo.
+
+**Full protocol & file templates:** [`.memory/MEMORY_PROTOCOL.md`](.memory/MEMORY_PROTOCOL.md)
+**Submodule workflow reference:** [`.memory/domains/submodule-workflow.md`](.memory/domains/submodule-workflow.md)
+
+## Session start — MANDATORY
+
+```bash
+# If .memory/ is empty or missing, the submodule isn't cloned yet:
+git submodule update --init --recursive
+```
+
+Then read [`.memory/working-context.md`](.memory/working-context.md). If the task touches a specific domain — also read the matching file under `.memory/domains/`.
+
+## Fresh clone on a new machine
+
+```bash
+# Option 1 — clone with submodules in one go:
+git clone --recurse-submodules https://github.com/plex-ui/docs.git
+
+# Option 2 — already cloned without submodules:
+cd docs
+git submodule update --init --recursive
+```
+
+Requires GitHub auth with access to the private `plex-ui/docs-memory` repo (same `gh auth` as parent).
+
+## Commit cycle (TWO commits — inside, then outside)
+
+When you change anything in `.memory/*`:
+
+```bash
+# 1. Commit inside the submodule FIRST
+cd .memory
+git add -A
+git commit -m "Update working-context after Card foundation step"
+git push
+
+# 2. Then bump the pointer in the parent repo
+cd ..
+git add .memory
+git commit -m "Bump .memory pointer"
+git push
+```
+
+If you forget step 2, teammates/CI won't see the update — parent repo still points at the old submodule commit.
+
+## Pull updates from teammates
+
+```bash
+git pull --recurse-submodules
+# or, if you already pulled:
+git submodule update --remote --merge
+```
+
+## Never
+
+- `rm -rf .memory/` — that deletes the submodule working tree. Use `git submodule deinit .memory` instead if you really need to unmount.
+- Commit `.memory/screenshots/` — gitignored inside the submodule.
+- Store secrets, API keys, or credentials anywhere in `.memory/` (even though the repo is private).
+- Forget the two-commit cycle — submodule change + parent pointer bump.
+
+---
+
 # Figma MCP Bridge Plugin
 
 ## Location

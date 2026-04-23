@@ -1,0 +1,3 @@
+[submodule ".memory"]
+	path = .memory
+	url = https://github.com/plex-ui/docs-memory.git
