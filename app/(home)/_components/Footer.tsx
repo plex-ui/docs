@@ -56,6 +56,7 @@ const footerSections = [
       { label: 'Floating Label Input', href: '/docs/components/floating-label-input' },
       { label: 'Indicators', href: '/docs/components/indicators' },
       { label: 'Input', href: '/docs/components/input' },
+      { label: 'Label', href: '/docs/components/label' },
       { label: 'Markdown', href: '/docs/components/markdown' },
       { label: 'Markdown Editor', href: '/docs/components/markdown-editor' },
       { label: 'Menu', href: '/docs/components/menu' },

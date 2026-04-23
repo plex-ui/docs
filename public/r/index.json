@@ -56,6 +56,12 @@
       "type": "registry:ui",
       "description": "Horizontal or vertical divider for sections, inline lists, and card groupings.",
       "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "description": "Accessible label on top of Radix Label.Root; pairs with any form control via htmlFor.",
+      "dependencies": ["@plexui/ui"]
     }
   ]
 }

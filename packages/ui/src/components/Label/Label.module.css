@@ -1,0 +1,20 @@
+.Label {
+  display: inline-flex;
+  align-items: center;
+  gap: spacing(0.5);
+  color: var(--label-color);
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  line-height: var(--label-line-height);
+  cursor: default;
+
+  &:where([data-disabled]) {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.RequiredIndicator {
+  color: var(--color-text-danger);
+  font-weight: var(--font-weight-normal);
+}

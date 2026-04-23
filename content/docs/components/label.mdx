@@ -1,0 +1,87 @@
+---
+title: Label
+description: Accessible label associated with form controls
+---
+
+import { Label } from "@plexui/ui/components/Label"
+import {
+  LabelOverviewDemo,
+  LabelInputDemo,
+  LabelRequiredDemo,
+  LabelSwitchDemo,
+} from "@/components/docs/LabelDemos"
+
+<UsageBlock>{`import { Label } from "@plexui/ui/components/Label";`}</UsageBlock>
+
+<Callout>
+  For stacked form fields, prefer <a href="/docs/components/field">Field</a> — it
+  bundles label, description, and error handling. Reach for a standalone
+  `Label` when you pair it directly with a checkbox, switch, or any control
+  where Field's layout is overkill.
+</Callout>
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+  <Checkbox id="newsletter" />
+  <Label htmlFor="newsletter">Send me monthly release notes</Label>
+</div>`}>
+  <LabelOverviewDemo />
+</ComponentPreview>
+
+### With Input
+
+<ComponentPreview details={<>Stack the label above the control with a small gap. For consistent spacing and error handling, use <a href="/docs/components/field"><code>Field</code></a> instead — this pattern is only for ad-hoc forms.</>} code={`<Label htmlFor="workspace">Workspace name</Label>
+<Input id="workspace" placeholder="acme-platform" />`}>
+  <LabelInputDemo />
+</ComponentPreview>
+
+### Required
+
+<ComponentPreview details={<>Pass <code>required</code> to render a subtle red asterisk after the label text.</>} code={`<Label htmlFor="email" required>Email address</Label>
+<Input id="email" type="email" />`}>
+  <LabelRequiredDemo />
+</ComponentPreview>
+
+### With Switch
+
+<ComponentPreview details={<>Horizontal preference row — label on the left, control on the right, space-between justified.</>} code={`<div style={{ display: 'flex', justifyContent: 'space-between', gap: 16 }}>
+  <Label htmlFor="notifs">Email notifications</Label>
+  <Switch id="notifs" />
+</div>`}>
+  <LabelSwitchDemo />
+</ComponentPreview>
+
+## API
+
+### Label
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `htmlFor` | `string` | — | `id` of the associated control. Clicks on the label focus/activate the control. |
+| `required` | `boolean` | `false` | When `true`, renders a red `*` after the label text. |
+| `className` | `string` | — | Applied to the root `<label>` |
+
+Built on Radix's `Label.Root` — prevents double-click text selection and forwards clicks to the associated control. All other `<label>` attributes are forwarded.
+
+## Styling
+
+Component tokens:
+
+- `--label-color` — text color (defaults to `--color-text`)
+- `--label-font-size` — text size (defaults to `--font-text-sm-size` = 14px)
+- `--label-font-weight` — weight (defaults to `--font-weight-medium`)
+- `--label-line-height` — line height (defaults to `1`)
+
+Override them at any scope to match a specific surface's typography rhythm.
+
+## When to use Field vs Label
+
+| | Use Field | Use Label |
+|---|-----------|-----------|
+| Stacked form with label, optional description, and error | ✓ | |
+| Single ad-hoc control (checkbox, switch) with a short label | | ✓ |
+| Horizontal forms with fixed label width | ✓ | |
+| Custom layouts where `Field`'s internal DOM is a constraint | | ✓ |
