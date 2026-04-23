@@ -110,6 +110,18 @@ Full record: [`.memory/decisions/0005-always-verify-vercel-deploy.md`](.memory/d
 
 ---
 
+# MDX authoring rules
+
+## No inline code (backticks) in headings
+
+Never wrap a heading's text in backticks in `content/docs/**/*.mdx`. Fumadocs renders headings into the right-rail TOC verbatim, so backtick-wrapped headings show up as `<code>…</code>` pills while neighboring entries are plain text — the sidebar looks broken. Inline code inside prose/tables is fine; only the heading stays plain.
+
+Correct: `### Separator` — Wrong: `` ### `Separator` ``
+
+Full record: [`.memory/decisions/0006-no-code-in-mdx-headings.md`](.memory/decisions/0006-no-code-in-mdx-headings.md)
+
+---
+
 # Component composition rules
 
 ## Pill consistency inside Card / form surfaces
