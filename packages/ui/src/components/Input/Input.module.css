@@ -392,20 +392,21 @@
 }
 
 /* AdornmentButton — public sibling of .Clear for in-input action buttons
-   (mic toggle, copy, send, etc.). Defaults transparent so it doesn't
-   compete with input text; picks up the same size / offset tokens as
-   .Clear so it stays aligned inside the pill. */
+   (mic toggle, copy, send, etc.). Sized from the Input's own size token:
+   input height minus one spacing step each side leaves ~4px of breathing
+   room top + bottom, so a md (32px) input gets a 24px pill, an lg (36px)
+   gets 28px, etc. Radius is --radius-full so a pill input stays
+   concentric with the button. Icon fills half the button. */
 .AdornmentButton {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: var(--input-clear-size);
-  height: var(--input-clear-size);
+  width: calc(var(--input-size) - spacing(2));
+  height: calc(var(--input-size) - spacing(2));
   padding: 0;
   border: 0;
   border-radius: var(--radius-full);
-  margin-right: var(--input-clear-offset);
   background-color: transparent;
   color: var(--color-text-tertiary);
   cursor: pointer;
@@ -428,13 +429,9 @@
     opacity: 0.5;
   }
 
-  :where(.Container[data-pill]) & {
-    margin-right: var(--input-clear-pill-offset);
-  }
-
   > svg {
-    width: var(--input-clear-icon-size);
-    height: var(--input-clear-icon-size);
+    width: calc(var(--input-size) / 2);
+    height: calc(var(--input-size) / 2);
   }
 }
 

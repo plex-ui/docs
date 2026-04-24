@@ -102,9 +102,9 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Input
 
-<ComponentPreview details={<>Join an <code>Input</code> to a trailing <code>Button</code> for inline search, token entry, or URL shorteners. The input flexes to fill the row; the button hugs its content. Pass <code>iconSize="sm"</code> so the trailing icon reads as a compact companion to the input text, not a standalone action.</>} code={`<ButtonGroup>
+<ComponentPreview details={<>Join an <code>Input</code> to a trailing <code>Button</code> for inline search, token entry, or URL shorteners. The input flexes to fill the row; the button hugs its content.</>} code={`<ButtonGroup>
   <Input placeholder="Search docs..." />
-  <Button uniform iconSize="sm" aria-label="Search"><Search /></Button>
+  <Button uniform aria-label="Search"><Search /></Button>
 </ButtonGroup>`}>
   <ButtonGroupInputDemo />
 </ComponentPreview>
@@ -113,7 +113,7 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 <ComponentPreview details={<>Richer composition for message composers: wrap each slot (leading action, flexible <code>Input</code>) in its own <code>ButtonGroup</code> so the outer group inserts a gap between them. The voice toggle rides inside the input via <code>endAdornment</code>.</>} code={`<ButtonGroup>
   <ButtonGroup>
-    <Button pill uniform iconSize="sm" aria-label="Add attachment"><PlusSm /></Button>
+    <Button pill uniform aria-label="Add attachment"><PlusSm /></Button>
   </ButtonGroup>
   <ButtonGroup>
     <Input
