@@ -1,8 +1,13 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { ButtonLink } from '@plexui/ui/components/Button';
-import { SizingOverviewDemo } from '@/components/docs/SizingDemos';
 import { LandingSection, SectionHeading, SectionCta } from './LandingSection';
+
+const SizingOverviewDemo = dynamic(
+  () => import('@/components/docs/SizingDemos').then((m) => m.SizingOverviewDemo),
+  { ssr: false },
+);
 
 export function SizingSection() {
   return (

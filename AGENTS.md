@@ -138,6 +138,37 @@ Full record: [`.memory/decisions/0005-always-verify-vercel-deploy.md`](.memory/d
 
 ---
 
+# 🔴 Interactive demos must render client-only — never SSR
+
+**Every `components/docs/*Demos.tsx` file that composes Plex form controls (`SelectControl`, `Menu`, `Popover`, `Dialog`, `Slider`, `Switch`, `Checkbox`, `RadioGroup`, `SegmentedControl`, `DateRangePicker`, `Combobox`, `MarkdownEditor`, etc.) must be loaded via `next/dynamic` with `ssr: false` from every SSR consumer (landing sections under `app/(home)/_components/*Section.tsx`, any `page.tsx`).**
+
+```tsx
+// ✅ CORRECT — loaded only on the client, no hydration to mismatch
+import dynamic from 'next/dynamic';
+
+const SizingOverviewDemo = dynamic(
+  () => import('@/components/docs/SizingDemos').then((m) => m.SizingOverviewDemo),
+  { ssr: false },
+);
+```
+
+```tsx
+// ❌ FORBIDDEN from landing/page.tsx — SSR renders Radix Slot + useId, client shifts, hydration breaks
+import { SizingOverviewDemo } from '@/components/docs/SizingDemos';
+```
+
+**Why this rule exists:** React 19's `useId()` is deterministic **only** if the server and client render the exact same subtree in the exact same order. Any drift — a Suspense boundary resolving differently, a Radix internal allocating a different Slot, an effect-triggered conditional — shifts every downstream id, producing:
+
+> A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up.
+
+in the Next dev overlay. The issue has repeated three times: Slider in `ProgressDemos`, `SizingOverviewDemo` on the landing, and an earlier `SelectControl`. Auditing every demo for every possible cause of tree drift is not worth it — force-client the whole demo chunk and the class of bug vanishes.
+
+**Full record:** [`.claude/projects/.../memory/feedback_no_ssr_for_interactive_demos.md`](.claude/projects/-Users-sergey-github-plexui-docs/memory/feedback_no_ssr_for_interactive_demos.md)
+
+**Exception:** MDX pages under `content/docs/components/*.mdx` import demos directly — this is fine because Fumadocs already wraps the docs render with its own client boundary. The rule applies specifically to the landing (`app/(home)/_components/*Section.tsx`) and raw `app/**/page.tsx` files that do not wrap the demo themselves.
+
+---
+
 # MDX authoring rules
 
 ## Canonical component-page structure — same shape on every page
