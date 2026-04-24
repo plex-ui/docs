@@ -3,12 +3,13 @@
 import { FormEvent, useState } from 'react';
 import { Button } from '@plexui/ui/components/Button';
 import {
+  Bolt,
   Code,
   Functions,
   Globe,
   ImageSquare,
   Search,
-  Tools,
+  Sparkles,
 } from '@plexui/ui/components/Icon';
 import { Popover, usePopoverController } from '@plexui/ui/components/Popover';
 
@@ -32,10 +33,10 @@ export function PopoverNaturalSizingDemo() {
     <Popover>
       <Popover.Trigger>
         <Button color="primary" size="sm" variant="ghost" pill={false} gutterSize="xs" className="gap-1.5">
-          <Tools /> Actions
+          <Bolt /> Actions
         </Button>
       </Popover.Trigger>
-      <Popover.Content className="flex p-2" minWidth="auto" side="top">
+      <Popover.Content className="flex p-1.5" minWidth="auto" side="top">
         <Button color="primary" variant="ghost" pill={false} size="sm" gutterSize="2xs">
           <Functions height={18} width={18} />
         </Button>
@@ -59,10 +60,10 @@ export function PopoverNaturalSizingDemo() {
 function InteractiveContent() {
   const { close } = usePopoverController();
   return (
-    <div className="p-4">
-      <h3 className="mb-1 text-sm font-semibold">Popover with actions</h3>
+    <div className="p-3">
+      <h3 className="mb-0.5 text-sm font-semibold">Popover with actions</h3>
       <p className="text-sm text-secondary">Try using tab to navigate</p>
-      <div className="mt-4 flex gap-2">
+      <div className="mt-3 flex gap-2">
         <Button color="secondary" variant="soft" pill={false} onClick={close}>
           Cancel
         </Button>
@@ -119,7 +120,7 @@ function PopoverTextarea({
         width: '100%',
         height: 80,
         background: 'none',
-        padding: '8px 12px 12px',
+        padding: '12px 16px 8px',
         border: 0,
         fontSize: 14,
         lineHeight: '20px',
@@ -132,9 +133,9 @@ function PopoverTextarea({
 
 function PopoverActionBar({ loading }: { loading?: boolean }) {
   return (
-    <div className="px-2 pb-2 flex items-center justify-between">
-      <div className="flex gap-1 items-center font-normal text-sm text-tertiary">
-        <Tools width={16} height={16} />
+    <div className="px-3 pb-3 flex items-center justify-between">
+      <div className="flex gap-1.5 items-center font-normal text-sm text-tertiary">
+        <Sparkles width={16} height={16} />
         Free beta
       </div>
       <Button color="primary" size="xs" pill={false} loading={loading} type="submit">
