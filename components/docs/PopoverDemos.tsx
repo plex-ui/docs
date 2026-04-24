@@ -16,7 +16,7 @@ export function PopoverBaseDemo() {
   return (
     <Popover>
       <Popover.Trigger>
-        <Button color="primary">Generate</Button>
+        <Button color="primary" pill={false}>Generate</Button>
       </Popover.Trigger>
       <Popover.Content side="right">
         <div className="p-4">
@@ -31,24 +31,24 @@ export function PopoverNaturalSizingDemo() {
   return (
     <Popover>
       <Popover.Trigger>
-        <Button color="primary" size="lg" variant="ghost" className="font-semibold gap-1.5">
+        <Button color="primary" size="sm" variant="ghost" pill={false} gutterSize="xs" className="gap-1.5">
           <Tools /> Actions
         </Button>
       </Popover.Trigger>
       <Popover.Content className="flex p-2" minWidth="auto" side="top">
-        <Button color="primary" variant="ghost" gutterSize="sm">
+        <Button color="primary" variant="ghost" pill={false} size="sm" gutterSize="2xs">
           <Functions height={18} width={18} />
         </Button>
-        <Button color="primary" variant="ghost" gutterSize="sm">
+        <Button color="primary" variant="ghost" pill={false} size="sm" gutterSize="2xs">
           <Search height={18} width={18} />
         </Button>
-        <Button color="primary" variant="ghost" gutterSize="sm">
+        <Button color="primary" variant="ghost" pill={false} size="sm" gutterSize="2xs">
           <Globe height={18} width={18} />
         </Button>
-        <Button color="primary" variant="ghost" gutterSize="sm">
+        <Button color="primary" variant="ghost" pill={false} size="sm" gutterSize="2xs">
           <Code height={18} width={18} />
         </Button>
-        <Button color="primary" variant="ghost" gutterSize="sm">
+        <Button color="primary" variant="ghost" pill={false} size="sm" gutterSize="2xs">
           <ImageSquare height={18} width={18} />
         </Button>
       </Popover.Content>
@@ -63,10 +63,10 @@ function InteractiveContent() {
       <h3 className="mb-1 text-sm font-semibold">Popover with actions</h3>
       <p className="text-sm text-secondary">Try using tab to navigate</p>
       <div className="mt-4 flex gap-2">
-        <Button color="secondary" variant="soft" onClick={close}>
+        <Button color="secondary" variant="soft" pill={false} onClick={close}>
           Cancel
         </Button>
-        <Button color="primary" onClick={close}>
+        <Button color="primary" pill={false} onClick={close}>
           Confirm
         </Button>
       </div>
@@ -79,7 +79,7 @@ export function PopoverHoverDemo() {
     <div className="flex flex-col gap-4">
       <Popover showOnHover>
         <Popover.Trigger>
-          <Button color="primary">Static content</Button>
+          <Button color="primary" pill={false}>Static content</Button>
         </Popover.Trigger>
         <Popover.Content width={320} side="right">
           <div className="p-3">
@@ -93,7 +93,7 @@ export function PopoverHoverDemo() {
       </Popover>
       <Popover showOnHover>
         <Popover.Trigger>
-          <Button color="primary">Interactive content</Button>
+          <Button color="primary" pill={false}>Interactive content</Button>
         </Popover.Trigger>
         <Popover.Content minWidth={230} side="right">
           <InteractiveContent />
@@ -137,7 +137,7 @@ function PopoverActionBar({ loading }: { loading?: boolean }) {
         <Tools width={16} height={16} />
         Free beta
       </div>
-      <Button color="primary" size="xs" loading={loading} type="submit">
+      <Button color="primary" size="xs" pill={false} loading={loading} type="submit">
         Create
       </Button>
     </div>
@@ -171,7 +171,7 @@ export function PopoverControllerDemo() {
   return (
     <Popover>
       <Popover.Trigger>
-        <Button color="primary">Generate</Button>
+        <Button color="primary" pill={false}>Generate</Button>
       </Popover.Trigger>
       <Popover.Content side="right">
         <PopoverControllerForm />
