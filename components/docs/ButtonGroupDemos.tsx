@@ -258,7 +258,14 @@ export function ButtonGroupInputDemo() {
   return (
     <ButtonGroup>
       <Input placeholder="Search docs..." />
-      <Button variant="outline" color="secondary" pill={false} uniform aria-label="Search">
+      <Button
+        variant="outline"
+        color="secondary"
+        pill={false}
+        uniform
+        iconSize="sm"
+        aria-label="Search"
+      >
         <Search />
       </Button>
     </ButtonGroup>
@@ -275,7 +282,14 @@ export function ButtonGroupInputGroupDemo() {
   return (
     <ButtonGroup>
       <ButtonGroup>
-        <Button variant="outline" color="secondary" pill uniform aria-label="Add attachment">
+        <Button
+          variant="outline"
+          color="secondary"
+          pill
+          uniform
+          iconSize="sm"
+          aria-label="Add attachment"
+        >
           <PlusSm />
         </Button>
       </ButtonGroup>
