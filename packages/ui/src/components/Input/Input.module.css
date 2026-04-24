@@ -272,7 +272,7 @@
     margin-left: var(--input-adornment-offset, -2px);
   }
 
-  > :last-child:not(input, .Clear) {
+  > :last-child:not(input, .Clear, .AdornmentButton) {
     margin-right: var(--input-adornment-offset, -2px);
   }
 }
@@ -407,6 +407,11 @@
   padding: 0;
   border: 0;
   border-radius: var(--radius-full);
+  /* Concentric with the input edge — leave a spacing(1) = 4px breathing
+     gap between the button's outer edge and the input's inner edge.
+     For a non-pill input that's `4 - gutter`; a pill input scales the
+     gutter by --control-gutter-pill-scaling. */
+  margin-right: calc(spacing(1) - var(--input-gutter));
   background-color: transparent;
   color: var(--color-text-tertiary);
   cursor: pointer;
@@ -427,6 +432,10 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  :where(.Container[data-pill]) & {
+    margin-right: calc(spacing(1) - var(--input-gutter) * var(--control-gutter-pill-scaling));
   }
 
   > svg {
