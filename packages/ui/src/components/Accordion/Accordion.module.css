@@ -41,13 +41,6 @@
   transition: color var(--accordion-transition-duration)
     var(--accordion-transition-ease);
 
-  @media (hover: hover) {
-    &:hover {
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-  }
-
   &:focus-visible {
     border-radius: var(--accordion-trigger-focus-radius);
     outline: 2px solid var(--accordion-trigger-focus-ring-color);

@@ -4,7 +4,7 @@ import { Accordion } from '@plexui/ui/components/Accordion';
 import { Card } from '@plexui/ui/components/Card';
 
 /* ============================================================
-   Overview — release-notes FAQ
+   Overview — shipping / returns / support FAQ
    ============================================================ */
 
 export function AccordionOverviewDemo() {
@@ -12,29 +12,29 @@ export function AccordionOverviewDemo() {
     <Accordion
       type="single"
       collapsible
-      defaultValue="whats-new"
+      defaultValue="shipping"
       style={{ width: '100%', maxWidth: 384 }}
     >
-      <Accordion.Item value="whats-new">
-        <Accordion.Trigger>What shipped in 0.12?</Accordion.Trigger>
+      <Accordion.Item value="shipping">
+        <Accordion.Trigger>What are your shipping options?</Accordion.Trigger>
         <Accordion.Content>
-          Accordion, Chart, and Command primitives landed. Card gained a `ghost`
-          variant, and every component now publishes a `data-loading` attribute.
+          We offer standard (5–7 business days), express (2–3 days), and
+          overnight shipping. Free standard shipping on orders over $50.
         </Accordion.Content>
       </Accordion.Item>
-      <Accordion.Item value="migrate">
-        <Accordion.Trigger>How do I upgrade from 0.11?</Accordion.Trigger>
+      <Accordion.Item value="returns">
+        <Accordion.Trigger>What is your return policy?</Accordion.Trigger>
         <Accordion.Content>
-          Bump `@plexui/ui` and rerun the codemod: `npx @plexui/cli migrate`.
-          It rewrites renamed tokens and legacy prop names. No breaking changes
-          for components shipped before 0.11.
+          Returns are accepted within 30 days of delivery. Items must be unused
+          and in original packaging. Refunds are processed within 5–7 business
+          days of receipt.
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="support">
-        <Accordion.Trigger>Where can I report issues?</Accordion.Trigger>
+        <Accordion.Trigger>How can I contact customer support?</Accordion.Trigger>
         <Accordion.Content>
-          File them on GitHub or ping us in the community Discord. Release-blocker
-          reports from production apps get same-day triage.
+          Reach us by email, live chat, or phone Monday through Friday, 9am–6pm
+          ET. Weekend tickets are handled within 24 hours.
         </Accordion.Content>
       </Accordion.Item>
     </Accordion>

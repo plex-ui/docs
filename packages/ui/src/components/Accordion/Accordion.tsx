@@ -3,7 +3,7 @@
 import clsx from "clsx"
 import { type ComponentProps, type Ref } from "react"
 import { Accordion as RadixAccordion } from "radix-ui"
-import { ChevronDown } from "../Icon"
+import { ChevronDownMd } from "../Icon"
 import s from "./Accordion.module.css"
 
 /* ------------------------------------------------------------------ */
@@ -60,7 +60,7 @@ const AccordionTrigger = ({
       {...restProps}
     >
       {children}
-      <ChevronDown className={s.Chevron} aria-hidden />
+      <ChevronDownMd className={s.Chevron} aria-hidden />
     </RadixAccordion.Trigger>
   </RadixAccordion.Header>
 )
