@@ -31,6 +31,7 @@ const footerSections = [
   {
     title: 'Components',
     links: [
+      { label: 'Accordion', href: '/docs/components/accordion' },
       { label: 'Alert', href: '/docs/components/alert' },
       { label: 'Avatar', href: '/docs/components/avatar' },
       { label: 'Avatar Group', href: '/docs/components/avatar-group' },
