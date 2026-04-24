@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@plexui/ui/components/Button';
 import { ButtonGroup } from '@plexui/ui/components/ButtonGroup';
+import { Card } from '@plexui/ui/components/Card';
 import {
   ArrowLeftSm,
   ArrowRightSm,
@@ -220,11 +221,11 @@ export function ButtonGroupNestedDemo() {
 export function ButtonGroupSeparatorDemo() {
   return (
     <ButtonGroup>
-      <Button variant="soft" color="secondary" pill={false} size="sm">
+      <Button variant="soft" color="secondary" pill={false}>
         <Copy /> Copy
       </Button>
       <ButtonGroup.Separator />
-      <Button variant="soft" color="secondary" pill={false} size="sm">
+      <Button variant="soft" color="secondary" pill={false}>
         Paste
       </Button>
     </ButtonGroup>
@@ -256,7 +257,7 @@ export function ButtonGroupSplitDemo() {
 export function ButtonGroupInputDemo() {
   return (
     <ButtonGroup>
-      <Input placeholder="Search docs..." style={{ minWidth: 240 }} />
+      <Input placeholder="Search docs..." />
       <Button variant="outline" color="secondary" pill={false} uniform aria-label="Search">
         <Search />
       </Button>
@@ -272,27 +273,33 @@ export function ButtonGroupInputGroupDemo() {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
 
   return (
-    <ButtonGroup style={{ minWidth: 320 }}>
-      <Button variant="outline" color="secondary" uniform aria-label="Add attachment">
-        <PlusSm />
-      </Button>
-      <Input
-        placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
-        disabled={voiceEnabled}
-        endAdornment={
-          <Button
-            variant={voiceEnabled ? 'soft' : 'ghost'}
-            color={voiceEnabled ? 'primary' : 'secondary'}
-            size="xs"
-            uniform
-            aria-label="Toggle voice mode"
-            aria-pressed={voiceEnabled}
-            onClick={() => setVoiceEnabled((prev) => !prev)}
-          >
-            <Mic />
-          </Button>
-        }
-      />
+    <ButtonGroup>
+      <ButtonGroup>
+        <Button variant="outline" color="secondary" pill uniform aria-label="Add attachment">
+          <PlusSm />
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Input
+          pill
+          placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
+          disabled={voiceEnabled}
+          endAdornment={
+            <Button
+              variant={voiceEnabled ? 'soft' : 'ghost'}
+              color={voiceEnabled ? 'primary' : 'secondary'}
+              size="xs"
+              pill
+              uniform
+              aria-label="Toggle voice mode"
+              aria-pressed={voiceEnabled}
+              onClick={() => setVoiceEnabled((prev) => !prev)}
+            >
+              <Mic />
+            </Button>
+          }
+        />
+      </ButtonGroup>
     </ButtonGroup>
   );
 }
@@ -385,26 +392,14 @@ export function ButtonGroupPopoverDemo() {
           </Button>
         </Popover.Trigger>
         <Popover.Content minWidth={260} side="bottom" align="end">
-          <div style={{ padding: 12 }}>
-            <p
-              style={{
-                margin: 0,
-                fontSize: 'var(--font-text-sm-size)',
-                fontWeight: 600,
-              }}
-            >
-              Link sharing
-            </p>
-            <p
-              style={{
-                margin: '4px 0 0',
-                fontSize: 'var(--font-text-sm-size)',
-                color: 'var(--color-text-secondary)',
-              }}
-            >
-              Anyone with the link can view this project. Expires in 7 days.
-            </p>
-          </div>
+          <Card variant="ghost" size="sm">
+            <Card.Header>
+              <Card.Title>Link sharing</Card.Title>
+              <Card.Description>
+                Anyone with the link can view this project. Expires in 7 days.
+              </Card.Description>
+            </Card.Header>
+          </Card>
         </Popover.Content>
       </Popover>
     </ButtonGroup>

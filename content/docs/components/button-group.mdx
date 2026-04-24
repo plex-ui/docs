@@ -81,9 +81,9 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 ### Separator
 
 <ComponentPreview details={<>Drop a <code>ButtonGroup.Separator</code> between items to add a visible divider — commonly used for Copy / Paste pairs or any "two related actions" toolbar.</>} code={`<ButtonGroup>
-  <Button><Copy /> Copy</Button>
+  <Button variant="soft" color="secondary"><Copy /> Copy</Button>
   <ButtonGroup.Separator />
-  <Button>Paste</Button>
+  <Button variant="soft" color="secondary">Paste</Button>
 </ButtonGroup>`}>
   <ButtonGroupSeparatorDemo />
 </ComponentPreview>
@@ -111,16 +111,21 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Input group
 
-<ComponentPreview details={<>Richer composition for message composers: a leading action, a flexible <code>Input</code>, and an inline toggle rendered inside the input via <code>endAdornment</code>.</>} code={`<ButtonGroup>
-  <Button uniform aria-label="Add attachment"><PlusSm /></Button>
-  <Input
-    placeholder="Send a message…"
-    endAdornment={
-      <Button variant="ghost" size="xs" uniform aria-label="Toggle voice mode">
-        <Mic />
-      </Button>
-    }
-  />
+<ComponentPreview details={<>Richer composition for message composers: wrap each slot (leading action, flexible <code>Input</code>) in its own <code>ButtonGroup</code> so the outer group inserts a gap between them. The voice toggle rides inside the input via <code>endAdornment</code>.</>} code={`<ButtonGroup>
+  <ButtonGroup>
+    <Button pill uniform aria-label="Add attachment"><PlusSm /></Button>
+  </ButtonGroup>
+  <ButtonGroup>
+    <Input
+      pill
+      placeholder="Send a message…"
+      endAdornment={
+        <Button pill variant="ghost" size="xs" uniform aria-label="Toggle voice mode">
+          <Mic />
+        </Button>
+      }
+    />
+  </ButtonGroup>
 </ButtonGroup>`}>
   <ButtonGroupInputGroupDemo />
 </ComponentPreview>
@@ -161,10 +166,14 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
       <Button uniform aria-label="Share settings"><DotsHorizontal /></Button>
     </Popover.Trigger>
     <Popover.Content minWidth={260} side="bottom" align="end">
-      <div style={{ padding: 12 }}>
-        <p>Link sharing</p>
-        <p>Anyone with the link can view this project.</p>
-      </div>
+      <Card variant="ghost" size="sm">
+        <Card.Header>
+          <Card.Title>Link sharing</Card.Title>
+          <Card.Description>
+            Anyone with the link can view this project. Expires in 7 days.
+          </Card.Description>
+        </Card.Header>
+      </Card>
     </Popover.Content>
   </Popover>
 </ButtonGroup>`}>
