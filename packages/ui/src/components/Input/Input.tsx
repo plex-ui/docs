@@ -76,7 +76,7 @@ export type InputProps = {
   ref?: React.Ref<HTMLInputElement | null>
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "disabled" | "size">
 
-export const Input = (props: InputProps) => {
+const InputRoot = (props: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const inputIdSuffix = useId()
   // Prevent 1Password from appearing: 1Password won't display if it thinks this field is for searching
@@ -259,8 +259,9 @@ const InputAdornmentButton = ({
   <button ref={ref} type={type} className={clsx(s.AdornmentButton, className)} {...restProps} />
 )
 
-type InputComponent = typeof Input & {
+type InputComponent = typeof InputRoot & {
   AdornmentButton: typeof InputAdornmentButton
 }
 
-;(Input as InputComponent).AdornmentButton = InputAdornmentButton
+export const Input = InputRoot as InputComponent
+Input.AdornmentButton = InputAdornmentButton
