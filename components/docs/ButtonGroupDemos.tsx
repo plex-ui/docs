@@ -268,7 +268,7 @@ export function ButtonGroupSelectDemo() {
       <Select
         options={REGION_OPTIONS}
         value={region}
-        onChange={setRegion}
+        onChange={(opt) => setRegion(opt.value)}
         variant="outline"
         pill={false}
         block={false}

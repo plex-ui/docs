@@ -17,20 +17,28 @@
     gap: var(--button-group-nested-gap);
   }
 
-  /* Horizontal — default. Overlap adjacent items by -1px so the 1px
-     box-shadow borders Plex controls use (Button outline variant, Input, etc.)
-     visually share a single edge instead of reading as a doubled 2px line. */
+  /* Horizontal — default. Plex Button variant="outline" renders its 1px
+     border via an inset box-shadow on its ::before pseudo — stripping the
+     left `border-inline-start` does nothing. Instead we (a) overlap items
+     by -1px and (b) clip 1px off the leading edge of the ::before of
+     every non-first child, so the inset shadow of item N+1 doesn't sit
+     next to the inset shadow of item N (which would read as a doubled
+     2px line). Focus ring lives on ::after, so clip-path on ::before
+     leaves the focus ring intact. */
   &[data-orientation="horizontal"] > *:not(:first-child) {
     border-start-start-radius: 0;
     border-end-start-radius: 0;
     margin-inline-start: -1px;
+  }
+  &[data-orientation="horizontal"] > *:not(:first-child)::before {
+    clip-path: inset(0 0 0 1px);
   }
   &[data-orientation="horizontal"] > *:not(:last-child) {
     border-start-end-radius: 0;
     border-end-end-radius: 0;
   }
 
-  /* Vertical */
+  /* Vertical — same approach, clip the top 1px of ::before on non-first */
   &[data-orientation="vertical"] {
     flex-direction: column;
   }
@@ -38,6 +46,9 @@
     border-start-start-radius: 0;
     border-start-end-radius: 0;
     margin-block-start: -1px;
+  }
+  &[data-orientation="vertical"] > *:not(:first-child)::before {
+    clip-path: inset(1px 0 0 0);
   }
   &[data-orientation="vertical"] > *:not(:last-child) {
     border-end-start-radius: 0;
