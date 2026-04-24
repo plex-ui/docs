@@ -98,10 +98,15 @@
     border-end-end-radius: 0;
   }
 
-  /* Inputs inside a ButtonGroup share the row and flex to fill space */
+  /* Inputs inside a ButtonGroup share the row and flex to fill space —
+     the rule targets raw <input>, the Plex Input Container (data-slot),
+     and a nested sub-ButtonGroup that wraps an Input (e.g. Input Group
+     pattern: [leading action] [Input + inline addon]). */
   & > input,
-  & > [data-slot="input-wrapper"] {
+  & > [data-slot="input"],
+  & > [data-slot="button-group"]:has(> [data-slot="input"]) {
     flex: 1 1 auto;
+    min-width: 0;
   }
 }
 
