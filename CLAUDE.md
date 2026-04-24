@@ -5,6 +5,7 @@
 ## Hot-cross-reference — rules that have bitten repeatedly
 
 - 🔴 [Rule 0 — never hardcode styles that a component already ships](./AGENTS.md#🔴-rule-0--never-hardcode-styles-that-a-component-already-ships)
+- 🔴 [Restart Next dev after adding a new packages/ui component](./AGENTS.md#🔴-restart-next-dev-after-adding-a-new-packagesui-component)
 - 🔴 [Interactive demos must render client-only — never SSR](./AGENTS.md#🔴-interactive-demos-must-render-client-only--never-ssr)
 - [Deploy hygiene — verify every Vercel push](./AGENTS.md#deploy-hygiene--vercel-verification-is-mandatory)
 - [MDX canonical component-page structure](./AGENTS.md#mdx-authoring-rules)

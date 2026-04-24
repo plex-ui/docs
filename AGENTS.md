@@ -138,6 +138,34 @@ Full record: [`.memory/decisions/0005-always-verify-vercel-deploy.md`](.memory/d
 
 ---
 
+# 🔴 Restart Next dev after adding a new `packages/ui` component
+
+**Turbopack caches the `@plexui/ui` export graph at dev-server startup.** Adding a new directory under `packages/ui/src/components/` + rebuilding `dist/` is NOT enough — the dev server will keep returning `Module not found: Can't resolve '@plexui/ui/components/Foo'` until restarted.
+
+Workflow when shipping a new primitive:
+
+```bash
+# 1. Write source + rebuild UI package
+cd packages/ui && npm run build
+
+# 2. Kill the running Next dev server
+#    (find its PID: ps aux | grep 'next dev' | grep -v grep)
+kill <pid>
+
+# 3. Restart from the repo root so the new component resolves
+npm run dev
+```
+
+Do **not** try to recover via hot-reload or by clearing `.next/cache` — only a full dev-server restart invalidates the cached `package.json` exports resolution. The symptom looks identical to a real build error but the production build (`npm run build` at the root) will pass cleanly; that's the tell.
+
+If you can't kill the dev server yourself (the user started it manually), finish your commit + push, then tell the user in your summary: "restart the dev server to clear the Turbopack cache — see AGENTS.md `Restart Next dev` section."
+
+**Prior incidents** (this rule exists because the same issue hit three times in one week): Accordion addition, ButtonGroup addition, ButtonGroup demo reload after `dist/` rebuild.
+
+Full record: [`.claude/projects/.../memory/feedback_turbopack_restart_after_new_component.md`](.claude/projects/-Users-sergey-github-plexui-docs/memory/feedback_turbopack_restart_after_new_component.md)
+
+---
+
 # 🔴 Interactive demos must render client-only — never SSR
 
 **Every `components/docs/*Demos.tsx` file that composes Plex form controls (`SelectControl`, `Menu`, `Popover`, `Dialog`, `Slider`, `Switch`, `Checkbox`, `RadioGroup`, `SegmentedControl`, `DateRangePicker`, `Combobox`, `MarkdownEditor`, etc.) must be loaded via `next/dynamic` with `ssr: false` from every SSR consumer (landing sections under `app/(home)/_components/*Section.tsx`, any `page.tsx`).**
