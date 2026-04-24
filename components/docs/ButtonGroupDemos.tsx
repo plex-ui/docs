@@ -288,7 +288,7 @@ export function ButtonGroupInputGroupDemo() {
             <Button
               variant={voiceEnabled ? 'soft' : 'ghost'}
               color={voiceEnabled ? 'primary' : 'secondary'}
-              size="xs"
+              size="2xs"
               pill
               uniform
               aria-label="Toggle voice mode"
