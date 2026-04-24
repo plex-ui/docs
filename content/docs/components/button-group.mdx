@@ -111,17 +111,21 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Input group
 
-<ComponentPreview details={<>Richer composition for message composers: a leading action joined to a flexible <code>Input</code>, with a voice toggle sitting inside the input via <code>endAdornment</code>. Use <code>Input.AdornmentButton</code> for the inline toggle — it sizes off the input's own size token so the button stays concentric with the pill at every size.</>} code={`<ButtonGroup>
-  <Button pill uniform aria-label="Add attachment"><PlusSm /></Button>
-  <Input
-    pill
-    placeholder="Send a message…"
-    endAdornment={
-      <Input.AdornmentButton aria-label="Toggle voice mode">
-        <Mic />
-      </Input.AdornmentButton>
-    }
-  />
+<ComponentPreview details={<>Richer composition for message composers: wrap each slot (leading action, flexible <code>Input</code>) in its own <code>ButtonGroup</code> so the outer group inserts a gap between them. The voice toggle rides inside the input via <code>endAdornment</code>. Use <code>Input.AdornmentButton</code> — it sizes off the input's own size token so the button stays concentric with the pill at every size.</>} code={`<ButtonGroup>
+  <ButtonGroup>
+    <Button pill uniform aria-label="Add attachment"><PlusSm /></Button>
+  </ButtonGroup>
+  <ButtonGroup>
+    <Input
+      pill
+      placeholder="Send a message…"
+      endAdornment={
+        <Input.AdornmentButton aria-label="Toggle voice mode">
+          <Mic />
+        </Input.AdornmentButton>
+      }
+    />
+  </ButtonGroup>
 </ButtonGroup>`}>
   <ButtonGroupInputGroupDemo />
 </ComponentPreview>
