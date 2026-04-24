@@ -138,29 +138,29 @@ Full record: [`.memory/decisions/0005-always-verify-vercel-deploy.md`](.memory/d
 
 ---
 
-# 🔴 Restart Next dev after adding a new `packages/ui` component
+# 🔴 Use `npm run dev:all` to avoid the Turbopack restart cycle
 
-**Turbopack caches the `@plexui/ui` export graph at dev-server startup.** Adding a new directory under `packages/ui/src/components/` + rebuilding `dist/` is NOT enough — the dev server will keep returning `Module not found: Can't resolve '@plexui/ui/components/Foo'` until restarted.
+**Default to `npm run dev:all` at the repo root**, not `npm run dev`. `dev:all` runs two processes in parallel:
 
-Workflow when shipping a new primitive:
+1. `packages/ui` in watch mode — `tsc -w` for TS + a chokidar-less fs.watch watcher that rebuilds `dist/es/**/*.module.css` on every edit under `packages/ui/src/`
+2. `next dev` — Turbopack serves the docs app
+
+With this setup, **CSS-only changes** in `packages/ui/src/` hot-reload end-to-end without any restart: watcher → rebuild dist → Next.js picks the new CSS up via HMR.
+
+**TSX-level changes** (new component directory, new export, new `data-slot`, new compound sub-component) still need one restart because Turbopack caches the `@plexui/ui` package.json exports graph at startup. Symptom: `Module not found: Can't resolve '@plexui/ui/components/Foo'` even though `dist/` is correct. When you see that:
 
 ```bash
-# 1. Write source + rebuild UI package
-cd packages/ui && npm run build
-
-# 2. Kill the running Next dev server
-#    (find its PID: ps aux | grep 'next dev' | grep -v grep)
-kill <pid>
-
-# 3. Restart from the repo root so the new component resolves
-npm run dev
+# Nuke the Turbopack cache + restart — CSS watcher keeps running
+lsof -ti:3000 | xargs kill -9
+rm -rf .next
+npm run dev:all
 ```
 
-Do **not** try to recover via hot-reload or by clearing `.next/cache` — only a full dev-server restart invalidates the cached `package.json` exports resolution. The symptom looks identical to a real build error but the production build (`npm run build` at the root) will pass cleanly; that's the tell.
+Do **not** try to recover via plain HMR or by clearing only `.next/cache` — only a full dev-server restart invalidates the cached exports resolution. The symptom looks identical to a real build error but `npm run build` at the root passes cleanly; that's the tell.
 
-If you can't kill the dev server yourself (the user started it manually), finish your commit + push, then tell the user in your summary: "restart the dev server to clear the Turbopack cache — see AGENTS.md `Restart Next dev` section."
+If you can't kill the dev server yourself (the user started it manually), finish your commit + push, then tell the user: "restart the dev server to clear the Turbopack cache — see AGENTS.md `dev:all` section."
 
-**Prior incidents** (this rule exists because the same issue hit three times in one week): Accordion addition, ButtonGroup addition, ButtonGroup demo reload after `dist/` rebuild.
+**Prior incidents** (this rule exists because the same issue hit repeatedly): Accordion addition, ButtonGroup addition, ButtonGroup demo reload after `dist/` rebuild, Input.AdornmentButton addition — user explicitly asked to stop restarting on every change ("это пиздец какой-то же — нет разве?"). The answer: `dev:all` handles CSS iterations; restart only on TSX export surface changes.
 
 Full record: [`.claude/projects/.../memory/feedback_turbopack_restart_after_new_component.md`](.claude/projects/-Users-sergey-github-plexui-docs/memory/feedback_turbopack_restart_after_new_component.md)
 

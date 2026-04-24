@@ -1,3 +1,4 @@
+import { watch } from "node:fs"
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -80,7 +81,27 @@ async function buildCss() {
   )
 }
 
-buildCss().catch((error) => {
+const isWatchMode = process.argv.includes("--watch") || process.argv.includes("-w")
+
+async function run() {
+  await buildCss()
+
+  if (!isWatchMode) return
+
+  console.log("[build-css] Watching src/ for CSS changes...")
+  let rebuildTimer = null
+  const scheduleRebuild = () => {
+    if (rebuildTimer) clearTimeout(rebuildTimer)
+    rebuildTimer = setTimeout(() => {
+      buildCss().catch((error) => console.error("[build-css]", error))
+    }, 100)
+  }
+  watch(SRC_DIR, { recursive: true }, (_event, filename) => {
+    if (filename && filename.endsWith(".css")) scheduleRebuild()
+  })
+}
+
+run().catch((error) => {
   console.error("[build-css] Failed to process CSS", error)
   process.exitCode = 1
 })

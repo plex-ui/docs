@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "next dev",
+    "dev:all": "npm run dev --workspace=packages/ui & next dev & wait",
     "dev:restart": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev",
     "build": "next build",
     "postinstall": "npm run build:ui",
