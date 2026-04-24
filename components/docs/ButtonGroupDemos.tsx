@@ -81,6 +81,10 @@ function SizeToggle({ value, onChange }: { value: DemoSize; onChange: (v: DemoSi
   );
 }
 
+function DemoStage({ children }: { children: React.ReactNode }) {
+  return <div data-demo-stage>{children}</div>;
+}
+
 /* ============================================================
    Overview — toolbar with nested groups + gap between subgroups
    ============================================================ */
@@ -90,6 +94,7 @@ export function ButtonGroupOverviewDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <ButtonGroup>
           <Button
@@ -127,6 +132,7 @@ export function ButtonGroupOverviewDemo() {
           </Button>
         </ButtonGroup>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -140,6 +146,7 @@ export function ButtonGroupOrientationDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup orientation="vertical" aria-label="Zoom controls">
         <Button
           variant="outline"
@@ -162,6 +169,7 @@ export function ButtonGroupOrientationDemo() {
           <Minus />
         </Button>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -242,6 +250,7 @@ export function ButtonGroupNestedDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup aria-label="Pager">
         <ButtonGroup>
           <Button variant="outline" color="secondary" pill={false} size={size}>
@@ -283,6 +292,7 @@ export function ButtonGroupNestedDemo() {
           </Button>
         </ButtonGroup>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -296,6 +306,7 @@ export function ButtonGroupSeparatorDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <Button variant="soft" color="secondary" pill={false} size={size}>
           Copy
@@ -305,6 +316,7 @@ export function ButtonGroupSeparatorDemo() {
           Paste
         </Button>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -318,6 +330,7 @@ export function ButtonGroupSplitDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <Button variant="soft" color="secondary" pill={false} size={size}>
           Button
@@ -334,6 +347,7 @@ export function ButtonGroupSplitDemo() {
           <Plus />
         </Button>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -347,12 +361,14 @@ export function ButtonGroupInputDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <Input placeholder="Search docs..." size={size} />
         <Button variant="outline" color="secondary" pill={false} size={size} aria-label="Search">
           <SearchSm />
         </Button>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -368,6 +384,7 @@ export function ButtonGroupInputGroupDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <ButtonGroup>
           <Button
@@ -399,6 +416,7 @@ export function ButtonGroupInputGroupDemo() {
           />
         </ButtonGroup>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -412,6 +430,7 @@ export function ButtonGroupDropdownMenuDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <Button variant="outline" color="secondary" pill={false} size={size}>
           Follow
@@ -449,6 +468,7 @@ export function ButtonGroupDropdownMenuDemo() {
           </Menu.Content>
         </Menu>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -470,6 +490,7 @@ export function ButtonGroupSelectDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <ButtonGroup>
           <Select
@@ -496,6 +517,7 @@ export function ButtonGroupSelectDemo() {
           </Button>
         </ButtonGroup>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
@@ -509,6 +531,7 @@ export function ButtonGroupPopoverDemo() {
   return (
     <>
       <SizeToggle value={size} onChange={setSize} />
+      <DemoStage>
       <ButtonGroup>
         <Button variant="outline" color="secondary" pill={false} size={size}>
           <Robot /> Copilot
@@ -544,6 +567,7 @@ export function ButtonGroupPopoverDemo() {
           </Popover.Content>
         </Popover>
       </ButtonGroup>
+      </DemoStage>
     </>
   );
 }
