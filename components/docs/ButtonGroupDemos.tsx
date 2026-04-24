@@ -27,7 +27,6 @@ import { Menu } from '@plexui/ui/components/Menu';
 import { Popover } from '@plexui/ui/components/Popover';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Select } from '@plexui/ui/components/Select';
-import { Separator } from '@plexui/ui/components/Separator';
 import { Textarea } from '@plexui/ui/components/Textarea';
 
 /* ------------------------------------------------------------------
@@ -553,17 +552,15 @@ export function ButtonGroupPopoverDemo() {
           <Popover.Content minWidth={320} side="bottom" align="end">
             <Card variant="ghost" size="sm">
               <Card.Header>
-                <Card.Title>Agent tasks</Card.Title>
-              </Card.Header>
-              <Separator />
-              <Card.Content>
-                <Textarea placeholder="Describe your task in natural language." rows={3} />
                 <Card.Title>Start a new task with Copilot</Card.Title>
-                <Card.Description>
-                  Describe your task in natural language. Copilot will work in the background and
-                  open a pull request for your review.
-                </Card.Description>
+                <Card.Description>Describe your task in natural language.</Card.Description>
+              </Card.Header>
+              <Card.Content>
+                <Textarea placeholder="I need to…" rows={3} />
               </Card.Content>
+              <Card.Footer>
+                <Card.Description>Copilot will open a pull request for review.</Card.Description>
+              </Card.Footer>
             </Card>
           </Popover.Content>
         </Popover>
