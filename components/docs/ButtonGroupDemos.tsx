@@ -274,23 +274,27 @@ export function ButtonGroupInputGroupDemo() {
 
   return (
     <ButtonGroup>
-      <Button variant="outline" color="secondary" pill uniform aria-label="Add attachment">
-        <PlusSm />
-      </Button>
-      <Input
-        pill
-        placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
-        disabled={voiceEnabled}
-        endAdornment={
-          <Input.AdornmentButton
-            aria-label="Toggle voice mode"
-            aria-pressed={voiceEnabled}
-            onClick={() => setVoiceEnabled((prev) => !prev)}
-          >
-            <Mic />
-          </Input.AdornmentButton>
-        }
-      />
+      <ButtonGroup>
+        <Button variant="outline" color="secondary" pill uniform aria-label="Add attachment">
+          <PlusSm />
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Input
+          pill
+          placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
+          disabled={voiceEnabled}
+          endAdornment={
+            <Input.AdornmentButton
+              aria-label="Toggle voice mode"
+              aria-pressed={voiceEnabled}
+              onClick={() => setVoiceEnabled((prev) => !prev)}
+            >
+              <Mic />
+            </Input.AdornmentButton>
+          }
+        />
+      </ButtonGroup>
     </ButtonGroup>
   );
 }
