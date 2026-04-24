@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@plexui/ui/components/Button';
 import { ButtonGroup } from '@plexui/ui/components/ButtonGroup';
 import { Card } from '@plexui/ui/components/Card';
@@ -25,53 +25,109 @@ import {
 import { Input } from '@plexui/ui/components/Input';
 import { Menu } from '@plexui/ui/components/Menu';
 import { Popover } from '@plexui/ui/components/Popover';
+import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Select } from '@plexui/ui/components/Select';
 import { Separator } from '@plexui/ui/components/Separator';
 import { Textarea } from '@plexui/ui/components/Textarea';
+
+/* ------------------------------------------------------------------
+ * Shared demo-control primitives (same shape ButtonDemos / InputDemos use)
+ * ------------------------------------------------------------------ */
+
+const controlsTableStyle: React.CSSProperties = {
+  background: 'var(--docs-surface-elevated)',
+  width: '100%',
+};
+
+const controlRowStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '6px 16px 6px 8px',
+  borderTop: '1px solid var(--color-fd-border)',
+};
+
+const controlLabelStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+  fontSize: '0.8125rem',
+  padding: '2px 8px',
+};
+
+function DemoControlRow({ name, children }: { name: string; children: React.ReactNode }) {
+  return (
+    <div style={controlRowStyle}>
+      <span style={controlLabelStyle}>{name}</span>
+      <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
+    </div>
+  );
+}
+
+const SIZE_OPTIONS = ['sm', 'md', 'lg'] as const;
+type DemoSize = (typeof SIZE_OPTIONS)[number];
+
+function SizeToggle({ value, onChange }: { value: DemoSize; onChange: (v: DemoSize) => void }) {
+  return (
+    <div data-demo-controls style={controlsTableStyle}>
+      <DemoControlRow name="size">
+        <SegmentedControl<DemoSize> value={value} onChange={onChange} aria-label="size" size="xs">
+          {SIZE_OPTIONS.map((s) => (
+            <SegmentedControl.Option key={s} value={s}>
+              {s}
+            </SegmentedControl.Option>
+          ))}
+        </SegmentedControl>
+      </DemoControlRow>
+    </div>
+  );
+}
 
 /* ============================================================
    Overview — toolbar with nested groups + gap between subgroups
    ============================================================ */
 
 export function ButtonGroupOverviewDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
       <ButtonGroup>
-        <Button
-          variant="outline"
-          color="secondary"
-          pill={false}
-          size="sm"
-          uniform
-          aria-label="Go back"
-        >
-          <ArrowLeftSm />
-        </Button>
+        <ButtonGroup>
+          <Button
+            variant="outline"
+            color="secondary"
+            pill={false}
+            size={size}
+            uniform
+            aria-label="Go back"
+          >
+            <ArrowLeftSm />
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            Archive
+          </Button>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            Report
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            Snooze
+          </Button>
+          <Button
+            variant="outline"
+            color="secondary"
+            pill={false}
+            size={size}
+            uniform
+            aria-label="More options"
+          >
+            <DotsHorizontal />
+          </Button>
+        </ButtonGroup>
       </ButtonGroup>
-      <ButtonGroup>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          Archive
-        </Button>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          Report
-        </Button>
-      </ButtonGroup>
-      <ButtonGroup>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          Snooze
-        </Button>
-        <Button
-          variant="outline"
-          color="secondary"
-          pill={false}
-          size="sm"
-          uniform
-          aria-label="More options"
-        >
-          <DotsHorizontal />
-        </Button>
-      </ButtonGroup>
-    </ButtonGroup>
+    </>
   );
 }
 
@@ -80,34 +136,38 @@ export function ButtonGroupOverviewDemo() {
    ============================================================ */
 
 export function ButtonGroupOrientationDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup orientation="vertical" aria-label="Zoom controls">
-      <Button
-        variant="outline"
-        color="secondary"
-        pill={false}
-        size="sm"
-        uniform
-        aria-label="Zoom in"
-      >
-        <PlusSm />
-      </Button>
-      <Button
-        variant="outline"
-        color="secondary"
-        pill={false}
-        size="sm"
-        uniform
-        aria-label="Zoom out"
-      >
-        <Minus />
-      </Button>
-    </ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup orientation="vertical" aria-label="Zoom controls">
+        <Button
+          variant="outline"
+          color="secondary"
+          pill={false}
+          size={size}
+          uniform
+          aria-label="Zoom in"
+        >
+          <PlusSm />
+        </Button>
+        <Button
+          variant="outline"
+          color="secondary"
+          pill={false}
+          size={size}
+          uniform
+          aria-label="Zoom out"
+        >
+          <Minus />
+        </Button>
+      </ButtonGroup>
+    </>
   );
 }
 
 /* ============================================================
-   Size — sm / md / lg side-by-side
+   Size — sm / md / lg side-by-side (intentional showcase, no toggle)
    ============================================================ */
 
 export function ButtonGroupSizeDemo() {
@@ -178,48 +238,52 @@ export function ButtonGroupSizeDemo() {
    ============================================================ */
 
 export function ButtonGroupNestedDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup aria-label="Pager">
-      <ButtonGroup>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          1
-        </Button>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          2
-        </Button>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          3
-        </Button>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          4
-        </Button>
-        <Button variant="outline" color="secondary" pill={false} size="sm">
-          5
-        </Button>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup aria-label="Pager">
+        <ButtonGroup>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            1
+          </Button>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            2
+          </Button>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            3
+          </Button>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            4
+          </Button>
+          <Button variant="outline" color="secondary" pill={false} size={size}>
+            5
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button
+            variant="outline"
+            color="secondary"
+            pill={false}
+            size={size}
+            uniform
+            aria-label="Previous page"
+          >
+            <ArrowLeftSm />
+          </Button>
+          <Button
+            variant="outline"
+            color="secondary"
+            pill={false}
+            size={size}
+            uniform
+            aria-label="Next page"
+          >
+            <ArrowRightSm />
+          </Button>
+        </ButtonGroup>
       </ButtonGroup>
-      <ButtonGroup>
-        <Button
-          variant="outline"
-          color="secondary"
-          pill={false}
-          size="sm"
-          uniform
-          aria-label="Previous page"
-        >
-          <ArrowLeftSm />
-        </Button>
-        <Button
-          variant="outline"
-          color="secondary"
-          pill={false}
-          size="sm"
-          uniform
-          aria-label="Next page"
-        >
-          <ArrowRightSm />
-        </Button>
-      </ButtonGroup>
-    </ButtonGroup>
+    </>
   );
 }
 
@@ -228,16 +292,20 @@ export function ButtonGroupNestedDemo() {
    ============================================================ */
 
 export function ButtonGroupSeparatorDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup>
-      <Button variant="soft" color="secondary" pill={false} size="sm">
-        Copy
-      </Button>
-      <ButtonGroup.Separator />
-      <Button variant="soft" color="secondary" pill={false} size="sm">
-        Paste
-      </Button>
-    </ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup>
+        <Button variant="soft" color="secondary" pill={false} size={size}>
+          Copy
+        </Button>
+        <ButtonGroup.Separator />
+        <Button variant="soft" color="secondary" pill={false} size={size}>
+          Paste
+        </Button>
+      </ButtonGroup>
+    </>
   );
 }
 
@@ -246,16 +314,27 @@ export function ButtonGroupSeparatorDemo() {
    ============================================================ */
 
 export function ButtonGroupSplitDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup>
-      <Button variant="soft" color="secondary" pill={false}>
-        Button
-      </Button>
-      <ButtonGroup.Separator />
-      <Button variant="soft" color="secondary" pill={false} uniform aria-label="Add">
-        <Plus />
-      </Button>
-    </ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup>
+        <Button variant="soft" color="secondary" pill={false} size={size}>
+          Button
+        </Button>
+        <ButtonGroup.Separator />
+        <Button
+          variant="soft"
+          color="secondary"
+          pill={false}
+          size={size}
+          uniform
+          aria-label="Add"
+        >
+          <Plus />
+        </Button>
+      </ButtonGroup>
+    </>
   );
 }
 
@@ -264,13 +343,17 @@ export function ButtonGroupSplitDemo() {
    ============================================================ */
 
 export function ButtonGroupInputDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup>
-      <Input placeholder="Search docs..." />
-      <Button variant="outline" color="secondary" pill={false} aria-label="Search">
-        <SearchSm />
-      </Button>
-    </ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup>
+        <Input placeholder="Search docs..." size={size} />
+        <Button variant="outline" color="secondary" pill={false} size={size} aria-label="Search">
+          <SearchSm />
+        </Button>
+      </ButtonGroup>
+    </>
   );
 }
 
@@ -279,32 +362,44 @@ export function ButtonGroupInputDemo() {
    ============================================================ */
 
 export function ButtonGroupInputGroupDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   const [voiceEnabled, setVoiceEnabled] = useState(false);
 
   return (
-    <ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
       <ButtonGroup>
-        <Button variant="outline" color="secondary" pill uniform aria-label="Add attachment">
-          <Plus />
-        </Button>
+        <ButtonGroup>
+          <Button
+            variant="outline"
+            color="secondary"
+            pill
+            size={size}
+            uniform
+            aria-label="Add attachment"
+          >
+            <Plus />
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Input
+            pill
+            size={size}
+            placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
+            disabled={voiceEnabled}
+            endAdornment={
+              <Input.AdornmentButton
+                aria-label="Toggle voice mode"
+                aria-pressed={voiceEnabled}
+                onClick={() => setVoiceEnabled((prev) => !prev)}
+              >
+                <Mic />
+              </Input.AdornmentButton>
+            }
+          />
+        </ButtonGroup>
       </ButtonGroup>
-      <ButtonGroup>
-        <Input
-          pill
-          placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
-          disabled={voiceEnabled}
-          endAdornment={
-            <Input.AdornmentButton
-              aria-label="Toggle voice mode"
-              aria-pressed={voiceEnabled}
-              onClick={() => setVoiceEnabled((prev) => !prev)}
-            >
-              <Mic />
-            </Input.AdornmentButton>
-          }
-        />
-      </ButtonGroup>
-    </ButtonGroup>
+    </>
   );
 }
 
@@ -313,43 +408,48 @@ export function ButtonGroupInputGroupDemo() {
    ============================================================ */
 
 export function ButtonGroupDropdownMenuDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup>
-      <Button variant="outline" color="secondary" pill={false}>
-        Follow
-      </Button>
-      <Menu>
-        <Menu.Trigger>
-          <Button
-            variant="outline"
-            color="secondary"
-            pill={false}
-            uniform
-            aria-label="More follow options"
-          >
-            <ChevronDownMd />
-          </Button>
-        </Menu.Trigger>
-        <Menu.Content align="end" minWidth={200}>
-          <Menu.Item>
-            <BellOff /> Mute conversation
-          </Menu.Item>
-          <Menu.Item>
-            <Copy /> Copy link
-          </Menu.Item>
-          <Menu.Item>
-            <Share /> Share
-          </Menu.Item>
-          <Menu.Separator />
-          <Menu.Item>
-            <UserDelete /> Unfollow
-          </Menu.Item>
-          <Menu.Item>
-            <RemoveTrash /> Report
-          </Menu.Item>
-        </Menu.Content>
-      </Menu>
-    </ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup>
+        <Button variant="outline" color="secondary" pill={false} size={size}>
+          Follow
+        </Button>
+        <Menu>
+          <Menu.Trigger>
+            <Button
+              variant="outline"
+              color="secondary"
+              pill={false}
+              size={size}
+              uniform
+              aria-label="More follow options"
+            >
+              <ChevronDownMd />
+            </Button>
+          </Menu.Trigger>
+          <Menu.Content align="end" minWidth={200}>
+            <Menu.Item>
+              <BellOff /> Mute conversation
+            </Menu.Item>
+            <Menu.Item>
+              <Copy /> Copy link
+            </Menu.Item>
+            <Menu.Item>
+              <Share /> Share
+            </Menu.Item>
+            <Menu.Separator />
+            <Menu.Item>
+              <UserDelete /> Unfollow
+            </Menu.Item>
+            <Menu.Item>
+              <RemoveTrash /> Report
+            </Menu.Item>
+          </Menu.Content>
+        </Menu>
+      </ButtonGroup>
+    </>
   );
 }
 
@@ -364,27 +464,39 @@ const CURRENCY_OPTIONS = [
 ];
 
 export function ButtonGroupSelectDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   const [currency, setCurrency] = useState('$');
 
   return (
-    <ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
       <ButtonGroup>
-        <Select
-          options={CURRENCY_OPTIONS}
-          value={currency}
-          onChange={(opt) => setCurrency(opt.value)}
-          variant="outline"
-          pill={false}
-          block={false}
-        />
-        <Input placeholder="10.00" inputMode="decimal" />
+        <ButtonGroup>
+          <Select
+            options={CURRENCY_OPTIONS}
+            value={currency}
+            onChange={(opt) => setCurrency(opt.value)}
+            variant="outline"
+            pill={false}
+            size={size}
+            block={false}
+          />
+          <Input placeholder="10.00" size={size} inputMode="decimal" />
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button
+            variant="outline"
+            color="secondary"
+            pill={false}
+            size={size}
+            uniform
+            aria-label="Send"
+          >
+            <ArrowRight />
+          </Button>
+        </ButtonGroup>
       </ButtonGroup>
-      <ButtonGroup>
-        <Button variant="outline" color="secondary" pill={false} uniform aria-label="Send">
-          <ArrowRight />
-        </Button>
-      </ButtonGroup>
-    </ButtonGroup>
+    </>
   );
 }
 
@@ -393,40 +505,45 @@ export function ButtonGroupSelectDemo() {
    ============================================================ */
 
 export function ButtonGroupPopoverDemo() {
+  const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ButtonGroup>
-      <Button variant="outline" color="secondary" pill={false}>
-        <Robot /> Copilot
-      </Button>
-      <Popover>
-        <Popover.Trigger>
-          <Button
-            variant="outline"
-            color="secondary"
-            pill={false}
-            uniform
-            aria-label="Open Copilot"
-          >
-            <ChevronDownMd />
-          </Button>
-        </Popover.Trigger>
-        <Popover.Content minWidth={320} side="bottom" align="end">
-          <Card variant="ghost" size="sm">
-            <Card.Header>
-              <Card.Title>Agent tasks</Card.Title>
-            </Card.Header>
-            <Separator />
-            <Card.Content>
-              <Textarea placeholder="Describe your task in natural language." rows={3} />
-              <Card.Title>Start a new task with Copilot</Card.Title>
-              <Card.Description>
-                Describe your task in natural language. Copilot will work in the background and
-                open a pull request for your review.
-              </Card.Description>
-            </Card.Content>
-          </Card>
-        </Popover.Content>
-      </Popover>
-    </ButtonGroup>
+    <>
+      <SizeToggle value={size} onChange={setSize} />
+      <ButtonGroup>
+        <Button variant="outline" color="secondary" pill={false} size={size}>
+          <Robot /> Copilot
+        </Button>
+        <Popover>
+          <Popover.Trigger>
+            <Button
+              variant="outline"
+              color="secondary"
+              pill={false}
+              size={size}
+              uniform
+              aria-label="Open Copilot"
+            >
+              <ChevronDownMd />
+            </Button>
+          </Popover.Trigger>
+          <Popover.Content minWidth={320} side="bottom" align="end">
+            <Card variant="ghost" size="sm">
+              <Card.Header>
+                <Card.Title>Agent tasks</Card.Title>
+              </Card.Header>
+              <Separator />
+              <Card.Content>
+                <Textarea placeholder="Describe your task in natural language." rows={3} />
+                <Card.Title>Start a new task with Copilot</Card.Title>
+                <Card.Description>
+                  Describe your task in natural language. Copilot will work in the background and
+                  open a pull request for your review.
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          </Popover.Content>
+        </Popover>
+      </ButtonGroup>
+    </>
   );
 }
