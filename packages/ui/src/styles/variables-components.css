@@ -129,6 +129,11 @@
     --separator-thickness: 1px;
 
     /* =============================================
+      ButtonGroup
+    ============================================= */
+    --button-group-nested-gap: spacing(2);
+
+    /* =============================================
       Accordion
     ============================================= */
     --accordion-item-divider-color: var(--color-border);

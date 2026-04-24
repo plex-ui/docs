@@ -13,6 +13,10 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
+    <strong>ButtonGroup component</strong> (<a href="/docs/components/button-group">ButtonGroup</a>)<br/>
+    Wraps any row of controls — <code>Button</code>, <code>Input</code>, trigger buttons — and strips the shared border so they read as one unit. Compound API with <code>ButtonGroup.Separator</code>. Nest <code>ButtonGroup</code> inside itself for visually separated sub-groups (gap driven by <code>--button-group-nested-gap</code>). Supports <code>orientation="horizontal" | "vertical"</code> for toolbars, steppers, split buttons, and search affordances.
+  </li>
+  <li>
     <strong>Accordion component</strong> (<a href="/docs/components/accordion">Accordion</a>)<br/>
     Compound primitive built on Radix <code>Accordion.Root</code> — compose <code>Accordion.Item</code>, <code>Accordion.Trigger</code>, <code>Accordion.Content</code>. Supports <code>type="single" | "multiple"</code>, <code>collapsible</code>, per-item <code>disabled</code>, and controlled <code>value</code>/<code>onValueChange</code>. Styled through <code>--accordion-item-divider-color</code>, <code>--accordion-trigger-padding-block</code>, <code>--accordion-icon-size</code>, and a full set of typography / transition tokens. Use it for FAQ sections, settings panels, and collapsible reference lists.
   </li>
