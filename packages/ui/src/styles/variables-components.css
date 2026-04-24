@@ -142,7 +142,7 @@
     --accordion-trigger-gap: spacing(3);
     --accordion-trigger-focus-ring-color: var(--color-ring);
     --accordion-trigger-focus-radius: var(--radius-sm);
-    --accordion-icon-color: var(--color-text-tertiary);
+    --accordion-icon-color: var(--color-text-secondary);
     --accordion-icon-size: 16px;
     --accordion-content-color: var(--color-text);
     --accordion-content-font-size: var(--font-text-sm-size);

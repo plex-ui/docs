@@ -20,18 +20,20 @@ Compose with `Accordion.Item`, `Accordion.Trigger`, and `Accordion.Content`. Bui
 
 ### Overview
 
-<ComponentPreview code={`<Accordion type="single" collapsible defaultValue="whats-new">
-  <Accordion.Item value="whats-new">
-    <Accordion.Trigger>What shipped in 0.12?</Accordion.Trigger>
-    <Accordion.Content>Accordion, Chart, and Command primitives landed…</Accordion.Content>
+<ComponentPreview code={`<Accordion type="single" collapsible defaultValue="shipping">
+  <Accordion.Item value="shipping">
+    <Accordion.Trigger>What are your shipping options?</Accordion.Trigger>
+    <Accordion.Content>
+      We offer standard (5–7 business days), express (2–3 days), and overnight shipping…
+    </Accordion.Content>
   </Accordion.Item>
-  <Accordion.Item value="migrate">
-    <Accordion.Trigger>How do I upgrade from 0.11?</Accordion.Trigger>
-    <Accordion.Content>Bump @plexui/ui and rerun the codemod…</Accordion.Content>
+  <Accordion.Item value="returns">
+    <Accordion.Trigger>What is your return policy?</Accordion.Trigger>
+    <Accordion.Content>Returns are accepted within 30 days of delivery…</Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="support">
-    <Accordion.Trigger>Where can I report issues?</Accordion.Trigger>
-    <Accordion.Content>File them on GitHub or ping us in Discord…</Accordion.Content>
+    <Accordion.Trigger>How can I contact customer support?</Accordion.Trigger>
+    <Accordion.Content>Reach us by email, live chat, or phone Monday–Friday…</Accordion.Content>
   </Accordion.Item>
 </Accordion>`}>
   <AccordionOverviewDemo />
