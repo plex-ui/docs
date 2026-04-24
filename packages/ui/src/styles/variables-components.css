@@ -136,7 +136,7 @@
     --accordion-item-disabled-opacity: 0.5;
     --accordion-trigger-color: var(--color-text);
     --accordion-trigger-font-size: var(--font-text-sm-size);
-    --accordion-trigger-font-weight: var(--font-weight-medium);
+    --accordion-trigger-font-weight: var(--font-weight-semibold);
     --accordion-trigger-line-height: var(--font-text-sm-line-height);
     --accordion-trigger-padding-block: spacing(2.5);
     --accordion-trigger-gap: spacing(3);
