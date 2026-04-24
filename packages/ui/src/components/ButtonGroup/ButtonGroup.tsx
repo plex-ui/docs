@@ -1,6 +1,7 @@
 "use client"
 
 import clsx from "clsx"
+import { Slot } from "radix-ui"
 import { type ComponentProps, type HTMLAttributes, type Ref } from "react"
 import { Separator } from "../Separator"
 import s from "./ButtonGroup.module.css"
@@ -66,12 +67,46 @@ const ButtonGroupSeparator = ({
 )
 
 /* ------------------------------------------------------------------ */
+/*  Text — muted label/pill sharing the group's joined geometry        */
+/* ------------------------------------------------------------------ */
+
+export type ButtonGroupTextProps = HTMLAttributes<HTMLDivElement> & {
+  /**
+   * Swap the rendered element for a child (label, span, etc.) while
+   * keeping the group's visual treatment.
+   * @default false
+   */
+  asChild?: boolean
+  className?: string
+  ref?: Ref<HTMLDivElement>
+}
+
+const ButtonGroupText = ({
+  asChild = false,
+  className,
+  ref,
+  ...restProps
+}: ButtonGroupTextProps) => {
+  const Comp = asChild ? Slot.Root : "div"
+  return (
+    <Comp
+      ref={ref}
+      data-slot="button-group-text"
+      className={clsx(s.Text, className)}
+      {...restProps}
+    />
+  )
+}
+
+/* ------------------------------------------------------------------ */
 /*  Export — compound API                                              */
 /* ------------------------------------------------------------------ */
 
 type ButtonGroupComponent = typeof ButtonGroupRoot & {
   Separator: typeof ButtonGroupSeparator
+  Text: typeof ButtonGroupText
 }
 
 export const ButtonGroup = ButtonGroupRoot as ButtonGroupComponent
 ButtonGroup.Separator = ButtonGroupSeparator
+ButtonGroup.Text = ButtonGroupText
