@@ -12,8 +12,9 @@ import {
   DotsHorizontal,
   Mic,
   Minus,
+  Plus,
   PlusSm,
-  Search,
+  SearchSm,
 } from '@plexui/ui/components/Icon';
 import { Input } from '@plexui/ui/components/Input';
 import { Menu } from '@plexui/ui/components/Menu';
@@ -258,8 +259,8 @@ export function ButtonGroupInputDemo() {
   return (
     <ButtonGroup>
       <Input placeholder="Search docs..." />
-      <Button variant="outline" color="secondary" pill={false} uniform aria-label="Search">
-        <Search />
+      <Button variant="outline" color="secondary" pill={false} aria-label="Search">
+        <SearchSm />
       </Button>
     </ButtonGroup>
   );
@@ -276,7 +277,7 @@ export function ButtonGroupInputGroupDemo() {
     <ButtonGroup>
       <ButtonGroup>
         <Button variant="outline" color="secondary" pill uniform aria-label="Add attachment">
-          <PlusSm />
+          <Plus />
         </Button>
       </ButtonGroup>
       <ButtonGroup>
