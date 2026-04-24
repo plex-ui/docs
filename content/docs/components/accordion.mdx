@@ -1,0 +1,162 @@
+---
+title: Accordion
+description: Vertically stacked panels that expand to reveal content
+---
+
+import { Accordion } from "@plexui/ui/components/Accordion"
+import {
+  AccordionOverviewDemo,
+  AccordionSingleDemo,
+  AccordionMultipleDemo,
+  AccordionDisabledDemo,
+  AccordionCardDemo,
+} from "@/components/docs/AccordionDemos"
+
+<UsageBlock>{`import { Accordion } from "@plexui/ui/components/Accordion";`}</UsageBlock>
+
+Compose with `Accordion.Item`, `Accordion.Trigger`, and `Accordion.Content`. Built on Radix Accordion, so the primitive handles keyboard navigation, focus management, and WAI-ARIA semantics.
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<Accordion type="single" collapsible defaultValue="whats-new">
+  <Accordion.Item value="whats-new">
+    <Accordion.Trigger>What shipped in 0.12?</Accordion.Trigger>
+    <Accordion.Content>Accordion, Chart, and Command primitives landed…</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="migrate">
+    <Accordion.Trigger>How do I upgrade from 0.11?</Accordion.Trigger>
+    <Accordion.Content>Bump @plexui/ui and rerun the codemod…</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="support">
+    <Accordion.Trigger>Where can I report issues?</Accordion.Trigger>
+    <Accordion.Content>File them on GitHub or ping us in Discord…</Accordion.Content>
+  </Accordion.Item>
+</Accordion>`}>
+  <AccordionOverviewDemo />
+</ComponentPreview>
+
+### Single
+
+<ComponentPreview details={<>Default shape. <code>type="single"</code> + <code>collapsible</code> lets users close the currently open item; without <code>collapsible</code>, one item is always open.</>} code={`<Accordion type="single" collapsible defaultValue="trial">
+  {items.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Trigger>{item.trigger}</Accordion.Trigger>
+      <Accordion.Content>{item.content}</Accordion.Content>
+    </Accordion.Item>
+  ))}
+</Accordion>`}>
+  <AccordionSingleDemo />
+</ComponentPreview>
+
+### Multiple
+
+<ComponentPreview details={<>Use <code>type="multiple"</code> when readers can keep several sections open at once — settings pages, long FAQs, step-by-step references.</>} code={`<Accordion type="multiple" defaultValue={["notifications"]}>
+  {items.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Trigger>{item.trigger}</Accordion.Trigger>
+      <Accordion.Content>{item.content}</Accordion.Content>
+    </Accordion.Item>
+  ))}
+</Accordion>`}>
+  <AccordionMultipleDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview details={<>Pass <code>disabled</code> to an <code>Accordion.Item</code> to make it read-only. The row stays visible so the reader understands the section exists; keyboard focus skips it.</>} code={`<Accordion type="single" collapsible>
+  <Accordion.Item value="history">
+    <Accordion.Trigger>Can I see my usage history?</Accordion.Trigger>
+    <Accordion.Content>…</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="audit" disabled>
+    <Accordion.Trigger>Audit log export (Enterprise only)</Accordion.Trigger>
+    <Accordion.Content>…</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="two-factor">
+    <Accordion.Trigger>How do I enable two-factor auth?</Accordion.Trigger>
+    <Accordion.Content>…</Accordion.Content>
+  </Accordion.Item>
+</Accordion>`}>
+  <AccordionDisabledDemo />
+</ComponentPreview>
+
+### Card
+
+<ComponentPreview details={<>Composed inside <code>Card</code> — the most common landing-page FAQ pattern.</>} code={`<Card>
+  <Card.Header>
+    <Card.Title>Subscription & billing</Card.Title>
+    <Card.Description>Common questions about plans, invoices, and cancellations.</Card.Description>
+  </Card.Header>
+  <Card.Content>
+    <Accordion type="single" collapsible defaultValue="plans">
+      {items.map((item) => (
+        <Accordion.Item key={item.value} value={item.value}>
+          <Accordion.Trigger>{item.trigger}</Accordion.Trigger>
+          <Accordion.Content>{item.content}</Accordion.Content>
+        </Accordion.Item>
+      ))}
+    </Accordion>
+  </Card.Content>
+</Card>`}>
+  <AccordionCardDemo />
+</ComponentPreview>
+
+## API
+
+### Accordion
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `"single" \| "multiple"` | — | Whether one item or many can be open at a time |
+| `value` | `string \| string[]` | — | Controlled open item(s) |
+| `defaultValue` | `string \| string[]` | — | Uncontrolled initial open item(s) |
+| `onValueChange` | `(value) => void` | — | Fires when the open item(s) change |
+| `collapsible` | `boolean` | `false` | When `type="single"`, allow closing the open item |
+| `disabled` | `boolean` | `false` | Disable every item |
+| `dir` | `"ltr" \| "rtl"` | `"ltr"` | Reading direction |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` | Layout axis |
+| `className` | `string` | — | Applied to the root `<div>` |
+
+### Accordion.Item
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Required. Unique identifier used by `value` / `defaultValue` |
+| `disabled` | `boolean` | `false` | Disable this item |
+| `className` | `string` | — | Applied to the item wrapper |
+
+### Accordion.Trigger
+
+Renders a `<button>` inside an `<h3>` header, with a chevron that rotates when the item opens. Accepts all native `<button>` props.
+
+### Accordion.Content
+
+Renders the collapsible panel. Radix sets `--radix-accordion-content-height` so the open/close animation interpolates from `0` to the measured content height.
+
+## Styling
+
+Colors, spacing, and transitions are controlled by component tokens:
+
+- `--accordion-item-divider-color` — border between items (defaults to `--color-border`)
+- `--accordion-item-divider-width` — divider thickness (defaults to `1px`)
+- `--accordion-item-disabled-opacity` — disabled item opacity (defaults to `0.5`)
+- `--accordion-trigger-color` — trigger text color
+- `--accordion-trigger-font-size` / `--accordion-trigger-font-weight` / `--accordion-trigger-line-height` — trigger typography
+- `--accordion-trigger-padding-block` — trigger vertical padding
+- `--accordion-trigger-gap` — space between label and chevron
+- `--accordion-trigger-focus-ring-color` — focus ring color
+- `--accordion-icon-color` / `--accordion-icon-size` — chevron color and size
+- `--accordion-content-color` / `--accordion-content-font-size` / `--accordion-content-line-height` — content typography
+- `--accordion-content-padding-bottom` — space between content text and the next divider
+- `--accordion-transition-duration` / `--accordion-transition-ease` — open/close animation
+
+Override at any scope to tune the look:
+
+```css
+.my-faq {
+  --accordion-trigger-font-size: var(--font-text-base-size);
+  --accordion-item-divider-color: var(--color-border-strong);
+}
+```

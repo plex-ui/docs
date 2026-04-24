@@ -68,6 +68,12 @@
       "type": "registry:ui",
       "description": "Linear progress bar with determinate and indeterminate modes.",
       "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "description": "Vertically stacked collapsible panels with single/multiple expansion, per-item disabled, and controlled value.",
+      "dependencies": ["@plexui/ui"]
     }
   ]
 }

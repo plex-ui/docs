@@ -1,0 +1,113 @@
+.Root {
+  width: 100%;
+}
+
+.Item {
+  border-bottom: var(--accordion-item-divider-width) solid
+    var(--accordion-item-divider-color);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &[data-disabled] {
+    opacity: var(--accordion-item-disabled-opacity);
+  }
+}
+
+.Header {
+  display: flex;
+  margin: 0;
+}
+
+.Trigger {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--accordion-trigger-gap);
+  width: 100%;
+  padding: var(--accordion-trigger-padding-block) 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--accordion-trigger-font-size);
+  font-weight: var(--accordion-trigger-font-weight);
+  line-height: var(--accordion-trigger-line-height);
+  text-align: left;
+  color: var(--accordion-trigger-color);
+  cursor: pointer;
+  outline: none;
+  transition: color var(--accordion-transition-duration)
+    var(--accordion-transition-ease);
+
+  @media (hover: hover) {
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+
+  &:focus-visible {
+    border-radius: var(--accordion-trigger-focus-radius);
+    outline: 2px solid var(--accordion-trigger-focus-ring-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &[data-disabled] {
+    cursor: not-allowed;
+  }
+}
+
+.Chevron {
+  flex-shrink: 0;
+  width: var(--accordion-icon-size);
+  height: var(--accordion-icon-size);
+  color: var(--accordion-icon-color);
+  transition: transform var(--accordion-transition-duration)
+    var(--accordion-transition-ease);
+}
+
+.Trigger[data-state="open"] .Chevron {
+  transform: rotate(180deg);
+}
+
+.Content {
+  overflow: hidden;
+  font-size: var(--accordion-content-font-size);
+  line-height: var(--accordion-content-line-height);
+  color: var(--accordion-content-color);
+
+  &[data-state="open"] {
+    animation: accordion-down var(--accordion-transition-duration)
+      var(--accordion-transition-ease);
+  }
+
+  &[data-state="closed"] {
+    animation: accordion-up var(--accordion-transition-duration)
+      var(--accordion-transition-ease);
+  }
+}
+
+.ContentInner {
+  padding-bottom: var(--accordion-content-padding-bottom);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}

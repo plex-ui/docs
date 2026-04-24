@@ -13,6 +13,10 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
+    <strong>Accordion component</strong> (<a href="/docs/components/accordion">Accordion</a>)<br/>
+    Compound primitive built on Radix <code>Accordion.Root</code> — compose <code>Accordion.Item</code>, <code>Accordion.Trigger</code>, <code>Accordion.Content</code>. Supports <code>type="single" | "multiple"</code>, <code>collapsible</code>, per-item <code>disabled</code>, and controlled <code>value</code>/<code>onValueChange</code>. Styled through <code>--accordion-item-divider-color</code>, <code>--accordion-trigger-padding-block</code>, <code>--accordion-icon-size</code>, and a full set of typography / transition tokens. Use it for FAQ sections, settings panels, and collapsible reference lists.
+  </li>
+  <li>
     <strong>Progress component</strong> (<a href="/docs/components/progress">Progress</a>)<br/>
     Linear progress bar built on Radix <code>Progress.Root</code>. Accepts <code>value</code> (0–<code>max</code>) or <code>null</code> for an indeterminate sweep. Styled through <code>--progress-height</code>, <code>--progress-track-color</code>, <code>--progress-indicator-color</code>, <code>--progress-radius</code>, <code>--progress-indeterminate-duration</code>. Use it for uploads, onboarding completion, and any determinate "X of Y" feedback; <a href="/docs/components/indicators">CircularProgress / LoadingIndicator</a> stay for loading-spinner cases.
   </li>
