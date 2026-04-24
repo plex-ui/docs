@@ -8,9 +8,11 @@ import {
   ButtonGroupOverviewDemo,
   ButtonGroupOrientationDemo,
   ButtonGroupSizeDemo,
+  ButtonGroupNestedDemo,
   ButtonGroupSeparatorDemo,
   ButtonGroupSplitDemo,
   ButtonGroupInputDemo,
+  ButtonGroupInputGroupDemo,
   ButtonGroupDropdownMenuDemo,
   ButtonGroupSelectDemo,
   ButtonGroupPopoverDemo,
@@ -58,6 +60,24 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
   <ButtonGroupSizeDemo />
 </ComponentPreview>
 
+### Nested
+
+<ComponentPreview details={<>Place <code>ButtonGroup</code> inside <code>ButtonGroup</code> to create visually separated sub-groups. The outer group automatically adds a small gap between children; pagination + arrow nav is the canonical pattern.</>} code={`<ButtonGroup aria-label="Pager">
+  <ButtonGroup>
+    <Button size="sm">1</Button>
+    <Button size="sm">2</Button>
+    <Button size="sm">3</Button>
+    <Button size="sm">4</Button>
+    <Button size="sm">5</Button>
+  </ButtonGroup>
+  <ButtonGroup>
+    <Button size="sm" uniform aria-label="Previous page"><ArrowLeftSm /></Button>
+    <Button size="sm" uniform aria-label="Next page"><ArrowRightSm /></Button>
+  </ButtonGroup>
+</ButtonGroup>`}>
+  <ButtonGroupNestedDemo />
+</ComponentPreview>
+
 ### Separator
 
 <ComponentPreview details={<>Drop a <code>ButtonGroup.Separator</code> between items to add a visible divider — commonly used for Copy / Paste pairs or any "two related actions" toolbar.</>} code={`<ButtonGroup>
@@ -87,6 +107,22 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
   <Button uniform aria-label="Search"><Search /></Button>
 </ButtonGroup>`}>
   <ButtonGroupInputDemo />
+</ComponentPreview>
+
+### Input group
+
+<ComponentPreview details={<>Richer composition for message composers: a leading action, a flexible <code>Input</code>, and an inline toggle rendered inside the input via <code>endAdornment</code>.</>} code={`<ButtonGroup>
+  <Button uniform aria-label="Add attachment"><PlusSm /></Button>
+  <Input
+    placeholder="Send a message…"
+    endAdornment={
+      <Button variant="ghost" size="xs" uniform aria-label="Toggle voice mode">
+        <Mic />
+      </Button>
+    }
+  />
+</ButtonGroup>`}>
+  <ButtonGroupInputGroupDemo />
 </ComponentPreview>
 
 ### Dropdown menu
@@ -150,10 +186,22 @@ Renders a `<div role="group">`. All other `<div>` attributes are forwarded.
 
 Inherits from [`Separator`](/docs/components/separator). `orientation` defaults to `"vertical"` (the axis that looks right between horizontal items); pass an explicit value inside a `ButtonGroup orientation="vertical"`.
 
+### ButtonGroup.Text
+
+Renders a muted label pill that slots into the group alongside buttons. Use it for prefixes ("@", "https://"), currency hints, or any non-interactive label that should share the joined shape.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `asChild` | `boolean` | `false` | Render as the passed child (e.g. a `<label>` tied to an input) |
+| `className` | `string` | — | Applied to the wrapper |
+
 ## Styling
 
-Nesting `ButtonGroup` inside a parent `ButtonGroup` automatically introduces a gap between the sub-groups. The gap is driven by a single token:
+Nesting `ButtonGroup` inside a parent `ButtonGroup` automatically introduces a gap between the sub-groups. The group-specific tokens:
 
 - `--button-group-nested-gap` — space between sibling sub-groups (defaults to `spacing(2)` = 8px)
+- `--button-group-separator-color` — color of the `ButtonGroup.Separator` line
+- `--button-group-text-background` / `--button-group-text-color` / `--button-group-text-border-color` — surface, text, and 1px inset border of `ButtonGroup.Text`
+- `--button-group-text-font-size` / `--button-group-text-font-weight` — typography of `ButtonGroup.Text`
 
-Radius, border, and focus styles come from each child control's own tokens (`--button-radius`, `--input-radius`, etc.) — the group only strips the shared edge radii so joined items align.
+Radius, border, and focus styles of joined buttons come from each child control's own tokens (`--button-radius`, `--input-radius`, etc.) — the group only strips the shared edge radii so joined items align.

@@ -5,9 +5,11 @@ import { Button } from '@plexui/ui/components/Button';
 import { ButtonGroup } from '@plexui/ui/components/ButtonGroup';
 import {
   ArrowLeftSm,
+  ArrowRightSm,
   ChevronDownMd,
   Copy,
   DotsHorizontal,
+  Mic,
   Minus,
   PlusSm,
   Search,
@@ -162,6 +164,56 @@ export function ButtonGroupSizeDemo() {
 }
 
 /* ============================================================
+   Nested — two groups side-by-side (pagination + arrow nav)
+   ============================================================ */
+
+export function ButtonGroupNestedDemo() {
+  return (
+    <ButtonGroup aria-label="Pager">
+      <ButtonGroup>
+        <Button variant="outline" color="secondary" pill={false} size="sm">
+          1
+        </Button>
+        <Button variant="outline" color="secondary" pill={false} size="sm">
+          2
+        </Button>
+        <Button variant="outline" color="secondary" pill={false} size="sm">
+          3
+        </Button>
+        <Button variant="outline" color="secondary" pill={false} size="sm">
+          4
+        </Button>
+        <Button variant="outline" color="secondary" pill={false} size="sm">
+          5
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button
+          variant="outline"
+          color="secondary"
+          pill={false}
+          size="sm"
+          uniform
+          aria-label="Previous page"
+        >
+          <ArrowLeftSm />
+        </Button>
+        <Button
+          variant="outline"
+          color="secondary"
+          pill={false}
+          size="sm"
+          uniform
+          aria-label="Next page"
+        >
+          <ArrowRightSm />
+        </Button>
+      </ButtonGroup>
+    </ButtonGroup>
+  );
+}
+
+/* ============================================================
    Separator — Copy | Paste with an explicit divider
    ============================================================ */
 
@@ -186,11 +238,11 @@ export function ButtonGroupSeparatorDemo() {
 export function ButtonGroupSplitDemo() {
   return (
     <ButtonGroup>
-      <Button variant="solid" color="primary" pill={false}>
+      <Button variant="soft" color="primary" pill={false}>
         Deploy
       </Button>
       <ButtonGroup.Separator />
-      <Button variant="solid" color="primary" pill={false} uniform aria-label="More deploy options">
+      <Button variant="soft" color="primary" pill={false} uniform aria-label="More deploy options">
         <DotsHorizontal />
       </Button>
     </ButtonGroup>
@@ -208,6 +260,39 @@ export function ButtonGroupInputDemo() {
       <Button variant="outline" color="secondary" pill={false} uniform aria-label="Search">
         <Search />
       </Button>
+    </ButtonGroup>
+  );
+}
+
+/* ============================================================
+   Input Group — message composer with leading action + inline voice toggle
+   ============================================================ */
+
+export function ButtonGroupInputGroupDemo() {
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
+
+  return (
+    <ButtonGroup style={{ minWidth: 320 }}>
+      <Button variant="outline" color="secondary" uniform aria-label="Add attachment">
+        <PlusSm />
+      </Button>
+      <Input
+        placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
+        disabled={voiceEnabled}
+        endAdornment={
+          <Button
+            variant={voiceEnabled ? 'soft' : 'ghost'}
+            color={voiceEnabled ? 'primary' : 'secondary'}
+            size="xs"
+            uniform
+            aria-label="Toggle voice mode"
+            aria-pressed={voiceEnabled}
+            onClick={() => setVoiceEnabled((prev) => !prev)}
+          >
+            <Mic />
+          </Button>
+        }
+      />
     </ButtonGroup>
   );
 }
