@@ -29,11 +29,11 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 <ComponentPreview code={`<ButtonGroup>
   <ButtonGroup><Button uniform aria-label="Go back"><ArrowLeftSm /></Button></ButtonGroup>
   <ButtonGroup>
-    <Button>Archive</Button>
-    <Button>Report</Button>
+    <Button>Pin</Button>
+    <Button>Tag</Button>
   </ButtonGroup>
   <ButtonGroup>
-    <Button>Snooze</Button>
+    <Button>Bookmark</Button>
     <Button uniform aria-label="More options"><DotsHorizontal /></Button>
   </ButtonGroup>
 </ButtonGroup>`}>
@@ -80,20 +80,20 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Separator
 
-<ComponentPreview details={<>Drop a <code>ButtonGroup.Separator</code> between items to add a visible divider — commonly used for Copy / Paste pairs or any "two related actions" toolbar.</>} code={`<ButtonGroup>
-  <Button variant="soft" color="secondary" size="sm">Copy</Button>
+<ComponentPreview details={<>Drop a <code>ButtonGroup.Separator</code> between items to add a visible divider — commonly used for Undo / Redo pairs or any "two related actions" toolbar.</>} code={`<ButtonGroup>
+  <Button variant="soft" color="secondary" size="sm"><Undo /> Undo</Button>
   <ButtonGroup.Separator />
-  <Button variant="soft" color="secondary" size="sm">Paste</Button>
+  <Button variant="soft" color="secondary" size="sm">Redo <Redo /></Button>
 </ButtonGroup>`}>
   <ButtonGroupSeparatorDemo />
 </ComponentPreview>
 
 ### Split
 
-<ComponentPreview details={<>The classic split button: an action joined to a secondary affordance via <code>ButtonGroup.Separator</code>. Useful for Save / Save-As, Button / More, Delete / Undo.</>} code={`<ButtonGroup>
-  <Button variant="soft" color="secondary">Button</Button>
+<ComponentPreview details={<>The classic split button: an action joined to a secondary affordance via <code>ButtonGroup.Separator</code>. Useful for Save / Save-As, Filter / Add-filter, Delete / Undo.</>} code={`<ButtonGroup>
+  <Button variant="soft" color="secondary"><Filter /> Filter</Button>
   <ButtonGroup.Separator />
-  <Button variant="soft" color="secondary" uniform aria-label="Add">
+  <Button variant="soft" color="secondary" uniform aria-label="Add filter">
     <Plus />
   </Button>
 </ButtonGroup>`}>
@@ -118,9 +118,15 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
   <ButtonGroup>
     <Input
       pill
-      placeholder="Send a message…"
+      placeholder={voiceEnabled ? "Recording your idea…" : "Describe a component…"}
+      disabled={voiceEnabled}
       endAdornment={
-        <Input.AdornmentButton aria-label="Toggle voice mode">
+        <Input.AdornmentButton
+          color={voiceEnabled ? "caution" : undefined}
+          aria-label="Toggle voice mode"
+          aria-pressed={voiceEnabled}
+          onClick={() => setVoiceEnabled((prev) => !prev)}
+        >
           <Mic />
         </Input.AdornmentButton>
       }
@@ -132,19 +138,19 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Dropdown menu
 
-<ComponentPreview details={<>Compose a primary action with a <a href="/docs/components/menu"><code>Menu</code></a> trigger for follow-up options. Common for Follow / More, Save / Save-As, Share / ….</>} code={`<ButtonGroup>
-  <Button>Follow</Button>
+<ComponentPreview details={<>Compose a primary action with a <a href="/docs/components/menu"><code>Menu</code></a> trigger for follow-up options. Common for Export / Format, Save / Save-As, Share / ….</>} code={`<ButtonGroup>
+  <Button>Export</Button>
   <Menu>
     <Menu.Trigger>
-      <Button uniform aria-label="More follow options"><ChevronDownMd /></Button>
+      <Button uniform aria-label="More export options"><ChevronDownMd /></Button>
     </Menu.Trigger>
     <Menu.Content align="end">
-      <Menu.Item><BellOff /> Mute conversation</Menu.Item>
-      <Menu.Item><Copy /> Copy link</Menu.Item>
-      <Menu.Item><Share /> Share</Menu.Item>
+      <Menu.Item><FileImage /> PNG image</Menu.Item>
+      <Menu.Item><FileCode /> SVG vector</Menu.Item>
+      <Menu.Item><FileDocument /> PDF document</Menu.Item>
       <Menu.Separator />
-      <Menu.Item><UserDelete /> Unfollow</Menu.Item>
-      <Menu.Item><RemoveTrash /> Report</Menu.Item>
+      <Menu.Item><Copy /> Copy as code</Menu.Item>
+      <Menu.Item><Link /> Copy share link</Menu.Item>
     </Menu.Content>
   </Menu>
 </ButtonGroup>`}>
@@ -153,13 +159,13 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Select
 
-<ComponentPreview details={<>Mix a <a href="/docs/components/select"><code>Select</code></a> and an <code>Input</code> inside one <code>ButtonGroup</code> for currency entry, unit pickers, or any "qualifier + value" pattern. Wrap each slot in a nested <code>ButtonGroup</code> to get a gap between the compound field and the send affordance.</>} code={`<ButtonGroup>
+<ComponentPreview details={<>Mix a <a href="/docs/components/select"><code>Select</code></a> and an <code>Input</code> inside one <code>ButtonGroup</code> for unit pickers, currency entry, or any "qualifier + value" pattern. Wrap each slot in a nested <code>ButtonGroup</code> to get a gap between the compound field and the send affordance.</>} code={`<ButtonGroup>
   <ButtonGroup>
-    <Select options={currencies} value={currency} onChange={(o) => setCurrency(o.value)} variant="outline" pill={false} block={false} />
-    <Input placeholder="10.00" inputMode="decimal" />
+    <Select options={units} value={unit} onChange={(o) => setUnit(o.value)} variant="outline" pill={false} block={false} />
+    <Input placeholder="2.50" inputMode="decimal" />
   </ButtonGroup>
   <ButtonGroup>
-    <Button uniform aria-label="Send"><ArrowRight /></Button>
+    <Button uniform aria-label="Log weight"><ArrowRight /></Button>
   </ButtonGroup>
 </ButtonGroup>`}>
   <ButtonGroupSelectDemo />
@@ -167,23 +173,23 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Popover
 
-<ComponentPreview details={<>Same split-button shape, but the trailing trigger opens a <a href="/docs/components/popover"><code>Popover</code></a> instead of a menu — useful for richer panels (agent composers, notification preferences, link previews).</>} code={`<ButtonGroup>
-  <Button><Robot /> Copilot</Button>
+<ComponentPreview details={<>Same split-button shape, but the trailing trigger opens a <a href="/docs/components/popover"><code>Popover</code></a> instead of a menu — useful for richer panels (prompt composers, notification preferences, link previews).</>} code={`<ButtonGroup>
+  <Button><Sparkles /> Generate</Button>
   <Popover>
     <Popover.Trigger>
-      <Button uniform aria-label="Open Copilot"><ChevronDownMd /></Button>
+      <Button uniform aria-label="More generate options"><ChevronDownMd /></Button>
     </Popover.Trigger>
-    <Popover.Content side="bottom" align="end">
+    <Popover.Content side="bottom" align="end" className="p-4">
       <Card variant="ghost" size="sm">
         <Card.Header>
-          <Card.Title>Start a new task with Copilot</Card.Title>
-          <Card.Description>Describe your task in natural language.</Card.Description>
+          <Card.Title>Generate a component</Card.Title>
+          <Card.Description>Describe what to build in plain English.</Card.Description>
         </Card.Header>
         <Card.Content>
-          <Textarea placeholder="I need to…" rows={3} />
+          <Textarea placeholder="A login form with email and password…" rows={3} />
         </Card.Content>
         <Card.Footer>
-          <Card.Description>Copilot will open a pull request for review.</Card.Description>
+          <Card.Description>Plex will draft the code and preview it live.</Card.Description>
         </Card.Footer>
       </Card>
     </Popover.Content>

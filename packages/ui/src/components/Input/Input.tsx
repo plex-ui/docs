@@ -3,7 +3,7 @@
 import clsx from "clsx"
 import { useEffect, useId, useRef, useState } from "react"
 import { mergeRefs } from "react-merge-refs"
-import { type ControlSize, type Sizes, type Variants } from "../../types"
+import { type ControlSize, type SemanticColor, type Sizes, type Variants } from "../../types"
 import { X } from "../Icon"
 import s from "./Input.module.css"
 
@@ -245,18 +245,31 @@ const InputRoot = (props: InputProps) => {
 
 export type InputAdornmentButtonProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "ref"
+  "ref" | "color"
 > & {
   ref?: React.Ref<HTMLButtonElement>
+  /**
+   * Applies a semantic color tint to the pressed (`aria-pressed="true"`) state
+   * — the same palette Button accepts. Default `aria-pressed` keeps the
+   * neutral primary-soft tint.
+   */
+  color?: SemanticColor
 }
 
 const InputAdornmentButton = ({
   className,
   type = "button",
+  color,
   ref,
   ...restProps
 }: InputAdornmentButtonProps) => (
-  <button ref={ref} type={type} className={clsx(s.AdornmentButton, className)} {...restProps} />
+  <button
+    ref={ref}
+    type={type}
+    className={clsx(s.AdornmentButton, className)}
+    data-color={color}
+    {...restProps}
+  />
 )
 
 type InputComponent = typeof InputRoot & {

@@ -237,10 +237,20 @@
 
   /* =============================================
     Disabled
+    ---------------------------------------------
+    Fade the input text and the built-in Clear button, but keep the
+    Container's chrome (border, focus ring) and any AdornmentButton
+    at full opacity — AdornmentButtons often double as toggles that
+    remain interactive while the input is disabled (voice-mode switch,
+    edit-in-place, etc.).
   ============================================= */
   &[data-disabled] {
     cursor: not-allowed;
-    opacity: 0.5;
+
+    > .Input,
+    > .Clear {
+      opacity: 0.5;
+    }
   }
 
   /* =============================================
@@ -427,6 +437,31 @@
   &[aria-pressed="true"] {
     background-color: var(--color-background-primary-soft);
     color: var(--color-text);
+  }
+
+  &[data-color="caution"][aria-pressed="true"] {
+    background-color: var(--color-background-caution-soft);
+    color: var(--color-text-caution-soft);
+  }
+
+  &[data-color="danger"][aria-pressed="true"] {
+    background-color: var(--color-background-danger-soft);
+    color: var(--color-text-danger-soft);
+  }
+
+  &[data-color="success"][aria-pressed="true"] {
+    background-color: var(--color-background-success-soft);
+    color: var(--color-text-success-soft);
+  }
+
+  &[data-color="info"][aria-pressed="true"] {
+    background-color: var(--color-background-info-soft);
+    color: var(--color-text-info-soft);
+  }
+
+  &[data-color="discovery"][aria-pressed="true"] {
+    background-color: var(--color-background-discovery-soft);
+    color: var(--color-text-discovery-soft);
   }
 
   &:disabled {
