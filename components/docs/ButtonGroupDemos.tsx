@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@plexui/ui/components/Button';
 import { ButtonGroup } from '@plexui/ui/components/ButtonGroup';
 import { Card } from '@plexui/ui/components/Card';
@@ -85,20 +85,6 @@ function DemoStage({ children }: { children: React.ReactNode }) {
   return <div data-demo-stage>{children}</div>;
 }
 
-/**
- * Skip SSR for the demo subtree — stacking a Radix SegmentedControl (size
- * toggle) ahead of a Plex Input in the same tree causes React 19 useId
- * drift, because the SegmentedControl's nested useIds run before Input's
- * 1Password-prevention useId and the two renderers (SSR + CSR) disagree
- * on the counter position. Rendering null on first paint, then the real
- * tree post-mount, sidesteps the mismatch entirely.
- */
-function ClientOnly({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
-  return <>{children}</>;
-}
 
 /* ============================================================
    Overview — toolbar with nested groups + gap between subgroups
@@ -107,7 +93,7 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
 export function ButtonGroupOverviewDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -148,7 +134,7 @@ export function ButtonGroupOverviewDemo() {
         </ButtonGroup>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -159,7 +145,7 @@ export function ButtonGroupOverviewDemo() {
 export function ButtonGroupOrientationDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup orientation="vertical" aria-label="Zoom controls">
@@ -185,7 +171,7 @@ export function ButtonGroupOrientationDemo() {
         </Button>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -263,7 +249,7 @@ export function ButtonGroupSizeDemo() {
 export function ButtonGroupNestedDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup aria-label="Pager">
@@ -308,7 +294,7 @@ export function ButtonGroupNestedDemo() {
         </ButtonGroup>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -319,7 +305,7 @@ export function ButtonGroupNestedDemo() {
 export function ButtonGroupSeparatorDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -332,7 +318,7 @@ export function ButtonGroupSeparatorDemo() {
         </Button>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -343,7 +329,7 @@ export function ButtonGroupSeparatorDemo() {
 export function ButtonGroupSplitDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -363,7 +349,7 @@ export function ButtonGroupSplitDemo() {
         </Button>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -374,7 +360,7 @@ export function ButtonGroupSplitDemo() {
 export function ButtonGroupInputDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -384,7 +370,7 @@ export function ButtonGroupInputDemo() {
         </Button>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -397,7 +383,7 @@ export function ButtonGroupInputGroupDemo() {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
 
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -432,7 +418,7 @@ export function ButtonGroupInputGroupDemo() {
         </ButtonGroup>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -443,7 +429,7 @@ export function ButtonGroupInputGroupDemo() {
 export function ButtonGroupDropdownMenuDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -484,7 +470,7 @@ export function ButtonGroupDropdownMenuDemo() {
         </Menu>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -503,7 +489,7 @@ export function ButtonGroupSelectDemo() {
   const [currency, setCurrency] = useState('$');
 
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -533,7 +519,7 @@ export function ButtonGroupSelectDemo() {
         </ButtonGroup>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
 
@@ -544,7 +530,7 @@ export function ButtonGroupSelectDemo() {
 export function ButtonGroupPopoverDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
   return (
-    <ClientOnly>
+    <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
       <ButtonGroup>
@@ -583,6 +569,6 @@ export function ButtonGroupPopoverDemo() {
         </Popover>
       </ButtonGroup>
       </DemoStage>
-    </ClientOnly>
+    </>
   );
 }
