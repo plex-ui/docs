@@ -11,6 +11,9 @@ import {
   ButtonGroupSeparatorDemo,
   ButtonGroupSplitDemo,
   ButtonGroupInputDemo,
+  ButtonGroupDropdownMenuDemo,
+  ButtonGroupSelectDemo,
+  ButtonGroupPopoverDemo,
 } from "@/components/docs/ButtonGroupDemos"
 
 <UsageBlock>{`import { ButtonGroup } from "@plexui/ui/components/ButtonGroup";`}</UsageBlock>
@@ -84,6 +87,52 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
   <Button uniform aria-label="Search"><Search /></Button>
 </ButtonGroup>`}>
   <ButtonGroupInputDemo />
+</ComponentPreview>
+
+### Dropdown menu
+
+<ComponentPreview details={<>Compose a primary action with a <a href="/docs/components/menu"><code>Menu</code></a> trigger for follow-up options. Common for Export / Share / Save-As affordances.</>} code={`<ButtonGroup>
+  <Button>Export</Button>
+  <Menu>
+    <Menu.Trigger>
+      <Button uniform aria-label="Export options"><ChevronDownMd /></Button>
+    </Menu.Trigger>
+    <Menu.Content align="end">
+      <Menu.Item>Export as PDF</Menu.Item>
+      <Menu.Item>Export as CSV</Menu.Item>
+      <Menu.Item>Export as JSON</Menu.Item>
+    </Menu.Content>
+  </Menu>
+</ButtonGroup>`}>
+  <ButtonGroupDropdownMenuDemo />
+</ComponentPreview>
+
+### Select
+
+<ComponentPreview details={<>Join a <a href="/docs/components/select"><code>Select</code></a> into the group so the primary action and its modifier (region, environment, language) read as one compound control.</>} code={`<ButtonGroup>
+  <Button>Deploy</Button>
+  <Select options={regions} value={region} onChange={setRegion} variant="outline" pill={false} block={false} />
+</ButtonGroup>`}>
+  <ButtonGroupSelectDemo />
+</ComponentPreview>
+
+### Popover
+
+<ComponentPreview details={<>Same split-button shape, but the trailing trigger opens a <a href="/docs/components/popover"><code>Popover</code></a> instead of a menu — useful for richer panels (share settings, notification preferences, link previews).</>} code={`<ButtonGroup>
+  <Button>Share link</Button>
+  <Popover>
+    <Popover.Trigger>
+      <Button uniform aria-label="Share settings"><DotsHorizontal /></Button>
+    </Popover.Trigger>
+    <Popover.Content minWidth={260} side="bottom" align="end">
+      <div style={{ padding: 12 }}>
+        <p>Link sharing</p>
+        <p>Anyone with the link can view this project.</p>
+      </div>
+    </Popover.Content>
+  </Popover>
+</ButtonGroup>`}>
+  <ButtonGroupPopoverDemo />
 </ComponentPreview>
 
 ## API
