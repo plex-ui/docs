@@ -8,19 +8,22 @@ import {
   ArrowLeftSm,
   ArrowRight,
   ArrowRightSm,
-  BellOff,
   ChevronDownMd,
   Copy,
   DotsHorizontal,
+  FileCode,
+  FileDocument,
+  FileImage,
+  Filter,
+  Link,
   Mic,
   Minus,
   Plus,
   PlusSm,
-  RemoveTrash,
-  Robot,
+  Redo,
   SearchSm,
-  Share,
-  UserDelete,
+  Sparkles,
+  Undo,
 } from '@plexui/ui/components/Icon';
 import { Input } from '@plexui/ui/components/Input';
 import { Menu } from '@plexui/ui/components/Menu';
@@ -110,15 +113,15 @@ export function ButtonGroupOverviewDemo() {
         </ButtonGroup>
         <ButtonGroup>
           <Button variant="outline" color="secondary" pill={false} size={size}>
-            Archive
+            Pin
           </Button>
           <Button variant="outline" color="secondary" pill={false} size={size}>
-            Report
+            Tag
           </Button>
         </ButtonGroup>
         <ButtonGroup>
           <Button variant="outline" color="secondary" pill={false} size={size}>
-            Snooze
+            Bookmark
           </Button>
           <Button
             variant="outline"
@@ -309,11 +312,11 @@ export function ButtonGroupSeparatorDemo() {
       <DemoStage>
       <ButtonGroup>
         <Button variant="soft" color="secondary" pill={false} size={size}>
-          Copy
+          <Undo /> Undo
         </Button>
         <ButtonGroup.Separator />
         <Button variant="soft" color="secondary" pill={false} size={size}>
-          Paste
+          Redo <Redo />
         </Button>
       </ButtonGroup>
       </DemoStage>
@@ -333,7 +336,7 @@ export function ButtonGroupSplitDemo() {
       <DemoStage>
       <ButtonGroup>
         <Button variant="soft" color="secondary" pill={false} size={size}>
-          Button
+          <Filter /> Filter
         </Button>
         <ButtonGroup.Separator />
         <Button
@@ -342,7 +345,7 @@ export function ButtonGroupSplitDemo() {
           pill={false}
           size={size}
           uniform
-          aria-label="Add"
+          aria-label="Add filter"
         >
           <Plus />
         </Button>
@@ -385,7 +388,7 @@ export function ButtonGroupInputGroupDemo() {
     <>
       <SizeToggle value={size} onChange={setSize} />
       <DemoStage>
-      <ButtonGroup>
+      <ButtonGroup style={{ width: '100%', maxWidth: 280 }}>
         <ButtonGroup>
           <Button
             variant="outline"
@@ -402,10 +405,11 @@ export function ButtonGroupInputGroupDemo() {
           <Input
             pill
             size={size}
-            placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
+            placeholder={voiceEnabled ? 'Recording your idea…' : 'Describe a component…'}
             disabled={voiceEnabled}
             endAdornment={
               <Input.AdornmentButton
+                color={voiceEnabled ? 'caution' : undefined}
                 aria-label="Toggle voice mode"
                 aria-pressed={voiceEnabled}
                 onClick={() => setVoiceEnabled((prev) => !prev)}
@@ -433,7 +437,7 @@ export function ButtonGroupDropdownMenuDemo() {
       <DemoStage>
       <ButtonGroup>
         <Button variant="outline" color="secondary" pill={false} size={size}>
-          Follow
+          Export
         </Button>
         <Menu>
           <Menu.Trigger>
@@ -443,27 +447,27 @@ export function ButtonGroupDropdownMenuDemo() {
               pill={false}
               size={size}
               uniform
-              aria-label="More follow options"
+              aria-label="More export options"
             >
               <ChevronDownMd />
             </Button>
           </Menu.Trigger>
           <Menu.Content align="end" minWidth={200}>
             <Menu.Item>
-              <BellOff /> Mute conversation
+              <FileImage /> PNG image
             </Menu.Item>
             <Menu.Item>
-              <Copy /> Copy link
+              <FileCode /> SVG vector
             </Menu.Item>
             <Menu.Item>
-              <Share /> Share
+              <FileDocument /> PDF document
             </Menu.Item>
             <Menu.Separator />
             <Menu.Item>
-              <UserDelete /> Unfollow
+              <Copy /> Copy as code
             </Menu.Item>
             <Menu.Item>
-              <RemoveTrash /> Report
+              <Link /> Copy share link
             </Menu.Item>
           </Menu.Content>
         </Menu>
@@ -477,15 +481,15 @@ export function ButtonGroupDropdownMenuDemo() {
    Select — currency picker joined to an amount input + send
    ============================================================ */
 
-const CURRENCY_OPTIONS = [
-  { value: '$', label: '$ · US Dollar' },
-  { value: '€', label: '€ · Euro' },
-  { value: '£', label: '£ · British Pound' },
+const UNIT_OPTIONS = [
+  { value: 'kg', label: 'kg · Kilogram' },
+  { value: 'lb', label: 'lb · Pound' },
+  { value: 'oz', label: 'oz · Ounce' },
 ];
 
 export function ButtonGroupSelectDemo() {
   const [size, setSize] = useState<DemoSize>('sm');
-  const [currency, setCurrency] = useState('$');
+  const [unit, setUnit] = useState('kg');
 
   return (
     <>
@@ -494,15 +498,15 @@ export function ButtonGroupSelectDemo() {
       <ButtonGroup>
         <ButtonGroup>
           <Select
-            options={CURRENCY_OPTIONS}
-            value={currency}
-            onChange={(opt) => setCurrency(opt.value)}
+            options={UNIT_OPTIONS}
+            value={unit}
+            onChange={(opt) => setUnit(opt.value)}
             variant="outline"
             pill={false}
             size={size}
             block={false}
           />
-          <Input placeholder="10.00" size={size} inputMode="decimal" />
+          <Input placeholder="2.50" size={size} inputMode="decimal" />
         </ButtonGroup>
         <ButtonGroup>
           <Button
@@ -511,7 +515,7 @@ export function ButtonGroupSelectDemo() {
             pill={false}
             size={size}
             uniform
-            aria-label="Send"
+            aria-label="Log weight"
           >
             <ArrowRight />
           </Button>
@@ -534,7 +538,7 @@ export function ButtonGroupPopoverDemo() {
       <DemoStage>
       <ButtonGroup>
         <Button variant="outline" color="secondary" pill={false} size={size}>
-          <Robot /> Copilot
+          <Sparkles /> Generate
         </Button>
         <Popover>
           <Popover.Trigger>
@@ -544,22 +548,22 @@ export function ButtonGroupPopoverDemo() {
               pill={false}
               size={size}
               uniform
-              aria-label="Open Copilot"
+              aria-label="More generate options"
             >
               <ChevronDownMd />
             </Button>
           </Popover.Trigger>
-          <Popover.Content minWidth={320} side="bottom" align="end">
+          <Popover.Content minWidth={320} side="bottom" align="end" className="p-4">
             <Card variant="ghost" size="sm">
               <Card.Header>
-                <Card.Title>Start a new task with Copilot</Card.Title>
-                <Card.Description>Describe your task in natural language.</Card.Description>
+                <Card.Title>Generate a component</Card.Title>
+                <Card.Description>Describe what to build in plain English.</Card.Description>
               </Card.Header>
               <Card.Content>
-                <Textarea placeholder="I need to…" rows={3} />
+                <Textarea placeholder="A login form with email and password…" rows={3} />
               </Card.Content>
               <Card.Footer>
-                <Card.Description>Copilot will open a pull request for review.</Card.Description>
+                <Card.Description>Plex will draft the code and preview it live.</Card.Description>
               </Card.Footer>
             </Card>
           </Popover.Content>

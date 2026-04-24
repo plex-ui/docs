@@ -14,7 +14,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 <ul className="changelog-list">
   <li>
     <strong>Input.AdornmentButton</strong> (<a href="/docs/components/input">Input</a>)<br/>
-    New compound sub-component for in-input action buttons (voice toggle, copy, send, visibility). Picks up the same <code>--input-clear-size</code> / <code>--input-clear-pill-offset</code> / <code>--input-clear-icon-size</code> tokens as the built-in clear button, so it stays perfectly aligned inside any <code>Input</code> regardless of size or pill shape. Supports <code>aria-pressed</code> for toggle state and inherits all native <code>&lt;button&gt;</code> props.
+    New compound sub-component for in-input action buttons (voice toggle, copy, send, visibility). Picks up the same <code>--input-clear-size</code> / <code>--input-clear-pill-offset</code> / <code>--input-clear-icon-size</code> tokens as the built-in clear button, so it stays perfectly aligned inside any <code>Input</code> regardless of size or pill shape. Supports <code>aria-pressed</code> for toggle state and inherits all native <code>&lt;button&gt;</code> props. A new <code>color</code> prop (<code>caution</code> / <code>danger</code> / <code>success</code> / <code>info</code> / <code>discovery</code>) tints the pressed state with Plex's semantic palette — same tokens <code>Button</code> uses — so a recording-mode mic reads as amber, a destructive retry as red, etc.
   </li>
   <li>
     <strong>ButtonGroup component</strong> (<a href="/docs/components/button-group">ButtonGroup</a>)<br/>
@@ -27,6 +27,14 @@ This changelog documents significant updates, bug fixes, and improvements to com
   <li>
     <strong>Progress component</strong> (<a href="/docs/components/progress">Progress</a>)<br/>
     Linear progress bar built on Radix <code>Progress.Root</code>. Accepts <code>value</code> (0–<code>max</code>) or <code>null</code> for an indeterminate sweep. Styled through <code>--progress-height</code>, <code>--progress-track-color</code>, <code>--progress-indicator-color</code>, <code>--progress-radius</code>, <code>--progress-indeterminate-duration</code>. Use it for uploads, onboarding completion, and any determinate "X of Y" feedback; <a href="/docs/components/indicators">CircularProgress / LoadingIndicator</a> stay for loading-spinner cases.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Input</strong> — the <code>disabled</code> state no longer fades the entire Container. The opacity now applies to the input text and the built-in Clear button only, so any <code>Input.AdornmentButton</code> nested via <code>endAdornment</code> stays at full opacity and remains interactive (e.g. a voice-mode toggle that puts the input into a read-only recording state while itself staying clickable).
   </li>
 </ul>
 
