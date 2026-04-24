@@ -6,7 +6,9 @@ import { ButtonGroup } from '@plexui/ui/components/ButtonGroup';
 import { Card } from '@plexui/ui/components/Card';
 import {
   ArrowLeftSm,
+  ArrowRight,
   ArrowRightSm,
+  BellOff,
   ChevronDownMd,
   Copy,
   DotsHorizontal,
@@ -14,12 +16,18 @@ import {
   Minus,
   Plus,
   PlusSm,
+  RemoveTrash,
+  Robot,
   SearchSm,
+  Share,
+  UserDelete,
 } from '@plexui/ui/components/Icon';
 import { Input } from '@plexui/ui/components/Input';
 import { Menu } from '@plexui/ui/components/Menu';
 import { Popover } from '@plexui/ui/components/Popover';
 import { Select } from '@plexui/ui/components/Select';
+import { Separator } from '@plexui/ui/components/Separator';
+import { Textarea } from '@plexui/ui/components/Textarea';
 
 /* ============================================================
    Overview — toolbar with nested groups + gap between subgroups
@@ -222,11 +230,11 @@ export function ButtonGroupNestedDemo() {
 export function ButtonGroupSeparatorDemo() {
   return (
     <ButtonGroup>
-      <Button variant="soft" color="secondary" pill={false}>
-        <Copy /> Copy
+      <Button variant="soft" color="secondary" pill={false} size="sm">
+        Copy
       </Button>
       <ButtonGroup.Separator />
-      <Button variant="soft" color="secondary" pill={false}>
+      <Button variant="soft" color="secondary" pill={false} size="sm">
         Paste
       </Button>
     </ButtonGroup>
@@ -234,18 +242,18 @@ export function ButtonGroupSeparatorDemo() {
 }
 
 /* ============================================================
-   Split — primary action + chevron/more trigger
+   Split — primary action + inline extra-action trigger
    ============================================================ */
 
 export function ButtonGroupSplitDemo() {
   return (
     <ButtonGroup>
-      <Button variant="soft" color="primary" pill={false}>
-        Deploy
+      <Button variant="soft" color="secondary" pill={false}>
+        Button
       </Button>
       <ButtonGroup.Separator />
-      <Button variant="soft" color="primary" pill={false} uniform aria-label="More deploy options">
-        <DotsHorizontal />
+      <Button variant="soft" color="secondary" pill={false} uniform aria-label="Add">
+        <Plus />
       </Button>
     </ButtonGroup>
   );
@@ -308,7 +316,7 @@ export function ButtonGroupDropdownMenuDemo() {
   return (
     <ButtonGroup>
       <Button variant="outline" color="secondary" pill={false}>
-        Export
+        Follow
       </Button>
       <Menu>
         <Menu.Trigger>
@@ -317,17 +325,28 @@ export function ButtonGroupDropdownMenuDemo() {
             color="secondary"
             pill={false}
             uniform
-            aria-label="Export options"
+            aria-label="More follow options"
           >
             <ChevronDownMd />
           </Button>
         </Menu.Trigger>
-        <Menu.Content align="end" minWidth={180}>
-          <Menu.Item>Export as PDF</Menu.Item>
-          <Menu.Item>Export as CSV</Menu.Item>
-          <Menu.Item>Export as JSON</Menu.Item>
+        <Menu.Content align="end" minWidth={200}>
+          <Menu.Item>
+            <BellOff /> Mute conversation
+          </Menu.Item>
+          <Menu.Item>
+            <Copy /> Copy link
+          </Menu.Item>
+          <Menu.Item>
+            <Share /> Share
+          </Menu.Item>
           <Menu.Separator />
-          <Menu.Item>Print…</Menu.Item>
+          <Menu.Item>
+            <UserDelete /> Unfollow
+          </Menu.Item>
+          <Menu.Item>
+            <RemoveTrash /> Report
+          </Menu.Item>
         </Menu.Content>
       </Menu>
     </ButtonGroup>
@@ -335,32 +354,36 @@ export function ButtonGroupDropdownMenuDemo() {
 }
 
 /* ============================================================
-   Select — join a Select trigger into the group
+   Select — currency picker joined to an amount input + send
    ============================================================ */
 
-const REGION_OPTIONS = [
-  { value: 'us-east-1', label: 'us-east-1' },
-  { value: 'us-west-2', label: 'us-west-2' },
-  { value: 'eu-central-1', label: 'eu-central-1' },
-  { value: 'ap-southeast-1', label: 'ap-southeast-1' },
+const CURRENCY_OPTIONS = [
+  { value: '$', label: '$ · US Dollar' },
+  { value: '€', label: '€ · Euro' },
+  { value: '£', label: '£ · British Pound' },
 ];
 
 export function ButtonGroupSelectDemo() {
-  const [region, setRegion] = useState('us-east-1');
+  const [currency, setCurrency] = useState('$');
 
   return (
     <ButtonGroup>
-      <Button variant="outline" color="secondary" pill={false}>
-        Deploy
-      </Button>
-      <Select
-        options={REGION_OPTIONS}
-        value={region}
-        onChange={(opt) => setRegion(opt.value)}
-        variant="outline"
-        pill={false}
-        block={false}
-      />
+      <ButtonGroup>
+        <Select
+          options={CURRENCY_OPTIONS}
+          value={currency}
+          onChange={(opt) => setCurrency(opt.value)}
+          variant="outline"
+          pill={false}
+          block={false}
+        />
+        <Input placeholder="10.00" inputMode="decimal" />
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button variant="outline" color="secondary" pill={false} uniform aria-label="Send">
+          <ArrowRight />
+        </Button>
+      </ButtonGroup>
     </ButtonGroup>
   );
 }
@@ -373,7 +396,7 @@ export function ButtonGroupPopoverDemo() {
   return (
     <ButtonGroup>
       <Button variant="outline" color="secondary" pill={false}>
-        Share link
+        <Robot /> Copilot
       </Button>
       <Popover>
         <Popover.Trigger>
@@ -382,19 +405,25 @@ export function ButtonGroupPopoverDemo() {
             color="secondary"
             pill={false}
             uniform
-            aria-label="Share settings"
+            aria-label="Open Copilot"
           >
-            <DotsHorizontal />
+            <ChevronDownMd />
           </Button>
         </Popover.Trigger>
-        <Popover.Content minWidth={260} side="bottom" align="end">
+        <Popover.Content minWidth={320} side="bottom" align="end">
           <Card variant="ghost" size="sm">
             <Card.Header>
-              <Card.Title>Link sharing</Card.Title>
-              <Card.Description>
-                Anyone with the link can view this project. Expires in 7 days.
-              </Card.Description>
+              <Card.Title>Agent tasks</Card.Title>
             </Card.Header>
+            <Separator />
+            <Card.Content>
+              <Textarea placeholder="Describe your task in natural language." rows={3} />
+              <Card.Title>Start a new task with Copilot</Card.Title>
+              <Card.Description>
+                Describe your task in natural language. Copilot will work in the background and
+                open a pull request for your review.
+              </Card.Description>
+            </Card.Content>
           </Card>
         </Popover.Content>
       </Popover>
