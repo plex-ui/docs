@@ -106,7 +106,6 @@
   & > [data-slot="input"],
   & > [data-slot="button-group"]:has(> [data-slot="input"]) {
     flex: 1 1 auto;
-    min-width: 0;
   }
 }
 
