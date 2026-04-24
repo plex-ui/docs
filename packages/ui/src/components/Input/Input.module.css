@@ -391,6 +391,53 @@
   }
 }
 
+/* AdornmentButton — public sibling of .Clear for in-input action buttons
+   (mic toggle, copy, send, etc.). Defaults transparent so it doesn't
+   compete with input text; picks up the same size / offset tokens as
+   .Clear so it stays aligned inside the pill. */
+.AdornmentButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--input-clear-size);
+  height: var(--input-clear-size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  margin-right: var(--input-clear-offset);
+  background-color: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition-duration: var(--transition-duration-basic);
+  transition-property: background-color, color;
+  transition-timing-function: var(--transition-ease-basic);
+
+  &:hover {
+    background-color: var(--color-background-secondary-soft-alpha);
+    color: var(--color-text);
+  }
+
+  &[aria-pressed="true"] {
+    background-color: var(--color-background-primary-soft);
+    color: var(--color-text);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  :where(.Container[data-pill]) & {
+    margin-right: var(--input-clear-pill-offset);
+  }
+
+  > svg {
+    width: var(--input-clear-icon-size);
+    height: var(--input-clear-icon-size);
+  }
+}
+
 @keyframes native-autofill-in {
   0% {
     opacity: 1;

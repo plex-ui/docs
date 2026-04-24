@@ -285,18 +285,13 @@ export function ButtonGroupInputGroupDemo() {
           placeholder={voiceEnabled ? 'Record and send audio…' : 'Send a message…'}
           disabled={voiceEnabled}
           endAdornment={
-            <Button
-              variant={voiceEnabled ? 'soft' : 'ghost'}
-              color={voiceEnabled ? 'primary' : 'secondary'}
-              size="2xs"
-              pill
-              uniform
+            <Input.AdornmentButton
               aria-label="Toggle voice mode"
               aria-pressed={voiceEnabled}
               onClick={() => setVoiceEnabled((prev) => !prev)}
             >
               <Mic />
-            </Button>
+            </Input.AdornmentButton>
           }
         />
       </ButtonGroup>

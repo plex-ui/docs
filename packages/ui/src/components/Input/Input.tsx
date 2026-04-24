@@ -235,3 +235,32 @@ export const Input = (props: InputProps) => {
     </div>
   )
 }
+
+/* ------------------------------------------------------------------ */
+/*  AdornmentButton — canonical inline action button for Input slots   */
+/*  (mic toggle, visibility toggle, copy, etc.). Sizes itself off the  */
+/*  parent Input via --input-clear-size / --input-clear-pill-offset    */
+/*  so it stays visually consistent with the built-in clear button.    */
+/* ------------------------------------------------------------------ */
+
+export type InputAdornmentButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "ref"
+> & {
+  ref?: React.Ref<HTMLButtonElement>
+}
+
+const InputAdornmentButton = ({
+  className,
+  type = "button",
+  ref,
+  ...restProps
+}: InputAdornmentButtonProps) => (
+  <button ref={ref} type={type} className={clsx(s.AdornmentButton, className)} {...restProps} />
+)
+
+type InputComponent = typeof Input & {
+  AdornmentButton: typeof InputAdornmentButton
+}
+
+;(Input as InputComponent).AdornmentButton = InputAdornmentButton
