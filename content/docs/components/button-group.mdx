@@ -1,0 +1,110 @@
+---
+title: Button Group
+description: Join buttons into a single visual unit — toolbars, steppers, split buttons, search affordances
+---
+
+import { ButtonGroup } from "@plexui/ui/components/ButtonGroup"
+import {
+  ButtonGroupOverviewDemo,
+  ButtonGroupOrientationDemo,
+  ButtonGroupSizeDemo,
+  ButtonGroupSeparatorDemo,
+  ButtonGroupSplitDemo,
+  ButtonGroupInputDemo,
+} from "@/components/docs/ButtonGroupDemos"
+
+<UsageBlock>{`import { ButtonGroup } from "@plexui/ui/components/ButtonGroup";`}</UsageBlock>
+
+Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and removes the shared border so they read as one unit. Nest `ButtonGroup` inside itself to create visually separated sub-groups (the outer group automatically spaces them).
+
+## Examples
+
+### Overview
+
+<ComponentPreview code={`<ButtonGroup>
+  <ButtonGroup><Button uniform aria-label="Go back"><ArrowLeftSm /></Button></ButtonGroup>
+  <ButtonGroup>
+    <Button>Archive</Button>
+    <Button>Report</Button>
+  </ButtonGroup>
+  <ButtonGroup>
+    <Button>Snooze</Button>
+    <Button uniform aria-label="More options"><DotsHorizontal /></Button>
+  </ButtonGroup>
+</ButtonGroup>`}>
+  <ButtonGroupOverviewDemo />
+</ComponentPreview>
+
+### Orientation
+
+<ComponentPreview details={<>Pass <code>orientation="vertical"</code> to stack the buttons — useful for <code>+</code> / <code>−</code> steppers, zoom controls, or any vertical toolbar.</>} code={`<ButtonGroup orientation="vertical" aria-label="Zoom controls">
+  <Button uniform aria-label="Zoom in"><PlusSm /></Button>
+  <Button uniform aria-label="Zoom out"><Minus /></Button>
+</ButtonGroup>`}>
+  <ButtonGroupOrientationDemo />
+</ComponentPreview>
+
+### Size
+
+<ComponentPreview details={<>Set <code>size</code> on every <code>Button</code> inside the group so corner radii match. Mix icon-only (<code>uniform</code>) with text buttons — each child keeps its own padding.</>} code={`<ButtonGroup>
+  <Button size="sm">Small</Button>
+  <Button size="sm">Button</Button>
+  <Button size="sm">Group</Button>
+  <Button size="sm" uniform aria-label="Add"><PlusSm /></Button>
+</ButtonGroup>`}>
+  <ButtonGroupSizeDemo />
+</ComponentPreview>
+
+### Separator
+
+<ComponentPreview details={<>Drop a <code>ButtonGroup.Separator</code> between items to add a visible divider — commonly used for Copy / Paste pairs or any "two related actions" toolbar.</>} code={`<ButtonGroup>
+  <Button><Copy /> Copy</Button>
+  <ButtonGroup.Separator />
+  <Button>Paste</Button>
+</ButtonGroup>`}>
+  <ButtonGroupSeparatorDemo />
+</ComponentPreview>
+
+### Split
+
+<ComponentPreview details={<>The classic split button: a primary action joined to a menu / more-options trigger via <code>ButtonGroup.Separator</code>.</>} code={`<ButtonGroup>
+  <Button color="primary">Deploy</Button>
+  <ButtonGroup.Separator />
+  <Button color="primary" uniform aria-label="More deploy options">
+    <DotsHorizontal />
+  </Button>
+</ButtonGroup>`}>
+  <ButtonGroupSplitDemo />
+</ComponentPreview>
+
+### Input
+
+<ComponentPreview details={<>Join an <code>Input</code> to a trailing <code>Button</code> for inline search, token entry, or URL shorteners. The input flexes to fill the row; the button hugs its content.</>} code={`<ButtonGroup>
+  <Input placeholder="Search docs..." />
+  <Button uniform aria-label="Search"><Search /></Button>
+</ButtonGroup>`}>
+  <ButtonGroupInputDemo />
+</ComponentPreview>
+
+## API
+
+### ButtonGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Direction of the joined items |
+| `className` | `string` | — | Applied to the root `<div>` |
+
+Renders a `<div role="group">`. All other `<div>` attributes are forwarded.
+
+### ButtonGroup.Separator
+
+Inherits from [`Separator`](/docs/components/separator). `orientation` defaults to `"vertical"` (the axis that looks right between horizontal items); pass an explicit value inside a `ButtonGroup orientation="vertical"`.
+
+## Styling
+
+Nesting `ButtonGroup` inside a parent `ButtonGroup` automatically introduces a gap between the sub-groups. The gap is driven by a single token:
+
+- `--button-group-nested-gap` — space between sibling sub-groups (defaults to `spacing(2)` = 8px)
+
+Radius, border, and focus styles come from each child control's own tokens (`--button-radius`, `--input-radius`, etc.) — the group only strips the shared edge radii so joined items align.

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group",
+  "type": "registry:ui",
+  "title": "Button Group",
+  "description": "Plex UI ButtonGroup — join buttons, inputs, and trigger controls into a single visual unit. Compound API with ButtonGroup.Separator, orientation support, and automatic gap handling for nested sub-groups.",
+  "dependencies": ["@plexui/ui"],
+  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "files": [
+    {
+      "path": "components/ui/button-group.tsx",
+      "type": "registry:ui",
+      "content": "export { ButtonGroup } from '@plexui/ui/components/ButtonGroup';\nexport type { ButtonGroupProps, ButtonGroupOrientation, ButtonGroupSeparatorProps } from '@plexui/ui/components/ButtonGroup';\n"
+    }
+  ],
+  "docs": "Import as `import { ButtonGroup } from '@/components/ui/button-group'`. See https://plexui.dev/docs/components/button-group for full prop reference."
+}

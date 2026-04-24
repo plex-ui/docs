@@ -37,6 +37,7 @@ const footerSections = [
       { label: 'Avatar Group', href: '/docs/components/avatar-group' },
       { label: 'Badge', href: '/docs/components/badge' },
       { label: 'Button', href: '/docs/components/button' },
+      { label: 'Button Group', href: '/docs/components/button-group' },
       { label: 'Button Link', href: '/docs/components/button-link' },
       { label: 'Card', href: '/docs/components/card' },
       { label: 'Checkbox', href: '/docs/components/checkbox' },

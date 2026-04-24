@@ -74,6 +74,12 @@
       "type": "registry:ui",
       "description": "Vertically stacked collapsible panels with single/multiple expansion, per-item disabled, and controlled value.",
       "dependencies": ["@plexui/ui"]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "description": "Joined toolbar / stepper / split-button wrapper for Buttons, Inputs, and trigger controls.",
+      "dependencies": ["@plexui/ui"]
     }
   ]
 }
