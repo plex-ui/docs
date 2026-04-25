@@ -24,6 +24,12 @@ const CATALOG_LOADERS: Record<string, () => Promise<IconCatalog>> = {
   plex: () => import('./catalogs/plex').then((m) => m.plexCatalog),
   'lucide-stroke': () =>
     import('./catalogs/lucide-stroke').then((m) => m.loadLucideStrokeCatalog()),
+  phosphor: () =>
+    import('./catalogs/phosphor').then((m) => m.loadPhosphorCatalog()),
+  remix: () => import('./catalogs/remix').then((m) => m.loadRemixCatalog()),
+  tabler: () => import('./catalogs/tabler').then((m) => m.loadTablerCatalog()),
+  hugeicons: () =>
+    import('./catalogs/hugeicons').then((m) => m.loadHugeiconsCatalog()),
 };
 
 export type IconBrowserLibrary = keyof typeof CATALOG_LOADERS;
