@@ -6,7 +6,7 @@ const footerSections = [
     links: [
       { label: 'Home', href: '/' },
       { label: 'Components', href: '/docs/components' },
-      { label: 'For AI Editors', href: '/docs/overview/installation' },
+      { label: 'For AI Editors', href: '/docs/installation' },
       { label: 'Figma Kit', href: '/pricing' },
       { label: 'AI Bridge', href: '/bridge' },
       { label: 'Blog', href: '/blog' },
@@ -16,7 +16,7 @@ const footerSections = [
   {
     title: 'Documentation',
     links: [
-      { label: 'Overview', href: '/docs/overview' },
+      { label: 'Overview', href: '/docs' },
       { label: 'Foundations', href: '/docs/foundations' },
       { label: 'Concepts', href: '/docs/concepts' },
       { label: 'Hooks', href: '/docs/hooks' },

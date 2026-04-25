@@ -1,5 +1,5 @@
 {
   "title": "Foundations",
   "root": true,
-  "pages": ["design-tokens", "colors", "typography", "icons"]
+  "pages": ["design-tokens", "colors", "typography"]
 }
