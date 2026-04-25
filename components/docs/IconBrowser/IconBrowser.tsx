@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import { Button } from '@plexui/ui/components/Button';
-import { Download, SearchSm, X } from '@plexui/ui/components/Icon';
+import { Download, SearchSm } from '@plexui/ui/components/Icon';
 import type { CatalogIcon, IconCatalog } from './types';
 import s from './IconBrowser.module.css';
 
@@ -197,8 +197,17 @@ export function IconBrowser({ library }: IconBrowserProps) {
                 key={row.key}
                 className={s.GridRow}
                 style={{
-                  transform: `translateY(${row.start - virtualizer.options.scrollMargin}px)`,
-                  gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                  // `top: …px` instead of `transform: translateY(…)`. Transform
+                  // promotes the row to its own compositing layer, and on
+                  // Chromium that layer can rasterize SVG content at 1× DPR
+                  // before scaling — visible as fuzzy edges + uneven stroke
+                  // widths within a single Lucide/Tabler icon. `top:` keeps
+                  // the row in the document layer, where SVG paints at native
+                  // device pixel resolution.
+                  top: row.start - virtualizer.options.scrollMargin,
+                  // Pin track size to an exact integer so flex/grid math
+                  // can't push tile centers onto sub-pixel offsets.
+                  gridTemplateColumns: `repeat(${columns}, ${TILE_SIZE}px)`,
                 }}
               >
                 {slice.map((icon) => (
@@ -207,7 +216,11 @@ export function IconBrowser({ library }: IconBrowserProps) {
                     type="button"
                     className={s.Tile}
                     data-icon={icon.name}
-                    onClick={() => setSelected(icon)}
+                    onClick={() =>
+                      setSelected((current) =>
+                        current?.name === icon.name ? null : icon
+                      )
+                    }
                     aria-label={icon.name}
                     aria-pressed={selected?.name === icon.name || undefined}
                   >
@@ -270,13 +283,27 @@ function IconDetailPanel({ catalog, selected, onClose }: IconDetailPanelProps) {
   };
 
   // Esc closes the panel without dimming the grid behind it.
+  // Click-outside (anywhere that isn't the panel or another icon tile)
+  // also closes — clicking a different tile lets the parent component
+  // swap `selected` instead of dismissing.
   useEffect(() => {
     if (!selected) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
     };
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      if (target.closest(`.${s.Panel}`)) return;
+      if (target.closest('[data-icon]')) return;
+      onClose();
+    };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onPointerDown);
+    };
   }, [selected, onClose]);
 
   if (!selected || !catalog) return null;
@@ -289,14 +316,6 @@ function IconDetailPanel({ catalog, selected, onClose }: IconDetailPanelProps) {
     >
       <div className={s.PanelPreview}>
         <IconRender icon={selected} />
-        <button
-          type="button"
-          className={s.PanelClose}
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <X />
-        </button>
       </div>
       <h3 className={s.PanelName}>{selected.name}</h3>
       <div className={s.PanelActions}>
