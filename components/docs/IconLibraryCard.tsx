@@ -1,4 +1,5 @@
 import Link from 'fumadocs-core/link';
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 
 /**
@@ -21,40 +22,38 @@ interface IconLibraryCardProps {
   title: string;
   /** Short one-liner describing the library. */
   description: string;
+  /** Path to the brand logo (PNG/SVG) under `/public/icon-libraries/`. */
+  logo: string;
   /** Optional pill rendered next to the title (e.g. "Built-in"). */
   badge?: string;
 }
 
 /**
- * Card matching the shadcndesign /icons gallery shape: large preview
- * surface (icon-grid background) with a centered avatar, title and
- * description below. Whole tile is a link.
+ * Card matching the shadcndesign /icons gallery: a soft gray hatched
+ * canvas on top, a round white "puck" centered inside it holding the real
+ * library logo, then the title and one-line description below.
  */
 export function IconLibraryCard({
   slug,
   title,
   description,
+  logo,
   badge,
 }: IconLibraryCardProps) {
   return (
     <Link
       href={`/docs/icons/${slug}`}
-      className="group flex flex-col overflow-hidden rounded-xl border bg-fd-card text-fd-card-foreground transition-colors hover:border-fd-foreground/20"
+      className="group flex flex-col overflow-hidden rounded-xl border transition-colors hover:border-fd-foreground/30"
     >
-      {/* Preview canvas — diagonal hatch background, centered placeholder
-          puck. Once each library page ships its own real preview we can
-          render the actual sample SVG here. */}
-      <div
-        className="relative flex aspect-[4/3] w-full items-center justify-center border-b bg-[length:24px_24px]"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0 1px, transparent 1px 12px)',
-        }}
-      >
-        <div className="flex size-16 items-center justify-center rounded-full bg-fd-background shadow-sm">
-          <span className="text-xs font-medium text-fd-muted-foreground">
-            {title.charAt(0)}
-          </span>
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-fd-accent">
+        <div className="flex size-20 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5">
+          <Image
+            src={logo}
+            alt=""
+            width={56}
+            height={56}
+            className="size-14 object-contain"
+          />
         </div>
       </div>
       <div className="flex flex-col gap-1 p-4">
