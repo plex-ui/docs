@@ -24,6 +24,8 @@ interface IconLibraryCardProps {
   description: string;
   /** Path to the brand logo (PNG/SVG) under `/public/icon-libraries/`. */
   logo: string;
+  /** Optional icon count shown right of the title (e.g. 1914). */
+  count?: number;
   /** Optional pill rendered next to the title (e.g. "Built-in"). */
   badge?: string;
 }
@@ -38,6 +40,7 @@ export function IconLibraryCard({
   title,
   description,
   logo,
+  count,
   badge,
 }: IconLibraryCardProps) {
   return (
@@ -57,11 +60,18 @@ export function IconLibraryCard({
         </div>
       </div>
       <div className="flex flex-col gap-1 p-4">
-        <div className="flex items-center gap-2">
-          <h3 className="not-prose text-sm font-semibold">{title}</h3>
-          {badge && (
-            <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-fd-muted-foreground">
-              {badge}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <h3 className="not-prose text-sm font-semibold truncate">{title}</h3>
+            {badge && (
+              <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-fd-muted-foreground">
+                {badge}
+              </span>
+            )}
+          </div>
+          {count != null && (
+            <span className="shrink-0 text-xs text-fd-muted-foreground tabular-nums">
+              {count.toLocaleString()}
             </span>
           )}
         </div>
