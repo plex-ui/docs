@@ -3,11 +3,18 @@ title: Lucide
 description: Clean, consistent line icons designed for modern product interfaces
 ---
 
+import { IconVariantTabs, IconVariant } from '@/components/docs/IconVariantTabs';
+
+Lucide ships as editable strokes — set your own width per icon. Plex also publishes an **outlined-stroke** companion where every line is baked into a closed shape, so the icon scales proportionally without a stroke-width prop and matches the look of every component that already uses Plex Icons.
+
+<IconVariantTabs ariaLabel="Lucide variant">
+  <IconVariant value="stroke" label="Stroke">
+
 | | |
 |---|---|
 | **Package** | `lucide-react` |
 | **License** | ISC |
-| **Style** | Stroke (solid coming via Plex add-on) |
+| **Style** | Editable stroke — set any `strokeWidth` |
 | **Count** | 1,699 icons |
 | **Source** | [lucide.dev](https://lucide.dev) |
 
@@ -16,9 +23,35 @@ npm install lucide-react
 ```
 
 ```tsx
-import { ArrowRight, Search, Settings } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 <Search size={16} strokeWidth={1.5} />
 ```
 
-> **Browser coming soon.** A searchable grid with copy-paste imports across all 1,699 icons will live here. Lucide ships stroke-only out of the box; a Plex-drawn solid companion set lands in a follow-up release.
+> **Browser coming soon.** Searchable grid with copy-paste imports across all 1,699 icons will live here.
+
+  </IconVariant>
+  <IconVariant value="outlined" label="Outlined Stroke">
+
+| | |
+|---|---|
+| **Package** | `@plexui/icons-lucide-outlined` |
+| **License** | ISC (derivative of Lucide) |
+| **Style** | Outlined stroke — strokes baked into shapes, scales proportionally |
+| **Count** | 1,699 icons |
+| **Source** | Generated from [lucide.dev](https://lucide.dev) |
+
+```bash
+npm install @plexui/icons-lucide-outlined
+```
+
+```tsx
+import { Search } from '@plexui/icons-lucide-outlined';
+
+<Search size={16} /> {/* no strokeWidth — width is part of the shape */}
+```
+
+> **Browser coming soon.** Same icons as the stroke variant, rendered with their stroke pre-baked into a filled path so they sit alongside Plex Icons without a visual seam.
+
+  </IconVariant>
+</IconVariantTabs>
