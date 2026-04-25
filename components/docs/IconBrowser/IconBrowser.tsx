@@ -31,6 +31,10 @@ const CATALOG_LOADERS: Record<string, () => Promise<IconCatalog>> = {
   plex: () => import('./catalogs/plex').then((m) => m.plexCatalog),
   'lucide-stroke': () =>
     import('./catalogs/lucide-stroke').then((m) => m.loadLucideStrokeCatalog()),
+  'lucide-outlined': () =>
+    import('./catalogs/lucide-outlined').then((m) =>
+      m.loadLucideOutlinedCatalog()
+    ),
   phosphor: () =>
     import('./catalogs/phosphor').then((m) => m.loadPhosphorCatalog()),
   remix: () => import('./catalogs/remix').then((m) => m.loadRemixCatalog()),
