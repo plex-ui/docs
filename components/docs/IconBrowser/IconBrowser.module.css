@@ -140,6 +140,16 @@
   gap: 8px;
   /* `grid-template-columns` is set inline because the column count
      depends on container width (computed in IconBrowser.tsx). */
+
+  /* `transform: translateY(...)` (set inline by the virtualizer) creates
+     a new stacking context per row. Without an explicit z-index lift on
+     hover, the tooltip ::after on a row N tile would render *under*
+     row N+1's tiles. Hovered row pops above neighbours. */
+  z-index: 1;
+}
+
+.GridRow:hover {
+  z-index: 2;
 }
 
 .Tile {
@@ -151,11 +161,9 @@
   border: 0;
   background: var(--alpha-04);
   border-radius: 6px;
-  /* Slightly muted icon color — pure black makes 1px Lucide strokes
-     look harsh; Lucide's own gallery uses rgb(60,60,67). */
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   cursor: pointer;
-  transition: background 0.12s ease, color 0.12s ease;
+  transition: background 0.12s ease;
   padding: 0;
   /* Crisper rendering of stroke-only icons at small sizes —
      stops the browser falling back to crispEdges when transforms
@@ -165,7 +173,6 @@
 
 .Tile:hover {
   background: var(--alpha-08);
-  color: var(--color-text);
 }
 
 .Tile:focus-visible {
