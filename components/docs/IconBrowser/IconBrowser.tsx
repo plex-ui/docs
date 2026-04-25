@@ -106,7 +106,21 @@ export function IconBrowser({ library }: IconBrowserProps) {
             aria-label={catalog ? `Search ${catalog.label}` : 'Search'}
             disabled={!catalog}
           />
-          <kbd className={s.Kbd}>⌘K</kbd>
+          {query.length > 0 ? (
+            <button
+              type="button"
+              className={s.ClearButton}
+              aria-label="Clear search"
+              onClick={() => {
+                setQuery('');
+                inputRef.current?.focus();
+              }}
+            >
+              ×
+            </button>
+          ) : (
+            <kbd className={s.Kbd}>⌘K</kbd>
+          )}
         </div>
         <span className={s.Count}>
           {catalog == null
@@ -118,9 +132,10 @@ export function IconBrowser({ library }: IconBrowserProps) {
       </div>
 
       {!catalog ? (
-        <div className={s.Empty}>
-          <SearchSm className={s.EmptyIcon} />
-          <p className={s.EmptyText}>Loading icons…</p>
+        <div className={s.Grid} aria-busy="true">
+          {Array.from({ length: 96 }).map((_, i) => (
+            <div key={i} className={s.SkeletonTile} />
+          ))}
         </div>
       ) : filtered.length === 0 ? (
         <div className={s.Empty}>
