@@ -13,6 +13,8 @@
     "dev:restart": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev",
     "build": "npm run build:icon-catalogs && next build",
     "build:icon-catalogs": "node scripts/build-icon-catalogs.mjs",
+    "fetch:icon-tags": "node scripts/fetch-icon-tags.mjs",
+    "generate:plex-tags": "node scripts/generate-plex-tags.mjs",
     "predev": "node scripts/build-icon-catalogs.mjs",
     "postinstall": "npm run build:ui",
     "build:ui": "npm run build --workspace=packages/ui",
@@ -30,7 +32,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@hugeicons/core-free-icons": "^4.1.1",
-    "@phosphor-icons/core": "^2.1.1",
+    "@lucide/lab": "^0.1.2",
     "@plexui/ui": "*",
     "@tabler/icons": "^3.41.1",
     "@tanstack/react-virtual": "^3.13.24",
@@ -46,7 +48,6 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remixicon": "^4.9.1",
     "ws": "^8.19.0"
   },
   "devDependencies": {

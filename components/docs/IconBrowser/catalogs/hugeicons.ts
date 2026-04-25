@@ -6,5 +6,8 @@ export const loadHugeiconsCatalog = createJsonCatalogLoader({
   label: 'Hugeicons',
   buildImport: (name) =>
     `import { ${name} } from '@hugeicons/core-free-icons';`,
-  buildJsx: (name) => `<HugeiconsIcon icon={${name}} />`,
+  buildJsx: (name, opts) =>
+    opts?.strokeWidth !== undefined && opts.strokeWidth !== 2
+      ? `<HugeiconsIcon icon={${name}} strokeWidth={${opts.strokeWidth}} />`
+      : `<HugeiconsIcon icon={${name}} />`,
 });

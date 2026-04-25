@@ -5,5 +5,8 @@ export const loadTablerCatalog = createJsonCatalogLoader({
   id: 'tabler',
   label: 'Tabler',
   buildImport: (name) => `import { ${name} } from '@tabler/icons-react';`,
-  buildJsx: (name) => `<${name} />`,
+  buildJsx: (name, opts) =>
+    opts?.strokeWidth !== undefined && opts.strokeWidth !== 2
+      ? `<${name} stroke={${opts.strokeWidth}} />`
+      : `<${name} />`,
 });

@@ -1,6 +1,10 @@
-import type { CatalogIcon, IconCatalog } from '../types';
+import type {
+  CatalogIcon,
+  IconBuildOptions,
+  IconCatalog,
+} from '../types';
 
-type JsonCatalogRecord = { name: string; svg: string };
+type JsonCatalogRecord = { name: string; svg: string; tags?: string[] };
 
 type JsonCatalogConfig = {
   /** Path under `/public/icon-libraries/` (no leading slash, no `.json`). */
@@ -10,9 +14,9 @@ type JsonCatalogConfig = {
   /** Human-readable name shown in the dialog header. */
   label: string;
   /** Builds the `Copy import` snippet for a single icon name. */
-  buildImport: (name: string) => string;
+  buildImport: (name: string, opts?: IconBuildOptions) => string;
   /** Builds the `Copy JSX` snippet (one-liner usage). */
-  buildJsx: (name: string) => string;
+  buildJsx: (name: string, opts?: IconBuildOptions) => string;
 };
 
 /**
@@ -36,7 +40,13 @@ export function createJsonCatalogLoader(
     const records = (await response.json()) as JsonCatalogRecord[];
 
     const icons: CatalogIcon[] = records
-      .map((record) => ({ name: record.name, svg: record.svg }))
+      .map((record) => ({
+        name: record.name,
+        svg: record.svg,
+        ...(record.tags && record.tags.length > 0
+          ? { tags: record.tags }
+          : {}),
+      }))
       .sort((a, b) => a.name.localeCompare(b.name));
 
     cached = {
