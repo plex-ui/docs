@@ -4,11 +4,12 @@ description: Clean, consistent line icons designed for modern product interfaces
 ---
 
 import { IconVariantTabs, IconVariant } from '@/components/docs/IconVariantTabs';
+import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
 
 <IconVariantTabs ariaLabel="Lucide variant">
   <IconVariant value="stroke" label="Stroke">
 
-1,699 icons · ISC · [lucide.dev](https://lucide.dev)
+ISC · [lucide.dev](https://lucide.dev)
 
 ```bash
 npm install lucide-react
@@ -20,10 +21,12 @@ import { Search } from 'lucide-react';
 <Search size={16} strokeWidth={1.5} />
 ```
 
+<IconBrowser library="lucide-stroke" />
+
   </IconVariant>
   <IconVariant value="outlined" label="Outlined Stroke">
 
-1,699 icons · ISC · [github.com/plex-ui](https://github.com/plex-ui/docs)
+ISC · [github.com/plex-ui](https://github.com/plex-ui/docs)
 
 ```bash
 npm install @plexui/icons-lucide-outlined
@@ -34,6 +37,8 @@ import { Search } from '@plexui/icons-lucide-outlined';
 
 <Search size={16} />
 ```
+
+> **Browser coming soon** — the outlined-stroke build hasn't shipped yet.
 
   </IconVariant>
 </IconVariantTabs>
