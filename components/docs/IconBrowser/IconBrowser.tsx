@@ -130,10 +130,6 @@ export function IconBrowser({ library }: IconBrowserProps) {
     return null;
   }
 
-  const totalLabel = catalog
-    ? `${catalog.icons.length.toLocaleString()} icons`
-    : 'Loading…';
-
   return (
     <div className={s.Root}>
       <div className={s.SearchRow}>
@@ -169,13 +165,11 @@ export function IconBrowser({ library }: IconBrowserProps) {
             <kbd className={s.Kbd}>⌘K</kbd>
           )}
         </div>
-        <span className={s.Count}>
-          {catalog == null
-            ? totalLabel
-            : filtered.length === catalog.icons.length
-              ? `${catalog.icons.length.toLocaleString()} icons`
-              : `${filtered.length.toLocaleString()} of ${catalog.icons.length.toLocaleString()}`}
-        </span>
+        {catalog && query.trim().length > 0 && (
+          <span className={s.Count}>
+            {`${filtered.length.toLocaleString()} of ${catalog.icons.length.toLocaleString()}`}
+          </span>
+        )}
       </div>
 
       {!catalog ? (
