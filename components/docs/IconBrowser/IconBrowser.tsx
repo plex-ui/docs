@@ -11,15 +11,15 @@ import {
 } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import { Button } from '@plexui/ui/components/Button';
-import { Dialog } from '@plexui/ui/components/Dialog';
-import { Download, SearchSm } from '@plexui/ui/components/Icon';
+import { Download, SearchSm, X } from '@plexui/ui/components/Icon';
 import type { CatalogIcon, IconCatalog } from './types';
 import s from './IconBrowser.module.css';
 
 /** Tile measurements that drive the virtualized grid maths. Must match
- *  the values in IconBrowser.module.css (.Tile aspect-ratio + .Grid gap). */
-const TILE_SIZE = 48;
-const GRID_GAP = 4;
+ *  the values in IconBrowser.module.css (.Tile aspect-ratio + .Grid gap).
+ *  Sizes match lucide.dev/icons: 56px tile, 8px gap. */
+const TILE_SIZE = 56;
+const GRID_GAP = 8;
 
 /**
  * Lazy catalog loaders — `import()` keeps the per-library icon module
@@ -165,11 +165,8 @@ export function IconBrowser({ library }: IconBrowserProps) {
             <kbd className={s.Kbd}>⌘K</kbd>
           )}
         </div>
-        {catalog && query.trim().length > 0 && (
-          <span className={s.Count}>
-            {`${filtered.length.toLocaleString()} of ${catalog.icons.length.toLocaleString()}`}
-          </span>
-        )}
+        {/* Count is encoded in the input placeholder ("Search 674 icons…") so we
+            don't repeat it next to the field — matches lucide.dev/icons. */}
       </div>
 
       {!catalog ? (
@@ -212,7 +209,7 @@ export function IconBrowser({ library }: IconBrowserProps) {
                     data-icon={icon.name}
                     onClick={() => setSelected(icon)}
                     aria-label={icon.name}
-                    title={icon.name}
+                    aria-pressed={selected?.name === icon.name || undefined}
                   >
                     <IconRender icon={icon} />
                   </button>
@@ -223,7 +220,7 @@ export function IconBrowser({ library }: IconBrowserProps) {
         </div>
       )}
 
-      <IconDetailDialog
+      <IconDetailPanel
         catalog={catalog}
         selected={selected}
         onClose={() => setSelected(null)}
@@ -232,9 +229,9 @@ export function IconBrowser({ library }: IconBrowserProps) {
   );
 }
 
-/* ── Dialog with the four copy/download actions ──────────── */
+/* ── Floating, non-blocking detail panel ─────────────────── */
 
-type IconDetailDialogProps = {
+type IconDetailPanelProps = {
   catalog: IconCatalog | null;
   selected: CatalogIcon | null;
   onClose: () => void;
@@ -242,7 +239,7 @@ type IconDetailDialogProps = {
 
 type CopiedAction = 'import' | 'jsx' | 'svg' | null;
 
-function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps) {
+function IconDetailPanel({ catalog, selected, onClose }: IconDetailPanelProps) {
   const [copied, setCopied] = useState<CopiedAction>(null);
   const flashTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -272,59 +269,77 @@ function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps)
     flash(action);
   };
 
+  // Esc closes the panel without dimming the grid behind it.
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [selected, onClose]);
+
+  if (!selected || !catalog) return null;
+
   return (
-    <Dialog open={selected != null} onOpenChange={(open) => !open && onClose()}>
-      <Dialog.Content width={420}>
-        {selected && catalog && (
-          <div className={s.DialogPanel}>
-            <div className={s.Preview}>
-              <IconRender icon={selected} />
-            </div>
-            <h3 className={s.IconName}>{selected.name}</h3>
-            <div className={s.Actions}>
-              <Button
-                variant="solid"
-                color="primary"
-                onClick={() => copy(catalog.buildImport(selected.name), 'import')}
-                block
-              >
-                {copied === 'import' ? 'Copied!' : 'Copy import'}
-              </Button>
-              <Button
-                variant="outline"
-                color="secondary"
-                onClick={() => copy(catalog.buildJsx(selected.name), 'jsx')}
-                block
-              >
-                {copied === 'jsx' ? 'Copied!' : 'Copy JSX'}
-              </Button>
-              <Button
-                variant="outline"
-                color="secondary"
-                onClick={() => {
-                  const svg = getSvgMarkup(selected);
-                  if (svg) copy(svg, 'svg');
-                }}
-                block
-              >
-                {copied === 'svg' ? 'Copied!' : 'Copy SVG'}
-              </Button>
-              <Button
-                variant="outline"
-                color="secondary"
-                onClick={() => {
-                  const svg = getSvgMarkup(selected);
-                  if (svg) downloadSvgFile(`${selected.name}.svg`, svg);
-                }}
-                block
-              >
-                <Download /> Download
-              </Button>
-            </div>
-          </div>
-        )}
-      </Dialog.Content>
-    </Dialog>
+    <aside
+      className={s.Panel}
+      role="region"
+      aria-label={`${selected.name} actions`}
+    >
+      <button
+        type="button"
+        className={s.PanelClose}
+        onClick={onClose}
+        aria-label="Close"
+      >
+        <X />
+      </button>
+      <div className={s.PanelPreview}>
+        <IconRender icon={selected} />
+      </div>
+      <h3 className={s.PanelName}>{selected.name}</h3>
+      <div className={s.PanelActions}>
+        <Button
+          variant="solid"
+          color="primary"
+          onClick={() => copy(catalog.buildImport(selected.name), 'import')}
+          block
+        >
+          {copied === 'import' ? 'Copied!' : 'Copy import'}
+        </Button>
+        <Button
+          variant="outline"
+          color="secondary"
+          onClick={() => copy(catalog.buildJsx(selected.name), 'jsx')}
+          block
+        >
+          {copied === 'jsx' ? 'Copied!' : 'Copy JSX'}
+        </Button>
+        <Button
+          variant="outline"
+          color="secondary"
+          onClick={() => {
+            const svg = getSvgMarkup(selected);
+            if (svg) copy(svg, 'svg');
+          }}
+          block
+        >
+          {copied === 'svg' ? 'Copied!' : 'Copy SVG'}
+        </Button>
+        <Button
+          variant="outline"
+          color="secondary"
+          onClick={() => {
+            const svg = getSvgMarkup(selected);
+            if (svg) downloadSvgFile(`${selected.name}.svg`, svg);
+          }}
+          block
+        >
+          <Download /> Download
+        </Button>
+      </div>
+    </aside>
   );
 }
 
