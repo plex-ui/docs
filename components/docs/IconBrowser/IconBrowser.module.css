@@ -113,10 +113,33 @@
 
 /* ── Grid ──────────────────────────────────────────────────── */
 
+/* Used only for the no-result / loading skeleton states (when there's
+   nothing to virtualize). */
 .Grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
   gap: 4px;
+}
+
+/* ── Virtualized grid ────────────────────────────────────── */
+
+/* Position container — height set inline by the virtualizer so the
+   scrollbar reflects the *full* list size; rows are absolutely
+   positioned and slid into place via translateY. */
+.GridContainer {
+  position: relative;
+  width: 100%;
+}
+
+.GridRow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 4px;
+  /* `grid-template-columns` is set inline because the column count
+     depends on container width (computed in IconBrowser.tsx). */
 }
 
 .Tile {

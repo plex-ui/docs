@@ -3,16 +3,23 @@
 import {
   createElement,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
   type ReactElement,
 } from 'react';
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import { Button } from '@plexui/ui/components/Button';
 import { Dialog } from '@plexui/ui/components/Dialog';
 import { Download, SearchSm } from '@plexui/ui/components/Icon';
 import type { CatalogIcon, IconCatalog } from './types';
 import s from './IconBrowser.module.css';
+
+/** Tile measurements that drive the virtualized grid maths. Must match
+ *  the values in IconBrowser.module.css (.Tile aspect-ratio + .Grid gap). */
+const TILE_SIZE = 48;
+const GRID_GAP = 4;
 
 /**
  * Lazy catalog loaders — `import()` keeps the per-library icon module
@@ -44,6 +51,38 @@ export function IconBrowser({ library }: IconBrowserProps) {
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<CatalogIcon | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const gridContainerRef = useRef<HTMLDivElement>(null);
+  const [columns, setColumns] = useState(12);
+  const [scrollMargin, setScrollMargin] = useState(0);
+
+  // Recompute the column count whenever the container width changes.
+  // The grid uses fixed-size tiles + a fixed gap, so columns =
+  // floor((width + gap) / (tile + gap)).
+  useLayoutEffect(() => {
+    const node = gridContainerRef.current;
+    if (!node) return;
+
+    const update = () => {
+      const next = Math.max(
+        1,
+        Math.floor((node.clientWidth + GRID_GAP) / (TILE_SIZE + GRID_GAP))
+      );
+      setColumns(next);
+      // The window virtualizer needs to know how far the grid sits below
+      // the document top so visible-row maths line up with `window.scrollY`.
+      const rect = node.getBoundingClientRect();
+      setScrollMargin(rect.top + window.scrollY);
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(node);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, [catalog]);
 
   // Load the catalog on mount / library change.
   useEffect(() => {
@@ -65,6 +104,14 @@ export function IconBrowser({ library }: IconBrowserProps) {
     if (!q) return catalog.icons;
     return catalog.icons.filter((icon) => icon.name.toLowerCase().includes(q));
   }, [catalog, query]);
+
+  const rowCount = Math.ceil(filtered.length / columns);
+  const virtualizer = useWindowVirtualizer({
+    count: rowCount,
+    estimateSize: () => TILE_SIZE + GRID_GAP,
+    overscan: 6,
+    scrollMargin,
+  });
 
   // ⌘K / Ctrl+K focuses the search input.
   useEffect(() => {
@@ -145,20 +192,40 @@ export function IconBrowser({ library }: IconBrowserProps) {
           </p>
         </div>
       ) : (
-        <div className={s.Grid}>
-          {filtered.map((icon) => (
-            <button
-              key={icon.name}
-              type="button"
-              className={s.Tile}
-              data-icon={icon.name}
-              onClick={() => setSelected(icon)}
-              aria-label={icon.name}
-              title={icon.name}
-            >
-              <IconRender icon={icon} />
-            </button>
-          ))}
+        <div
+          ref={gridContainerRef}
+          className={s.GridContainer}
+          style={{ height: virtualizer.getTotalSize() }}
+        >
+          {virtualizer.getVirtualItems().map((row) => {
+            const start = row.index * columns;
+            const end = Math.min(start + columns, filtered.length);
+            const slice = filtered.slice(start, end);
+            return (
+              <div
+                key={row.key}
+                className={s.GridRow}
+                style={{
+                  transform: `translateY(${row.start - virtualizer.options.scrollMargin}px)`,
+                  gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                }}
+              >
+                {slice.map((icon) => (
+                  <button
+                    key={icon.name}
+                    type="button"
+                    className={s.Tile}
+                    data-icon={icon.name}
+                    onClick={() => setSelected(icon)}
+                    aria-label={icon.name}
+                    title={icon.name}
+                  >
+                    <IconRender icon={icon} />
+                  </button>
+                ))}
+              </div>
+            );
+          })}
         </div>
       )}
 
