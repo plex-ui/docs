@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "packages/ui",
-    "packages/mcp"
+    "packages/mcp",
+    "packages/icons-lucide-outlined"
   ],
   "scripts": {
     "dev": "next dev",
