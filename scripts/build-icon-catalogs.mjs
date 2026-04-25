@@ -71,7 +71,12 @@ async function readDirRecursiveSvgs(dir, options = {}) {
 
 async function emitCatalog(name, icons) {
   await mkdir(OUTPUT_DIR, { recursive: true });
-  const cleaned = icons.filter(Boolean);
+  // Drop nulls + dedupe by `name` (Hugeicons in particular can re-export
+  // the same icon under several aliases that all start with the same
+  // canonical PascalCase name; React `key` collisions follow).
+  const seen = new Set();
+  const cleaned = icons
+    .filter((entry) => entry && !seen.has(entry.name) && seen.add(entry.name));
   cleaned.sort((a, b) => a.name.localeCompare(b.name));
   const out = join(OUTPUT_DIR, `${name}.json`);
   await writeFile(out, JSON.stringify(cleaned));
@@ -89,14 +94,24 @@ async function buildLucideCatalog() {
 /* ── Phosphor (regular weight) ───────────────────────────── */
 
 async function buildPhosphorCatalog() {
+  // Phosphor ships six weights — `thin`, `light`, `regular`, `bold`, `fill`,
+  // `duotone`. Their visual stroke-equivalents at 24px display:
+  //   regular ≈ 1.5px · bold ≈ 2.25px · light ≈ 1px · thin ≈ 0.5px
+  // We pick `bold` because it's the closest to the 2px target the rest of
+  // the docs uses (Lucide / Tabler / Hugeicons all stroke at 2px). Bold
+  // files are named `<slug>-bold.svg`; strip the `-bold` suffix so the
+  // React export name stays `Heart`, matching `@phosphor-icons/react`'s
+  // own export naming.
   const sourceDir = join(
     REPO_ROOT,
     'node_modules',
     '@phosphor-icons/core',
     'assets',
-    'regular'
+    'bold'
   );
-  const icons = await readDirSvgs(sourceDir);
+  const icons = await readDirSvgs(sourceDir, {
+    transformName: (slug) => toPascalCase(slug.replace(/-bold$/, '')),
+  });
   await emitCatalog('phosphor', icons);
 }
 
@@ -141,8 +156,22 @@ async function buildTablerCatalog() {
  * Hugeicons too.
  */
 function hugeiconArrayToSvg(parts) {
+  // Drop attributes that the source data bakes onto every individual
+  // path but should be inherited from the root <svg> instead. Hugeicons'
+  // descriptor ships `strokeWidth: 1.5` and `stroke: currentColor` per
+  // path, which makes per-tile CSS / root-SVG overrides useless — both
+  // attributes win against root via direct presentation. Stripping lets
+  // the root `stroke-width="2"` propagate by SVG inheritance, putting
+  // Hugeicons on the same 2px grid as Lucide and Tabler.
+  const STRIPPED = new Set([
+    'key', // React-only, never valid in raw SVG
+    'strokeWidth',
+    'stroke',
+    'strokeLinecap',
+    'strokeLinejoin',
+  ]);
   const renderAttr = (key, value) => {
-    if (key === 'key') return null; // React-only, skip
+    if (STRIPPED.has(key)) return null;
     return `${camelToKebab(key)}="${String(value).replace(/"/g, '&quot;')}"`;
   };
   const inner = parts
@@ -156,7 +185,7 @@ function hugeiconArrayToSvg(parts) {
     .join('');
   return (
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ' +
-    'fill="none" stroke="currentColor" stroke-width="1.5" ' +
+    'fill="none" stroke="currentColor" stroke-width="2" ' +
     'stroke-linecap="round" stroke-linejoin="round">' +
     inner +
     '</svg>'
