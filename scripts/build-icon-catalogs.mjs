@@ -3,8 +3,8 @@
  * Generates static JSON catalogs of icon names + SVG markup for each
  * external icon library used by /docs/icons. Output goes into
  * public/icon-libraries/<id>.json so the IconBrowser can fetch it at
- * runtime via plain HTTP without bundling 1.9k React components into
- * the docs route's main chunk.
+ * runtime via plain HTTP without bundling thousands of React components
+ * into the docs route's main chunk.
  *
  * Run via `npm run build:icon-catalogs` (or via the predev/prebuild hook).
  */
@@ -25,38 +25,163 @@ function toPascalCase(slug) {
     .join('');
 }
 
-/**
- * Lucide ships every icon as a 24×24 stroke SVG inside lucide-static.
- * Read every .svg file, derive the React export name from the filename,
- * and emit one big JSON file the IconBrowser can fetch in one round trip.
- */
-async function buildLucideCatalog() {
-  const sourceDir = join(REPO_ROOT, 'node_modules', 'lucide-static', 'icons');
-  const entries = (await readdir(sourceDir)).filter((file) =>
-    file.endsWith('.svg')
-  );
+/** Map camelCase → kebab-case for SVG attribute names. */
+function camelToKebab(name) {
+  return name.replace(/([A-Z])/g, '-$1').toLowerCase();
+}
 
-  const icons = await Promise.all(
-    entries.map(async (file) => {
+async function readDirSvgs(dir, options = {}) {
+  const { suffix = '.svg', filterName, transformName } = options;
+  const entries = await readdir(dir);
+  const files = entries.filter((file) => file.endsWith(suffix));
+  return Promise.all(
+    files.map(async (file) => {
       const slug = file.replace(/\.svg$/, '');
-      const raw = (await readFile(join(sourceDir, file), 'utf8')).trim();
-      // For `<img>` rendering currentColor doesn't resolve — we render a
-      // hard-coded `currentColor` literal as a CSS variable later. Bake it
-      // as `#0d0d0d` in the canonical preview, but keep a `currentColor`
-      // copy for "Copy SVG" / "Download" so consumers get the editable form.
-      return {
-        name: toPascalCase(slug),
-        svg: raw,
-      };
+      if (filterName && !filterName(slug)) return null;
+      const svg = (await readFile(join(dir, file), 'utf8')).trim();
+      const name = transformName
+        ? transformName(slug)
+        : toPascalCase(slug);
+      return { name, svg };
     })
   );
+}
 
-  icons.sort((a, b) => a.name.localeCompare(b.name));
+async function readDirRecursiveSvgs(dir, options = {}) {
+  const { filterName, transformName } = options;
+  const out = [];
+  const walk = async (current) => {
+    const entries = await readdir(current, { withFileTypes: true });
+    for (const entry of entries) {
+      const full = join(current, entry.name);
+      if (entry.isDirectory()) {
+        await walk(full);
+      } else if (entry.name.endsWith('.svg')) {
+        const slug = entry.name.replace(/\.svg$/, '');
+        if (filterName && !filterName(slug)) continue;
+        const svg = (await readFile(full, 'utf8')).trim();
+        const name = transformName ? transformName(slug) : toPascalCase(slug);
+        out.push({ name, svg });
+      }
+    }
+  };
+  await walk(dir);
+  return out;
+}
 
+async function emitCatalog(name, icons) {
   await mkdir(OUTPUT_DIR, { recursive: true });
-  const out = join(OUTPUT_DIR, 'lucide-stroke.json');
-  await writeFile(out, JSON.stringify(icons));
-  console.log(`[icon-catalogs] lucide-stroke: ${icons.length} icons → ${out}`);
+  const cleaned = icons.filter(Boolean);
+  cleaned.sort((a, b) => a.name.localeCompare(b.name));
+  const out = join(OUTPUT_DIR, `${name}.json`);
+  await writeFile(out, JSON.stringify(cleaned));
+  console.log(`[icon-catalogs] ${name}: ${cleaned.length} icons → ${out}`);
+}
+
+/* ── Lucide (stroke) ─────────────────────────────────────── */
+
+async function buildLucideCatalog() {
+  const sourceDir = join(REPO_ROOT, 'node_modules', 'lucide-static', 'icons');
+  const icons = await readDirSvgs(sourceDir);
+  await emitCatalog('lucide-stroke', icons);
+}
+
+/* ── Phosphor (regular weight) ───────────────────────────── */
+
+async function buildPhosphorCatalog() {
+  const sourceDir = join(
+    REPO_ROOT,
+    'node_modules',
+    '@phosphor-icons/core',
+    'assets',
+    'regular'
+  );
+  const icons = await readDirSvgs(sourceDir);
+  await emitCatalog('phosphor', icons);
+}
+
+/* ── Remix (line variant) ────────────────────────────────── */
+
+async function buildRemixCatalog() {
+  const sourceDir = join(REPO_ROOT, 'node_modules', 'remixicon', 'icons');
+  // Each Remix icon ships in `-fill` and `-line` flavours under category
+  // folders. Use line variants only — they match Plex's outline aesthetic
+  // and pair with the package's React export pattern (`RiSearchLine`).
+  const icons = await readDirRecursiveSvgs(sourceDir, {
+    filterName: (slug) => slug.endsWith('-line'),
+    transformName: (slug) => `Ri${toPascalCase(slug)}`,
+  });
+  await emitCatalog('remix', icons);
+}
+
+/* ── Tabler (outline variant) ────────────────────────────── */
+
+async function buildTablerCatalog() {
+  const sourceDir = join(
+    REPO_ROOT,
+    'node_modules',
+    '@tabler/icons',
+    'icons',
+    'outline'
+  );
+  // Tabler React exports use the `Icon` prefix: search.svg → IconSearch.
+  const icons = await readDirSvgs(sourceDir, {
+    transformName: (slug) => `Icon${toPascalCase(slug)}`,
+  });
+  await emitCatalog('tabler', icons);
+}
+
+/* ── Hugeicons (free) ────────────────────────────────────── */
+
+/**
+ * Hugeicons ship icons as element descriptor arrays:
+ *   [["path", {d, stroke, strokeWidth, key, …}], …]
+ * Convert each to a plain SVG string so the same render path used for
+ * every other catalog (DOMParser → React.createElement) works for
+ * Hugeicons too.
+ */
+function hugeiconArrayToSvg(parts) {
+  const renderAttr = (key, value) => {
+    if (key === 'key') return null; // React-only, skip
+    return `${camelToKebab(key)}="${String(value).replace(/"/g, '&quot;')}"`;
+  };
+  const inner = parts
+    .map(([tag, attrs]) => {
+      const attrStr = Object.entries(attrs)
+        .map(([k, v]) => renderAttr(k, v))
+        .filter(Boolean)
+        .join(' ');
+      return `<${tag} ${attrStr} />`;
+    })
+    .join('');
+  return (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ' +
+    'fill="none" stroke="currentColor" stroke-width="1.5" ' +
+    'stroke-linecap="round" stroke-linejoin="round">' +
+    inner +
+    '</svg>'
+  );
+}
+
+async function buildHugeiconsCatalog() {
+  // Hugeicons exports are ESM-only. Dynamic import to load.
+  const mod = await import('@hugeicons/core-free-icons');
+  // Each icon is exported under three names: `Bare`, `BareIcon`, `BareFreeIcons`.
+  // The full free set is only addressable via `*Icon` (many icons have no
+  // bare-name export). Keep `*Icon` as the canonical React name — that
+  // matches Hugeicons' own docs (`<HugeiconsIcon icon={SearchIcon} />`).
+  const icons = [];
+  for (const [exportName, value] of Object.entries(mod)) {
+    if (!Array.isArray(value)) continue;
+    if (!exportName.endsWith('Icon')) continue;
+    if (exportName.endsWith('FreeIcons')) continue;
+    icons.push({ name: exportName, svg: hugeiconArrayToSvg(value) });
+  }
+  await emitCatalog('hugeicons', icons);
 }
 
 await buildLucideCatalog();
+await buildPhosphorCatalog();
+await buildRemixCatalog();
+await buildTablerCatalog();
+await buildHugeiconsCatalog();

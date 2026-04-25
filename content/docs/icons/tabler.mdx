@@ -3,13 +3,9 @@ title: Tabler
 description: A comprehensive set of outline icons with sharp geometry and great coverage
 ---
 
-| | |
-|---|---|
-| **Package** | `@tabler/icons-react` |
-| **License** | MIT |
-| **Style** | Outline · Filled (solid) |
-| **Count** | 5,800+ icons |
-| **Source** | [tabler.io/icons](https://tabler.io/icons) |
+import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
+
+MIT · outline + filled · [tabler.io/icons](https://tabler.io/icons)
 
 ```bash
 npm install @tabler/icons-react
@@ -18,8 +14,8 @@ npm install @tabler/icons-react
 ```tsx
 import { IconSearch, IconSearchFilled } from '@tabler/icons-react';
 
-<IconSearch size={16} stroke={1.5} /> {/* outline */}
-<IconSearchFilled size={16} />        {/* solid */}
+<IconSearch size={16} stroke={1.5} />
+<IconSearchFilled size={16} />
 ```
 
-> **Browser coming soon.** A searchable grid with the outline/filled toggle will live here.
+<IconBrowser library="tabler" />
