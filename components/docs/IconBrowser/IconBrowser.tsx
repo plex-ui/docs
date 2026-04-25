@@ -1,32 +1,60 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  createElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactElement,
+} from 'react';
 import { Button } from '@plexui/ui/components/Button';
 import { Dialog } from '@plexui/ui/components/Dialog';
 import { Download, SearchSm } from '@plexui/ui/components/Icon';
-import { plexCatalog } from './catalogs/plex';
 import type { CatalogIcon, IconCatalog } from './types';
 import s from './IconBrowser.module.css';
 
-const CATALOGS: Record<string, IconCatalog> = {
-  plex: plexCatalog,
+/**
+ * Lazy catalog loaders — `import()` keeps the per-library icon module
+ * out of the docs route's main chunk. Without this Turbopack chokes on
+ * compiling `import * as Lucide from 'lucide-react'` (~1.9k icons) every
+ * time `/docs/[[...slug]]` is rebuilt.
+ */
+const CATALOG_LOADERS: Record<string, () => Promise<IconCatalog>> = {
+  plex: () => import('./catalogs/plex').then((m) => m.plexCatalog),
+  'lucide-stroke': () =>
+    import('./catalogs/lucide-stroke').then((m) => m.loadLucideStrokeCatalog()),
 };
 
-export type IconBrowserLibrary = keyof typeof CATALOGS;
+export type IconBrowserLibrary = keyof typeof CATALOG_LOADERS;
 
 export type IconBrowserProps = {
-  /** Which icon set to render. Each catalog ships its own icon list and
-   * import-path conventions. */
+  /** Which icon set to render. */
   library: IconBrowserLibrary;
 };
 
 export function IconBrowser({ library }: IconBrowserProps) {
-  const catalog = CATALOGS[library];
+  const [catalog, setCatalog] = useState<IconCatalog | null>(null);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<CatalogIcon | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Load the catalog on mount / library change.
+  useEffect(() => {
+    let cancelled = false;
+    const loader = CATALOG_LOADERS[library];
+    if (!loader) return;
+    setCatalog(null);
+    loader().then((next) => {
+      if (!cancelled) setCatalog(next);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [library]);
+
   const filtered = useMemo(() => {
+    if (!catalog) return [];
     const q = query.trim().toLowerCase();
     if (!q) return catalog.icons;
     return catalog.icons.filter((icon) => icon.name.toLowerCase().includes(q));
@@ -45,10 +73,13 @@ export function IconBrowser({ library }: IconBrowserProps) {
     return () => document.removeEventListener('keydown', onKey);
   }, []);
 
-  if (!catalog) {
-    // Defensive — should never trigger because the prop is typed against CATALOGS keys.
+  if (!CATALOG_LOADERS[library]) {
     return null;
   }
+
+  const totalLabel = catalog
+    ? `${catalog.icons.length.toLocaleString()} icons`
+    : 'Loading…';
 
   return (
     <div className={s.Root}>
@@ -58,22 +89,34 @@ export function IconBrowser({ library }: IconBrowserProps) {
           <input
             ref={inputRef}
             type="text"
-            placeholder={`Search ${catalog.icons.length.toLocaleString()} icons…`}
+            placeholder={
+              catalog
+                ? `Search ${catalog.icons.length.toLocaleString()} icons…`
+                : 'Loading icons…'
+            }
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             className={s.Input}
-            aria-label={`Search ${catalog.label}`}
+            aria-label={catalog ? `Search ${catalog.label}` : 'Search'}
+            disabled={!catalog}
           />
           <kbd className={s.Kbd}>⌘K</kbd>
         </div>
         <span className={s.Count}>
-          {filtered.length === catalog.icons.length
-            ? `${catalog.icons.length.toLocaleString()} icons`
-            : `${filtered.length.toLocaleString()} of ${catalog.icons.length.toLocaleString()}`}
+          {catalog == null
+            ? totalLabel
+            : filtered.length === catalog.icons.length
+              ? `${catalog.icons.length.toLocaleString()} icons`
+              : `${filtered.length.toLocaleString()} of ${catalog.icons.length.toLocaleString()}`}
         </span>
       </div>
 
-      {filtered.length === 0 ? (
+      {!catalog ? (
+        <div className={s.Empty}>
+          <SearchSm className={s.EmptyIcon} />
+          <p className={s.EmptyText}>Loading icons…</p>
+        </div>
+      ) : filtered.length === 0 ? (
         <div className={s.Empty}>
           <SearchSm className={s.EmptyIcon} />
           <p className={s.EmptyText}>
@@ -82,22 +125,19 @@ export function IconBrowser({ library }: IconBrowserProps) {
         </div>
       ) : (
         <div className={s.Grid}>
-          {filtered.map((icon) => {
-            const { name, Component } = icon;
-            return (
-              <button
-                key={name}
-                type="button"
-                className={s.Tile}
-                data-icon={name}
-                onClick={() => setSelected(icon)}
-                aria-label={name}
-                title={name}
-              >
-                <Component />
-              </button>
-            );
-          })}
+          {filtered.map((icon) => (
+            <button
+              key={icon.name}
+              type="button"
+              className={s.Tile}
+              data-icon={icon.name}
+              onClick={() => setSelected(icon)}
+              aria-label={icon.name}
+              title={icon.name}
+            >
+              <IconRender icon={icon} />
+            </button>
+          ))}
         </div>
       )}
 
@@ -113,7 +153,7 @@ export function IconBrowser({ library }: IconBrowserProps) {
 /* ── Dialog with the four copy/download actions ──────────── */
 
 type IconDetailDialogProps = {
-  catalog: IconCatalog;
+  catalog: IconCatalog | null;
   selected: CatalogIcon | null;
   onClose: () => void;
 };
@@ -130,8 +170,15 @@ function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps)
     flashTimer.current = setTimeout(() => setCopied(null), 1500);
   };
 
-  const getSvgMarkup = (name: string): string | null => {
-    const node = document.querySelector(`[data-icon="${name}"] svg`);
+  const getSvgMarkup = (icon: CatalogIcon): string | null => {
+    // External catalogs ship raw SVG — use it directly.
+    if (icon.svg) {
+      return icon.svg.includes('xmlns=')
+        ? icon.svg
+        : icon.svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
+    }
+    // Plex catalog: lift SVG from the rendered DOM tile.
+    const node = document.querySelector(`[data-icon="${icon.name}"] svg`);
     if (!node) return null;
     return node.outerHTML
       .replace(/ aria-hidden="true"/, '')
@@ -146,10 +193,10 @@ function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps)
   return (
     <Dialog open={selected != null} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Content width={420}>
-        {selected && (
+        {selected && catalog && (
           <div className={s.DialogPanel}>
             <div className={s.Preview}>
-              <selected.Component />
+              <IconRender icon={selected} />
             </div>
             <h3 className={s.IconName}>{selected.name}</h3>
             <div className={s.Actions}>
@@ -173,7 +220,7 @@ function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps)
                 variant="outline"
                 color="secondary"
                 onClick={() => {
-                  const svg = getSvgMarkup(selected.name);
+                  const svg = getSvgMarkup(selected);
                   if (svg) copy(svg, 'svg');
                 }}
                 block
@@ -184,7 +231,7 @@ function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps)
                 variant="outline"
                 color="secondary"
                 onClick={() => {
-                  const svg = getSvgMarkup(selected.name);
+                  const svg = getSvgMarkup(selected);
                   if (svg) downloadSvgFile(`${selected.name}.svg`, svg);
                 }}
                 block
@@ -197,6 +244,69 @@ function IconDetailDialog({ catalog, selected, onClose }: IconDetailDialogProps)
       </Dialog.Content>
     </Dialog>
   );
+}
+
+/* ── Icon renderer (component vs raw SVG) ────────────────── */
+
+/**
+ * Renders either a React icon component (Plex catalog) or a raw SVG
+ * string parsed into React elements (external catalogs). Parsing happens
+ * client-side via DOMParser — same trust boundary as `<svg>` markup we
+ * generate at build time, no `dangerouslySetInnerHTML`, no third-party
+ * sanitizer needed.
+ */
+function IconRender({ icon }: { icon: CatalogIcon }) {
+  const parsed = useMemo(() => {
+    if (icon.Component) return null;
+    if (typeof window === 'undefined') return null;
+    return parseSvgString(icon.svg);
+  }, [icon]);
+
+  if (icon.Component) {
+    const Component = icon.Component;
+    return <Component />;
+  }
+  return parsed;
+}
+
+/** SVG attributes that need a different name in React's JSX dialect. */
+const SVG_ATTR_RENAMES: Record<string, string> = {
+  class: 'className',
+  'stroke-width': 'strokeWidth',
+  'stroke-linecap': 'strokeLinecap',
+  'stroke-linejoin': 'strokeLinejoin',
+  'stroke-miterlimit': 'strokeMiterlimit',
+  'stroke-dasharray': 'strokeDasharray',
+  'stroke-dashoffset': 'strokeDashoffset',
+  'fill-rule': 'fillRule',
+  'clip-rule': 'clipRule',
+  'fill-opacity': 'fillOpacity',
+  'stroke-opacity': 'strokeOpacity',
+  'xmlns:xlink': 'xmlnsXlink',
+  'xlink:href': 'xlinkHref',
+};
+
+function elementToReact(node: Element, key: number = 0): ReactElement {
+  const props: Record<string, string | number> = { key };
+  for (const attr of Array.from(node.attributes)) {
+    const name = SVG_ATTR_RENAMES[attr.name] ?? attr.name;
+    props[name] = attr.value;
+  }
+  const children = Array.from(node.children).map((child, i) =>
+    elementToReact(child, i)
+  );
+  return createElement(node.tagName.toLowerCase(), props, ...children);
+}
+
+function parseSvgString(svgString: string): ReactElement | null {
+  try {
+    const doc = new DOMParser().parseFromString(svgString, 'image/svg+xml');
+    const svgEl = doc.querySelector('svg');
+    if (!svgEl || doc.querySelector('parsererror')) return null;
+    return elementToReact(svgEl);
+  } catch {
+    return null;
+  }
 }
 
 /* ── Helpers ──────────────────────────────────────────────── */

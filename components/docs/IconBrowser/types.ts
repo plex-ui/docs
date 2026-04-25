@@ -1,19 +1,16 @@
 import type { ComponentType, SVGProps } from 'react';
 
-/**
- * Render an icon. Most catalogs hand back a React component that takes
- * standard SVG props; some libraries (Hugeicons) need a wrapper that
- * receives icon data — those catalogs return a thin component that
- * already closes over the data.
- */
 export type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-export type CatalogIcon = {
-  /** Unique name within the catalog — also the React export name. */
-  name: string;
-  /** Component that renders the SVG. */
-  Component: IconComponent;
-};
+/**
+ * One catalog entry — either a React component (Plex Icons, where each
+ * icon already lives as a JSX export) or a raw SVG string (external
+ * libraries fetched as a static JSON catalog so we don't bundle 1.9k
+ * React components into the docs route).
+ */
+export type CatalogIcon =
+  | { name: string; Component: IconComponent; svg?: undefined }
+  | { name: string; Component?: undefined; svg: string };
 
 export type IconCatalog = {
   /** Library identifier. Should match the `library` prop on <IconBrowser>. */
