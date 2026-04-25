@@ -164,6 +164,7 @@ function buildSectionsList(): PageTree.Item[] {
 }
 
 const COMPONENTS_INDEX_URL = '/docs/components';
+const ICONS_INDEX_URL = '/docs/icons';
 
 function buildComponentsList(componentsSection: SectionFolder): PageTree.Item[] {
   // Hardcoded URL filter — fumadocs marks the folder as `root: true` in
@@ -177,6 +178,21 @@ function buildComponentsList(componentsSection: SectionFolder): PageTree.Item[] 
   );
 }
 
+function buildIconsList(iconsSection: SectionFolder): PageTree.Item[] {
+  // Mirrors `buildComponentsList` — expose the 6 library pages as a
+  // separate sidebar group under their own "Icons" separator. The
+  // grid index (/docs/icons) is intentionally dropped here: it already
+  // appears under "Sections" as the entry-point link, and listing it
+  // twice would create a duplicate row in the sidebar.
+  //
+  // Order is preserved from `content/docs/icons/meta.json` (Plex first
+  // as the brand-bundled set, then external libraries) — unlike
+  // components, alphabetic order here would bury Plex below Hugeicons.
+  return flattenFolderPages(iconsSection.folder).filter(
+    (page) => page.url !== ICONS_INDEX_URL
+  );
+}
+
 /**
  * Reshapes the docs page tree into a flat shadcn/ui-style sidebar:
  *
@@ -187,19 +203,31 @@ function buildComponentsList(componentsSection: SectionFolder): PageTree.Item[] 
  *   • Installation
  *   • …
  *
+ *   ─ Icons ─
+ *   • Plex Icons
+ *   • Lucide
+ *   • Hugeicons
+ *   • Phosphor
+ *   • Remix Icon
+ *   • Tabler
+ *
  *   ─ Components ─
  *   • Accordion
  *   • Alert
  *   • …
  *
  * The original folder hierarchy stays in `content/docs/` for routing —
- * we just flatten it for sidebar display.
+ * we just flatten it for sidebar display. Icons get the same parallel-
+ * group treatment as Components so PageNav (`useFooterItems`) finds
+ * them in the tree without any per-section overrides.
  */
 function processRoot(root: PageTree.Root) {
   const sectionFolders = getSectionFolders(root);
   const componentsSection = sectionFolders.find((entry) => entry.slug === 'components');
+  const iconsSection = sectionFolders.find((entry) => entry.slug === 'icons');
 
   const sectionsList = buildSectionsList();
+  const iconsList = iconsSection ? buildIconsList(iconsSection) : [];
   const componentsList = componentsSection ? buildComponentsList(componentsSection) : [];
 
   const nextChildren: PageTree.Node[] = [];
@@ -207,6 +235,11 @@ function processRoot(root: PageTree.Root) {
   if (sectionsList.length > 0) {
     nextChildren.push({ type: 'separator', name: 'Sections' });
     nextChildren.push(...sectionsList);
+  }
+
+  if (iconsList.length > 0) {
+    nextChildren.push({ type: 'separator', name: 'Icons' });
+    nextChildren.push(...iconsList);
   }
 
   if (componentsList.length > 0) {
