@@ -70,7 +70,11 @@
   align-items: center;
   height: 22px;
   padding: 0 6px;
+  /* Reset every UA <kbd> default — Chromium, Firefox and Safari each
+     ship a different combo of border, box-shadow and background. */
   border: 0;
+  outline: 0;
+  box-shadow: none;
   border-radius: 4px;
   background: var(--alpha-06);
   font-size: 12px;
@@ -311,6 +315,9 @@
   }
 }
 
+/* Close button now lives over the preview canvas (top-right of the
+   gray box) so it doesn't visually clash with the panel's outer
+   border or the close-to-the-edge corner radius. */
 .PanelClose {
   position: absolute;
   top: 8px;
@@ -318,8 +325,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border: 0;
   background: transparent;
   border-radius: 6px;
@@ -339,6 +346,7 @@
 }
 
 .PanelPreview {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -356,7 +364,6 @@
 
 .PanelName {
   margin: 0;
-  padding-right: 24px; /* leave room for close button */
   font-size: 14px;
   font-weight: 600;
   font-family: var(--font-mono);

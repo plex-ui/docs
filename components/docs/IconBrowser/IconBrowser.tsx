@@ -287,16 +287,16 @@ function IconDetailPanel({ catalog, selected, onClose }: IconDetailPanelProps) {
       role="region"
       aria-label={`${selected.name} actions`}
     >
-      <button
-        type="button"
-        className={s.PanelClose}
-        onClick={onClose}
-        aria-label="Close"
-      >
-        <X />
-      </button>
       <div className={s.PanelPreview}>
         <IconRender icon={selected} />
+        <button
+          type="button"
+          className={s.PanelClose}
+          onClick={onClose}
+          aria-label="Close"
+        >
+          <X />
+        </button>
       </div>
       <h3 className={s.PanelName}>{selected.name}</h3>
       <div className={s.PanelActions}>
