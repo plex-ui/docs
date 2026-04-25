@@ -80,6 +80,31 @@
   pointer-events: none;
 }
 
+.ClearButton {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-tertiary);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.ClearButton:hover {
+  background: var(--alpha-08);
+  color: var(--color-text);
+}
+
 .Count {
   font-size: 13px;
   color: var(--color-text-tertiary);
@@ -120,6 +145,25 @@
 .Tile > svg {
   width: 22px;
   height: 22px;
+}
+
+/* ── Skeleton tiles while catalog is loading ──────────────── */
+
+.SkeletonTile {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  background: var(--alpha-06);
+  animation: pulseFade 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseFade {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* ── Empty state ───────────────────────────────────────────── */
