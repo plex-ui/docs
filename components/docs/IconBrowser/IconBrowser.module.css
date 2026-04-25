@@ -1,0 +1,189 @@
+.Root {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Search row ────────────────────────────────────────────── */
+
+.SearchRow {
+  position: sticky;
+  top: var(--fd-docs-row-1, 64px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  background: var(--color-surface);
+}
+
+.InputWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.Input {
+  display: block;
+  width: 100%;
+  padding: 10px 64px 10px 40px;
+  border: 1px solid var(--alpha-10);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: 14px;
+  color: var(--color-text);
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.Input:hover {
+  border-color: var(--alpha-15);
+}
+
+.Input:focus {
+  outline: 0;
+  border-color: var(--alpha-25);
+}
+
+.Input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.InputIcon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.Kbd {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid var(--alpha-08);
+  border-radius: 6px;
+  background: var(--alpha-04);
+  font-size: 11px;
+  font-family: var(--font-sans);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.Count {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+/* ── Grid ──────────────────────────────────────────────────── */
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 4px;
+}
+
+.Tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+  padding: 0;
+}
+
+.Tile:hover {
+  background: var(--alpha-08);
+}
+
+.Tile:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: -2px;
+}
+
+.Tile > svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ── Empty state ───────────────────────────────────────────── */
+
+.Empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.EmptyIcon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-tertiary);
+}
+
+.EmptyText {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
+.EmptyText > strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ── Detail dialog ─────────────────────────────────────────── */
+
+.DialogPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  background: var(--alpha-04);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+}
+
+.Preview > svg {
+  width: 96px;
+  height: 96px;
+}
+
+.IconName {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+}
+
+.Actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
