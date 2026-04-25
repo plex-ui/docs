@@ -9,35 +9,19 @@ export interface DocsSectionNavItem {
 }
 
 const DOCS_SECTION_SLUGS = [
-  'overview',
   'foundations',
   'concepts',
   'hooks',
   'transitions',
+  'installation',
+  'skills',
+  'ai-setup',
+  'mcp',
+  'registry',
+  'changelog',
 ] as const;
 
-const DOCS_SIDEBAR_GROUPS: Array<{
-  name: string;
-  slugs: (typeof DOCS_SECTION_SLUGS)[number][];
-}> = [
-  { name: 'Overview', slugs: ['overview'] },
-  { name: 'Foundations', slugs: ['foundations'] },
-  { name: 'Guides', slugs: ['concepts', 'hooks'] },
-  { name: 'Transitions', slugs: ['transitions'] },
-];
-
 const NAV_ORDER = ['docs', 'components'] as const;
-
-const SIDEBAR_MODE: Record<
-  (typeof DOCS_SECTION_SLUGS)[number],
-  'all' | 'indexOnly'
-> = {
-  overview: 'all',
-  foundations: 'all',
-  concepts: 'indexOnly',
-  hooks: 'indexOnly',
-  transitions: 'all',
-};
 
 interface SectionFolder {
   slug: string;
@@ -149,163 +133,111 @@ function navOrder(slug: string): number {
   return index === -1 ? Number.MAX_SAFE_INTEGER : index;
 }
 
-function docsSectionOrder(slug: string): number {
-  const index = DOCS_SECTION_SLUGS.indexOf(
-    slug as (typeof DOCS_SECTION_SLUGS)[number]
+/**
+ * The ordered list of "Sections" entries shown at the top of the sidebar,
+ * mirroring shadcn/ui's two-group layout. URLs are hardcoded so the list
+ * stays stable regardless of how Fumadocs flattens `meta.json`-rooted
+ * folders inside `source.pageTree`.
+ */
+const SECTIONS_ORDER: Array<{ label: string; url: string }> = [
+  { label: 'Introduction', url: '/docs' },
+  { label: 'Components', url: '/docs/components' },
+  { label: 'Icons', url: '/docs/icons' },
+  { label: 'Installation', url: '/docs/installation' },
+  { label: 'Foundations', url: '/docs/foundations' },
+  { label: 'Concepts', url: '/docs/concepts' },
+  { label: 'Skills', url: '/docs/skills' },
+  { label: 'AI Setup', url: '/docs/ai-setup' },
+  { label: 'MCP Server', url: '/docs/mcp' },
+  { label: 'Registry', url: '/docs/registry' },
+  { label: 'Hooks', url: '/docs/hooks' },
+  { label: 'Transitions', url: '/docs/transitions' },
+  { label: 'Changelog', url: '/docs/changelog' },
+];
+
+function buildSectionsList(): PageTree.Item[] {
+  return SECTIONS_ORDER.map((entry) => ({
+    type: 'page',
+    name: entry.label,
+    url: entry.url,
+  }));
+}
+
+const COMPONENTS_INDEX_URL = '/docs/components';
+
+function buildComponentsList(componentsSection: SectionFolder): PageTree.Item[] {
+  // Hardcoded URL filter — fumadocs marks the folder as `root: true` in
+  // meta.json and the resulting `folder.index` is not always set, so
+  // comparing against `folder.index?.url` lets the index slip through.
+  const all = flattenFolderPages(componentsSection.folder).filter(
+    (page) => page.url !== COMPONENTS_INDEX_URL
   );
-  return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+  return all.sort((a, b) =>
+    toLabel(a.name, '').localeCompare(toLabel(b.name, ''))
+  );
 }
 
-function getDocsSectionPages(entry: SectionFolder): PageTree.Item[] {
-  const pages = flattenFolderPages(entry.folder);
-  const mode = SIDEBAR_MODE[entry.slug as (typeof DOCS_SECTION_SLUGS)[number]];
-
-  if (mode === 'indexOnly') {
-    if (entry.folder.index) {
-      const indexItem = pages.find((item) => item.url === entry.folder.index!.url);
-      if (indexItem) return [{ ...indexItem }];
-    }
-
-    return pages[0] ? [{ ...pages[0] }] : [];
-  }
-
-  return pages.map((item) => ({ ...item }));
-}
-
-function buildDocsFolder(
-  docsSections: SectionFolder[]
-): { node: PageTree.Folder; href: string } | null {
-  if (docsSections.length === 0) return null;
-
-  const ordered = [...docsSections].sort((a, b) => {
-    const orderA = docsSectionOrder(a.slug);
-    const orderB = docsSectionOrder(b.slug);
-
-    if (orderA !== orderB) return orderA - orderB;
-    return a.slug.localeCompare(b.slug);
-  });
-
-  const bySlug = new Map(ordered.map((entry) => [entry.slug, entry]));
-  const children: PageTree.Node[] = [];
-  let href = '/docs/overview';
-
-  for (const group of DOCS_SIDEBAR_GROUPS) {
-    const pages: PageTree.Item[] = [];
-
-    for (const slug of group.slugs) {
-      const entry = bySlug.get(slug);
-      if (!entry) continue;
-      pages.push(...getDocsSectionPages(entry));
-    }
-
-    if (pages.length === 0) continue;
-    children.push({
-      type: 'separator',
-      name: group.name,
-    });
-
-    for (const page of pages) {
-      children.push({ ...page });
-    }
-
-    if (group.slugs.includes('overview')) {
-      href = pages[0].url;
-    }
-  }
-
-  const overviewEntry = ordered.find((entry) => entry.slug === 'overview');
-  const indexItem = overviewEntry?.folder.index
-    ? { ...overviewEntry.folder.index }
-    : undefined;
-
-  return {
-    node: {
-      type: 'folder',
-      name: 'Docs',
-      root: true,
-      defaultOpen: true,
-      collapsible: false,
-      index: indexItem,
-      children,
-    },
-    href,
-  };
-}
-
-function buildComponentsFolder(
-  entry: SectionFolder
-): { node: PageTree.Folder; href: string } | null {
-  const pages = flattenFolderPages(entry.folder);
-  if (pages.length === 0) return null;
-
-  const preferred = entry.folder.index
-    ? pages.find((item) => item.url === entry.folder.index!.url) ?? pages[0]
-    : pages[0];
-
-  if (!preferred) return null;
-
-  return {
-    node: {
-      ...entry.folder,
-      root: true,
-      defaultOpen: true,
-      children: pages.map((item) => ({ ...item })),
-    },
-    href: preferred.url,
-  };
-}
-
+/**
+ * Reshapes the docs page tree into a flat shadcn/ui-style sidebar:
+ *
+ *   ─ Sections ─
+ *   • Introduction
+ *   • Components
+ *   • Icons
+ *   • Installation
+ *   • …
+ *
+ *   ─ Components ─
+ *   • Accordion
+ *   • Alert
+ *   • …
+ *
+ * The original folder hierarchy stays in `content/docs/` for routing —
+ * we just flatten it for sidebar display.
+ */
 function processRoot(root: PageTree.Root) {
-  const sections: DocsSectionNavItem[] = [];
-  const otherChildren: PageTree.Node[] = [];
   const sectionFolders = getSectionFolders(root);
-
-  const docsSections = sectionFolders.filter((entry) =>
-    DOCS_SECTION_SLUGS.includes(entry.slug as (typeof DOCS_SECTION_SLUGS)[number])
-  );
   const componentsSection = sectionFolders.find((entry) => entry.slug === 'components');
 
-  for (const node of root.children) {
-    if (node.type === 'page' && node.url === '/docs') continue;
-    if (node.type === 'folder') {
-      const firstUrl = node.index?.url ?? firstPageUrl(node.children);
-      const slug = firstUrl ? sectionSlugFromUrl(firstUrl) : null;
-      if (slug && (DOCS_SECTION_SLUGS.includes(
-        slug as (typeof DOCS_SECTION_SLUGS)[number]
-      ) || slug === 'components')) {
-        continue;
-      }
-    }
-    otherChildren.push(node);
-  }
+  const sectionsList = buildSectionsList();
+  const componentsList = componentsSection ? buildComponentsList(componentsSection) : [];
 
   const nextChildren: PageTree.Node[] = [];
 
-  const docsFolder = buildDocsFolder(docsSections);
-  if (docsFolder) {
-    nextChildren.push(docsFolder.node);
-    sections.push({
-      slug: 'docs',
-      label: 'Docs',
-      href: docsFolder.href,
-      matchSlugs: [...DOCS_SECTION_SLUGS],
-    });
+  if (sectionsList.length > 0) {
+    nextChildren.push({ type: 'separator', name: 'Sections' });
+    nextChildren.push(...sectionsList);
   }
+
+  if (componentsList.length > 0) {
+    nextChildren.push({ type: 'separator', name: 'Components' });
+    nextChildren.push(...componentsList);
+  }
+
+  root.children = nextChildren;
+
+  // Sections array drives the top-nav ("Components" label + active state).
+  // The `Docs` entry's matchSlugs covers everything except components/icons
+  // so the top-nav `Docs` link stays inactive on /docs/components and /docs/icons.
+  const sections: DocsSectionNavItem[] = [];
+
+  const docsHref = '/docs';
+
+  sections.push({
+    slug: 'docs',
+    label: 'Docs',
+    href: docsHref,
+    matchSlugs: [...DOCS_SECTION_SLUGS],
+  });
 
   if (componentsSection) {
-    const componentsFolder = buildComponentsFolder(componentsSection);
-    if (componentsFolder) {
-      nextChildren.push(componentsFolder.node);
-      sections.push({
-        slug: 'components',
-        label: toLabel(componentsSection.folder.name, 'Components'),
-        href: componentsFolder.href,
-        matchSlugs: ['components'],
-      });
-    }
+    sections.push({
+      slug: 'components',
+      label: toLabel(componentsSection.folder.name, 'Components'),
+      href: componentsSection.folder.index?.url ?? componentsSection.firstUrl,
+      matchSlugs: ['components'],
+    });
   }
-
-  root.children = [...nextChildren, ...otherChildren];
 
   return sections.sort((a, b) => {
     const orderA = navOrder(a.slug);

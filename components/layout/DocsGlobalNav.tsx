@@ -80,34 +80,61 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
         </div>
 
         {/* Center column: nav links (desktop only) */}
+        {/* Order: Components → Icons → Docs → Bridge → Blog. Logo handles "Home". */}
         <nav className={s.NavLinks} aria-label="Primary">
-          <Link
-            href="/"
-            className={`${s.NavLink} ${pathname === '/' ? s.NavLinkActive : ''}`.trim()}
-          >
-            Home
-          </Link>
-          <Link
-            href="/blog"
-            className={`${s.NavLink} ${isActivePath(pathname, '/blog') ? s.NavLinkActive : ''}`.trim()}
-          >
-            Blog
-          </Link>
-          <Link
-            href="/bridge"
-            className={`${s.NavLink} ${isActivePath(pathname, '/bridge') ? s.NavLinkActive : ''}`.trim()}
-          >
-            Bridge
-          </Link>
-          {navLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${s.NavLink} ${item.active ? s.NavLinkActive : ''}`.trim()}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {(() => {
+            const componentsLink = navLinks.find((item) => item.slug === 'components');
+            const docsLink = navLinks.find((item) => item.slug === 'docs');
+            const componentsActive = isActivePath(pathname, '/docs/components');
+            const iconsActive = isActivePath(pathname, '/docs/icons');
+            // Docs is active for everything under /docs/* EXCEPT routes
+            // owned by their own top-nav entry (Components, Icons).
+            const docsActive =
+              docsLink != null &&
+              isActivePath(pathname, '/docs') &&
+              !componentsActive &&
+              !iconsActive;
+            return (
+              <>
+                {componentsLink && (
+                  <Link
+                    key={componentsLink.href}
+                    href={componentsLink.href}
+                    className={`${s.NavLink} ${componentsActive ? s.NavLinkActive : ''}`.trim()}
+                  >
+                    {componentsLink.label}
+                  </Link>
+                )}
+                <Link
+                  href="/docs/icons"
+                  className={`${s.NavLink} ${iconsActive ? s.NavLinkActive : ''}`.trim()}
+                >
+                  Icons
+                </Link>
+                {docsLink && (
+                  <Link
+                    key={docsLink.href}
+                    href={docsLink.href}
+                    className={`${s.NavLink} ${docsActive ? s.NavLinkActive : ''}`.trim()}
+                  >
+                    {docsLink.label}
+                  </Link>
+                )}
+                <Link
+                  href="/bridge"
+                  className={`${s.NavLink} ${isActivePath(pathname, '/bridge') ? s.NavLinkActive : ''}`.trim()}
+                >
+                  Bridge
+                </Link>
+                <Link
+                  href="/blog"
+                  className={`${s.NavLink} ${isActivePath(pathname, '/blog') ? s.NavLinkActive : ''}`.trim()}
+                >
+                  Blog
+                </Link>
+              </>
+            );
+          })()}
         </nav>
 
         {/* Right column: search + GitHub + CTA + theme toggle + menu */}

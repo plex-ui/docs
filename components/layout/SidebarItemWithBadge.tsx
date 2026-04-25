@@ -1,6 +1,7 @@
 'use client';
 
-import { SidebarItem } from 'fumadocs-ui/components/sidebar/base';
+import Link from 'fumadocs-core/link';
+import { usePathname } from 'fumadocs-core/framework';
 import type { FC } from 'react';
 import type * as PageTree from 'fumadocs-core/page-tree';
 import { Badge } from '@plexui/ui/components/Badge';
@@ -15,15 +16,48 @@ function slugFromUrl(url: string): string {
   return url.replace(/^\/docs\/components\//, '').replace(/\/$/, '');
 }
 
+function normalizePath(p: string): string {
+  return p.length > 1 ? p.replace(/\/+$/, '') : p;
+}
+
+/**
+ * Sections entries that render their sub-pages as a separate list elsewhere
+ * in the sidebar (the alphabetical Components group). For these, the parent
+ * link should activate ONLY on its own index page — the leaf entry handles
+ * sub-page highlighting.
+ *
+ * Same applies to `/docs` (Introduction) — otherwise it would light up on
+ * every page in docs because every URL is a prefix of `/docs`.
+ */
+const EXACT_MATCH_URLS = new Set(['/docs', '/docs/components']);
+
+/**
+ * Active when the current pathname IS the link's URL or sits under it
+ * (`/docs/icons/plex` activates the `/docs/icons` Sections entry).
+ *
+ * For URLs in `EXACT_MATCH_URLS`, only an exact match counts — see comment
+ * above for the reasoning.
+ *
+ * Replaces fumadocs' default `SidebarItem` strict-equality match — that one
+ * leaves "Icons" inactive whenever the user drills into a sub-page.
+ */
+function isActivePath(pathname: string, url: string): boolean {
+  const current = normalizePath(pathname);
+  const target = normalizePath(url);
+  if (EXACT_MATCH_URLS.has(target)) return current === target;
+  return current === target || current.startsWith(`${target}/`);
+}
+
 export const SidebarItemWithBadge: FC<{ item: PageTree.Item }> = ({ item }) => {
+  const pathname = usePathname();
   const slug = slugFromUrl(item.url);
   const isNew = (NEW_COMPONENT_SLUGS as readonly string[]).includes(slug);
+  const active = isActivePath(pathname, item.url);
 
   return (
-    <SidebarItem
+    <Link
       href={item.url}
-      external={item.external}
-      icon={item.icon}
+      data-active={active ? 'true' : 'false'}
       className={SIDEBAR_ITEM_BASE}
     >
       {item.name}
@@ -34,6 +68,6 @@ export const SidebarItemWithBadge: FC<{ item: PageTree.Item }> = ({ item }) => {
           </Badge>
         </SidebarMenuBadge>
       )}
-    </SidebarItem>
+    </Link>
   );
 };

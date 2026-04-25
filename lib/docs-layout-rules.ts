@@ -1,20 +1,22 @@
 import type { TOCItemType } from 'fumadocs-core/toc';
 
-const LEFT_SIDEBAR_SECTIONS = new Set([
-  'overview',
-  'foundations',
-  'hooks',
-  'concepts',
-  'transitions',
-  'components',
-]);
+// On the new flat docs structure every page lives directly under /docs/*
+// (or /docs/components/*) — so we always show the left sidebar on docs.
+// Returning `null` from `getSectionFromSlug` (i.e. the /docs index) still
+// resolves to "show sidebar" because /docs is now the Introduction page.
+const LEFT_SIDEBAR_SECTIONS: Set<string> | null = null;
 const TOC_ALLOWED_SECTIONS = new Set([
-  'overview',
   'foundations',
   'concepts',
   'components',
   'hooks',
   'transitions',
+  'installation',
+  'skills',
+  'ai-setup',
+  'mcp',
+  'registry',
+  'changelog',
 ]);
 const TOC_ITEM_THRESHOLD = 1;
 
@@ -26,9 +28,11 @@ export function getSectionFromSlug(slug?: string[]): string | null {
   return slug?.[0] ?? null;
 }
 
-export function shouldShowLeftSidebar(section: string | null | undefined): boolean {
-  if (!isNonEmptySection(section)) return false;
-  return LEFT_SIDEBAR_SECTIONS.has(section);
+export function shouldShowLeftSidebar(_section: string | null | undefined): boolean {
+  // Always-on sidebar after the shadcn-style flat-tree migration.
+  return LEFT_SIDEBAR_SECTIONS === null
+    ? true
+    : isNonEmptySection(_section) && LEFT_SIDEBAR_SECTIONS.has(_section);
 }
 
 export function shouldShowRightToc(

@@ -1,0 +1,46 @@
+import Link from 'fumadocs-core/link';
+import componentsMeta from '@/content/docs/components/meta.json';
+
+/**
+ * Slug → display title overrides. Default behaviour is "title-case the slug",
+ * e.g. `button-group` → `Button Group`. Anything where the displayed name
+ * shouldn't follow that rule (initialisms, marketing names) goes here.
+ */
+const TITLE_OVERRIDES: Record<string, string> = {
+  'otp-input': 'OTP Input',
+  'floating-label-input': 'Float Input',
+};
+
+function slugToTitle(slug: string): string {
+  if (TITLE_OVERRIDES[slug]) return TITLE_OVERRIDES[slug];
+  return slug
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+/**
+ * Plain three-column text grid of every component, mirroring the shape
+ * shadcn/ui uses on /docs/components — links only, no card chrome.
+ *
+ * Source of truth is `content/docs/components/meta.json`, so the list stays
+ * in sync with the sidebar without manual editing here.
+ */
+export function ComponentsList() {
+  const slugs = componentsMeta.pages.filter((slug) => slug !== 'index');
+
+  return (
+    <ul className="not-prose my-6 grid list-none grid-cols-1 gap-x-12 gap-y-3 p-0 text-sm sm:grid-cols-2 lg:grid-cols-3">
+      {slugs.map((slug) => (
+        <li key={slug} className="m-0 p-0">
+          <Link
+            href={`/docs/components/${slug}`}
+            className="text-fd-foreground transition-colors hover:text-fd-muted-foreground"
+          >
+            {slugToTitle(slug)}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
