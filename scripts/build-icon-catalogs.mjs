@@ -158,7 +158,26 @@ async function buildLucideOutlinedCatalog() {
   await emitCatalog('lucide-outlined', icons);
 }
 
-/* ── Tabler (outline variant) ────────────────────────────── */
+/* ── Tabler (outline + filled variants) ──────────────────── */
+
+/**
+ * Tabler ships two variant directories under `@tabler/icons/icons/`:
+ *   - `outline/` (5,039 icons) — stroke-based, default
+ *   - `filled/`  (1,053 icons) — filled paths, strict subset of outline
+ *
+ * Tabler React exports use the `Icon` prefix:
+ *   `search.svg` (outline) → `IconSearch`
+ *   `search.svg` (filled)  → `IconSearchFilled`
+ *
+ * Tags live alongside in `@tabler/icons/icons.json` (`{tags[]}`) and
+ * are shared between styles, so we reuse one tag map for both variants.
+ */
+
+function tablerTagsBySlug(meta) {
+  return Object.fromEntries(
+    Object.entries(meta).map(([slug, info]) => [slug, info?.tags ?? []])
+  );
+}
 
 async function buildTablerCatalog() {
   const sourceDir = join(
@@ -168,20 +187,30 @@ async function buildTablerCatalog() {
     'icons',
     'outline'
   );
-  // Tabler ships rich per-icon metadata (`{name, category, tags[], styles}`)
-  // in `@tabler/icons/icons.json`. Pull tags into the catalog so the
-  // detail panel shows search aliases just like the Lucide tab does.
   const metaPath = join(REPO_ROOT, 'node_modules', '@tabler/icons', 'icons.json');
   const meta = JSON.parse(await readFile(metaPath, 'utf8'));
-  const tagsBySlug = Object.fromEntries(
-    Object.entries(meta).map(([slug, info]) => [slug, info?.tags ?? []])
-  );
-  // Tabler React exports use the `Icon` prefix: search.svg → IconSearch.
   const icons = await readDirSvgs(sourceDir, {
     transformName: (slug) => `Icon${toPascalCase(slug)}`,
-    tagsBySlug,
+    tagsBySlug: tablerTagsBySlug(meta),
   });
   await emitCatalog('tabler', icons);
+}
+
+async function buildTablerFilledCatalog() {
+  const sourceDir = join(
+    REPO_ROOT,
+    'node_modules',
+    '@tabler/icons',
+    'icons',
+    'filled'
+  );
+  const metaPath = join(REPO_ROOT, 'node_modules', '@tabler/icons', 'icons.json');
+  const meta = JSON.parse(await readFile(metaPath, 'utf8'));
+  const icons = await readDirSvgs(sourceDir, {
+    transformName: (slug) => `Icon${toPascalCase(slug)}Filled`,
+    tagsBySlug: tablerTagsBySlug(meta),
+  });
+  await emitCatalog('tabler-filled', icons);
 }
 
 /* ── Hugeicons (free) ────────────────────────────────────── */
@@ -312,6 +341,7 @@ await buildLucideCatalog();
 await buildLucideOutlinedCatalog();
 await buildLucideLabCatalog();
 await buildTablerCatalog();
+await buildTablerFilledCatalog();
 await buildHugeiconsCatalog();
 await emitPlexTags();
 

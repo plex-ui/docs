@@ -36,6 +36,8 @@ const CATALOG_LOADERS: Record<string, () => Promise<IconCatalog>> = {
   'lucide-lab': () =>
     import('./catalogs/lucide-lab').then((m) => m.loadLucideLabCatalog()),
   tabler: () => import('./catalogs/tabler').then((m) => m.loadTablerCatalog()),
+  'tabler-filled': () =>
+    import('./catalogs/tabler-filled').then((m) => m.loadTablerFilledCatalog()),
   hugeicons: () =>
     import('./catalogs/hugeicons').then((m) => m.loadHugeiconsCatalog()),
 };
