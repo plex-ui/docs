@@ -39,11 +39,24 @@ export function shouldShowRightToc(
   section: string | null | undefined,
   toc: TOCItemType[] | undefined
 ): boolean {
+  // Introduction page (`/docs`) has no section but DOES carry a useful
+  // heading hierarchy ("Why", "What's included", "Quick start"). Show
+  // its TOC so the page width doesn't jump compared to the
+  // sub-section pages around it.
+  if (section === null || section === undefined) {
+    return (toc?.length ?? 0) >= TOC_ITEM_THRESHOLD;
+  }
   if (!isNonEmptySection(section)) return false;
   if (!TOC_ALLOWED_SECTIONS.has(section)) return false;
   return (toc?.length ?? 0) >= TOC_ITEM_THRESHOLD;
 }
 
-export function shouldShowPageNav(section: string | null | undefined): boolean {
+export function shouldShowPageNav(
+  section: string | null | undefined
+): boolean {
+  // `/docs` (Introduction) has no section but is part of the same
+  // sidebar tree and benefits from a "next page" button down to
+  // Installation, just like every other docs page.
+  if (section === null || section === undefined) return true;
   return isNonEmptySection(section);
 }
