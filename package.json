@@ -15,6 +15,7 @@
     "build:icon-catalogs": "node scripts/build-icon-catalogs.mjs",
     "fetch:icon-tags": "node scripts/fetch-icon-tags.mjs",
     "generate:plex-tags": "node scripts/generate-plex-tags.mjs",
+    "classify:plex-filled": "node scripts/classify-plex-filled.mjs",
     "predev": "node scripts/build-icon-catalogs.mjs",
     "postinstall": "npm run build:ui",
     "build:ui": "npm run build --workspace=packages/ui",

@@ -31,6 +31,8 @@ const GRID_GAP = 8;
  */
 const CATALOG_LOADERS: Record<string, () => Promise<IconCatalog>> = {
   plex: () => import('./catalogs/plex').then((m) => m.loadPlexCatalog()),
+  'plex-filled': () =>
+    import('./catalogs/plex').then((m) => m.loadPlexFilledCatalog()),
   lucide: () =>
     import('./catalogs/lucide').then((m) => m.loadLucideCatalog()),
   'lucide-lab': () =>
