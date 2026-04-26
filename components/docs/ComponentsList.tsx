@@ -30,7 +30,7 @@ export function ComponentsList() {
   const slugs = componentsMeta.pages.filter((slug) => slug !== 'index');
 
   return (
-    <ul className="not-prose my-6 grid list-none grid-cols-1 gap-x-12 gap-y-3 p-0 text-sm sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="not-prose my-8 grid list-none grid-cols-1 gap-x-12 gap-y-4 p-0 text-base sm:grid-cols-2 lg:grid-cols-3">
       {slugs.map((slug) => (
         <li key={slug} className="m-0 p-0">
           <Link
