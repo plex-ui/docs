@@ -7,7 +7,19 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
-## Unreleased
+## 0.14.2 — 2026-04-26
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>EmptyMessage</strong> — relax the container <code>min-width</code> from a hard <code>20rem</code> to <code>min(20rem, 100%)</code> so the component shrinks gracefully inside narrow grid columns instead of overflowing its parent. A 320px-wide <code>EmptyMessage</code> placed in a 304px column was pushing 16px of horizontal overflow; now it caps at the column width and re-flows the title and description text below it.
+  </li>
+</ul>
+
+---
+
+## 0.14.1 — 2026-04-26
 
 ### Fixed
 
