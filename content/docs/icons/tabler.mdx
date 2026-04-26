@@ -1,8 +1,16 @@
 ---
 title: Tabler
-description: '@tabler/icons-react · MIT · 5,039 outline icons (also filled variant)'
+description: '@tabler/icons-react · MIT · 5,039 outline + 1,053 filled icons'
 ---
 
+import { IconVariantTabs, IconVariant } from '@/components/docs/IconVariantTabs';
 import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
 
-<IconBrowser library="tabler" />
+<IconVariantTabs ariaLabel="Tabler variant">
+  <IconVariant value="outline" label="Outline">
+    <IconBrowser library="tabler" />
+  </IconVariant>
+  <IconVariant value="filled" label="Filled">
+    <IconBrowser library="tabler-filled" />
+  </IconVariant>
+</IconVariantTabs>
