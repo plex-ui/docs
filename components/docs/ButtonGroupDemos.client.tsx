@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 /**
- * Client-side dynamic re-exports so `content/docs/components/button-group.mdx`
+ * Client-side dynamic re-exports so `content/components/button-group.mdx`
  * can keep its clean `import { ... } from '@/components/docs/ButtonGroupDemos.client'`
  * shape while skipping SSR for every demo subtree.
  *

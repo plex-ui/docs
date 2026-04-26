@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { source, blog } from '@/lib/source';
+import { source, componentsSource, iconsSource, blog } from '@/lib/source';
 
 const STATIC_UPDATED = '2026-04-05';
 
@@ -23,12 +23,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/compare/ant-design`, lastModified: STATIC_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
   ];
 
-  const docsPages: MetadataRoute.Sitemap = source.getPages().map((page) => ({
-    url: `${baseUrl}${page.url}`,
-    lastModified: toISODate((page.data as { lastModified?: Date }).lastModified),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+  const fromSource = (
+    src: typeof source | typeof componentsSource | typeof iconsSource,
+  ): MetadataRoute.Sitemap =>
+    src.getPages().map((page) => ({
+      url: `${baseUrl}${page.url}`,
+      lastModified: toISODate((page.data as { lastModified?: Date }).lastModified),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
+
+  const docsPages = [
+    ...fromSource(source),
+    ...fromSource(componentsSource),
+    ...fromSource(iconsSource),
+  ];
 
   const blogIndex: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/blog`, lastModified: STATIC_UPDATED, changeFrequency: 'weekly', priority: 0.8 },

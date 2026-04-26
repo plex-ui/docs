@@ -74,7 +74,7 @@ export const WithAction = () => (
 )
 
 export const AsLink = () => (
-  <Card href="/docs/components/button" interactive style={{ maxWidth: 320 }}>
+  <Card href="/components/button" interactive style={{ maxWidth: 320 }}>
     <Card.Header>
       <Card.Title>Button</Card.Title>
       <Card.Description>Triggers actions, submits forms, opens dialogs.</Card.Description>

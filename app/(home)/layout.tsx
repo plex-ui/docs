@@ -2,7 +2,7 @@ import { SidebarProvider } from 'fumadocs-ui/components/sidebar/base';
 import { DocsGlobalNav } from '@/components/layout/DocsGlobalNav';
 import { HomeSidebarDrawer } from '@/components/layout/HomeSidebarDrawer';
 import { buildDocsTreeNavigation } from '@/lib/docs-navigation';
-import { source } from '@/lib/source';
+import { source, componentsSource, iconsSource } from '@/lib/source';
 import { Footer } from './_components/Footer';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
@@ -14,7 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const docsNavigation = buildDocsTreeNavigation(source.pageTree);
+  const docsNavigation = buildDocsTreeNavigation({
+    docs: source.pageTree,
+    components: componentsSource.pageTree,
+    icons: iconsSource.pageTree,
+  });
 
   return (
     <SidebarProvider>

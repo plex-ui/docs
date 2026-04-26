@@ -13,5 +13,5 @@
       "content": "export { Input } from '@plexui/ui/components/Input';\nexport type { InputProps } from '@plexui/ui/components/Input';\n"
     }
   ],
-  "docs": "Import as `import { Input } from '@/components/ui/input'`. See https://plexui.com/docs/components/input for full prop reference."
+  "docs": "Import as `import { Input } from '@/components/ui/input'`. See https://plexui.com/components/input for full prop reference."
 }

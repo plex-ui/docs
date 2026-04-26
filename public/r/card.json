@@ -13,5 +13,5 @@
       "content": "export { Card } from '@plexui/ui/components/Card';\nexport type { CardProps, CardSlotProps, CardVariant, CardSize } from '@plexui/ui/components/Card';\n"
     }
   ],
-  "docs": "Import as `import { Card } from '@/components/ui/card'`. See https://plexui.com/docs/components/card for full prop reference."
+  "docs": "Import as `import { Card } from '@/components/ui/card'`. See https://plexui.com/components/card for full prop reference."
 }

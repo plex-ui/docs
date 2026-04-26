@@ -23,7 +23,7 @@ export function SizingSection() {
       </div>
 
       <SectionCta>
-        <ButtonLink href="/docs/components" color="secondary" variant="outline" size="md" pill={false}>
+        <ButtonLink href="/components" color="secondary" variant="outline" size="md" pill={false}>
           Browse Components
         </ButtonLink>
       </SectionCta>

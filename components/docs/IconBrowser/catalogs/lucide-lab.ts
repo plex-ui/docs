@@ -7,7 +7,7 @@ type JsonRecord = { name: string; svg: string; tags?: string[] };
  *
  * Lab icons aren't exported from `lucide-react` directly; the canonical
  * usage pattern is the `<Icon iconNode={...} />` HOC pattern, which is
- * why this catalog gets its own tab on `/docs/icons/lucide` instead of
+ * why this catalog gets its own tab on `/icons/lucide` instead of
  * being merged into the main Lucide catalog. Lucide.dev does the same
  * "Include external libs / Lab" filter; we surface it as a clearly
  * labelled tab so the copy-import format matches the actual API users

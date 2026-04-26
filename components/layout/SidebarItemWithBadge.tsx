@@ -29,11 +29,11 @@ function normalizePath(p: string): string {
  * Same applies to `/docs` (Introduction) — otherwise it would light up on
  * every page in docs because every URL is a prefix of `/docs`.
  */
-const EXACT_MATCH_URLS = new Set(['/docs', '/docs/components']);
+const EXACT_MATCH_URLS = new Set(['/docs', '/components']);
 
 /**
  * Active when the current pathname IS the link's URL or sits under it
- * (`/docs/icons/plex` activates the `/docs/icons` Sections entry).
+ * (`/icons/plex` activates the `/icons` Sections entry).
  *
  * For URLs in `EXACT_MATCH_URLS`, only an exact match counts — see comment
  * above for the reasoning.

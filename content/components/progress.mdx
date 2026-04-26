@@ -28,7 +28,7 @@ return <Progress value={value} />;`}>
 
 ### With label
 
-<ComponentPreview details={<>Pair a <a href="/docs/components/label"><code>Label</code></a> with a value readout above the bar — typical upload / onboarding progress pattern.</>} code={`<div>
+<ComponentPreview details={<>Pair a <a href="/components/label"><code>Label</code></a> with a value readout above the bar — typical upload / onboarding progress pattern.</>} code={`<div>
   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
     <Label htmlFor="progress-upload">Uploading plex-ui.zip</Label>
     <span>3.2 / 4.8 MB</span>
@@ -40,7 +40,7 @@ return <Progress value={value} />;`}>
 
 ### Controlled
 
-<ComponentPreview details={<>Bind <code>value</code> to any source — here it follows a <a href="/docs/components/slider"><code>Slider</code></a>.</>} code={`const [value, setValue] = useState(50);
+<ComponentPreview details={<>Bind <code>value</code> to any source — here it follows a <a href="/components/slider"><code>Slider</code></a>.</>} code={`const [value, setValue] = useState(50);
 
 return (
   <>
@@ -61,7 +61,7 @@ return (
 | `max` | `number` | `100` | Maximum progress value |
 | `className` | `string` | — | Applied to the root `<div>` |
 
-Built on [Radix Progress](https://www.radix-ui.com/primitives/docs/components/progress) — all `Progress.Root` props are forwarded.
+Built on [Radix Progress](https://www.radix-ui.com/primitives/components/progress) — all `Progress.Root` props are forwarded.
 
 ## Styling
 

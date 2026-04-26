@@ -3,7 +3,7 @@
   "version": "latest",
   "description": "The most flexible UI kit for React. Production-grade components with pixel-perfect Figma parity.",
   "homepage": "https://plexui.com",
-  "docsUrl": "https://plexui.com/docs/components",
+  "docsUrl": "https://plexui.com/components",
   "install": "npm install @plexui/ui",
   "setup": {
     "css": "@import \"tailwindcss\";\n@import \"@plexui/ui/css\";",
@@ -131,7 +131,7 @@
           "details": "The suggested approach for dismissible notices is to use labeled buttons via actions. You can also provide onDismiss to render a dismiss button in the alert chrome."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/alert"
+      "docsUrl": "https://plexui.com/components/alert"
     },
     {
       "slug": "avatar-group",
@@ -170,7 +170,7 @@
           "details": "You can control the size of all avatars in the group by passing size directly to the &lt;AvatarGroup&gt; component."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/avatar-group"
+      "docsUrl": "https://plexui.com/components/avatar-group"
     },
     {
       "slug": "avatar",
@@ -269,7 +269,7 @@
           "details": "Avatars can be used as interactive elements by passing an onClick handler. The avatar will automatically apply semantic and visual interaction styles."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/avatar"
+      "docsUrl": "https://plexui.com/components/avatar"
     },
     {
       "slug": "badge",
@@ -337,7 +337,7 @@
           "details": "In this example, additional gap is added with a Tailwind gap-1.5 class to provide the appropriate visual spacing."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/badge"
+      "docsUrl": "https://plexui.com/components/badge"
     },
     {
       "slug": "button-link",
@@ -442,7 +442,7 @@
         },
         {
           "name": "Internal link",
-          "code": "<ButtonLink href=\"/docs/components/button\" color=\"primary\">\n  Internal link <ArrowRight />\n</ButtonLink>",
+          "code": "<ButtonLink href=\"/components/button\" color=\"primary\">\n  Internal link <ArrowRight />\n</ButtonLink>",
           "details": "When a relative href or to is provided, ButtonLink automatically uses the configured LinkComponent from PlexUIProvider so your router handles navigation and prefetching."
         },
         {
@@ -476,7 +476,7 @@
           "details": "Use disabled to both visually and accessibly disable a link. The component renders as a span[role=\"link\"], and onClick handlers are not bound."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/button-link"
+      "docsUrl": "https://plexui.com/components/button-link"
     },
     {
       "slug": "button",
@@ -615,7 +615,7 @@
           "details": "Use opticallyAlign with either \"start\" or \"end\" to offset the gutter of the button."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/button"
+      "docsUrl": "https://plexui.com/components/button"
     },
     {
       "slug": "checkbox",
@@ -772,7 +772,7 @@
           "details": "Use dividers to separate checkbox groups into logical sections. Each section can be wrapped in a Field with its own label and description."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/checkbox"
+      "docsUrl": "https://plexui.com/components/checkbox"
     },
     {
       "slug": "code-block",
@@ -874,7 +874,7 @@
           ]
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/code-block"
+      "docsUrl": "https://plexui.com/components/code-block"
     },
     {
       "slug": "copy-tooltip",
@@ -933,7 +933,7 @@
           "code": "<CopyTooltip copyValue=\"Very cool content to copy\">\n  <Tooltip.TriggerDecorator>sess_12345abcdefg</Tooltip.TriggerDecorator>\n</CopyTooltip>"
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/copy-tooltip"
+      "docsUrl": "https://plexui.com/components/copy-tooltip"
     },
     {
       "slug": "date-input",
@@ -1074,7 +1074,7 @@
           "code": "<DateInput disabled value={DateTime.local(2025, 1, 1)} onChange={...} />"
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/date-input"
+      "docsUrl": "https://plexui.com/components/date-input"
     },
     {
       "slug": "date-picker",
@@ -1211,7 +1211,7 @@
           "details": "Disable the picker to prevent user interaction."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/date-picker"
+      "docsUrl": "https://plexui.com/components/date-picker"
     },
     {
       "slug": "date-range-picker",
@@ -1368,7 +1368,7 @@
           "details": "Enable a stepper in the trigger with triggerStepperUnit=\"month\". When the selected range matches the unit, the trigger shows the stepper."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/date-range-picker"
+      "docsUrl": "https://plexui.com/components/date-range-picker"
     },
     {
       "slug": "dialog",
@@ -1418,7 +1418,7 @@
           "details": "Use color=\"danger\" on the action button for destructive operations."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/dialog"
+      "docsUrl": "https://plexui.com/components/dialog"
     },
     {
       "slug": "empty-message",
@@ -1465,7 +1465,7 @@
           "details": "The components of EmptyMessage are both composable and optional. This example omits the EmptyMessage.Title component, using only an icon and description for a simpler message style."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/empty-message"
+      "docsUrl": "https://plexui.com/components/empty-message"
     },
     {
       "slug": "field",
@@ -1646,7 +1646,7 @@
           "details": "Dropdown birthday picker with Month/Day/Year selects inside a labeled Field group."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/field"
+      "docsUrl": "https://plexui.com/components/field"
     },
     {
       "slug": "file-upload",
@@ -1796,7 +1796,7 @@
           ]
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/file-upload"
+      "docsUrl": "https://plexui.com/components/file-upload"
     },
     {
       "slug": "floating-label-input",
@@ -1969,7 +1969,7 @@
           "details": "A country code selector paired with a FloatingLabelInput that uses startAdornment to show the dial code as a non-editable prefix. The prefix appears when the field is focused or has a value."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/floating-label-input"
+      "docsUrl": "https://plexui.com/components/floating-label-input"
     },
     {
       "slug": "indicators",
@@ -2089,7 +2089,7 @@
           ]
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/indicators"
+      "docsUrl": "https://plexui.com/components/indicators"
     },
     {
       "slug": "input",
@@ -2248,7 +2248,7 @@
           "code": "<Field label=\"Full name\" opticallyAlign=\"start\">\n  <Input placeholder=\"Jane Doe\" pill />\n</Field>\n<Field\n  label=\"Email\"\n  description=\"We'll never share your email.\"\n  errorMessage=\"Please enter a valid email address.\"\n  required\n  opticallyAlign=\"start\"\n>\n  <Input placeholder=\"jane@example.com\" pill />\n</Field>\n<Button className=\"mt-6\" color=\"primary\" variant=\"soft\" pill>\n  Submit\n</Button>"
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/input"
+      "docsUrl": "https://plexui.com/components/input"
     },
     {
       "slug": "markdown-editor",
@@ -2346,7 +2346,7 @@
           "details": "Use invalid or wrap with Field and pass errorMessage to show an error state."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/markdown-editor"
+      "docsUrl": "https://plexui.com/components/markdown-editor"
     },
     {
       "slug": "markdown",
@@ -2381,7 +2381,7 @@
           "details": "Use includeMath to enable LaTeX rendering."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/markdown"
+      "docsUrl": "https://plexui.com/components/markdown"
     },
     {
       "slug": "menu",
@@ -2522,7 +2522,7 @@
           "details": "Use Menu.ItemActions and Menu.ItemAction for hover actions (e.g. delete) on an item.Accessibility note: these actions are not keyboard accessible due to how Radix Menu works, so they should not be critical actions with no other parity."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/menu"
+      "docsUrl": "https://plexui.com/components/menu"
     },
     {
       "slug": "otp-input",
@@ -2605,7 +2605,7 @@
           "code": "<OTPInput value=\"488030\" disabled />"
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/otp-input"
+      "docsUrl": "https://plexui.com/components/otp-input"
     },
     {
       "slug": "popover",
@@ -2679,7 +2679,7 @@
           "details": "You can access usePopoverController() controller context from components within Popover.Content. The hook exposes two methods, close() and shake(). They do exactly what you think they do.Attempting to submit an empty form calls the shake() methodAfter async submission occurs (faked loading state), the close() method is called to close the popup imperatively."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/popover"
+      "docsUrl": "https://plexui.com/components/popover"
     },
     {
       "slug": "progress-steps",
@@ -2776,7 +2776,7 @@
           "details": "Use color to change the color scheme of completed and active steps."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/progress-steps"
+      "docsUrl": "https://plexui.com/components/progress-steps"
     },
     {
       "slug": "radio-group",
@@ -2898,7 +2898,7 @@
           "details": "Use dividers to separate radio groups into logical sections. Each section can be wrapped in a Field with its own label and description."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/radio-group"
+      "docsUrl": "https://plexui.com/components/radio-group"
     },
     {
       "slug": "select-control",
@@ -3047,7 +3047,7 @@
           "details": "Country selector with flag icons and phone input composed into a form. Selecting a country updates the dial code prefix and clears the phone field. Phone numbers are formatted as you type using per-country patterns (e.g. 123 456 7890 for US, 1234 567 890 for UK). Search works by both country name and dial code. Validation runs on submit &mdash; the phone field shows an error state with FieldError when the number is too short or too long."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/select-control"
+      "docsUrl": "https://plexui.com/components/select-control"
     },
     {
       "slug": "select",
@@ -3173,7 +3173,7 @@
           "details": "A column-visibility panel built with Popover and Switch. Toggling a switch moves the column between shown and hidden groups."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/select"
+      "docsUrl": "https://plexui.com/components/select"
     },
     {
       "slug": "shimmer-text",
@@ -3225,7 +3225,7 @@
           "details": "ShimmerableText allows toggling the shimmer on and off. When shimmer is set to false, the animation finishes its current iteration and then pauses gracefully — no abrupt cut. Use this variant when text transitions between a loading and idle state."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/shimmer-text"
+      "docsUrl": "https://plexui.com/components/shimmer-text"
     },
     {
       "slug": "sidebar",
@@ -3426,7 +3426,7 @@
           ]
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/sidebar"
+      "docsUrl": "https://plexui.com/components/sidebar"
     },
     {
       "slug": "skeleton",
@@ -3476,7 +3476,7 @@
           "details": "Table skeletons show header and row structure while data loads."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/skeleton"
+      "docsUrl": "https://plexui.com/components/skeleton"
     },
     {
       "slug": "slider",
@@ -3597,7 +3597,7 @@
           "details": "Set disabled to prevent interaction with the slider."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/slider"
+      "docsUrl": "https://plexui.com/components/slider"
     },
     {
       "slug": "stat-card",
@@ -3727,7 +3727,7 @@
           "details": "Use invertTrend for metrics where positive values are bad (e.g., error rate, response time). Toggle the switch to see the color flip."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/stat-card"
+      "docsUrl": "https://plexui.com/components/stat-card"
     },
     {
       "slug": "switch",
@@ -3872,7 +3872,7 @@
           "details": "Use dividers to separate switch groups into logical sections. Each section can be wrapped in a Field with its own label and description."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/switch"
+      "docsUrl": "https://plexui.com/components/switch"
     },
     {
       "slug": "table",
@@ -4105,7 +4105,7 @@
           ]
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/table"
+      "docsUrl": "https://plexui.com/components/table"
     },
     {
       "slug": "tabs",
@@ -4266,7 +4266,7 @@
           "details": "When tabs overflow their container, they automatically become horizontally scrollable. The active tab scrolls into view smoothly. No extra prop is needed — just constrain the container width."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/tabs"
+      "docsUrl": "https://plexui.com/components/tabs"
     },
     {
       "slug": "tag-input",
@@ -4337,7 +4337,7 @@
           "details": "Combine TagInput with clickable buttons to let users add tags by clicking suggestions or typing manually. Suggestions disappear once selected."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/tag-input"
+      "docsUrl": "https://plexui.com/components/tag-input"
     },
     {
       "slug": "text-link",
@@ -4421,7 +4421,7 @@
           "details": "Use the className prop to customize font weight."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/text-link"
+      "docsUrl": "https://plexui.com/components/text-link"
     },
     {
       "slug": "textarea",
@@ -4532,7 +4532,7 @@
           "details": "By default, autofill extensions are prevented by Textarea. For the occasions where you want browser extensions to be present, pass allowAutofillExtensions to remove the disabling.When name is passed this value will default to true."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/textarea"
+      "docsUrl": "https://plexui.com/components/textarea"
     },
     {
       "slug": "toast",
@@ -4605,7 +4605,7 @@
           ]
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/toast"
+      "docsUrl": "https://plexui.com/components/toast"
     },
     {
       "slug": "tooltip",
@@ -4701,7 +4701,7 @@
           "details": "Compact tooltips are designed for short, 1-3 word tooltips with inverted styling. They feature minimal padding, a dark background with white text, and no box shadows. Use {'compact={true}'} for brief status messages."
         }
       ],
-      "docsUrl": "https://plexui.com/docs/components/tooltip"
+      "docsUrl": "https://plexui.com/components/tooltip"
     }
   ],
   "generatedAt": "2026-04-23T05:31:29.592Z"

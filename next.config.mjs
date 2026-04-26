@@ -33,30 +33,48 @@ const config = {
   reactStrictMode: true,
   async redirects() {
     return [
+      // /docs/components/* and /docs/icons/* moved out of /docs to be
+      // top-level peers of /docs, /bridge, /blog (matches the top-nav
+      // structure where Components / Icons are siblings of Docs).
+      // Catch-alls so every old bookmark, search-engine index, and
+      // external link continues to resolve.
       {
-        source: '/docs/components/modal',
-        destination: '/docs/components',
+        source: '/docs/components/:path*',
+        destination: '/components/:path*',
         permanent: true,
       },
-      // /docs/foundations/icons (old Plex icons gallery) → /docs/icons/plex
+      {
+        source: '/docs/icons/:path*',
+        destination: '/icons/:path*',
+        permanent: true,
+      },
+      // Old Modal page (long-defunct) → components index.
+      {
+        source: '/components/modal',
+        destination: '/components',
+        permanent: true,
+      },
+      // /docs/foundations/icons (old Plex icons gallery) → /icons/plex
       // (single source of truth in the new Icons section).
       {
         source: '/docs/foundations/icons',
-        destination: '/docs/icons/plex',
+        destination: '/icons/plex',
         permanent: true,
       },
       // Phosphor + Remix icon libraries dropped in the 2026-04-26
       // overhaul (viewBox / corner-radius mismatches with the rest of
-      // the set). External bookmarks / search results / changelog
-      // references should land on the gallery index instead of 404.
+      // the set). The catch-all above already redirects
+      // /docs/icons/{phosphor,remix} → /icons/{phosphor,remix}, but
+      // those slug pages don't exist now — these redirects send them
+      // on to the gallery index.
       {
-        source: '/docs/icons/phosphor',
-        destination: '/docs/icons',
+        source: '/icons/phosphor',
+        destination: '/icons',
         permanent: true,
       },
       {
-        source: '/docs/icons/remix',
-        destination: '/docs/icons',
+        source: '/icons/remix',
+        destination: '/icons',
         permanent: true,
       },
       {

@@ -264,7 +264,7 @@ import { Button } from "@plexui/ui";  // WRONG
 ## Full Documentation
 
 - [Installation](https://plexui.com/docs/overview/installation)
-- [Components](https://plexui.com/docs/components)
+- [Components](https://plexui.com/components)
 - [Design Tokens](https://plexui.com/docs/foundations/design-tokens)
 - [Colors](https://plexui.com/docs/foundations/colors)
 - [Icons](https://plexui.com/docs/foundations/icons)

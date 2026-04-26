@@ -13,5 +13,5 @@
       "content": "export { Label } from '@plexui/ui/components/Label';\nexport type { LabelProps } from '@plexui/ui/components/Label';\n"
     }
   ],
-  "docs": "Import as `import { Label } from '@/components/ui/label'`. See https://plexui.com/docs/components/label for full prop reference."
+  "docs": "Import as `import { Label } from '@/components/ui/label'`. See https://plexui.com/components/label for full prop reference."
 }

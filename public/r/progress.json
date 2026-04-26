@@ -13,5 +13,5 @@
       "content": "export { Progress } from '@plexui/ui/components/Progress';\nexport type { ProgressProps } from '@plexui/ui/components/Progress';\n"
     }
   ],
-  "docs": "Import as `import { Progress } from '@/components/ui/progress'`. See https://plexui.com/docs/components/progress for full prop reference."
+  "docs": "Import as `import { Progress } from '@/components/ui/progress'`. See https://plexui.com/components/progress for full prop reference."
 }

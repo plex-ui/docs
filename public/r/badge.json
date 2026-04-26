@@ -13,5 +13,5 @@
       "content": "export { Badge } from '@plexui/ui/components/Badge';\nexport type { BadgeProps } from '@plexui/ui/components/Badge';\n"
     }
   ],
-  "docs": "Import as `import { Badge } from '@/components/ui/badge'`. See https://plexui.com/docs/components/badge for full prop reference."
+  "docs": "Import as `import { Badge } from '@/components/ui/badge'`. See https://plexui.com/components/badge for full prop reference."
 }

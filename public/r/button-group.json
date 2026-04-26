@@ -13,5 +13,5 @@
       "content": "export { ButtonGroup } from '@plexui/ui/components/ButtonGroup';\nexport type { ButtonGroupProps, ButtonGroupOrientation, ButtonGroupSeparatorProps } from '@plexui/ui/components/ButtonGroup';\n"
     }
   ],
-  "docs": "Import as `import { ButtonGroup } from '@/components/ui/button-group'`. See https://plexui.com/docs/components/button-group for full prop reference."
+  "docs": "Import as `import { ButtonGroup } from '@/components/ui/button-group'`. See https://plexui.com/components/button-group for full prop reference."
 }

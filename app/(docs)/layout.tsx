@@ -1,7 +1,7 @@
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { ReactNode } from 'react';
 import { baseOptions } from '@/lib/layout.shared';
-import { source } from '@/lib/source';
+import { source, componentsSource, iconsSource } from '@/lib/source';
 import { DocsGlobalNav } from '@/components/layout/DocsGlobalNav';
 import { SidebarItemWithBadge } from '@/components/layout/SidebarItemWithBadge';
 import { SidebarNav } from '@/components/layout/SidebarNav';
@@ -9,7 +9,11 @@ import { buildDocsTreeNavigation } from '@/lib/docs-navigation';
 
 export default function Layout({ children }: { children: ReactNode }) {
   const options = baseOptions();
-  const docsNavigation = buildDocsTreeNavigation(source.pageTree);
+  const docsNavigation = buildDocsTreeNavigation({
+    docs: source.pageTree,
+    components: componentsSource.pageTree,
+    icons: iconsSource.pageTree,
+  });
 
   return (
     <DocsLayout

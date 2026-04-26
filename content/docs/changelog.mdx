@@ -13,20 +13,20 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Input.AdornmentButton</strong> (<a href="/docs/components/input">Input</a>)<br/>
+    <strong>Input.AdornmentButton</strong> (<a href="/components/input">Input</a>)<br/>
     New compound sub-component for in-input action buttons (voice toggle, copy, send, visibility). Picks up the same <code>--input-clear-size</code> / <code>--input-clear-pill-offset</code> / <code>--input-clear-icon-size</code> tokens as the built-in clear button, so it stays perfectly aligned inside any <code>Input</code> regardless of size or pill shape. Supports <code>aria-pressed</code> for toggle state and inherits all native <code>&lt;button&gt;</code> props. A new <code>color</code> prop (<code>caution</code> / <code>danger</code> / <code>success</code> / <code>info</code> / <code>discovery</code>) tints the pressed state with Plex's semantic palette — same tokens <code>Button</code> uses — so a recording-mode mic reads as amber, a destructive retry as red, etc.
   </li>
   <li>
-    <strong>ButtonGroup component</strong> (<a href="/docs/components/button-group">ButtonGroup</a>)<br/>
+    <strong>ButtonGroup component</strong> (<a href="/components/button-group">ButtonGroup</a>)<br/>
     Wraps any row of controls — <code>Button</code>, <code>Input</code>, trigger buttons — and strips the shared border so they read as one unit. Compound API with <code>ButtonGroup.Separator</code> and <code>ButtonGroup.Text</code> (muted label pill; <code>asChild</code> supported). Nest <code>ButtonGroup</code> inside itself for visually separated sub-groups (gap driven by <code>--button-group-nested-gap</code>). Supports <code>orientation="horizontal" | "vertical"</code> for toolbars, steppers, split buttons, pager + arrow nav, rich message composers, and search affordances.
   </li>
   <li>
-    <strong>Accordion component</strong> (<a href="/docs/components/accordion">Accordion</a>)<br/>
+    <strong>Accordion component</strong> (<a href="/components/accordion">Accordion</a>)<br/>
     Compound primitive built on Radix <code>Accordion.Root</code> — compose <code>Accordion.Item</code>, <code>Accordion.Trigger</code>, <code>Accordion.Content</code>. Supports <code>type="single" | "multiple"</code>, <code>collapsible</code>, per-item <code>disabled</code>, and controlled <code>value</code>/<code>onValueChange</code>. Styled through <code>--accordion-item-divider-color</code>, <code>--accordion-trigger-padding-block</code>, <code>--accordion-icon-size</code>, and a full set of typography / transition tokens. Use it for FAQ sections, settings panels, and collapsible reference lists.
   </li>
   <li>
-    <strong>Progress component</strong> (<a href="/docs/components/progress">Progress</a>)<br/>
-    Linear progress bar built on Radix <code>Progress.Root</code>. Accepts <code>value</code> (0–<code>max</code>) or <code>null</code> for an indeterminate sweep. Styled through <code>--progress-height</code>, <code>--progress-track-color</code>, <code>--progress-indicator-color</code>, <code>--progress-radius</code>, <code>--progress-indeterminate-duration</code>. Use it for uploads, onboarding completion, and any determinate "X of Y" feedback; <a href="/docs/components/indicators">CircularProgress / LoadingIndicator</a> stay for loading-spinner cases.
+    <strong>Progress component</strong> (<a href="/components/progress">Progress</a>)<br/>
+    Linear progress bar built on Radix <code>Progress.Root</code>. Accepts <code>value</code> (0–<code>max</code>) or <code>null</code> for an indeterminate sweep. Styled through <code>--progress-height</code>, <code>--progress-track-color</code>, <code>--progress-indicator-color</code>, <code>--progress-radius</code>, <code>--progress-indeterminate-duration</code>. Use it for uploads, onboarding completion, and any determinate "X of Y" feedback; <a href="/components/indicators">CircularProgress / LoadingIndicator</a> stay for loading-spinner cases.
   </li>
 </ul>
 
@@ -46,7 +46,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Label component</strong> (<a href="/docs/components/label">Label</a>)<br/>
+    <strong>Label component</strong> (<a href="/components/label">Label</a>)<br/>
     Standalone accessible label built on Radix's <code>Label.Root</code> — pairs with any form control via <code>htmlFor</code>, prevents double-click text selection, and forwards clicks to the associated control. Props: <code>htmlFor</code>. Styled through <code>--label-color</code>, <code>--label-font-size</code>, <code>--label-font-weight</code>, <code>--label-line-height</code>. Use <code>Field</code> for stacked form rows; use <code>Label</code> when pairing with a standalone Checkbox, Switch, or custom layout.
   </li>
 </ul>
@@ -59,7 +59,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Separator component</strong> (<a href="/docs/components/separator">Separator</a>)<br/>
+    <strong>Separator component</strong> (<a href="/components/separator">Separator</a>)<br/>
     Thin wrapper around Radix's <code>Separator.Root</code> for horizontal or vertical dividers. Props: <code>orientation="horizontal" | "vertical"</code> and <code>decorative</code>. Styled through <code>--separator-color</code> and <code>--separator-thickness</code> tokens so any scope can override look without subclassing.
   </li>
 </ul>
@@ -72,7 +72,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Card component</strong> (<a href="/docs/components/card">Card</a>)<br/>
+    <strong>Card component</strong> (<a href="/components/card">Card</a>)<br/>
     New surface primitive for composing forms, pricing tiles, and showcase cards. Compound API (<code>Card.Header</code>, <code>Card.Title</code>, <code>Card.Description</code>, <code>Card.Content</code>, <code>Card.Footer</code>, <code>Card.Action</code>) with <code>variant="outline" | "solid" | "ghost"</code>, <code>size="sm" | "md" | "lg"</code>, and optional <code>href</code> + <code>interactive</code> props. When <code>href</code> is provided the Card renders as the configured <code>LinkComponent</code> (e.g. <code>next/link</code>) via <code>useLinkComponent()</code>.
   </li>
 </ul>
@@ -85,11 +85,11 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Toast component</strong> (<a href="/docs/components/toast">Toast</a>)<br/>
+    <strong>Toast component</strong> (<a href="/components/toast">Toast</a>)<br/>
     New themed notification surface built on <code>sonner</code>. <code>&lt;Toaster /&gt;</code> + <code>toast()</code> re-exported from <code>@plexui/ui/components/Toast</code>. Light/dark sync via <code>data-theme</code> and <code>MutationObserver</code> (no <code>next-themes</code> dependency). Semantic <code>success</code>/<code>error</code>/<code>warning</code>/<code>info</code> variants drive icon color from <code>--color-text-&#123;intent&#125;-outline</code> tokens — no <code>richColors</code>. Defaults: <code>top-center</code> position, <code>3000ms</code> duration, shrink-to-fit width centered within a 400px max, no close button (persistent toasts use an inline action). <code>compact</code> helper export for centered-text layouts. Re-exports <code>Action</code>, <code>ExternalToast</code>, <code>ToastT</code> types.
   </li>
   <li>
-    <strong>Avatar initial renders behind image while loading</strong> (<a href="/docs/components/avatar">Avatar</a>)<br/>
+    <strong>Avatar initial renders behind image while loading</strong> (<a href="/components/avatar">Avatar</a>)<br/>
     Initial letter (or icon / overflow count) now renders as a placeholder layer underneath the image. On slow networks the avatar is never visually empty while the image is fetching, and if the image fails the placeholder remains — <code>onError</code> just hides the image layer.
   </li>
 </ul>
@@ -98,15 +98,15 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Select options with descriptions auto-bold title</strong> (<a href="/docs/components/select#with-descriptions">Select</a>)<br/>
+    <strong>Select options with descriptions auto-bold title</strong> (<a href="/components/select#with-descriptions">Select</a>)<br/>
     The <em>item + subtitle</em> pattern is now built into the component: any option carrying a <code>description</code> keeps its label at <code>font-weight: semibold</code> in every state (idle, highlighted, selected). Consumers and AI-generated demos no longer need to pass <code>optionClassName=&quot;font-semibold&quot;</code>. <code>.OptionDescription</code>&apos;s own <code>font-weight: normal</code> rule protects the description line.
   </li>
   <li>
-    <strong>Select option layout refactored into leading / trailing groups</strong> (<a href="/docs/components/select">Select</a>)<br/>
+    <strong>Select option layout refactored into leading / trailing groups</strong> (<a href="/components/select">Select</a>)<br/>
     Title and description now stack inside an <code>OptionLeading</code> column; the <code>OptionIndicatorSlot</code> is a dedicated start/end column at the <code>PressableInner</code> level. Fixes a regression where <code>checkPosition=&quot;end&quot;</code> let the description line bleed under the checkmark column. Also replaces the <code>:last-child</code> match (which was also hitting the start-position slot because text nodes don&apos;t count as element children) with an explicit <code>data-position=&quot;end&quot;</code> attribute.
   </li>
   <li>
-    <strong>Avatar demos migrated to shared <code>data-demo-controls</code> pattern</strong> (<a href="/docs/components/avatar">Avatar</a>)<br/>
+    <strong>Avatar demos migrated to shared <code>data-demo-controls</code> pattern</strong> (<a href="/components/avatar">Avatar</a>)<br/>
     Sizing, Overflow count, Roundness, and Colors &amp; variants now use the same <code>data-demo-controls</code> / <code>data-demo-stage</code> layout as every other component page — no more <code>margin: 24px -24px ...</code> + <code>width: calc(100% + 48px)</code> hack. Overflow count demo grew an <code>overflowCount</code> slider, Colors &amp; variants and Roundness gained <code>size</code> sliders. Colors is now a vertical 2-column grid (<code>soft</code> / <code>solid</code> × 6 colors) so it never clips at narrow widths.
   </li>
 </ul>
@@ -128,7 +128,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Sidebar docs rewritten</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
+    <strong>Sidebar docs rewritten</strong> (<a href="/components/sidebar">Sidebar</a>)<br/>
     Consolidated 14 examples into 7 — the new <strong>App Shell</strong> demo (workspace selector, expandable sections with hover flyouts when collapsed, footer with docs link + user menu) replaces the standalone <em>Console</em> example, and a beefed-up <strong>Basic</strong> demo absorbs <em>Scrollable Content</em>, <em>Without Icons</em>, <em>Collapse Modes</em>, <em>Footer Cards</em>, <em>Group Label Sizes</em>, <em>Badges</em>, and <em>Loading State</em> via toggles (<code>collapsible</code>, <code>icons</code>, <code>badges</code>, <code>footerCard</code>, <code>labelSize</code>, <code>bordered</code>). All demos now share a 260px width, the same <code>DemoSidebarHeader</code> (wordmark + tooltip-wrapped trigger with ⌘. shortcut), context-aware <code>SidebarCollapseLeft</code>/<code>SidebarCollapseRight</code> trigger icons, and consistent group/header spacing.
   </li>
 </ul>
@@ -137,7 +137,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Sidebar trigger hidden when icons are disabled</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
+    <strong>Sidebar trigger hidden when icons are disabled</strong> (<a href="/components/sidebar">Sidebar</a>)<br/>
     The <code>collapsible="icon"</code> rail no longer appears when a sidebar has no icons to collapse to — there&apos;s nothing to click on. The Mobile Menu and App Shell demos now force <code>collapsible="none"</code> when the icons toggle is off.
   </li>
 </ul>
@@ -150,11 +150,11 @@ This changelog documents significant updates, bug fixes, and improvements to com
     Plex UI now ships as a Claude Code plugin marketplace and a Codex skill. One-step install in Claude Code via <code>/plugin marketplace add plex-ui/docs</code> + <code>/plugin install plex-ui@plex-ui</code>; one-line install in Codex via <code>npx degit plex-ui/docs/skills/plexui/skills/plex-ui .agents/skills/plex-ui</code>. Ships <code>agents/openai.yaml</code> with Codex UI metadata (display name, SVG + PNG icons, brand color, default prompt, invocation policy) and <code>.claude-plugin/marketplace.json</code> with full manifest. Standalone <code>SKILL.md</code> install also supported for any agent that reads the open Agent Skills format.
   </li>
   <li>
-    <strong>DateInput component</strong> (<a href="/docs/components/date-input">DateInput</a>)<br/>
+    <strong>DateInput component</strong> (<a href="/components/date-input">DateInput</a>)<br/>
     New masked date and datetime input with Luxon-backed value parsing, configurable format, and min/max bounds.
   </li>
   <li>
-    <strong>FloatingLabelSelect multi-select</strong> (<a href="/docs/components/floating-label-input#multiple-selection">Floating Label Input</a>)<br/>
+    <strong>FloatingLabelSelect multi-select</strong> (<a href="/components/floating-label-input#multiple-selection">Floating Label Input</a>)<br/>
     New demo pairing <code>FloatingLabelSelect</code> with a <code>multiple</code> + <code>clearable</code> <code>Select</code>. Trigger shows the single label when one value is picked, <em>N skills</em> when more, with an integrated clear button that resets the list.
   </li>
   <li>
@@ -175,7 +175,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
     Dropped the &ldquo;New · Plex UI ships as…&rdquo; pill above the Hero icon tiles and the &ldquo;Design tokens, not just pixels&rdquo; eyebrow pill on <code>/bridge</code> — both were visual clutter. BridgePromo <code>LandingSection</code> now uses <code>maxWidth=&quot;2xl&quot;</code> so the card width matches its paragraph instead of stretching to a 4xl container.
   </li>
   <li>
-    <strong>Luxon type conflicts</strong> (<a href="/docs/components/date-input">DateInput</a>)<br/>
+    <strong>Luxon type conflicts</strong> (<a href="/components/date-input">DateInput</a>)<br/>
     Aligned <code>@types/luxon</code> versions across workspace and fixed a <code>DateTime</code> / <code>min</code>/<code>max</code> prop type mismatch in DateInput demos.
   </li>
 </ul>
@@ -188,8 +188,8 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Select description styling</strong> (<a href="/docs/components/select">Select</a>)<br/>
-    Polished the option description treatment and rewrote <a href="/docs/components/empty-message">EmptyMessage</a> docs so LLMs pick the right component and props on the first try.
+    <strong>Select description styling</strong> (<a href="/components/select">Select</a>)<br/>
+    Polished the option description treatment and rewrote <a href="/components/empty-message">EmptyMessage</a> docs so LLMs pick the right component and props on the first try.
   </li>
 </ul>
 
@@ -201,7 +201,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>TagInput tags restyled</strong> (<a href="/docs/components/tag-input">TagInput</a>)<br/>
+    <strong>TagInput tags restyled</strong> (<a href="/components/tag-input">TagInput</a>)<br/>
     Tags now render as soft buttons for consistency with the rest of the system. Added a new suggestions demo.
   </li>
 </ul>
@@ -214,7 +214,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Switch label font-weight</strong> (<a href="/docs/components/switch">Switch</a>)<br/>
+    <strong>Switch label font-weight</strong> (<a href="/components/switch">Switch</a>)<br/>
     Switch label font-weight now matches <code>Field</code> label (medium) — previously rendered lighter than surrounding form labels.
   </li>
 </ul>
@@ -227,7 +227,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Plain text FloatingLabelSelect example</strong> (<a href="/docs/components/floating-label-input#select">Floating Label Input</a>)<br/>
+    <strong>Plain text FloatingLabelSelect example</strong> (<a href="/components/floating-label-input#select">Floating Label Input</a>)<br/>
     New example without icons — a cleaner reference for simple role / category selects.
   </li>
   <li>
@@ -248,12 +248,12 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Floating label alignment</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    <strong>Floating label alignment</strong> (<a href="/components/floating-label-input">Floating Label Input</a>)<br/>
     Set <code>transform-origin: left</code> so the label scales from its left edge instead of jumping horizontally when it floats up.
   </li>
   <li>
     <strong>Blog code block styling</strong> (<a href="/blog">Blog</a>)<br/>
-    Unified Plex code block styles across blog and docs. Prose overrides for <code>pre</code>/<code>code</code>, default <code>text</code> language for bare fences, removed outdated Bridge demo video, and replaced placeholder <code>/some-path</code> links in <a href="/docs/components/button-link">ButtonLink</a> examples.
+    Unified Plex code block styles across blog and docs. Prose overrides for <code>pre</code>/<code>code</code>, default <code>text</code> language for bare fences, removed outdated Bridge demo video, and replaced placeholder <code>/some-path</code> links in <a href="/components/button-link">ButtonLink</a> examples.
   </li>
   <li>
     <strong>Comparison pages polish</strong><br/>
@@ -269,7 +269,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>FloatingLabelInput description</strong> (<a href="/docs/components/floating-label-input#with-description">FloatingLabelInput</a>)<br/>
+    <strong>FloatingLabelInput description</strong> (<a href="/components/floating-label-input#with-description">FloatingLabelInput</a>)<br/>
     New <code>description</code> prop for helper text below the input. When both <code>errorMessage</code> and <code>description</code> are present, error appears first (closest to input), description below — rendered as a single tight block with <code>margin-bottom</code> only under the last element. Text is left-aligned with input content via <code>padding-inline-start</code>. Error uses plain text (no icon) with <code>role="alert"</code> for accessibility.
   </li>
 </ul>
@@ -282,7 +282,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Form examples</strong> (<a href="/docs/components/form-examples">Form Examples</a>)<br/>
+    <strong>Form examples</strong> (<a href="/components/form-examples">Form Examples</a>)<br/>
     New docs page with real-world form patterns: Field label vs section header hierarchy following Apple Settings strategy — <code>SidebarGroupLabel</code> for section headers, <code>Field</code> labels for individual controls.
   </li>
 </ul>
@@ -312,7 +312,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>FileCard</strong> (<a href="/docs/components/file-upload">FileUpload</a>)<br/>
+    <strong>FileCard</strong> (<a href="/components/file-upload">FileUpload</a>)<br/>
     Extracted <code>FileCard</code> as a standalone component with optional delete button.
   </li>
 </ul>
@@ -334,11 +334,11 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>FileUpload</strong> (<a href="/docs/components/file-upload">FileUpload</a>)<br/>
+    <strong>FileUpload</strong> (<a href="/components/file-upload">FileUpload</a>)<br/>
     New file upload component with drag-and-drop, multi-file support, middle-truncated filenames, and form integration. CSS pixel-perfect from Figma specs.
   </li>
   <li>
-    <strong>FloatingLabelInput multiline</strong> (<a href="/docs/components/floating-label-input#multiline-textarea">FloatingLabelInput</a>)<br/>
+    <strong>FloatingLabelInput multiline</strong> (<a href="/components/floating-label-input#multiline-textarea">FloatingLabelInput</a>)<br/>
     New textarea mode with auto-resize, no resize handle, 2-row default, and exact padding match with input mode.
   </li>
   <li>
@@ -368,11 +368,11 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Horizontal menu</strong> (<a href="/docs/components/menu">Menu</a>)<br/>
+    <strong>Horizontal menu</strong> (<a href="/components/menu">Menu</a>)<br/>
     New horizontal menu layout with <code>size</code> prop (sm/md/lg), equal-width items, and <code>Play</code> icon.
   </li>
   <li>
-    <strong>Icon-only tabs</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    <strong>Icon-only tabs</strong> (<a href="/components/tabs">Tabs</a>)<br/>
     New example showing icon-only tab items.
   </li>
   <li>
@@ -409,7 +409,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Markdown Editor</strong> (<a href="/docs/components/markdown-editor">Markdown Editor</a>)<br/>
+    <strong>Markdown Editor</strong> (<a href="/components/markdown-editor">Markdown Editor</a>)<br/>
     New compact WYSIWYG markdown editor embedded in a form field, powered by Tiptap. Supports bold, italic, ordered/unordered lists, and links. Markdown input/output format (<code>{"[text](url)"}</code>). Includes link dialog with URL + title fields and remove action. Toolbar buttons show active state and feature design-system tooltips. Works with <code>Field</code> wrapper and supports <code>outline</code>/<code>soft</code> variants.
   </li>
   <li>
@@ -425,11 +425,11 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Sidebar Filtered Tree example</strong> (<a href="/docs/components/sidebar#filtered-tree">Sidebar</a>)<br/>
+    <strong>Sidebar Filtered Tree example</strong> (<a href="/components/sidebar#filtered-tree">Sidebar</a>)<br/>
     New demo with type-based filtering via <code>Filter</code> / <code>FilterBadge</code> icons, expand mode toggle (row vs chevron), and search with soft Input variant.
   </li>
   <li>
-    <strong>Sidebar Action Tree example</strong> (<a href="/docs/components/sidebar#action-tree">Sidebar</a>)<br/>
+    <strong>Sidebar Action Tree example</strong> (<a href="/components/sidebar#action-tree">Sidebar</a>)<br/>
     Drag-and-drop sortable nested items using <code>@dnd-kit/sortable</code>. Hover-revealed action buttons (more, add, reorder). New <code>GripVertical</code> and <code>Parallel</code> icons.
   </li>
   <li>
@@ -473,7 +473,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>DatePicker variants</strong> (<a href="/docs/components/date-picker">DatePicker</a>)<br/>
+    <strong>DatePicker variants</strong> (<a href="/components/date-picker">DatePicker</a>)<br/>
     DOB dropdown, time picker, masked date/datetime inputs.
   </li>
 </ul>
@@ -486,15 +486,15 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Dialog component</strong> (<a href="/docs/components/dialog">Dialog</a>)<br/>
+    <strong>Dialog component</strong> (<a href="/components/dialog">Dialog</a>)<br/>
     New modal dialog built on Radix Dialog. Compound components: <code>Dialog.Content</code>, <code>Dialog.Trigger</code>, <code>Dialog.Header</code>, <code>Dialog.Title</code>, <code>Dialog.Description</code>, <code>Dialog.Footer</code>, <code>Dialog.Close</code>. Supports 9-step size scale, scroll lock, and focus trapping.
   </li>
   <li>
-    <strong>Form Examples page</strong> (<a href="/docs/components/form-examples">Form Examples</a>)<br/>
+    <strong>Form Examples page</strong> (<a href="/components/form-examples">Form Examples</a>)<br/>
     Dedicated page for complete authentication flow demos: About You, Sign up, Log in, Enter password, Verify email, Verify email (error), and Confirm phone. Each demo includes a dialog toggle to preview the form inside a modal shell.
   </li>
   <li>
-    <strong>OTP input mode toggle</strong> (<a href="/docs/components/form-examples#verify-email">Form Examples</a>)<br/>
+    <strong>OTP input mode toggle</strong> (<a href="/components/form-examples#verify-email">Form Examples</a>)<br/>
     Verify email and Confirm phone demos now toggle between per-digit <code>OTPInput</code> and standard <code>FloatingLabelInput</code> text field modes.
   </li>
 </ul>
@@ -503,12 +503,12 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Form demos consolidated</strong> (<a href="/docs/components/form-examples">Form Examples</a>)<br/>
-    Moved all authentication form demos from <a href="/docs/components/floating-label-input">Float Input</a> and <a href="/docs/components/otp-input">OTP Input</a> pages into the dedicated Form Examples page. Source pages now focus on individual component API and features only.
+    <strong>Form demos consolidated</strong> (<a href="/components/form-examples">Form Examples</a>)<br/>
+    Moved all authentication form demos from <a href="/components/floating-label-input">Float Input</a> and <a href="/components/otp-input">OTP Input</a> pages into the dedicated Form Examples page. Source pages now focus on individual component API and features only.
   </li>
   <li>
-    <strong>Component index updated</strong> (<a href="/docs/components">Components</a>)<br/>
-    Added <a href="/docs/components/dialog">Dialog</a>, <a href="/docs/components/form-examples">Form Examples</a>, and <a href="/docs/components/otp-input">OTP Input</a> to the component card grid.
+    <strong>Component index updated</strong> (<a href="/components">Components</a>)<br/>
+    Added <a href="/components/dialog">Dialog</a>, <a href="/components/form-examples">Form Examples</a>, and <a href="/components/otp-input">OTP Input</a> to the component card grid.
   </li>
 </ul>
 
@@ -517,7 +517,7 @@ This changelog documents significant updates, bug fixes, and improvements to com
 <ul className="changelog-list">
   <li>
     <strong>Inline links in docs not distinguishable</strong><br/>
-    Prose links in documentation pages were rendered in the same color as body text, making them invisible as links. Now use <code>--link-primary-text-color</code> with hover state, matching the <a href="/docs/components/text-link">TextLink</a> component.
+    Prose links in documentation pages were rendered in the same color as body text, making them invisible as links. Now use <code>--link-primary-text-color</code> with hover state, matching the <a href="/components/text-link">TextLink</a> component.
   </li>
 </ul>
 
@@ -529,23 +529,23 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>StatCard component</strong> (<a href="/docs/components/stat-card">Stat Card</a>)<br/>
+    <strong>StatCard component</strong> (<a href="/components/stat-card">Stat Card</a>)<br/>
     New dashboard statistics card with 7 configurable features: <code>size</code> (sm/md/lg), <code>tooltip</code>, <code>trendPosition</code> (label/value), <code>trendVariant</code> (positive/negative/neutral), <code>icon</code> with accent colors, and <code>invertTrend</code>. Supports 8 accent color schemes. Icon layout uses <code>align-self: stretch; aspect-ratio: 1</code> for equal padding. Includes 5 interactive demo components with live controls.
   </li>
   <li>
-    <strong>DataTable component</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    <strong>DataTable component</strong> (<a href="/components/table">Table</a>)<br/>
     New data table built on TanStack Table v8. Features: sorting, pagination, global filtering, column visibility, row click, row selection, and empty state handling. Includes <code>DataTableColumnHeader</code> for sortable headers and <code>DataTablePagination</code> with rows-per-page selector.
   </li>
   <li>
-    <strong>DataTable <code>variant</code> prop</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    <strong>DataTable <code>variant</code> prop</strong> (<a href="/components/table">Table</a>)<br/>
     Added <code>variant</code> prop with <code>"default"</code> (borderless) and <code>"bordered"</code> (rounded border with tinted header background) options.
   </li>
   <li>
-    <strong>DataTable column helpers</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    <strong>DataTable column helpers</strong> (<a href="/components/table">Table</a>)<br/>
     New helper functions for common cell patterns: <code>idCell</code> (monospace ID with CopyTooltip), <code>dateTimeCell</code> (formatted datetime via <code>Intl.DateTimeFormat</code>), <code>statusCell</code> (Badge with automatic status-to-color mapping), and <code>tooltipHeader</code> (header with dashed underline and tooltip).
   </li>
   <li>
-    <strong>DataTable <code>meta.align</code></strong> (<a href="/docs/components/table">Table</a>)<br/>
+    <strong>DataTable <code>meta.align</code></strong> (<a href="/components/table">Table</a>)<br/>
     Column definitions now support <code>meta: &#123; align: "right" &#125;</code> to align both header and cell content consistently. Extends TanStack Table's <code>ColumnMeta</code> type.
   </li>
   <li>
@@ -558,11 +558,11 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Table <code>table-layout: fixed</code></strong> (<a href="/docs/components/table">Table</a>)<br/>
+    <strong>Table <code>table-layout: fixed</code></strong> (<a href="/components/table">Table</a>)<br/>
     Table primitive now uses <code>table-layout: fixed</code> to prevent column widths from jumping when sorting changes row order.
   </li>
   <li>
-    <strong>DataTable pagination buttons</strong> (<a href="/docs/components/table">Table</a>)<br/>
+    <strong>DataTable pagination buttons</strong> (<a href="/components/table">Table</a>)<br/>
     Pagination prev/next buttons no longer use pill shape (<code>pill=&#123;false&#125;</code>), using standard border-radius instead.
   </li>
 </ul>
@@ -575,39 +575,39 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Menu.Label and Menu.Group</strong> (<a href="/docs/components/menu#grouped-items">Menu</a>)<br/>
+    <strong>Menu.Label and Menu.Group</strong> (<a href="/components/menu#grouped-items">Menu</a>)<br/>
     New compound components for organizing menu items into labeled groups. <code>Menu.Group</code> wraps related items, <code>Menu.Label</code> renders a non-interactive section heading.
   </li>
   <li>
-    <strong>FloatingLabelSelect component</strong> (<a href="/docs/components/floating-label-input#floating-label-select">Floating Label Input</a>)<br/>
+    <strong>FloatingLabelSelect component</strong> (<a href="/components/floating-label-input#floating-label-select">Floating Label Input</a>)<br/>
     New select variant with floating label animation matching FloatingLabelInput. Label floats above when an option is selected.
   </li>
   <li>
-    <strong>FloatingLabelInput endAdornment</strong> (<a href="/docs/components/floating-label-input#password-input">Floating Label Input</a>)<br/>
+    <strong>FloatingLabelInput endAdornment</strong> (<a href="/components/floating-label-input#password-input">Floating Label Input</a>)<br/>
     Added <code>endAdornment</code> prop for placing icons or buttons at the end of the input. Includes password toggle, SSN mask, and birthday masked input demos.
   </li>
   <li>
-    <strong>FloatingLabelInput placeholder support</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    <strong>FloatingLabelInput placeholder support</strong> (<a href="/components/floating-label-input">Floating Label Input</a>)<br/>
     Added <code>placeholder</code> prop with focus-only visibility — placeholder text appears when the input is focused and the label has floated above.
   </li>
   <li>
-    <strong>Birthday masked input</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    <strong>Birthday masked input</strong> (<a href="/components/field#birthday-input">Field</a>)<br/>
     Composition demo for segmented birthday input with segment highlighting, cursor positioning through separators, and live validation. Includes both masked and segmented select variants.
   </li>
   <li>
-    <strong>Phone input and country selector</strong> (<a href="/docs/components/select-control#phone-input">Select Control</a>)<br/>
+    <strong>Phone input and country selector</strong> (<a href="/components/select-control#phone-input">Select Control</a>)<br/>
     Composition demo combining SelectControl with country flag icons and phone number formatting. Flag icons use lipis/flag-icons 4:3 SVGs via jsDelivr CDN.
   </li>
   <li>
-    <strong>Column configuration demo</strong> (<a href="/docs/components/select#column-configuration">Select</a>)<br/>
+    <strong>Column configuration demo</strong> (<a href="/components/select#column-configuration">Select</a>)<br/>
     Composition demo for table column visibility toggles using Select with checkbox items.
   </li>
   <li>
-    <strong>Switch description prop</strong> (<a href="/docs/components/switch">Switch</a>)<br/>
+    <strong>Switch description prop</strong> (<a href="/components/switch">Switch</a>)<br/>
     Added <code>description</code> prop to Switch for displaying secondary text below the label.
   </li>
   <li>
-    <strong>Tabs scrollable demo</strong> (<a href="/docs/components/tabs#scrollable">Tabs</a>)<br/>
+    <strong>Tabs scrollable demo</strong> (<a href="/components/tabs#scrollable">Tabs</a>)<br/>
     Added Scrollable example to Tabs documentation showing horizontal overflow behavior with auto-scroll to active tab. No extra prop needed — just constrain the container width.
   </li>
 </ul>
@@ -616,23 +616,23 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Alert dismiss button</strong> (<a href="/docs/components/alert#dismissible">Alert</a>)<br/>
+    <strong>Alert dismiss button</strong> (<a href="/components/alert#dismissible">Alert</a>)<br/>
     Replaced raw close icon with a soft Button component for the dismiss action. Consolidated Actions and Dismissible sections into single previews for cleaner documentation.
   </li>
   <li>
-    <strong>Indicator sizes unified</strong> (<a href="/docs/components/indicators">Indicators</a>)<br/>
+    <strong>Indicator sizes unified</strong> (<a href="/components/indicators">Indicators</a>)<br/>
     Standardized all indicator sizes to 18px across LoadingIndicator, CircularProgress, and LoadingDots. Consolidated Indicator and Dismissible demo sections into single preview cards.
   </li>
   <li>
-    <strong>Checkbox alignment unified with RadioGroup</strong> (<a href="/docs/components/checkbox">Checkbox</a>)<br/>
+    <strong>Checkbox alignment unified with RadioGroup</strong> (<a href="/components/checkbox">Checkbox</a>)<br/>
     Aligned Checkbox indicator size (18×18px) and label gap with RadioGroup for visual consistency. Fixed label vertical alignment to match RadioGroup first-line behavior. Added combined Checkbox + RadioGroup alignment demo to both doc pages.
   </li>
   <li>
-    <strong>FloatingLabelInput focus tokens</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    <strong>FloatingLabelInput focus tokens</strong> (<a href="/components/floating-label-input">Floating Label Input</a>)<br/>
     Replaced hardcoded blue focus ring color with neutral design tokens for consistency with the rest of the system.
   </li>
   <li>
-    <strong>Birthday segment highlight token</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    <strong>Birthday segment highlight token</strong> (<a href="/components/field#birthday-input">Field</a>)<br/>
     Uses <code>primary/solid</code> token for active segment highlight instead of hardcoded color.
   </li>
   <li>
@@ -645,31 +645,31 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Birthday mask cursor positioning</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    <strong>Birthday mask cursor positioning</strong> (<a href="/components/field#birthday-input">Field</a>)<br/>
     Fixed cursor advancing past separators on complete segment and handling backspace through separator characters in the masked birthday input.
   </li>
   <li>
-    <strong>Birthday inputs browser autocomplete</strong> (<a href="/docs/components/field#birthday-input">Field</a>)<br/>
+    <strong>Birthday inputs browser autocomplete</strong> (<a href="/components/field#birthday-input">Field</a>)<br/>
     Fixed segmented birthday inputs triggering unwanted browser autocomplete dropdown.
   </li>
   <li>
-    <strong>Flag icon aspect ratio</strong> (<a href="/docs/components/select-control#phone-input">Select Control</a>)<br/>
+    <strong>Flag icon aspect ratio</strong> (<a href="/components/select-control#phone-input">Select Control</a>)<br/>
     Fixed flag icons rendering as squares instead of proper 4:3 rectangles. Switched to same-height CDN endpoints and fixed alignment in dropdown lists.
   </li>
   <li>
-    <strong>Input clear button styling</strong> (<a href="/docs/components/input#clear-button">Input</a>)<br/>
+    <strong>Input clear button styling</strong> (<a href="/components/input#clear-button">Input</a>)<br/>
     Fixed clear button styling inconsistencies when used alongside FloatingLabelSelect demos.
   </li>
   <li>
-    <strong>Column config demo toggles</strong> (<a href="/docs/components/select#column-configuration">Select</a>)<br/>
+    <strong>Column config demo toggles</strong> (<a href="/components/select#column-configuration">Select</a>)<br/>
     Fixed broken toggle state and removed unnecessary separator in column configuration popover.
   </li>
   <li>
-    <strong>Button sizing demo height jump</strong> (<a href="/docs/components/button#sizing">Button</a>)<br/>
+    <strong>Button sizing demo height jump</strong> (<a href="/components/button#sizing">Button</a>)<br/>
     Fixed preview card height jumping when switching between button sizes.
   </li>
   <li>
-    <strong>FileDocument icon export</strong> (<a href="/docs/components/menu">Menu</a>)<br/>
+    <strong>FileDocument icon export</strong> (<a href="/components/menu">Menu</a>)<br/>
     Fixed import using non-existent <code>File</code> icon export — replaced with <code>FileDocument</code>.
   </li>
 </ul>
@@ -682,67 +682,67 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Sidebar component</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
+    <strong>Sidebar component</strong> (<a href="/components/sidebar">Sidebar</a>)<br/>
     New composable navigation sidebar for application layouts. Includes <code>SidebarProvider</code> for state management, <code>SidebarLayout</code> for layout structure, scrollable <code>SidebarContent</code>, sticky <code>SidebarHeader</code>/<code>SidebarFooter</code>, and organized navigation with <code>SidebarGroup</code>, <code>SidebarMenu</code>, <code>SidebarMenuItem</code>, and <code>SidebarMenuButton</code>. Supports three collapse modes: <code>offcanvas</code> (drawer on mobile, full collapse on desktop), <code>icon</code> (collapses to icon rail), and <code>none</code> (static). Includes keyboard shortcut <code>Cmd+B</code>/<code>Ctrl+B</code> for toggling.
   </li>
   <li>
-    <strong>Sidebar nested navigation</strong> (<a href="/docs/components/sidebar#nested-navigation">Sidebar</a>)<br/>
+    <strong>Sidebar nested navigation</strong> (<a href="/components/sidebar#nested-navigation">Sidebar</a>)<br/>
     Collapsible nested menus with <code>SidebarMenuSub</code> and <code>SidebarMenuSubButton</code>. Animated chevron toggles via <code>SidebarMenuChevron</code>. Supports multi-level hierarchies for documentation and API reference navigation patterns.
   </li>
   <li>
-    <strong>Sidebar footer cards</strong> (<a href="/docs/components/sidebar#footer-cards">Sidebar</a>)<br/>
+    <strong>Sidebar footer cards</strong> (<a href="/components/sidebar#footer-cards">Sidebar</a>)<br/>
     <code>SidebarCard</code> component for promotional content, upgrade CTAs, or announcements in the sidebar footer. Includes <code>SidebarCardTitleLink</code> with dismissible close button, <code>SidebarCardContent</code> for description text, and <code>SidebarCardFooter</code> for action buttons. Cards animate in after sidebar expansion with delayed opacity transition.
   </li>
   <li>
-    <strong>Sidebar badges</strong> (<a href="/docs/components/sidebar#badges">Sidebar</a>)<br/>
+    <strong>Sidebar badges</strong> (<a href="/components/sidebar#badges">Sidebar</a>)<br/>
     <code>SidebarMenuBadge</code> container for displaying status indicators, counts, or labels alongside menu items. Pairs with the <code>Badge</code> component supporting all semantic colors (<code>success</code>, <code>warning</code>, <code>danger</code>, <code>info</code>, <code>discovery</code>, <code>caution</code>) and pill shape option.
   </li>
   <li>
-    <strong>Sidebar mobile menu</strong> (<a href="/docs/components/sidebar#mobile-menu">Sidebar</a>)<br/>
+    <strong>Sidebar mobile menu</strong> (<a href="/components/sidebar#mobile-menu">Sidebar</a>)<br/>
     <code>SidebarMobileMenuButton</code> with animated hamburger icon that transforms to close icon. Mobile behavior is automatic via <code>SidebarProvider</code> with responsive breakpoint detection. Drawer slides in from left with backdrop overlay.
   </li>
   <li>
-    <strong>Skeleton component</strong> (<a href="/docs/components/skeleton">Skeleton</a>)<br/>
+    <strong>Skeleton component</strong> (<a href="/components/skeleton">Skeleton</a>)<br/>
     New component for displaying loading placeholders. Supports rectangular and circular shapes via <code>circle</code> prop. Uses design tokens for background color and border-radius. Includes composition examples for avatars, cards, text blocks, forms, and tables.
   </li>
   <li>
-    <strong>Floating Label Input component</strong> (<a href="/docs/components/floating-label-input">Floating Label Input</a>)<br/>
+    <strong>Floating Label Input component</strong> (<a href="/components/floating-label-input">Floating Label Input</a>)<br/>
     New input component with animated floating label that moves above the input on focus or when filled. Supports error states with <code>errorMessage</code> prop, built-in clear button via <code>onClear</code>, disabled and read-only modes, browser autofill detection with <code>onAutofill</code> callback, and password manager extension blocking with <code>allowAutofillExtensions</code>.
   </li>
   <li>
-    <strong>Progress Steps component</strong> (<a href="/docs/components/progress-steps">Progress Steps</a>)<br/>
+    <strong>Progress Steps component</strong> (<a href="/components/progress-steps">Progress Steps</a>)<br/>
     New component for displaying progress through multi-step processes. Supports horizontal and vertical orientations, three sizes (sm, md, lg), solid and dashed connector styles, custom icons per step, and a minimal bar variant for compact layouts. Includes compound components: <code>ProgressSteps.Step</code>, <code>ProgressSteps.Title</code>, and <code>ProgressSteps.Description</code>. Color schemes include default and success variants.
   </li>
   <li>
-    <strong>ShimmerText component</strong> (<a href="/docs/components/shimmer-text">ShimmerText</a>)<br/>
+    <strong>ShimmerText component</strong> (<a href="/components/shimmer-text">ShimmerText</a>)<br/>
     New component for animated shimmer effect on text content. Includes <code>ShimmerText</code> for simple shimmer animation and <code>ShimmerableText</code> for streaming-style text reveal with shimmer on the latest token. Supports customizable speed, shimmer width, and color via CSS custom properties.
   </li>
   <li>
-    <strong>Field component</strong> (<a href="/docs/components/field">Field</a>)<br/>
+    <strong>Field component</strong> (<a href="/components/field">Field</a>)<br/>
     New form field wrapper that provides label, description, and error message with automatic accessibility linking. Generates <code>htmlFor</code>, <code>aria-describedby</code>, and <code>aria-invalid</code> attributes. Supports 9-step size scale, horizontal/vertical orientation, required indicator, and composition with Input, Textarea, Select, Slider, Checkbox, RadioGroup, and Switch controls via render prop pattern.
   </li>
   <li>
-    <strong>Field optical alignment</strong> (<a href="/docs/components/field#optical-alignment">Field</a>)<br/>
+    <strong>Field optical alignment</strong> (<a href="/components/field#optical-alignment">Field</a>)<br/>
     New <code>opticallyAlign</code> prop on Field that forwards to child controls via <code>cloneElement</code>. Compensates for pill gutter padding in form layouts, aligning labels and error messages with the visual text edge of Input, Select, and Button controls.
   </li>
   <li>
-    <strong>Slider range mode</strong> (<a href="/docs/components/slider#range-mode">Slider</a>)<br/>
+    <strong>Slider range mode</strong> (<a href="/components/slider#range-mode">Slider</a>)<br/>
     Slider now supports dual-thumb range selection via array <code>value</code>/<code>defaultValue</code>. Also added vertical orientation, disabled state, prefix/suffix units, and step markers with labels.
   </li>
   <li>
-    <strong>Icon and badge support</strong> (<a href="/docs/components/tabs#segmented-with-icons">Tabs</a>)<br/>
+    <strong>Icon and badge support</strong> (<a href="/components/tabs#segmented-with-icons">Tabs</a>)<br/>
     Added <code>icon</code> and <code>badge</code> props to <code>Tabs.Tab</code>. Icons automatically size based on control size. Badges support semantic colors (<code>secondary</code>, <code>success</code>, <code>danger</code>, etc.), style variants (<code>soft</code>, <code>solid</code>), and <code>pill</code> shape option.
   </li>
   <li>
-    <strong>Tabs component</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    <strong>Tabs component</strong> (<a href="/components/tabs">Tabs</a>)<br/>
     Renamed and extended SegmentedControl into Tabs. Adds <code>variant</code> prop with <code>"segmented"</code> (default, existing behavior) and <code>"underline"</code> (animated line indicator with no background). Adds <code>orientation</code> prop with <code>"horizontal"</code> (default) and <code>"vertical"</code> support. Sub-components: <code>Tabs.Tab</code> (new canonical name) and <code>Tabs.Option</code> (backward-compat alias). The <code>SegmentedControl</code> import continues to work as a backward-compatible alias.
   </li>
   <li>
-    <strong>Tabs flush underline variant</strong> (<a href="/docs/components/tabs#underline-flush">Tabs</a>)<br/>
+    <strong>Tabs flush underline variant</strong> (<a href="/components/tabs#underline-flush">Tabs</a>)<br/>
     Added <code>flush</code> boolean prop for the underline variant. Removes tab padding so the indicator matches the text width exactly, uses gap-based spacing between tabs, removes the container bottom border, and renders a 1px indicator with no border-radius. Spacing scales with <code>size</code> prop.
   </li>
   <li>
-    <strong>RadioGroup <code>orientation</code> and <code>block</code> props</strong> (<a href="/docs/components/radio-group#orientation">Radio Group</a>)<br/>
+    <strong>RadioGroup <code>orientation</code> and <code>block</code> props</strong> (<a href="/components/radio-group#orientation">Radio Group</a>)<br/>
     New <code>orientation</code> prop on <code>RadioGroup.Item</code> positions the radio indicator left (default) or right of the label. New <code>block</code> prop stretches the item to full width with <code>justify-content: space-between</code> for menu-style layouts. Documented with Orientation, With Field, Field error, Choice card, and Card selection examples.
   </li>
 </ul>
@@ -751,19 +751,19 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Sidebar variants simplified</strong> (<a href="/docs/components/sidebar">Sidebar</a>)<br/>
+    <strong>Sidebar variants simplified</strong> (<a href="/components/sidebar">Sidebar</a>)<br/>
     Removed unused sidebar variants (<code>floating</code>, <code>inset</code>, <code>dual-tier</code>) from type definitions, documentation, and CSS. The component now supports only <code>sidebar</code> (default) and <code>docs</code> variants.
   </li>
   <li>
-    <strong>Field horizontal orientation refactored</strong> (<a href="/docs/components/field#horizontal-orientation">Field</a>)<br/>
+    <strong>Field horizontal orientation refactored</strong> (<a href="/components/field#horizontal-orientation">Field</a>)<br/>
     Restructured HTML to use <code>LabelGroup</code> (label + description) and <code>Content</code> (control + error) containers for proper horizontal layout. Added fixed-width CSS variables <code>--field-horizontal-label-width</code> and <code>--field-horizontal-control-width</code>. Label vertical centering now uses <code>calc((control-height - label-line-height) / 2)</code> per size for pixel-perfect alignment.
   </li>
   <li>
-    <strong>Checkbox indicator aligned to Figma</strong> (<a href="/docs/components/checkbox">Checkbox</a>)<br/>
+    <strong>Checkbox indicator aligned to Figma</strong> (<a href="/components/checkbox">Checkbox</a>)<br/>
     Indicator size changed from hardcoded 20×20px to 18×18px using the <code>--menu-checkbox-indicator-size</code> token — matching the Menu CheckboxItem and Figma specification. Border colors changed from solid grays (<code>var(--gray-200)</code>) to alpha-based tokens (<code>var(--alpha-16)</code> default, <code>var(--alpha-20)</code> hover) for consistent rendering on any background.
   </li>
   <li>
-    <strong>Checkbox label layout</strong> (<a href="/docs/components/checkbox">Checkbox</a>)<br/>
+    <strong>Checkbox label layout</strong> (<a href="/components/checkbox">Checkbox</a>)<br/>
     Label changed from <code>display: flex; align-items: center</code> to <code>display: block</code> for proper text flow in multi-line labels with descriptions. Gap tokens aligned with Menu CheckboxItem: <code>spacing(2)</code> (8px) for left orientation, <code>spacing(3)</code> (12px) for right orientation.
   </li>
 </ul>
@@ -772,55 +772,55 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Sidebar collapse animation stability</strong> (<a href="/docs/components/sidebar#collapse-modes">Sidebar</a>)<br/>
+    <strong>Sidebar collapse animation stability</strong> (<a href="/components/sidebar#collapse-modes">Sidebar</a>)<br/>
     Fixed jitter and layout shifts during sidebar collapse/expand animations. Stabilized flexbox rendering for menu items, improved padding transitions, and ensured footer cards animate in only after sidebar fully expands.
   </li>
   <li>
-    <strong>Sidebar mobile menu label visibility</strong> (<a href="/docs/components/sidebar#mobile-menu">Sidebar</a>)<br/>
+    <strong>Sidebar mobile menu label visibility</strong> (<a href="/components/sidebar#mobile-menu">Sidebar</a>)<br/>
     Labels in mobile menu were sometimes hidden due to incorrect collapsed state detection. Fixed to ensure labels are always visible in mobile drawer mode regardless of desktop sidebar state.
   </li>
   <li>
-    <strong>Month stepper sizing and alignment</strong> (<a href="/docs/components/date-range-picker#month-stepper">Date Range Picker</a>)<br/>
+    <strong>Month stepper sizing and alignment</strong> (<a href="/components/date-range-picker#month-stepper">Date Range Picker</a>)<br/>
     Fixed multiple issues with the month stepper trigger: stepper buttons now properly scale with control size using CSS variable overrides with correct specificity; added vertical alignment for buttons; gap between buttons and text scales with control size; month text min-width now uses <code>em</code> units (9em) to scale with font size, preventing width jumps when switching between months with different name lengths (e.g., "May" vs "September"). Stepper buttons now inherit <code>pill</code> prop from parent, matching SelectControl's Clear button behavior. Added size and pill controls to Storybook docs for testing.
   </li>
   <li>
-    <strong>Clear button sizing and consistency</strong> (<a href="/docs/components/input#clear-button">Input</a>)<br/>
+    <strong>Clear button sizing and consistency</strong> (<a href="/components/input#clear-button">Input</a>)<br/>
     Clear button overflow and border collision at various sizes. Refactored to use built-in <code>onClear</code> prop with dedicated sizing tokens matching SelectControl's clear-iso button. Updated gutter values and added per-size offsets for proper alignment in both standard and pill modes.
   </li>
   <li>
-    <strong>FieldError semantic color tokens</strong> (<a href="/docs/components/field">Field</a>)<br/>
+    <strong>FieldError semantic color tokens</strong> (<a href="/components/field">Field</a>)<br/>
     Replaced hardcoded error colors with <code>--color-text-danger-outline</code> and <code>--color-border-danger-outline</code> semantic tokens. Removed <code>margin-top: -0.1em</code> hack from error icon, now relies on flex centering for alignment.
   </li>
   <li>
-    <strong>Pill overflow and text overlap</strong> (<a href="/docs/components/tabs#narrow-pill">Tabs</a>)<br/>
+    <strong>Pill overflow and text overlap</strong> (<a href="/components/tabs#narrow-pill">Tabs</a>)<br/>
     In pill mode, narrow options (icons, single digits) could be narrower than the control height, causing circular hover highlights and the active thumb to overflow or clip. Added min-width to options in pill mode ensuring they're at least as wide as the control height. Also fixed a scrollable mode regression where text items overlapped, and corrected invalid <code>white-space: wrap</code> to <code>white-space: normal</code>.
   </li>
   <li>
-    <strong>Highlight overlay radius mismatch</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    <strong>Highlight overlay radius mismatch</strong> (<a href="/components/tabs">Tabs</a>)<br/>
     The hover/active overlay (::before) used the same <code>border-radius</code> as the option, but the overlay is inset by 1px. This caused the inner rounded shape to not nest correctly. Added calculated radius as option radius minus inset, so the overlay aligns flush with the container.
   </li>
   <li>
-    <strong>Pill gutter scaling with opticallyAlign</strong> (<a href="/docs/components/select-control#optical-alignment">Select Control</a>, <a href="/docs/components/input#optical-alignment">Input</a>, <a href="/docs/components/button#optical-alignment">Button</a>)<br/>
+    <strong>Pill gutter scaling with opticallyAlign</strong> (<a href="/components/select-control#optical-alignment">Select Control</a>, <a href="/components/input#optical-alignment">Input</a>, <a href="/components/button#optical-alignment">Button</a>)<br/>
     When using <code>opticallyAlign</code> with <code>pill=&#123;true&#125;</code>, the margin calculation used only the base gutter and ignored the pill scaling multiplier (1.33×). Controls with pills now correctly multiply the margin by <code>--control-gutter-pill-scaling</code>, aligning properly with Ghost controls.
   </li>
   <li>
-    <strong>Inconsistent gap between Options and Actions</strong> (<a href="/docs/components/select#actions">Select</a>)<br/>
+    <strong>Inconsistent gap between Options and Actions</strong> (<a href="/components/select#actions">Select</a>)<br/>
     Options used <code>gap: spacing(1)</code> (4px) while Actions used <code>--menu-item-gap</code> (6px). Standardized both to use <code>--menu-item-gap</code> for consistency with the base Menu component.
   </li>
   <li>
-    <strong>Search input icon color</strong> (<a href="/docs/components/select#grouped-options">Select</a>)<br/>
+    <strong>Search input icon color</strong> (<a href="/components/select#grouped-options">Select</a>)<br/>
     The search icon had <code>className="fill-secondary"</code> but <code>fill="currentColor"</code> in the SVG path inherited color from the Input container, ignoring the class. Fixed by passing <code>fill="var(--color-text-secondary)"</code> as a prop with <code>!important</code> to override <code>currentColor</code>.
   </li>
   <li>
-    <strong>Missing caution color variant</strong> (<a href="/docs/components/badge#colors--variants">Badge</a>)<br/>
+    <strong>Missing caution color variant</strong> (<a href="/components/badge#colors--variants">Badge</a>)<br/>
     Badge was missing the <code>caution</code> color option, inconsistent with Button and Alert. Added <code>caution</code> to BadgeProps, implemented CSS styles for all variants (soft, solid, outline), and added to the Colors example matrix.
   </li>
   <li>
-    <strong>Tabs pill variant radius</strong> (<a href="/docs/components/tabs">Tabs</a>)<br/>
+    <strong>Tabs pill variant radius</strong> (<a href="/components/tabs">Tabs</a>)<br/>
     Fixed incorrect border-radius in pill mode for both segmented and vertical orientations. The option radius now correctly uses <code>--radius-full</code> when pill is active.
   </li>
   <li>
-    <strong>Field label text selection</strong> (<a href="/docs/components/field">Field</a>)<br/>
+    <strong>Field label text selection</strong> (<a href="/components/field">Field</a>)<br/>
     Removed <code>user-select: none</code> from Field label, allowing users to select and copy label text.
   </li>
 </ul>

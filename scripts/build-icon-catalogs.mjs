@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Generates static JSON catalogs of icon names + SVG markup for each
- * external icon library used by /docs/icons. Output goes into
+ * external icon library used by /icons. Output goes into
  * public/icon-libraries/<id>.json so the IconBrowser can fetch it at
  * runtime via plain HTTP without bundling thousands of React components
  * into the docs route's main chunk.

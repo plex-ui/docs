@@ -73,7 +73,7 @@ const jsonLd = {
       operatingSystem: 'Any',
       description:
         'Free, open-source React component library with 35+ components, 9-size scale, three-layer design tokens, and dark mode. Built on Radix UI and Tailwind CSS 4. Designed for AI code editors like Claude, Cursor, and Codex.',
-      url: 'https://plexui.com/docs/components',
+      url: 'https://plexui.com/components',
       downloadUrl: 'https://www.npmjs.com/package/@plexui/ui',
       softwareVersion: '0.7.45',
       author: { '@id': 'https://plexui.com/#organization' },
