@@ -15,7 +15,7 @@ If your project already uses the shadcn CLI, you can pull Plex UI components wit
 Plex UI ships its own design tokens and CSS modules. Pull the style entry first — this installs the npm package and drops a CSS entrypoint:
 
 ```bash
-npx shadcn@latest add https://plexui.dev/r/styles.json
+npx shadcn@latest add https://plexui.com/r/styles.json
 ```
 
 Then import the generated file in your app root (e.g. `app/layout.tsx`):
@@ -32,12 +32,12 @@ Each component is a separate registry entry. Install only what you use:
 
 ```bash
 # One command per component
-npx shadcn@latest add https://plexui.dev/r/button.json
-npx shadcn@latest add https://plexui.dev/r/input.json
-npx shadcn@latest add https://plexui.dev/r/dialog.json
-npx shadcn@latest add https://plexui.dev/r/menu.json
-npx shadcn@latest add https://plexui.dev/r/badge.json
-npx shadcn@latest add https://plexui.dev/r/alert.json
+npx shadcn@latest add https://plexui.com/r/button.json
+npx shadcn@latest add https://plexui.com/r/input.json
+npx shadcn@latest add https://plexui.com/r/dialog.json
+npx shadcn@latest add https://plexui.com/r/menu.json
+npx shadcn@latest add https://plexui.com/r/badge.json
+npx shadcn@latest add https://plexui.com/r/alert.json
 ```
 
 Then use them like any shadcn component:
@@ -62,7 +62,7 @@ export default function Example() {
 
 The shadcn CLI treats Plex UI the same way it treats any registry:
 
-1. Reads the JSON at `plexui.dev/r/<name>.json`
+1. Reads the JSON at `plexui.com/r/<name>.json`
 2. Installs listed npm dependencies (`@plexui/ui`)
 3. Writes a typed re-export at `components/ui/<name>.tsx`
 4. Recursively fetches `registryDependencies` (pulls in `styles.json` on first use)
@@ -71,4 +71,4 @@ Unlike classic shadcn components — which copy the full source into your repo �
 
 ## Index
 
-The full list of available components lives at [`plexui.dev/r`](https://plexui.dev/r/index.json). See each component's docs page for props and examples.
+The full list of available components lives at [`plexui.com/r`](https://plexui.com/r/index.json). See each component's docs page for props and examples.
