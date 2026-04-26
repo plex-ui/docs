@@ -1,0 +1,28 @@
+{
+  "name": "@plexui/icons-lucide-outlined",
+  "version": "0.1.0",
+  "description": "Lucide icons converted to outlined-fill geometry — single closed path per icon, fill='currentColor'. Same visual as upstream Lucide stroke, but each glyph is a filled <path> instead of an open stroke (one DOM element, no stroke-width math, scales naturally with fill color)",
+  "type": "module",
+  "license": "ISC",
+  "private": true,
+  "homepage": "https://plexui.com/docs/icons/lucide",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plex-ui/docs.git",
+    "directory": "packages/icons-lucide-outlined"
+  },
+  "keywords": [
+    "icons",
+    "lucide",
+    "outlined",
+    "filled",
+    "svg",
+    "plexui"
+  ],
+  "files": [
+    "icons/**"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-lucide-outlined.mjs"
+  }
+}

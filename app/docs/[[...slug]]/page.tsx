@@ -45,7 +45,8 @@ function getCustomToc(slug?: string[]): TOCItemType[] {
 
 function getSectionRedirect(slug?: string[]): string | null {
   if (!slug || slug.length === 0) {
-    return '/docs/overview';
+    // /docs is now the Introduction page itself — no redirect needed.
+    return null;
   }
 
   if (slug.length < 2) return null;
@@ -85,10 +86,8 @@ export default async function Page(props: {
     ? sourceToc
     : undefined;
 
-  const isComponentsIndex =
-    params.slug?.length === 1 && params.slug[0] === 'components';
-  const showLeftSidebar = isComponentsIndex ? false : shouldShowLeftSidebar(section);
-  const showRightToc = !isComponentsIndex && Boolean(tocItems && tocItems.length > 0);
+  const showLeftSidebar = shouldShowLeftSidebar(section);
+  const showRightToc = Boolean(tocItems && tocItems.length > 0);
   const showPageNav = shouldShowPageNav(section);
   const pageClassName = [
     'plex-docs-page',

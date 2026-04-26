@@ -62,7 +62,20 @@ export function SettingsPage() {
 const codeReset =
   '[&_figure]:!my-0 [&_figure]:!rounded-none [&_figure]:!border-0 [&_figure]:!bg-transparent [&_figure]:!shadow-none ' +
   '[&_figure>div]:!max-h-none ' +
-  '[&_pre]:!rounded-none [&_pre]:!border-0 [&_pre]:!bg-transparent';
+  // The copy-button overlay (figure > div.absolute) gets `background:
+  // var(--docs-code-block-bg) !important` from the global Fumadocs
+  // override in app/globals.css. In this card it sits on a
+  // bg-fd-muted/30 surface and the colour mismatch shows as a
+  // small differently-coloured square. Force it transparent so it
+  // inherits the card's background.
+  '[&_figure>div.absolute]:!bg-transparent ' +
+  '[&_pre]:!rounded-none [&_pre]:!border-0 [&_pre]:!bg-transparent ' +
+  // Fumadocs sets `padding-left/right: var(--padding-left/right)` on
+  // every `.line` inside `.shiki`. The [role="region"] ancestor
+  // already provides the visible inset for these cards, so doubling
+  // up via `.line` paddings makes the code text sit too far from the
+  // left edge. Same fix pattern used in UsageBlock.module.css.
+  '[&_.line]:!pl-0 [&_.line]:!pr-0';
 
 export function AiCodeComparison() {
   return (

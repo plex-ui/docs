@@ -5,7 +5,7 @@
   "title": "Label",
   "description": "Plex UI Label — accessible label built on Radix Label.Root. Pairs with checkboxes, switches, or custom form layouts; use Field for stacked form rows.",
   "dependencies": ["@plexui/ui"],
-  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "registryDependencies": ["https://plexui.com/r/styles.json"],
   "files": [
     {
       "path": "components/ui/label.tsx",
@@ -13,5 +13,5 @@
       "content": "export { Label } from '@plexui/ui/components/Label';\nexport type { LabelProps } from '@plexui/ui/components/Label';\n"
     }
   ],
-  "docs": "Import as `import { Label } from '@/components/ui/label'`. See https://plexui.dev/docs/components/label for full prop reference."
+  "docs": "Import as `import { Label } from '@/components/ui/label'`. See https://plexui.com/docs/components/label for full prop reference."
 }

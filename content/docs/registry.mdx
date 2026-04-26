@@ -1,0 +1,74 @@
+---
+title: Shadcn Registry
+description: Add Plex UI components through the Shadcn CLI — one command per component
+---
+
+If your project already uses the Shadcn CLI, you can pull Plex UI components with a single command. The registry is a thin layer over the `@plexui/ui` npm package: the CLI installs the package, drops a typed re-export in your `components/ui/`, and you import from `@/components/ui/*` exactly like native Shadcn components.
+
+## Prerequisites
+
+- A Next.js / React project with [Shadcn](https://ui.shadcn.com/docs/cli) initialised (`npx shadcn init`)
+- Path aliases configured (the default `@/components` setup works out of the box)
+
+## Install the styles once
+
+Plex UI ships its own design tokens and CSS modules. Pull the style entry first — this installs the npm package and drops a CSS entrypoint:
+
+```bash
+npx shadcn@latest add https://plexui.com/r/styles.json
+```
+
+Then import the generated file in your app root (e.g. `app/layout.tsx`):
+
+```tsx
+import './plexui.css';
+```
+
+You only need to do this once for the whole project.
+
+## Add components
+
+Each component is a separate registry entry. Install only what you use:
+
+```bash
+# One command per component
+npx shadcn@latest add https://plexui.com/r/button.json
+npx shadcn@latest add https://plexui.com/r/input.json
+npx shadcn@latest add https://plexui.com/r/dialog.json
+npx shadcn@latest add https://plexui.com/r/menu.json
+npx shadcn@latest add https://plexui.com/r/badge.json
+npx shadcn@latest add https://plexui.com/r/alert.json
+```
+
+Then use them like any Shadcn component:
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+
+export default function Example() {
+  return (
+    <form>
+      <Input placeholder="Email" />
+      <Button type="submit">Subscribe</Button>
+      <Badge color="info">New</Badge>
+    </form>
+  )
+}
+```
+
+## What the registry does
+
+The Shadcn CLI treats Plex UI the same way it treats any registry:
+
+1. Reads the JSON at `plexui.com/r/<name>.json`
+2. Installs listed npm dependencies (`@plexui/ui`)
+3. Writes a typed re-export at `components/ui/<name>.tsx`
+4. Recursively fetches `registryDependencies` (pulls in `styles.json` on first use)
+
+Unlike classic Shadcn components — which copy the full source into your repo — Plex UI components stay inside `@plexui/ui`, so you always get bug fixes and new features with a single `npm upgrade @plexui/ui`. The local `components/ui/*.tsx` file is a one-line re-export that keeps imports identical to native Shadcn components, so your team can mix both libraries without friction.
+
+## Index
+
+The full list of available components lives at [`plexui.com/r`](https://plexui.com/r/index.json). See each component's docs page for props and examples.

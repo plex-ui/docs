@@ -923,9 +923,45 @@ rm -rf .next
 
 Then restart the dev server if it was running:
 ```bash
-lsof -ti:3000 | xargs kill -9 2>/dev/null; rm -rf .next && npm run dev &
+lsof -ti:3000 | xargs kill -9 2>/dev/null; rm -rf .next && npm run dev:all &
 ```
 
 **CRITICAL: Do NOT use `> /dev/null 2>&1` or any output suppression** — this causes the bash tool to hang waiting for the background process. Always let output stream naturally, and use a short timeout (3-5s) on the bash call since the server will keep running in background.
 
 Do NOT wait for the user to report the error — proactively nuke `.next` every time you rebuild the UI package.
+
+### Post-rebuild verification — mandatory five-step gate
+
+The Turbopack restart **alone** is not the rule. The rule is: **the task is not done until HTTP 200 is observed on the affected route**. After every `packages/ui` rebuild:
+
+```bash
+# 1. Rebuild packages/ui FULLY (one-shot, sequential, completes before next step)
+cd packages/ui && npm run build && cd ../..
+
+# 2. Nuke Turbopack cache
+rm -rf .next
+
+# 3. Restart via Claude Preview MCP — uses plain `next dev` only (NOT `dev:all`)
+#    See decision 0009: dev:all races packages/ui's build:clean against next dev startup,
+#    producing phantom `Can't resolve '../packages/ui/dist/...'` 500s on every route.
+mcp__Claude_Preview__preview_stop  # if a previous serverId is alive
+mcp__Claude_Preview__preview_start name="Next.js docs dev"
+
+# 4. Wait for cold compile + verify the route the user reported
+sleep 8
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/docs/<route>
+
+# 5. If status != 200, read the dev-server log file and fix the actual error
+#    BEFORE reporting back to the user. Saying "you might need to restart"
+#    is the wrong escape hatch — agent has shell access and owns the restart.
+```
+
+**Prior incidents that this gate prevents:**
+- Accordion missing-module error after icon SVG fix (2026-04-25)
+- ButtonGroup ×2; Input.AdornmentButton
+- `dev:all`-vs-`next dev` race producing phantom `Can't resolve '../packages/ui/dist/es/styles/variables-primitive.css'` 500s on every route through Claude Preview MCP (2026-04-25)
+- User feedback: "ты обещал мне что все исправил"
+
+Canonical decision files:
+- [`.memory/decisions/0008-post-change-verification-mandatory.md`](.memory/decisions/0008-post-change-verification-mandatory.md) — the verification gate
+- [`.memory/decisions/0009-launch-uses-plain-next-dev-not-dev-all.md`](.memory/decisions/0009-launch-uses-plain-next-dev-not-dev-all.md) — why `.claude/launch.json` uses plain `dev`, not `dev:all`

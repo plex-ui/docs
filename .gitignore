@@ -69,3 +69,12 @@ skills/dev-browser/tmp/
 # Playwright MCP browser cache
 .playwright-mcp/
 
+# Scratch / debug screenshots from Claude Preview MCP and ad-hoc
+# debugging. Real assets live in /public/ — anything dumped at the
+# repo root with these prefixes is ephemeral. Tracked figma-*.png in
+# repo root (marketing assets, committed in c74d424) is unaffected.
+/tmp/
+/date-*.png
+/hugeicons-*.png
+/lucide-*.png
+firebase-debug*.log

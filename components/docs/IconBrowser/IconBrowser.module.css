@@ -1,0 +1,640 @@
+.Root {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Search row ────────────────────────────────────────────── */
+
+.SearchRow {
+  position: sticky;
+  top: var(--fd-docs-row-1, 64px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  background: var(--color-surface);
+}
+
+.InputWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.Input {
+  display: block;
+  width: 100%;
+  /* Right padding fits the 24px clear button + 10px outer margin
+     (matching vertical padding) when the query is non-empty. */
+  padding: 10px 44px 10px 40px;
+  border: 1px solid var(--alpha-10);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: 14px;
+  color: var(--color-text);
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.Input:hover {
+  border-color: var(--alpha-15);
+}
+
+.Input:focus {
+  outline: 0;
+  border-color: var(--alpha-25);
+}
+
+.Input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.InputIcon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+/* Same visual language as the panel close button — both are X-icon
+   "dismiss" affordances. See `.PanelClose` below.
+   Right offset matches the input's vertical padding (10px) so the
+   button is symmetrically inset from the input's right edge. */
+.ClearButton {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--cubic-enter),
+    color 0.2s var(--cubic-enter);
+}
+
+.ClearButton:hover {
+  background: color-mix(in srgb, var(--color-text-tertiary) 12%, transparent);
+  color: var(--color-text);
+}
+
+.ClearButton:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.Count {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+/* ── Grid ──────────────────────────────────────────────────── */
+
+/* Used only for the no-result / loading skeleton states (when there's
+   nothing to virtualize). */
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 8px;
+}
+
+/* ── Virtualized grid ────────────────────────────────────── */
+
+/* Position container — height set inline by the virtualizer so the
+   scrollbar reflects the *full* list size; rows are absolutely
+   positioned and slid into place via inline `top: …px`. */
+.GridContainer {
+  position: relative;
+  width: 100%;
+}
+
+.GridRow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 8px;
+  /* `top` (set inline by the virtualizer) replaces `transform: translateY(...)`
+     intentionally — see IconBrowser.tsx for the rendering-quality rationale.
+     Each row still needs its own stacking context so the tooltip ::after
+     can lift above adjacent rows on hover. `position: absolute + z-index`
+     gives us that without forcing a compositor layer. */
+  z-index: 1;
+}
+
+.GridRow:hover {
+  z-index: 2;
+}
+
+.Tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Fixed integer-pixel size — `aspect-ratio: 1` combined with grid-1fr
+     produces fractional widths, which centred 24×24 SVGs translate into
+     half-pixel offsets and uneven stroke widths. */
+  width: 56px;
+  height: 56px;
+  border: 0;
+  background: var(--alpha-04);
+  border-radius: 6px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background 0.12s ease;
+  padding: 0;
+}
+
+.Tile:hover {
+  background: var(--alpha-08);
+}
+
+.Tile:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: -2px;
+}
+
+.Tile[aria-pressed='true'] {
+  background: var(--alpha-12);
+}
+
+/* Pixel-aligned 24×24 icon inside a 56×56 tile — `display: block`
+   removes the inline-baseline gap that would otherwise nudge the SVG
+   half a pixel down on some font-size combinations. We deliberately
+   do NOT set `shape-rendering` here — the default (`auto`) lets the
+   browser pick the best of geometricPrecision / optimizeSpeed per
+   stroke, and gave the cleanest results across Chrome / Safari /
+   Firefox in side-by-side tests against lucide.dev/icons. */
+.Tile > svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/* Instant CSS-only tooltip — shows the icon name BELOW each tile on
+   hover (matches lucide.dev/icons positioning). We rely on `aria-label`
+   so the tooltip and the screen-reader announcement stay in sync. */
+.Tile::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  background: var(--color-text);
+  color: var(--color-fd-background);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease, visibility 0s linear 0.12s;
+  z-index: 10;
+}
+
+.Tile:hover::after,
+.Tile:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.12s ease, visibility 0s linear 0s;
+}
+
+/* ── Skeleton tiles while catalog is loading ──────────────── */
+
+.SkeletonTile {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  background: var(--alpha-06);
+  animation: pulseFade 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseFade {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── Empty state ───────────────────────────────────────────── */
+
+.Empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.EmptyIcon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-tertiary);
+}
+
+.EmptyText {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
+.EmptyText > strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ── Floating, non-blocking detail panel ─────────────────── */
+
+/* Lives outside the page flow at bottom-right so the user can keep
+   scanning the grid while the panel is open. No backdrop, no
+   `inert` on the rest of the page. ESC closes.
+
+   Layout: side-by-side — 240×240 preview with pixel grid on the left,
+   info column (name, tags, actions) on the right. Matches lucide.dev's
+   detail panel proportions. */
+.Panel {
+  position: fixed;
+  bottom: 16px;
+  /* Centered inside the docs main-content column (between the docs
+     sidebar and the right TOC), not the viewport. The Fumadocs shell
+     publishes both widths as CSS variables on `#nd-docs-layout`; we
+     read them via inheritance. On mobile the @media override pins
+     left/right to 16px and clears the translate. */
+  left: calc(
+    var(--fd-sidebar-width, 0px) +
+    (100vw - var(--fd-sidebar-width, 0px) - var(--fd-toc-width, 0px)) / 2
+  );
+  transform: translateX(-50%);
+  width: 800px;
+  max-width: calc(
+    100vw - var(--fd-sidebar-width, 0px) - var(--fd-toc-width, 0px) - 32px
+  );
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 16px;
+  background: var(--color-fd-background);
+  border: 1px solid var(--alpha-12);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+  animation: panelEnter 0.18s ease-out;
+}
+
+@keyframes panelEnter {
+  /* Animate `bottom` instead of a translate so the static
+     `translateX(-50%)` for horizontal centering isn't overwritten
+     mid-frame. 8px slide-up is small enough that bottom-paint cost
+     is negligible. */
+  from {
+    opacity: 0;
+    bottom: 8px;
+  }
+  to {
+    opacity: 1;
+    bottom: 16px;
+  }
+}
+
+/* Stack vertically on narrow viewports — preview keeps its 240×240
+   square, info column wraps below at full width. */
+@media (max-width: 880px) {
+  .Panel {
+    left: 16px;
+    right: 16px;
+    width: auto;
+    /* Drop the centering translate — at narrow widths we pin to both
+       edges directly via `left: 16px; right: 16px;`. */
+    transform: none;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* X close button — top-right corner of the panel. Visuals lifted
+   verbatim from packages/ui/.../Dialog.module.css `.CloseButton`
+   (2rem hit target, color-mix hover bg, tertiary→text color shift)
+   so it reads like every other Plex close affordance. */
+.PanelClose {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--cubic-enter),
+    color 0.2s var(--cubic-enter);
+}
+
+.PanelClose:hover {
+  background: color-mix(in srgb, var(--color-text-tertiary) 12%, transparent);
+  color: var(--color-text);
+}
+
+.PanelClose:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+/* 240×240 preview. Each viewBox unit of the icon SVG maps to 10 device
+   pixels in this box — see `<PixelGrid>` in IconBrowser.tsx for the
+   companion grid overlay (an `viewBox="0 0 24 24"` SVG with one `<line>`
+   per integer cell). Together they let the user read off stroke-width
+   and padding directly from the grid — same approach as lucide.dev. */
+.PanelPreview {
+  position: relative;
+  flex-shrink: 0;
+  width: 240px;
+  height: 240px;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--alpha-04);
+  overflow: hidden;
+}
+
+/* Both the icon SVG and the grid overlay fill the preview at the same
+   240×240; absolute positioning + identical viewBox means coordinates
+   align exactly. The icon comes first in the DOM (renders below); the
+   grid sits on top with `pointer-events: none` so it never blocks
+   anything (the panel itself doesn't accept clicks anyway). */
+.PanelPreview > svg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 240px;
+  height: 240px;
+}
+
+.PanelGrid {
+  pointer-events: none;
+  fill: none;
+  stroke: var(--alpha-08);
+  /* 0.1 user-unit = 1 device-pixel at 240/24 = 10×scale. Thin enough
+     that the grid reads as a faint reference and never competes with
+     the icon for attention. */
+  stroke-width: 0.1;
+}
+
+.PanelInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  /* Shrink-to-fit constraint so the tags row's `overflow-x: auto`
+     actually engages — without `min-width: 0` on the flex child, the
+     row would push the panel wider instead of scrolling. */
+  min-width: 0;
+}
+
+.PanelName {
+  margin: 0;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  word-break: break-all;
+  letter-spacing: -0.01em;
+}
+
+/* Tags = single horizontal line, scrolls with the wheel / trackpad.
+   Scrollbar hidden so the row stays compact (24px tall, one line of
+   text). Bullet separators rendered via ::after so we don't need a
+   wrapping <span> per pair. Last tag's bullet is hidden. */
+.PanelTags {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  /* A subtle right-edge fade hints there's more content past the visible
+     area. Pure cosmetic — scroll still works without it. */
+  mask-image: linear-gradient(
+    to right,
+    black calc(100% - 24px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black calc(100% - 24px),
+    transparent 100%
+  );
+}
+
+.PanelTags::-webkit-scrollbar {
+  display: none;
+}
+
+.PanelTag {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 15px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+.PanelTag::after {
+  content: '·';
+  margin-left: 6px;
+  color: var(--alpha-25);
+}
+
+.PanelTag:last-child::after {
+  content: '';
+  margin-left: 0;
+}
+
+/* Stroke-width slider + Outlined toggle live in this strip between the
+   tags row and the action buttons. The slider always renders (disabled
+   when not applicable) so the panel height stays stable across icon
+   selections and toggle states. The outlined toggle renders only when
+   the icon ships an `outlinedSvg` companion (currently Lucide-only). */
+.PanelControls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-block: 4px;
+}
+
+/* Custom range slider — visually matches packages/ui/src/components/Slider
+   pixel-for-pixel (4px track, 14px thumb with inset ring + white centre,
+   focus ring in green). Uses the same design tokens —
+   `--slider-track-color`, `--slider-range-color`, `--gray-0`,
+   `--radius-2xs` — so light/dark theme switching reuses the same
+   variables as the Plex Slider component.
+
+   We don't use the Plex Slider component directly because it ships an
+   editable text-input value field on the right. The detail panel is a
+   read-only viewer (the search bar is the only input affordance), so
+   we render a plain HTML range styled to match. The CSS variable
+   `--progress` (set inline from React state) drives the filled-track
+   gradient on Webkit; Firefox uses native `::-moz-range-progress`. */
+
+.PanelSlider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.PanelSlider[data-disabled] {
+  opacity: 0.45;
+}
+
+.PanelSliderLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  flex-shrink: 0;
+  min-width: 44px;
+}
+
+.PanelSliderValue {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  min-width: 56px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.PanelSliderInput {
+  flex: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  height: 16px;
+  margin: 0;
+  cursor: grab;
+}
+
+.PanelSliderInput:active {
+  cursor: grabbing;
+}
+
+.PanelSliderInput:disabled {
+  cursor: not-allowed;
+}
+
+/* WEBKIT track — single-segment track painted via a linear-gradient
+   that's split at `--progress` (set inline). Left of the split = range
+   color (filled), right = track color (unfilled). */
+.PanelSliderInput::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-2xs);
+  background: linear-gradient(
+    to right,
+    var(--slider-range-color) var(--progress, 0%),
+    var(--slider-track-color) var(--progress, 0%)
+  );
+}
+
+/* FIREFOX has dedicated track + progress pseudos — use them directly. */
+.PanelSliderInput::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-2xs);
+  background: var(--slider-track-color);
+}
+
+.PanelSliderInput::-moz-range-progress {
+  height: 4px;
+  border-radius: var(--radius-2xs);
+  background: var(--slider-range-color);
+}
+
+/* Thumb — donut: white centre + 2px inset ring in the range color.
+   Matches packages/ui/.../Slider.module.css `.Thumb`. */
+.PanelSliderInput::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px; /* centre on 4px track */
+  background: var(--gray-0);
+  box-shadow: inset 0 0 0 2px var(--slider-range-color);
+  border: 0;
+  border-radius: 50%;
+  cursor: inherit;
+}
+
+.PanelSliderInput::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--gray-0);
+  box-shadow: inset 0 0 0 2px var(--slider-range-color);
+  border: 0;
+  border-radius: 50%;
+  cursor: inherit;
+}
+
+.PanelSliderInput:focus-visible {
+  outline: none;
+}
+
+.PanelSliderInput:focus-visible::-webkit-slider-thumb {
+  box-shadow: inset 0 0 0 2px var(--green-600);
+}
+
+.PanelSliderInput:focus-visible::-moz-range-thumb {
+  box-shadow: inset 0 0 0 2px var(--green-600);
+}
+
+.PanelToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+.PanelActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  /* `margin-top: auto` inside the flex-column `.PanelInfo` pushes the
+     actions to the bottom of the panel; the title / tags / controls
+     stay grouped at the top. Keeps the buttons aligned with the
+     bottom of the icon preview regardless of how many tags wrap. */
+  margin-top: auto;
+}

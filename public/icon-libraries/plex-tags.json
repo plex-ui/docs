@@ -1,0 +1,2195 @@
+{
+  "AddSources": [
+    "add",
+    "sources",
+    "plus"
+  ],
+  "AgentMode": [
+    "agent",
+    "mode",
+    "ai"
+  ],
+  "AlignCenterVertical": [
+    "align",
+    "center",
+    "vertical"
+  ],
+  "AlignEndVertical": [
+    "align",
+    "end",
+    "vertical"
+  ],
+  "AlignStartVertical": [
+    "align",
+    "start",
+    "vertical"
+  ],
+  "AllGizmos": [
+    "all",
+    "gizmos"
+  ],
+  "AllProductsExplore": [
+    "all",
+    "products",
+    "explore"
+  ],
+  "Analytics": [
+    "data"
+  ],
+  "AnalyzeData": [
+    "analyze",
+    "data"
+  ],
+  "ApiKey": [
+    "api",
+    "key",
+    "access"
+  ],
+  "ApiKeyAdmin": [
+    "api",
+    "key",
+    "admin",
+    "access"
+  ],
+  "ApiKeyPlus": [
+    "api",
+    "key",
+    "plus",
+    "access",
+    "add"
+  ],
+  "ApiKeyServiceAccount": [
+    "api",
+    "key",
+    "service",
+    "account",
+    "access"
+  ],
+  "ApiKeys": [
+    "api",
+    "keys"
+  ],
+  "AppPermission": [
+    "app",
+    "permission"
+  ],
+  "AppStore": [
+    "app",
+    "store"
+  ],
+  "AppStoreSquare": [
+    "app",
+    "store",
+    "square",
+    "box"
+  ],
+  "ArrowBottomLeftSm": [
+    "arrow",
+    "bottom",
+    "left",
+    "direction"
+  ],
+  "ArrowBottomRightSm": [
+    "arrow",
+    "bottom",
+    "right",
+    "direction"
+  ],
+  "ArrowCurvedLeft": [
+    "arrow",
+    "curved",
+    "left",
+    "direction"
+  ],
+  "ArrowCurvedRight": [
+    "arrow",
+    "curved",
+    "right",
+    "direction"
+  ],
+  "ArrowDownLg": [
+    "arrow",
+    "down",
+    "direction"
+  ],
+  "ArrowDownSm": [
+    "arrow",
+    "down",
+    "direction"
+  ],
+  "ArrowLeftLg": [
+    "arrow",
+    "left",
+    "direction"
+  ],
+  "ArrowLeftSm": [
+    "arrow",
+    "left",
+    "direction"
+  ],
+  "ArrowRightLg": [
+    "arrow",
+    "right",
+    "direction"
+  ],
+  "ArrowRightSm": [
+    "arrow",
+    "right",
+    "direction"
+  ],
+  "ArrowRotateCcw": [
+    "arrow",
+    "rotate",
+    "ccw",
+    "direction"
+  ],
+  "ArrowRotateCw": [
+    "arrow",
+    "rotate",
+    "cw",
+    "direction"
+  ],
+  "ArrowTopLeftSm": [
+    "arrow",
+    "top",
+    "left",
+    "direction"
+  ],
+  "ArrowTopRightSm": [
+    "arrow",
+    "top",
+    "right",
+    "direction"
+  ],
+  "ArrowUpLg": [
+    "arrow",
+    "up",
+    "direction"
+  ],
+  "ArrowUpSm": [
+    "arrow",
+    "up",
+    "direction"
+  ],
+  "ArrowsMaximize": [
+    "arrows",
+    "maximize"
+  ],
+  "ArrowsMinimize": [
+    "arrows",
+    "minimize"
+  ],
+  "AspectRatio11": [
+    "aspect",
+    "ratio"
+  ],
+  "AspectRatio169": [
+    "aspect",
+    "ratio"
+  ],
+  "AspectRatio34": [
+    "aspect",
+    "ratio"
+  ],
+  "AspectRatio43": [
+    "aspect",
+    "ratio"
+  ],
+  "AspectRatio916": [
+    "aspect",
+    "ratio"
+  ],
+  "AtSign": [
+    "sign"
+  ],
+  "AutoPairApps": [
+    "auto",
+    "pair",
+    "apps"
+  ],
+  "AutoSuggestedEdits": [
+    "auto",
+    "suggested",
+    "edits"
+  ],
+  "AvatarProfile": [
+    "avatar",
+    "profile",
+    "user"
+  ],
+  "AvatarProfileFilled": [
+    "avatar",
+    "profile",
+    "filled",
+    "user"
+  ],
+  "BackToApp": [
+    "back",
+    "app"
+  ],
+  "BackgroundConversation": [
+    "background",
+    "conversation"
+  ],
+  "BalancingScale": [
+    "balancing",
+    "scale"
+  ],
+  "BarChart": [
+    "bar",
+    "chart",
+    "graph"
+  ],
+  "BarChartFilled": [
+    "bar",
+    "chart",
+    "filled",
+    "graph"
+  ],
+  "Bell": [
+    "notification"
+  ],
+  "BellFilled": [
+    "bell",
+    "filled",
+    "notification"
+  ],
+  "BellOff": [
+    "bell",
+    "off",
+    "notification"
+  ],
+  "BlendingCurveSharp": [
+    "blending",
+    "curve",
+    "sharp"
+  ],
+  "BlendingCurveSmooth": [
+    "blending",
+    "curve",
+    "smooth"
+  ],
+  "BlendingCurveSubtle": [
+    "blending",
+    "curve",
+    "subtle"
+  ],
+  "BookBookmark": [
+    "book",
+    "bookmark",
+    "favorite"
+  ],
+  "BookClock": [
+    "book",
+    "clock",
+    "time"
+  ],
+  "BookOpen": [
+    "book",
+    "open"
+  ],
+  "BookWrench": [
+    "book",
+    "wrench",
+    "tool"
+  ],
+  "Bookmark": [
+    "favorite"
+  ],
+  "BookmarkSaved": [
+    "bookmark",
+    "saved",
+    "favorite"
+  ],
+  "BranchAlt": [
+    "branch",
+    "alt"
+  ],
+  "BuildingWorkspace": [
+    "building",
+    "workspace"
+  ],
+  "BusinessFilled": [
+    "business",
+    "filled"
+  ],
+  "ButtonMousePointer": [
+    "button",
+    "mouse",
+    "pointer"
+  ],
+  "Calendar": [
+    "date"
+  ],
+  "CalendarToday": [
+    "calendar",
+    "today",
+    "date"
+  ],
+  "CameraPhoto": [
+    "camera",
+    "photo",
+    "image"
+  ],
+  "CameraPhotoFilled": [
+    "camera",
+    "photo",
+    "filled",
+    "image"
+  ],
+  "CaptionCcOff": [
+    "caption",
+    "cc",
+    "off"
+  ],
+  "CaptionCcOn": [
+    "caption",
+    "cc"
+  ],
+  "CaptionOff": [
+    "caption",
+    "off"
+  ],
+  "CaptionOn": [
+    "caption"
+  ],
+  "CaretDown": [
+    "caret",
+    "down"
+  ],
+  "CaretLeft": [
+    "caret",
+    "left"
+  ],
+  "CaretRight": [
+    "caret",
+    "right"
+  ],
+  "CaretUp": [
+    "caret",
+    "up"
+  ],
+  "ChartXAxis": [
+    "chart",
+    "x",
+    "axis",
+    "graph",
+    "close"
+  ],
+  "ChartYAxis": [
+    "chart",
+    "y",
+    "axis",
+    "graph"
+  ],
+  "Chat": [
+    "message"
+  ],
+  "ChatCompose": [
+    "chat",
+    "compose",
+    "message"
+  ],
+  "ChatDashed": [
+    "chat",
+    "dashed",
+    "message"
+  ],
+  "ChatDashedChecked": [
+    "chat",
+    "dashed",
+    "checked",
+    "message"
+  ],
+  "ChatTripleDots": [
+    "chat",
+    "triple",
+    "dots",
+    "message"
+  ],
+  "CheckCheck": [
+    "check"
+  ],
+  "CheckCircle": [
+    "check",
+    "circle",
+    "round"
+  ],
+  "CheckCircleDashed": [
+    "check",
+    "circle",
+    "dashed",
+    "round"
+  ],
+  "CheckCircleFilled": [
+    "check",
+    "circle",
+    "filled",
+    "round"
+  ],
+  "CheckLg": [
+    "check"
+  ],
+  "CheckMd": [
+    "check"
+  ],
+  "CheckboxChecked": [
+    "checkbox",
+    "checked"
+  ],
+  "CheckboxCheckedFilled": [
+    "checkbox",
+    "checked",
+    "filled"
+  ],
+  "CheckboxUnchecked": [
+    "checkbox",
+    "unchecked"
+  ],
+  "ChevronDown": [
+    "chevron",
+    "down"
+  ],
+  "ChevronDownLg": [
+    "chevron",
+    "down"
+  ],
+  "ChevronDownMd": [
+    "chevron",
+    "down"
+  ],
+  "ChevronDownSm": [
+    "chevron",
+    "down"
+  ],
+  "ChevronDownUp": [
+    "chevron",
+    "down",
+    "up"
+  ],
+  "ChevronLeftLg": [
+    "chevron",
+    "left"
+  ],
+  "ChevronLeftMd": [
+    "chevron",
+    "left"
+  ],
+  "ChevronLeftSm": [
+    "chevron",
+    "left"
+  ],
+  "ChevronRightLg": [
+    "chevron",
+    "right"
+  ],
+  "ChevronRightMd": [
+    "chevron",
+    "right"
+  ],
+  "ChevronRightSm": [
+    "chevron",
+    "right"
+  ],
+  "ChevronUpDown": [
+    "chevron",
+    "up",
+    "down"
+  ],
+  "ChevronUpLg": [
+    "chevron",
+    "up"
+  ],
+  "ChevronUpMd": [
+    "chevron",
+    "up"
+  ],
+  "ChevronUpSm": [
+    "chevron",
+    "up"
+  ],
+  "CircleDashed": [
+    "circle",
+    "dashed",
+    "round"
+  ],
+  "CircleEmpty": [
+    "circle",
+    "empty",
+    "round"
+  ],
+  "CircleFilled": [
+    "circle",
+    "filled",
+    "round"
+  ],
+  "CircleQuestion": [
+    "circle",
+    "question",
+    "round",
+    "help"
+  ],
+  "CircleRadioSelected": [
+    "circle",
+    "radio",
+    "selected",
+    "round"
+  ],
+  "ClappingBoardClosed": [
+    "clapping",
+    "board",
+    "closed"
+  ],
+  "ClappingBoardOpen": [
+    "clapping",
+    "board",
+    "open"
+  ],
+  "Clock": [
+    "time"
+  ],
+  "ClockOff": [
+    "clock",
+    "off",
+    "time"
+  ],
+  "CloseBold": [
+    "close",
+    "bold",
+    "cancel"
+  ],
+  "CodeSquareSlash": [
+    "code",
+    "square",
+    "slash",
+    "box"
+  ],
+  "CollapseLeft": [
+    "collapse",
+    "left"
+  ],
+  "CollapseLg": [
+    "collapse"
+  ],
+  "CollapseRight": [
+    "collapse",
+    "right"
+  ],
+  "CollapseSm": [
+    "collapse"
+  ],
+  "ColorTheme": [
+    "color",
+    "theme"
+  ],
+  "CompareArrows": [
+    "compare",
+    "arrows"
+  ],
+  "Compass": [
+    "navigation"
+  ],
+  "ComposeDashed": [
+    "compose",
+    "dashed"
+  ],
+  "ComposeEditSquare": [
+    "compose",
+    "edit",
+    "square",
+    "pencil",
+    "box"
+  ],
+  "ComposeEditStar": [
+    "compose",
+    "edit",
+    "star",
+    "pencil",
+    "favorite"
+  ],
+  "ConfettiParty": [
+    "confetti",
+    "party"
+  ],
+  "ConnectApps": [
+    "connect",
+    "apps"
+  ],
+  "ConnectorsConnectedApps": [
+    "connectors",
+    "connected",
+    "apps"
+  ],
+  "CreditCard": [
+    "credit",
+    "card"
+  ],
+  "DarkMode": [
+    "dark",
+    "mode"
+  ],
+  "DataControls": [
+    "data",
+    "controls"
+  ],
+  "Desktop": [
+    "computer"
+  ],
+  "DiceRandomize": [
+    "dice",
+    "randomize"
+  ],
+  "DiningEvents": [
+    "dining",
+    "events"
+  ],
+  "DisabledCursor": [
+    "disabled",
+    "cursor"
+  ],
+  "DollarCircle": [
+    "dollar",
+    "circle",
+    "round"
+  ],
+  "DotsCircle": [
+    "dots",
+    "circle",
+    "round"
+  ],
+  "DotsHorizontal": [
+    "dots",
+    "horizontal"
+  ],
+  "DotsVertical": [
+    "dots",
+    "vertical"
+  ],
+  "DotsVerticalCircle": [
+    "dots",
+    "vertical",
+    "circle",
+    "round"
+  ],
+  "DoubleChevronLeft": [
+    "double",
+    "chevron",
+    "left"
+  ],
+  "DoubleChevronRight": [
+    "double",
+    "chevron",
+    "right"
+  ],
+  "Download": [
+    "save"
+  ],
+  "DownloadCircle": [
+    "download",
+    "circle",
+    "save",
+    "round"
+  ],
+  "DownloadVideo": [
+    "download",
+    "video",
+    "save"
+  ],
+  "DownloadVideoWatermark": [
+    "download",
+    "video",
+    "watermark",
+    "save"
+  ],
+  "EarthTravelWorld": [
+    "earth",
+    "travel",
+    "world"
+  ],
+  "EditPencil": [
+    "edit",
+    "pencil"
+  ],
+  "Email": [
+    "mail"
+  ],
+  "EmojiAdd": [
+    "emoji",
+    "add",
+    "plus"
+  ],
+  "EmojiLists": [
+    "emoji",
+    "lists"
+  ],
+  "EmojiRemove": [
+    "emoji",
+    "remove",
+    "delete"
+  ],
+  "EmojiSections": [
+    "emoji",
+    "sections"
+  ],
+  "EmojiWords": [
+    "emoji",
+    "words"
+  ],
+  "EnterLogin": [
+    "enter",
+    "login"
+  ],
+  "Error": [
+    "fail"
+  ],
+  "ExclamationMarkCircle": [
+    "exclamation",
+    "mark",
+    "circle",
+    "round"
+  ],
+  "ExclamationMarkCircleFilled": [
+    "exclamation",
+    "mark",
+    "circle",
+    "filled",
+    "round"
+  ],
+  "ExitLogout": [
+    "exit",
+    "logout"
+  ],
+  "ExpandLg": [
+    "expand"
+  ],
+  "ExpandMd": [
+    "expand"
+  ],
+  "ExpandSm": [
+    "expand"
+  ],
+  "ExternalLink": [
+    "external",
+    "link"
+  ],
+  "EyeOff": [
+    "eye",
+    "off"
+  ],
+  "FeaturedWreath": [
+    "featured",
+    "wreath"
+  ],
+  "FileAudio": [
+    "file",
+    "audio"
+  ],
+  "FileBlank": [
+    "file",
+    "blank"
+  ],
+  "FileCode": [
+    "file",
+    "code"
+  ],
+  "FileDocument": [
+    "file",
+    "document"
+  ],
+  "FileImage": [
+    "file",
+    "image",
+    "photo"
+  ],
+  "FilePresentation": [
+    "file",
+    "presentation"
+  ],
+  "FileSpreadsheet": [
+    "file",
+    "spreadsheet"
+  ],
+  "FileUpload": [
+    "file",
+    "upload",
+    "send"
+  ],
+  "FileVideo": [
+    "file",
+    "video"
+  ],
+  "FileZip": [
+    "file",
+    "zip"
+  ],
+  "Filter": [
+    "sort"
+  ],
+  "FilterBadge": [
+    "filter",
+    "badge",
+    "sort"
+  ],
+  "FlaskFilled": [
+    "flask",
+    "filled"
+  ],
+  "FoldHorizontal": [
+    "fold",
+    "horizontal"
+  ],
+  "Folder": [
+    "directory"
+  ],
+  "FolderOpen": [
+    "folder",
+    "open",
+    "directory"
+  ],
+  "FolderPlus": [
+    "folder",
+    "plus",
+    "directory",
+    "add"
+  ],
+  "FolderShared": [
+    "folder",
+    "shared",
+    "directory"
+  ],
+  "FolderSharedOpen": [
+    "folder",
+    "shared",
+    "open",
+    "directory"
+  ],
+  "FolderStuffed": [
+    "folder",
+    "stuffed",
+    "directory"
+  ],
+  "FolderUnshare": [
+    "folder",
+    "unshare",
+    "directory"
+  ],
+  "Function1": [
+    "function"
+  ],
+  "GenerateSuggestedEdits": [
+    "generate",
+    "suggested",
+    "edits"
+  ],
+  "GlobeAlt": [
+    "globe",
+    "alt"
+  ],
+  "GlobeFilled": [
+    "globe",
+    "filled"
+  ],
+  "GlobeOff": [
+    "globe",
+    "off"
+  ],
+  "GlobeSpin": [
+    "globe",
+    "spin"
+  ],
+  "GridAlt": [
+    "grid",
+    "alt"
+  ],
+  "GripHorizontal": [
+    "grip",
+    "horizontal"
+  ],
+  "GripVertical": [
+    "grip",
+    "vertical"
+  ],
+  "Group": [
+    "team"
+  ],
+  "GroupCheck": [
+    "group",
+    "check",
+    "team"
+  ],
+  "GroupCheckCircle": [
+    "group",
+    "check",
+    "circle",
+    "team",
+    "round"
+  ],
+  "GroupFilled": [
+    "group",
+    "filled",
+    "team"
+  ],
+  "HandBack": [
+    "hand",
+    "back"
+  ],
+  "HandFront": [
+    "hand",
+    "front"
+  ],
+  "HandPeace": [
+    "hand",
+    "peace"
+  ],
+  "HandRaised": [
+    "hand",
+    "raised"
+  ],
+  "HandWaving": [
+    "hand",
+    "waving"
+  ],
+  "HapticFeedback": [
+    "haptic",
+    "feedback"
+  ],
+  "Heart": [
+    "like"
+  ],
+  "HeartFilled": [
+    "heart",
+    "filled",
+    "like"
+  ],
+  "HeartXs": [
+    "heart",
+    "xs",
+    "like"
+  ],
+  "HeartXsFilled": [
+    "heart",
+    "xs",
+    "filled",
+    "like"
+  ],
+  "HistoryOff": [
+    "history",
+    "off",
+    "log"
+  ],
+  "HistoryOn": [
+    "history",
+    "log"
+  ],
+  "HomeAlt": [
+    "home",
+    "alt"
+  ],
+  "ImageCaption": [
+    "image",
+    "caption",
+    "photo"
+  ],
+  "ImageSquare": [
+    "image",
+    "square",
+    "photo",
+    "box"
+  ],
+  "ImageToText": [
+    "image",
+    "text",
+    "photo"
+  ],
+  "ImageWide": [
+    "image",
+    "wide",
+    "photo"
+  ],
+  "ImageWideFilled": [
+    "image",
+    "wide",
+    "filled",
+    "photo"
+  ],
+  "InfoCircle": [
+    "info",
+    "circle",
+    "help",
+    "round"
+  ],
+  "InternalKnowledge": [
+    "internal",
+    "knowledge"
+  ],
+  "JumpToCaption": [
+    "jump",
+    "caption"
+  ],
+  "Key": [
+    "access"
+  ],
+  "KeyboardShortcut": [
+    "keyboard",
+    "shortcut"
+  ],
+  "LayoutList": [
+    "layout",
+    "list"
+  ],
+  "LightMode": [
+    "light",
+    "mode"
+  ],
+  "LightbulbFilled": [
+    "lightbulb",
+    "filled"
+  ],
+  "LightbulbGlow": [
+    "lightbulb",
+    "glow"
+  ],
+  "LinkDisabledBold": [
+    "link",
+    "disabled",
+    "bold"
+  ],
+  "LinkExternal": [
+    "link",
+    "external"
+  ],
+  "ListChevronsDownUp": [
+    "list",
+    "chevrons",
+    "down",
+    "up"
+  ],
+  "ListChevronsUpDown": [
+    "list",
+    "chevrons",
+    "up",
+    "down"
+  ],
+  "ListNumbers": [
+    "list",
+    "numbers"
+  ],
+  "LocalServices": [
+    "local",
+    "services"
+  ],
+  "LockKeyHole": [
+    "lock",
+    "key",
+    "hole",
+    "secure",
+    "access"
+  ],
+  "LoopLong": [
+    "loop",
+    "long"
+  ],
+  "LoopNormal": [
+    "loop",
+    "normal"
+  ],
+  "LoopShort": [
+    "loop",
+    "short"
+  ],
+  "ManageHistory": [
+    "manage",
+    "history",
+    "log"
+  ],
+  "MapPin": [
+    "map",
+    "pin",
+    "location"
+  ],
+  "MapsAddress": [
+    "maps",
+    "address"
+  ],
+  "MapsDirections": [
+    "maps",
+    "directions"
+  ],
+  "MarkerCode": [
+    "marker",
+    "code"
+  ],
+  "MarkerData": [
+    "marker",
+    "data"
+  ],
+  "MarkerMultiple": [
+    "marker",
+    "multiple"
+  ],
+  "MarkerQuote": [
+    "marker",
+    "quote"
+  ],
+  "MemberAdd": [
+    "member",
+    "add",
+    "plus"
+  ],
+  "MembersFilled": [
+    "members",
+    "filled"
+  ],
+  "MemoryOffRemember": [
+    "memory",
+    "off",
+    "remember"
+  ],
+  "MemoryOnRemember": [
+    "memory",
+    "remember"
+  ],
+  "MemoryWriteSm": [
+    "memory",
+    "write"
+  ],
+  "MenuInverted": [
+    "menu",
+    "inverted"
+  ],
+  "MenuSidebar": [
+    "menu",
+    "sidebar"
+  ],
+  "MessageImage": [
+    "message",
+    "image",
+    "chat",
+    "photo"
+  ],
+  "MicFilled": [
+    "mic",
+    "filled"
+  ],
+  "MicFilledOff": [
+    "mic",
+    "filled",
+    "off"
+  ],
+  "MicOff": [
+    "mic",
+    "off"
+  ],
+  "MinimizeDown": [
+    "minimize",
+    "down"
+  ],
+  "MinimizeLeft": [
+    "minimize",
+    "left"
+  ],
+  "MinimizeRight": [
+    "minimize",
+    "right"
+  ],
+  "MinimizeTop": [
+    "minimize",
+    "top"
+  ],
+  "MinusCircle": [
+    "minus",
+    "circle",
+    "round"
+  ],
+  "MinusCircleFilled": [
+    "minus",
+    "circle",
+    "filled",
+    "round"
+  ],
+  "Mobile": [
+    "phone"
+  ],
+  "MoonSun": [
+    "moon",
+    "sun"
+  ],
+  "NewsPaper": [
+    "news",
+    "paper"
+  ],
+  "NotebookCheck": [
+    "notebook",
+    "check"
+  ],
+  "NotebookNarrow": [
+    "notebook",
+    "narrow"
+  ],
+  "NotebookPencil": [
+    "notebook",
+    "pencil",
+    "edit"
+  ],
+  "Number123": [
+    "number"
+  ],
+  "OpenLeft": [
+    "open",
+    "left"
+  ],
+  "OpenRight": [
+    "open",
+    "right"
+  ],
+  "PageBlank": [
+    "page",
+    "blank"
+  ],
+  "PaintDashed": [
+    "paint",
+    "dashed"
+  ],
+  "PanelBottom": [
+    "panel",
+    "bottom"
+  ],
+  "ParentControl": [
+    "parent",
+    "control"
+  ],
+  "PastedText": [
+    "pasted",
+    "text"
+  ],
+  "PauseCircle": [
+    "pause",
+    "circle",
+    "round"
+  ],
+  "PauseCircleFilled": [
+    "pause",
+    "circle",
+    "filled",
+    "round"
+  ],
+  "PauseSm": [
+    "pause"
+  ],
+  "Pencil": [
+    "edit"
+  ],
+  "PencilSparkle": [
+    "pencil",
+    "sparkle",
+    "edit"
+  ],
+  "PencilSquare": [
+    "pencil",
+    "square",
+    "edit",
+    "box"
+  ],
+  "Phone": [
+    "mobile"
+  ],
+  "PhoneMissed": [
+    "phone",
+    "missed",
+    "mobile"
+  ],
+  "PhoneRing": [
+    "phone",
+    "ring",
+    "mobile"
+  ],
+  "PhoneWaves": [
+    "phone",
+    "waves",
+    "mobile"
+  ],
+  "PictureInPicture": [
+    "picture"
+  ],
+  "Pin": [
+    "location"
+  ],
+  "PinFilled": [
+    "pin",
+    "filled",
+    "location"
+  ],
+  "PinWindow": [
+    "pin",
+    "window",
+    "location"
+  ],
+  "PlantDesk": [
+    "plant",
+    "desk"
+  ],
+  "PlayCircle": [
+    "play",
+    "circle",
+    "round"
+  ],
+  "PlayCircleFilled": [
+    "play",
+    "circle",
+    "filled",
+    "round"
+  ],
+  "PlaySm": [
+    "play"
+  ],
+  "PluginPuzzle": [
+    "plugin",
+    "puzzle"
+  ],
+  "Plus": [
+    "add"
+  ],
+  "PlusAlt": [
+    "plus",
+    "alt",
+    "add"
+  ],
+  "PlusAltFilled": [
+    "plus",
+    "alt",
+    "filled",
+    "add"
+  ],
+  "PlusCircle": [
+    "plus",
+    "circle",
+    "add",
+    "round"
+  ],
+  "PlusCircleFilled": [
+    "plus",
+    "circle",
+    "filled",
+    "add",
+    "round"
+  ],
+  "PlusLg": [
+    "plus",
+    "add"
+  ],
+  "PlusSm": [
+    "plus",
+    "add"
+  ],
+  "PlusSparkleFilled": [
+    "plus",
+    "sparkle",
+    "filled",
+    "add"
+  ],
+  "PlusSquare": [
+    "plus",
+    "square",
+    "add",
+    "box"
+  ],
+  "PlusSquareAlt": [
+    "plus",
+    "square",
+    "alt",
+    "add",
+    "box"
+  ],
+  "PopOutWindow": [
+    "pop",
+    "out",
+    "window"
+  ],
+  "PresetDefault": [
+    "preset",
+    "default"
+  ],
+  "PresetSelected": [
+    "preset",
+    "selected"
+  ],
+  "ProDiamond": [
+    "pro",
+    "diamond"
+  ],
+  "ProDiamondFilled": [
+    "pro",
+    "diamond",
+    "filled"
+  ],
+  "ProfileCard": [
+    "profile",
+    "card",
+    "avatar"
+  ],
+  "PullRequestClosed": [
+    "pull",
+    "request",
+    "closed"
+  ],
+  "PullRequestDraft": [
+    "pull",
+    "request",
+    "draft"
+  ],
+  "PullRequestMerged": [
+    "pull",
+    "request",
+    "merged"
+  ],
+  "PullRequestOpen": [
+    "pull",
+    "request",
+    "open"
+  ],
+  "QuestionMark": [
+    "question",
+    "mark",
+    "help"
+  ],
+  "QuestionMarkCircle": [
+    "question",
+    "mark",
+    "circle",
+    "help",
+    "round"
+  ],
+  "QuickStart": [
+    "quick",
+    "start"
+  ],
+  "QuoteReplyFilled": [
+    "quote",
+    "reply",
+    "filled"
+  ],
+  "ReadingLevel": [
+    "reading",
+    "level"
+  ],
+  "RegenerateOff": [
+    "regenerate",
+    "off"
+  ],
+  "RegenerateStar": [
+    "regenerate",
+    "star",
+    "favorite"
+  ],
+  "Reload": [
+    "refresh"
+  ],
+  "RemixMild": [
+    "remix",
+    "mild"
+  ],
+  "RemixStrong": [
+    "remix",
+    "strong"
+  ],
+  "RemixSubtle": [
+    "remix",
+    "subtle"
+  ],
+  "RemovePermanently": [
+    "remove",
+    "permanently",
+    "delete"
+  ],
+  "RemoveTrash": [
+    "remove",
+    "trash",
+    "delete"
+  ],
+  "ResetChat": [
+    "reset",
+    "chat",
+    "message"
+  ],
+  "RestoreUntrash": [
+    "restore",
+    "untrash"
+  ],
+  "RobotHead": [
+    "robot",
+    "head"
+  ],
+  "RobotHeadSad": [
+    "robot",
+    "head",
+    "sad"
+  ],
+  "ScreenPosition": [
+    "screen",
+    "position"
+  ],
+  "Search": [
+    "find"
+  ],
+  "SearchConnector": [
+    "search",
+    "connector",
+    "find"
+  ],
+  "SearchSm": [
+    "search",
+    "find"
+  ],
+  "SelectText": [
+    "select",
+    "text"
+  ],
+  "SettingsCircle": [
+    "settings",
+    "circle",
+    "gear",
+    "round"
+  ],
+  "SettingsCog": [
+    "settings",
+    "cog",
+    "gear"
+  ],
+  "SettingsSlider": [
+    "settings",
+    "slider",
+    "gear"
+  ],
+  "SettingsWrench": [
+    "settings",
+    "wrench",
+    "gear",
+    "tool"
+  ],
+  "Share": [
+    "export"
+  ],
+  "ShareAndroid": [
+    "share",
+    "android",
+    "export"
+  ],
+  "ShareChat": [
+    "share",
+    "chat",
+    "export",
+    "message"
+  ],
+  "ShareScreen": [
+    "share",
+    "screen",
+    "export"
+  ],
+  "ShareScreenAlt": [
+    "share",
+    "screen",
+    "alt",
+    "export"
+  ],
+  "ShareScreenAltFilled": [
+    "share",
+    "screen",
+    "alt",
+    "filled",
+    "export"
+  ],
+  "ShareScreenFilled": [
+    "share",
+    "screen",
+    "filled",
+    "export"
+  ],
+  "ShareScreenOff": [
+    "share",
+    "screen",
+    "off",
+    "export"
+  ],
+  "ShareScreenOffFilled": [
+    "share",
+    "screen",
+    "off",
+    "filled",
+    "export"
+  ],
+  "ShieldCheck": [
+    "shield",
+    "check",
+    "security"
+  ],
+  "ShieldKey": [
+    "shield",
+    "key",
+    "security",
+    "access"
+  ],
+  "ShieldLock": [
+    "shield",
+    "lock",
+    "security",
+    "secure"
+  ],
+  "ShieldPerson": [
+    "shield",
+    "person",
+    "security"
+  ],
+  "ShoppingBag": [
+    "shopping",
+    "bag"
+  ],
+  "SidebarBadge": [
+    "sidebar",
+    "badge"
+  ],
+  "SidebarCollapseLeft": [
+    "sidebar",
+    "collapse",
+    "left"
+  ],
+  "SidebarCollapseRight": [
+    "sidebar",
+    "collapse",
+    "right"
+  ],
+  "SidebarFloatingLeft": [
+    "sidebar",
+    "floating",
+    "left"
+  ],
+  "SidebarFloatingOpenLeft": [
+    "sidebar",
+    "floating",
+    "open",
+    "left"
+  ],
+  "SidebarFloatingOpenRight": [
+    "sidebar",
+    "floating",
+    "open",
+    "right"
+  ],
+  "SidebarFloatingRight": [
+    "sidebar",
+    "floating",
+    "right"
+  ],
+  "SidebarLeft": [
+    "sidebar",
+    "left"
+  ],
+  "SidebarMenuMobile": [
+    "sidebar",
+    "menu",
+    "mobile",
+    "phone"
+  ],
+  "SidebarMenuMobileBadgeCutout": [
+    "sidebar",
+    "menu",
+    "mobile",
+    "badge",
+    "cutout"
+  ],
+  "SidebarOpenLeft": [
+    "sidebar",
+    "open",
+    "left"
+  ],
+  "SidebarOpenLeftAlt": [
+    "sidebar",
+    "open",
+    "left",
+    "alt"
+  ],
+  "SidebarOpenRight": [
+    "sidebar",
+    "open",
+    "right"
+  ],
+  "SidebarOpenRightAlt": [
+    "sidebar",
+    "open",
+    "right",
+    "alt"
+  ],
+  "SidebarRight": [
+    "sidebar",
+    "right"
+  ],
+  "SimpleRelax": [
+    "simple",
+    "relax"
+  ],
+  "SimpleSad": [
+    "simple",
+    "sad"
+  ],
+  "SimpleSmile": [
+    "simple",
+    "smile"
+  ],
+  "SoraBasicPopcorn": [
+    "sora",
+    "basic",
+    "popcorn"
+  ],
+  "SoraProDirector": [
+    "sora",
+    "pro",
+    "director"
+  ],
+  "SoundOffSimpleMute": [
+    "sound",
+    "off",
+    "simple",
+    "mute"
+  ],
+  "SoundOffSpeaker": [
+    "sound",
+    "off",
+    "speaker"
+  ],
+  "SoundOnSpeaker": [
+    "sound",
+    "speaker"
+  ],
+  "SpacingVertical": [
+    "spacing",
+    "vertical"
+  ],
+  "SparklesFilled": [
+    "sparkles",
+    "filled"
+  ],
+  "SpeechToText": [
+    "speech",
+    "text"
+  ],
+  "SquareAsterisk": [
+    "square",
+    "asterisk",
+    "box"
+  ],
+  "SquareCheckboxUnchecked": [
+    "square",
+    "checkbox",
+    "unchecked",
+    "box"
+  ],
+  "SquareCode": [
+    "square",
+    "code",
+    "box"
+  ],
+  "SquareDashed": [
+    "square",
+    "dashed",
+    "box"
+  ],
+  "SquareFilledTableLegend": [
+    "square",
+    "filled",
+    "table",
+    "legend",
+    "box"
+  ],
+  "SquareImage": [
+    "square",
+    "image",
+    "box",
+    "photo"
+  ],
+  "SquareText": [
+    "square",
+    "text",
+    "box"
+  ],
+  "Star": [
+    "favorite"
+  ],
+  "StarFilled": [
+    "star",
+    "filled",
+    "favorite"
+  ],
+  "StartStrokeMd": [
+    "start",
+    "stroke"
+  ],
+  "StickyNote": [
+    "sticky",
+    "note"
+  ],
+  "StopCircleFilled": [
+    "stop",
+    "circle",
+    "filled",
+    "round"
+  ],
+  "StopOutline": [
+    "stop",
+    "outline"
+  ],
+  "StopSm": [
+    "stop"
+  ],
+  "StopStrokeMd": [
+    "stop",
+    "stroke"
+  ],
+  "StuffTools": [
+    "stuff",
+    "tools"
+  ],
+  "SubscriptionPlan": [
+    "subscription",
+    "plan"
+  ],
+  "SuggestEdit": [
+    "suggest",
+    "edit",
+    "pencil"
+  ],
+  "Suitcase1": [
+    "suitcase"
+  ],
+  "SuitcaseAlt": [
+    "suitcase",
+    "alt"
+  ],
+  "SystemMode": [
+    "system",
+    "mode"
+  ],
+  "TBoneRaw": [
+    "t",
+    "bone",
+    "raw"
+  ],
+  "TableCellFilled": [
+    "table",
+    "cell",
+    "filled"
+  ],
+  "TableCellsFilled": [
+    "table",
+    "cells",
+    "filled"
+  ],
+  "TableColumnFilled": [
+    "table",
+    "column",
+    "filled"
+  ],
+  "TableFilled": [
+    "table",
+    "filled"
+  ],
+  "TableRowFilled": [
+    "table",
+    "row",
+    "filled"
+  ],
+  "TagFilled": [
+    "tag",
+    "filled"
+  ],
+  "TerminalLg": [
+    "terminal"
+  ],
+  "TextAlignCenter": [
+    "text",
+    "align",
+    "center"
+  ],
+  "TextAlignEnd": [
+    "text",
+    "align",
+    "end"
+  ],
+  "TextAlignStart": [
+    "text",
+    "align",
+    "start"
+  ],
+  "TextCursorInput": [
+    "text",
+    "cursor",
+    "input"
+  ],
+  "TextInitial": [
+    "text",
+    "initial"
+  ],
+  "TextLonger": [
+    "text",
+    "longer"
+  ],
+  "TextPrompt": [
+    "text",
+    "prompt"
+  ],
+  "TextSelect": [
+    "text",
+    "select"
+  ],
+  "TextShorter": [
+    "text",
+    "shorter"
+  ],
+  "TextToSpeech": [
+    "text",
+    "speech"
+  ],
+  "ThumbDown": [
+    "thumb",
+    "down"
+  ],
+  "ThumbDownFilled": [
+    "thumb",
+    "down",
+    "filled"
+  ],
+  "ThumbMixed": [
+    "thumb",
+    "mixed"
+  ],
+  "ThumbUp": [
+    "thumb",
+    "up"
+  ],
+  "ThumbUpFilled": [
+    "thumb",
+    "up",
+    "filled"
+  ],
+  "ThumbnailLarge": [
+    "thumbnail",
+    "large"
+  ],
+  "ThumbnailMedium": [
+    "thumbnail",
+    "medium"
+  ],
+  "ThumbnailSmall": [
+    "thumbnail",
+    "small"
+  ],
+  "ToolsSkills": [
+    "tools",
+    "skills"
+  ],
+  "TrophyTop": [
+    "trophy",
+    "top"
+  ],
+  "TuningFork": [
+    "tuning",
+    "fork"
+  ],
+  "UnfoldHorizontal": [
+    "unfold",
+    "horizontal"
+  ],
+  "UpgradePlan": [
+    "upgrade",
+    "plan"
+  ],
+  "UploadDocuments": [
+    "upload",
+    "documents",
+    "send"
+  ],
+  "UpscaleXs": [
+    "upscale",
+    "xs"
+  ],
+  "User": [
+    "profile"
+  ],
+  "UserAdd": [
+    "user",
+    "add",
+    "profile",
+    "plus"
+  ],
+  "UserDelete": [
+    "user",
+    "delete",
+    "profile",
+    "trash"
+  ],
+  "UserHeart": [
+    "user",
+    "heart",
+    "profile",
+    "like"
+  ],
+  "UserLock": [
+    "user",
+    "lock",
+    "profile",
+    "secure"
+  ],
+  "UserVoice": [
+    "user",
+    "voice",
+    "profile"
+  ],
+  "Variation2V2": [
+    "variation2v"
+  ],
+  "VariationV21": [
+    "variation",
+    "v"
+  ],
+  "VariationV31": [
+    "variation",
+    "v"
+  ],
+  "VariationV32": [
+    "variation",
+    "v"
+  ],
+  "VariationV33": [
+    "variation",
+    "v"
+  ],
+  "VariationV41": [
+    "variation",
+    "v"
+  ],
+  "VariationV42": [
+    "variation",
+    "v"
+  ],
+  "VariationV43": [
+    "variation",
+    "v"
+  ],
+  "VariationV44": [
+    "variation",
+    "v"
+  ],
+  "VersionsV1": [
+    "versions",
+    "v"
+  ],
+  "VideoCaption": [
+    "video",
+    "caption"
+  ],
+  "VideoFilled": [
+    "video",
+    "filled"
+  ],
+  "VideoFilledOff": [
+    "video",
+    "filled",
+    "off"
+  ],
+  "VideoGrid": [
+    "video",
+    "grid"
+  ],
+  "VideoList": [
+    "video",
+    "list"
+  ],
+  "VideoToText": [
+    "video",
+    "text"
+  ],
+  "Warning": [
+    "alert"
+  ],
+  "WarningCenteredForCircle": [
+    "warning",
+    "centered",
+    "circle",
+    "alert",
+    "round"
+  ],
+  "WarningCenteredForCircleFilled": [
+    "warning",
+    "centered",
+    "circle",
+    "filled",
+    "alert"
+  ],
+  "WarningFilled": [
+    "warning",
+    "filled",
+    "alert"
+  ],
+  "WebsiteNetwork": [
+    "website",
+    "network"
+  ],
+  "WidgetAdd": [
+    "widget",
+    "add",
+    "plus"
+  ],
+  "WorkWithApps": [
+    "work",
+    "apps"
+  ],
+  "WriteAlt": [
+    "write",
+    "alt"
+  ],
+  "X": [
+    "close"
+  ],
+  "XCircle": [
+    "x",
+    "circle",
+    "close",
+    "round"
+  ],
+  "XCircleFilled": [
+    "x",
+    "circle",
+    "filled",
+    "close",
+    "round"
+  ],
+  "XCircleSm": [
+    "x",
+    "circle",
+    "close",
+    "round"
+  ],
+  "XCircleSmFilled": [
+    "x",
+    "circle",
+    "sm",
+    "filled",
+    "close"
+  ],
+  "XSquare": [
+    "x",
+    "square",
+    "close",
+    "box"
+  ],
+  "XSquareFilled": [
+    "x",
+    "square",
+    "filled",
+    "close",
+    "box"
+  ],
+  "XXs": [
+    "x",
+    "xs",
+    "close"
+  ]
+}

@@ -1,1 +1,18 @@
-{"title":"Docs","pages":["index","overview","concepts","foundations","components","hooks","transitions"]}
+{
+  "title": "Docs",
+  "pages": [
+    "index",
+    "components",
+    "icons",
+    "installation",
+    "foundations",
+    "concepts",
+    "skills",
+    "ai-setup",
+    "mcp",
+    "registry",
+    "hooks",
+    "transitions",
+    "changelog"
+  ]
+}

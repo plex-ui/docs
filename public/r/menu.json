@@ -5,7 +5,7 @@
   "title": "Menu",
   "description": "Plex UI Menu — dropdown menu with items, separators, checkable items, submenus, and keyboard navigation.",
   "dependencies": ["@plexui/ui"],
-  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "registryDependencies": ["https://plexui.com/r/styles.json"],
   "files": [
     {
       "path": "components/ui/menu.tsx",
@@ -13,5 +13,5 @@
       "content": "export { Menu } from '@plexui/ui/components/Menu';\nexport type { MenuProps } from '@plexui/ui/components/Menu';\n"
     }
   ],
-  "docs": "Import as `import { Menu } from '@/components/ui/menu'`. See https://plexui.dev/docs/components/menu for full prop reference."
+  "docs": "Import as `import { Menu } from '@/components/ui/menu'`. See https://plexui.com/docs/components/menu for full prop reference."
 }
