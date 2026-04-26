@@ -9,6 +9,29 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ## Unreleased
 
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>CodeBlock</strong> — restore the ghost-secondary hover background on the in-block <code>CopyButton</code>. A long-standing override in <code>CodeBlock.module.css</code> forced the Button's <code>::before</code> pseudo-element to <code>opacity: 0 !important</code>, suppressing the standard Plex ghost-button hover affordance. Removed; copy buttons now light up on hover with the same subtle gray as every other ghost-secondary <code>Button</code> on the system.
+  </li>
+  <li>
+    <strong>Icons</strong> — fixed three previously-unrendered icons (<code>Education</code>, <code>HapticFeedback</code>, <code>ThumbMixed</code>) that wrapped their paths in a <code>&lt;g clipPath&gt;</code> referencing a <code>&lt;rect width="1em" height="1em"&gt;</code>. Inside the <code>viewBox="0 0 24 24"</code> coordinate system, "1em" collapsed to ~1 user-unit and clipped the icon out of view. Removed the broken clip wrapper.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>AppStoreSquare icon</strong> — cleaner double-rounded-rect outline geometry; matches the rest of the AppStore family in stroke weight and proportions.
+  </li>
+</ul>
+
+---
+
+## 0.14.0 — 2026-04-25
+
 ### Added
 
 <ul className="changelog-list">
