@@ -1,4 +1,5 @@
 import { SidebarProvider } from 'fumadocs-ui/components/sidebar/base';
+import { Toaster } from '@plexui/ui/components/Toast';
 import { DocsGlobalNav } from '@/components/layout/DocsGlobalNav';
 import { HomeSidebarDrawer } from '@/components/layout/HomeSidebarDrawer';
 import { buildDocsTreeNavigation } from '@/lib/docs-navigation';
@@ -28,6 +29,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <div className="flex flex-1 flex-col justify-center">{children}</div>
         <Footer />
       </div>
+      <Toaster />
     </SidebarProvider>
   );
 }
