@@ -62,6 +62,13 @@ export function SettingsPage() {
 const codeReset =
   '[&_figure]:!my-0 [&_figure]:!rounded-none [&_figure]:!border-0 [&_figure]:!bg-transparent [&_figure]:!shadow-none ' +
   '[&_figure>div]:!max-h-none ' +
+  // The copy-button overlay (figure > div.absolute) gets `background:
+  // var(--docs-code-block-bg) !important` from the global Fumadocs
+  // override in app/globals.css. In this card it sits on a
+  // bg-fd-muted/30 surface and the colour mismatch shows as a
+  // small differently-coloured square. Force it transparent so it
+  // inherits the card's background.
+  '[&_figure>div.absolute]:!bg-transparent ' +
   '[&_pre]:!rounded-none [&_pre]:!border-0 [&_pre]:!bg-transparent';
 
 export function AiCodeComparison() {
