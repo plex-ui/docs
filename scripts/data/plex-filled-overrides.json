@@ -1,0 +1,35 @@
+{
+  "_doc": [
+    "Manual overrides for the Plex filled/outline classification.",
+    "The pixel-rendered classifier (scripts/classify-plex-filled.mjs)",
+    "can't reliably distinguish small solid shapes (Stop, CaretDown,",
+    "Rewind) from outline glyphs because Plex draws everything with",
+    "fill=currentColor and no strokes. Use this file to PROMOTE",
+    "missed visually-filled icons into the Filled tab and DEMOTE",
+    "false-positives back to Outline.",
+    "",
+    "How to add an icon: just append its PascalCase name to `include`",
+    "(or `exclude`), then run `npm run classify:plex-filled` and",
+    "`npm run build:icon-catalogs`."
+  ],
+  "include": [
+    "CaretDown",
+    "CaretLeft",
+    "CaretRight",
+    "CaretUp",
+    "MapsDirections",
+    "MemoryWriteSm",
+    "PencilSparkle",
+    "PlaySm",
+    "Rewind",
+    "Scales",
+    "SidebarOpenLeft",
+    "SidebarOpenRight",
+    "Skip",
+    "Stop",
+    "StopSm"
+  ],
+  "exclude": [
+    "UpscaleXs"
+  ]
+}

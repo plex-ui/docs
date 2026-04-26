@@ -148,9 +148,52 @@ for (const file of files) {
 filled.sort((a, b) => a.name.localeCompare(b.name));
 outline.sort((a, b) => a.name.localeCompare(b.name));
 
+// Apply manual overrides. The pixel classifier can't reliably tell
+// small solid shapes (Stop, CaretDown, Rewind) from outline glyphs —
+// Plex draws everything with fill=currentColor without strokes, so
+// "filledness" is a subjective visual category that no automated
+// signal nails 100% of the time. Keep an explicit allow/deny list.
+let manualPromoted = 0;
+let manualDemoted = 0;
+try {
+  const overridesRaw = await readFile(
+    join(__dirname, 'data', 'plex-filled-overrides.json'),
+    'utf8'
+  );
+  const overrides = JSON.parse(overridesRaw);
+  const include = new Set(overrides.include ?? []);
+  const exclude = new Set(overrides.exclude ?? []);
+  // Promote include[] from outline → filled.
+  for (let i = outline.length - 1; i >= 0; i -= 1) {
+    if (include.has(outline[i].name)) {
+      filled.push({ ...outline[i], override: 'include' });
+      outline.splice(i, 1);
+      manualPromoted += 1;
+    }
+  }
+  // Demote exclude[] from filled → outline.
+  for (let i = filled.length - 1; i >= 0; i -= 1) {
+    if (exclude.has(filled[i].name)) {
+      outline.push({ ...filled[i], override: 'exclude' });
+      filled.splice(i, 1);
+      manualDemoted += 1;
+    }
+  }
+  filled.sort((a, b) => a.name.localeCompare(b.name));
+  outline.sort((a, b) => a.name.localeCompare(b.name));
+} catch (err) {
+  if (err.code !== 'ENOENT') throw err;
+  // No overrides file — fine, just run with the algorithmic output.
+}
+
 console.log(`Total: ${files.length}`);
 console.log(`  outline: ${outline.length}`);
 console.log(`  filled:  ${filled.length}`);
+if (manualPromoted || manualDemoted) {
+  console.log(
+    `  overrides: +${manualPromoted} promoted, -${manualDemoted} demoted`
+  );
+}
 if (errors.length) console.log(`  errors:  ${errors.length}`);
 
 // Quick sanity sample
