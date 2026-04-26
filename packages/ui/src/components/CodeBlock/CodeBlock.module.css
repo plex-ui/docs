@@ -20,18 +20,16 @@
 }
 
 /* Force the CopyButton to inherit the container's color on all states.
-   Ghost hover background (::before) is preserved — it's the correct behavior. */
+   The ghost-secondary hover background (rendered via the Button's
+   ::before pseudo-element) is intentionally NOT suppressed here —
+   it's what gives the copy icon a visible hover affordance on the
+   light-grey codeblock surface. (A previous version of this rule
+   zeroed ::before to keep the hover invisible; see commit history
+   for the regression that caused.) */
 .CopyButtonContainer button {
   color: inherit !important;
   padding: 0 !important;
   -webkit-tap-highlight-color: transparent;
-}
-
-.CopyButtonContainer button::before {
-  opacity: 0 !important;
-  transform: none !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
 }
 
 .CopyButtonContainer button:focus,
