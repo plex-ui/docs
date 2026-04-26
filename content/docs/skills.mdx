@@ -3,6 +3,8 @@ title: Skills
 description: Install the Plex UI skill in Claude Code, Codex, and other AI coding agents
 ---
 
+import { COMPONENTS_COUNT, ICONS_COUNT } from '@/lib/counts';
+
 Skills give AI assistants project-aware context about Plex UI — component APIs, the 9-step size scale, color system, variants, icons, and import conventions. Once installed, your agent generates correct Plex UI code on the first try.
 
 For example, you can ask your AI assistant to:
@@ -96,7 +98,7 @@ The skill provides your AI assistant with the following knowledge:
 
 ### Component Reference
 
-Full API reference for all 47 components: Button, Input, Select, Sidebar, Menu, Dialog, Tabs, DatePicker, and more. Includes props, composition patterns, and common usage examples.
+Full API reference for all {COMPONENTS_COUNT} components: Button, Input, Select, Sidebar, Menu, Dialog, Tabs, DatePicker, and more. Includes props, composition patterns, and common usage examples.
 
 ### Size Scale & Conventions
 
@@ -112,7 +114,7 @@ How Plex UI uses CSS `light-dark()` for automatic dark mode — no `dark:` prefi
 
 ### Icon Library
 
-Import patterns for 650+ built-in icons, auto-sizing behavior inside components, and the `iconSize` override prop.
+Import patterns for {ICONS_COUNT} built-in icons, auto-sizing behavior inside components, and the `iconSize` override prop.
 
 ### Import Patterns
 

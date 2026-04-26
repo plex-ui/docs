@@ -3,6 +3,8 @@ title: MCP Server
 description: Give AI editors full access to PlexUI components, props, and examples
 ---
 
+import { COMPONENTS_COUNT } from '@/lib/counts';
+
 Use the PlexUI MCP server to give AI assistants direct access to component documentation, props, and code examples — without leaving your editor.
 
 ## Quick Start
@@ -99,7 +101,7 @@ The MCP server exposes 4 tools:
 
 | Tool | Description |
 |------|-------------|
-| `list_components` | List all 47 components with descriptions and import paths |
+| `list_components` | List all {COMPONENTS_COUNT} components with descriptions and import paths |
 | `get_component` | Full docs for a component: props, types, defaults, code examples |
 | `search_components` | Find components by name, description, or functionality |
 | `get_setup_guide` | Installation, CSS setup, provider config, and a quick example |
