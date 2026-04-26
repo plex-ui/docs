@@ -344,6 +344,7 @@ await buildTablerCatalog();
 await buildTablerFilledCatalog();
 await buildHugeiconsCatalog();
 await emitPlexTags();
+await emitPlexFilledNames();
 
 /** Plex icons live as React components, so we don't generate a
  *  per-icon JSON catalog for them. We do, however, copy the side-car
@@ -365,6 +366,32 @@ async function emitPlexTags() {
     if (err.code !== 'ENOENT') throw err;
     console.log(
       '[icon-catalogs] plex-tags: no source at scripts/data/plex-tags.json — run `npm run generate:plex-tags` to populate'
+    );
+  }
+}
+
+/** Mirror of `scripts/data/plex-filled-names.json` (produced by
+ *  `scripts/classify-plex-filled.mjs`). The runtime Plex catalog
+ *  loader fetches this list to drive the Outline / Filled tabs —
+ *  Plex's `Filled` suffix is unreliable (BookmarkSaved, CaptionCcOn,
+ *  ChartXAxis, etc. are visually filled without it), so the
+ *  classifier rasterizes each icon and trusts a fill-ratio threshold
+ *  combined with the suffix as a fallback. */
+async function emitPlexFilledNames() {
+  const inPath = join(__dirname, 'data', 'plex-filled-names.json');
+  const outPath = join(OUTPUT_DIR, 'plex-filled-names.json');
+  try {
+    const raw = await readFile(inPath, 'utf8');
+    await mkdir(OUTPUT_DIR, { recursive: true });
+    await writeFile(outPath, raw);
+    const data = JSON.parse(raw);
+    console.log(
+      `[icon-catalogs] plex-filled-names: ${data.length} names → ${outPath}`
+    );
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err;
+    console.log(
+      '[icon-catalogs] plex-filled-names: no source — run `node scripts/classify-plex-filled.mjs`'
     );
   }
 }
