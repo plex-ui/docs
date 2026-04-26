@@ -113,30 +113,30 @@ export default function BridgePage() {
       />
       <LandingSection maxWidth="2xl">
         <div className="mx-auto max-w-xl">
-          <h1 className="text-3xl font-semibold tracking-tight text-fd-foreground md:text-4xl">
+          <h1 className="heading-xl text-default md:heading-2xl">
             Figma AI Bridge with Design Tokens
           </h1>
 
-          <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
+          <p className="mt-4 text-md text-default">
             Standard Figma MCPs return raw hex colors and pixel values.
             Bridge returns the actual design token names — so your AI generates
             production CSS with variable references instead of hardcoded values.
           </p>
 
-          <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
+          <p className="mt-4 text-md text-default">
             Dark mode, theme changes, density scales — all handled by your tokens automatically.
             Works with any AI model. Two-way: create in Figma and read back into code.
           </p>
 
-          <p className="mt-2 text-sm text-fd-muted-foreground">
-            <Link href="/blog/figma-code-design-bridge-any-model" className="underline underline-offset-2 hover:text-fd-foreground">
+          <p className="mt-2 text-md text-secondary">
+            <Link href="/blog/figma-code-design-bridge-any-model" className="underline underline-offset-2 hover:text-default">
               How it works
             </Link>
           </p>
 
-          <div className="mt-7 rounded-xl border border-fd-border p-5">
-            <p className="text-sm font-medium text-fd-foreground">Quick install (2 min)</p>
-            <ol className="mt-3 space-y-2 text-sm text-fd-muted-foreground">
+          <div className="mt-7 rounded-xl border-default p-5">
+            <p className="text-md font-medium text-default">Quick install (2 min)</p>
+            <ol className="mt-3 space-y-2 text-md text-secondary">
               <li>1. In Figma: Plugins → Development → Import plugin from manifest.</li>
               <li>2. Start bridge launcher: `start-bridge.command` (macOS) or `start-bridge.bat` (Windows).</li>
               <li>3. Give this prompt to your model:</li>
@@ -144,15 +144,15 @@ export default function BridgePage() {
             <CodeBlock language="bash" className="mt-3">{modelPrompt}</CodeBlock>
           </div>
 
-          <div className="mt-8 rounded-xl border border-fd-border p-6">
+          <div className="mt-8 rounded-xl border-default p-6">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-fd-foreground">Lifetime license</p>
-                <p className="text-sm text-fd-muted-foreground">No trial. No limits. No subscription.</p>
+                <p className="text-md font-medium text-default">Lifetime license</p>
+                <p className="text-md text-secondary">No trial. No limits. No subscription.</p>
               </div>
               <div className="text-right">
-                <p className="text-4xl font-semibold tracking-tight text-fd-foreground">$49</p>
-                <p className="text-xs text-fd-muted-foreground">one-time</p>
+                <p className="heading-2xl text-default">$49</p>
+                <p className="text-sm text-secondary">one-time</p>
               </div>
             </div>
 
@@ -170,15 +170,15 @@ export default function BridgePage() {
               </ButtonLink>
             </div>
 
-            <p className="mt-3 text-xs text-fd-muted-foreground">
+            <p className="mt-3 text-sm text-secondary">
               After payment, redirect to setup steps. All sales are final.
             </p>
           </div>
 
-          <div className="mt-6 text-sm text-fd-muted-foreground">
+          <div className="mt-6 text-md text-secondary">
             <p>
               Already purchased? Open{' '}
-              <Link href="/bridge/success" className="underline underline-offset-2 hover:text-fd-foreground">
+              <Link href="/bridge/success" className="underline underline-offset-2 hover:text-default">
                 setup instructions
               </Link>
               .
