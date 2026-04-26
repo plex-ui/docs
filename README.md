@@ -52,8 +52,8 @@ export function Example() {
 If your project uses shadcn/ui, pull Plex UI components with one command each:
 
 ```bash
-npx shadcn@latest add https://plexui.dev/r/styles.json
-npx shadcn@latest add https://plexui.dev/r/button.json
+npx shadcn@latest add https://plexui.com/r/styles.json
+npx shadcn@latest add https://plexui.com/r/button.json
 # then: import { Button } from "@/components/ui/button"
 ```
 

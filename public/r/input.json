@@ -5,7 +5,7 @@
   "title": "Input",
   "description": "Plex UI text input — sizes, variants, clearable, start/end adornments, password toggle.",
   "dependencies": ["@plexui/ui"],
-  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "registryDependencies": ["https://plexui.com/r/styles.json"],
   "files": [
     {
       "path": "components/ui/input.tsx",
@@ -13,5 +13,5 @@
       "content": "export { Input } from '@plexui/ui/components/Input';\nexport type { InputProps } from '@plexui/ui/components/Input';\n"
     }
   ],
-  "docs": "Import as `import { Input } from '@/components/ui/input'`. See https://plexui.dev/docs/components/input for full prop reference."
+  "docs": "Import as `import { Input } from '@/components/ui/input'`. See https://plexui.com/docs/components/input for full prop reference."
 }

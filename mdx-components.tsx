@@ -7,7 +7,6 @@ import { ComponentCard } from '@/components/docs/ComponentCard';
 import { ComponentPreview } from '@/components/docs/ComponentPreview';
 import { ComponentSource } from '@/components/docs/ComponentSource';
 import { DesignTokens } from '@/components/docs/DesignTokens';
-import { IconGallery } from '@/components/docs/IconGallery';
 import { PropsTable } from '@/components/docs/PropsTable';
 import { UsageBlock } from '@/components/docs/UsageBlock';
 
@@ -19,7 +18,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Callout,
     DesignTokens,
     Colors,
-    IconGallery,
     ComponentCard,
     ComponentPreview,
     ComponentSource,

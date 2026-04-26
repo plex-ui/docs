@@ -117,42 +117,47 @@ export default function BridgePage() {
             Figma AI Bridge with Design Tokens
           </h1>
 
-          <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
+          <p className="mt-4 text-base leading-relaxed text-fd-foreground">
             Standard Figma MCPs return raw hex colors and pixel values.
             Bridge returns the actual design token names — so your AI generates
             production CSS with variable references instead of hardcoded values.
           </p>
 
-          <p className="mt-4 text-sm leading-relaxed text-fd-muted-foreground">
+          <p className="mt-4 text-base leading-relaxed text-fd-foreground">
             Dark mode, theme changes, density scales — all handled by your tokens automatically.
             Works with any AI model. Two-way: create in Figma and read back into code.
           </p>
 
-          <p className="mt-2 text-sm text-fd-muted-foreground">
+          <p className="mt-2 text-base text-fd-muted-foreground">
             <Link href="/blog/figma-code-design-bridge-any-model" className="underline underline-offset-2 hover:text-fd-foreground">
               How it works
             </Link>
           </p>
 
-          <div className="mt-7 rounded-xl border border-fd-border p-5">
-            <p className="text-sm font-medium text-fd-foreground">Quick install (2 min)</p>
-            <ol className="mt-3 space-y-2 text-sm text-fd-muted-foreground">
-              <li>1. In Figma: Plugins → Development → Import plugin from manifest.</li>
-              <li>2. Start bridge launcher: `start-bridge.command` (macOS) or `start-bridge.bat` (Windows).</li>
-              <li>3. Give this prompt to your model:</li>
-            </ol>
-            <CodeBlock language="bash" className="mt-3">{modelPrompt}</CodeBlock>
+          <div className="mt-7 rounded-xl border border-fd-border overflow-hidden">
+            <div className="p-5">
+              <p className="text-base font-medium text-fd-foreground">Quick install (2 min)</p>
+              <ol className="mt-3 space-y-2 text-base text-fd-muted-foreground">
+                <li>1. In Figma: Plugins → Development → Import plugin from manifest.</li>
+                <li>2. Start bridge launcher: `start-bridge.command` (macOS) or `start-bridge.bat` (Windows).</li>
+                <li>3. Give this prompt to your model:</li>
+              </ol>
+            </div>
+            {/* Code panel fills the bottom edge-to-edge so its own internal
+                paddings (16px text-left, 48px reserve for copy button) ARE
+                the visible paddings — no double-spacing from a parent p-5. */}
+            <CodeBlock language="bash" className="!rounded-none border-t border-fd-border">{modelPrompt}</CodeBlock>
           </div>
 
           <div className="mt-8 rounded-xl border border-fd-border p-6">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-fd-foreground">Lifetime license</p>
-                <p className="text-sm text-fd-muted-foreground">No trial. No limits. No subscription.</p>
+                <p className="text-base font-medium text-fd-foreground">Lifetime license</p>
+                <p className="text-base text-fd-muted-foreground">No trial. No limits. No subscription.</p>
               </div>
               <div className="text-right">
                 <p className="text-4xl font-semibold tracking-tight text-fd-foreground">$49</p>
-                <p className="text-xs text-fd-muted-foreground">one-time</p>
+                <p className="text-sm text-fd-muted-foreground">one-time</p>
               </div>
             </div>
 
@@ -170,12 +175,12 @@ export default function BridgePage() {
               </ButtonLink>
             </div>
 
-            <p className="mt-3 text-xs text-fd-muted-foreground">
+            <p className="mt-3 text-sm text-fd-muted-foreground">
               After payment, redirect to setup steps. All sales are final.
             </p>
           </div>
 
-          <div className="mt-6 text-sm text-fd-muted-foreground">
+          <div className="mt-6 text-base text-fd-muted-foreground">
             <p>
               Already purchased? Open{' '}
               <Link href="/bridge/success" className="underline underline-offset-2 hover:text-fd-foreground">

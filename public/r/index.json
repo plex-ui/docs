@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "plex-ui",
-  "homepage": "https://plexui.dev",
+  "homepage": "https://plexui.com",
   "items": [
     {
       "name": "styles",

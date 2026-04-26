@@ -527,10 +527,10 @@ html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar p {
 
 /* Sidebar items — 14px/400, padding 6px 12px 6px 20px (reference-exact).
    High-specificity selectors to override Fumadocs base styles. */
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'],
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active],
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:link,
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:visited {
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'],
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active],
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:link,
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:visited {
   min-height: 0;
   padding: 6px 12px 6px 20px !important;
   margin: 0 !important;
@@ -547,55 +547,51 @@ html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar p {
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'],
-[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:link,
-[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:visited,
-html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'],
-html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:link,
-html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:visited {
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'],
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:link,
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:visited,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'],
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:link,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:visited {
   color: #c0c0c0 !important;
 }
 
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href='/docs/components']:not(.sidebar-nav-link) {
-  display: none;
-}
-
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][style] {
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][style] {
   padding-inline-start: 20px !important;
   padding-inline-end: 12px !important;
 }
 
 /* Sidebar hover — subtle background only, NO color change */
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover {
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:hover {
   background: rgba(40, 40, 40, 0.05) !important;
 }
 
-[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover,
-html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/']:hover {
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:hover,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs']:hover {
   background: rgba(255, 255, 255, 0.06) !important;
 }
 
 /* Sidebar active — 8% gray bg only, NO font-weight or color change, NO shadow */
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'] {
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active='true'] {
   background: rgba(40, 40, 40, 0.08) !important;
   color: #282828 !important;
   font-weight: 400 !important;
   box-shadow: none !important;
 }
 
-[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'],
-html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true'] {
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active='true'],
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active='true'] {
   background: rgba(255, 255, 255, 0.1) !important;
   color: #c0c0c0 !important;
 }
 
 /* Sidebar active hover — slightly stronger */
-#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover {
+#nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active='true']:hover {
   background: rgba(40, 40, 40, 0.12) !important;
 }
 
-[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover,
-html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs/'][data-active='true']:hover {
+[data-theme='dark'] #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active='true']:hover,
+html.dark #nd-docs-layout.plex-docs-shell #nd-sidebar a[href^='/docs'][data-active='true']:hover {
   background: rgba(255, 255, 255, 0.14) !important;
 }
 
@@ -633,7 +629,7 @@ body:has(#nd-sidebar-mobile[data-state='open']) {
   overflow: hidden !important;
 }
 
-#nd-sidebar-mobile a[href^='/docs/']:not(.sidebar-nav-link) {
+#nd-sidebar-mobile a[href^='/docs']:not(.sidebar-nav-link) {
   min-height: 0;
   padding: 6px 12px 6px 20px !important;
   margin: 0;
@@ -648,39 +644,39 @@ body:has(#nd-sidebar-mobile[data-state='open']) {
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/']:not(.sidebar-nav-link),
-html.dark #nd-sidebar-mobile a[href^='/docs/']:not(.sidebar-nav-link) {
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs']:not(.sidebar-nav-link),
+html.dark #nd-sidebar-mobile a[href^='/docs']:not(.sidebar-nav-link) {
   color: #c0c0c0;
 }
 
-#nd-sidebar-mobile a[href^='/docs/'][data-active='true'] {
+#nd-sidebar-mobile a[href^='/docs'][data-active='true'] {
   background: rgba(40, 40, 40, 0.08);
 }
 
-[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/'][data-active='true'],
-html.dark #nd-sidebar-mobile a[href^='/docs/'][data-active='true'] {
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs'][data-active='true'],
+html.dark #nd-sidebar-mobile a[href^='/docs'][data-active='true'] {
   background: rgba(255, 255, 255, 0.1);
 }
 
-#nd-sidebar-mobile a[href^='/docs/']:hover {
+#nd-sidebar-mobile a[href^='/docs']:hover {
   background: rgba(40, 40, 40, 0.05);
 }
 
-[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/']:hover,
-html.dark #nd-sidebar-mobile a[href^='/docs/']:hover {
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs']:hover,
+html.dark #nd-sidebar-mobile a[href^='/docs']:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
-#nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover {
+#nd-sidebar-mobile a[href^='/docs'][data-active='true']:hover {
   background: rgba(40, 40, 40, 0.12);
 }
 
-[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover,
-html.dark #nd-sidebar-mobile a[href^='/docs/'][data-active='true']:hover {
+[data-theme='dark'] #nd-sidebar-mobile a[href^='/docs'][data-active='true']:hover,
+html.dark #nd-sidebar-mobile a[href^='/docs'][data-active='true']:hover {
   background: rgba(255, 255, 255, 0.14);
 }
 
-#nd-sidebar-mobile a[href^='/docs/'][style]:not(.sidebar-nav-link) {
+#nd-sidebar-mobile a[href^='/docs'][style]:not(.sidebar-nav-link) {
   padding-inline-start: 20px !important;
   padding-inline-end: 12px !important;
 }
@@ -1337,3 +1333,5 @@ body [data-radix-popper-content-wrapper] {
   opacity: 1;
   transform: translateY(0);
 }
+
+
