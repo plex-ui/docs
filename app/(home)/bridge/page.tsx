@@ -134,7 +134,7 @@ export default function BridgePage() {
             </Link>
           </p>
 
-          <div className="mt-7 rounded-xl border-default p-5">
+          <div className="mt-7 rounded-xl border border-default p-5">
             <p className="text-md font-medium text-default">Quick install (2 min)</p>
             <ol className="mt-3 space-y-2 text-md text-secondary">
               <li>1. In Figma: Plugins → Development → Import plugin from manifest.</li>
@@ -144,7 +144,7 @@ export default function BridgePage() {
             <CodeBlock language="bash" className="mt-3">{modelPrompt}</CodeBlock>
           </div>
 
-          <div className="mt-8 rounded-xl border-default p-6">
+          <div className="mt-8 rounded-xl border border-default p-6">
             <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="text-md font-medium text-default">Lifetime license</p>
