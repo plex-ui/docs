@@ -170,21 +170,17 @@ export type DocsGroup = {
 export const GET_STARTED: DocsGroup = {
   id: 'get-started',
   label: 'Get Started',
-  description: 'Install the package and set up your project.',
+  description: 'Install the package, set up your project, and follow what changes.',
   entries: [
     { label: 'Introduction', url: '/docs' },
     { label: 'Installation', url: '/docs/installation' },
+    // Changelog as the last item of the first group mirrors shadcn's
+    // sidebar — it lives next to Introduction/Installation, not at
+    // the very bottom (where it would visually attach to Components
+    // and look like part of that group).
+    { label: 'Changelog', url: '/docs/changelog' },
   ],
 };
-
-/** Standalone tail entries that hang off the very bottom of the sidebar
- *  after every group. Currently just Changelog, mirroring shadcn's
- *  "Changelog" separator at the end. Kept out of `Get Started` because
- *  jumping from Installation → Changelog as the next page felt
- *  non-sequitur in the PageNav prev/next pair. */
-const SIDEBAR_TAIL: SidebarEntry[] = [
-  { label: 'Changelog', url: '/docs/changelog' },
-];
 
 export const FOUNDATIONS: DocsGroup = {
   id: 'foundations',
@@ -311,13 +307,6 @@ function processRoot(root: PageTree.Root) {
   if (componentsList.length > 0) {
     nextChildren.push({ type: 'separator', name: 'Components' });
     nextChildren.push(...componentsList);
-  }
-
-  // Tail entries (Changelog) sit as bare links at the very bottom of
-  // the sidebar — no group label above them. Matches shadcn's sidebar
-  // where Changelog hangs off as a standalone footer item.
-  if (SIDEBAR_TAIL.length > 0) {
-    nextChildren.push(...toSidebarItems(SIDEBAR_TAIL));
   }
 
   root.children = nextChildren;
