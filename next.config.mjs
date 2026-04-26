@@ -45,6 +45,20 @@ const config = {
         destination: '/docs/icons/plex',
         permanent: true,
       },
+      // Phosphor + Remix icon libraries dropped in the 2026-04-26
+      // overhaul (viewBox / corner-radius mismatches with the rest of
+      // the set). External bookmarks / search results / changelog
+      // references should land on the gallery index instead of 404.
+      {
+        source: '/docs/icons/phosphor',
+        destination: '/docs/icons',
+        permanent: true,
+      },
+      {
+        source: '/docs/icons/remix',
+        destination: '/docs/icons',
+        permanent: true,
+      },
       {
         source: '/docs/overview/sizing',
         destination: '/',
