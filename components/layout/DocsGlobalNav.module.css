@@ -12,14 +12,18 @@
 }
 
 /* 3-column grid: [brand] [nav-center] [right-actions]
-   Using 1fr auto 1fr so nav links are centered on the screen */
+   Using 1fr auto 1fr so nav links are centered on the screen.
+   Horizontal padding 24px = sidebar viewport `p-4` (16px) + section
+   header `padding-inline-start: 8px` — so the brand logo lines up
+   vertically with the "Get Started" / "Foundations" / etc. labels in
+   the sidebar below. */
 .Inner {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 24px;
-  padding: 0 32px;
+  padding: 0 24px;
 }
 
 /* Brand / logo — left column */
