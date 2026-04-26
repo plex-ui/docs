@@ -453,20 +453,20 @@ export function ButtonGroupDropdownMenuDemo() {
             </Button>
           </Menu.Trigger>
           <Menu.Content align="end" minWidth={200}>
-            <Menu.Item>
+            <Menu.Item onSelect={() => {}}>
               <FileImage /> PNG image
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item onSelect={() => {}}>
               <FileCode /> SVG vector
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item onSelect={() => {}}>
               <FileDocument /> PDF document
             </Menu.Item>
             <Menu.Separator />
-            <Menu.Item>
+            <Menu.Item onSelect={() => {}}>
               <Copy /> Copy as code
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item onSelect={() => {}}>
               <Link /> Copy share link
             </Menu.Item>
           </Menu.Content>
