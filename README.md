@@ -11,7 +11,7 @@
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-black)](https://plexui.com/docs/overview/skills)
 [![MCP server](https://img.shields.io/badge/MCP-server-black)](https://plexui.com/docs/overview/mcp)
 
-[Docs](https://plexui.com) &nbsp;·&nbsp; [Components](https://plexui.com/docs/components) &nbsp;·&nbsp; [AI Skill](https://plexui.com/docs/overview/skills) &nbsp;·&nbsp; [Figma Kit](https://plexui.com/#pricing) &nbsp;·&nbsp; [Threads](https://www.threads.com/@plex_uikit)
+[Docs](https://plexui.com) &nbsp;·&nbsp; [Components](https://plexui.com/components) &nbsp;·&nbsp; [AI Skill](https://plexui.com/docs/overview/skills) &nbsp;·&nbsp; [Figma Kit](https://plexui.com/#pricing) &nbsp;·&nbsp; [Threads](https://www.threads.com/@plex_uikit)
 
 </div>
 
@@ -86,7 +86,7 @@ See [Skills](https://plexui.com/docs/overview/skills) for Cursor, Windsurf, Copi
 
 Alert · Avatar · Badge · Button · Checkbox · CodeBlock · DataTable · DateInput · DatePicker · Dialog · EmptyMessage · Field · FileUpload · FloatingLabelInput · Input · Markdown · Menu · OTPInput · Popover · RadioGroup · SegmentedControl · Select · Sidebar · Skeleton · Switch · Tabs · TagInput · Textarea · Tooltip · …
 
-See the [full list →](https://plexui.com/docs/components)
+See the [full list →](https://plexui.com/components)
 
 ## Figma Design System PRO
 

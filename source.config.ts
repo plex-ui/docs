@@ -11,6 +11,19 @@ export const docs = defineDocs({
   dir: 'content/docs',
 });
 
+/** Components live at top-level URLs (/components/*) instead of
+ *  /components/* — peer of Bridge / Blog in the top nav. The
+ *  separate fumadocs source means each MDX file's URL is derived
+ *  from `content/components/<slug>.mdx` → `/components/<slug>`. */
+export const components = defineDocs({
+  dir: 'content/components',
+});
+
+/** Same pattern for the Icons section. */
+export const icons = defineDocs({
+  dir: 'content/icons',
+});
+
 export const blog = defineCollections({
   type: 'doc',
   dir: 'content/blog',

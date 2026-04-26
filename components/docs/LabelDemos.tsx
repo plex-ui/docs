@@ -26,7 +26,7 @@ export function LabelOverviewDemo() {
 
 /* ============================================================
    Label in Field — reuse the shared Payment Method form body
-   (same composition shown inside a Card on /docs/components/card).
+   (same composition shown inside a Card on /components/card).
    Here it's rendered without the Card wrapper to highlight Field.
    ============================================================ */
 

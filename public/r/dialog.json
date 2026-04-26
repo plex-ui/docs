@@ -13,5 +13,5 @@
       "content": "export { Dialog } from '@plexui/ui/components/Dialog';\nexport type { DialogProps } from '@plexui/ui/components/Dialog';\n"
     }
   ],
-  "docs": "Import as `import { Dialog } from '@/components/ui/dialog'`. See https://plexui.com/docs/components/dialog for full prop reference."
+  "docs": "Import as `import { Dialog } from '@/components/ui/dialog'`. See https://plexui.com/components/dialog for full prop reference."
 }

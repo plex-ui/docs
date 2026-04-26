@@ -35,7 +35,7 @@ Lucide (ISC).
 The catalog generator (`scripts/build-icon-catalogs.mjs`) reads from
 `packages/icons-lucide-outlined/icons/` and emits
 `public/icon-libraries/lucide-outlined.json`, which the IconBrowser
-fetches at runtime. See `/docs/icons/lucide` → "Outlined Stroke" tab.
+fetches at runtime. See `/icons/lucide` → "Outlined Stroke" tab.
 
 ## Regenerating
 

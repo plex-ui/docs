@@ -1,5 +1,5 @@
 import Link from 'fumadocs-core/link';
-import componentsMeta from '@/content/docs/components/meta.json';
+import componentsMeta from '@/content/components/meta.json';
 
 /**
  * Slug → display title overrides. Default behaviour is "title-case the slug",
@@ -21,9 +21,9 @@ function slugToTitle(slug: string): string {
 
 /**
  * Plain three-column text grid of every component, mirroring the shape
- * shadcn/ui uses on /docs/components — links only, no card chrome.
+ * shadcn/ui uses on /components — links only, no card chrome.
  *
- * Source of truth is `content/docs/components/meta.json`, so the list stays
+ * Source of truth is `content/components/meta.json`, so the list stays
  * in sync with the sidebar without manual editing here.
  */
 export function ComponentsList() {
@@ -34,7 +34,7 @@ export function ComponentsList() {
       {slugs.map((slug) => (
         <li key={slug} className="m-0 p-0">
           <Link
-            href={`/docs/components/${slug}`}
+            href={`/components/${slug}`}
             className="text-fd-foreground transition-colors hover:text-fd-muted-foreground"
           >
             {slugToTitle(slug)}

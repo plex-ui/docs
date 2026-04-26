@@ -138,7 +138,7 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Dropdown menu
 
-<ComponentPreview details={<>Compose a primary action with a <a href="/docs/components/menu"><code>Menu</code></a> trigger for follow-up options. Common for Export / Format, Save / Save-As, Share / ….</>} code={`<ButtonGroup>
+<ComponentPreview details={<>Compose a primary action with a <a href="/components/menu"><code>Menu</code></a> trigger for follow-up options. Common for Export / Format, Save / Save-As, Share / ….</>} code={`<ButtonGroup>
   <Button>Export</Button>
   <Menu>
     <Menu.Trigger>
@@ -159,7 +159,7 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Select
 
-<ComponentPreview details={<>Mix a <a href="/docs/components/select"><code>Select</code></a> and an <code>Input</code> inside one <code>ButtonGroup</code> for unit pickers, currency entry, or any "qualifier + value" pattern. Wrap each slot in a nested <code>ButtonGroup</code> to get a gap between the compound field and the send affordance.</>} code={`<ButtonGroup>
+<ComponentPreview details={<>Mix a <a href="/components/select"><code>Select</code></a> and an <code>Input</code> inside one <code>ButtonGroup</code> for unit pickers, currency entry, or any "qualifier + value" pattern. Wrap each slot in a nested <code>ButtonGroup</code> to get a gap between the compound field and the send affordance.</>} code={`<ButtonGroup>
   <ButtonGroup>
     <Select options={units} value={unit} onChange={(o) => setUnit(o.value)} variant="outline" pill={false} block={false} />
     <Input placeholder="2.50" inputMode="decimal" />
@@ -173,7 +173,7 @@ Wraps any row of controls — `Button`, `Input`, `Popover.Trigger`, etc. — and
 
 ### Popover
 
-<ComponentPreview details={<>Same split-button shape, but the trailing trigger opens a <a href="/docs/components/popover"><code>Popover</code></a> instead of a menu — useful for richer panels (prompt composers, notification preferences, link previews).</>} code={`<ButtonGroup>
+<ComponentPreview details={<>Same split-button shape, but the trailing trigger opens a <a href="/components/popover"><code>Popover</code></a> instead of a menu — useful for richer panels (prompt composers, notification preferences, link previews).</>} code={`<ButtonGroup>
   <Button><Sparkles /> Generate</Button>
   <Popover>
     <Popover.Trigger>
@@ -211,7 +211,7 @@ Renders a `<div role="group">`. All other `<div>` attributes are forwarded.
 
 ### ButtonGroup.Separator
 
-Inherits from [`Separator`](/docs/components/separator). `orientation` defaults to `"vertical"` (the axis that looks right between horizontal items); pass an explicit value inside a `ButtonGroup orientation="vertical"`.
+Inherits from [`Separator`](/components/separator). `orientation` defaults to `"vertical"` (the axis that looks right between horizontal items); pass an explicit value inside a `ButtonGroup orientation="vertical"`.
 
 ### ButtonGroup.Text
 

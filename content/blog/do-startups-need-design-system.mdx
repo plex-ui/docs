@@ -40,7 +40,7 @@ The fastest way to kill momentum at a startup is to spend three weeks building y
 
 Here is a practical framework:
 
-- **Under 5 engineers:** Use an existing component library. [Plex UI](/docs/components), shadcn, Radix Themes — pick one that matches your stack and design taste, then commit to it. Customization at this stage means adjusting tokens, not forking components.
+- **Under 5 engineers:** Use an existing component library. [Plex UI](/components), shadcn, Radix Themes — pick one that matches your stack and design taste, then commit to it. Customization at this stage means adjusting tokens, not forking components.
 - **5 to 15 engineers:** Customize an existing library. Wrap components with your own API where needed. Extend the token set. Build a thin layer on top, not a replacement underneath.
 - **15+ engineers:** Consider building on top of primitives like Radix or React Aria. At this scale you likely have product-specific interaction patterns that justify the investment. You also have the headcount to maintain it.
 
@@ -64,7 +64,7 @@ This is not a theoretical concern. It is the primary reason teams with AI-heavy 
 
 You do not need a month. You need an afternoon and a decision to stop deferring.
 
-**Pick a component library.** Browse [Plex UI components](/docs/components) or another library that fits your stack. Install it. Use it for one real screen before debating customization.
+**Pick a component library.** Browse [Plex UI components](/components) or another library that fits your stack. Install it. Use it for one real screen before debating customization.
 
 **Set up design tokens.** At minimum, define your color palette as CSS custom properties or a token file. Map semantic names to values: `--color-text-primary`, `--color-surface`, `--color-border`. Do not let hex codes live in component files.
 

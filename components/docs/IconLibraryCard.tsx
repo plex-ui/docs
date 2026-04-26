@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 
 /**
- * Visual grid wrapper for the /docs/icons index page — three columns on
+ * Visual grid wrapper for the /icons index page — three columns on
  * desktop, single column on small screens. Each cell renders an
  * `<IconLibraryCard>`.
  */
@@ -16,7 +16,7 @@ export function IconLibraryGrid({ children }: { children: ReactNode }) {
 }
 
 interface IconLibraryCardProps {
-  /** URL slug — links to `/docs/icons/{slug}`. */
+  /** URL slug — links to `/icons/{slug}`. */
   slug: string;
   /** Display name shown beneath the preview. */
   title: string;
@@ -45,7 +45,7 @@ export function IconLibraryCard({
 }: IconLibraryCardProps) {
   return (
     <Link
-      href={`/docs/icons/${slug}`}
+      href={`/icons/${slug}`}
       className="group flex flex-col overflow-hidden rounded-xl border transition-colors hover:border-fd-foreground/30"
     >
       <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-fd-accent">

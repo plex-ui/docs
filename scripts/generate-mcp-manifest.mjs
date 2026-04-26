@@ -1,7 +1,7 @@
 /**
  * Generates component manifest for @plexui/mcp from MDX documentation files.
  *
- * Parses content/docs/components/*.mdx → packages/mcp/src/data/manifest.json
+ * Parses content/components/*.mdx → packages/mcp/src/data/manifest.json
  *
  * Extracts: title, description, import path, props, examples, sub-components.
  */
@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-const COMPONENTS_DIR = join(ROOT, "content/docs/components");
+const COMPONENTS_DIR = join(ROOT, "content/components");
 const OUTPUT_PATH = join(ROOT, "packages/mcp/src/data/manifest.json");
 
 // ---------------------------------------------------------------------------
@@ -278,7 +278,7 @@ function processFile(filePath) {
     ...(examples.length > 0 && { examples }),
     ...(subComponents.length > 0 && { subComponents }),
     ...(hooks.length > 0 && { hooks }),
-    docsUrl: `https://plexui.com/docs/components/${slug}`,
+    docsUrl: `https://plexui.com/components/${slug}`,
   };
 
   return component;
@@ -313,7 +313,7 @@ function main() {
     description:
       "The most flexible UI kit for React. Production-grade components with pixel-perfect Figma parity.",
     homepage: "https://plexui.com",
-    docsUrl: "https://plexui.com/docs/components",
+    docsUrl: "https://plexui.com/components",
     install: 'npm install @plexui/ui',
     setup: {
       css: '@import "tailwindcss";\n@import "@plexui/ui/css";',

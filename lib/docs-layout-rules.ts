@@ -1,14 +1,19 @@
 import type { TOCItemType } from 'fumadocs-core/toc';
 
 // On the new flat docs structure every page lives directly under /docs/*
-// (or /docs/components/*) — so we always show the left sidebar on docs.
+// (or /components/*) — so we always show the left sidebar on docs.
 // Returning `null` from `getSectionFromSlug` (i.e. the /docs index) still
 // resolves to "show sidebar" because /docs is now the Introduction page.
 const LEFT_SIDEBAR_SECTIONS: Set<string> | null = null;
+// Section names — page handlers in /docs, /components, /icons each
+// pass their own constant ('components', 'icons', or the slug[0] of
+// /docs). All three are allowed to render the right TOC when their
+// page has headings.
 const TOC_ALLOWED_SECTIONS = new Set([
   'foundations',
   'concepts',
   'components',
+  'icons',
   'hooks',
   'transitions',
   'installation',

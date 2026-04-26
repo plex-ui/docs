@@ -85,8 +85,8 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
           {(() => {
             const componentsLink = navLinks.find((item) => item.slug === 'components');
             const docsLink = navLinks.find((item) => item.slug === 'docs');
-            const componentsActive = isActivePath(pathname, '/docs/components');
-            const iconsActive = isActivePath(pathname, '/docs/icons');
+            const componentsActive = isActivePath(pathname, '/components');
+            const iconsActive = isActivePath(pathname, '/icons');
             // Docs is active for everything under /docs/* EXCEPT routes
             // owned by their own top-nav entry (Components, Icons).
             const docsActive =
@@ -106,7 +106,7 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
                   </Link>
                 )}
                 <Link
-                  href="/docs/icons"
+                  href="/icons"
                   className={`${s.NavLink} ${iconsActive ? s.NavLinkActive : ''}`.trim()}
                 >
                   Icons

@@ -13,5 +13,5 @@
       "content": "export { Separator } from '@plexui/ui/components/Separator';\nexport type { SeparatorProps } from '@plexui/ui/components/Separator';\n"
     }
   ],
-  "docs": "Import as `import { Separator } from '@/components/ui/separator'`. See https://plexui.com/docs/components/separator for full prop reference."
+  "docs": "Import as `import { Separator } from '@/components/ui/separator'`. See https://plexui.com/components/separator for full prop reference."
 }

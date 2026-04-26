@@ -5,5 +5,5 @@
 export const NEW_COMPONENT_SLUGS = [] as const;
 
 export function getNewComponentHrefs(): string[] {
-  return NEW_COMPONENT_SLUGS.map((slug) => `/docs/components/${slug}`);
+  return NEW_COMPONENT_SLUGS.map((slug) => `/components/${slug}`);
 }

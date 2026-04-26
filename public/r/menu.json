@@ -13,5 +13,5 @@
       "content": "export { Menu } from '@plexui/ui/components/Menu';\nexport type { MenuProps } from '@plexui/ui/components/Menu';\n"
     }
   ],
-  "docs": "Import as `import { Menu } from '@/components/ui/menu'`. See https://plexui.com/docs/components/menu for full prop reference."
+  "docs": "Import as `import { Menu } from '@/components/ui/menu'`. See https://plexui.com/components/menu for full prop reference."
 }

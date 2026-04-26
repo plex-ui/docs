@@ -13,5 +13,5 @@
       "content": "export { Alert } from '@plexui/ui/components/Alert';\nexport type { AlertProps } from '@plexui/ui/components/Alert';\n"
     }
   ],
-  "docs": "Import as `import { Alert } from '@/components/ui/alert'`. See https://plexui.com/docs/components/alert for full prop reference."
+  "docs": "Import as `import { Alert } from '@/components/ui/alert'`. See https://plexui.com/components/alert for full prop reference."
 }

@@ -13,5 +13,5 @@
       "content": "export { Accordion } from '@plexui/ui/components/Accordion';\nexport type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from '@plexui/ui/components/Accordion';\n"
     }
   ],
-  "docs": "Import as `import { Accordion } from '@/components/ui/accordion'`. See https://plexui.com/docs/components/accordion for full prop reference."
+  "docs": "Import as `import { Accordion } from '@/components/ui/accordion'`. See https://plexui.com/components/accordion for full prop reference."
 }
