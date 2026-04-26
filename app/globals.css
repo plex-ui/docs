@@ -4,6 +4,12 @@
 @import '../packages/ui/dist/es/styles/variables-primitive.css';
 @import '../packages/ui/dist/es/styles/variables-semantic.css';
 @import '../packages/ui/dist/es/styles/variables-components.css';
+/* Plex UI Tailwind 4 @utility definitions: heading-*, text-md/sm/xs,
+ * text-default/secondary/tertiary, bg-surface*, border-default, etc.
+ * Without this the className tokens used by /bridge and any custom
+ * page outside the Fumadocs prose cascade silently fall through to
+ * browser defaults. */
+@import '../packages/ui/dist/es/styles/tailwind-utilities.css';
 
 @theme static {
   --breakpoint-xs: 380px;
