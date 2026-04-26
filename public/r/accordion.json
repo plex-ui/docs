@@ -5,7 +5,7 @@
   "title": "Accordion",
   "description": "Plex UI Accordion — vertically stacked collapsible panels built on Radix Accordion. Compound API: Accordion.Item, Accordion.Trigger, Accordion.Content. Supports single/multiple expansion, per-item disabled, and controlled value.",
   "dependencies": ["@plexui/ui"],
-  "registryDependencies": ["https://plexui.dev/r/styles.json"],
+  "registryDependencies": ["https://plexui.com/r/styles.json"],
   "files": [
     {
       "path": "components/ui/accordion.tsx",
@@ -13,5 +13,5 @@
       "content": "export { Accordion } from '@plexui/ui/components/Accordion';\nexport type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from '@plexui/ui/components/Accordion';\n"
     }
   ],
-  "docs": "Import as `import { Accordion } from '@/components/ui/accordion'`. See https://plexui.dev/docs/components/accordion for full prop reference."
+  "docs": "Import as `import { Accordion } from '@/components/ui/accordion'`. See https://plexui.com/docs/components/accordion for full prop reference."
 }
