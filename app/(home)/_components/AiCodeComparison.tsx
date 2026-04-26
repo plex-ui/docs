@@ -69,7 +69,13 @@ const codeReset =
   // small differently-coloured square. Force it transparent so it
   // inherits the card's background.
   '[&_figure>div.absolute]:!bg-transparent ' +
-  '[&_pre]:!rounded-none [&_pre]:!border-0 [&_pre]:!bg-transparent';
+  '[&_pre]:!rounded-none [&_pre]:!border-0 [&_pre]:!bg-transparent ' +
+  // Fumadocs sets `padding-left/right: var(--padding-left/right)` on
+  // every `.line` inside `.shiki`. The [role="region"] ancestor
+  // already provides the visible inset for these cards, so doubling
+  // up via `.line` paddings makes the code text sit too far from the
+  // left edge. Same fix pattern used in UsageBlock.module.css.
+  '[&_.line]:!pl-0 [&_.line]:!pr-0';
 
 export function AiCodeComparison() {
   return (
