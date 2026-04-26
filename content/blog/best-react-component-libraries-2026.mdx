@@ -5,13 +5,15 @@ author: Sergey
 date: 2026-03-20
 ---
 
+import { COMPONENTS_COUNT } from '@/lib/counts';
+
 The React component library landscape has settled into clear tiers. A few libraries dominate enterprise adoption, a wave of headless primitives has matured, and a new category built around AI workflows is emerging. Picking the right library still comes down to the same trade-off it always has: how much styling control do you want versus how much do you want out of the box.
 
 Here are the libraries worth evaluating in 2026, what each does well, and where each falls short.
 
 ## Plex UI
 
-[Plex UI](/components) ships 47 accessible React components built on Radix primitives and Tailwind CSS 4. The differentiator is a three-layer design token system — primitive, semantic, and component-level — that maps one-to-one between React and a commercial Figma kit with 22,000+ variants.
+[Plex UI](/components) ships {COMPONENTS_COUNT} accessible React components built on Radix primitives and Tailwind CSS 4. The differentiator is a three-layer design token system — primitive, semantic, and component-level — that maps one-to-one between React and a commercial Figma kit with 22,000+ variants.
 
 Every component uses a 9-step size scale from `3xs` to `3xl`. That scale is consistent across buttons, inputs, selects, menus, and every other control. Spacing, radius, and typography follow the same token structure, which means AI code editors can generate UI that stays on-system because the constraints are baked into the component API rather than left to convention.
 
@@ -125,7 +127,7 @@ If your project already uses Tailwind and you need a handful of accessible inter
 
 | Library | Components | Styling | Design tokens | Figma kit | Dark mode | Bundle size |
 |---|---|---|---|---|---|---|
-| Plex UI | 47 | Tailwind CSS 4 | Three-layer system | Paid (22k variants) | CSS light-dark() | Small |
+| Plex UI | {COMPONENTS_COUNT} | Tailwind CSS 4 | Three-layer system | Paid (22k variants) | CSS light-dark() | Small |
 | shadcn/ui | 40+ | Tailwind CSS | CSS variables | Community | CSS variables | Zero (copy-paste) |
 | Radix UI | 30+ | Unstyled | None | None | N/A | Small |
 | MUI | 50+ | Emotion / CSS | Theme object | MUI Store | Theme provider | Large |
