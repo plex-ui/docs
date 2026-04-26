@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
   type ReactElement,
+  type SVGProps,
 } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import { Button } from '@plexui/ui/components/Button';
@@ -444,7 +445,6 @@ function IconDetailPanel({ catalog, selected, onClose }: IconDetailPanelProps) {
                   // they switched modes.
                   if (checked) setStrokeWidth(2);
                 }}
-                size="sm"
               />
               <span>Outlined</span>
             </label>
@@ -585,7 +585,9 @@ function IconRender({
     strokeWidth !== 2 &&
     !useOutlined
   ) {
-    return cloneElement(parsed, { strokeWidth });
+    return cloneElement(parsed as ReactElement<SVGProps<SVGSVGElement>>, {
+      strokeWidth,
+    });
   }
   return parsed;
 }
