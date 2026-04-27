@@ -303,6 +303,17 @@ async function loadCachedTags(filename) {
   }
 }
 
+/**
+ * Hugeicons icons that render as broken / corrupted artwork at our
+ * canonical 24×24 / 2px stroke render. Filtered out of both the
+ * primary and outlined catalogs so they don't appear in the browser.
+ * As of @hugeicons/core-free-icons 4.1.1.
+ */
+const BROKEN_HUGEICONS = new Set([
+  'CloudSavingDone02Icon',
+  'Hold04Icon',
+]);
+
 async function buildHugeiconsCatalog() {
   // Hugeicons exports are ESM-only. Dynamic import to load.
   const mod = await import('@hugeicons/core-free-icons');
@@ -333,6 +344,7 @@ async function buildHugeiconsCatalog() {
       skipped += 1;
       continue;
     }
+    if (BROKEN_HUGEICONS.has(exportName)) continue;
     const record = { name: exportName, svg: hugeiconArrayToSvg(value) };
     const tags = tagsByName[exportName];
     if (tags && tags.length > 0) record.tags = tags;
@@ -351,7 +363,9 @@ async function buildHugeiconsOutlinedCatalog() {
   // object-stroke-to-path action. File slug IS the export name (e.g.
   // `SearchIcon.svg`), so no PascalCase transform — just identity.
   // Tags inherit from the same cached `hugeicons-tags.json` so the
-  // alias list works on the outlined toggle too.
+  // alias list works on the outlined toggle too. The same broken-icon
+  // skip-list as the primary catalog applies, in case stale SVG files
+  // for those names are still on disk from an earlier conversion.
   const sourceDir = join(
     REPO_ROOT,
     'packages',
@@ -360,6 +374,7 @@ async function buildHugeiconsOutlinedCatalog() {
   );
   const tagsByName = await loadCachedTags('hugeicons-tags.json');
   const icons = await readDirSvgs(sourceDir, {
+    filterName: (slug) => !BROKEN_HUGEICONS.has(slug),
     transformName: (slug) => slug,
     tagsBySlug: tagsByName,
   });

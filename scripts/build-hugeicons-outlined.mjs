@@ -114,6 +114,17 @@ function hugeiconArrayToSvg(parts) {
   );
 }
 
+/** Hugeicons whose stroke geometry produces broken artwork after
+ *  Inkscape's object-stroke-to-path + path-union (visually mangled
+ *  silhouette at 24×24). Mirrors the same set in
+ *  `scripts/build-icon-catalogs.mjs` so re-running this script doesn't
+ *  re-create stale SVGs that the catalog generator would then have to
+ *  filter out a second time. */
+const BROKEN_HUGEICONS = new Set([
+  'CloudSavingDone02Icon',
+  'Hold04Icon',
+]);
+
 /** Mirror of build-icon-catalogs.mjs#isMixedHugeicon. */
 function isMixedHugeicon(parts) {
   let hasFill = false;
@@ -161,6 +172,7 @@ async function main() {
     if (!exportName.endsWith('Icon')) continue;
     if (exportName.endsWith('FreeIcons')) continue;
     if (isMixedHugeicon(value)) continue;
+    if (BROKEN_HUGEICONS.has(exportName)) continue;
     candidates.push({ name: exportName, parts: value });
   }
   console.log(`[hugeicons-outlined] converting ${candidates.length} icons…`);
