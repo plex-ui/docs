@@ -110,6 +110,15 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Surface the AI-crawler-friendly Markdown summary so
+         * Perplexity, Phind, ExaBot, and other LLM-powered crawlers
+         * pick up the canonical text representation of every page. */}
+        <link
+          rel="alternate"
+          type="text/markdown"
+          title="llms.txt"
+          href="/llms.txt"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -114,6 +114,39 @@ export default async function Page(props: {
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   };
 
+  // BreadcrumbList: walk the slug and emit one ListItem per path level
+  // so Google can render `Plex UI › Docs › Foundations › Colors` in
+  // the SERP entry. Intermediate segments are kebab-case URL parts —
+  // title-case them for display.
+  const slugParts = params.slug ?? [];
+  const breadcrumbItems: Array<{ name: string; url: string }> = [
+    { name: 'Plex UI', url: 'https://plexui.com' },
+    { name: 'Docs', url: 'https://plexui.com/docs' },
+  ];
+  for (let i = 0; i < slugParts.length - 1; i++) {
+    const seg = slugParts[i];
+    breadcrumbItems.push({
+      name: seg
+        .split('-')
+        .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
+        .join(' '),
+      url: `https://plexui.com/docs/${slugParts.slice(0, i + 1).join('/')}`,
+    });
+  }
+  if (slugParts.length > 0) {
+    breadcrumbItems.push({ name: page.data.title, url: pageUrl });
+  }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+
   return (
     <DocsPageWithMobileTOC
       toc={toc}
@@ -125,6 +158,10 @@ export default async function Page(props: {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <script
         dangerouslySetInnerHTML={{

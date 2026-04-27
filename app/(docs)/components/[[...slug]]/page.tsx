@@ -58,6 +58,18 @@ export default async function Page(props: {
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   };
 
+  // BreadcrumbList lets Google render `Plex UI › Components › Button`
+  // in the SERP entry instead of just the URL slug.
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Plex UI', item: 'https://plexui.com' },
+      { '@type': 'ListItem', position: 2, name: 'Components', item: 'https://plexui.com/components' },
+      { '@type': 'ListItem', position: 3, name: page.data.title, item: pageUrl },
+    ],
+  };
+
   return (
     <DocsPageWithMobileTOC
       toc={toc}
@@ -69,6 +81,10 @@ export default async function Page(props: {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <script
         dangerouslySetInnerHTML={{
