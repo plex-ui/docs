@@ -39,9 +39,6 @@ claude plugin install plex-ui@plex-ui
 
 Claude Code fetches the skill via sparse git-subdir clone, registers it under the `plex-ui` namespace, and auto-invokes it when you work with `@plexui/ui` or Plex UI components. To update later: `/plugin marketplace update plex-ui`.
 
-<details>
-<summary>Standalone skill install (no plugin system)</summary>
-
 If you prefer a plain skill directory without the plugin wrapper:
 
 ```bash
@@ -49,8 +46,6 @@ npx degit plex-ui/docs/skills/plexui/skills/plex-ui .claude/skills/plex-ui
 ```
 
 For user-level (every project), use `~/.claude/skills/plex-ui` as the target.
-
-</details>
 
 ### Codex
 
