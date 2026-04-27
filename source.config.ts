@@ -35,4 +35,13 @@ export const blog = defineCollections({
 
 export default defineConfig({
   plugins: [lastModified()],
+  // Disable Fumadocs's default Shiki-based syntax highlighter so every
+  // ``` block in MDX renders as plain `<pre><code class="language-X">…
+  // </code></pre>`. The custom `pre` override in `mdx-components.tsx`
+  // then re-renders the snippet through Plex UI's `CodeBlock`, giving
+  // every code block on the docs site one consistent palette and copy
+  // button instead of the Shiki/Plex split we had before.
+  mdxOptions: {
+    rehypeCodeOptions: false,
+  },
 });
