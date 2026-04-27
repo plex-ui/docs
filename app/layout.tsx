@@ -4,12 +4,23 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { PlexThemeSync } from '@/components/PlexThemeSync';
+import { COMPONENTS_COUNT } from '@/lib/counts';
+import packageJson from '../packages/ui/package.json';
 import './globals.css';
 
+const homeTitle = 'Plex UI — Figma & React Design System for AI Code Editors';
+const homeDescription = `Production-grade React design system with ${COMPONENTS_COUNT} components, 9-size scale (3xs–3xl), three-layer design tokens, and 6,600+ icons. Free MIT React library plus 22,000+ Figma variant kit. Figma Bridge lets any AI model design in Figma. Built for Claude, Cursor, Codex.`;
+const homeShortDescription = `${COMPONENTS_COUNT} React components with 9-size scale, three-layer design tokens, 6,600+ icons, and Figma Bridge for any AI model. Free React library. 22,000+ Figma variants.`;
+
 export const metadata: Metadata = {
-  title: 'Plex UI — Figma & React Design System for AI Code Editors',
-  description:
-    'Production-grade React design system with 35+ components, 9-size scale (3xs–3xl), three-layer design tokens, and 6,600+ icons. Free MIT React library plus 22,000+ Figma variant kit. Figma Bridge lets any AI model design in Figma. Built for Claude, Cursor, Codex.',
+  // `default` is used on the home page; deeper pages set their own
+  // `title` and the template wraps it as e.g. `Button — Plex UI`. This
+  // adds brand recognition to every SERP entry without per-page edits.
+  title: {
+    default: homeTitle,
+    template: '%s — Plex UI',
+  },
+  description: homeDescription,
   metadataBase: new URL('https://plexui.com'),
   icons: {
     icon: [
@@ -20,9 +31,8 @@ export const metadata: Metadata = {
     apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
   openGraph: {
-    title: 'Plex UI — Figma & React Design System for AI Code Editors',
-    description:
-      '35+ React components with 9-size scale, three-layer design tokens, 6,600+ icons, and Figma Bridge for any AI model. Free React library. 22,000+ Figma variants.',
+    title: homeTitle,
+    description: homeShortDescription,
     url: 'https://plexui.com',
     siteName: 'Plex UI',
     type: 'website',
@@ -31,9 +41,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@ui_plex',
-    title: 'Plex UI — Figma & React Design System for AI Code Editors',
-    description:
-      '35+ React components with 9-size scale, three-layer design tokens, 6,600+ icons, and Figma Bridge for any AI model. Free React library. 22,000+ Figma variants.',
+    title: homeTitle,
+    description: homeShortDescription,
     images: ['https://plexui.com/opengraph-image.png?v=3'],
   },
 };
@@ -60,8 +69,7 @@ const jsonLd = {
       '@id': 'https://plexui.com/#website',
       url: 'https://plexui.com',
       name: 'Plex UI',
-      description:
-        'Production-grade Figma & React design system with 35+ components, 9-size scale, three-layer design tokens, 6,600+ icons, and Figma Bridge for any AI model. Free React library, paid Figma kit.',
+      description: `Production-grade Figma & React design system with ${COMPONENTS_COUNT} components, 9-size scale, three-layer design tokens, 6,600+ icons, and Figma Bridge for any AI model. Free React library, paid Figma kit.`,
       publisher: { '@id': 'https://plexui.com/#organization' },
     },
     {
@@ -71,11 +79,10 @@ const jsonLd = {
       image: 'https://plexui.com/opengraph-image.png?v=3',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
-      description:
-        'Free, open-source React component library with 35+ components, 9-size scale, three-layer design tokens, and dark mode. Built on Radix UI and Tailwind CSS 4. Designed for AI code editors like Claude, Cursor, and Codex.',
+      description: `Free, open-source React component library with ${COMPONENTS_COUNT} components, 9-size scale, three-layer design tokens, and dark mode. Built on Radix UI and Tailwind CSS 4. Designed for AI code editors like Claude, Cursor, and Codex.`,
       url: 'https://plexui.com/components',
       downloadUrl: 'https://www.npmjs.com/package/@plexui/ui',
-      softwareVersion: '0.7.45',
+      softwareVersion: packageJson.version,
       author: { '@id': 'https://plexui.com/#organization' },
       offers: {
         '@type': 'Offer',
@@ -85,7 +92,7 @@ const jsonLd = {
         description: 'Free and open-source (MIT license)',
       },
       featureList: [
-        '35+ accessible React components',
+        `${COMPONENTS_COUNT} accessible React components`,
         '9-step unified size scale (3xs to 3xl)',
         'Three-layer CSS variable design token system',
         'Dark mode via CSS light-dark()',

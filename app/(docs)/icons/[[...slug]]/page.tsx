@@ -107,12 +107,27 @@ export async function generateMetadata(props: {
 
   const slug = params.slug;
   const canonicalPath = slug ? `/icons/${slug.join('/')}` : '/icons';
+  const fullUrl = `https://plexui.com${canonicalPath}`;
+  // OG titles bypass the layout's `%s — Plex UI` template, so brand
+  // the title manually for shared links.
+  const brandedTitle = `${page.data.title} — Plex UI`;
 
   return {
     title: page.data.title,
     description: page.data.description,
-    alternates: {
-      canonical: `https://plexui.com${canonicalPath}`,
+    alternates: { canonical: fullUrl },
+    openGraph: {
+      title: brandedTitle,
+      description: page.data.description,
+      url: fullUrl,
+      siteName: 'Plex UI',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@ui_plex',
+      title: brandedTitle,
+      description: page.data.description,
     },
   };
 }
