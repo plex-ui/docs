@@ -6,28 +6,6 @@ description: Plex UI's first-party React icon set — 578 outline plus 74 filled
 import { IconVariantTabs, IconVariant } from '@/components/docs/IconVariantTabs';
 import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
 
-Plex Icons is the first-party icon set bundled with `@plexui/ui` — **578 outline + 74 filled** glyphs designed in lockstep with the components, so a Button's loading state and a Dialog's close affordance share the same stroke weight, corner radius, and optical centring. MIT-licensed.
-
-Use this set if you want a single library that matches Plex UI's components exactly. Mixing it with Lucide, Tabler, or Hugeicons works fine — the size scale is shared, but stroke weights differ slightly across sets.
-
-## Install
-
-Plex Icons ship with `@plexui/ui`. Nothing extra to install:
-
-```tsx
-import { Bell, Settings, Trash } from '@plexui/ui/components/Icon';
-
-<Bell />
-<Settings size="lg" />
-<Trash style={{ color: 'var(--color-text-danger)' }} />
-```
-
-Every icon component reads the same `--icon-size` CSS variable, which is set automatically by parent components — a Button at `size="md"` renders 18 px icons, `size="lg"` renders 20 px. Override with `size` prop or inline style for one-offs.
-
-## Browse
-
-Switch between **Outline** (the default — used in every Plex UI component) and **Filled** (designed for selected states, badges, and emphatic cells in tables). Click any icon to copy its import statement.
-
 <IconVariantTabs ariaLabel="Plex variant">
   <IconVariant value="outline" label="Outline">
     <IconBrowser library="plex" />
