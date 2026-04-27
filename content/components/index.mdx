@@ -4,39 +4,5 @@ description: Browse the full Plex UI React component library — buttons, inputs
 ---
 
 import { ComponentsList } from '@/components/docs/ComponentsList';
-import { COMPONENTS_COUNT } from '@/lib/counts';
-
-Plex UI ships {COMPONENTS_COUNT} accessible React components built on Radix UI primitives and Tailwind CSS 4. Every component picks up the same 9-step size scale (`3xs`–`3xl`), the same three-layer design-token system, and the same dark-mode story (CSS `light-dark()` — no `dark:` prefixes), so a button, an input, and a date range picker all read as one product the moment you compose them.
-
-## What makes Plex UI components different
-
-**One size scale, every control.** A `size="md"` Button, Input, Select, and Dialog have the same height, padding, font size, and radius. Switch the page to `lg` and everything resizes together. No more deciding whether `sm` on this library matches `md` on that one.
-
-**Semantic colour props, not utility classes.** `color="primary"`, `color="danger"`, `variant="soft"` — the component reads the token, the token reads the theme, and the theme reads the user's system preference. Override individual tokens with `--button-bg-color` and friends; never touch the rest.
-
-**Built for AI editors first.** Component APIs are predictable enough that Claude Code, Cursor, and Codex can hit them on the first try. The bundled [skill](/docs/skills) ships full prop tables to your assistant so it stops hallucinating `<Button variant="primary">` (we don't have one — `primary` is a `color`, not a `variant`).
-
-**Production composition, not just primitives.** `<Card.Header>` / `<Card.Content>` / `<Card.Footer>`, `<Dialog.Trigger>` / `<Dialog.Content>`, `<Menu.Sub>` / `<Menu.SubTrigger>` — every compound component exposes the layout slots designers and engineers actually compose around.
-
-## Install
-
-```bash
-npm install @plexui/ui
-```
-
-Then import a component by subpath — Plex UI is tree-shaken per component, so you only pay for what you use:
-
-```tsx
-import { Button } from '@plexui/ui/components/Button';
-import { Input } from '@plexui/ui/components/Input';
-```
-
-Full setup, including CSS imports and the `PlexUIProvider`, is on the [Installation page](/docs/installation).
-
-## Browse the catalog
-
-Pick a component below for live demos, prop tables, and copy-pasteable code. Looking for icons instead? Head to [Icons](/icons). Looking for a specific layout pattern (login form, settings page, dashboard shell)? Compose from these primitives — every page has at least one realistic example block.
 
 <ComponentsList />
-
-Missing a component you'd reach for? [Open an issue on GitHub](https://github.com/plex-ui/docs/issues/new) — the roadmap is driven by what real users need.
