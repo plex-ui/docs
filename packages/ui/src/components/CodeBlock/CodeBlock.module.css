@@ -17,6 +17,12 @@
   border-radius: 8px;
   background-color: var(--color-surface-elevated-secondary);
   color: var(--color-text-secondary);
+  /* Extend the codeblock's surface colour 8px to the right of the
+   * button so horizontally-overflowing code text doesn't peek through
+   * the gap between the button's right edge and the codeblock's right
+   * edge. The shadow renders behind the button bg (on top of the
+   * scrolling <pre>), masking that 8px band. */
+  box-shadow: 8px 0 0 0 var(--codeblock-background-color);
 }
 
 /* Force the CopyButton to inherit the container's color on all states.
