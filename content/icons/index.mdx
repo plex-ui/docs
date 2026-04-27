@@ -5,48 +5,7 @@ description: React icon libraries that work out of the box with Plex UI — Plex
 
 import { IconLibraryCard, IconLibraryGrid } from '@/components/docs/IconLibraryCard';
 
-Plex UI ships its own icon set and bundles compatibility with three popular open-source libraries — Lucide, Tabler, and Hugeicons. **Roughly 14,750 icons** across the four sets, all addressable through the same `<Icon />`-style React component pattern, all sized through the same `--icon-size` token system. Pick one to standardise on, or mix sets per surface (Plex Icons in form controls, Hugeicons in marketing, Lucide in admin tables — the size scale and stroke weight stay coherent).
-
-## Choosing a set
-
-**[Plex Icons](/icons/plex)** — the first-party set bundled with `@plexui/ui`. 652 outline + filled icons designed in lockstep with the components, so a Button's loading state and a Dialog's close affordance share the same visual language. Use this if you want one set that matches Plex UI's components exactly.
-
-**[Lucide](/icons/lucide)** — 2,283 clean line icons with an Outlined-Fill variant and an experimental Lab set. The de-facto modern open-source icon set; great choice if you want maximal community familiarity.
-
-**[Tabler](/icons/tabler)** — 6,092 sharp-geometry icons in outline + filled. Best coverage of long-tail product surfaces (banking, healthcare, logistics, settings panels with hundreds of toggles).
-
-**[Hugeicons](/icons/hugeicons)** — 5,744 expressive icons across multiple styles (Stroke Rounded, Solid, Duotone, Twotone, Bulk). Pick this when the brand wants more visual personality than a typical line set.
-
-All four sets are MIT-licensed.
-
-## Install
-
-Plex Icons ship with `@plexui/ui` — nothing extra to install:
-
-```tsx
-import { Bell, Settings, Trash } from '@plexui/ui/components/Icon';
-```
-
-The other three libraries are optional peer dependencies. Install only what you actually use:
-
-```bash
-# Lucide
-npm install lucide-react
-
-# Tabler
-npm install @tabler/icons-react
-
-# Hugeicons
-npm install @hugeicons/core-free-icons @hugeicons/react
-```
-
-Each `/icons/{plex,lucide,tabler,hugeicons}` page below has the full grid plus the exact import statements per icon.
-
-## Sizing & stroke
-
-Every icon component reads the same `--icon-size` CSS variable, which is set automatically by parent components — a Button at `size="sm"` renders 16 px icons, `size="md"` renders 18 px, `size="lg"` renders 20 px. Override with `<Icon style={{ '--icon-size': '24px' }} />` for one-offs, or set it on a wrapping element for a whole region.
-
-Stroke weight is fixed per set (Plex 1.5, Lucide 2, Tabler 2, Hugeicons varies). Mixing two sets in the same screen works visually as long as the stroke weights are within ~0.5 of each other; otherwise pick one anchor set per surface.
+Plex UI ships its own icon set and bundles compatibility with three popular open-source libraries — Lucide, Tabler, and Hugeicons. **Roughly 14,750 icons** across the four sets, all addressable through the same `<Icon />`-style React component pattern, all sized through the same `--icon-size` token system. Pick one to standardise on, or mix sets per surface — the size scale and stroke weight stay coherent.
 
 <IconLibraryGrid>
   <IconLibraryCard
@@ -78,3 +37,11 @@ Stroke weight is fixed per set (Plex 1.5, Lucide 2, Tabler 2, Hugeicons varies).
     count={6092}
   />
 </IconLibraryGrid>
+
+## Sizing & stroke
+
+Every icon component reads the same `--icon-size` CSS variable, which is set automatically by parent components — a Button at `size="sm"` renders 16 px icons, `size="md"` renders 18 px, `size="lg"` renders 20 px. Override with `<Icon style={{ '--icon-size': '24px' }} />` for one-offs, or set it on a wrapping element for a whole region.
+
+Stroke weight is fixed per set (Plex 1.5, Lucide 2, Tabler 2, Hugeicons varies). Mixing two sets in the same screen works visually as long as the stroke weights are within ~0.5 of each other; otherwise pick one anchor set per surface.
+
+Each library page above has the full grid plus exact import statements per icon — click through to browse and copy.
