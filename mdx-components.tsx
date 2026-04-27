@@ -69,7 +69,17 @@ function PreCodeBlock({ children }: { children: ReactNode }) {
   // tight against its bottom padding like the inline component
   // snippets are.
   const text = extractText(code).replace(/\n+$/, '');
-  return <PlexCodeBlock language={language}>{text}</PlexCodeBlock>;
+  // `not-prose` shields the code from Tailwind's `prose` typography
+  // (used by Fumadocs's article body). Without it, prose-* utilities
+  // can leak into Prism token spans — e.g. quoted strings get the
+  // <q> rendering, property names pick up `font-weight`/underlines,
+  // and inline `code` spacing is added between tokens. Mirrors how
+  // <UsageBlock> already wraps Plex CodeBlock.
+  return (
+    <div className="not-prose">
+      <PlexCodeBlock language={language}>{text}</PlexCodeBlock>
+    </div>
+  );
 }
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
