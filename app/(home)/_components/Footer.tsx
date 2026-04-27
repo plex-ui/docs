@@ -175,7 +175,10 @@ export function Footer() {
   return (
     <footer className="mt-auto border-t border-fd-border bg-fd-background px-6 pt-12 pb-8">
       <div className="mx-auto max-w-4xl">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
+        <nav
+          aria-label="Footer"
+          className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4"
+        >
           {footerColumns.map((groups, i) => {
             const isComponents = i === footerColumns.length - 1;
             return (
@@ -197,7 +200,7 @@ export function Footer() {
               </div>
             );
           })}
-        </div>
+        </nav>
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center gap-2 border-t border-fd-border pt-6 text-sm text-fd-muted-foreground">

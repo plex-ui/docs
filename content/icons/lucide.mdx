@@ -1,10 +1,34 @@
 ---
 title: Lucide
-description: 'lucide-react · ISC · 1,910 icons + 373 Lab · stroke + outlined-fill variants'
+description: Lucide React icon library — 1,910 clean line icons plus a 373-icon experimental Lab set, ISC-licensed, used across Plex UI projects
 ---
 
 import { IconVariantTabs, IconVariant } from '@/components/docs/IconVariantTabs';
 import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
+
+[Lucide](https://lucide.dev) is the de-facto modern open-source icon library — a fork of Feather Icons that has grown into **1,910 stroke icons** with consistent 24×24 geometry, plus a **373-icon experimental Lab** set for newer designs. ISC-licensed. Most React component libraries (shadcn/ui among them) ship with Lucide as the default icon set, so devs joining a Plex UI project already know the API.
+
+Pick this set when you want maximum community familiarity, or when you're migrating from another shadcn-based codebase and want zero icon-import churn.
+
+## Install
+
+```bash
+npm install lucide-react
+```
+
+```tsx
+import { Bell, Settings, Trash2 } from 'lucide-react';
+
+<Bell />
+<Settings className="size-5" />
+<Trash2 className="text-red-500" />
+```
+
+Plex UI components don't auto-style external icon imports the way they do their bundled set, so size and colour have to be set explicitly via `className` / `style`. The grid below has the exact import statement for every icon — click to copy.
+
+## Browse
+
+The **Icons** tab is the stable production set. **Lab** is the experimental staging area — fine for prototypes, but expect occasional renames between releases.
 
 <IconVariantTabs ariaLabel="Lucide variant">
   <IconVariant value="icons" label="Icons">

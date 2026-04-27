@@ -6,6 +6,30 @@ description: Use the Tabler React icon library with Plex UI — 5,039 MIT-licens
 import { IconVariantTabs, IconVariant } from '@/components/docs/IconVariantTabs';
 import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
 
+[Tabler Icons](https://tabler.io/icons) is the largest open-source set of sharp-geometry icons — **5,039 outline + 1,053 filled** glyphs designed for product UI, with strong coverage of long-tail surfaces (banking, healthcare, logistics, settings panels, chart types). MIT-licensed.
+
+Pick this set when you need breadth — Tabler's catalog covers obscure domain icons (`IconBrandUbuntu`, `IconPropeller`, `IconHorseToy`) that Lucide and Plex Icons skip. The 2 px stroke matches Lucide's, so the two sets mix cleanly when needed.
+
+## Install
+
+```bash
+npm install @tabler/icons-react
+```
+
+```tsx
+import { IconBell, IconSettings, IconTrash } from '@tabler/icons-react';
+
+<IconBell />
+<IconSettings size={20} />
+<IconTrash stroke={1.75} className="text-red-500" />
+```
+
+Tabler accepts `size` (px), `stroke` (line weight), and `color` props directly — handy when matching neighbour icons from a different set.
+
+## Browse
+
+**Outline** is the production-default 2 px stroke set. **Filled** glyphs work well in selected states, status badges, and dense tabular data. Click any icon to copy its import statement.
+
 <IconVariantTabs ariaLabel="Tabler variant">
   <IconVariant value="outline" label="Outline">
     <IconBrowser library="tabler" />

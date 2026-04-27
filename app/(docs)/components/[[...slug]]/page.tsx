@@ -66,10 +66,34 @@ export default async function Page(props: {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Plex UI', item: 'https://plexui.com' },
-      { '@type': 'ListItem', position: 2, name: 'Components', item: 'https://plexui.com/components' },
-      { '@type': 'ListItem', position: 3, name: page.data.title, item: pageUrl },
+      ...(params.slug
+        ? [
+            { '@type': 'ListItem', position: 2, name: 'Components', item: 'https://plexui.com/components' },
+            { '@type': 'ListItem', position: 3, name: page.data.title, item: pageUrl },
+          ]
+        : [{ '@type': 'ListItem', position: 2, name: 'Components', item: 'https://plexui.com/components' }]),
     ],
   };
+
+  // ItemList on the section index helps Google understand /components
+  // as a catalog and surface individual entries as sitelinks. Only
+  // emitted on the index (no slug) — per-page TechArticle handles the
+  // single-component view.
+  const itemListJsonLd = !params.slug
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Plex UI Components',
+        description: page.data.description,
+        url: pageUrl,
+        itemListElement: componentsSource.getPages().map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `https://plexui.com${p.url}`,
+          name: p.data.title,
+        })),
+      }
+    : null;
 
   return (
     <DocsPageWithMobileTOC
@@ -87,6 +111,12 @@ export default async function Page(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {itemListJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        />
+      )}
       <script
         dangerouslySetInnerHTML={{
           __html: `document.documentElement.setAttribute('data-docs-left-sidebar','${showLeftSidebar ? 'on' : 'off'}');document.documentElement.setAttribute('data-docs-right-sidebar','${showRightToc ? 'on' : 'off'}');`,
