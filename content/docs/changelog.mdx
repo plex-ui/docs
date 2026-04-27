@@ -7,6 +7,18 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.14.3 — 2026-04-27
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>CodeBlock</strong> — mask the 8&thinsp;px gap between the in-block <code>CopyButton</code>'s right edge and the codeblock's right edge so horizontally-scrolling code text can no longer peek past the button. <code>.CopyButtonContainer</code> now casts an 8&thinsp;px <code>box-shadow</code> in the codeblock's surface colour, which renders behind the button and on top of the scrolling <code>&lt;pre&gt;</code> — invisible against the rest of the chrome but enough to hide overflowing characters (e.g. the tail of a long <code>raw.githubusercontent.com/&hellip;/AGENT.md</code> URL).
+  </li>
+</ul>
+
+---
+
 ## 0.14.2 — 2026-04-26
 
 ### Fixed
