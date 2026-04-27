@@ -39,6 +39,30 @@
 /* Let Tailwind scan Plex UI component class usage */
 @source "../packages/ui";
 
+/* Pointer cursor on every clickable element by default. The browser
+ * default for <button> is `cursor: default`, so libraries that don't
+ * style their own cursor (Fumadocs internals, Radix triggers, etc.)
+ * end up with arrow cursor on hover even though they're clickable.
+ * This baseline switches buttons and clickable roles to pointer
+ * unless they're explicitly disabled. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[role="tab"]:not([aria-disabled="true"]),
+[role="menuitem"]:not([aria-disabled="true"]),
+[role="menuitemcheckbox"]:not([aria-disabled="true"]),
+[role="menuitemradio"]:not([aria-disabled="true"]),
+[role="checkbox"]:not([aria-disabled="true"]),
+[role="radio"]:not([aria-disabled="true"]),
+[role="switch"]:not([aria-disabled="true"]),
+summary {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 /* Disable bounce / overscroll on the page itself */
 html,
 body {
