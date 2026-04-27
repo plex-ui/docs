@@ -5,29 +5,4 @@ description: Use the Hugeicons React icon library with Plex UI — 5,784 free CC
 
 import { IconBrowser } from '@/components/docs/IconBrowser/IconBrowser';
 
-[Hugeicons](https://hugeicons.com) is a bold, expressive icon set with **5,784 free icons** across multiple visual styles (Stroke Rounded, Solid, Duotone, Twotone, Bulk). CC-BY-licensed for the free tier. Pick this set when the brand calls for more visual personality than a typical line library — Hugeicons's varied stroke widths and friendlier shapes set marketing surfaces apart from the standard Tabler/Lucide aesthetic.
-
-The free tier only ships the **Stroke Rounded** variant; the rest are part of Hugeicons Pro. The grid below covers the free set.
-
-## Install
-
-```bash
-npm install @hugeicons/core-free-icons @hugeicons/react
-```
-
-```tsx
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Notification01Icon, Settings02Icon, Delete02Icon } from '@hugeicons/core-free-icons';
-
-<HugeiconsIcon icon={Notification01Icon} />
-<HugeiconsIcon icon={Settings02Icon} size={20} />
-<HugeiconsIcon icon={Delete02Icon} className="text-red-500" />
-```
-
-Hugeicons uses a wrapper component (`<HugeiconsIcon icon={…} />`) instead of one component per icon — handy for dynamic icon picking from props but means a different ergonomic than the other three sets.
-
-## Browse
-
-Click any icon to copy its import statement.
-
 <IconBrowser library="hugeicons" />
