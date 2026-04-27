@@ -163,11 +163,6 @@ export default async function Page(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.setAttribute('data-docs-left-sidebar','${showLeftSidebar ? 'on' : 'off'}');document.documentElement.setAttribute('data-docs-right-sidebar','${showRightToc ? 'on' : 'off'}');`,
-        }}
-      />
       <DocsViewportState
         showLeftSidebar={showLeftSidebar}
         showRightSidebar={showRightToc}
