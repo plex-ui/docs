@@ -5,7 +5,9 @@
   "workspaces": [
     "packages/ui",
     "packages/mcp",
-    "packages/icons-lucide-outlined"
+    "packages/icons-lucide-outlined",
+    "packages/icons-tabler-outlined",
+    "packages/icons-hugeicons-outlined"
   ],
   "scripts": {
     "dev": "next dev",
