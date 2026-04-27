@@ -75,8 +75,12 @@ function PreCodeBlock({ children }: { children: ReactNode }) {
   // <q> rendering, property names pick up `font-weight`/underlines,
   // and inline `code` spacing is added between tokens. Mirrors how
   // <UsageBlock> already wraps Plex CodeBlock.
+  //
+  // `not-prose` also strips the default `prose pre` vertical margin,
+  // so add an explicit `my-4` so adjacent paragraphs keep the same
+  // breathing room they had with Fumadocs's old Shiki block.
   return (
-    <div className="not-prose">
+    <div className="not-prose my-4">
       <PlexCodeBlock language={language}>{text}</PlexCodeBlock>
     </div>
   );
