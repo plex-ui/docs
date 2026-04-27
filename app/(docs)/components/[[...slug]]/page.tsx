@@ -3,6 +3,7 @@ import type { TOCItemType } from 'fumadocs-core/toc';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
 import { PageNav } from '@/components/docs/PageNav';
+import { RelatedComponents } from '@/components/docs/RelatedComponents';
 import { DocsViewportState } from '@/components/layout/DocsViewportState';
 import {
   DocsPageWithMobileTOC,
@@ -104,6 +105,12 @@ export default async function Page(props: {
       </DocsDescription>
       <DocsBody className="plex-docs-body">
         <MDX components={getMDXComponents()} />
+        {/* `Related components` card row at the bottom of every
+         * /components/<slug> page — distributes link equity, helps
+         * users discover the catalog from any single page they land
+         * on. Skipped for the section index (`/components`) where
+         * `params.slug` is undefined. */}
+        {params.slug?.[0] && <RelatedComponents slug={params.slug[0]} />}
       </DocsBody>
       {showPageNav && <PageNav className="plex-docs-nav plex-docs-nav-bottom" />}
     </DocsPageWithMobileTOC>
@@ -127,6 +134,10 @@ export async function generateMetadata(props: {
   // OG titles bypass the layout's `%s — Plex UI` template, so brand
   // the title manually for shared links.
   const brandedTitle = `${page.data.title} — Plex UI`;
+  // Per-page OG image rendered by /api/og — the route reads the same
+  // page title + description we pass via `slug` and produces a branded
+  // PNG instead of every shared link reusing the homepage card.
+  const ogImageUrl = `https://plexui.com/api/og?type=components${slug ? `&slug=${slug.join('/')}` : ''}`;
 
   return {
     title: page.data.title,
@@ -138,12 +149,14 @@ export async function generateMetadata(props: {
       url: fullUrl,
       siteName: 'Plex UI',
       type: 'article',
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       site: '@ui_plex',
       title: brandedTitle,
       description: page.data.description,
+      images: [ogImageUrl],
     },
   };
 }

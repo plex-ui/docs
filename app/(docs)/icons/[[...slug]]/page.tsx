@@ -126,6 +126,7 @@ export async function generateMetadata(props: {
   // OG titles bypass the layout's `%s — Plex UI` template, so brand
   // the title manually for shared links.
   const brandedTitle = `${page.data.title} — Plex UI`;
+  const ogImageUrl = `https://plexui.com/api/og?type=icons${slug ? `&slug=${slug.join('/')}` : ''}`;
 
   return {
     title: page.data.title,
@@ -137,12 +138,14 @@ export async function generateMetadata(props: {
       url: fullUrl,
       siteName: 'Plex UI',
       type: 'article',
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       site: '@ui_plex',
       title: brandedTitle,
       description: page.data.description,
+      images: [ogImageUrl],
     },
   };
 }
