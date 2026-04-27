@@ -154,7 +154,7 @@ export function Hero() {
             Install as skill
           </ButtonLink>
           <ButtonLink
-            href="#pricing"
+            href="/pricing"
             color="primary"
             variant="solid"
             size="lg"
