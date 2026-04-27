@@ -58,6 +58,17 @@ export default async function Page(props: {
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   };
 
+  // BreadcrumbList: `Plex UI › Icons › <icon set>` in SERP results.
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Plex UI', item: 'https://plexui.com' },
+      { '@type': 'ListItem', position: 2, name: 'Icons', item: 'https://plexui.com/icons' },
+      { '@type': 'ListItem', position: 3, name: page.data.title, item: pageUrl },
+    ],
+  };
+
   return (
     <DocsPageWithMobileTOC
       toc={toc}
@@ -69,6 +80,10 @@ export default async function Page(props: {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <script
         dangerouslySetInnerHTML={{

@@ -1,7 +1,13 @@
 import type { MetadataRoute } from 'next';
 import { source, componentsSource, iconsSource, blog } from '@/lib/source';
 
-const STATIC_UPDATED = '2026-04-05';
+// Build-time stamp for routes that don't have a per-page lastModified
+// (the homepage, /pricing, /bridge, /compare/*, /blog index — these
+// are all hand-built React pages without an MDX `lastModified`
+// frontmatter, so they get the deploy date instead of the old
+// hardcoded fallback). Crawlers use this to prioritise re-crawl
+// frequency, so it's important it actually moves with the build.
+const STATIC_UPDATED = new Date().toISOString().split('T')[0];
 
 function toISODate(d: Date | string | undefined): string {
   if (!d) return STATIC_UPDATED;
