@@ -1,0 +1,28 @@
+{
+  "name": "@plexui/icons-hugeicons-outlined",
+  "version": "0.1.0",
+  "description": "Hugeicons free set converted to outlined-fill geometry — single closed path per icon, fill='currentColor'. Same visual as upstream Hugeicons stroke, but each glyph is a filled <path> instead of an open stroke (one DOM element, no stroke-width math, scales naturally with fill color)",
+  "type": "module",
+  "license": "CC-BY-4.0",
+  "private": true,
+  "homepage": "https://plexui.com/icons/hugeicons",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plex-ui/docs.git",
+    "directory": "packages/icons-hugeicons-outlined"
+  },
+  "keywords": [
+    "icons",
+    "hugeicons",
+    "outlined",
+    "filled",
+    "svg",
+    "plexui"
+  ],
+  "files": [
+    "icons/**"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-hugeicons-outlined.mjs"
+  }
+}

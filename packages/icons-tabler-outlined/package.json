@@ -1,0 +1,28 @@
+{
+  "name": "@plexui/icons-tabler-outlined",
+  "version": "0.1.0",
+  "description": "Tabler Outline icons converted to outlined-fill geometry — single closed path per icon, fill='currentColor'. Same visual as upstream Tabler outline, but each glyph is a filled <path> instead of an open stroke (one DOM element, no stroke-width math, scales naturally with fill color)",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://plexui.com/icons/tabler",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plex-ui/docs.git",
+    "directory": "packages/icons-tabler-outlined"
+  },
+  "keywords": [
+    "icons",
+    "tabler",
+    "outlined",
+    "filled",
+    "svg",
+    "plexui"
+  ],
+  "files": [
+    "icons/**"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-tabler-outlined.mjs"
+  }
+}
