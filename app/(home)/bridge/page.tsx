@@ -20,14 +20,23 @@ export const metadata: Metadata = {
     description:
       'Connect any AI agent to Figma. Your agent reads variables, picks the right components from your library, creates new ones when nothing fits, and binds every property to your design tokens.',
     url: 'https://plexui.com/bridge',
-    images: [{ url: 'https://plexui.com/opengraph-image.png?v=3', width: 2400, height: 1260, type: 'image/png' }],
+    images: [{
+      url: 'https://plexui.com/opengraph-image.png?v=4',
+      width: 2400,
+      height: 1260,
+      type: 'image/png',
+      alt: 'Figma AI Bridge: AI agent designing in a Figma file using a real design system',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Figma AI Bridge: AI designs in your Figma',
     description:
       'Connect any AI agent to Figma. Your agent reads variables, picks components, creates new ones, and binds every property to your tokens.',
-    images: ['https://plexui.com/opengraph-image.png?v=3'],
+    images: [{
+      url: 'https://plexui.com/opengraph-image.png?v=4',
+      alt: 'Figma AI Bridge: AI agent designing in a Figma file using a real design system',
+    }],
   },
   alternates: {
     canonical: 'https://plexui.com/bridge',
