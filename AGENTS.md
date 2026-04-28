@@ -138,6 +138,35 @@ Full rationale: [`.memory/domains/canonical-domain.md`](.memory/domains/canonica
 
 ---
 
+# «Полный синк» — `bash scripts/sync-all.sh`
+
+When the maintainer says **"полный синк"** / **"full sync"** / **"sync
+everything"**, the canonical action is:
+
+```bash
+cd ~/github/plexui-docs && bash scripts/sync-all.sh
+```
+
+This pulls parent, `.memory`, and the `figma-ai-bridge` plugin, runs
+whitelist cleanup on `figma/`, builds the plugin zip, and triggers the
+`packages/ui` rebuild gate if needed. **Don't reimplement the steps
+manually** — the script is the only source of truth and changes often.
+
+Reporting style: paste the script's final summary block, no narration:
+
+```
+✓ Full sync complete
+  main:    <sha>
+  .memory: <sha>
+  plugin:  <sha>
+```
+
+Surface failures or a fired rebuild gate. Otherwise stay quiet.
+
+Full doc: [`.memory/domains/full-sync.md`](.memory/domains/full-sync.md).
+
+---
+
 # Component registration / modification checklist
 
 **When adding or modifying a component in `packages/ui/src/components/*`, you MUST walk this list.** There is no safety net — the lists are hand-curated.
