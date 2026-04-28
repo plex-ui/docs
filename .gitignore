@@ -66,6 +66,15 @@ figma/
 skills/dev-browser/profiles/
 skills/dev-browser/tmp/
 
+# Private launch / strategy / audit material — lives in .memory/plans/.
+# Never commit these to the public repo.
+launch/
+/ACTION-PLAN.md
+/FULL-AUDIT-REPORT.md
+/SEO-*.md
+/AUDIT-*.md
+/PLAN-*.md
+
 # Playwright MCP browser cache
 .playwright-mcp/
 
