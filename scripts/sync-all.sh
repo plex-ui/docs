@@ -20,11 +20,22 @@ new_head=$(git rev-parse HEAD)
 echo "→ Pulling .memory submodule (plex-ui/docs-memory)…"
 ( cd .memory && git checkout master --quiet && git pull )
 
-echo "→ Cleaning legacy directories in figma/plugin/…"
+echo "→ Cleaning figma/plugin/ — whitelist: figma-ai-bridge/ + figma-ai-bridge-v*.zip"
 mkdir -p figma/plugin
-( cd figma/plugin && \
-  rm -f .DS_Store && \
-  rm -rf figma-mcp-bridge plex-ui )
+(
+  cd figma/plugin
+  shopt -s nullglob dotglob
+  for entry in *; do
+    case "$entry" in
+      figma-ai-bridge) continue ;;
+      figma-ai-bridge-v*.zip) continue ;;
+      *)
+        echo "  removing $entry"
+        rm -rf -- "$entry"
+        ;;
+    esac
+  done
+)
 # Note: figma-ai-bridge-v*.zip files are preserved — they are build outputs
 # from ./build-zip.sh that the maintainer manually uploads to Lemon Squeezy.
 # Run `rm figma/plugin/figma-ai-bridge-v*.zip` by hand to clean old builds.
