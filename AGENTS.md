@@ -125,6 +125,41 @@ Prior incident: 2026-04-28 — `launch/*.md`, `ACTION-PLAN.md`, `FULL-AUDIT-REPO
 
 ---
 
+# 🔴 Avoid em-dashes (`—` and `–`) in user-facing copy
+
+Long em-dash (`—`) and en-dash (`–`) are a strong tell of AI-generated text. Marketing pages, landing copy, blog post bodies, and any prose visible to a customer must avoid them. Use a period, comma, colon, parentheses, or restructure the sentence instead.
+
+Forbidden examples:
+```
+The bridge returns design token names — so your AI generates production CSS.
+Works with any AI model — Claude, GPT, Cursor.
+Local-first — designs never leave your machine.
+```
+
+Replacements (pick whichever flows best):
+```
+The bridge returns design token names. Your AI generates production CSS.
+Works with any AI model: Claude, GPT, Cursor.
+Local-first. Designs never leave your machine.
+```
+
+**Where the rule applies:**
+- Landing pages: `app/(home)/**/*.tsx`, `app/page.tsx`
+- Blog post bodies: `content/blog/**/*.mdx`
+- Marketing emails, in-app empty/error copy, social posts in `.memory/plans/launch/`
+- Component descriptions and docs prose under `content/docs/**/*.mdx`
+
+**Where dashes ARE fine:**
+- Code, identifiers, file paths, URLs
+- Numeric ranges (`5–7 business days` is acceptable but a hyphen `5-7` is even better)
+- AGENTS.md / `.memory/` internal notes (this file uses dashes deliberately for editorial structure)
+
+When auditing existing copy, treat any em-dash as a candidate for replacement and only keep it when no rewrite reads more naturally.
+
+Prior incident: 2026-04-28 — `/bridge` landing copy and FAQ shipped with em-dashes. The user flagged them as AI-tells and asked for cleanup. Replaced with periods and colons across the page.
+
+---
+
 # Canonical domain — `plexui.com`
 
 The project is hosted at **https://plexui.com**. Use it for sample data
