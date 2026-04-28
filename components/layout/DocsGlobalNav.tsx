@@ -80,7 +80,8 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
         </div>
 
         {/* Center column: nav links (desktop only) */}
-        {/* Order: Components → Icons → Docs → Bridge → Blog. Logo handles "Home". */}
+        {/* Order: Components → Bridge → Icons → Docs → Blog. Bridge sits second
+            because it is the paid product and the highest-conversion link. */}
         <nav className={s.NavLinks} aria-label="Primary">
           {(() => {
             const componentsLink = navLinks.find((item) => item.slug === 'components');
@@ -106,6 +107,12 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
                   </Link>
                 )}
                 <Link
+                  href="/bridge"
+                  className={`${s.NavLink} ${isActivePath(pathname, '/bridge') ? s.NavLinkActive : ''}`.trim()}
+                >
+                  Bridge
+                </Link>
+                <Link
                   href="/icons"
                   className={`${s.NavLink} ${iconsActive ? s.NavLinkActive : ''}`.trim()}
                 >
@@ -120,12 +127,6 @@ export function DocsGlobalNav({ sections }: { sections: DocsSectionNavItem[] }) 
                     {docsLink.label}
                   </Link>
                 )}
-                <Link
-                  href="/bridge"
-                  className={`${s.NavLink} ${isActivePath(pathname, '/bridge') ? s.NavLinkActive : ''}`.trim()}
-                >
-                  Bridge
-                </Link>
                 <Link
                   href="/blog"
                   className={`${s.NavLink} ${isActivePath(pathname, '/blog') ? s.NavLinkActive : ''}`.trim()}
