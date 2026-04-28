@@ -306,6 +306,12 @@ export type MenuContentProps = {
    * @default "md"
    */
   size?: "sm" | "md" | "lg"
+  /**
+   * Event handler called when auto-focus tries to return to the trigger
+   * after the menu closes. Call `event.preventDefault()` to prevent the
+   * trigger from regaining focus (and its focus-visible ring).
+   */
+  onCloseAutoFocus?: DropdownMenu.DropdownMenuContentProps["onCloseAutoFocus"]
 }
 
 const Content = ({
@@ -319,6 +325,7 @@ const Content = ({
   maxHeight,
   layout = "vertical",
   size,
+  onCloseAutoFocus,
 }: MenuContentProps) => {
   const { open } = useMenuContext()
   const isHorizontal = layout === "horizontal"
@@ -338,6 +345,7 @@ const Content = ({
             avoidCollisions
             collisionPadding={{ bottom: 30, top: 30, left: 12, right: 12 }}
             onEscapeKeyDown={preventDefaultHandler}
+            onCloseAutoFocus={onCloseAutoFocus}
             data-layout={isHorizontal ? "horizontal" : undefined}
             data-size={isHorizontal && size ? size : undefined}
             style={toCssVariables({

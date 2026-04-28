@@ -3,7 +3,7 @@ title: Tag Input
 description: React tag input component for entering multiple unique values as chip-style tokens, with suggestion dropdown and keyboard editing
 ---
 
-import { TagInputBaseDemoWithControls, TagInputSuggestionsDemo } from '@/components/docs/TagInputDemo'
+import { TagInputBaseDemoWithControls, TagInputSuggestionsDemo, TagInputInlineFilterRowDemo } from '@/components/docs/TagInputDemo'
 
 <UsageBlock>{`import { TagInput } from "@plexui/ui/components/TagInput";`}</UsageBlock>
 
@@ -16,6 +16,30 @@ import { TagInputBaseDemoWithControls, TagInputSuggestionsDemo } from '@/compone
   rows={3}
 />`} previewMinHeight={168}>
   <TagInputBaseDemoWithControls />
+</ComponentPreview>
+
+### Inline filter row
+
+<ComponentPreview details={<>When <code>rows=1</code>, <code>TagInput</code> matches the height of an <code>Input</code> or <code>SelectControl</code> of the same size, so it composes cleanly into horizontal filter rows. Toggle <code>pill</code> on both controls to keep the pair visually consistent.</>} code={`<div className="flex items-start gap-2">
+  <Field label="Where" className="w-[160px] shrink-0">
+    <Menu>
+      <Menu.Trigger>
+        <SelectControl size="md" pill={pill} selected>{fieldLabel}</SelectControl>
+      </Menu.Trigger>
+      <Menu.Content minWidth={160}>
+        <Menu.RadioGroup value={field} onChange={setField}>
+          <Menu.RadioItem value="email">Email</Menu.RadioItem>
+          <Menu.RadioItem value="name">Name</Menu.RadioItem>
+          <Menu.RadioItem value="role">Role</Menu.RadioItem>
+        </Menu.RadioGroup>
+      </Menu.Content>
+    </Menu>
+  </Field>
+  <Field label="Is in" className="flex-1">
+    <TagInput size="md" pill={pill} value={tags} onChange={setTags} placeholder="Add value, press Enter…" />
+  </Field>
+</div>`} previewMinHeight={168}>
+  <TagInputInlineFilterRowDemo />
 </ComponentPreview>
 
 ### Suggestions
@@ -56,6 +80,7 @@ const available = SUGGESTIONS.filter((s) => !selectedValues.has(s));
   { prop: "validator", type: "(value: string) => boolean", description: "Validates each tag; invalid tags shown in red" },
   { prop: "maxTags", type: "number", description: "Max tags before input is disabled" },
   { prop: "rows", type: "number", default: "1", description: "Min rows" },
-  { prop: "size", type: "string", default: "xl", description: "Control height when rows=1" },
+  { prop: "size", type: "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'", default: "xl", description: "Control height when rows=1; matches Input height of the same size" },
+  { prop: "pill", type: "boolean", default: "false", description: "Fully-rounded container and chips; matches Input/SelectControl pill" },
   { prop: "autoFocus", type: "boolean", default: "false", description: "Focus on mount" },
 ]} />
