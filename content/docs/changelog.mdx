@@ -13,16 +13,38 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>TagInput</strong> — new <code>sm</code> size (28&nbsp;px) matching <code>Input</code> and <code>SelectControl</code> sm. Chip height, font-size, gutter, and border-radius now scale per-size via <code>--tag-input-tag-&#123;height,gutter,font-size,radius&#125;</code> CSS variables, so a chip-filled container is exactly the same height as an empty one and the chip radius is concentric with the container (<code>container_radius − padding</code>). The X close-button now has symmetric whitespace on top, right, and bottom.
+    <strong>TagInput</strong> — new <code>sm</code> size (28&nbsp;px) matching <code>Input</code> and <code>SelectControl</code> sm. Sits flush in horizontal filter rows alongside the matching Select.
   </li>
   <li>
-    <strong>TagInput</strong> — new <code>pill</code> prop. Both container and inner chips become fully-rounded; on a multi-row state the radius clamps to half of a single-row height instead of expanding into a giant ellipse.
-  </li>
-  <li>
-    <strong>TagInput</strong> — added a <code>ResizeObserver</code> on the container and every chip so that stale <code>inputWidth</code> no longer causes an extra wrap row right after a <code>size</code> / <code>pill</code> toggle (CSS-var-driven reflow doesn't trigger React re-renders on its own).
+    <strong>TagInput</strong> — new <code>pill</code> prop. Both the container and inner chips become fully-rounded so the control reads as a single rounded surface, matching <code>Input pill</code> and <code>SelectControl pill</code>.
   </li>
   <li>
     <strong>Menu.Content</strong> — exposes <code>onCloseAutoFocus</code>. Call <code>event.preventDefault()</code> to keep the trigger from regaining focus (and its focus-visible ring) after a mouse pick — useful when the menu is paired with a <code>SelectControl</code> in filter rows.
+  </li>
+</ul>
+
+### Changed
+
+<ul className="changelog-list">
+  <li>
+    <strong>TagInput</strong> — chip height, font-size, and gutter now scale per-size via <code>--tag-input-tag-&#123;height,gutter,font-size&#125;</code> (defaulting to <code>--tag-input-height</code> / <code>--tag-input-font-size</code>), so a chip-filled container is exactly the same height as an empty one. Previously chip was fixed at <code>--control-size-xs</code> (26&nbsp;px), which made md/lg/xl containers grow when chips were added.
+  </li>
+  <li>
+    <strong>TagInput</strong> — container border-radius now scales per-size (<code>sm=6, md=8, lg=10, xl/2xl/3xl=12</code>), matching <code>SelectControl</code>'s scale. Chip border-radius is concentric with the container (<code>container_radius − inner_padding</code>) at every size.
+  </li>
+  <li>
+    <strong>TagInput</strong> — pill-mode radius is now <code>single_row_height / 2</code> instead of <code>--radius-full</code>. Visually identical when there's one row, but no longer flares into a giant ellipse when chips wrap to a second/third row.
+  </li>
+  <li>
+    <strong>TagInput</strong> — the X close-button inside a chip now has symmetric whitespace on top, right, and bottom (driven by chip's vertical padding), instead of being pulled to the chip edge with <code>margin-right: -1px</code>.
+  </li>
+</ul>
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>TagInput</strong> — added a <code>ResizeObserver</code> on the container and every chip so the internal <code>inputWidth</code> recomputes on any layout change (size/pill toggle, window resize, font load). Without it, a CSS-var-driven reflow didn't trigger React re-renders, which left a stale <code>inputWidth</code> and caused the input or last chip to wrap onto a phantom extra row right after toggling <code>size</code>.
   </li>
 </ul>
 
