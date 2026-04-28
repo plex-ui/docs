@@ -339,27 +339,21 @@ chmod +x figma-ai-bridge/build-zip.sh figma-ai-bridge/start-bridge.command
 
 ## Sync command (run on either machine, before/after work)
 
-> "синхронизируй всё — плагин, .memory, основной репо"
+> "запусти полный синк" / "полный синк" / "синхронизируй всё"
 
 Expands to:
 ```bash
-cd ~/github/plexui-docs
-
-# 1. Main repo (no submodule recursion — .memory pointer may lag)
-git pull --no-recurse-submodules
-
-# 2. .memory — track its master directly, not the parent's pinned SHA
-( cd .memory && git checkout master && git pull )
-
-# 3. Figma plugin — separate private repo, separate pull
-( cd figma/plugin/figma-ai-bridge && git pull )
-
-# 4. If git pull #1 touched packages/ui/, rebuild gate fires (see decision 0008)
-git diff HEAD@{1} HEAD --name-only -- packages/ui/ | grep -q . && \
-  ( cd packages/ui && npm run build && cd ../.. && rm -rf .next )
+bash scripts/sync-all.sh
 ```
 
-After step 4, restart the dev server via Claude Preview MCP if `packages/ui/` was rebuilt.
+The script ([scripts/sync-all.sh](scripts/sync-all.sh)) is idempotent and does:
+1. `git pull --no-recurse-submodules` for main `plex-ui/docs`
+2. `git pull` inside `.memory` (tracks `master` directly — parent submodule pointer may lag)
+3. Cleans legacy artifacts in `figma/plugin/` (`figma-mcp-bridge`, `plex-ui`, stale `figma-ai-bridge-v*.zip`, `.DS_Store`) — these are NOT part of the product and not synced
+4. Pulls `figma/plugin/figma-ai-bridge/` if it's a valid clone, else wipes + clones fresh from `plex-ui/figma-ai-bridge` (private)
+5. If main pull touched `packages/ui/`, runs the rebuild gate (decision 0008): `npm run build` + `rm -rf .next`. Restart the dev server via Claude Preview MCP if it was running.
+
+Final line of the script prints the resolved short SHAs of all three repos for confirmation.
 
 ## Versioning + release workflow
 
