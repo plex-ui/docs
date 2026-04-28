@@ -20,6 +20,22 @@ new_head=$(git rev-parse HEAD)
 echo "→ Pulling .memory submodule (plex-ui/docs-memory)…"
 ( cd .memory && git checkout master --quiet && git pull )
 
+echo "→ Cleaning figma/ — whitelist: plugin/ only"
+mkdir -p figma
+(
+  cd figma
+  shopt -s nullglob dotglob
+  for entry in *; do
+    case "$entry" in
+      plugin) continue ;;
+      *)
+        echo "  removing figma/$entry"
+        rm -rf -- "$entry"
+        ;;
+    esac
+  done
+)
+
 echo "→ Cleaning figma/plugin/ — whitelist: figma-ai-bridge/ + figma-ai-bridge-v*.zip"
 mkdir -p figma/plugin
 (
@@ -30,7 +46,7 @@ mkdir -p figma/plugin
       figma-ai-bridge) continue ;;
       figma-ai-bridge-v*.zip) continue ;;
       *)
-        echo "  removing $entry"
+        echo "  removing figma/plugin/$entry"
         rm -rf -- "$entry"
         ;;
     esac
