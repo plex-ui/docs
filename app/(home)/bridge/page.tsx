@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     description:
       'The only Figma AI bridge that gives your AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model. Two-way: create in Figma and read back into code.',
     url: 'https://plexui.com/bridge',
-    images: [{ url: '/opengraph-image' }],
+    images: [{ url: 'https://plexui.com/opengraph-image.png?v=3', width: 2400, height: 1260, type: 'image/png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Figma AI Bridge with Design Tokens — Not Just Pixels',
     description:
       'The only Figma AI bridge that gives your AI actual design token bindings — var(--spacing-xl) instead of 16px. Works with any model.',
-    images: ['/opengraph-image'],
+    images: ['https://plexui.com/opengraph-image.png?v=3'],
   },
   alternates: {
     canonical: 'https://plexui.com/bridge',
