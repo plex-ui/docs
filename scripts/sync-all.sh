@@ -51,6 +51,9 @@ else
            figma/plugin/figma-ai-bridge/start-bridge.command
 fi
 
+echo "→ Building plugin zip for current VERSION…"
+( cd figma/plugin/figma-ai-bridge && ./build-zip.sh )
+
 echo "→ packages/ui rebuild gate…"
 if [[ "$prev_head" != "$new_head" ]] && \
    git diff "$prev_head" "$new_head" --name-only -- packages/ui/ | grep -q .; then
