@@ -28,7 +28,7 @@ export default function BridgeSuccessPage() {
             <li>
               3. Select{' '}
               <code className="rounded bg-fd-secondary px-1.5 py-0.5 text-fd-foreground">
-                figma/plugin/figma-code-design-bridge/manifest.json
+                figma/plugin/figma-ai-bridge/manifest.json
               </code>
               .
             </li>
@@ -47,7 +47,7 @@ export default function BridgeSuccessPage() {
                 <code>curl http://localhost:8867/status</code>
               </pre>
             </li>
-            <li>6. Run plugin “Figma Code↔Design Bridge” in Figma and verify green status.</li>
+            <li>6. Run plugin “Figma AI Bridge” in Figma and verify green status.</li>
           </ol>
         </div>
       </LandingSection>

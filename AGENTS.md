@@ -83,6 +83,24 @@ git pull --recurse-submodules
 git submodule update --remote --merge
 ```
 
+### 🔴 After ANY `git pull` that touched `packages/ui/**` — REBUILD
+
+**Same gate as for your own changes.** A `git pull` brings new `src/` for `packages/ui` but does NOT rebuild `dist/`, and Next.js consumes `dist/` — so the docs site keeps serving the OLD compiled component until you rebuild. Symptom: docs page shows a stale/broken version, the Vercel deploy works fine, and you scratch your head.
+
+**Trigger:** `git pull` diff includes any path under `packages/ui/`.
+
+```bash
+cd packages/ui && npm run build && cd ../..
+rm -rf .next
+# preview_stop / preview_start via Claude Preview MCP
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/components/<affected-route>
+# Must be 200.
+```
+
+This is identical to the post-edit verification gate — the rule is the same regardless of whether the `src/` change came from your edit or from a teammate's pull.
+
+Prior incident: 2026-04-28 — pulled TagInput sm/pill commits, docs page kept showing the old version because `dist/` was a day stale.
+
 ## Never
 
 - `rm -rf .memory/` — that deletes the submodule working tree. Use `git submodule deinit .memory` instead if you really need to unmount.
@@ -285,11 +303,71 @@ Full record: [`.memory/decisions/0001-pill-consistency-in-cards.md`](.memory/dec
 
 ---
 
-# Figma MCP Bridge Plugin
+# Figma AI Bridge Plugin
 
 ## Location
 
-`figma/plugin/figma-code-design-bridge/` — files: `code.js`, `manifest.json`, `ui.html`, `server.mjs`
+`figma/plugin/figma-ai-bridge/` — files: `code.js`, `manifest.json`, `ui.html`, `server.mjs`, `VERSION`, `build-zip.sh`
+
+The plugin source lives in a separate **private** GitHub repo: `plex-ui/figma-ai-bridge`. The whole `figma/` tree is in this repo's `.gitignore` — the plugin syncs only via its own private repo, not via `plexui-docs`.
+
+## First-time setup on a new machine (Claude command)
+
+> "клонируй приватный плагин Figma AI Bridge в figma/plugin"
+
+Expands to:
+```bash
+cd ~/github/plexui-docs/figma/plugin
+git clone https://github.com/plex-ui/figma-ai-bridge.git figma-ai-bridge
+chmod +x figma-ai-bridge/build-zip.sh figma-ai-bridge/start-bridge.command
+```
+
+## Sync command (run on either machine, before/after work)
+
+> "синхронизируй всё — плагин, .memory, основной репо"
+
+Expands to:
+```bash
+cd ~/github/plexui-docs
+
+# 1. Main repo (no submodule recursion — .memory pointer may lag)
+git pull --no-recurse-submodules
+
+# 2. .memory — track its master directly, not the parent's pinned SHA
+( cd .memory && git checkout master && git pull )
+
+# 3. Figma plugin — separate private repo, separate pull
+( cd figma/plugin/figma-ai-bridge && git pull )
+
+# 4. If git pull #1 touched packages/ui/, rebuild gate fires (see decision 0008)
+git diff HEAD@{1} HEAD --name-only -- packages/ui/ | grep -q . && \
+  ( cd packages/ui && npm run build && cd ../.. && rm -rf .next )
+```
+
+After step 4, restart the dev server via Claude Preview MCP if `packages/ui/` was rebuilt.
+
+## Versioning + release workflow
+
+Version source of truth: `figma/plugin/figma-ai-bridge/VERSION` (single line, e.g. `1.0.0`).
+
+To cut a release:
+```bash
+cd ~/github/plexui-docs/figma/plugin/figma-ai-bridge
+echo "1.0.1" > VERSION
+./build-zip.sh                # writes ../figma-ai-bridge-v1.0.1.zip
+                              # also rewrites const PLUGIN_VERSION in code.js
+git add VERSION code.js
+git commit -m "Bump to v1.0.1"
+git push
+git tag v1.0.1 -m "v1.0.1 — short note"
+git push origin v1.0.1        # CI builds + publishes GitHub Release as backup
+```
+
+Manual upload: take `figma/plugin/figma-ai-bridge-v1.0.1.zip` and replace the Lemon Squeezy product file. CI release on GitHub is a backup mirror only.
+
+The plugin window title in Figma reads `Figma AI Bridge vX.Y.Z` because `code.js` sets `figma.showUI(__html__, { …, title: PLUGIN_TITLE })` with `PLUGIN_VERSION` synced from `VERSION` by `build-zip.sh`. Both dev mode (running plugin from source via Plugins → Development → Import from manifest) and production zip show the same version because the build script rewrites the literal in source code.js, not just in the zip.
+
+The CI release workflow refuses to run if the git tag and `VERSION` disagree.
 
 ## Architecture
 

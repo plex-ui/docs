@@ -6,6 +6,7 @@
 
 - 🔴 [Rule 0 — never hardcode styles that a component already ships](./AGENTS.md#🔴-rule-0--never-hardcode-styles-that-a-component-already-ships)
 - 🔴 [**Post-change verification is MANDATORY** — rebuild → `rm -rf .next` → restart preview → curl 200, every time](.memory/decisions/0008-post-change-verification-mandatory.md)
+- 🔴 [**Same gate after `git pull` that touches `packages/ui/`** — pull only updates `src/`, `dist/` stays stale and docs serve the old compiled component](./AGENTS.md#🔴-after-any-git-pull-that-touched-packagesui--rebuild)
 - 🔴 [**Never run dev server from Bash — always Claude Preview MCP `preview_start`**](.memory/decisions/0010-never-bash-the-dev-server.md)
 - 🔴 [Restart Next dev after adding a new packages/ui component](./AGENTS.md#🔴-restart-next-dev-after-adding-a-new-packagesui-component)
 - 🔴 [Interactive demos must render client-only — never SSR](./AGENTS.md#🔴-interactive-demos-must-render-client-only--never-ssr)
