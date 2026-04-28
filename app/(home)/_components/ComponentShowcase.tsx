@@ -53,7 +53,7 @@ import { Select } from '@plexui/ui/components/Select';
 import { Separator } from '@plexui/ui/components/Separator';
 import { Slider } from '@plexui/ui/components/Slider';
 import { Tabs } from '@plexui/ui/components/Tabs';
-import { TagInput, type Tag } from '@plexui/ui/components/TagInput';
+import { TagInput, type Tag as TagInputValue } from '@plexui/ui/components/TagInput';
 import { toast } from '@plexui/ui/components/Toast';
 import { Switch } from '@plexui/ui/components/Switch';
 import { Textarea } from '@plexui/ui/components/Textarea';
@@ -895,7 +895,7 @@ const TAG_INPUT_SUGGESTIONS = [
 ];
 
 function TagInputSuggestionsOverview() {
-  const [tags, setTags] = useState<Tag[]>([
+  const [tags, setTags] = useState<TagInputValue[]>([
     { value: 'React', valid: true },
     { value: 'TypeScript', valid: true },
   ]);
