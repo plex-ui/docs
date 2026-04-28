@@ -9,7 +9,7 @@
         (var(--min-rows) * var(--tag-input-height)) + ((var(--min-rows) + 1) * var(--tag-input-tag-spacing))
     );
   padding: var(--tag-input-tag-spacing);
-  border-radius: var(--radius-md);
+  border-radius: var(--tag-input-radius, var(--radius-md));
   box-shadow: 0 0 0 1px var(--input-outline-border-color) inset;
   cursor: text;
   outline: 0;
@@ -34,14 +34,56 @@
   }
 
   /* =============================================
-    Sizes
+    Pill — fully-rounded for the single-row state.
+    ----------------------------------------------
+    The radius is locked to half of a single-row
+    container height (= half of `--control-size-*`).
+    With `radius-full` the container would stay an
+    ellipse when the chip list wraps to a second/third
+    row, which looks bad. Computing it from the
+    single-row height keeps the corners visually pill
+    on row 1 and stays sane on multi-row.
     ============================================= */
+  &[data-pill] {
+    border-radius: calc(
+      (var(--tag-input-height) + 2 * var(--tag-input-tag-spacing)) / 2
+    );
+
+    &[data-empty] {
+      padding: var(--tag-input-tag-spacing) 16px;
+    }
+  }
+
+  /* =============================================
+    Sizes
+    -----------------------------------------------
+    Each size sets the inner input height + the
+    container padding/gap (`--tag-input-tag-spacing`).
+    The sum `(rows × tag-input-height) + ((rows + 1) × tag-input-tag-spacing)`
+    equals the matching Input size when rows=1, so a
+    TagInput[size=md] sits flush next to an Input[size=md]
+    in a horizontal layout.
+
+    Sizes also re-tune the chip itself via
+    `--tag-input-tag-{height,gutter,font-size}` so the
+    inner pills stay proportional to the container.
+    ============================================= */
+
+  /* 20 + 4 + 4 = 28 */
+  &:where([data-size="sm"]) {
+    --tag-input-font-size: var(--control-font-size-md);
+    --tag-input-height: 20px;
+    --tag-input-tag-spacing: 4px;
+    --tag-input-tag-gutter: var(--control-gutter-2xs);
+    --tag-input-radius: var(--control-radius-sm);
+  }
 
   /* 20 + 6 + 6 = 32 */
   &:where([data-size="md"]) {
     --tag-input-font-size: var(--control-font-size-md);
     --tag-input-height: 20px;
     --tag-input-tag-spacing: 6px;
+    --tag-input-radius: var(--control-radius-md);
   }
 
   /* 24 + 6 + 6 = 36 */
@@ -49,13 +91,17 @@
     --tag-input-font-size: var(--control-font-size-md);
     --tag-input-height: 24px;
     --tag-input-tag-spacing: 6px;
+    --tag-input-radius: var(--control-radius-lg);
   }
 
   /* 24 + 8 + 8 = 40 */
   &:where([data-size="xl"]) {
-    --tag-input-font-size: var(--control-font-size-lg);
+    /* SelectControl xl uses control-font-size-md (not -lg), so the chip + input
+       text inside TagInput xl matches Select xl. */
+    --tag-input-font-size: var(--control-font-size-md);
     --tag-input-height: 24px;
     --tag-input-tag-spacing: 8px;
+    --tag-input-radius: var(--control-radius-xl);
   }
 
   /* 28 + 8 + 8 = 44 */
@@ -63,6 +109,7 @@
     --tag-input-font-size: var(--control-font-size-lg);
     --tag-input-height: 28px;
     --tag-input-tag-spacing: 8px;
+    --tag-input-radius: var(--control-radius-xl);
   }
 
   /* 32 + 8 + 8 = 48 */
@@ -70,6 +117,7 @@
     --tag-input-font-size: var(--control-font-size-lg);
     --tag-input-height: 32px;
     --tag-input-tag-spacing: 8px;
+    --tag-input-radius: var(--control-radius-xl);
   }
 }
 
@@ -84,12 +132,28 @@
   display: inline-flex;
   align-items: center;
   gap: spacing(1);
-  height: var(--control-size-xs);
-  padding: 0 var(--control-gutter-xs);
-  border-radius: var(--control-radius-sm);
+  /* Match the inner input height so a chip-filled container is exactly
+     the same height as an empty one (= matching Input[size] of the same size).
+     Override per-size via `--tag-input-tag-height` if a non-square chip is needed. */
+  height: var(--tag-input-tag-height, var(--tag-input-height));
+  /* Right padding equals the chip's vertical padding so the close button
+     sits with equal whitespace on top, bottom, and right. */
+  padding: 0 calc((var(--tag-input-tag-height, var(--tag-input-height)) - var(--control-icon-size-sm)) / 2) 0
+    var(--tag-input-tag-gutter, var(--control-gutter-xs));
+  /* Concentric with the container: chip radius = container radius − inner padding.
+     Falls through every size automatically because both vars are set per-size. */
+  border-radius: var(--tag-input-tag-radius, calc(var(--tag-input-radius) - var(--tag-input-tag-spacing)));
+
+  .Container[data-pill] & {
+    /* Chip height is fixed (single row) so half of it gives a true pill,
+       same idea as the container's pill rule above. */
+    border-radius: calc(var(--tag-input-tag-height, var(--tag-input-height)) / 2);
+  }
   background-color: var(--color-background-secondary-soft-alpha);
   color: var(--color-text-secondary-soft);
-  font-size: var(--control-font-size-md);
+  /* Match SelectControl text-size for the same `size` (md/lg=14, xl/2xl/3xl=16);
+     `--tag-input-font-size` is set per-size to the same token Select uses. */
+  font-size: var(--tag-input-tag-font-size, var(--tag-input-font-size));
   font-weight: var(--button-font-weight);
   cursor: pointer;
   white-space: nowrap;
@@ -141,7 +205,6 @@
 .TagRemove {
   display: flex;
   align-items: center;
-  margin-right: -1px;
   color: inherit;
   opacity: 0.5;
   transition: opacity 0.15s ease;

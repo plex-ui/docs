@@ -30,7 +30,7 @@ export type TagInputProps = {
    * Corresponds with Input height when rows=1
    * @default xl
    */
-  size?: Sizes<"md" | "lg" | "xl" | "2xl" | "3xl">
+  size?: Sizes<"sm" | "md" | "lg" | "xl" | "2xl" | "3xl">
   /**
    * Callback function invoked when the tag list changes
    */
@@ -68,6 +68,13 @@ export type TagInputProps = {
    * Disables the tag input visually and from interactions
    */
   disabled?: boolean
+  /**
+   * Renders the container (and inner chips) with a fully-rounded radius,
+   * matching `<Input pill />` and `<SelectControl pill />` for horizontal
+   * filter rows that mix all three controls.
+   * @default false
+   */
+  pill?: boolean
 }
 
 // How many pixels to reserve on the right of the input as a buffer before wrapping to the next line
@@ -89,6 +96,7 @@ export const TagInput = (props: TagInputProps) => {
     rows = 1,
     delimiters = [",", " "],
     disabled,
+    pill = false,
     id,
   } = props
 
@@ -135,13 +143,32 @@ export const TagInput = (props: TagInputProps) => {
 
   const placeholderText = tags.size === 0 ? placeholder : undefined
 
-  // Handle positioning the real input inside of the container
-  // Use useLayoutEffect to avoid flashing during width calculation
+  // Handle positioning the real input inside of the container.
+  //
+  // Reasons we need to recompute input width:
+  //   1. Tags added / removed → last-tag right edge changes
+  //   2. User typing into input → measured text width changes
+  //   3. Container or chip dimensions change for any other reason —
+  //      window resize, font load, parent layout shift, OR a `size`/
+  //      `pill` prop flip that re-tunes chip height + font + gutter via
+  //      CSS variables. Without watching for (3), `inputWidth` stays
+  //      stale and the next typing flushes a one-off layout jump
+  //      (visible as an extra wrap row right after toggling size).
+  //
+  // ResizeObserver covers (3) — it fires whenever the container or any
+  // chip changes box-size, including the synchronous CSS-var-driven
+  // reflow on a `size` toggle.
   useLayoutEffect(() => {
-    if (containerRef.current && measureRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect()
+    if (!containerRef.current || !measureRef.current) {
+      return
+    }
+    const container = containerRef.current
+    const measure = measureRef.current
+
+    const recompute = () => {
+      const containerRect = container.getBoundingClientRect()
       const tagElements = Array.from(
-        containerRef.current.querySelectorAll("[data-tag]"),
+        container.querySelectorAll("[data-tag]"),
       ) as HTMLDivElement[]
 
       // Grab the right edge of the last tag if it exists, otherwise the left edge of the container
@@ -150,11 +177,11 @@ export const TagInput = (props: TagInputProps) => {
           ? tagElements[tagElements.length - 1].getBoundingClientRect().right
           : containerRect.left
 
-      measureRef.current.textContent = currentInput || placeholderText || ""
+      measure.textContent = currentInput || placeholderText || ""
 
       // By padding the text width, we ensure the input wraps to the next line
       // before we get to the point where we start to overflow
-      const textWidth = measureRef.current.getBoundingClientRect().width + INPUT_CURSOR_TOLERANCE_PX
+      const textWidth = measure.getBoundingClientRect().width + INPUT_CURSOR_TOLERANCE_PX
 
       // Calculate the remaining space based on the last tag's right edge (or container's left if no tags)
       const remainingSpace = containerRect.right - leftBound - CONTAINER_PADDING_PX
@@ -166,6 +193,22 @@ export const TagInput = (props: TagInputProps) => {
         const width = containerRect.right - containerRect.left - CONTAINER_PADDING_PX
         setInputWidth(width)
       }
+    }
+
+    // Initial measurement (covers tags-array changes and typing).
+    recompute()
+
+    // Watch the container + every chip for any layout change. When `size`
+    // changes the container itself usually keeps the same width (it's
+    // `width: 100%`), but each chip's box does change — observing both
+    // is the cheapest way to catch every relevant reflow.
+    const observer = new ResizeObserver(recompute)
+    observer.observe(container)
+    const chips = container.querySelectorAll("[data-tag]")
+    chips.forEach((chip) => observer.observe(chip))
+
+    return () => {
+      observer.disconnect()
     }
   }, [currentInput, placeholderText, tags]) // Include tags so we reflow the container when we delete a tag
 
@@ -409,6 +452,7 @@ export const TagInput = (props: TagInputProps) => {
         data-size={size}
         data-focused={focused ? "" : undefined}
         data-empty={tags.size === 0 ? "" : undefined}
+        data-pill={pill ? "" : undefined}
         tabIndex={-1}
         style={toCssVariables({ "min-rows": String(rows) })}
         data-disabled={disabled ? "" : undefined}

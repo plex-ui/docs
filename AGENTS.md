@@ -92,6 +92,19 @@ git submodule update --remote --merge
 
 ---
 
+# Canonical domain — `plexui.com`
+
+The project is hosted at **https://plexui.com**. Use it for sample data
+in demos, OG/SEO, links, and anywhere a "your-company" placeholder is
+needed.
+
+- ✅ `ada@plexui.com`, `grace@plexui.com` — sample emails in component demos.
+- ❌ `plex.dev`, `plex.com`, `plex-ui.*` — none of these are us.
+
+Full rationale: [`.memory/domains/canonical-domain.md`](.memory/domains/canonical-domain.md).
+
+---
+
 # Component registration / modification checklist
 
 **When adding or modifying a component in `packages/ui/src/components/*`, you MUST walk this list.** There is no safety net — the lists are hand-curated.
