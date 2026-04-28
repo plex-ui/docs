@@ -108,6 +108,21 @@ Prior incident: 2026-04-28 — pulled TagInput sm/pill commits, docs page kept s
 - Store secrets, API keys, or credentials anywhere in `.memory/` (even though the repo is private).
 - Forget the two-commit cycle — submodule change + parent pointer bump.
 
+### 🔴 Private content lives in `.memory/plans/`, NOT in the docs repo
+
+`plex-ui/docs` is **public**. Anything committed there is visible to the world (and stays in history forever — force-push doesn't undo forks/caches). The following categories are private and belong in `.memory/plans/`:
+
+- **Launch / promo drafts** — Dev.to, HN, Reddit, Product Hunt, Twitter, anything pre-publication. (`.memory/plans/launch/`)
+- **SEO action plans, audits, scoring** — strategy material with file:line references. (`.memory/plans/ACTION-PLAN.md`, `FULL-AUDIT-REPORT.md`, etc.)
+- **Internal roadmaps, OKRs, post-mortems, incident reports.**
+- **Debug artifacts** — screenshots used in audits, perf traces, etc. (Plain debug screenshots that don't need to sync — delete them.)
+
+Root `.gitignore` blocks `launch/`, `/ACTION-PLAN.md`, `/FULL-AUDIT-REPORT.md`, `/SEO-*.md`, `/AUDIT-*.md`, `/PLAN-*.md`. Add new patterns when in doubt — false positives are cheap, leaks are not.
+
+If a Claude session finds itself about to write a strategy / audit / launch doc to the working tree of `plexui-docs`, the answer is **always** to write it under `.memory/plans/` instead, even if the user didn't say so. Commit + push goes to the private submodule.
+
+Prior incident: 2026-04-28 — `launch/*.md`, `ACTION-PLAN.md`, `FULL-AUDIT-REPORT.md` accidentally lived in the public repo's working tree and were partially shipped via commit `d9b9a039`. Cleanup was minimal-plan (delete from current master, no force-push) — historical exposure could not be reversed.
+
 ---
 
 # Canonical domain — `plexui.com`
