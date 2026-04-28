@@ -53,6 +53,7 @@ import { Select } from '@plexui/ui/components/Select';
 import { Separator } from '@plexui/ui/components/Separator';
 import { Slider } from '@plexui/ui/components/Slider';
 import { Tabs } from '@plexui/ui/components/Tabs';
+import { TagInput, type Tag } from '@plexui/ui/components/TagInput';
 import { toast } from '@plexui/ui/components/Toast';
 import { Switch } from '@plexui/ui/components/Switch';
 import { Textarea } from '@plexui/ui/components/Textarea';
@@ -511,7 +512,7 @@ function NoTeamMembersCard() {
           Invite your team to collaborate on this project.
         </EmptyMessage.Description>
         <EmptyMessage.ActionRow>
-          <Button color="primary" variant="solid" size="sm" pill={false}>
+          <Button color="primary" variant="solid" size="md" pill={false}>
             Invite members
           </Button>
         </EmptyMessage.ActionRow>
@@ -532,7 +533,7 @@ function ProcessingCard() {
           Please wait while we process your request. Do not refresh the page.
         </EmptyMessage.Description>
         <EmptyMessage.ActionRow>
-          <Button color="secondary" variant="outline" size="sm" pill={false}>
+          <Button color="secondary" variant="outline" size="md" pill={false}>
             Cancel
           </Button>
         </EmptyMessage.ActionRow>
@@ -881,22 +882,75 @@ function TabsSegmentedIconsOverview() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Block 17b — TagInput with click-to-add suggestions                  */
+/* ------------------------------------------------------------------ */
+
+const TAG_INPUT_SUGGESTIONS = [
+  'React',
+  'TypeScript',
+  'Next.js',
+  'Tailwind',
+  'Node.js',
+  'GraphQL',
+];
+
+function TagInputSuggestionsOverview() {
+  const [tags, setTags] = useState<Tag[]>([
+    { value: 'React', valid: true },
+    { value: 'TypeScript', valid: true },
+  ]);
+  const selectedValues = new Set(tags.map((t) => t.value));
+  const available = TAG_INPUT_SUGGESTIONS.filter((s) => !selectedValues.has(s));
+
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <TagInput
+        size="md"
+        value={tags}
+        onChange={setTags}
+        placeholder="Add a skill…"
+      />
+      {available.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {available.map((suggestion) => (
+            <Button
+              key={suggestion}
+              // Match the height of the chips inside the TagInput
+              // (≈ 20 px on md; xs Button is the closest token).
+              size="xs"
+              color="secondary"
+              variant="soft"
+              pill={false}
+              onClick={() =>
+                setTags((prev) => [...prev, { value: suggestion, valid: true }])
+              }
+            >
+              {suggestion}
+            </Button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Block 18 — Badge overview (status indicators)                       */
 /* ------------------------------------------------------------------ */
 
 function BadgeOverview() {
   return (
     <div className="flex flex-wrap gap-2">
-      <Badge size="lg" variant="solid" pill={false}>
+      <Badge size="md" variant="solid" pill={false}>
         Solid
       </Badge>
-      <Badge size="lg" variant="soft" pill={false}>
+      <Badge size="md" variant="soft" pill={false}>
         Soft
       </Badge>
-      <Badge size="lg" variant="outline" pill={false}>
+      <Badge size="md" variant="outline" pill={false}>
         Outline
       </Badge>
-      <Badge size="lg" variant="soft" pill={false} className="gap-1.5">
+      <Badge size="md" variant="soft" pill={false} className="gap-1.5">
         <LoadingIndicator /> Progress
       </Badge>
     </div>
@@ -912,7 +966,7 @@ function ToastVariantsOverview() {
     <Field label="Toast">
       <div className="flex flex-wrap gap-2">
         <Button
-          size="sm"
+          size="md"
           color="secondary"
           variant="outline"
           pill={false}
@@ -921,7 +975,7 @@ function ToastVariantsOverview() {
           Success
         </Button>
         <Button
-          size="sm"
+          size="md"
           color="secondary"
           variant="outline"
           pill={false}
@@ -930,7 +984,7 @@ function ToastVariantsOverview() {
           Error
         </Button>
         <Button
-          size="sm"
+          size="md"
           color="secondary"
           variant="outline"
           pill={false}
@@ -939,7 +993,7 @@ function ToastVariantsOverview() {
           Warning
         </Button>
         <Button
-          size="sm"
+          size="md"
           color="secondary"
           variant="outline"
           pill={false}
@@ -965,7 +1019,7 @@ export function ComponentShowcase() {
           <SliderRangeOverview />
           <PricingCard />
           <HorizontalMenuOverview />
-          <SelectGroupedOptionsOverview />
+          <TagInputSuggestionsOverview />
         </div>
         <div className="flex flex-col gap-6">
           <DateRangePickerOverview />
@@ -978,6 +1032,7 @@ export function ComponentShowcase() {
           <PaymentMethodCard />
           <EmailToolbar />
           <AlertActionPlacementOverview />
+          <SelectGroupedOptionsOverview />
         </div>
         <div className="order-first flex flex-col gap-6 lg:hidden xl:order-last xl:flex">
           <TabsSegmentedIconsOverview />
