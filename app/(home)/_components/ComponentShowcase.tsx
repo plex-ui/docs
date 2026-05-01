@@ -768,7 +768,6 @@ function SelectWithDescriptionsOverview() {
         pill={false}
         onChange={({ value }) => setRole(value)}
         TriggerStartIcon={role === 'owner' ? UserLock : User}
-        triggerClassName="font-semibold"
       />
     </Field>
   );

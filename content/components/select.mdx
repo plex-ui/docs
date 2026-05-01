@@ -68,8 +68,6 @@ const roles = [
   size="lg"
   onChange={({ value }) => setRole(value)}
   TriggerStartIcon={role === "owner" ? UserLock : User}
-  triggerClassName="font-semibold"
-  optionClassName="font-semibold"
 />`} previewMinHeight={168}>
   <SelectCustomViewsDemo />
 </ComponentPreview>
@@ -83,7 +81,6 @@ const roles = [
   placeholder="Select..."
   align="start"
   listMinWidth={240}
-  triggerClassName="font-semibold"
   actions={[
     { id: "create", label: "Create project", Icon: Plus, onSelect: () => {} },
     { id: "overview", label: "Organization overview", Icon: Workspace, onSelect: () => {} },

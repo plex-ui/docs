@@ -322,7 +322,6 @@ export function SelectCustomViewsDemo() {
             checkPosition={checkPosition}
             onChange={({ value }) => setRole(value)}
             TriggerStartIcon={showIcon ? (role === 'owner' ? UserLock : User) : undefined}
-            triggerClassName="font-semibold"
           />
         </div>
       </div>
@@ -344,7 +343,6 @@ export function SelectActionsDemo() {
         align="start"
         listMinWidth={240}
         onChange={(v) => setValue(v.value)}
-        triggerClassName="font-semibold"
         actions={[
           { id: 'create', label: 'Create project', Icon: Plus, onSelect: () => {} },
           { id: 'overview', label: 'Organization overview', Icon: Workspace, onSelect: () => {} },
