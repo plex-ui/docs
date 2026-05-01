@@ -352,7 +352,7 @@
     /* =============================================
       SelectControl
     ============================================= */
-    --select-control-font-weight: var(--font-weight-medium);
+    --select-control-font-weight: var(--font-weight-normal);
 
     /* =============================================
       Slider
