@@ -24,6 +24,12 @@ npm install @plexui/ui
 Add the foundation styles and Tailwind layers to the top of your global stylesheet (e.g. `main.css`):
 
 ```css
+/* Pin the cascade-layer order so Plex UI's reset wins over Tailwind preflight
+   for our form controls. Without this declaration the order depends on
+   first-occurrence — which in Tailwind v4 means preflight overrides Plex
+   UI's button/input/textarea normalisations. */
+@layer theme, base, components, utilities;
+
 @import "tailwindcss";
 @import "@plexui/ui/css";
 /* Required for Tailwind to find class references in Plex UI components. */
@@ -31,6 +37,40 @@ Add the foundation styles and Tailwind layers to the top of your global styleshe
 
 /* The rest of your application CSS */
 ```
+
+#### Vite + Lightning CSS gotcha
+
+If you're on **Vite** (default in Vite 5+) Lightning CSS is the active CSS transformer, and it reorders cascade layers **strictly by first occurrence**. Symptoms when this hits:
+
+- `<button>` loses `cursor: pointer`
+- `<input>` / `<textarea>` regains the iOS-Safari default chrome
+- Pill controls render square because `--radius-full` falls through
+
+Two ways to fix it:
+
+1. **Keep the explicit `@layer` line above** — it's enough in 90% of setups because it pins the order before any `@import` runs.
+2. **Switch Vite back to PostCSS** if Lightning still misbehaves:
+
+   ```ts
+   // vite.config.ts
+   export default defineConfig({
+     css: { transformer: 'postcss' },
+   });
+   ```
+
+#### Skipping Tailwind preflight (optional)
+
+Plex UI ships its own opinionated reset in `@plexui/ui/css`, so Tailwind preflight is redundant. If you want only Tailwind utilities and theme, drop preflight:
+
+```css
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";
+@import "@plexui/ui/css";
+@source "../node_modules/@plexui/ui";
+```
+
+This sidesteps every preflight-vs-Plex-UI ordering problem.
 
 Then import your stylesheet *before* rendering any components:
 
