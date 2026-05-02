@@ -1,5 +1,10 @@
 /* Tailwind & Reset */
 @import "./base";
+/* Tailwind v4 @theme — radii, fonts, font-weights, breakpoints. MUST come
+   before any tier that references --radius-* / --font-*. Semantic and
+   components both do. Without this, consumers of `@plexui/ui/css` lose
+   pill buttons, control radii, and the system font stack. */
+@import "./variables-tailwind-theme";
 /* Tier 1 tokens: Primitives */
 @import "./variables-primitive";
 /* Tier 2 tokens: Semantic */
