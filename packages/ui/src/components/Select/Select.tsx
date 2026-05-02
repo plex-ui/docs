@@ -357,7 +357,7 @@ export const Select = <T extends Option>(props: SelectProps<T>) => {
     disabled = false,
     placeholder = "Select...",
     loadingPlaceholder = "Loading...",
-    pill = true,
+    pill = false,
     listWidth,
     options,
     actions: propActions = [],

@@ -7,6 +7,22 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.16.0 — 2026-05-02
+
+### ⚠️ Breaking change
+
+<ul className="changelog-list">
+  <li>
+    <strong>pill default flipped to <code>false</code></strong> on <code>Button</code>, <code>ButtonLink</code>, <code>Select</code>, and <code>SelectControl</code>. Runtime now matches the JSDoc <code>@default false</code> annotation that has been advertised on these props since the package launched. Modern Plex UI design uses square-cornered controls by default; pill is the opt-in shape, set explicitly via <code>pill</code> (or <code>pill={'{true}'}</code>). Consumers that relied on the implicit pill shape need to add <code>pill</code> to those instances.
+
+    <br/><br/>
+
+    Migration: search your codebase for <code>&lt;Button</code>, <code>&lt;ButtonLink</code>, <code>&lt;Select</code>, <code>&lt;SelectControl</code>. For any instance that previously rendered as pill-shaped without an explicit <code>pill={'{false}'}</code>, add <code>pill</code> to keep the old look. Most product UIs prefer the new default.
+  </li>
+</ul>
+
+---
+
 ## 0.15.3 — 2026-05-02
 
 ### Fixed

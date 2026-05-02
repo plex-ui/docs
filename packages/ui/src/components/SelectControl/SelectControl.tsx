@@ -99,7 +99,7 @@ export const SelectControl = ({
   size = "md",
   block,
   opticallyAlign,
-  pill = true,
+  pill = false,
   loading,
   onClearClick,
   selected = false,
