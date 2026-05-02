@@ -7,13 +7,13 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
-## 0.15.2 — 2026-05-02
+## 0.15.3 — 2026-05-02
 
 ### Fixed
 
 <ul className="changelog-list">
   <li>
-    <strong>@plexui/ui/css distribution</strong> — <code>variables-tailwind-theme.css</code> is now bundled into the umbrella <code>@plexui/ui/css</code> entry. It defines the <code>--radius-</code> scale (incl. <code>--radius-full</code>), the <code>--font-sans</code> / <code>--font-serif</code> / <code>--font-mono</code> stack, the <code>--font-weight-</code> scale, and the <code>--breakpoint-</code> scale — every other tier (semantic, components) references these. Without it, consumers who imported only <code>@plexui/ui/css</code> were getting square pill buttons, missing control radii (<code>--control-radius-sm</code> → fallback to <code>0</code>), and a UA-default font stack. Sub-export <code>@plexui/ui/styles/variables-tailwind-theme.css</code> remains for users who want it standalone.
+    <strong>@plexui/ui/css distribution</strong> — radius, font, and font-weight tokens are now declared in <code>:root</code> via the new internal <code>variables-tokens-root.css</code>, instead of being pulled in through the <code>@theme static</code> block (which is what 0.15.2 attempted). The <code>@theme static</code> approach worked for component <code>var(--radius-md)</code> lookups but reset Tailwind's own theme via <code>--radius-*: initial</code>, breaking consumer-side utilities like <code>rounded-md</code>, <code>rounded-full</code>, and <code>text-sm</code>. The new file declares the same tokens in <code>:root</code> so components see them but Tailwind's theme stays untouched. The standalone <code>@plexui/ui/styles/variables-tailwind-theme.css</code> sub-export is unchanged and remains opt-in for consumers who explicitly want the Plex scale to drive their Tailwind utilities.
   </li>
 </ul>
 
@@ -21,9 +21,15 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 <ul className="changelog-list">
   <li>
-    <strong>Installation guide</strong> (<a href="/docs/installation">/docs/installation</a>) — added an explicit <code>@layer theme, base, components, utilities;</code> declaration to the recommended snippet so cascade layer order is pinned regardless of CSS transformer. New sub-sections cover the Vite + Lightning CSS layer-reorder gotcha (with a one-line workaround to switch the transformer back to PostCSS) and an optional <strong>skip-Tailwind-preflight</strong> recipe — Plex UI ships its own reset, so Tailwind's preflight is redundant for most setups.
+    <strong>Installation guide</strong> (<a href="/docs/installation">/docs/installation</a>) — added an explicit <code>@layer theme, base, components, utilities;</code> declaration to the recommended snippet so cascade layer order is pinned regardless of CSS transformer. New sub-sections cover the Vite + Lightning CSS layer-reorder gotcha (with a one-line workaround to switch the transformer back to PostCSS), an optional <strong>skip-Tailwind-preflight</strong> recipe (Plex UI ships its own reset), and an <strong>opt-in Plex Tailwind theme</strong> recipe for consumers who want their <code>rounded-md</code> utilities to use the Plex radius scale.
   </li>
 </ul>
+
+---
+
+## 0.15.2 — 2026-05-02 — RETIRED
+
+This release is on npm but **should not be used**. Its <code>@theme static</code> import inside <code>@plexui/ui/css</code> resets Tailwind's radius, font, and font-weight defaults to <code>initial</code>, which breaks Tailwind utilities like <code>rounded-md</code>, <code>rounded-full</code>, and <code>text-sm</code> in consumer projects. Upgrade to <strong>0.15.3</strong> immediately.
 
 ---
 
