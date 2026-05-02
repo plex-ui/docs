@@ -1,0 +1,111 @@
+---
+title: Troubleshooting
+description: Symptom-driven guide for the most common Plex UI rendering issues — square pills, missing colors, broken layers, ordering bugs, and how to fix each in under a minute
+---
+
+This page lists the rendering issues most often reported when first wiring Plex UI into a project, sorted by what you actually see on screen. Each entry has a one-line diagnosis and the minimal fix.
+
+## Buttons render square instead of pill
+
+You used `<Button pill>` (or relied on the implicit pill default from a pre-0.16 release) and the corners are sharp.
+
+**Diagnosis (one of):**
+
+- You're on `@plexui/ui@0.16.0` or later, where the runtime default is `pill={false}` (matches the JSDoc that has always said `@default false`). Pre-0.16 the runtime defaulted to `pill={true}`.
+- The cascade-layer order in your stylesheet is wrong, so Tailwind preflight is overriding the component's `border-radius`.
+
+**Fix:**
+
+```tsx
+// Before (relied on the old implicit default)
+<Button>Continue</Button>
+
+// After (explicit, version-independent)
+<Button pill>Continue</Button>
+```
+
+If you're still on 0.16+ and `pill` is set explicitly but corners stay square, see [the layer-order problem below](#controls-look-unstyled-buttons-lose-cursor-pointer-inputs-revert-to-ua-defaults).
+
+## Pill controls show square corners on `@plexui/ui` < 0.15.3
+
+`--radius-full` is undefined because `variables-tailwind-theme.css` wasn't bundled into `@plexui/ui/css` in 0.14.x and 0.15.0–0.15.1. Pill controls then fall through to `border-radius: 0`.
+
+**Fix:** upgrade.
+
+```bash
+npm install @plexui/ui@latest
+```
+
+In 0.15.3+ the radii / fonts / weights live in `:root` inside `@plexui/ui/css` itself — no extra import needed.
+
+## Controls look unstyled — buttons lose cursor pointer, inputs revert to UA defaults
+
+Cascade-layer order is reversed. Tailwind preflight (in `@layer base`) lands after Plex UI's own normalisations, so preflight wins.
+
+**Fix:** pin the layer order at the very top of your global stylesheet, before any `@import`:
+
+```css
+@layer theme, base, components, utilities;
+@import "tailwindcss";
+@import "@plexui/ui/css";
+@source "../node_modules/@plexui/ui";
+```
+
+If you're on **Vite 8** this declaration alone isn't enough — Lightning CSS strips it during minification. Add the [Vite-8 specific config](/docs/installation#vite--lightning-css-gotcha) to `vite.config.ts` plus the HTML-injected `<style>@layer …</style>` failsafe.
+
+## Solid button text is invisible
+
+Tailwind preflight sets `color: inherit` on `<button>`, which can win over the component's own foreground colour if the layer order is wrong (see above). Symptom: the button background looks correct but the label is the colour of the surrounding text instead of the button's design foreground.
+
+**Fix:** same as the layer-order fix above. Pin `@layer theme, base, components, utilities;` at the top of `main.css`.
+
+## Tailwind utilities (`rounded-md`, `text-sm`) stop working after upgrading Plex UI
+
+`@plexui/ui@0.15.2` (and **only** 0.15.2 — it's marked RETIRED in the [changelog](/docs/changelog)) accidentally imported `variables-tailwind-theme.css` inside `@plexui/ui/css`. That file uses `@theme static { --radius-*: initial; … }`, which resets Tailwind's own theme tokens project-wide and breaks every `rounded-*`, `text-*`, and `font-*` utility.
+
+**Fix:** upgrade past 0.15.2.
+
+```bash
+npm install @plexui/ui@latest
+```
+
+In 0.15.3+ tokens live in `:root` and don't touch your Tailwind theme.
+
+## Want the Plex radius / font scale in Tailwind utilities
+
+Opposite problem: you *want* `rounded-md` to render with the Plex radius (`0.5rem`) instead of Tailwind's default. Add the standalone import:
+
+```css
+@layer theme, base, components, utilities;
+@import "tailwindcss";
+@import "@plexui/ui/css";
+/* Opt-in: overrides Tailwind's default theme tokens with Plex's scale */
+@import "@plexui/ui/styles/variables-tailwind-theme.css";
+@source "../node_modules/@plexui/ui";
+```
+
+This is a project-wide decision and changes Tailwind utility output globally.
+
+## Components show "Module not found" or stale imports after a Plex UI version bump
+
+The `dist/` folder in your `node_modules/@plexui/ui` is stale relative to the `package.json` version. Most package managers handle this on `install`, but Turbopack/Vite dev caches occasionally hold the old `dist/`.
+
+**Fix:**
+
+```bash
+rm -rf node_modules/.cache .next .turbo
+npm install
+```
+
+Restart your dev server.
+
+## Still stuck
+
+[Open an issue](https://github.com/plex-ui/docs/issues/new) with:
+
+- `@plexui/ui` version (`npm ls @plexui/ui`)
+- Bundler + version (Vite 7? Next 16? esbuild?)
+- The first 20 lines of your global CSS file
+- A screenshot of the symptom
+
+That's enough to triage 90% of installation reports.
