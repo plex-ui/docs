@@ -72,6 +72,23 @@ Plex UI ships its own opinionated reset in `@plexui/ui/css`, so Tailwind preflig
 
 This sidesteps every preflight-vs-Plex-UI ordering problem.
 
+#### Using the Plex radius/font scale in your Tailwind utilities (opt-in)
+
+By default Plex UI declares its tokens in `:root`, so the components render correctly without touching your Tailwind theme. Your `rounded-md`, `rounded-full`, `text-sm` utilities keep using Tailwind's own defaults.
+
+If you want `rounded-md` to render with the Plex radius (`0.5rem`), `rounded-full` to render `9999px`, and your text to default to the Plex font stack, opt in with one extra import:
+
+```css
+@layer theme, base, components, utilities;
+@import "tailwindcss";
+@import "@plexui/ui/css";
+/* Optional — overrides Tailwind's default theme tokens with Plex's scale */
+@import "@plexui/ui/styles/variables-tailwind-theme.css";
+@source "../node_modules/@plexui/ui";
+```
+
+This file uses `@theme static` and resets Tailwind's `--radius-*`, `--font-*`, `--font-weight-*`, and `--breakpoint-*` so they take Plex's values instead of Tailwind's defaults. Use only if you actively want that — it's a project-wide decision, not a per-page one.
+
 Then import your stylesheet *before* rendering any components:
 
 ```tsx

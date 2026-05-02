@@ -1,10 +1,16 @@
 /* Tailwind & Reset */
 @import "./base";
-/* Tailwind v4 @theme — radii, fonts, font-weights, breakpoints. MUST come
-   before any tier that references --radius-* / --font-*. Semantic and
-   components both do. Without this, consumers of `@plexui/ui/css` lose
-   pill buttons, control radii, and the system font stack. */
-@import "./variables-tailwind-theme";
+/* Tier 0 — radius / font / font-weight tokens, declared in :root so
+   semantic and components tiers can reference `var(--radius-*)`,
+   `var(--font-sans)`, `var(--font-weight-*)`. We deliberately do NOT
+   use `@theme static {…}` here: that would write into Tailwind's theme
+   layer, reset Tailwind's own `--radius-*` defaults via `--radius-*:
+   initial`, and break consumer-side Tailwind utilities like
+   `rounded-md`, `rounded-full`, `text-sm`. The standalone
+   `@plexui/ui/styles/variables-tailwind-theme.css` sub-export remains
+   for consumers who explicitly want Plex's scale to power their
+   Tailwind utilities. */
+@import "./variables-tokens-root";
 /* Tier 1 tokens: Primitives */
 @import "./variables-primitive";
 /* Tier 2 tokens: Semantic */

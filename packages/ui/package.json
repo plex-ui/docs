@@ -1,6 +1,6 @@
 {
   "name": "@plexui/ui",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "Modern design system for building high-quality applications",
   "type": "module",
   "license": "MIT",
@@ -36,6 +36,7 @@
     "./styles/variables-primitive.css": "./dist/es/styles/variables-primitive.css",
     "./styles/variables-semantic.css": "./dist/es/styles/variables-semantic.css",
     "./styles/variables-tailwind-theme.css": "./dist/es/styles/variables-tailwind-theme.css",
+    "./styles/variables-tokens-root.css": "./dist/es/styles/variables-tokens-root.css",
     "./styles/variables-components.css": "./dist/es/styles/variables-components.css",
     "./components/*": {
       "types": "./dist/types/components/*/index.d.ts",
