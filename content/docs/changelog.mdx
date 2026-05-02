@@ -7,6 +7,27 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.17.0 — 2026-05-02
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Vite plugin</strong> — new sub-export <code>@plexui/ui/vite</code>. One line in <code>vite.config.ts</code> replaces every install-time gotcha: pins <code>css.transformer = 'postcss'</code>, pins <code>build.cssMinify = 'esbuild'</code> (so Vite 8's Lightning CSS minifier doesn't strip <code>@layer</code> declarations), and injects <code>&lt;style&gt;@layer theme, base, components, utilities;&lt;/style&gt;</code> into <code>&lt;head&gt;</code> as a runtime failsafe. Setup becomes:
+
+    ```ts
+    import { defineConfig } from "vite";
+    import plexui from "@plexui/ui/vite";
+
+    export default defineConfig({ plugins: [plexui()] });
+    ```
+
+    Your <code>main.css</code> then only needs the Tailwind, Plex UI, and source imports — no manual <code>@layer</code> line. <code>vite</code> is an optional peer dependency (range: 4.x–8.x); if you don't use Vite, you can ignore this export. Layer-order injection can be disabled with the <code>injectLayerOrder: false</code> option. See <a href="/docs/installation">/docs/installation → On Vite</a>.
+  </li>
+</ul>
+
+---
+
 ## 0.16.0 — 2026-05-02
 
 ### Changed
