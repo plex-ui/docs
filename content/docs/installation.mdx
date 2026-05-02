@@ -40,23 +40,37 @@ Add the foundation styles and Tailwind layers to the top of your global styleshe
 
 #### Vite + Lightning CSS gotcha
 
-If you're on **Vite** (default in Vite 5+) Lightning CSS is the active CSS transformer, and it reorders cascade layers **strictly by first occurrence**. Symptoms when this hits:
+If you're on **Vite** (default in Vite 5+) Lightning CSS is the active CSS transformer, and it reorders cascade layers **strictly by first occurrence**. In **Vite 8** the minifier silently drops the bare `@layer theme, base, components, utilities;` declaration entirely. Symptoms when either path hits:
 
 - `<button>` loses `cursor: pointer`
 - `<input>` / `<textarea>` regains the iOS-Safari default chrome
 - Pill controls render square because `--radius-full` falls through
+- Solid buttons render with invisible text (preflight `color: inherit` wins over component CSS)
 
-Two ways to fix it:
+Three things together cover both Vite 5–7 and Vite 8:
 
-1. **Keep the explicit `@layer` line above** — it's enough in 90% of setups because it pins the order before any `@import` runs.
-2. **Switch Vite back to PostCSS** if Lightning still misbehaves:
+1. **Keep the explicit `@layer` line at the top of `main.css`** — it's enough on its own in Vite 5–7.
+2. **Pin the CSS transformer + minifier** so Lightning CSS doesn't strip the layer declaration on Vite 8:
 
    ```ts
    // vite.config.ts
    export default defineConfig({
      css: { transformer: 'postcss' },
+     build: { cssMinify: 'esbuild' },
    });
    ```
+
+3. **HTML failsafe** — inject the layer order through `<head>` so it survives any minification path:
+
+   ```html
+   <!-- index.html -->
+   <head>
+     <style>@layer theme, base, components, utilities;</style>
+     <!-- the rest of your <head>, link/script tags etc. -->
+   </head>
+   ```
+
+   Place it before any `<link rel="stylesheet">` or bundler-injected stylesheet. The browser sees the layer order before any rule arrives, and your CSS imports just slot in.
 
 #### Skipping Tailwind preflight (optional)
 
