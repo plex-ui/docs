@@ -7,6 +7,18 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.17.1 — 2026-05-04
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Text color consistency</strong> on <code>SelectControl</code> and <code>TagInput</code>. Both components were missing a base <code>color</code> rule and inherited the page foreground (~<code>#181818</code>), which sat one step lighter than the <code>--color-text</code> token used by <code>Input</code>, <code>Textarea</code>, and the <code>TagInput</code> tag chips themselves. Side-by-side controls in a form now share the same value text color (<code>--input-text-color</code>). Placeholder state on <code>SelectControl</code> (<code>data-selected="false"</code>) is unchanged.
+  </li>
+</ul>
+
+---
+
 ## 0.17.0 — 2026-05-02
 
 ### Added
