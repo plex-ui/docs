@@ -79,7 +79,7 @@ export function TagInputBaseDemo() {
 
 export function TagInputBaseDemoWithControls() {
   const [minRows, setMinRows] = useState<(typeof MIN_ROWS_OPTIONS)[number]>('auto');
-  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('xl');
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
   const [pill, setPill] = useState(false);
   return (
     <>
@@ -138,6 +138,8 @@ export function TagInputSuggestionsDemo() {
     { value: 'React', valid: true },
     { value: 'TypeScript', valid: true },
   ]);
+  const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('md');
+  const [pill, setPill] = useState(false);
 
   const selectedValues = new Set(tags.map((t) => t.value));
   const available = SUGGESTIONS.filter((s) => !selectedValues.has(s));
@@ -148,22 +150,45 @@ export function TagInputSuggestionsDemo() {
   };
 
   return (
-    <div className="flex w-full max-w-sm flex-col gap-3">
-      <TagInput
-        value={tags}
-        onChange={setTags}
-        placeholder="Add a skill..."
-      />
-      {available.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {available.map((suggestion) => (
-            <Button key={suggestion} size="xs" color="secondary" variant="soft" pill={false} onClick={() => addSuggestion(suggestion)}>
-              {suggestion}
-            </Button>
-          ))}
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlRow name="size">
+          <SegmentedControl<(typeof SIZE_OPTIONS)[number]>
+            value={size}
+            onChange={setSize}
+            aria-label="size"
+            size="xs"
+          >
+            {SIZE_OPTIONS.map((s) => (
+              <SegmentedControl.Option key={s} value={s}>
+                {s}
+              </SegmentedControl.Option>
+            ))}
+          </SegmentedControl>
+        </DemoControlRow>
+        <DemoControlBoolean name="pill" value={pill} onChange={setPill} />
+      </div>
+      <div data-demo-stage className="flex-1 flex flex-col items-center justify-center py-12 w-full">
+        <div className="flex w-full max-w-sm flex-col gap-3">
+          <TagInput
+            value={tags}
+            onChange={setTags}
+            placeholder="Add a skill..."
+            size={size}
+            pill={pill}
+          />
+          {available.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {available.map((suggestion) => (
+                <Button key={suggestion} size="xs" color="secondary" variant="soft" pill={pill} onClick={() => addSuggestion(suggestion)}>
+                  {suggestion}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
 

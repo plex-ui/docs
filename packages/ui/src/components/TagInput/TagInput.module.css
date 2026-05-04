@@ -11,6 +11,7 @@
   padding: var(--tag-input-tag-spacing);
   border-radius: var(--tag-input-radius, var(--radius-md));
   box-shadow: 0 0 0 1px var(--input-outline-border-color) inset;
+  color: var(--input-text-color);
   cursor: text;
   outline: 0;
   transition: box-shadow 0.15s ease;

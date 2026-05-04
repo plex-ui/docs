@@ -8,6 +8,7 @@
   height: var(--select-control-size);
   padding: 0 var(--select-control-gutter);
   border-radius: var(--select-control-radius);
+  color: var(--input-text-color);
   cursor: pointer;
   font-size: var(--select-control-font-size);
   font-weight: var(--select-control-font-weight);
