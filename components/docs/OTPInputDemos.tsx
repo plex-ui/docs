@@ -146,7 +146,7 @@ export function OTPInputCheckInboxErrorDemo() {
           invalid
           errorMessage="Incorrect code"
         />
-        <Button color="primary" size="3xl" type="button" className="w-full h-[3.25rem] mt-3">Continue</Button>
+        <Button color="primary" size="3xl" type="button" pill className="w-full h-[3.25rem] mt-3">Continue</Button>
         <p className="text-base text-center mt-4">
           <button type="button" className="hover:underline cursor-pointer bg-transparent border-0 p-0">Resend email</button>
         </p>
@@ -197,7 +197,7 @@ export function OTPInputVerifyEmailDemo() {
             onChange={(evt) => { setCode(evt.target.value); }}
             inputMode="numeric"
           />
-          <Button color="primary" size="3xl" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
+          <Button color="primary" size="3xl" type="submit" pill className="w-full h-[3.25rem] mt-3">Continue</Button>
           <p className="text-base text-center mt-4">
             <button type="button" className="hover:underline cursor-pointer bg-transparent border-0 p-0">Resend email</button>
           </p>
@@ -260,7 +260,7 @@ export function OTPInputConfirmPhoneDemo() {
             onChange={(evt) => { setCode(evt.target.value); }}
             inputMode="numeric"
           />
-          <Button color="primary" size="3xl" type="submit" className="w-full h-[3.25rem] mt-3">Continue</Button>
+          <Button color="primary" size="3xl" type="submit" pill className="w-full h-[3.25rem] mt-3">Continue</Button>
           <p className="text-base text-center mt-4">
             <button type="button" className="hover:underline cursor-pointer bg-transparent border-0 p-0">Resend code</button>
           </p>
