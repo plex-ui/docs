@@ -1,6 +1,6 @@
 ---
 title: Form Examples
-description: Production-ready React form examples — sign-up, log-in, password reset, email and phone verification, and file upload built with Plex UI
+description: Production-ready React form examples — sign-up, log-in, password reset, email and phone verification, OAuth, and file upload built with Plex UI
 ---
 
 import {
@@ -14,32 +14,73 @@ import {
   OTPInputVerifyEmailDemo,
   OTPInputConfirmPhoneDemo,
 } from "@/components/docs/OTPInputDemos"
+import {
+  OAuthLoginFormDemo,
+  OAuthSignupFormDemo,
+} from "@/components/docs/OAuthFormDemos"
 import { FileUploadFormDemo } from "@/components/docs/FileUploadDemos"
 
 
 Real-world forms composed from [Float Input](/components/floating-label-input), [File Upload](/components/file-upload), [OTP Input](/components/otp-input), [Select](/components/select), and [Button](/components/button).
 
-## Upload file
+## Log in (OAuth)
 
-<ComponentPreview details={<>A document upload form with <code>FileUpload</code>. The file list grows dynamically as files are added. Button and file list share the same 52px pill shape.</>} code={`<FileUpload accept=".pdf,.png" multiple maxFiles={5} />
-<Button color="primary" size="3xl" pill block>Continue</Button>`}>
-  <FileUploadFormDemo />
+<ComponentPreview details={<>OpenAI-style log-in: <code>Welcome back</code> heading, email + <code>Continue</code>, a <code>Don&apos;t have an account? Sign up</code> cross-link, an <code>OR</code> divider, then Google, Apple, Microsoft, and phone — all with 20×20 brand glyphs. <code>Terms of Use</code> / <code>Privacy Policy</code> footer.</>} code={`<h3>Welcome back</h3>
+
+<form onSubmit={handleSubmit}>
+  <FloatingLabelInput label="Email address" type="email" />
+  <Button color="primary" size="3xl" pill block>Continue</Button>
+</form>
+
+<p>Don't have an account? <a>Sign up</a></p>
+
+<OrDivider />
+
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <GoogleLogo /> Continue with Google
+</Button>
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <AppleLogo /> Continue with Apple
+</Button>
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <MicrosoftLogo /> Continue with Microsoft
+</Button>
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <PhoneLogo /> Continue with phone
+</Button>
+
+<p><a>Terms of Use</a> | <a>Privacy Policy</a></p>`} previewMinHeight={760}>
+  <OAuthLoginFormDemo />
 </ComponentPreview>
 
-## About You
+## Sign up (OAuth)
 
-<ComponentPreview details={<>A signup-style composition with <code>FloatingLabelInput</code> and <code>FloatingLabelSelect</code> — name, birthday with inline validation, and country selector.</>} code={`<form className="flex flex-col gap-3">
-  <FloatingLabelInput label="Full name" />
-  <FloatingLabelInput label="Birthday" placeholder="MM / DD / YYYY" />
-  <FloatingLabelSelect label="Country" selected={!!country} ...>
-    {selectedCountry?.flag} {selectedCountry?.label}
-  </FloatingLabelSelect>
-  <Button color="primary" size="3xl" pill type="submit">Continue</Button>
-</form>`} previewMinHeight={280}>
-  <FloatingLabelSelectAboutYouFormDemo />
+<ComponentPreview details={<>OpenAI-style sign-up: <code>Create an account</code> heading, email + <code>Continue</code>, an <code>Already have an account? Log in</code> cross-link, an <code>OR</code> divider, then Google, Apple, and Microsoft (no phone). Same 20×20 brand-glyph alignment as the log-in variant.</>} code={`<h3>Create an account</h3>
+
+<form onSubmit={handleSubmit}>
+  <FloatingLabelInput label="Email address" type="email" />
+  <Button color="primary" size="3xl" pill block>Continue</Button>
+</form>
+
+<p>Already have an account? <a>Log in</a></p>
+
+<OrDivider />
+
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <GoogleLogo /> Continue with Google
+</Button>
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <AppleLogo /> Continue with Apple
+</Button>
+<Button color="secondary" variant="outline" size="3xl" pill block>
+  <MicrosoftLogo /> Continue with Microsoft
+</Button>
+
+<p><a>Terms of Use</a> | <a>Privacy Policy</a></p>`} previewMinHeight={680}>
+  <OAuthSignupFormDemo />
 </ComponentPreview>
 
-## Sign up
+## Sign up (phone)
 
 <ComponentPreview details={<>A complete signup form with floating-label text inputs, a country code selector, and a phone input — all at 52px height. Includes form validation and terms text.</>} code={`<form className="flex flex-col gap-3">
   <FloatingLabelInput label="Full name" />
@@ -52,7 +93,7 @@ Real-world forms composed from [Float Input](/components/floating-label-input), 
   <FloatingLabelInputPhoneSignupFormDemo />
 </ComponentPreview>
 
-## Log in
+## Log in (phone)
 
 <ComponentPreview details={<>A phone login form with a country code selector and phone input. Minimal layout matching the OpenAI login pattern.</>} code={`<form className="flex flex-col gap-3">
   <Select trigger={countryTrigger} ... />
@@ -70,6 +111,19 @@ Real-world forms composed from [Float Input](/components/floating-label-input), 
   <Button color="primary" size="3xl" pill className="h-[3.25rem]">Continue</Button>
 </form>`} previewMinHeight={420}>
   <FloatingLabelInputPasswordFormDemo />
+</ComponentPreview>
+
+## About You
+
+<ComponentPreview details={<>A signup-style composition with <code>FloatingLabelInput</code> and <code>FloatingLabelSelect</code> — name, birthday with inline validation, and country selector.</>} code={`<form className="flex flex-col gap-3">
+  <FloatingLabelInput label="Full name" />
+  <FloatingLabelInput label="Birthday" placeholder="MM / DD / YYYY" />
+  <FloatingLabelSelect label="Country" selected={!!country} ...>
+    {selectedCountry?.flag} {selectedCountry?.label}
+  </FloatingLabelSelect>
+  <Button color="primary" size="3xl" type="submit">Continue</Button>
+</form>`} previewMinHeight={280}>
+  <FloatingLabelSelectAboutYouFormDemo />
 </ComponentPreview>
 
 ## Verify email
@@ -100,5 +154,9 @@ Real-world forms composed from [Float Input](/components/floating-label-input), 
   <OTPInputConfirmPhoneDemo />
 </ComponentPreview>
 
+## Upload file
 
-
+<ComponentPreview details={<>A document upload form with <code>FileUpload</code>. The file list grows dynamically as files are added. Button and file list share the same 52px pill shape.</>} code={`<FileUpload accept=".pdf,.png" multiple maxFiles={5} />
+<Button color="primary" size="3xl" pill block>Continue</Button>`}>
+  <FileUploadFormDemo />
+</ComponentPreview>
