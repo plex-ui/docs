@@ -35,13 +35,13 @@ export function Hero() {
         {/* CTAs */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <ButtonLink
-            href="/docs/skills"
+            href="/components"
             color="primary"
             variant="outline"
             size="lg"
             pill
           >
-            Install as skill
+            Explore components
           </ButtonLink>
           <ButtonLink
             href="/pricing"
