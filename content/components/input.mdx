@@ -109,21 +109,29 @@ import {
 
 ### Password with visibility toggle
 
-<ComponentPreview details={<>Combine <code>endAdornment</code> with a toggle button to switch between <code>type="password"</code> and <code>type="text"</code>. Works across all sizes, variants, and with <code>pill</code>.</>} code={`<Input
+<ComponentPreview details={<>Combine <code>endAdornment</code> with an <code>Input.AdornmentButton</code> to switch between <code>type="password"</code> and <code>type="text"</code>. Works across all sizes, variants, and with <code>pill</code>.</>} code={`<Input
   placeholder="Password"
   type={visible ? 'text' : 'password'}
-  endAdornment={<VisibilityToggle visible={visible} onToggle={toggle} />}
+  endAdornment={
+    <Input.AdornmentButton aria-pressed={visible} onClick={toggle}>
+      {visible ? <EyeOff /> : <Eye />}
+    </Input.AdornmentButton>
+  }
 />`} previewMinHeight={168}>
   <InputPasswordToggleDemo />
 </ComponentPreview>
 
 ### SSN input
 
-<ComponentPreview details={<>A masked SSN field that formats input as <code>XXX-XX-XXXX</code>, hides digits behind bullets when masked, and reveals the value via a visibility toggle in <code>endAdornment</code>. An inline mask suffix highlights the next expected segment. Adapts to all sizes automatically.</>} code={`<Input
+<ComponentPreview details={<>A masked SSN field that formats input as <code>XXX-XX-XXXX</code>, hides digits behind bullets when masked, and reveals the value via an <code>Input.AdornmentButton</code> in <code>endAdornment</code>. An inline mask suffix highlights the next expected segment. Adapts to all sizes automatically.</>} code={`<Input
   placeholder="Social Security Number"
   value={formatted}
   inputMode="numeric"
-  endAdornment={<VisibilityToggle visible={visible} onToggle={toggle} />}
+  endAdornment={
+    <Input.AdornmentButton aria-pressed={visible} onClick={toggle}>
+      {visible ? <EyeOff /> : <Eye />}
+    </Input.AdornmentButton>
+  }
   style={!visible && rawDigits ? { color: 'transparent', caretColor: 'var(--color-text)' } : undefined}
 />`} previewMinHeight={168}>
   <InputSSNDemo />

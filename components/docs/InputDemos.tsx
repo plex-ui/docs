@@ -373,39 +373,6 @@ function splitSSNMaskSuffix(suffix: string): { before: string; highlight: string
 }
 
 // ---------------------------------------------------------------------------
-// Visibility toggle button (shared by password & SSN demos)
-// ---------------------------------------------------------------------------
-
-const visibilityToggleStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 0,
-  margin: 0,
-  border: 'none',
-  background: 'none',
-  cursor: 'pointer',
-  color: 'var(--color-text-tertiary)',
-  transition: 'color 150ms ease',
-};
-
-function VisibilityToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      type="button"
-      onClick={onToggle}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      aria-label={visible ? 'Hide' : 'Show'}
-      style={{ ...visibilityToggleStyle, ...(hovered ? { color: 'var(--color-text)' } : undefined) }}
-    >
-      {visible ? <EyeOff /> : <Eye />}
-    </button>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // Password with visibility toggle
 // ---------------------------------------------------------------------------
 
@@ -453,7 +420,13 @@ export function InputPasswordToggleDemo() {
             variant={variant}
             pill={pill}
             endAdornment={
-              <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+              <Input.AdornmentButton
+                aria-label={visible ? 'Hide' : 'Show'}
+                aria-pressed={visible}
+                onClick={() => setVisible((v) => !v)}
+              >
+                {visible ? <EyeOff /> : <Eye />}
+              </Input.AdornmentButton>
             }
           />
         </div>
@@ -566,7 +539,13 @@ export function InputSSNDemo() {
                     : undefined),
               }}
               endAdornment={
-                <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
+                <Input.AdornmentButton
+                  aria-label={visible ? 'Hide' : 'Show'}
+                  aria-pressed={visible}
+                  onClick={() => setVisible((v) => !v)}
+                >
+                  {visible ? <EyeOff /> : <Eye />}
+                </Input.AdornmentButton>
               }
             />
             {(showBulletOverlay || showMaskOverlay) && (

@@ -120,14 +120,6 @@ return (
   <SelectControlBlockDemo />
 </ComponentPreview>
 
-### Optical alignment
-
-<ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter of the control.</>} code={`<SelectControl selected variant="ghost" opticallyAlign="start">Ghost control</SelectControl>`} previewMinHeight={292}>
-  <SelectControlOpticalAlignmentDemo />
-</ComponentPreview>
-
-
-
 ### Country selector
 
 <ComponentPreview details={<>A plain country selector built with <code>Select</code>. Shows flag icons with country names — no dial codes. Useful for profile forms, shipping addresses, and other country-only fields.</>} code={`const countries = [
@@ -149,7 +141,6 @@ const CountryView = ({ value }) => (
   onChange={(option) => setCountry(option.value)}
   placeholder="Select country..."
   size="lg"
-  pill
   block
   searchable
   TriggerView={CountryView}
@@ -182,7 +173,6 @@ const CountryTriggerView = ({ value }) => {
   onChange={(option) => setCountry(option.value)}
   placeholder="Select country..."
   size="lg"
-  pill
   block
   searchPredicate={searchPredicate}
   TriggerView={CountryTriggerView}
@@ -340,7 +330,6 @@ function PhoneForm() {
           onChange={handleCountryChange}
           placeholder="Select country..."
           size="lg"
-          pill
           block
           searchPlaceholder="Search countries..."
           searchPredicate={searchPredicate}
@@ -357,7 +346,6 @@ function PhoneForm() {
             type="tel"
             inputMode="tel"
             size="lg"
-            pill
             invalid={showError}
             startAdornment={
               <span className="text-tertiary whitespace-nowrap select-none">
@@ -370,13 +358,19 @@ function PhoneForm() {
           )}
         </div>
       </div>
-  <Button type="submit" color="primary" variant="solid" size="lg" pill className="w-full mt-3">
+  <Button type="submit" color="primary" variant="solid" size="lg" className="w-full mt-3">
         Continue
       </Button>
     </form>
   );
 }`} previewMinHeight={240}>
   <PhoneFormDemo />
+</ComponentPreview>
+
+### Optical alignment
+
+<ComponentPreview details={<>Use <code>opticallyAlign</code> with either <code>"start"</code> or <code>"end"</code> to offset the gutter of the control.</>} code={`<SelectControl selected variant="ghost" opticallyAlign="start">Ghost control</SelectControl>`} previewMinHeight={292}>
+  <SelectControlOpticalAlignmentDemo />
 </ComponentPreview>
 
 ## Reference

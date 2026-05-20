@@ -7,6 +7,18 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.18.0 — 2026-05-20
+
+### Added
+
+<ul className="changelog-list">
+  <li>
+    <strong>Built-in password reveal toggle</strong> on <code>FloatingLabelInput</code>. A <code>type="password"</code> field now renders the eye show/hide toggle on its own — no more wiring up an <code>endAdornment</code> button and swapping <code>type</code> by hand. The new <code>revealable</code> prop controls it: it defaults to <code>true</code> for password inputs that don't pass their own <code>endAdornment</code>, and you can set <code>revealable</code> to <code>false</code> to opt out. A companion <code>onRevealedChange</code> callback reports the toggle state, so custom-masked fields (e.g. an SSN input) can drive their own reveal with the same built-in button. If you already render your own visibility toggle in <code>endAdornment</code>, remove it — or set <code>revealable</code> to <code>false</code> — to avoid a duplicate.
+  </li>
+</ul>
+
+---
+
 ## 0.17.1 — 2026-05-04
 
 ### Fixed

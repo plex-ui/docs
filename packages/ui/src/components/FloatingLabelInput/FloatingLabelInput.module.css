@@ -175,6 +175,34 @@
   color: var(--color-text);
 }
 
+/* Password reveal toggle — circular ghost button hugging the right edge */
+.RevealButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin: 0 -10px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--color-text-tertiary);
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.RevealButton:hover {
+  color: var(--color-text);
+  background-color: var(--color-background-secondary-ghost-hover);
+}
+
 /* End adornment slot */
 .EndAdornment {
   display: flex;

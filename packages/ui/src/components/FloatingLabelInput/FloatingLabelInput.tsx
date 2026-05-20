@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { forwardRef, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react"
 import { mergeRefs } from "react-merge-refs"
 
-import { X } from "../Icon"
+import { Eye, EyeOff, X } from "../Icon"
 
 import s from "./FloatingLabelInput.module.css"
 
@@ -51,11 +51,27 @@ export type FloatingLabelInputProps = {
    */
   description?: React.ReactNode
   /**
-   * Content rendered after the input, before the clear button.
-   * Useful for toggle buttons (e.g. password visibility), icons, or other interactive elements.
+   * Content rendered before the input.
    */
   startAdornment?: React.ReactNode
+  /**
+   * Content rendered after the input, before the clear button.
+   * For password fields the reveal toggle is built in — see `revealable`.
+   */
   endAdornment?: React.ReactNode
+  /**
+   * Render a built-in reveal/hide toggle (eye icon) inside the field.
+   * For `type="password"` it swaps the input between `password` and `text`.
+   * Defaults to `true` for password inputs that don't supply their own
+   * `endAdornment`. Pass it explicitly to add the toggle to other sensitive
+   * fields (e.g. a masked SSN) and react to it via `onRevealedChange`.
+   * @default true when type="password" and no endAdornment is provided
+   */
+  revealable?: boolean
+  /**
+   * Called with the new revealed state each time the reveal toggle is clicked.
+   */
+  onRevealedChange?: (revealed: boolean) => void
   /**
    * Render as a multi-line textarea instead of a single-line input.
    * @default false
@@ -82,6 +98,8 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       allowAutofillExtensions = false,
       startAdornment,
       endAdornment,
+      revealable: revealableProp,
+      onRevealedChange,
       multiline = false,
       rows = 2,
       className,
@@ -108,6 +126,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
     const [hasValue, setHasValue] = useState(() => {
       return !!(value !== undefined ? value : defaultValue)
     })
+    const [revealed, setRevealed] = useState(false)
 
     // Sync hasValue with controlled value prop
     useEffect(() => {
@@ -129,6 +148,12 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
 
     // Determine if clear button should be shown
     const showClearButton = !!onClear && hasValue && !disabled && !readOnly
+
+    // Built-in password reveal toggle
+    const isPassword = type === "password"
+    const revealable = revealableProp ?? (isPassword && !endAdornment)
+    const showRevealButton = revealable && !disabled
+    const effectiveType = isPassword && revealed ? "text" : type
 
     // Merge aria-describedby with error id
     const ariaDescribedBy =
@@ -191,6 +216,14 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
       [onAnimationStart, onAutofill],
     )
 
+    const handleRevealToggle = useCallback(() => {
+      setRevealed((prev) => {
+        const next = !prev
+        onRevealedChange?.(next)
+        return next
+      })
+    }, [onRevealedChange])
+
     return (
       <div className={clsx(s.Root, className)}>
         <div
@@ -236,7 +269,7 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
               ref={mergeRefs([ref, inputRef])}
               id={inputId}
               name={name}
-              type={type}
+              type={effectiveType}
               className={s.Input}
               value={value}
               defaultValue={defaultValue}
@@ -265,6 +298,16 @@ export const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInpu
               onClick={onClear}
             >
               <X />
+            </button>
+          )}
+          {showRevealButton && (
+            <button
+              type="button"
+              aria-label={revealed ? "Hide" : "Show"}
+              className={s.RevealButton}
+              onClick={handleRevealToggle}
+            >
+              {revealed ? <EyeOff /> : <Eye />}
             </button>
           )}
         </div>

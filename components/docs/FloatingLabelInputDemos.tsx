@@ -8,8 +8,7 @@ import { Switch } from '@plexui/ui/components/Switch';
 import { SegmentedControl } from '@plexui/ui/components/SegmentedControl';
 import { Button } from '@plexui/ui/components/Button';
 import { FieldError } from '@plexui/ui/components/FieldError';
-import { Tooltip } from '@plexui/ui/components/Tooltip';
-import { ChevronDown, Eye, EyeOff, X } from '@plexui/ui/components/Icon';
+import { ChevronDown, X } from '@plexui/ui/components/Icon';
 // ---------------------------------------------------------------------------
 // Birthday mask utilities
 // ---------------------------------------------------------------------------
@@ -121,44 +120,6 @@ function splitSSNMaskSuffix(suffix: string): { before: string; highlight: string
 }
 
 // ---------------------------------------------------------------------------
-// Visibility toggle button (shared by password & SSN demos)
-// ---------------------------------------------------------------------------
-
-const visibilityToggleStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 32,
-  height: 32,
-  padding: 0,
-  margin: '0 -10px 0 0',
-  border: 'none',
-  borderRadius: '50%',
-  backgroundColor: 'transparent',
-  cursor: 'pointer',
-  color: 'var(--color-text-tertiary)',
-  transition: 'color 150ms ease, background-color 150ms ease',
-};
-function VisibilityToggle({ visible, onToggle }: { visible: boolean; onToggle: () => void }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      type="button"
-      onClick={onToggle}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      aria-label={visible ? 'Hide' : 'Show'}
-      style={{
-        ...visibilityToggleStyle,
-        ...(hovered ? { color: 'var(--color-text)', backgroundColor: 'var(--color-background-secondary-ghost-hover)' } : undefined),
-      }}
-    >
-      {visible ? <EyeOff /> : <Eye />}
-    </button>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // SSNMaskedInput — FloatingLabelInput + SSN formatting + value masking + toggle
 // ---------------------------------------------------------------------------
 
@@ -211,9 +172,8 @@ function SSNMaskedInput() {
               ? { caretColor: 'transparent' }
               : undefined),
         }}
-        endAdornment={
-          <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
-        }
+        revealable
+        onRevealedChange={setVisible}
       />
       {(showBulletOverlay || showMaskOverlay) && (
         <div
@@ -527,22 +487,6 @@ export function FloatingLabelInputDisabledDemoWithControls() {
         </div>
       </div>
     </>
-  );
-}
-export function FloatingLabelInputPasswordToggleDemo() {
-  const [visible, setVisible] = useState(false);
-  return (
-    <div data-demo-stage className="py-10">
-      <div className="w-[360px]">
-        <FloatingLabelInput
-          label="Password"
-          type={visible ? 'text' : 'password'}
-          endAdornment={
-            <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
-          }
-        />
-      </div>
-    </div>
   );
 }
 export function FloatingLabelInputSSNDemo() {
@@ -1606,7 +1550,6 @@ export function FloatingLabelInputPhoneSignupFormDemo() {
 export function FloatingLabelInputPasswordFormDemo() {
   const [inDialog, setInDialog] = useState(false);
 
-  const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const showError = submitted && !password;
@@ -1635,7 +1578,7 @@ export function FloatingLabelInputPasswordFormDemo() {
         <div>
           <FloatingLabelInput
             label="Password"
-            type={visible ? 'text' : 'password'}
+            type="password"
             value={password}
             onChange={(evt) => {
               setPassword(evt.target.value);
@@ -1643,17 +1586,85 @@ export function FloatingLabelInputPasswordFormDemo() {
             }}
             invalid={showError}
             errorMessage={showError ? 'Password is required.' : undefined}
-            endAdornment={(
-              <Tooltip content={visible ? 'Hide password' : 'Show password'}>
-                <VisibilityToggle visible={visible} onToggle={() => setVisible((v) => !v)} />
-              </Tooltip>
-            )}
           />
           <button type="button" className="text-sm mt-2 inline-block cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)', paddingLeft: 'var(--floating-input-gutter)' }}>
             Forgot password?
           </button>
         </div>
         <Button color="primary" size="3xl" type="submit" pill className="w-full h-[3.25rem] mt-2">Continue</Button>
+        <p className="text-base text-center mt-4">
+          Don&apos;t have an account?{' '}
+          <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>
+            Sign up
+          </button>
+        </p>
+      </form>
+    </div>
+  );
+
+  return (
+    <>
+      <div data-demo-controls style={controlsTableStyle}>
+        <DemoControlBoolean name="dialog" value={inDialog} onChange={setInDialog} />
+      </div>
+      <div data-demo-stage className="py-10 flex justify-center">
+        {inDialog ? <DialogShell>{formContent}</DialogShell> : formContent}
+      </div>
+    </>
+  );
+}
+
+export function FloatingLabelInputEmailLoginFormDemo() {
+  const [inDialog, setInDialog] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const emailError = submitted && !isEmailValid;
+  const passwordError = submitted && !password;
+
+  const handleSubmit = (evt: FormSubmitEvent) => {
+    evt.preventDefault();
+    setSubmitted(true);
+  };
+
+  const formContent = (
+    <div className="w-[360px]">
+      <div className="mb-6 text-center">
+        <h3 className="text-2xl font-semibold tracking-tight">Welcome back</h3>
+        <p className="text-secondary text-sm mt-1">Log in to your account.</p>
+      </div>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit} noValidate>
+        <FloatingLabelInput
+          label="Email address"
+          type="email"
+          value={email}
+          onChange={(evt) => {
+            setEmail(evt.target.value);
+            setSubmitted(false);
+          }}
+          invalid={emailError}
+          errorMessage={emailError ? 'Enter a valid email address.' : undefined}
+        />
+        <div>
+          <FloatingLabelInput
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(evt) => {
+              setPassword(evt.target.value);
+              setSubmitted(false);
+            }}
+            invalid={passwordError}
+            errorMessage={passwordError ? 'Password is required.' : undefined}
+          />
+          <button type="button" className="text-sm mt-2 inline-block cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)', paddingLeft: 'var(--floating-input-gutter)' }}>
+            Forgot password?
+          </button>
+        </div>
+        <Button color="primary" size="3xl" type="submit" pill className="w-full h-[3.25rem] mt-2">Log in</Button>
         <p className="text-base text-center mt-4">
           Don&apos;t have an account?{' '}
           <button type="button" className="cursor-pointer hover:underline bg-transparent border-0 p-0" style={{ color: 'var(--link-primary-text-color)' }}>

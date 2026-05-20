@@ -464,7 +464,7 @@ const countrySearchPredicate = (option: Option, searchTerm: string): boolean => 
 export function CountryCodeSelectorDemo() {
   const [country, setCountry] = useState('us');
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
-  const [pill, setPill] = useState(true);
+  const [pill, setPill] = useState(false);
   const [variant, setVariant] = useState<'outline' | 'soft'>('outline');
 
   return (
@@ -530,7 +530,7 @@ export function CountryCodeSelectorDemo() {
 export function CountrySelectorDemo() {
   const [country, setCountry] = useState('us');
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
-  const [pill, setPill] = useState(true);
+  const [pill, setPill] = useState(false);
   const [variant, setVariant] = useState<'outline' | 'soft'>('outline');
 
   return (
@@ -597,7 +597,7 @@ export function PhoneFormDemo() {
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [size, setSize] = useState<(typeof SIZE_OPTIONS)[number]>('lg');
-  const [pill, setPill] = useState(true);
+  const [pill, setPill] = useState(false);
 
   const phoneInputRef = useRef<HTMLInputElement>(null);
 

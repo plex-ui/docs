@@ -8,7 +8,6 @@ import {
   FloatingLabelInputTextareaDemo,
   FloatingLabelInputWithClearButtonDemoWithControls,
   FloatingLabelInputDisabledDemoWithControls,
-  FloatingLabelInputPasswordToggleDemo,
   FloatingLabelInputSSNDemo,
   FloatingLabelInputBirthdayDemo,
   FloatingLabelInputBirthdayValidationDemo,
@@ -174,31 +173,15 @@ import {
 
 ### Password input
 
-<ComponentPreview details={<>The component works with different input types.</>} code={`<FloatingLabelInput label="Password" type="password" />`} previewMinHeight={168}>
+<ComponentPreview details={<>A <code>type="password"</code> field ships a built-in reveal toggle — click the eye to show or hide the value. Set <code>revealable</code> to <code>false</code> to remove it.</>} code={`<FloatingLabelInput label="Password" type="password" />`} previewMinHeight={168}>
   <div className="w-[360px]">
     <FloatingLabelInput label="Password" type="password" />
   </div>
 </ComponentPreview>
 
-### Password with visibility toggle
-
-<ComponentPreview details={<>Use the <code>endAdornment</code> prop to render a visibility toggle button inside the input. Clicking the eye icon switches between <code>type="password"</code> and <code>type="text"</code>.</>} code={`const [visible, setVisible] = useState(false)
-
-<FloatingLabelInput
-  label="Password"
-  type={visible ? "text" : "password"}
-  endAdornment={
-    <button onClick={() => setVisible(v => !v)} aria-label={visible ? "Hide" : "Show"}>
-      {visible ? <EyeOff /> : <Eye />}
-    </button>
-  }
-/>`} previewMinHeight={168}>
-  <FloatingLabelInputPasswordToggleDemo />
-</ComponentPreview>
-
 ### SSN input
 
-<ComponentPreview details={<>A Social Security Number input combining three techniques: an input mask that auto-inserts dashes (<code>XXX-XX-XXXX</code>) with highlighted segment, value masking that hides digits behind bullets (<code>•••-••-••••</code>), and an <code>endAdornment</code> visibility toggle to reveal the real value.</>} code={`const [rawDigits, setRawDigits] = useState("")
+<ComponentPreview details={<>A Social Security Number input combining three techniques: an input mask that auto-inserts dashes (<code>XXX-XX-XXXX</code>) with highlighted segment, value masking that hides digits behind bullets (<code>•••-••-••••</code>), and a built-in <code>revealable</code> toggle to reveal the real value.</>} code={`const [rawDigits, setRawDigits] = useState("")
 const [visible, setVisible] = useState(false)
 const formatted = formatSSN(rawDigits)
 
@@ -209,11 +192,8 @@ const formatted = formatSSN(rawDigits)
   maxLength={11}
   onChange={(evt) => setRawDigits(extractDigits(evt.target.value))}
   style={!visible && rawDigits ? { color: 'transparent', caretColor: 'var(--color-text)' } : undefined}
-  endAdornment={
-    <button onClick={() => setVisible(v => !v)}>
-      {visible ? <EyeOff /> : <Eye />}
-    </button>
-  }
+  revealable
+  onRevealedChange={setVisible}
 />`} previewMinHeight={168}>
   <FloatingLabelInputSSNDemo />
 </ComponentPreview>
