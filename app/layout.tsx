@@ -87,7 +87,7 @@ const jsonLd = {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'USD',
+        priceCurrency: 'EUR',
         availability: 'https://schema.org/InStock',
         description: 'Free and open-source (MIT license)',
       },

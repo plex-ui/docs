@@ -9,7 +9,7 @@ export function CtaBanner() {
           Start building with Plex UI
         </p>
         <p className="mt-2 text-base leading-relaxed text-fd-muted-foreground">
-          Install @plexui/ui in 30 seconds. Professional Figma kit from $49.
+          Install @plexui/ui in 30 seconds. Professional Figma kit from €49.
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
           <ButtonLink href="/docs/ai-setup" color="secondary" variant="outline" size="md" pill={false}>

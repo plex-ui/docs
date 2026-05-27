@@ -70,7 +70,7 @@ const faqs = [
     a: 'Any agentic editor with shell + HTTP tools: Claude Code, Codex, Antigravity. The agent runs `node server.mjs` to start the local bridge, then talks to it on localhost:8867. No vendor lock-in.',
   },
   {
-    q: 'What does $49 actually buy?',
+    q: 'What does €49 actually buy?',
     a: 'A perpetual license for one developer. The download is a zip with the plugin manifest, plugin code, and a small Node bridge launcher.',
   },
   {
@@ -98,7 +98,7 @@ const bridgeJsonLd = {
   offers: {
     '@type': 'Offer',
     price: '49',
-    priceCurrency: 'USD',
+    priceCurrency: 'EUR',
     description: 'One-time payment, lifetime license. No subscription.',
     availability: 'https://schema.org/InStock',
   },

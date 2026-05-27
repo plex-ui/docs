@@ -68,7 +68,7 @@ const rows: ComparisonRow[] = [
   },
   {
     feature: 'Pricing',
-    plexui: 'React free; Figma from $49',
+    plexui: 'React free; Figma from €49',
     competitor: 'React free; community Figma kits ~ $99',
   },
   {
@@ -260,7 +260,7 @@ export default function ShadcnComparisonPage() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
             The React libraries are free in both ecosystems. The difference is in the design layer: Plex UI offers a
-            first-party Figma system from $49, while shadcn/ui has no official Figma product and teams typically rely on
+            first-party Figma system from €49, while shadcn/ui has no official Figma product and teams typically rely on
             third-party community kits.
           </p>
         </section>

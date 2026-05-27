@@ -151,16 +151,16 @@ function PricingCard({ tier }: { tier: Tier }) {
         {tier.price != null ? (
           <>
             <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
-              ${tier.price}
+              €{tier.price}
             </span>
             <span className="text-lg text-fd-muted-foreground/50 line-through">
-              ${tier.regularPrice}
+              €{tier.regularPrice}
             </span>
             <span className="text-sm text-fd-muted-foreground">one-time</span>
           </>
         ) : (
           <span className="text-4xl font-semibold tracking-tight text-fd-foreground">
-            $0
+            €0
           </span>
         )}
       </div>

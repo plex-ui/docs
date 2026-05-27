@@ -6,7 +6,7 @@ const digitalReturnPolicy = {
 };
 const digitalShipping = {
   '@type': 'OfferShippingDetails' as const,
-  shippingRate: { '@type': 'MonetaryAmount' as const, value: '0', currency: 'USD' },
+  shippingRate: { '@type': 'MonetaryAmount' as const, value: '0', currency: 'EUR' },
   shippingDestination: { '@type': 'DefinedRegion' as const, addressCountry: 'US' },
   deliveryTime: {
     '@type': 'ShippingDeliveryTime' as const,
@@ -33,7 +33,7 @@ const productJsonLd = {
       name: 'Personal',
       description: '1 designer, 1 project',
       price: '49',
-      priceCurrency: 'USD',
+      priceCurrency: 'EUR',
       url: 'https://plexui.com/pricing',
       availability: 'https://schema.org/InStock',
       hasMerchantReturnPolicy: digitalReturnPolicy,
@@ -44,7 +44,7 @@ const productJsonLd = {
       name: 'Team',
       description: 'Up to 5 designers, unlimited projects',
       price: '149',
-      priceCurrency: 'USD',
+      priceCurrency: 'EUR',
       url: 'https://plexui.com/pricing',
       availability: 'https://schema.org/InStock',
       hasMerchantReturnPolicy: digitalReturnPolicy,
@@ -55,7 +55,7 @@ const productJsonLd = {
       name: 'Unlimited',
       description: 'Unlimited designers & projects',
       price: '299',
-      priceCurrency: 'USD',
+      priceCurrency: 'EUR',
       url: 'https://plexui.com/pricing',
       availability: 'https://schema.org/InStock',
       hasMerchantReturnPolicy: digitalReturnPolicy,

@@ -73,7 +73,7 @@ const rows: ComparisonRow[] = [
   },
   {
     feature: 'Pricing',
-    plexui: 'React free; Figma from $49',
+    plexui: 'React free; Figma from €49',
     competitor: 'Core free; Pro/Premium from $15/mo',
   },
   {
@@ -268,7 +268,7 @@ export default function MuiComparisonPage() {
           <p className="mt-3 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
             Both ecosystems offer free core React libraries. MUI charges a per-developer monthly subscription for Pro and
             Premium components (DataGrid, Date Pickers, etc.), starting at $15/month. Plex UI charges a one-time fee
-            from $49 for the Figma design system, with no recurring costs.
+            from €49 for the Figma design system, with no recurring costs.
           </p>
         </section>
 

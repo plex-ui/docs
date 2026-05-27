@@ -73,7 +73,7 @@ const rows: ComparisonRow[] = [
   },
   {
     feature: 'Pricing',
-    plexui: 'React free; Figma from $49',
+    plexui: 'React free; Figma from €49',
     competitor: 'Fully free (Pro components paid)',
   },
   {
@@ -268,7 +268,7 @@ export default function AntDesignComparisonPage() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
             Both React libraries are free. Ant Design is fully open source, with paid Pro components (Ant Design Pro) for
-            enterprise dashboards. Plex UI offers a first-party Figma design system starting at $49 for teams that need
+            enterprise dashboards. Plex UI offers a first-party Figma design system starting at €49 for teams that need
             design-engineering alignment.
           </p>
         </section>

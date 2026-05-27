@@ -21,7 +21,7 @@ export function PricingCard({ checkoutUrl }: { checkoutUrl: string }) {
         </Card.Description>
 
         <p className="mt-6 text-5xl font-semibold tracking-tight text-fd-foreground">
-          $49
+          €49
         </p>
         <p className="mt-1 text-sm text-fd-muted-foreground">
           One-time. Lifetime license.

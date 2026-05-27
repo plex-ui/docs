@@ -74,7 +74,7 @@ const rows: Row[] = [
   },
   {
     feature: 'Pricing',
-    plexui: 'From $49',
+    plexui: 'From €49',
     shadcn: 'Free',
     untitledui: 'From $79',
   },

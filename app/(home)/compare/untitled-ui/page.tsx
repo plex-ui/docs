@@ -68,7 +68,7 @@ const rows: ComparisonRow[] = [
   },
   {
     feature: 'Pricing',
-    plexui: 'React free; Figma from $49',
+    plexui: 'React free; Figma from €49',
     competitor: 'Figma kits from $79; React in higher-tier bundles',
   },
 ];
@@ -254,7 +254,7 @@ export default function UntitledUiComparisonPage() {
             Pricing comparison: Plex UI vs Untitled UI
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
-            Plex UI keeps React components free on npm and monetizes the first-party Figma system from $49. Untitled UI
+            Plex UI keeps React components free on npm and monetizes the first-party Figma system from €49. Untitled UI
             offers lower-cost design kits, while React code access is generally tied to higher-priced bundles.
           </p>
         </section>

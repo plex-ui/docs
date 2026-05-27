@@ -68,7 +68,7 @@ const rows: ComparisonRow[] = [
   },
   {
     feature: 'Pricing',
-    plexui: 'React free; Figma from $49',
+    plexui: 'React free; Figma from €49',
     competitor: 'Fully free and open-source',
   },
   {
@@ -262,7 +262,7 @@ export default function RadixComparisonPage() {
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-fd-muted-foreground md:text-base">
             Radix UI is fully free and open-source. Plex UI&apos;s React library is also free. The difference is in the
-            design layer: Plex UI offers a first-party Figma system from $49, while Radix has no official Figma
+            design layer: Plex UI offers a first-party Figma system from €49, while Radix has no official Figma
             product.
           </p>
         </section>

@@ -8,18 +8,18 @@ import { PricingJsonLd } from './PricingJsonLd';
 export const metadata: Metadata = {
   title: 'Pricing — Plex UI Figma Design System',
   description:
-    'Get the Plex UI Figma design system. 22,000+ variants, three-layer token system, lifetime updates. Plans from $49.',
+    'Get the Plex UI Figma design system. 22,000+ variants, three-layer token system, lifetime updates. Plans from €49.',
   openGraph: {
     title: 'Pricing — Plex UI Figma Design System',
     description:
-      'Get the Plex UI Figma design system. 22,000+ variants, three-layer token system, lifetime updates. Plans from $49.',
+      'Get the Plex UI Figma design system. 22,000+ variants, three-layer token system, lifetime updates. Plans from €49.',
     url: 'https://plexui.com/pricing',
     images: [{ url: '/opengraph-image.png' }],
   },
   twitter: {
     title: 'Pricing — Plex UI Figma Design System',
     description:
-      'Get the Plex UI Figma design system. 22,000+ variants, three-layer token system, lifetime updates. Plans from $49.',
+      'Get the Plex UI Figma design system. 22,000+ variants, three-layer token system, lifetime updates. Plans from €49.',
   },
   alternates: {
     canonical: 'https://plexui.com/pricing',
