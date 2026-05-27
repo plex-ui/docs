@@ -908,6 +908,7 @@ html.dark #nd-page.plex-docs-page .plex-docs-body.prose :where(ul, ol):not(:wher
   padding: 2px 8px;
   border: none;
   border-radius: 6px;
+  white-space: nowrap;
 }
 
 [data-theme='dark'] #nd-page.plex-docs-page .plex-docs-body.prose
