@@ -800,7 +800,12 @@
   }
 }
 
-.ButtonLoader {
+/* `.Button > .ButtonLoader` (specificity 0,2,0) beats `.TransitionGroupChild`
+ * (0,1,0). TransitionGroup applies both classes to the same <span>, and
+ * TransitionGroup.module.css loads after Button.module.css — without the
+ * specificity bump, `display: block` wins and the spinner pins to top-left
+ * instead of centring. */
+.Button > .ButtonLoader {
   position: absolute;
   inset: 0;
   z-index: 3;
