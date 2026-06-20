@@ -7,6 +7,18 @@ This changelog documents significant updates, bug fixes, and improvements to com
 
 ---
 
+## 0.18.1 — 2026-06-20
+
+### Fixed
+
+<ul className="changelog-list">
+  <li>
+    <strong>Loading spinner centring</strong> in <code>Button</code>. When <code>loading</code> was set, the spinner pinned to the top-left of the button instead of being flex-centred inside the loader's <code>inset:0</code> overlay. The cause was a CSS-cascade collision: <code>TransitionGroup</code> applies both <code>.ButtonLoader</code> (the consumer class with <code>display: flex</code>) and its own <code>.TransitionGroupChild</code> (<code>display: block</code>) to the same wrapper <span><code>&lt;span&gt;</code></span>, and <code>TransitionGroup.module.css</code> loads after <code>Button.module.css</code>, so <code>block</code> won at equal specificity. Scoping the selector as <code>.Button &gt; .ButtonLoader</code> bumps specificity to (0,2,0) and restores centring.
+  </li>
+</ul>
+
+---
+
 ## 0.18.0 — 2026-05-20
 
 ### Added
